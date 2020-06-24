@@ -1,0 +1,36 @@
+﻿@page "/testing"
+@using System.Diagnostics
+@using EventHorizon.Blazor.BabylonJS.Pages.Testing.MediatrTesting
+@using EventHorizon.Blazor.BabylonJS.Pages.Testing.JSRuntimeBridge
+@using EventHorizon.Blazor.BabylonJS.Pages.Testing.JsonTesting
+@using EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
+@using EventHorizon.Blazor.BabylonJS.Pages.Testing.DITesting
+@using EventHorizon.Blazor.BabylonJS.Pages.Testing.InteropTesting
+
+<h1>Testing Performance</h1>
+
+<InteropFuncCallbackTest />
+<InteropCallTest />
+<InteropFuncTest />
+<InteropGetTest />
+<InteropNewTest />
+<InteropRunScriptTest />
+
+<MediatRPerformanceTests />
+<MediatRRequestPerformanceTests  />
+
+<DIPerformanceTests />
+
+<FastJSRuntimeBridgeTests />
+<FastJSJsonRuntimeBridgeTests />
+<StandardJSRuntimeBridgeTests />
+
+<ClientJsonParseTests />
+<ClientJsonParseRawTests />
+<StandardJsonSerializerTests />
+<LargeJsonSerializerTests />
+<IndividualJsonSerializerTests />
+
+<LibraryStartupBabylonJSTest />
+<LibraryBabylonJSTest />
+<InteropBabylonJSTest />

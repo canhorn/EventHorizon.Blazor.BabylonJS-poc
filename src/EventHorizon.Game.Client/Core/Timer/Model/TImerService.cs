@@ -1,0 +1,42 @@
+﻿namespace EventHorizon.Game.Client.Core.Timer.Model
+{
+    using System;
+    using System.Timers;
+    using EventHorizon.Game.Client.Core.Timer.Api;
+
+    public class TImerService
+        : ITimerService
+    {
+        private Timer _timer;
+
+        public void SetTimer(
+            double millisecondInterval,
+            Action onElapsed
+        )
+        {
+            _onElapsed = onElapsed;
+            _timer = new Timer(
+                millisecondInterval
+            );
+            _timer.Elapsed += NotifyTimerElapsed;
+            _timer.Enabled = true;
+        }
+
+        public void Clear()
+        {
+            _timer?.Dispose();
+            _timer = null;
+        }
+
+        private event Action _onElapsed;
+
+        private void NotifyTimerElapsed(
+            object source, 
+            ElapsedEventArgs _
+        )
+        {
+            _onElapsed?.Invoke();
+            _timer.Dispose();
+        }
+    }
+}

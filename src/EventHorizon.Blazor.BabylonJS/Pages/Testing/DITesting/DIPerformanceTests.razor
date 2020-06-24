@@ -1,0 +1,46 @@
+﻿@using System.Diagnostics
+@using Microsoft.Extensions.DependencyInjection
+@using EventHorizon.Blazor.BabylonJS.Pages.Testing.DITesting.Model
+
+<div>
+    <h3>DI Testing</h3>
+    <div>
+        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
+    </div>
+    <div>
+        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
+    </div>
+    <div>
+        @($"{_max / (TimeTaken.TotalMilliseconds / 1000)} AP/s")
+    </div>
+    <div>
+        @($"{_max / TimeTaken.TotalMilliseconds} AP/ms")
+    </div>
+    <div>
+        @($"{(_max / (TimeTaken.TotalMilliseconds)) * 16} AP/frame") (16ms/frame)
+    </div>
+    <button @onclick="HandleRunPerformanceCall_StandardSendEvent">Run</button>
+</div>
+
+@code {
+    [Inject]
+    public IServiceScopeFactory ServiceScopeFactory { get; set; }
+
+    public TimeSpan TimeTaken { get; set; }
+
+    const int _max = 10_000;
+    public async Task HandleRunPerformanceCall_StandardSendEvent()
+    {
+        using var scope = ServiceScopeFactory.CreateScope();
+        var s1 = Stopwatch.StartNew();
+        for (int i = 0; i < _max; i++)
+        {
+            await scope.ServiceProvider.GetRequiredService<IDIRunHandler>().Handle(
+                new DIRunEvent()
+            );
+        }
+        s1.Stop();
+        TimeTaken = s1.Elapsed;
+        Console.WriteLine(((double)(s1.ElapsedMilliseconds * 1000000) / _max).ToString("0.00 ns"));
+    }
+}

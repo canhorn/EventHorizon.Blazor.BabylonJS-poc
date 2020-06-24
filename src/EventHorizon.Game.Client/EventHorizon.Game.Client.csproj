@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0-preview.5.20278.1" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0-preview.5.20278.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Blazor.BabylonJS.WASM\EventHorizon.Blazor.BabylonJS.WASM.csproj" />
+        <ProjectReference Include="..\EventHorizon.Observer\EventHorizon.Observer.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Core\DI\" />
+      <Folder Include="Engine\Particle\Module\" />
+      <Folder Include="Engine\Particle\Update\" />
+      <Folder Include="Engine\Particle\Stop\" />
+      <Folder Include="Engine\Particle\Start\" />
+      <Folder Include="Engine\Systems\Entity\Model\" />
+    </ItemGroup>
+
+</Project>

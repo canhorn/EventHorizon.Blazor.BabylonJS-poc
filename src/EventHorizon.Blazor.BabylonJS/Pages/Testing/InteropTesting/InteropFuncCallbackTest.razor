@@ -1,0 +1,83 @@
+﻿@using System.Diagnostics
+@using EventHorizon.Blazor.Interop
+@using EventHorizon.Blazor.BabylonJS.Pages.Testing.InteropTesting.Model
+
+<div>
+    <h3>Interop Func Callback Test</h3>
+    <div>
+        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
+    </div>
+    <div>
+        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
+    </div>
+    <div>
+        @($"{ActionsPerSecond} AP/s")
+    </div>
+    <div>
+        @($"{ActionsPerMillsecond} AP/ms")
+    </div>
+    <div>
+        @($"{ActionsPerMillsecond * 16} AP/frame") (16ms/frame)
+    </div>
+    <button @onclick="HandleRunTest">Run</button>
+</div>
+
+@code {
+    public TimeSpan TimeTaken { get; set; }
+    public double ActionsPerSecond { get; set; }
+    public double ActionsPerMillsecond { get; set; }
+
+    private CachedEntity _funcCallbackClass;
+    private DotNetObjectReference<MessageUpdateInvokeHelper> _invokableReference;
+    private MessageUpdateInvokeHelper _messageUpdateInvokeHelper;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _messageUpdateInvokeHelper = new MessageUpdateInvokeHelper();
+        _invokableReference = DotNetObjectReference.Create(
+            _messageUpdateInvokeHelper
+        );
+        _funcCallbackClass = await EventHorizonBlazorInteropt.New(
+            new object[]
+            {
+                new string[] { "FuncCallbackClass" }
+            }
+        );
+
+        await EventHorizonBlazorInteropt.FuncCallback(
+            _funcCallbackClass,
+            "register",
+            "CallAfterRenderAction",
+            _invokableReference
+        );
+    }
+
+    const int _max = 1_000;
+    private void HandleRunTest()
+    {
+        var s1 = Stopwatch.StartNew();
+        @*for (int i = 0; i < _max; i++)
+            {*@
+        RunTest(
+            _funcCallbackClass
+        );
+        @*}*@
+        s1.Stop();
+        TimeTaken = s1.Elapsed;
+        Console.WriteLine(((double)(s1.ElapsedMilliseconds * 1000000) / _max).ToString("0.00 ns"));
+
+        ActionsPerSecond = _max / (TimeTaken.TotalMilliseconds / 1000);
+        ActionsPerMillsecond = _max / TimeTaken.TotalMilliseconds;
+    }
+
+    public void RunTest(
+        CachedEntity entity
+    )
+    {
+        EventHorizonBlazorInteropt.Call(
+            entity,
+            "trigger",
+            _max
+        );
+    }
+}

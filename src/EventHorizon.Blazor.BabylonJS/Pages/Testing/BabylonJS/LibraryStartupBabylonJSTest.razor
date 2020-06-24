@@ -1,0 +1,25 @@
+﻿@inherits LibraryStartupBabylonJSTestModel
+
+<div>
+    <h3>BabylonJS Library Startup Test</h3>
+    <div>
+        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
+    </div>
+    <div>
+        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
+    </div>
+    <div>
+        @($"{ActionsPerSecond} AP/s")
+    </div>
+    <div>
+        @($"{ActionsPerMillsecond} AP/ms")
+    </div>
+    <div>
+        @($"{ActionsPerMillsecond * 16} AP/frame") (16ms/frame)
+    </div>
+    <button @onclick="RunTest">Run</button>
+    <div>
+        <canvas id="library-startup-testing-game-window" style="width:100%"></canvas>
+    </div>
+</div>
+

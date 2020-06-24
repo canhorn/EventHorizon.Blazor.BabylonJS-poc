@@ -1,0 +1,60 @@
+﻿@using System.Diagnostics
+
+<div>
+    <h3>Large JsonSerializer.Serialize Test</h3>
+    <div>
+        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
+    </div>
+    <div>
+        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
+    </div>
+    <div>
+        @($"{ActionsPerSecond} APS")
+    </div>
+    <button @onclick="HandleRunPerformanceCall_StandardSendEvent">Run</button>
+</div>
+
+@code {
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
+    public TimeSpan TimeTaken { get; set; }
+    public string ActionsPerSecond { get; set; }
+
+    const int _max = 100;
+    public void HandleRunPerformanceCall_StandardSendEvent()
+    {
+        var events = new List<string>();
+        for (int i = 0; i < 50; i++)
+        {
+            events.Add("event + " + i);
+        }
+        var obj = new LargeTestObject
+        {
+            Events = events,
+        };
+        var s1 = Stopwatch.StartNew();
+        // Version 1: describe version 1 here.
+        for (int i = 0; i < _max; i++)
+        {
+            StandardTest(obj);
+        }
+        s1.Stop();
+        TimeTaken = s1.Elapsed;
+        Console.WriteLine(((double)(s1.ElapsedMilliseconds * 1000000) / _max).ToString("0.00 ns"));
+
+        ActionsPerSecond = (_max / (TimeTaken.TotalMilliseconds / 1000)).ToString();
+    }
+
+    public void StandardTest(LargeTestObject obj)
+    {
+        System.Text.Json.JsonSerializer.Serialize(
+            obj
+        );
+    }
+
+    public struct LargeTestObject
+    {
+        public IList<string> Events { get; set; }
+    }
+}
