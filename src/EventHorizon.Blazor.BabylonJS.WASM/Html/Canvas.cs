@@ -5,10 +5,10 @@
 
     public class Canvas : CachedEntity
     {
-        public static async Task<Canvas> Create(
+        public static Canvas Create(
             string elementId
         ) => new Canvas(
-            await EventHorizonBlazorInteropt.Func(
+            EventHorizonBlazorInteropt.Func(
                 new string[] { "document", "getElementById" },
                 elementId
             )

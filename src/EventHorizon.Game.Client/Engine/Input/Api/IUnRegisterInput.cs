@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EventHorizon.Game.Client.Engine.Input.Api
+﻿namespace EventHorizon.Game.Client.Engine.Input.Api
 {
-    public interface IUnRegisterInput
+    public interface IUnregisterInput
     {
-        Task UnRegister(string handle);
+        void Unregister(
+            string handle
+        );
     }
 }

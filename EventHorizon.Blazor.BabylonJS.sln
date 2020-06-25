@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{83FB871D-A07C-4875-A917-774E055914FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,7 @@ Global
 		{834EDB5C-90B2-41B3-9E03-1A5D6E958F13} = {072FB275-8291-4979-B319-22237D5E7C6E}
 		{177E69A8-E4F1-4BF3-ABA9-607E08E58C0C} = {072FB275-8291-4979-B319-22237D5E7C6E}
 		{69E43084-BF19-426F-8C67-3D7503B0E37E} = {072FB275-8291-4979-B319-22237D5E7C6E}
+		{83FB871D-A07C-4875-A917-774E055914FE} = {072FB275-8291-4979-B319-22237D5E7C6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9497D11D-7D24-4DE2-A904-0ADE224939B6}

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Cameras;
-using EventHorizon.Game.Client;
-using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model
+﻿namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model
 {
+    using System;
+    using System.Threading.Tasks;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Cameras;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Lights;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes;
+    using EventHorizon.Game.Client;
+    using EventHorizon.Game.Client.Engine.Input.Api;
+    using EventHorizon.Game.Client.Engine.Input.Register;
+
     public class MainGame : GameBase
     {
         public WorldCamera _startupCamera;
@@ -29,6 +28,40 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model
             await Register(
                 new WorldCamera()
             );
+            await Register(
+                new Block()
+            );
+            await Register(
+                new PointLightEntity(
+                    new LightSettings
+                    {
+                        Name = "TestingLight",
+                    }
+                )
+            );
+            await _mediator.Send(
+                new RegisterInputCommand(
+                    new InputOptions(
+                        "w",
+                        HandleKeyPressed,
+                        HandleKeyReleased
+                    )
+                )
+            );
+        }
+
+        private void HandleKeyReleased(
+            InputKeyEvent obj
+        )
+        {
+            Console.WriteLine(obj.Key);
+        }
+
+        private void HandleKeyPressed(
+            InputKeyEvent obj
+        )
+        {
+            Console.WriteLine(obj.Key);
         }
 
         public override Task Start()

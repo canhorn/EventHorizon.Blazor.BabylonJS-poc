@@ -7,16 +7,16 @@
     using BabylonJS.Html;
     using System;
 
-    public class StandardRenderingEngine
+    public class BabylonJSRenderingEngine
         : IRenderingEngine
     {
-        private IEngineImplementation _engine;
+        private IEngineImplementation? _engine;
 
         private readonly ICanvas _canvas;
 
-        public int Priority => -900;
+        public int Priority => 90_000;
 
-        public StandardRenderingEngine(
+        public BabylonJSRenderingEngine(
             ICanvas canvas
         )
         {
@@ -30,10 +30,17 @@
 
         public T GetEngine<T>() where T : class, IEngineImplementation
         {
-            return _engine as T;
+            if (_engine is T typedEngine)
+            {
+                return typedEngine;
+            }
+            throw new GameRuntimeException(
+                "engine_is_null",
+                "The Engine has not been set, is currently null."
+            );
         }
 
-        public async Task Initialize()
+        public Task Initialize()
         {
             var canvas = _canvas.GetDrawingCanvas<Canvas>();
             if (canvas.IsNull())
@@ -43,27 +50,34 @@
                     "Drawing Canvas was null."
                 );
             }
-            _engine = await StandardEngineImplementation.Create(
+            _engine = new BabylonJSEngineImplementation(
                 canvas,
                 true,
                 true
             );
             // TODO: Implement Resize Event Listener on _engineImplementation
             // TODO: Implement _engineImplementation.Resize
+            return Task.CompletedTask;
         }
 
         public Task Dispose()
         {
-            if (!_engine.IsNull())
-            {
-                _engine.Dispose();
-            }
+            _engine?.Dispose();
 
             return Task.CompletedTask;
         }
 
         public string RunRenderLoop(Func<Task> action)
         {
+#if DEBUG
+            if(_engine == null)
+            {
+                throw new GameRuntimeException(
+                    "engine_is_null",
+                    "The Engine has not been set, is currently null."
+                );
+            }
+#endif
             return _engine.RunRenderLoop(action);
         }
     }

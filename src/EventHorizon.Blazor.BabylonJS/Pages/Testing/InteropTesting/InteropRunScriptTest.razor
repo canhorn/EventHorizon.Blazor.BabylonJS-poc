@@ -46,7 +46,7 @@
     {
         EventHorizonBlazorInteropt.RunScript(
             "runningTest" + Guid.NewGuid().ToString(),
-            "console.log('hi', $args)",
+            "var hi = $args;",
             new
             {
                 Type = "hello",

@@ -34,7 +34,7 @@
             {
                 await entity.Initialize();
                 await entity.PostInitialize();
-                await _mediator.Send(
+                await _mediator.Publish(
                     new EntityInitializedEvent(
                         entity
                     )

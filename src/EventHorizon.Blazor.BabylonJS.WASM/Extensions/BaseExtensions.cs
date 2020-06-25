@@ -26,5 +26,15 @@ namespace BabylonJS
                 )
             );
         }
+
+        public static void Dispose(
+            this CachedEntity entity
+        )
+        {
+            EventHorizonBlazorInteropt.Call(
+                entity,
+                "dispose"
+            );
+        }
     }
 }

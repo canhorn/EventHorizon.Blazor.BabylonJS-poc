@@ -10,7 +10,7 @@
 
     public static class GameServiceProvider
     {
-        private static IServiceProvider _serviceProvider;
+        private static IServiceProvider? _serviceProvider;
         public static void SetServiceProvider(
             IServiceProvider serviceProvider
         )
@@ -35,7 +35,7 @@
 
     public abstract class GameBase : IGame
     {
-        private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
+        protected readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         public async Task Register(
             LifecycleEntityBase entity
         )

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
-using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-
-namespace EventHorizon.Game.Client.Engine.Systems.Entity.State
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.State
 {
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
     public class StandardEntityDetailsState
         : IEntityDetailsState
     {
@@ -32,7 +30,7 @@ namespace EventHorizon.Game.Client.Engine.Systems.Entity.State
             return _detailMap[globalId];
         }
 
-        public IObjectEntityDetails Remove(
+        public IObjectEntityDetails? Remove(
             string globalId
         )
         {

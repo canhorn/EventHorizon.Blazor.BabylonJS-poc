@@ -5,23 +5,20 @@
 
     public class Vector3 : CachedEntity
     {
-        public static async Task<Vector3> Create(
+        public Vector3(
             double x, // TODO: These might need to be decimal
             double y,
             double z
         )
         {
-            var entity = await EventHorizonBlazorInteropt.New(
+            var entity = EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "Vector3" },
                 x,
                 y,
                 z
             );
-            return new Vector3(
-                entity
-            );
+            ___guid = entity.___guid;
         }
-
         public Vector3(
             CachedEntity entity
         )

@@ -24,10 +24,6 @@ namespace EventHorizon.Game.Client.Engine.Loading.Loaded
     {
         private readonly ObserverState _observer;
 
-        public GameLoadedEventHandler()
-        {
-        }
-
         public GameLoadedEventHandler(
             ObserverState observer
         )

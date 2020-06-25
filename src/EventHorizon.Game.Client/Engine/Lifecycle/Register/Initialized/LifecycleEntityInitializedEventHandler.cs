@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
     using MediatR;
 
@@ -13,7 +14,7 @@
         private readonly IRegisterDrawable _registerDrawable;
 
         public LifecycleEntityInitializedEventHandler(
-            IRegisterUpdatable registerUpdatable, 
+            IRegisterUpdatable registerUpdatable,
             IRegisterDrawable registerDrawable
         )
         {
@@ -22,16 +23,19 @@
         }
 
         public async Task Handle(
-            EntityInitializedEvent notification, 
+            EntityInitializedEvent notification,
             CancellationToken cancellationToken
         )
         {
-            await _registerUpdatable.Register(
-                notification.Entity
-            );
-            await _registerDrawable.Register(
-                notification.Entity
-            );
+            if (notification.Entity is LifecycleEntityBase entity)
+            {
+                await _registerUpdatable.Register(
+                    entity
+                );
+                await _registerDrawable.Register(
+                    entity
+                );
+            }
         }
     }
 }

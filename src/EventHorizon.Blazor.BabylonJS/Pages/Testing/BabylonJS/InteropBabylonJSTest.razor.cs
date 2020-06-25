@@ -52,11 +52,11 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             //        stencil = true
             //    }
             //);
-            var canvasRuntime = await EventHorizonBlazorInteropt.Func(
+            var canvasRuntime = EventHorizonBlazorInteropt.Func(
                 new string[] { "document", "getElementById" },
                 "game-window"
             );
-            var engine = await EventHorizonBlazorInteropt.New(
+            var engine = EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "Engine" },
                 canvasRuntime,
                 true,
@@ -66,14 +66,14 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                     stencil = true
                 }
             );
-            var scene = await EventHorizonBlazorInteropt.New(
+            var scene = EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "Scene" },
                 engine
             );
-            var light0 = await EventHorizonBlazorInteropt.New(
+            var light0 = EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "PointLight" },
                 "Omni",
-                await EventHorizonBlazorInteropt.New(
+                EventHorizonBlazorInteropt.New(
                     new string[] { "BABYLON", "Vector3" },
                     0,
                     2,
@@ -81,16 +81,16 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                 ),
                 scene
             );
-            var box1 = await EventHorizonBlazorInteropt.Func(
+            var box1 = EventHorizonBlazorInteropt.Func(
                 new string[] { "BABYLON", "Mesh", "CreateBox" },
                 "b1",
                 1.0,
                 scene
             );
-            var freeCamera = await EventHorizonBlazorInteropt.New(
+            var freeCamera = EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "FreeCamera" },
                 "FreeCamera",
-                await EventHorizonBlazorInteropt.New(
+                EventHorizonBlazorInteropt.New(
                     new string[] { "BABYLON", "Vector3" },
                     0,
                     0,
@@ -101,7 +101,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             await EventHorizonBlazorInteropt.Set(
                 freeCamera,
                 "rotation",
-                await EventHorizonBlazorInteropt.New(
+                EventHorizonBlazorInteropt.New(
                     new string[] { "BABYLON", "Vector3" },
                     0,
                     EventHorizonBlazorInteropt.Get<decimal>(

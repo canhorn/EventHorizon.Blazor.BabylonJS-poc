@@ -5,23 +5,17 @@
 
     public class FreeCamera : Camera
     {
-        public static async Task<FreeCamera> Create(
+        public FreeCamera(
             string name,
             Vector3 position,
             Scene scene
-        ) => new FreeCamera(
-            await EventHorizonBlazorInteropt.New(
+        ) : base(
+            EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "FreeCamera" },
                 name,
                 position,
                 scene
             )
-        );
-
-        private FreeCamera(
-            CachedEntity entity
-        ) : base(
-            entity
         ) { }
     }
 }

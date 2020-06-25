@@ -16,7 +16,7 @@ namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api
         void Set(
             IObjectEntityDetails entityDetails
         );
-        IObjectEntityDetails Remove(
+        IObjectEntityDetails? Remove(
             string globalId
         );
     }

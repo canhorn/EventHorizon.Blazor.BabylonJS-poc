@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.State;
@@ -9,10 +10,10 @@
 
     public struct EntityInitializedEvent : INotification
     {
-        public LifecycleEntityBase Entity { get; }
+        public IInitializableEntity Entity { get; }
 
         public EntityInitializedEvent(
-            LifecycleEntityBase entity
+            IInitializableEntity entity
         )
         {
             Entity = entity;

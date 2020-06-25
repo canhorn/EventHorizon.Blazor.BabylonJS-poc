@@ -1,0 +1,32 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager NavigationManager
+@inject IAuthenticationService AuthenticationService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (state.User.Identity.IsAuthenticated)
+        {
+            var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+            if (QueryHelpers.ParseQuery(
+                uri.Query
+            ).TryGetValue("returnUrl", out var returnUrl))
+            {
+                NavigationManager.NavigateTo(
+                    returnUrl
+                );
+                return;
+            }
+            NavigationManager.NavigateTo(
+                "/"
+            );
+        }
+        else
+        {
+            await AuthenticationService.SignInAsync();
+        }
+    }
+}

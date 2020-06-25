@@ -7,7 +7,8 @@
     public class TImerService
         : ITimerService
     {
-        private Timer _timer;
+        private Timer? _timer;
+        private event Action? _onElapsed;
 
         public void SetTimer(
             double millisecondInterval,
@@ -28,15 +29,13 @@
             _timer = null;
         }
 
-        private event Action _onElapsed;
-
         private void NotifyTimerElapsed(
             object source, 
             ElapsedEventArgs _
         )
         {
             _onElapsed?.Invoke();
-            _timer.Dispose();
+            _timer?.Dispose();
         }
     }
 }

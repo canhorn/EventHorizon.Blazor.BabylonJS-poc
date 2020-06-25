@@ -2,6 +2,12 @@
     const refCache = [];
     const argumentCache = new Map();
     const methodCache = new Map();
+    window["DEBUGGING_CONSOLE"] = {
+        ...window["DEBUGGING_CONSOLE"],
+        refCache,
+        argumentCache,
+        methodCache,
+    };
     const CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split("");
     const guid = () => {
         var chars = CHARS,
@@ -214,7 +220,7 @@
 
             const cachedEntity = argumentCache.get(entity[cacheKey]);
             cachedEntity[funcCallbackName](function () {
-                console.log({ entity, funcCallbackName, referenceMethod, invokableReference })
+                //console.log({ entity, funcCallbackName, referenceMethod, invokableReference })
                 invokableReference.invokeMethodAsync(referenceMethod, {});
             });
         },

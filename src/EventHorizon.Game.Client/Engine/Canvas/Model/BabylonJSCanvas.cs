@@ -1,30 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using EventHorizon.Game.Client.Core.Exceptions;
-using EventHorizon.Game.Client.Engine.Canvas.Api;
-using EventHorizon.Game.Client.Engine.Canvas.Initialized;
-using EventHorizon.Game.Client.Engine.Canvas.Reset;
-using EventHorizon.Game.Client.Engine.Settings.Api;
-using EventHorizon.Observer.Register;
-using EventHorizon.Observer.Unregister;
-using MediatR;
-
-namespace EventHorizon.Game.Client.Engine.Canvas.Model
+﻿namespace EventHorizon.Game.Client.Engine.Canvas.Model
 {
-    public class StandardCanvas
+    using System;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Exceptions;
+    using EventHorizon.Game.Client.Engine.Canvas.Api;
+    using EventHorizon.Game.Client.Engine.Canvas.Initialized;
+    using EventHorizon.Game.Client.Engine.Canvas.Reset;
+    using EventHorizon.Game.Client.Engine.Settings.Api;
+    using EventHorizon.Observer.Register;
+    using EventHorizon.Observer.Unregister;
+    using MediatR;
+
+    public class BabylonJSCanvas
         : ICanvas,
         CanvasResetObserver
     {
-        private BabylonJS.Html.Canvas _canvas;
+        private BabylonJS.Html.Canvas? _canvas;
 
         private readonly IMediator _mediator;
         private readonly IGameSettings _gameSettings;
 
-        public int Priority => -1000;
+        public int Priority => 100_000;
 
-        public StandardCanvas(
+        public BabylonJSCanvas(
             IMediator mediator,
             IGameSettings gameSettings
         )
@@ -35,14 +33,14 @@ namespace EventHorizon.Game.Client.Engine.Canvas.Model
 
         public T GetDrawingCanvas<T>() where T : class
         {
-            if (_canvas == null)
+            if(_canvas is T typedCanvas)
             {
-                throw new GameRuntimeException(
-                    "canvas_not_initialized",
-                    "Canvas is not Intialized"
-                );
+                return typedCanvas;
             }
-            return _canvas as T;
+            throw new GameRuntimeException(
+                "canvas_not_initialized",
+                "Canvas is not Intialized"
+            );
         }
 
         public async Task Initialize()
@@ -55,7 +53,7 @@ namespace EventHorizon.Game.Client.Engine.Canvas.Model
             {
                 throw new Exception();
             }
-            _canvas = await BabylonJS.Html.Canvas.Create(
+            _canvas = BabylonJS.Html.Canvas.Create(
                 _gameSettings.CanvasTagId
             );
             await _mediator.Publish(

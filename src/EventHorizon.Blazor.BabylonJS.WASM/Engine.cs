@@ -9,13 +9,16 @@
 
     public class Engine : CachedEntity
     {
-        public static async Task<Engine> Create(
+        private readonly DotNetObjectReference<Engine> _invokableReference;
+
+        public Engine(
             Canvas canvas,
             bool antialias = true,
             bool preserveDrawingBuffer = true,
             bool stencil = true
-        ) => new Engine(
-            await EventHorizonBlazorInteropt.New(
+        )
+        {
+            var entity = EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "Engine" },
                 canvas,
                 antialias,
@@ -24,15 +27,7 @@
                     preserveDrawingBuffer,
                     stencil,
                 }
-            )
-        );
-        
-        private readonly DotNetObjectReference<Engine> _invokableReference;
-
-        private Engine(
-            CachedEntity entity
-        )
-        {
+            );
             ___guid = entity.___guid;
             _invokableReference = DotNetObjectReference.Create(
                 this

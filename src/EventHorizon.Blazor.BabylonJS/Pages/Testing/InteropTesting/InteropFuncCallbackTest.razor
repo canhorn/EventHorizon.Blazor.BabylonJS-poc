@@ -37,7 +37,7 @@
         _invokableReference = DotNetObjectReference.Create(
             _messageUpdateInvokeHelper
         );
-        _funcCallbackClass = await EventHorizonBlazorInteropt.New(
+        _funcCallbackClass = EventHorizonBlazorInteropt.New(
             new object[]
             {
                 new string[] { "FuncCallbackClass" }

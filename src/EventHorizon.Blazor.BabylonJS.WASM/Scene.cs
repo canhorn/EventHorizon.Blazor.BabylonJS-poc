@@ -4,28 +4,20 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using BabylonJS.Cameras;
     using EventHorizon.Blazor.Interop;
     using Microsoft.JSInterop;
 
     public class Scene : CachedEntity
     {
-        public static async Task<Scene> Create(
+        public Scene(
             Engine engine
         )
         {
-            var entity = await EventHorizonBlazorInteropt.New(
+            var entity = EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "Scene" },
                 engine
             );
-            return new Scene(
-                entity
-            );
-        }
-
-        private Scene(
-            CachedEntity entity
-        )
-        {
             ___guid = entity.___guid;
             _invokableReference = DotNetObjectReference.Create(
                 this

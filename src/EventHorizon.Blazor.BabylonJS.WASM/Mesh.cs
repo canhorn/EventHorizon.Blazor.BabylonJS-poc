@@ -5,13 +5,13 @@
 
     public class Mesh : CachedEntity
     {
-        public static async Task<Mesh> CreateBox(
+        public static Mesh CreateBox(
             string name,
             double size,
             Scene scene
         )
         {
-            var entity = await EventHorizonBlazorInteropt.Func(
+            var entity = EventHorizonBlazorInteropt.Func(
                 new string[] { "BABYLON", "Mesh", "CreateBox" },
                 name,
                 size,

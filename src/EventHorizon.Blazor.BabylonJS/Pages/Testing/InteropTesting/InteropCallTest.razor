@@ -27,10 +27,10 @@
     public double ActionsPerMillsecond { get; set; }
 
     const int _max = 1_000;
-    private async Task HandleRunTest()
+    private void HandleRunTest()
     {
         // Create CachedEntity 
-        var cachedEntity = await EventHorizonBlazorInteropt.New(
+        var cachedEntity = EventHorizonBlazorInteropt.New(
             new string[] { "BABYLON", "Vector3" },
             1, 
             2, 

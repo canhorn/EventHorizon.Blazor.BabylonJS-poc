@@ -5,23 +5,17 @@
 
     public class UniversalCamera : Camera
     {
-        public static async Task<UniversalCamera> Create(
+        public UniversalCamera(
             string name,
             Vector3 position,
             Scene scene
-        ) => new UniversalCamera(
-            await EventHorizonBlazorInteropt.New(
+        ) : base(
+            EventHorizonBlazorInteropt.New(
                 new string[] { "BABYLON", "UniversalCamera" },
                 name,
                 position,
                 scene
             )
-        );
-
-        private UniversalCamera(
-            CachedEntity entity
-        ) : base(
-            entity
         ) { }
     }
 }

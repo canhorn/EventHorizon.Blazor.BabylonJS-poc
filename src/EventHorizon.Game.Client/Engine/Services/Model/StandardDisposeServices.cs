@@ -23,7 +23,7 @@
         {
             var orderedServiceEntities = _serviceEntities.OrderBy(
                 a => a.Priority
-            ).Reverse();
+            );
 
             foreach (var serviceEntity in orderedServiceEntities)
             {

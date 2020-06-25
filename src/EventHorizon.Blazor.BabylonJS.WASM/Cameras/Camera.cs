@@ -34,7 +34,7 @@
             );
         }
 
-        public void SetAttachControl(
+        public void AttachControl(
             Canvas canvas,
             bool preventDefault
         )

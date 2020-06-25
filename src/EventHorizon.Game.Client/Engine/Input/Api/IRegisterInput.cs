@@ -7,6 +7,8 @@ namespace EventHorizon.Game.Client.Engine.Input.Api
 {
     public interface IRegisterInput
     {
-        Task<string> Register(IInputOptions options);
+        string Register(
+            InputOptions options
+        );
     }
 }

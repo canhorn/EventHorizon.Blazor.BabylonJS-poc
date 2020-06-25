@@ -1,4 +1,25 @@
 ﻿@page "/"
+@inject IAuthenticationService authenticationService
 
 <h1>Home Page</h1>
 
+<AuthorizeView>
+    <Authorized>
+        <NavLink class="nav-link" @onclick="authenticationService.SignOutAsync" href="javascript:void(0)">
+            <span class="oi oi-list-rich" aria-hidden="true"></span> Log out
+        </NavLink>
+        <h2>Claims</h2>
+        @foreach (var claim in context.User.Claims)
+        {
+            <p>
+                <b>Type:</b> @claim.Type =>
+                <b>Value:</b> @claim.Value
+            </p>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <NavLink class="nav-link" @onclick="authenticationService.SignInAsync" href="javascript:void(0)">
+            <span class="oi oi-list-rich" aria-hidden="true"></span> Log in
+        </NavLink>
+    </NotAuthorized>
+</AuthorizeView>

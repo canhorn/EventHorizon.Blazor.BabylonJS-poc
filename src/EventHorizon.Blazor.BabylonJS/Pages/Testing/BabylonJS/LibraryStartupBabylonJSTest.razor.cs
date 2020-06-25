@@ -3,6 +3,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using BabylonJS;
+using BabylonJS.Cameras;
 using BabylonJS.Html;
 using EventHorizon.Blazor.Interop;
 using Microsoft.AspNetCore.Components;
@@ -17,13 +18,13 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
         public double ActionsPerMillsecond { get; set; }
 
         public const int _max = 100;
-        public async Task RunTest()
+        public void RunTest()
         {
             var s1 = Stopwatch.StartNew();
             // Version 1: describe version 1 here.
             for (int i = 0; i < _max; i++)
             {
-                var camera = await CreateScene();
+                var camera = CreateScene();
                 var name = camera.Name();
             }
             s1.Stop();
@@ -34,34 +35,34 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             ActionsPerMillsecond = _max / TimeTaken.TotalMilliseconds;
         }
 
-        public async Task<Camera> CreateScene()
+        public Camera CreateScene()
         {
-            var canvas = await Canvas.Create(
+            var canvas = Canvas.Create(
                 "library-startup-testing-game-window"
             );
-            var engine = await Engine.Create(
+            var engine = new Engine(
                 canvas
             );
-            var scene = await Scene.Create(
+            var scene = new Scene(
                 engine
             );
-            var light0 = await PointLight.Create(
+            var light0 = new PointLight(
                 "Omni",
-                await Vector3.Create(
+                new Vector3(
                     0,
                     2,
                     8
                 ),
                 scene
             );
-            var box1 = await Mesh.CreateBox(
+            var box1 = Mesh.CreateBox(
                 "b1",
                 1.0,
                 scene
             );
-            var freeCamera = await FreeCamera.Create(
+            var freeCamera = new FreeCamera(
                 "FreeCamera",
-                await Vector3.Create(
+                new Vector3(
                     0,
                     0,
                     5
@@ -69,7 +70,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                 scene
             );
             freeCamera.SetRotation(
-                await Vector3.Create(
+                new Vector3(
                     0,
                     Math.PI,
                     0
@@ -78,7 +79,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             scene.SetActiveCamera(
                 freeCamera
             );
-            freeCamera.SetAttachControl(
+            freeCamera.AttachControl(
                 canvas,
                 true
             );

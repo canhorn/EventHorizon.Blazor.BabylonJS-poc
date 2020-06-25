@@ -31,11 +31,12 @@
             );
         }
 
-        public static ValueTask<CachedEntity> Func(
+        public static CachedEntity Func(
             params object[] args
         )
         {
-            return JSRuntime.InvokeAsync<CachedEntity>(
+            // This might need to be JSRuntime
+            return RUNTIME.Invoke<CachedEntity>(
                 "blazorInterop.func",
                 args
             );
@@ -56,11 +57,11 @@
             );
         }
 
-        public static ValueTask<CachedEntity> New(
+        public static CachedEntity New(
             params object[] args
         )
         {
-            return JSRuntime.InvokeAsync<CachedEntity>(
+            return RUNTIME.Invoke<CachedEntity>(
                 "blazorInterop.new",
                 args
             );

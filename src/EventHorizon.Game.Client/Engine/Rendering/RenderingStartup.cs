@@ -10,10 +10,11 @@
         public static IServiceCollection AddEngineRenderingServices(
             this IServiceCollection services
         ) => services
+            .AddServiceEntity<IRenderingEngine, BabylonJSRenderingEngine>()
+            .AddServiceEntity<IRenderingScene, BabylonJSRenderingScene>()
+
             .AddSingleton<IBeforeRendering, BeforeRenderingBase>()
-            .AddServiceEntity<IRenderingEngine, StandardRenderingEngine>()
             .AddServiceEntity<IRenderingGui, RenderingGuiBase>()
-            .AddServiceEntity<IRenderingScene, StandardRenderingScene>()
             .AddSingleton<IRenderingTime, RenderingTimeBase>()
         ;
     }

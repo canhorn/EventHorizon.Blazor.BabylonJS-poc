@@ -14,6 +14,7 @@ namespace EventHorizon.Blazor.BabylonJS
     using System.Collections.Generic;
     using System.Globalization;
     using Microsoft.AspNetCore.Localization;
+    using HLSoft.BlazorWebAssembly.Authentication.OpenIdConnect;
 
     public class Program
     {
@@ -21,6 +22,7 @@ namespace EventHorizon.Blazor.BabylonJS
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
+
 
             builder.Services
                 .AddTransient(
@@ -59,6 +61,33 @@ namespace EventHorizon.Blazor.BabylonJS
 
             builder.Services
                 .AddGameClient();
+            builder.Services
+                .AddOptions()
+                .AddAuthorizationCore()
+                .AddBlazoredOpenIdConnect(options =>
+                {
+                    options.Authority = builder.Configuration["Auth:Authority"];
+
+                    options.ClientId = builder.Configuration["Auth:ClientId"];
+                    options.ResponseType = builder.Configuration["Auth:ResponseType"];
+
+                    options.Scopes = builder.Configuration["Auth:Scope"].Split(" ");
+
+                    options.SignedInCallbackUri = "/signin-oidc";
+
+                    //options.Scope.Add("openid");
+                    //options.Scope.Add("profile");
+                    //options.Scope.Add("api");
+                });
+            //builder.Services.AddEventHorizonIdentity(
+            //    new EventHorizonIdentitySettings
+            //    {
+            //        Authority = Configuration["Auth:Authority"],
+            //        ResponseType = Configuration["Auth:ResponseType"],
+            //        Scope = Configuration["Auth:Scope"],
+            //        ClientId = Configuration["Auth:ClientId"],
+            //    }
+            //);
 
             builder.Services
                 .AddMediatR(
