@@ -4,21 +4,7 @@
 
 <div>
     <h3>DI Testing</h3>
-    <div>
-        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
-    </div>
-    <div>
-        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
-    </div>
-    <div>
-        @($"{_max / (TimeTaken.TotalMilliseconds / 1000)} AP/s")
-    </div>
-    <div>
-        @($"{_max / TimeTaken.TotalMilliseconds} AP/ms")
-    </div>
-    <div>
-        @($"{(_max / (TimeTaken.TotalMilliseconds)) * 16} AP/frame") (16ms/frame)
-    </div>
+    <ReportTimeTaken Runs="_max" TimeTaken="TimeTaken" />
     <button @onclick="HandleRunPerformanceCall_StandardSendEvent">Run</button>
 </div>
 

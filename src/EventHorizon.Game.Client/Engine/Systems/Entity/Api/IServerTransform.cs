@@ -3,8 +3,8 @@
     public interface IServerTransform
     {
         IServerVector3 Position { get; }
-        IServerVector3 rotation { get; }
-        IServerVector3 scaling { get; }
-        long? scalingDeterminant { get; }
+        IServerVector3 Rotation { get; }
+        IServerVector3 Scaling { get; }
+        long? ScalingDeterminant { get; }
     }
 }

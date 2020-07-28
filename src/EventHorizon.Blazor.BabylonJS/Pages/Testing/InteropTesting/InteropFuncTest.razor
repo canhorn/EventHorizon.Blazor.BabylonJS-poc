@@ -3,21 +3,7 @@
 
 <div>
     <h3>Interop Func Test</h3>
-    <div>
-        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
-    </div>
-    <div>
-        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
-    </div>
-    <div>
-        @($"{ActionsPerSecond} AP/s")
-    </div>
-    <div>
-        @($"{ActionsPerMillsecond} AP/ms")
-    </div>
-    <div>
-        @($"{ActionsPerMillsecond * 16} AP/frame") (16ms/frame)
-    </div>
+    <ReportTimeTaken Runs="_max" TimeTaken="TimeTaken" />
     <button @onclick="HandleRunTest">Run</button>
 </div>
 
@@ -44,12 +30,12 @@
 
     public void RunTest()
     {
-        var locationHref = EventHorizonBlazorInteropt.Func(
+        var locationHref = EventHorizonBlazorInterop.Func<string>(
             new object[]
             {
                 new string[] { "document", "location", "toString" },
-            }
+                }
         );
-        Console.WriteLine(locationHref);
+        @*Console.WriteLine(locationHref);*@
     }
 }

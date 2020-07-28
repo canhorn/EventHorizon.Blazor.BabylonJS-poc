@@ -4,21 +4,7 @@
 
 <div>
     <h3>Interop Func Callback Test</h3>
-    <div>
-        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
-    </div>
-    <div>
-        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
-    </div>
-    <div>
-        @($"{ActionsPerSecond} AP/s")
-    </div>
-    <div>
-        @($"{ActionsPerMillsecond} AP/ms")
-    </div>
-    <div>
-        @($"{ActionsPerMillsecond * 16} AP/frame") (16ms/frame)
-    </div>
+    <ReportTimeTaken Runs="_max" TimeTaken="TimeTaken" />
     <button @onclick="HandleRunTest">Run</button>
 </div>
 
@@ -27,7 +13,7 @@
     public double ActionsPerSecond { get; set; }
     public double ActionsPerMillsecond { get; set; }
 
-    private CachedEntity _funcCallbackClass;
+    private ICachedEntity _funcCallbackClass;
     private DotNetObjectReference<MessageUpdateInvokeHelper> _invokableReference;
     private MessageUpdateInvokeHelper _messageUpdateInvokeHelper;
 
@@ -37,14 +23,14 @@
         _invokableReference = DotNetObjectReference.Create(
             _messageUpdateInvokeHelper
         );
-        _funcCallbackClass = EventHorizonBlazorInteropt.New(
+        _funcCallbackClass = EventHorizonBlazorInterop.New(
             new object[]
             {
                 new string[] { "FuncCallbackClass" }
-            }
+                }
         );
 
-        await EventHorizonBlazorInteropt.FuncCallback(
+        await EventHorizonBlazorInterop.FuncCallback(
             _funcCallbackClass,
             "register",
             "CallAfterRenderAction",
@@ -71,10 +57,10 @@
     }
 
     public void RunTest(
-        CachedEntity entity
+        ICachedEntity entity
     )
     {
-        EventHorizonBlazorInteropt.Call(
+        EventHorizonBlazorInterop.Call(
             entity,
             "trigger",
             _max

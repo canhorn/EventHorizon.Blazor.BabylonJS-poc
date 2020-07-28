@@ -3,15 +3,7 @@
 
 <div>
     <h3>Client Json Parse Raw Test</h3>
-    <div>
-        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
-    </div>
-    <div>
-        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
-    </div>
-    <div>
-        @($"{ActionsPerSecond} APS")
-    </div>
+    <ReportTimeTaken Runs="_max" TimeTaken="TimeTaken" />
     <button @onclick="HandleRunPerformanceCall_StandardSendEvent">Run</button>
 </div>
 

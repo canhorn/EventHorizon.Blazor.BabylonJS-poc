@@ -3,21 +3,7 @@
 
 <div>
     <h3>Interop New Test</h3>
-    <div>
-        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
-    </div>
-    <div>
-        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
-    </div>
-    <div>
-        @($"{ActionsPerSecond} AP/s")
-    </div>
-    <div>
-        @($"{ActionsPerMillsecond} AP/ms")
-    </div>
-    <div>
-        @($"{ActionsPerMillsecond * 16} AP/frame") (16ms/frame)
-    </div>
+    <ReportTimeTaken Runs="_max" TimeTaken="TimeTaken" />
     <button @onclick="HandleRunTest">Run</button>
 </div>
 
@@ -44,10 +30,9 @@
 
     public void RunTest()
     {
-        var locationHref = EventHorizonBlazorInteropt.New(
+        var locationHref = EventHorizonBlazorInterop.New(
             new string[] { "URL" },
             "http://hello.world.com"
         );
-        Console.WriteLine(locationHref);
     }
 }

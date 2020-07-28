@@ -4,7 +4,6 @@
     using EventHorizon.Game.Client.Engine.Canvas.Api;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
     using EventHorizon.Game.Client.Core.Exceptions;
-    using BabylonJS.Html;
     using System;
 
     public class BabylonJSRenderingEngine
@@ -42,7 +41,7 @@
 
         public Task Initialize()
         {
-            var canvas = _canvas.GetDrawingCanvas<Canvas>();
+            var canvas = _canvas.GetDrawingCanvas<Html.Interop.Canvas>();
             if (canvas.IsNull())
             {
                 throw new GameRuntimeException(

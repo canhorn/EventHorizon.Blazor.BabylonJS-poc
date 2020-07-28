@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Model
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Api;
@@ -30,9 +31,14 @@
 
         public override async Task Run()
         {
-            foreach (var entity in _entityList)
+            var list = _entityList.ToList();
+            _entityList.Clear();
+            foreach (var entity in list)
             {
                 await entity.Initialize();
+            }
+            foreach (var entity in list)
+            {
                 await entity.PostInitialize();
                 await _mediator.Publish(
                     new EntityInitializedEvent(
@@ -40,7 +46,6 @@
                     )
                 );
             }
-            _entityList.Clear();
             _timerService.SetTimer(100, HandleRun);
         }
 

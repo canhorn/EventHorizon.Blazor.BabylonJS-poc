@@ -2,17 +2,18 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Model;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public struct RegisterEntityEvent : INotification
+    public struct RegisterEntityEvent 
+        : INotification
     {
-        public LifecycleEntityBase Entity { get; }
+        public ILifecycleEntity Entity { get; }
 
         public RegisterEntityEvent(
-            LifecycleEntityBase entity
+            ILifecycleEntity entity
         )
         {
             Entity = entity;

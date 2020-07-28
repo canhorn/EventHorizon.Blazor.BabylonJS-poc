@@ -26,7 +26,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             // Version 1: describe version 1 here.
             for (int i = 0; i < _max; i++)
             {
-                var name = EventHorizonBlazorInteropt.Get<string>(
+                var name = EventHorizonBlazorInterop.Get<string>(
                     box.___guid,
                     "name"
                 );
@@ -39,7 +39,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             ActionsPerMillsecond = _max / TimeTaken.TotalMilliseconds;
         }
 
-        public async Task<CachedEntity> CreateScene()
+        public async Task<ICachedEntity> CreateScene()
         {
             var canvas = GameWindowElement;
             //var engine = await RUNTIME.InvokeAsync<object>(
@@ -52,11 +52,12 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             //        stencil = true
             //    }
             //);
-            var canvasRuntime = EventHorizonBlazorInteropt.Func(
+            var canvasRuntime = EventHorizonBlazorInterop.FuncClass<CachedEntity>(
+                entity => new CachedEntityObject(entity),
                 new string[] { "document", "getElementById" },
                 "game-window"
             );
-            var engine = EventHorizonBlazorInteropt.New(
+            var engine = EventHorizonBlazorInterop.New(
                 new string[] { "BABYLON", "Engine" },
                 canvasRuntime,
                 true,
@@ -66,14 +67,14 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                     stencil = true
                 }
             );
-            var scene = EventHorizonBlazorInteropt.New(
+            var scene = EventHorizonBlazorInterop.New(
                 new string[] { "BABYLON", "Scene" },
                 engine
             );
-            var light0 = EventHorizonBlazorInteropt.New(
+            var light0 = EventHorizonBlazorInterop.New(
                 new string[] { "BABYLON", "PointLight" },
                 "Omni",
-                EventHorizonBlazorInteropt.New(
+                EventHorizonBlazorInterop.New(
                     new string[] { "BABYLON", "Vector3" },
                     0,
                     2,
@@ -81,16 +82,17 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                 ),
                 scene
             );
-            var box1 = EventHorizonBlazorInteropt.Func(
+            var box1 = EventHorizonBlazorInterop.FuncClass(
+                entity => entity,
                 new string[] { "BABYLON", "Mesh", "CreateBox" },
                 "b1",
                 1.0,
                 scene
             );
-            var freeCamera = EventHorizonBlazorInteropt.New(
+            var freeCamera = EventHorizonBlazorInterop.New(
                 new string[] { "BABYLON", "FreeCamera" },
                 "FreeCamera",
-                EventHorizonBlazorInteropt.New(
+                EventHorizonBlazorInterop.New(
                     new string[] { "BABYLON", "Vector3" },
                     0,
                     0,
@@ -98,13 +100,13 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                 ),
                 scene
             );
-            await EventHorizonBlazorInteropt.Set(
-                freeCamera,
+            EventHorizonBlazorInterop.Set(
+                freeCamera.___guid,
                 "rotation",
-                EventHorizonBlazorInteropt.New(
+                EventHorizonBlazorInterop.New(
                     new string[] { "BABYLON", "Vector3" },
                     0,
-                    EventHorizonBlazorInteropt.Get<decimal>(
+                    EventHorizonBlazorInterop.Get<decimal>(
                         "Math",
                         "PI"
                     ),
@@ -112,12 +114,12 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                 )
             );
 
-            await EventHorizonBlazorInteropt.Set(
-                scene,
+            EventHorizonBlazorInterop.Set(
+                scene.___guid,
                 "activeCamera",
                 freeCamera
             );
-            EventHorizonBlazorInteropt.Call(
+            EventHorizonBlazorInterop.Call(
                 freeCamera,
                 "attachControl",
                 canvasRuntime,
@@ -139,7 +141,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                 sceneGuid = scene.___guid,
             };
 
-            await EventHorizonBlazorInteropt.RunScript(
+            await EventHorizonBlazorInterop.RunScript(
                 "startRenderLoop",
                 script,
                 args

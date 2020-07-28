@@ -33,4 +33,27 @@ window["FuncCallbackClass"] = function () {
             );
         }
     }
-}
+};
+
+// Primitive 
+window["getPrimitive"] = {
+    result: 999,
+    numberResult: 999.99,
+};
+
+window["getArray"] = {
+    result: ["string1", "string2"],
+};
+
+window["getObject"] = {
+    obj: {
+        X: "hello",
+    }
+};
+window["getArrayClass"] = {
+    obj: [{
+        X: "hello",
+    }, {
+        X: "world",
+    }]
+};

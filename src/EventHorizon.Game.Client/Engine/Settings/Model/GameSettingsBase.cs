@@ -15,5 +15,14 @@
                );
             }
         }
+
+        public string GetProperty(
+            string key
+        )
+        {
+            return Configuration.GetConfig<string>(
+               key
+           );
+        }
     }
 }

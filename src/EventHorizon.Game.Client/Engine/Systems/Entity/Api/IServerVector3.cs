@@ -2,8 +2,8 @@
 {
     public interface IServerVector3
     {
-        public float X { get; }
-        public float Y { get; }
-        public float Z { get; }
+        decimal X { get; }
+        decimal Y { get; }
+        decimal Z { get; }
     }
 }

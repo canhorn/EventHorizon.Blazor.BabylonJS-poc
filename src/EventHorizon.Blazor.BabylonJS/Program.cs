@@ -15,6 +15,8 @@ namespace EventHorizon.Blazor.BabylonJS
     using System.Globalization;
     using Microsoft.AspNetCore.Localization;
     using HLSoft.BlazorWebAssembly.Authentication.OpenIdConnect;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client;
+    using Microsoft.Extensions.Logging;
 
     public class Program
     {
@@ -22,7 +24,6 @@ namespace EventHorizon.Blazor.BabylonJS
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
-
 
             builder.Services
                 .AddTransient(
@@ -60,6 +61,7 @@ namespace EventHorizon.Blazor.BabylonJS
                 .AddSingleton<AdminObserverState>(services => services.GetService<GenericObserverState>());
 
             builder.Services
+                .AddClientServices()
                 .AddGameClient();
             builder.Services
                 .AddOptions()
@@ -95,6 +97,11 @@ namespace EventHorizon.Blazor.BabylonJS
                     typeof(ObserverState).Assembly,
                     typeof(ClientExtensions).Assembly
                 );
+
+            // Configure Logging
+            builder.Logging.AddConfiguration(
+                builder.Configuration.GetSection("Logging")
+            );
 
             await builder.Build().RunAsync();
         }

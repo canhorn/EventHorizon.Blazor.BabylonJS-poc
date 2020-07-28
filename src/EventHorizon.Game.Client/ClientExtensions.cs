@@ -6,6 +6,8 @@
     using EventHorizon.Game.Client.Engine.Canvas.Model;
     using EventHorizon.Game.Client.Engine.Core.Api;
     using EventHorizon.Game.Client.Engine.Core.Model;
+    using EventHorizon.Game.Client.Engine.Entity;
+    using EventHorizon.Game.Client.Engine.Entity.Tracking;
     using EventHorizon.Game.Client.Engine.Input;
     using EventHorizon.Game.Client.Engine.Lifecycle;
     using EventHorizon.Game.Client.Engine.Rendering;
@@ -23,9 +25,11 @@
             .AddCoreServices()
             .AddEngineSystemServices()
             .AddEngineRenderingServices()
+            .AddEngineEntityServices()
             .AddEngineLifecycleServices()
             .AddEngineMainServices()
             .AddEngineInputServices()
+            .AddEngineEntityTrackingServices()
             // TODO: Register Base Services
             .AddSingleton<IIndexPool, IndexPoolBase>()
             .AddSingleton<IGameSettings, GameSettingsBase>()

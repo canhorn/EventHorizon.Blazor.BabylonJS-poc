@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>    <PackageReference Include="EventHorizon.Blazor.Interop" Version="0.1.0-preview0002" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\_generated\Blazor.BabylonJS.WASM\Blazor.BabylonJS.WASM.csproj" />
+  </ItemGroup>
+
+</Project>

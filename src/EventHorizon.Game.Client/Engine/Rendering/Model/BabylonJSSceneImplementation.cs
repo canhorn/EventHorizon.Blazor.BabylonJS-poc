@@ -6,50 +6,40 @@
     using EventHorizon.Game.Client.Engine.Rendering.Api;
 
     public class BabylonJSSceneImplementation
-        : Scene, ISceneImplementation
+        : ISceneImplementation
     {
         public BabylonJSSceneImplementation(
             Engine engine
-        ) : base(engine)
+        )
         {
+            Scene = new Scene(engine);
         }
 
-        //public static async Task<StandardSceneImplementation> Create(
-        //    Engine engine
-        //)
-        //{
-        //    return new StandardSceneImplementation(
-        //        new Scene(
-        //            engine
-        //        )
-        //    );
-        //}
+        public Scene Scene { get; }
 
-        //public Scene Scene { get; }
-
-        //private StandardSceneImplementation(
+        //private BabylonJSSceneImplementation(
         //    Scene scene
         //)
         //{
         //    Scene = scene;
         //}
 
-        //public void Dispose()
-        //{
-        //    Scene.Dispose();
-        //}
+        public void Dispose()
+        {
+            Scene.dispose();
+        }
 
-        //public string RegisterBeforeRender(
-        //    Func<Task> beforeRenderAction
-        //) => Scene.RegisterBeforeRender(beforeRenderAction);
+        public string RegisterBeforeRender(
+            Func<Task> beforeRenderAction
+        ) => Scene.registerBeforeRender(beforeRenderAction);
 
-        //public string RegisterAfterRender(
-        //    Func<Task> afterRenderAction
-        //) => Scene.RegisterAfterRender(afterRenderAction);
+        public string RegisterAfterRender(
+            Func<Task> afterRenderAction
+        ) => Scene.registerAfterRender(afterRenderAction);
 
-        //public void Render()
-        //{
-        //    Scene.Render();
-        //}
+        public void Render()
+        {
+            Scene.render(true, false);
+        }
     }
 }

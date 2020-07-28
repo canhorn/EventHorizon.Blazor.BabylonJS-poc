@@ -2,15 +2,7 @@
 
 <div>
     <h3>Standard JSRuntime Bridge Test</h3>
-    <div>
-        @($"{TimeTaken.Ticks} Ticks ({TimeTaken.Ticks / _max} Ticks)")
-    </div>
-    <div>
-        @($"{TimeTaken.TotalMilliseconds} ms ({TimeTaken.TotalMilliseconds / _max} ms)")
-    </div>
-    <div>
-        @($"{ActionsPerSecond} APS")
-    </div>
+    <ReportTimeTaken Runs="_max" TimeTaken="TimeTaken" />
     <button @onclick="HandleRunPerformanceCall_StandardSendEvent">Run</button>
 </div>
 
@@ -19,7 +11,6 @@
     public IJSRuntime JSRuntime { get; set; }
 
     public TimeSpan TimeTaken { get; set; }
-    public string ActionsPerSecond { get; set; }
 
     const int _max = 1_000;
     public async Task HandleRunPerformanceCall_StandardSendEvent()
@@ -33,8 +24,6 @@
         s1.Stop();
         TimeTaken = s1.Elapsed;
         Console.WriteLine(((double)(s1.ElapsedMilliseconds * 1000000) / _max).ToString("0.00 ns"));
-
-        ActionsPerSecond = (_max / (TimeTaken.TotalMilliseconds / 1000)).ToString();
     }
 
     public async Task StandardSendEvent()
@@ -42,7 +31,7 @@
         await JSRuntime.InvokeVoidAsync(
             "bridge.send",
             "string"
-            @*new
+        @*new
             {
                 Type = "event_to_run"
             }*@

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
-using MediatR;
-
-namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Register
+﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Register
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
+    using MediatR;
+
     public class LifecycleRegisterEntityEventHandler
         : INotificationHandler<RegisterEntityEvent>
     {
@@ -15,7 +12,7 @@ namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Register
         private readonly IRegisterDisposable _registerDisposable;
 
         public LifecycleRegisterEntityEventHandler(
-            IRegisterInitializable registerInitializable, 
+            IRegisterInitializable registerInitializable,
             IRegisterDisposable registerDisposable
         )
         {

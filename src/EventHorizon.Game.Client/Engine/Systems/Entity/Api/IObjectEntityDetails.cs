@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api
 {
+    using System.Collections.Generic;
+
     public interface IObjectEntityDetails
-        : IDictionary<string, object>
     {
         public long Id { get; }
         public string Name { get; }
         public string GlobalId { get; }
         public string Type { get; }
-        public IServerTransform MyProperty { get; }
+        public IServerTransform Transform { get; }
         public IList<string> TagList { get; }
         public IDictionary<string, object> Data { get; }
     }

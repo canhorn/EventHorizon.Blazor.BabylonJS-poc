@@ -2,9 +2,10 @@
 {
     using System;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Unregister;
+    using EventHorizon.Game.Client.Engine.Systems.Entity.Unregister;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -42,6 +43,16 @@
         {
             await _mediator.Publish(
                 new RegisterEntityEvent(
+                    entity
+                )
+            );
+        }
+        public async Task Unregister(
+            LifecycleEntityBase entity
+        )
+        {
+            await _mediator.Publish(
+                new UnregisterEntityEvent(
                     entity
                 )
             );

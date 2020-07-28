@@ -7,6 +7,7 @@ using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Model;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 
 namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes
 {
@@ -17,14 +18,20 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes
 
 
         public Block()
-            : base()
+            : base(
+                  new ObjectEntityDetailsModel
+                  { 
+                      Name = "b1",
+                      Type = "BLOCK",
+                  }
+            )
         {
             _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
         }
 
         public override Task Dispose()
         {
-            _mesh.Dispose();
+            _mesh.dispose();
             return Task.CompletedTask;
         }
 
@@ -37,8 +44,8 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes
         {
             _mesh = Mesh.CreateBox(
                 "b1",
-                1.0,
-                _renderingScene.GetBabylonJSScene()
+                1.0m,
+                _renderingScene.GetBabylonJSScene().Scene
             );
 
             return Task.CompletedTask;

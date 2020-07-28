@@ -8,6 +8,8 @@
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
     <script src="https://preview.babylonjs.com/ammo.js"></script>
@@ -22,10 +24,16 @@
     <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
     <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
     <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script src="babylonjs/MapMeshMaterial.js"></script>
 </head>
 
 <body>
-    <app>Loading...</app>
+    <app>
+        <div style="position:absolute; top:30vh; width:100%; text-align:center">
+            <h1>EventHorizon.Blazor.BabylonJS</h1>
+            <p>The application is loading...</p>
+        </div>
+    </app>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -39,6 +47,7 @@
     <script src="_content/BlazorJsFastDataExchanger/BJSFDEJsInterop.js"></script>
 
     <script src="Bridge.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 
 </html>

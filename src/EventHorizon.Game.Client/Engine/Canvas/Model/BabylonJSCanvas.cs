@@ -15,7 +15,7 @@
         : ICanvas,
         CanvasResetObserver
     {
-        private BabylonJS.Html.Canvas? _canvas;
+        private Html.Interop.Canvas? _canvas;
 
         private readonly IMediator _mediator;
         private readonly IGameSettings _gameSettings;
@@ -53,7 +53,7 @@
             {
                 throw new Exception();
             }
-            _canvas = BabylonJS.Html.Canvas.Create(
+            _canvas = Html.Interop.Canvas.Create(
                 _gameSettings.CanvasTagId
             );
             await _mediator.Publish(

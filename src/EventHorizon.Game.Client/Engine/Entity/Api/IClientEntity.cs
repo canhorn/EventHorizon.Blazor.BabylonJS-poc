@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EventHorizon.Game.Client.Engine.Entity.Api
+﻿namespace EventHorizon.Game.Client.Engine.Entity.Api
 {
+    using System.Collections.Generic;
+
     public interface IClientEntity
     {
         long ClientId { get; }

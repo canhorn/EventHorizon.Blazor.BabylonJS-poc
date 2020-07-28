@@ -3,5 +3,9 @@
     public interface IGameSettings
     {
         string CanvasTagId { get; }
+
+        string GetProperty(
+            string key
+        );
     }
 }

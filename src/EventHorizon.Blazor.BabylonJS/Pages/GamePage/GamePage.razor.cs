@@ -1,13 +1,10 @@
 ﻿namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage
 {
     using System;
-    using System.Threading.Tasks;
     using global::BabylonJS;
-    using global::BabylonJS.Html;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model;
     using EventHorizon.Game.Client;
     using Microsoft.AspNetCore.Components;
-    using global::BabylonJS.Cameras;
     using Microsoft.AspNetCore.Components.Web;
     using MediatR;
     using EventHorizon.Game.Client.Engine.Input.Trigger;
@@ -16,6 +13,12 @@
     using System.Linq;
     using Microsoft.Extensions.Configuration;
     using Microsoft.AspNetCore.Authorization;
+    using EventHorizon.Html.Interop;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes;
+    using System.Threading;
+    using System.Timers;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Timer.Api;
 
     [Authorize]
     public class GamePageModel : ComponentBase
@@ -28,13 +31,16 @@
         public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
         [Inject]
         public IConfiguration Configuration { get; set; }
+        [Inject]
+        public ITimerService TimerService { get; set; }
 
-        private string _accessToken;
-
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            _accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
+            if (firstRender)
+            {
+                //TimerService.SetTimer(2000, () => HandleStartGame().ConfigureAwait(false).GetAwaiter().GetResult());
+                await HandleStartGame();
+            }
         }
 
         public async Task HandleStartGame()
@@ -69,10 +75,12 @@
 
         public async Task StartGame_ByClient()
         {
+            var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
             Startup.Setup(
-                new MainGame(),
+                new ServerGame(),
                 "game-window",
-                _accessToken,
+                accessToken,
                 "/login?returnUrl=/game",
                 Configuration["Game:CoreServer"],
                 Configuration["Game:AssetServer"],
@@ -103,7 +111,7 @@
             );
             var box1 = Mesh.CreateBox(
                 "b1",
-                1.0,
+                1.0m,
                 scene
             );
             var freeCamera = new FreeCamera(
@@ -115,24 +123,21 @@
                 ),
                 scene
             );
-            freeCamera.SetRotation(
-                new Vector3(
-                    0,
-                    Math.PI,
-                    0
-                )
+            freeCamera.rotation = new Vector3(
+                0,
+                (decimal)System.Math.PI,
+                0
             );
-            scene.SetActiveCamera(
-                freeCamera
-            );
-            freeCamera.AttachControl(
+            scene.activeCamera = freeCamera;
+            freeCamera.attachControl(
                 canvas,
                 true
             );
 
-            engine.StartRenderLoop(
-                scene
-            );
+            engine.runRenderLoop(() => Task.Run(() => scene.render()));
+            //engine.StartRenderLoop(
+            //    scene
+            //);
         }
     }
 }

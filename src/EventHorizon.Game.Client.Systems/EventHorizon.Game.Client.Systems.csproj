@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-preview.7.20365.19" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Game.Client\EventHorizon.Game.Client.csproj" />
+        <ProjectReference Include="..\Shared\_generated\Blazor.BabylonJS.WASM\Blazor.BabylonJS.WASM.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Connection\Zone\Player\Connected\" />
+      <Folder Include="Connection\Zone\Player\Invoke\" />
+      <Folder Include="Connection\Zone\Player\Action\" />
+      <Folder Include="Connection\Zone\Player\Stop\" />
+      <Folder Include="Local\ScreenPointer\Api\" />
+      <Folder Include="Map\Create\" />
+      <Folder Include="Player\" />
+    </ItemGroup>
+
+</Project>

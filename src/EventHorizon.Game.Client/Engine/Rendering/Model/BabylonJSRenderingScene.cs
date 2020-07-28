@@ -46,7 +46,7 @@
             }
 
             _scene = new BabylonJSSceneImplementation(
-                engine
+                engine.Engine
             );
 
             return Task.CompletedTask;

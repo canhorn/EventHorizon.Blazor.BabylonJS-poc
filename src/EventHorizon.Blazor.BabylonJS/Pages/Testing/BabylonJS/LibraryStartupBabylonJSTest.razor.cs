@@ -3,9 +3,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using BabylonJS;
-using BabylonJS.Cameras;
-using BabylonJS.Html;
 using EventHorizon.Blazor.Interop;
+using EventHorizon.Html.Interop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -24,8 +23,9 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             // Version 1: describe version 1 here.
             for (int i = 0; i < _max; i++)
             {
-                var camera = CreateScene();
-                var name = camera.Name();
+                CreateScene();
+                var name = freeCamera.name;
+                DisposeScene();
             }
             s1.Stop();
             TimeTaken = s1.Elapsed;
@@ -35,18 +35,34 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
             ActionsPerMillsecond = _max / TimeTaken.TotalMilliseconds;
         }
 
-        public Camera CreateScene()
+        private Engine engine;
+        private Scene scene;
+        private Light light0;
+        private Mesh box1;
+        private FreeCamera freeCamera;
+
+        public void DisposeScene()
+        {
+            freeCamera.dispose();
+            box1.dispose();
+            light0.dispose();
+            scene.dispose();
+            engine.dispose();
+        }
+
+        public void CreateScene()
         {
             var canvas = Canvas.Create(
                 "library-startup-testing-game-window"
             );
-            var engine = new Engine(
-                canvas
+            engine = new Engine(
+                canvas,
+                true
             );
-            var scene = new Scene(
+            scene = new Scene(
                 engine
             );
-            var light0 = new PointLight(
+            light0 = new PointLight(
                 "Omni",
                 new Vector3(
                     0,
@@ -55,12 +71,12 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                 ),
                 scene
             );
-            var box1 = Mesh.CreateBox(
+            box1 = Mesh.CreateBox(
                 "b1",
-                1.0,
+                1.0m,
                 scene
             );
-            var freeCamera = new FreeCamera(
+            freeCamera = new FreeCamera(
                 "FreeCamera",
                 new Vector3(
                     0,
@@ -69,30 +85,26 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.Testing.BabylonJS
                 ),
                 scene
             );
-            freeCamera.SetRotation(
-                new Vector3(
-                    0,
-                    Math.PI,
-                    0
-                )
+            freeCamera.rotation = new Vector3(
+                0,
+                (decimal)System.Math.PI,
+                0
             );
-            scene.SetActiveCamera(
-                freeCamera
-            );
-            freeCamera.AttachControl(
+            scene.activeCamera = freeCamera;
+            freeCamera.attachControl(
                 canvas,
                 true
             );
 
-            engine.StartRenderLoop(
-                scene
-            );
+            engine.runRenderLoop(() => Task.Run(() => scene.render(true, false)));
+            //engine.StartRenderLoop(
+            //    scene
+            //);
             //await JSRuntime.InvokeAsync<object>(
             //    "babylonjs.run",
             //    engine.___guid,
             //    scene.___guid
             //);
-            return freeCamera;
         }
     }
 }
