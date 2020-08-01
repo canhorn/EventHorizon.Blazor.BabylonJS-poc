@@ -45,7 +45,7 @@
             );
 
             // TODO: Testing
-            new ScreenPointerModule();
+            new BabylonJSScreenPointerModule();
         }
 
         public override Task PostInitialize()

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
-using BabylonJS;
-using EventHorizon.Blazor.Interop;
-using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
-using EventHorizon.Game.Client.Systems.Map.Api;
-
-namespace EventHorizon.Game.Client.Systems.Map.Model
+﻿namespace EventHorizon.Game.Client.Systems.Map.Model
 {
+    using System.Text.Json.Serialization;
+    using BabylonJS;
+    using EventHorizon.Blazor.Interop;
+    using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
+    using EventHorizon.Game.Client.Systems.Map.Api;
+
     // MapMeshMaterial
     [JsonConverter(typeof(CachedEntityConverter<BabylonJSMapMeshMaterial>))]
     public class BabylonJSMapMeshMaterial

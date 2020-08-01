@@ -2,6 +2,7 @@
 {
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client.Account;
     using EventHorizon.Game.Client.Systems.Connection;
+    using EventHorizon.Game.Client.Systems.Height;
     using EventHorizon.Game.Client.Systems.Local.Scenes;
     using EventHorizon.Game.Client.Systems.Map;
     using MediatR;
@@ -22,6 +23,7 @@
 
             // Zone Server Systems
             .AddMapSystemServices()
+            .AddHeightSystemServices()
         ;
     }
 }
