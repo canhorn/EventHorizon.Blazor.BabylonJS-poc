@@ -10,12 +10,10 @@ using EventHorizon.Game.Client.Systems.Map.Api;
 namespace EventHorizon.Game.Client.Systems.Map.Model
 {
     // MapMeshMaterial
-    [JsonConverter(typeof(CachedEntityConverter))]
+    [JsonConverter(typeof(CachedEntityConverter<BabylonJSMapMeshMaterial>))]
     public class BabylonJSMapMeshMaterial
         : StandardMaterial
     {
-        // TODO: [Random] : Create Random Abstraction 
-        private static Random RANDOM = new Random();
 
         private readonly IMapMeshMaterialDetails _settings;
         //private PointLight _light;

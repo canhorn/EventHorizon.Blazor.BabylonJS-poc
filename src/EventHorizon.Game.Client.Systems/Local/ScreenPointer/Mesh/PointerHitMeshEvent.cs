@@ -1,19 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Client.Engine.Entity.Api;
-using EventHorizon.Observer.Model;
-using EventHorizon.Observer.State;
-using MediatR;
-
-namespace EventHorizon.Game.Client.Systems.Local.ScreenPointer.Mesh
+﻿namespace EventHorizon.Game.Client.Systems.Local.ScreenPointer.Mesh
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Engine.Entity.Api;
+    using EventHorizon.Observer.Model;
+    using EventHorizon.Observer.State;
+    using MediatR;
+
     public struct PointerHitMeshEvent : INotification
     {
-        public string MeshName { get; set; }
-        public IVector3 Position { get; set; }
+        public string MeshName { get; }
+        public IVector3 Position { get; }
+
+        public PointerHitMeshEvent(
+            string meshName,
+            IVector3 position
+        )
+        {
+            MeshName = meshName;
+            Position = position;
+        }
     }
 
     public interface PointerHitMeshEventObserver

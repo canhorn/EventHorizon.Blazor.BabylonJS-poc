@@ -4,23 +4,26 @@
     using System.Linq;
     using System.Threading.Tasks;
     using BabylonJS;
+    using EventHorizon.Blazor.Interop.Callbacks;
     using EventHorizon.Game.Client.Engine.Entity.Tag;
     using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
     using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+    using EventHorizon.Game.Client.Systems.Height.Set;
     using EventHorizon.Game.Client.Systems.Lighting.Model;
     using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Mesh;
     using EventHorizon.Game.Client.Systems.Map.Api;
     using EventHorizon.Game.Client.Systems.Map.Hit;
+    using EventHorizon.Game.Client.Systems.Map.Ready;
     using EventHorizon.Observer.Register;
     using EventHorizon.Observer.Unregister;
     using MediatR;
 
     public class BabylonJSMapMeshFromHeightMapEntity
-        : ServerLifecycleEntityBase, 
-        IMapMeshEntity, 
+        : ServerLifecycleEntityBase,
+        IMapMeshEntity,
         PointerHitMeshEventObserver
     {
         private readonly IMediator _mediator;
@@ -71,9 +74,22 @@
                     updateable = _details.Updatable,
                     //updatable?: boolean;
                     //isPickable?: boolean;
-                    //onReady = new ActionCallback(
-                    //    () => Task.CompletedTask
-                    //),
+                    onReady = new ActionCallback<GroundMesh>(
+                        async (GroundMesh mesh) =>
+                        {
+                            mesh.updateCoordinateHeights();
+                            await _mediator.Send(
+                                new SetHeightResolverCoordinatesCommand(
+                                    new BabylonJSHeightCoordinates(
+                                        _mesh
+                                    )
+                                )
+                            );
+                            await _mediator.Publish(
+                                new MapMeshReadyEvent()
+                            );
+                        }
+                    ),
                 },
                 scene
             );
@@ -118,7 +134,7 @@
         {
             return Task.CompletedTask;
         }
-        private Light GetLight() 
+        private Light GetLight()
         {
             var entityQueryList = _trackingService.QueryByTag<BabylonJSPointLightEntity>(
                 new TagBuilder(
