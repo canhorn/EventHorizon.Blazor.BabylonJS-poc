@@ -2,7 +2,7 @@
 {
     public interface IHeightResolver
     {
-        decimal findHeight(
+        decimal FindHeight(
             decimal x, 
             decimal z
         );

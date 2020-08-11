@@ -19,6 +19,7 @@
     using System.Timers;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Timer.Api;
+    using EventHorizon.Game.Client.Core.Factory.Api;
 
     [Authorize]
     public class GamePageModel : ComponentBase
@@ -32,7 +33,7 @@
         [Inject]
         public IConfiguration Configuration { get; set; }
         [Inject]
-        public ITimerService TimerService { get; set; }
+        public IFactory<ITimerService> TimerServiceFactory { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -52,7 +53,6 @@
             KeyboardEventArgs args
         )
         {
-            Console.WriteLine(args.Key);
             Mediator.Send(
                 new TriggerInputCommand(
                     args.Key,
@@ -64,7 +64,6 @@
             KeyboardEventArgs args
         )
         {
-            Console.WriteLine(args.Key);
             Mediator.Send(
                 new TriggerInputCommand(
                     args.Key,

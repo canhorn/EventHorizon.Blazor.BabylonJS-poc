@@ -8,6 +8,7 @@
     using EventHorizon.Game.Client.Systems.Account.Api;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
     using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer;
+    using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Model;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using Microsoft.Extensions.Logging;
 
@@ -24,14 +25,14 @@
 
         public override async Task Initialize()
         {
-            await Register(
-                new PointLightEntity(
-                    new LightSettings
-                    {
-                        Name = "TestingLight",
-                    }
-                )
-            );
+            //await Register(
+            //    new PointLightEntity(
+            //        new LightSettings
+            //        {
+            //            Name = "TestingLight",
+            //        }
+            //    )
+            //);
             // TODO: Enable Loading 
             //await _mediator.Publish(
             //    new ShowLoadingUIEvent()
@@ -44,23 +45,18 @@
                 )
             );
 
-            // TODO: Testing
+            // TODO: Testing - Move to PlayerEntity Creation when implemented 
             new BabylonJSScreenPointerModule();
         }
 
         public override Task PostInitialize()
         {
-            return Task.CompletedTask;
-        }
-
-        public override Task Dispose()
-        {
-            return Task.CompletedTask;
+            return base.PostInitialize();
         }
 
         public override Task Update()
         {
-            return Task.CompletedTask;
+            return base.Update();
         }
 
         public override Task Draw()

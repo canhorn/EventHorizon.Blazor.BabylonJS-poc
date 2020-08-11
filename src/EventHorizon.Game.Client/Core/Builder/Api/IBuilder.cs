@@ -1,9 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Core.Builder.Api
 {
-    public interface IBuilder<T, D>
+    public interface IBuilder<TResult, TData>
     {
-        public T Build(
-            D details
+        public TResult Build(
+            TData details
         );
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Factory.Api;
     using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
@@ -17,11 +18,11 @@
 
         public RegisterInitializableBase(
             IMediator mediator,
-            ITimerService timerService
+            IFactory<ITimerService> timerServiceFactory
         )
         {
             _mediator = mediator;
-            _timerService = timerService;
+            _timerService = timerServiceFactory.Create();
         }
 
         private void HandleRun()

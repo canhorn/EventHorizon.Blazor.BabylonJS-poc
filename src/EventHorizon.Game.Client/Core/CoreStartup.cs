@@ -1,5 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Core
 {
+    using EventHorizon.Game.Client.Core.Factory.Api;
+    using EventHorizon.Game.Client.Core.Factory.Model;
     using EventHorizon.Game.Client.Core.Monitoring.Api;
     using EventHorizon.Game.Client.Core.Monitoring.Model;
     using EventHorizon.Game.Client.Core.Timer.Api;
@@ -12,7 +14,8 @@
             this IServiceCollection services
         ) => services
             .AddSingleton<IPlatformMonitor, StandardPlatformMonitor>()
-            .AddTransient<ITimerService, TImerService>()
+            .AddSingleton<IFactory<ITimerService>>(new StandardFactory<ITimerService>(() => new TimerService()))
+            .AddSingleton<IFactory<IIntervalTimerService>>(new StandardFactory<IIntervalTimerService>(() => new IntervalTimerService()))
         ;
     }
 }

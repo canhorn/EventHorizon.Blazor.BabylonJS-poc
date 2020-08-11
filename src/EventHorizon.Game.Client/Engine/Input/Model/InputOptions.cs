@@ -21,7 +21,7 @@
         }
 
         #region Generated
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is InputOptions options &&
                    Key == options.Key &&

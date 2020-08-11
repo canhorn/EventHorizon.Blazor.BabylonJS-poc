@@ -49,21 +49,16 @@
 
         public override Task PostInitialize()
         {
-            return Task.CompletedTask;
+            return base.PostInitialize();
         }
 
         public override Task Dispose()
         {
             _camera.dispose();
-            return Task.CompletedTask;
+            return base.Dispose();
         }
 
         public override Task Draw()
-        {
-            return Task.CompletedTask;
-        }
-
-        public override Task Update()
         {
             return Task.CompletedTask;
         }

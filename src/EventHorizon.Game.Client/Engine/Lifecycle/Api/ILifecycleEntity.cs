@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EventHorizon.Game.Client.Engine.Lifecycle.Api
+﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Api
 {
+    using System.Collections.Generic;
+
     public interface ILifecycleEntity
         : IInitializableEntity,
         IDisposableEntity,

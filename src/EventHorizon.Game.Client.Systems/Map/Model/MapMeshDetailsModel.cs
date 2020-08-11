@@ -5,9 +5,9 @@
     public class MapMeshDetailsModel
         : IMapMeshDetails
     {
-        public string Name { get; set; }
-        public string HeightMapUrl { get; set; }
-        public string Light { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string HeightMapUrl { get; set; } = string.Empty;
+        public string Light { get; set; } = string.Empty;
         public int Width { get; set; }
         public int Height { get; set; }
         public int Subdivisions { get; set; }
@@ -15,7 +15,7 @@
         public int MaxHeight { get; set; }
         public bool Updatable { get; set; }
         public bool IsPickable { get; set; }
-        public MapMeshMaterialModel Material { get; set; }
+        public MapMeshMaterialModel Material { get; set; } = new MapMeshMaterialModel();
         IMapMeshMaterialDetails IMapMeshDetails.Material => Material;
     }
 }

@@ -31,7 +31,7 @@
             _state.SetAccountUser(
                 notification.AccountInfo
             );
-            return _mediator.Send(
+            return _mediator.Publish(
                 new AccountChangedEvent()
             );
         }

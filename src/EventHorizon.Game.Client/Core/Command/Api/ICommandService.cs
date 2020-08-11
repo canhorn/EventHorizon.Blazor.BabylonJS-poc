@@ -9,6 +9,6 @@ namespace EventHorizon.Game.Client.Core.Command.Api
 {
     public interface ICommandService
     {
-        Task<R> Send<T, R>(T command) where T : ICommandEvent<R>;
+        Task<R> Send<T, R>(T command) where T : ICommand<R>;
     }
 }

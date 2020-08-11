@@ -11,7 +11,7 @@
         ) => services
             .AddCoreConnectionServices()
 
-            .AddZonePlayerConnectionServices()
+            .AddPlayerZoneConnectionServices()
         ;
     }
 }

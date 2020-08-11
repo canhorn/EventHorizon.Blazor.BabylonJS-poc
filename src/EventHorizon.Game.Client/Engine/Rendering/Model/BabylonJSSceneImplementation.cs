@@ -8,21 +8,14 @@
     public class BabylonJSSceneImplementation
         : ISceneImplementation
     {
+        public Scene Scene { get; private set; }
+
         public BabylonJSSceneImplementation(
             Engine engine
         )
         {
             Scene = new Scene(engine);
         }
-
-        public Scene Scene { get; }
-
-        //private BabylonJSSceneImplementation(
-        //    Scene scene
-        //)
-        //{
-        //    Scene = scene;
-        //}
 
         public void Dispose()
         {
@@ -37,9 +30,6 @@
             Func<Task> afterRenderAction
         ) => Scene.registerAfterRender(afterRenderAction);
 
-        public void Render()
-        {
-            Scene.render(true, false);
-        }
+        public void Render() => Scene.render(true, false);
     }
 }

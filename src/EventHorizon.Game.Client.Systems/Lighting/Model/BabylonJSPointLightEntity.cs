@@ -4,16 +4,19 @@
     using System.Linq;
     using System.Threading.Tasks;
     using BabylonJS;
+    using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Entity.Tag;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
     using EventHorizon.Game.Client.Systems.Lighting.Api;
+    using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Api;
+    using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Model;
 
     public class BabylonJSPointLightEntity
         : ServerLifecycleEntityBase, ILightEntity
     {
-        private readonly LightDetailsModel _details;
+        private readonly LightDetailsModel _lightDetails;
 
         public PointLight Light { get; private set; }
 
@@ -39,14 +42,14 @@
                 TagList = details.Tags.Concat(
                     new List<string>
                     {
-                        new TagBuilder("light").CreateTypeTag(),
-                        new TagBuilder(details.Name).CreateNameTag(),
+                        TagBuilder.CreateTypeTag("light"),
+                        TagBuilder.CreateNameTag(details.Name),
                     }
                 ).ToList(),
             }
         )
         {
-            _details = details;
+            _lightDetails = details;
         }
 
         public override Task Initialize()
@@ -54,29 +57,36 @@
             var scene = GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene;
             Light = new PointLight(
                 Name,
-                Transform.Position as Vector3,
+                Transform.Position.ToBabylonJS(),
                 scene
             );
-            if (_details.EnableDayNightCycle)
+            if (_lightDetails.EnableDayNightCycle)
             {
-                // TODO: [MODULE] : Register Module
-                //this.registerModule(
-                //    SUNLIGHT_MODULE_NAME,
-                //    new SunlightModule(this._light)
-                //);
+                RegisterModule(
+                    ISunlightModule.MODULE_NAME,
+                    new SunlightModule(
+                        this,
+                        false,
+                        (position, intensity) =>
+                        {
+                            Transform.Position.Set(position);
+                            Light.intensity = intensity;
+                        }
+                    )
+                );
             }
             return Task.CompletedTask;
         }
 
         public override Task PostInitialize()
         {
-            return Task.CompletedTask;
+            return base.PostInitialize();
         }
 
         public override Task Dispose()
         {
             Light.dispose();
-            return Task.CompletedTask;
+            return base.Dispose();
         }
 
         public override Task Draw()
@@ -86,7 +96,7 @@
 
         public override Task Update()
         {
-            return Task.CompletedTask;
+            return base.Update();
         }
     }
 }

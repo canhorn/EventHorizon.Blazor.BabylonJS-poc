@@ -15,6 +15,8 @@
     using EventHorizon.Game.Client.Engine.Settings.Api;
     using EventHorizon.Game.Client.Engine.Settings.Model;
     using EventHorizon.Game.Client.Engine.Systems;
+    using EventHorizon.Game.Client.Engine.Window.Api;
+    using EventHorizon.Game.Client.Engine.Window.Model;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ClientExtensions
@@ -36,6 +38,7 @@
             .AddServiceEntity<ICanvas, BabylonJSCanvas>()
             .AddTransient<IEngine, Engine.Engine>()
             .AddTransient<IStartup, Startup>()
+            .AddSingleton<ISystemWindow, BrowserSystemWindow>()
         ;
     }
 }

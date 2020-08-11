@@ -1,17 +1,11 @@
 ﻿namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes.GameScenes.MainMenu
 {
-    using System;
     using System.Threading.Tasks;
-    using BabylonJS;
-    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes;
     using EventHorizon.Game.Client;
-    using EventHorizon.Game.Client.Systems.Account.Api;
-    using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Start;
     using global::BabylonJS;
     using global::BabylonJS.GUI;
-    using MediatR;
     using Microsoft.Extensions.Logging;
 
     public class MainMenuScene
@@ -26,7 +20,7 @@
         {
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
             _advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
@@ -96,13 +90,15 @@
             stack.addControl(
                 accountDetailsButton
             );
+
+            return Task.CompletedTask;
         }
 
         public override Task Dispose()
         {
             _advancedTexture.dispose();
 
-            return Task.CompletedTask;
+            return base.Dispose();
         }
 
         public override Task Draw()
@@ -112,12 +108,12 @@
 
         public override Task PostInitialize()
         {
-            return Task.CompletedTask;
+            return base.PostInitialize();
         }
 
         public override Task Update()
         {
-            return Task.CompletedTask;
+            return base.Update();
         }
     }
 }

@@ -9,11 +9,11 @@
     public class StartPlayerZoneConnectionCommandHandler
         : IRequestHandler<StartPlayerZoneConnectionCommand, bool>
     {
-        private readonly IZonePlayerConnectionState _state;
+        private readonly IPlayerZoneConnectionState _state;
         private readonly IGameSettings _settings;
 
         public StartPlayerZoneConnectionCommandHandler(
-            IZonePlayerConnectionState state,
+            IPlayerZoneConnectionState state,
             IGameSettings settings
         )
         {

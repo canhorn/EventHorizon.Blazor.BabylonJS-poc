@@ -29,7 +29,7 @@
         private readonly IMediator _mediator;
         private readonly IRenderingScene _renderingScene;
         private readonly IServerEntityTrackingState _trackingService;
-        private readonly IMapMeshDetails _details;
+        private readonly IMapMeshDetails _mapDetails;
 
         private GroundMesh _mesh;
         private BabylonJSMapMeshMaterial _material;
@@ -44,8 +44,8 @@
                 Type = "mapMeshFromHeightMap",
                 TagList = new List<string>
                 {
-                    new TagBuilder("map").CreateTypeTag(),
-                    new TagBuilder("mapMeshFromHeightMap").CreateNameTag(),
+                    TagBuilder.CreateTypeTag("map"),
+                    TagBuilder.CreateNameTag("mapMeshFromHeightMap"),
                 },
             }
         )
@@ -53,27 +53,25 @@
             _mediator = GameServiceProvider.GetService<IMediator>();
             _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
             _trackingService = GameServiceProvider.GetService<IServerEntityTrackingState>();
-            _details = details;
+            _mapDetails = details;
         }
 
         public override async Task Initialize()
         {
             var scene = _renderingScene.GetBabylonJSScene().Scene;
             var name = Name;
-            var assetUrl = AssetServer.CreateAssetLocationUrl(this._details.HeightMapUrl);
+            var assetUrl = AssetServer.CreateAssetLocationUrl(_mapDetails.HeightMapUrl);
             _mesh = MeshBuilder.CreateGroundFromHeightMap(
                 name,
                 assetUrl,
                 new
                 {
-                    width = _details.Width,
-                    height = _details.Height,
-                    subdivisions = _details.Subdivisions,
-                    minHeight = _details.MinHeight,
-                    maxHeight = _details.MaxHeight,
-                    updateable = _details.Updatable,
-                    //updatable?: boolean;
-                    //isPickable?: boolean;
+                    width = _mapDetails.Width,
+                    height = _mapDetails.Height,
+                    subdivisions = _mapDetails.Subdivisions,
+                    minHeight = _mapDetails.MinHeight,
+                    maxHeight = _mapDetails.MaxHeight,
+                    updatable = _mapDetails.Updatable,
                     onReady = new ActionCallback<GroundMesh>(
                         async (GroundMesh mesh) =>
                         {
@@ -94,14 +92,14 @@
                 scene
             );
             _mesh.material = _material = new BabylonJSMapMeshMaterial(
-                _details.Material,
+                _mapDetails.Material,
                 $"{name}-material",
                 GetLight(),
                 scene
             );
-            _mesh.isPickable = _details.IsPickable;
+            _mesh.isPickable = _mapDetails.IsPickable;
 
-            if (this._mesh.isPickable)
+            if (_mesh.isPickable)
             {
                 await _mediator.Send(
                     new RegisterObserverCommand(this)
@@ -109,12 +107,12 @@
             }
         }
 
-        public override Task PostInitialize()
+        public override async Task PostInitialize()
         {
+            await base.PostInitialize();
             _material.setLight(
                 GetLight()
             );
-            return Task.CompletedTask;
         }
 
         public override async Task Dispose()
@@ -123,11 +121,13 @@
                 new UnregisterObserverCommand(this)
             );
             _mesh.dispose();
+
+            await base.Dispose();
         }
 
         public override Task Update()
         {
-            return Task.CompletedTask;
+            return base.Update();
         }
 
         public override Task Draw()
@@ -137,9 +137,9 @@
         private Light GetLight()
         {
             var entityQueryList = _trackingService.QueryByTag<BabylonJSPointLightEntity>(
-                new TagBuilder(
-                    _details.Light
-                ).CreateNameTag()
+                TagBuilder.CreateNameTag(
+                    _mapDetails.Light
+                )
             );
             return entityQueryList
                 .FirstOrDefault()

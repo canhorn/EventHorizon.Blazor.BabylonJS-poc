@@ -1,10 +1,13 @@
 ﻿namespace EventHorizon.Game.Client.Systems
 {
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client.Account;
+    using EventHorizon.Game.Client.Systems.ClientAssets;
     using EventHorizon.Game.Client.Systems.Connection;
+    using EventHorizon.Game.Client.Systems.Entity;
     using EventHorizon.Game.Client.Systems.Height;
     using EventHorizon.Game.Client.Systems.Local.Scenes;
     using EventHorizon.Game.Client.Systems.Map;
+    using EventHorizon.Game.Client.Systems.Player;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -22,8 +25,11 @@
             .AddConnectionSystemServices()
 
             // Zone Server Systems
+            .AddEntitySystemServices()
+            .AddPlayerSystemServices()
             .AddMapSystemServices()
             .AddHeightSystemServices()
+            .AddClientAssetsSystemServices()
         ;
     }
 }

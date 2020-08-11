@@ -1,25 +1,28 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Entity.Tag
 {
-    public struct TagBuilder
+    public static class TagBuilder
     {
-        public string Tag { get; }
+        public static string UNDEFINED = "UNDEFINED";
 
-        public TagBuilder(
-            string tag
-        )
-        {
-            Tag = tag;
-        }
-    }
-
-    public static class TagBuilderExtensions
-    {
         public static string CreateNameTag(
-            this TagBuilder tagBuilder
-        ) => $"name:{tagBuilder.Tag}";
+            string identifier
+        ) => CreateTag("name", identifier);
+
+        public static string CreateIdTag(
+            string identifier
+        ) => CreateTag("id", identifier);
+
+        public static string CreateGlobalIdTag(
+            string identifier
+        ) => CreateTag("globalId", identifier);
 
         public static string CreateTypeTag(
-            this TagBuilder tagBuilder
-        ) => $"type:{tagBuilder.Tag}";
+            string identifier
+        ) => CreateTag("type", identifier);
+
+        public static string CreateTag(
+            string name,
+            string identifier
+        ) => $"{name}:{identifier}";
     }
 }

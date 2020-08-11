@@ -11,6 +11,6 @@
         IServerVector3 IServerTransform.Rotation => Rotation;
         public ServerVector3 Scaling { get; set; } = ServerVector3.One();
         IServerVector3 IServerTransform.Scaling => Scaling;
-        public long? ScalingDeterminant { get; set; }
+        public decimal? ScalingDeterminant { get; set; }
     }
 }

@@ -75,7 +75,7 @@
         {
             await Dispose();
             await Initialize();
-            await _mediator.Send(
+            await _mediator.Publish(
                 new CanvasResetFinished()
             );
         }

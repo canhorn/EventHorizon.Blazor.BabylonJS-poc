@@ -45,13 +45,13 @@
 
         public override Task PostInitialize()
         {
-            return Task.CompletedTask;
+            return base.PostInitialize();
         }
 
         public override Task Dispose()
         {
             _light.dispose();
-            return Task.CompletedTask;
+            return base.Dispose();
         }
 
         public override Task Draw()
@@ -61,7 +61,7 @@
 
         public override Task Update()
         {
-            return Task.CompletedTask;
+            return base.Update();
         }
     }
 }

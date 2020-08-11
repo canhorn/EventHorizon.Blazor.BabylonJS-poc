@@ -47,6 +47,7 @@ namespace EventHorizon.Game.Client
             GameServiceProvider.SetServiceProvider(
                 _serviceScope.ServiceProvider
             );
+            GamePlatfromServices.Setup();
         }
 
         public void Setup(

@@ -28,7 +28,7 @@ namespace EventHorizon.Game.Client.Engine.Systems.Entity.Register
             CancellationToken cancellationToken
         )
         {
-            await _mediator.Send(
+            await _mediator.Publish(
                 new RegisteringClientEntity(
                     request.EntityDetails
                 )
@@ -36,7 +36,7 @@ namespace EventHorizon.Game.Client.Engine.Systems.Entity.Register
             _state.Set(
                 request.EntityDetails
             );
-            await _mediator.Send(
+            await _mediator.Publish(
                 new ClientEntityRegistered(
                     request.EntityDetails
                 )

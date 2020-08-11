@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EventHorizon.Game.Client.Engine.Rendering.Api;
-
-namespace EventHorizon.Game.Client.Engine.Rendering.Model
+﻿namespace EventHorizon.Game.Client.Engine.Rendering.Model
 {
+    using EventHorizon.Game.Client.Engine.Rendering.Api;
+
     public class RenderingTimeBase
         : IRenderingTime
     {

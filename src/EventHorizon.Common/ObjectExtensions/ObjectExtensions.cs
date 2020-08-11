@@ -1,13 +1,23 @@
 using Newtonsoft.Json.Linq;
 using System;
+using System.Text.Json;
 
 public static class ObjectExtensions
 {
     public static T Cast<T>(this object objectToCast)
     {
-        if (objectToCast != null && objectToCast.GetType() == typeof(JObject))
+        if (typeof(T).IsInterface)
         {
-            return (objectToCast as JObject).ToObject<T>();
+            return (T)objectToCast;
+        }
+        else if (objectToCast != null && objectToCast is JObject jObject)
+        {
+            return jObject.ToObject<T>() ?? default;
+        }
+        else if (objectToCast != null
+                && objectToCast is JsonElement jsonElement)
+        {
+            return jsonElement.ToObject<T>() ?? default;
         }
         return (T)objectToCast;
     }

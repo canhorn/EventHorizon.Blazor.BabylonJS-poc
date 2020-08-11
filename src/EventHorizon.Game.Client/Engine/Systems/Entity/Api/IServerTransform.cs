@@ -5,6 +5,6 @@
         IServerVector3 Position { get; }
         IServerVector3 Rotation { get; }
         IServerVector3 Scaling { get; }
-        long? ScalingDeterminant { get; }
+        decimal? ScalingDeterminant { get; }
     }
 }

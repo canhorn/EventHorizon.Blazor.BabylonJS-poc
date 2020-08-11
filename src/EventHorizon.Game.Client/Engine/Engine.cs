@@ -105,9 +105,11 @@
         {
             _logger.LogDebug("Start");
             _platformMonitor.TrackEvent("Game:Start");
-            _renderingScene.RegisterAfterRender(
+            _renderingScene.RegisterBeforeRender(
                 async () =>
                 {
+                    //var deltaTime = _renderingEngine.GetEngine().GetDeltaTime();
+                    //Console.WriteLine($"deltaTime: {deltaTime}");
                     await _registerUpdatable.Run();
                 }
             );

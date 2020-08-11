@@ -49,6 +49,11 @@
                         {
                             options.AccessTokenProvider = () => accessToken.FromResult();
                         }
+                    ).ConfigureLogging(
+                        builder =>
+                        {
+                            builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
+                        }
                     ).Build();
 
                 _connection.On(
@@ -104,7 +109,7 @@
                 code = "exception";
             }
 
-            return _mediator.Send(
+            return _mediator.Publish(
                 new AccountDisconnectedEvent(
                     code,
                     ex

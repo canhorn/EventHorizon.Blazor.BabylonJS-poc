@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EventHorizon.Game.Client.Core.Exceptions
+﻿namespace EventHorizon.Game.Client.Core.Exceptions
 {
+    using System;
+
     public class GameRuntimeException : Exception
     {
         public string ErrorCode { get; private set; }

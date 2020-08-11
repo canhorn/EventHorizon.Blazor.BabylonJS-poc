@@ -32,7 +32,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes
         public override Task Dispose()
         {
             _mesh.dispose();
-            return Task.CompletedTask;
+            return base.Dispose();
         }
 
         public override Task Draw()
@@ -53,12 +53,12 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes
 
         public override Task PostInitialize()
         {
-            return Task.CompletedTask;
+            return base.PostInitialize();
         }
 
         public override Task Update()
         {
-            return Task.CompletedTask;
+            return base.Update();
         }
     }
 }

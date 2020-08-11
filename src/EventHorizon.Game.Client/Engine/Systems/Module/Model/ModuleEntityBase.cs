@@ -6,12 +6,17 @@
     using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
     public abstract class ModuleEntityBase
-        : ClientEntityBase, IModule
+        : ClientEntityBase, 
+        IModule
     {
+        public abstract int Priority { get; }
+
         protected ModuleEntityBase()
             : base(GameServiceProvider.GetService<IIndexPool>().NextIndex())
         {
         }
+
+        public abstract Task Initialize();
 
         public abstract Task Dispose();
 

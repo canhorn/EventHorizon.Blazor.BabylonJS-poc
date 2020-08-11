@@ -14,7 +14,7 @@ namespace EventHorizon.Game.Client.Systems.Height.State
     {
         private IHeightCoordinates _coordinates = new DefaultHeightCoordinates();
 
-        public decimal findHeight(
+        public decimal FindHeight(
             decimal x, 
             decimal z
         ) => _coordinates.getHeightAtCoordinates(

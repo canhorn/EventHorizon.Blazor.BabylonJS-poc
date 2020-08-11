@@ -24,6 +24,8 @@
       <Folder Include="Engine\Particle\Update\" />
       <Folder Include="Engine\Particle\Stop\" />
       <Folder Include="Engine\Particle\Start\" />
+      <Folder Include="Engine\Systems\ClientAction\Model\" />
+      <Folder Include="Engine\Systems\ClientAction\State\" />
     </ItemGroup>
 
 </Project>

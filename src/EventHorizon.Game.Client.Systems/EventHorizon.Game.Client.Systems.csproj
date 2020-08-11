@@ -2,6 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>8.0</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,12 +18,10 @@
 
     <ItemGroup>
       <Folder Include="Connection\Zone\Player\Connected\" />
-      <Folder Include="Connection\Zone\Player\Invoke\" />
       <Folder Include="Connection\Zone\Player\Action\" />
       <Folder Include="Connection\Zone\Player\Stop\" />
       <Folder Include="Local\ScreenPointer\Api\" />
       <Folder Include="Map\Create\" />
-      <Folder Include="Player\" />
     </ItemGroup>
 
 </Project>

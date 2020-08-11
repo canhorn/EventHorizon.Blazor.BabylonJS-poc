@@ -4,7 +4,7 @@
     using System.Timers;
     using EventHorizon.Game.Client.Core.Timer.Api;
 
-    public class TImerService
+    public class TimerService
         : ITimerService
     {
         private Timer? _timer;
