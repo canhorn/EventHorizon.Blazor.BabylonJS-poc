@@ -87,12 +87,13 @@
                     this
                 )
             );
-            //RegisterModule(
-            //    IInViewModule.MODULE_NAME,
-            //    new InViewModule(
-            //        this
-            //    )
-            //);
+            // TODO: Add back after more testing
+            RegisterModule(
+                IInViewModule.MODULE_NAME,
+                new InViewModule(
+                    this
+                )
+            );
             // TODO: INTERACTION_MODULE_NAME
             //this.registerModule(
             //    INTERACTION_MODULE_NAME,

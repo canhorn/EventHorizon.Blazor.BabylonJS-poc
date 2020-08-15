@@ -156,5 +156,24 @@
                 newPosition
             );
         }
+
+        public void SetRotation(
+            IVector3 rotation
+        )
+        {
+            _entity.Transform.Rotation.Set(
+                rotation
+            );
+            // Set Mesh to Rotation
+            var meshModule = _entity.GetModule<IMeshModule>(
+                IMeshModule.MODULE_NAME
+            );
+            if (meshModule != null)
+            {
+                meshModule.Mesh.Rotation.Set(
+                    rotation
+                );
+            }
+        }
     }
 }

@@ -44,9 +44,6 @@
                     serverAddress
                 )
             );
-
-            // TODO: Testing - Move to PlayerEntity Creation when implemented 
-            new BabylonJSScreenPointerModule();
         }
 
         public override Task PostInitialize()

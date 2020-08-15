@@ -55,11 +55,11 @@
             {
                 return;
             }
-            await _mediator.Publish(
-                new EntityStoppingEvent(
-                    _entity.ClientId
-                )
-            );
+            //await _mediator.Publish(
+            //    new EntityStoppingEvent(
+            //        _entity.ClientId
+            //    )
+            //);
         }
     }
 }

@@ -24,5 +24,8 @@
         IEngineMesh Clone(
             string identifier
         );
+        IVector3 GetDirection(
+            IVector3 localAxis
+        );
     }
 }

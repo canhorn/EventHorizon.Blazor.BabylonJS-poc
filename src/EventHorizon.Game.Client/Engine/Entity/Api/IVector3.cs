@@ -26,5 +26,6 @@
         void AddInPlace(
             IVector3 velocity
         );
+        double LengthSquared();
     }
 }

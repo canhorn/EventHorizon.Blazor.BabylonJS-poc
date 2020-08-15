@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Monitoring.Api;
     using EventHorizon.Game.Client.Engine.Canvas.Api;
+    using EventHorizon.Game.Client.Engine.Debugging.Model;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
     using EventHorizon.Game.Client.Engine.Services.Api;
@@ -110,7 +111,10 @@
                 {
                     //var deltaTime = _renderingEngine.GetEngine().GetDeltaTime();
                     //Console.WriteLine($"deltaTime: {deltaTime}");
-                    await _registerUpdatable.Run();
+                    //using (DebuggingLogger.CreateLoggerGroup())
+                    //{
+                        await _registerUpdatable.Run();
+                    //}
                 }
             );
             _renderingEngine.RunRenderLoop(

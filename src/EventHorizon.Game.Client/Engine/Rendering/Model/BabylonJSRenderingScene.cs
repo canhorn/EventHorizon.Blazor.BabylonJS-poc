@@ -4,10 +4,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Blazor.Interop;
     using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Entity.Model;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
-    using EventHorizon.Game.Client.Engine.Rendering.Api.Camera;
-    using EventHorizon.Game.Client.Engine.Rendering.Model.Camera;
 
     public class BabylonJSRenderingScene
         : IRenderingScene
@@ -17,8 +14,6 @@
         private readonly IRenderingEngine _renderingEngine;
 
         public int Priority => 80_000;
-
-        public ICamera? ActiveCamera { get; private set; }
 
         public BabylonJSRenderingScene(
             IRenderingEngine renderingEngine
@@ -53,28 +48,16 @@
             _scene = new BabylonJSSceneImplementation(
                 engine.Engine
             );
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[]
-                {
-                    new string[] { this._scene.Scene.___guid, "debugLayer", "show" },
-                    new
-                    {
-                        overlay = false
-                    }
-                }
-            );
-
-            ActiveCamera = new BabylonJSCamera(
-                _scene.Scene.activeCamera
-            );
-
-            _scene.Scene.onActiveCameraChanged.add((scene, eventState) =>
-            {
-                ActiveCamera = new BabylonJSCamera(
-                    scene.activeCamera
-                );
-                return Task.CompletedTask;
-            });
+            //EventHorizonBlazorInterop.Func<CachedEntity>(
+            //    new object[]
+            //    {
+            //        new string[] { this._scene.Scene.___guid, "debugLayer", "show" },
+            //        new
+            //        {
+            //            overlay = false
+            //        }
+            //    }
+            //);
 
             return Task.CompletedTask;
         }

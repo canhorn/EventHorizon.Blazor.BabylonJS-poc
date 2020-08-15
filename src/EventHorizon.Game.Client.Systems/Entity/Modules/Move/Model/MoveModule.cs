@@ -9,10 +9,8 @@
     using EventHorizon.Game.Client.Systems.Entity.Actions;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Api;
     using EventHorizon.Game.Client.Systems.Entity.Moving;
-    using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Api;
     using EventHorizon.Game.Client.Systems.Entity.States.Move.Model;
     using EventHorizon.Game.Client.Systems.Height.Api;
-    using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
     using EventHorizon.Observer.Register;
     using EventHorizon.Observer.Unregister;
@@ -27,9 +25,7 @@
         private readonly IHeightResolver _heightResolver;
         private readonly IObjectEntity _entity;
 
-        private IMovementState _movementState;
-        private IMeshModule _meshModule;
-        private IStateModule _stateModule;
+        private IStateModule? _stateModule;
 
         private IVector3? _currentMoveTo;
 
@@ -46,12 +42,6 @@
 
         public override async Task Initialize()
         {
-            _movementState = _entity.GetProperty<IMovementState>(
-                IMovementState.NAME
-            );
-            _meshModule = _entity.GetModule<IMeshModule>(
-                IMeshModule.MODULE_NAME
-            );
             _stateModule = _entity.GetModule<IStateModule>(
                 IStateModule.MODULE_NAME
             );
@@ -87,12 +77,8 @@
             ClientActionEntityMoveEvent args
         )
         {
-            if (args.EntityId != _entity.EntityId
-            )
-            {
-                return;
-            }
-            if (args.MoveTo == null)
+            if (args.EntityId != _entity.EntityId 
+                || args.MoveTo == null)
             {
                 return;
             }
@@ -104,14 +90,13 @@
                 return;
             }
             _currentMoveTo = moveTo;
-            _stateModule.Clear();
-            _stateModule.Add(
+            _stateModule!.Clear();
+            _stateModule!.Add(
                 new MoveState(
                     _entity,
                     "move_entity",
                     0.3m,
-                    new IVector3[] { _currentMoveTo },
-                    _movementState
+                    new IVector3[] { _currentMoveTo }
                 )
             );
             await _mediator.Publish(

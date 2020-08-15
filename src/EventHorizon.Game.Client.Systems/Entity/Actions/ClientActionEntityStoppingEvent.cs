@@ -4,13 +4,15 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
+    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.State;
     using MediatR;
 
-    // [ClientAction("ClientEntityStopping")]
+    [ClientAction("ClientEntityStopping")]
     public struct ClientActionEntityStoppingEvent
-        : INotification
+        : INotification,
+        IClientAction
     {
         public long EntityId { get; }
 

@@ -5,6 +5,7 @@ using EventHorizon.Game.Client.Core.Configuration;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine;
 using EventHorizon.Game.Client.Engine.Services.Api;
+using EventHorizon.Game.Client.Engine.Systems.Player.Api;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +16,7 @@ namespace EventHorizon.Game.Client
         void Setup(
             IGame game,
             string appendToTag,
-            string userAccessToken,
+            IPlayerDetails playerDetails,
             string accountLoginUrl,
             string coreServerUrl,
             string assetServerUrl,
@@ -26,7 +27,8 @@ namespace EventHorizon.Game.Client
         Task Stop();
     }
 
-    public class Startup : IStartup
+    public class Startup 
+        : IStartup
     {
         private readonly ILogger _logger;
         private readonly IEngine _engine;
@@ -53,7 +55,7 @@ namespace EventHorizon.Game.Client
         public void Setup(
             IGame game,
             string appendToTag,
-            string userAccessToken,
+            IPlayerDetails playerDetails,
             string accountLoginUrl,
             string coreServerUrl,
             string assetServerUrl,
@@ -68,8 +70,12 @@ namespace EventHorizon.Game.Client
                 appendToTag
             );
             Configuration.SetConfig(
+                "PLAYER_DETAILS",
+                playerDetails
+            );
+            Configuration.SetConfig(
                 "USER_ACCESS_TOKEN",
-                userAccessToken
+                playerDetails.AccessToken
             );
             Configuration.SetConfig(
                 "ACCOUNT_LOGIN_URL",

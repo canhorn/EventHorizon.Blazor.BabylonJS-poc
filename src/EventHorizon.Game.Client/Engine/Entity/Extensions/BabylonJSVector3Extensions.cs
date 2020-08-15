@@ -17,5 +17,13 @@
                 vector3
             );
         }
+
+        public static IVector3 ToStandardVector3(
+            this Vector3 vector3
+        ) => new StandardVector3(
+            vector3.x,
+            vector3.y,
+            vector3.z
+        );
     }
 }

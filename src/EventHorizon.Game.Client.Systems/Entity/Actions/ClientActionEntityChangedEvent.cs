@@ -4,14 +4,16 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
+    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.State;
     using MediatR;
 
-    // [ClientAction("EntityClientChanged")]
+    [ClientAction("EntityClientChanged")]
     public struct ClientActionEntityChangedEvent
-        : INotification
+        : INotification,
+        IClientAction
     {
         public IObjectEntityDetails Details { get; }
 
@@ -19,7 +21,8 @@
             IClientActionDataResolver resolver
         )
         {
-            Details = resolver.Resolve<IObjectEntityDetails>("entityId");
+            // TODO: Test This ( add in DetailsModule)
+            Details = resolver.Resolve<IObjectEntityDetails>("details");
         }
     }
 

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using BabylonJS;
+    using EventHorizon.Blazor.Interop;
     using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Entity.Model;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Api;
@@ -10,6 +11,10 @@
     public class BabylonJSEngineMesh
         : IEngineMesh
     {
+        public static readonly string OWNER_ENTITY_ID_NAME = "ownerEntityId";
+
+        private long _ownerEntityId;
+
         public Mesh Mesh { get; }
 
         public IVector3 Position { get; }
@@ -27,7 +32,16 @@
             }
         }
         public MeshSystemType SystemType { get; set; }
-        public long OwnerEntityId { get; set; }
+        public long OwnerEntityId
+        {
+            get => _ownerEntityId;
+            set
+            {
+                SetOwnerEntityId(
+                    value
+                );
+            }
+        }
         public IDictionary<string, object> MetaData { get; }
 
         public BabylonJSEngineMesh(
@@ -47,8 +61,11 @@
                 Mesh.scaling
             );
             SystemType = meshSystemType;
-            OwnerEntityId = ownerEntityId;
             MetaData = new Dictionary<string, object>();
+
+            SetOwnerEntityId(
+                ownerEntityId
+            );
         }
 
         public BabylonJSEngineMesh(
@@ -74,5 +91,26 @@
                 identifier
             )
         );
+
+        public IVector3 GetDirection(
+            IVector3 localAxis
+        )
+        {
+            return Mesh.getDirection(
+                localAxis.ToBabylonJS()
+            ).ToStandardVector3();
+        }
+
+        private void SetOwnerEntityId(
+            long entityId
+        )
+        {
+            EventHorizonBlazorInterop.Set(
+                Mesh.___guid,
+                OWNER_ENTITY_ID_NAME,
+                entityId
+            );
+            _ownerEntityId = entityId;
+        }
     }
 }

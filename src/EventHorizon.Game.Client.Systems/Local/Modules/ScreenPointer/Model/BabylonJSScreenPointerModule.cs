@@ -2,28 +2,35 @@
 {
     using System.Threading.Tasks;
     using BabylonJS;
-    using EventHorizon.Blazor.Interop;
     using EventHorizon.Game.Client.Engine.Entity.Model;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
+    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Api;
     using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
     using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Mesh;
+    using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Model;
     using MediatR;
 
     public class BabylonJSScreenPointerModule
         : ModuleEntityBase,
         IScreenPointerModule
     {
+        private readonly IMediator _mediator;
         private readonly IRenderingScene _renderingScene;
+        private readonly IObjectEntity _entity;
         private readonly string _addHandler;
 
         public override int Priority => 0;
 
-        public BabylonJSScreenPointerModule()
-            : base()
+        public BabylonJSScreenPointerModule(
+            IObjectEntity entity
+        ) : base()
         {
+            _mediator = GameServiceProvider.GetService<IMediator>();
             _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
+            _entity = entity;
+
             _addHandler = _renderingScene.GetBabylonJSScene()
                 .Scene
                 .onPointerObservable
@@ -40,6 +47,12 @@
         public override Task Dispose()
         {
             // TODO: Unregister from onPointerObservable.add
+            //_renderingScene.GetBabylonJSScene()
+            //    .Scene
+            //    .onPointerObservable
+            //    .add_removeAction(
+            //        _addHandler
+            //    );
             return Task.CompletedTask;
         }
 
@@ -53,9 +66,7 @@
             EventState eventState
         )
         {
-            // TODO: Move this to PointerEventTypes static class
-            // PointerEventTypes.POINTERUP = 2
-            if (pointerInfo.type == 2)
+            if (pointerInfo.type == BabylonJSPointerEventTypes.POINTERUP)
             {
                 await HandleEntityHit(
                     pointerInfo.pickInfo
@@ -68,10 +79,9 @@
         )
         {
             var ownerEntityId = pickInfo.pickedMesh.GetOwnerEntityId();
-            var mediator = GameServiceProvider.GetService<IMediator>();
             if (ownerEntityId != null)
             {
-                await mediator.Publish(
+                await _mediator.Publish(
                     new PointerHitEntityEvent(
                         (long)ownerEntityId
                     )
@@ -79,7 +89,7 @@
             }
             else
             {
-                await mediator.Publish(
+                await _mediator.Publish(
                     new PointerHitMeshEvent(
                         pickInfo.pickedMesh.name,
                         new BabylonJSVector3(
@@ -89,12 +99,6 @@
                 );
             }
         }
-
-        /// <summary>
-        /// Find the ownerEntityId, checking parent till null or found.
-        /// </summary>
-        /// <param name="pickedMesh"></param>
-        /// <returns></returns>
         private long? getOwnerEntityId(
             Node pickedMesh
         )
@@ -111,20 +115,6 @@
                 );
             }
             return null;
-        }
-    }
-
-    // TODO: Find a location for this Extension
-    public static class MeshExtensions
-    {
-        public static long? GetOwnerEntityId(
-            this Node mesh
-        )
-        {
-            return EventHorizonBlazorInterop.Get<long?>(
-                mesh.___guid,
-                "ownerEntityId"
-            );
         }
     }
 }

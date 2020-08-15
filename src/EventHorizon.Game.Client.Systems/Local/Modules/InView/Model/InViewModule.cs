@@ -1,16 +1,15 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.InView.Model
 {
-    using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Factory.Api;
     using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
+    using EventHorizon.Game.Client.Engine.Systems.Camera.Query;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Instanced.Model;
+    using EventHorizon.Game.Client.Systems.Local.InView.Entering;
+    using EventHorizon.Game.Client.Systems.Local.InView.Exiting;
     using EventHorizon.Game.Client.Systems.Local.Modules.InView.Api;
-    using EventHorizon.Game.Client.Systems.Local.Modules.InView.Entering;
-    using EventHorizon.Game.Client.Systems.Local.Modules.InView.Exiting;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
     using MediatR;
 
@@ -42,7 +41,7 @@
             var factory = GameServiceProvider.GetService<IFactory<IIntervalTimerService>>();
             _checkForInViewIntervalTimer = factory.Create();
             _checkForInViewIntervalTimer.Setup(
-                100,
+                250,
                 HandleCheckForEntityInView
             );
             _checkForInViewIntervalTimer.Start();
@@ -75,7 +74,15 @@
         private async Task HandleCheckForEntityInView()
         {
             // Check activeCamera.IsInFrustrum
-            var isInView = _renderingScene.ActiveCamera.IsInFrustum(
+            var queryResult = await _mediator.Send(
+                new QueryForActiveCamera()
+            );
+            if (!queryResult.Success)
+            {
+                // ignore, not need to do anything
+                return;
+            }
+            var isInView = queryResult.Result.IsInFrustum(
                 _meshModule.Mesh
             );
             if (isInView == _lastInView)
@@ -106,7 +113,7 @@
         private Task HandleToggleInView()
         {
             // TODO: [PERFORMANCE] : Check into this and see if it is still necessary.
-            _lastInView = !_lastInView;
+            //_lastInView = !_lastInView;
             return Task.CompletedTask;
         }
     }

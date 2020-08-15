@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Core.ModelResolver.Api;
+    using EventHorizon.Game.Client.Engine.Debugging.Model;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
     using MediatR;
@@ -75,7 +76,7 @@
                 }
             }
         }
-        public Task<StandardCommandResult> Handle(
+        public async Task<StandardCommandResult> Handle(
             PublishClientActionCommand request,
             CancellationToken cancellationToken
         )
@@ -93,8 +94,9 @@
                 );
                 if (instance != null)
                 {
+                    await DebuggingLogger.EnableClientLogging();
                     _logger.LogDebug("Action: {ClientAction}", request.ActionName);
-                    _mediator.Publish(
+                    await _mediator.Publish(
                         instance
                     );
                 }
@@ -138,7 +140,7 @@
             //    }
 
             //}
-            return new StandardCommandResult().FromResult();
+            return new StandardCommandResult();
         }
     }
     public class ClientActionDataResolver

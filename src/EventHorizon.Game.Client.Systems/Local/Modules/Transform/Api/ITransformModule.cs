@@ -10,5 +10,8 @@
         void Reset(
             IVector3 position
         );
+        void SetRotation(
+            IVector3 rotation
+        );
     }
 }

@@ -20,6 +20,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Core.Factory.Api;
+    using EventHorizon.Game.Client.Engine.Systems.Player.Model;
 
     [Authorize]
     public class GamePageModel : ComponentBase
@@ -76,10 +77,14 @@
         {
             var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
+            var playerId = state.User.Claims.FirstOrDefault(a => a.Type == "sub").Value;
             Startup.Setup(
                 new ServerGame(),
                 "game-window",
-                accessToken,
+                new StandardPlayerDetails(
+                    playerId,
+                    accessToken
+                ),
                 "/login?returnUrl=/game",
                 Configuration["Game:CoreServer"],
                 Configuration["Game:AssetServer"],

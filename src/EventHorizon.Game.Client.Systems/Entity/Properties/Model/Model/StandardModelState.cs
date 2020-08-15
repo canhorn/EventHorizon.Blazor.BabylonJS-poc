@@ -6,6 +6,8 @@
     public class StandardModelState
         : IModelState
     {
+        public decimal? ScalingDeterminant { get; set; }
+
         public StandardModelMesh Mesh { get; set; } = new StandardModelMesh();
         IModelMesh IModelState.Mesh => Mesh;
     }

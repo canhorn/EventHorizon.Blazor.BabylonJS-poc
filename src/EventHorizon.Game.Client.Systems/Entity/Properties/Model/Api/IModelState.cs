@@ -6,6 +6,7 @@
     {
         public static string NAME = "modelState";
 
+        decimal? ScalingDeterminant { get; }
         IModelMesh Mesh { get; }
     }
 

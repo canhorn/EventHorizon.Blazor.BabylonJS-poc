@@ -1,18 +1,17 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Model
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Factory.Api;
     using EventHorizon.Game.Client.Core.Timer.Api;
-    using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Api;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Loaded;
-    using EventHorizon.Game.Client.Systems.Local.Modules.InView.Entering;
-    using EventHorizon.Game.Client.Systems.Local.Modules.InView.Exiting;
+    using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
+    using EventHorizon.Game.Client.Systems.Local.InView.Entering;
+    using EventHorizon.Game.Client.Systems.Local.InView.Exiting;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set;
     using EventHorizon.Game.Client.Systems.Map.Ready;
@@ -47,6 +46,7 @@
         private readonly MeshModuleOptions _options;
 
         private IIntervalTimerService? _timer;
+        private IModelState? _modelState;
 
         public override int Priority => 0;
 
@@ -67,6 +67,9 @@
 
         public override async Task Initialize()
         {
+            _modelState = _entity.GetProperty<IModelState>(
+                IModelState.NAME
+            );
             await _mediator.Send(
                 new RegisterObserverCommand(
                     this
@@ -78,7 +81,7 @@
             _timer = GameServiceProvider.GetService<IFactory<IIntervalTimerService>>()
                 .Create()
                 .Setup(
-                    millisecondInterval: 10,
+                    millisecondInterval: 100,
                     onElapsed: () =>
                     {
                         _entity.Transform.Position.Set(
@@ -127,6 +130,16 @@
             {
                 Mesh.ScalingDeterminant = _entity.Transform.ScalingDeterminant.Value;
             }
+            else
+            {
+                if (_modelState != null 
+                    && _modelState.ScalingDeterminant.HasValue
+                )
+                {
+                    Mesh.ScalingDeterminant = _modelState.ScalingDeterminant.Value;
+                }
+            }
+
         }
 
         private IEngineMesh BuildMesh()
@@ -169,7 +182,7 @@
 
             await _mediator.Publish(
                 new MeshSetEvent(
-                    ClientId
+                    _entity.ClientId
                 )
             );
         }

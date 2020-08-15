@@ -14,6 +14,15 @@
             Result = result;
             ErrorCode = string.Empty;
         }
+        public CommandResult(
+            bool success, 
+            T result
+        )
+        {
+            Success = success;
+            Result = result;
+            ErrorCode = string.Empty;
+        }
 
         public CommandResult(
             string errorCode

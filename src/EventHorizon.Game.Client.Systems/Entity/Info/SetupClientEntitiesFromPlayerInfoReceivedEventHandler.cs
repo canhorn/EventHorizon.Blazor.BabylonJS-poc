@@ -7,12 +7,12 @@
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
     using MediatR;
 
-    public class SetupClientEntitysFromPlayerInfoReceivedEventHandler
+    public class SetupClientEntitiesFromPlayerInfoReceivedEventHandler
         : INotificationHandler<PlayerZoneInfoReceivedEvent>
     {
         private readonly IMediator _mediator;
 
-        public SetupClientEntitysFromPlayerInfoReceivedEventHandler(
+        public SetupClientEntitiesFromPlayerInfoReceivedEventHandler(
             IMediator mediator
         )
         {

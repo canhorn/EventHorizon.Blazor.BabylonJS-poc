@@ -2,8 +2,16 @@
 {
     using MediatR;
 
-    public struct UnregisterInputCommand : IRequest
+    public struct UnregisterInputCommand
+        : IRequest
     {
-        public string Handle { get; set; }
+        public string Handle { get; }
+
+        public UnregisterInputCommand(
+            string handle
+        )
+        {
+            Handle = handle;
+        }
     }
 }

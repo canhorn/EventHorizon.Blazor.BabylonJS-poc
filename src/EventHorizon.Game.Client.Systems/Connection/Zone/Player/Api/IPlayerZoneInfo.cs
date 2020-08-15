@@ -11,5 +11,6 @@
         IMapMeshDetails MapMesh { get; }
         IEnumerable<IClientAsset> ClientAssetList { get; }
         IEnumerable<IObjectEntityDetails> ClientEntityList { get; }
+        IEnumerable<IObjectEntityDetails> EntityList { get; }
     }
 }

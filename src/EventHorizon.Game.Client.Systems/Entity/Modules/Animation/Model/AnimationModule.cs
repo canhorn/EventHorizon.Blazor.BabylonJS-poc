@@ -12,8 +12,9 @@
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Loaded;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Play;
     using EventHorizon.Game.Client.Systems.Entity.Moving;
-    using EventHorizon.Game.Client.Systems.Local.Modules.InView.Entering;
-    using EventHorizon.Game.Client.Systems.Local.Modules.InView.Exiting;
+    using EventHorizon.Game.Client.Systems.Entity.Stopping;
+    using EventHorizon.Game.Client.Systems.Local.InView.Entering;
+    using EventHorizon.Game.Client.Systems.Local.InView.Exiting;
     using EventHorizon.Observer.Register;
     using EventHorizon.Observer.Unregister;
     using MediatR;
@@ -26,7 +27,7 @@
         EntityEnteringViewEventObserver,
         EntityExitingViewEventObserver,
         EntityMovingEventObserver,
-        ClientActionEntityStoppingEventObserver
+        EntityStoppingEventObserver
     {
         private bool _enabled = true;
         private string _currentAnimation = "__invalid__";
@@ -188,19 +189,6 @@
             return Task.CompletedTask;
         }
 
-        public Task Handle(
-            ClientActionEntityStoppingEvent args
-        )
-        {
-            if (_entity.EntityId != args.EntityId)
-            {
-                return Task.CompletedTask;
-            }
-
-            _setMovementAnimation = AnimationConstants.DEFAULT_ANIMATION;
-            return Task.CompletedTask;
-        }
-
         private async Task HandleOnCheckMovement()
         {
             if (_setMovementAnimation == _currentAnimation)
@@ -213,6 +201,20 @@
                     animation: _setMovementAnimation
                 )
             );
+        }
+
+        public Task Handle(
+            EntityStoppingEvent args
+        )
+        {
+            if (_entity.ClientId != args.ClientId)
+            {
+                return Task.CompletedTask;
+            }
+
+            _setMovementAnimation = AnimationConstants.DEFAULT_ANIMATION;
+
+            return Task.CompletedTask;
         }
     }
 }

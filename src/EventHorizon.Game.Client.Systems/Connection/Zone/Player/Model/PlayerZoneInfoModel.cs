@@ -23,5 +23,8 @@
         IEnumerable<IClientAsset> IPlayerZoneInfo.ClientAssetList => ClientAssetList;
         public List<ObjectEntityDetailsModel> ClientEntityList { get; set; }
         IEnumerable<IObjectEntityDetails> IPlayerZoneInfo.ClientEntityList => ClientEntityList;
+
+        public List<ObjectEntityDetailsModel> EntityList { get; set; }
+        IEnumerable<IObjectEntityDetails> IPlayerZoneInfo.EntityList => EntityList;
     }
 }

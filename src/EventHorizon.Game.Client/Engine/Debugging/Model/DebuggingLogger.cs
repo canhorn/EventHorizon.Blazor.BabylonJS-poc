@@ -6,13 +6,36 @@
 
     public static class DebuggingLogger
     {
-        public static ValueTask StartClientLogging()
+        public static IDebuggingLoggerGroup CreateLoggerGroup()
         {
-            return EventHorizonBlazorInterop.RunScript(
+            return new StandardDebuggingLoggerGroup();
+        }
+        public static async Task EnableClientLogging()
+        {
+            await EventHorizonBlazorInterop.RunScript(
                 "enableLogging",
-                "if(!window['ENABLED']) { window['ENABLED'] = true; setTimeout(() => window['ENABLED'] = false, 100); }",
+                "// if(!window['ENABLED']){ window['ENABLED'] = true; setTimeout(() => window['ENABLED'] = false, 100); }",
                 new { }
             );
         }
+    }
+
+    public class StandardDebuggingLoggerGroup
+        : IDebuggingLoggerGroup
+    {
+        private string _guid = Guid.NewGuid().ToString();
+        public StandardDebuggingLoggerGroup()
+        {
+            Console.WriteLine($"=== Start Logging | {_guid}");
+        }
+        public void Dispose()
+        {
+            Console.WriteLine($"==== End Logging | {_guid}");
+        }
+    }
+
+    public interface IDebuggingLoggerGroup
+        : IDisposable
+    {
     }
 }

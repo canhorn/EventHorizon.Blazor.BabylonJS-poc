@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Entity.Vector3Math
 {
     using System;
+    using System.Numerics;
     using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Entity.Model;
 
@@ -33,6 +34,17 @@
                 ((((-value1.Z + (3.0m * value2.Z)) - (3.0m * value3.Z)) + value4.Z) * cubed));
 
             return new StandardVector3(x, y, z);
+        }
+
+        public static double Dot(
+            IVector3 facingDirection,
+            IVector3 targetDirection
+        )
+        {
+            return Vector3.Dot(
+                facingDirection.ToNumerics(),
+                targetDirection.ToNumerics()
+            );
         }
     }
 }

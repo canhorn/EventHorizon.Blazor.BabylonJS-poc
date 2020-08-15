@@ -104,5 +104,10 @@
                 )
             );
         }
+
+        public double LengthSquared()
+        {
+            return (double)lengthSquared();
+        }
     }
 }

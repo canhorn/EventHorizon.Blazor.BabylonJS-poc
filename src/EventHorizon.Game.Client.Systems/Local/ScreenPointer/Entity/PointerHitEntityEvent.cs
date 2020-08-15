@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Observer.Model;
-using EventHorizon.Observer.State;
-using MediatR;
-
-namespace EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity
+﻿namespace EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Observer.Model;
+    using EventHorizon.Observer.State;
+    using MediatR;
+
     public struct PointerHitEntityEvent : INotification
     {
         public long EntityId { get; }

@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.InView.Exiting
+﻿namespace EventHorizon.Game.Client.Systems.Local.InView.Entering
 {
     using System;
     using System.Threading;
@@ -7,11 +7,11 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public struct EntityExitingViewEvent : INotification
+    public struct EntityEnteringViewEvent : INotification
     {
         public long ClientId { get; }
 
-        public EntityExitingViewEvent(
+        public EntityEnteringViewEvent(
             long clientId
         )
         {
@@ -19,17 +19,17 @@
         }
     }
 
-    public interface EntityExitingViewEventObserver
-        : ArgumentObserver<EntityExitingViewEvent>
+    public interface EntityEnteringViewEventObserver
+        : ArgumentObserver<EntityEnteringViewEvent>
     {
     }
 
-    public class EntityExitingViewEventHandler
-        : INotificationHandler<EntityExitingViewEvent>
+    public class EntityEnteringViewEventHandler
+        : INotificationHandler<EntityEnteringViewEvent>
     {
         private readonly ObserverState _observer;
 
-        public EntityExitingViewEventHandler(
+        public EntityEnteringViewEventHandler(
             ObserverState observer
         )
         {
@@ -37,9 +37,9 @@
         }
 
         public Task Handle(
-            EntityExitingViewEvent notification,
+            EntityEnteringViewEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<EntityExitingViewEventObserver, EntityExitingViewEvent>(
+        ) => _observer.Trigger<EntityEnteringViewEventObserver, EntityEnteringViewEvent>(
             notification,
             cancellationToken
         );

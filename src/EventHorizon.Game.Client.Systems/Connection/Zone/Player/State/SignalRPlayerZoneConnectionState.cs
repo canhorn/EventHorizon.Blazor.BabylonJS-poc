@@ -17,7 +17,7 @@
     public class SignalRPlayerZoneConnectionState
         : IPlayerZoneConnectionState
     {
-        private HubConnection _connection;
+        private HubConnection? _connection;
 
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
@@ -158,6 +158,10 @@
 
         public Task StopConnection()
         {
+            if (_connection == null)
+            {
+                return Task.CompletedTask;
+            }
             return _connection.StopAsync();
         }
 
@@ -166,7 +170,7 @@
             IList<object> data
         )
         {
-            if (_connection.State != HubConnectionState.Connected)
+            if (_connection?.State != HubConnectionState.Connected)
             {
                 return;
             }
