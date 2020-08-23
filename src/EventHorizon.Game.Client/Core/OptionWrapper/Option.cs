@@ -8,6 +8,13 @@ public struct OptionFactory
     }
 }
 
+public static class OptionExtensions
+{
+    public static Option<T> ToOption<T>(
+        this T value
+    ) => OptionFactory.Build(value);
+}
+
 [Serializable]
 public struct Option<T>
 {

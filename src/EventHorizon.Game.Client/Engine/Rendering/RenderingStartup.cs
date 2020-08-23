@@ -12,9 +12,9 @@
         ) => services
             .AddServiceEntity<IRenderingEngine, BabylonJSRenderingEngine>()
             .AddServiceEntity<IRenderingScene, BabylonJSRenderingScene>()
+            .AddServiceEntity<IRenderingGui, BabylonJSRenderingGui>()
 
             .AddSingleton<IBeforeRendering, BeforeRenderingBase>()
-            .AddServiceEntity<IRenderingGui, RenderingGuiBase>()
             .AddSingleton<IRenderingTime, RenderingTimeBase>()
         ;
     }

@@ -1,11 +1,15 @@
 ﻿(function () {
     const enabled = false;
-    window["ENABLED"] = true;
+    window["ENABLED"] = false;
     const loggingProxy = (functionIdentifier) => {
         // An anonymous function wrapper helps you keep oldSomeFunction private
         var realFunction = window["blazorInterop"][functionIdentifier];
 
         window["blazorInterop"][functionIdentifier] = function () {
+            if (arguments.length > 2
+                && arguments[1] == "text") {
+                console.log(functionIdentifier, JSON.stringify(arguments));
+            }
             if (window["ENABLED"]) {
                 console.log(functionIdentifier, JSON.stringify(arguments));
             }

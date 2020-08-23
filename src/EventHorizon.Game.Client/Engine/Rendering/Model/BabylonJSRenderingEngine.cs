@@ -27,7 +27,8 @@
             return GetEngine<IEngineImplementation>();
         }
 
-        public T GetEngine<T>() where T : class, IEngineImplementation
+        public T GetEngine<T>() 
+            where T : class, IEngineImplementation
         {
             if (_engine is T typedEngine)
             {

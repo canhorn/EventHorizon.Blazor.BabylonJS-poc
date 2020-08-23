@@ -276,6 +276,15 @@ __utilityLayerScene = null;
             return handle;
         }
 
+        public bool mainSceneTrackerPredicate_Remove(
+            string handle
+        )
+        {
+            return _mainSceneTrackerPredicateActionMap.Remove(
+                handle
+            );
+        }
+
         private void SetupMainSceneTrackerPredicateLoop()
         {
             if (_isMainSceneTrackerPredicateEnabled)

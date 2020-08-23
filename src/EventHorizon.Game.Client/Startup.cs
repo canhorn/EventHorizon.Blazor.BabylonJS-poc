@@ -1,16 +1,13 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using EventHorizon.Game.Client.Core.Configuration;
-using EventHorizon.Game.Client.Core.Exceptions;
-using EventHorizon.Game.Client.Engine;
-using EventHorizon.Game.Client.Engine.Services.Api;
-using EventHorizon.Game.Client.Engine.Systems.Player.Api;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
-namespace EventHorizon.Game.Client
+﻿namespace EventHorizon.Game.Client
 {
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Configuration;
+    using EventHorizon.Game.Client.Engine;
+    using EventHorizon.Game.Client.Engine.Services.Api;
+    using EventHorizon.Game.Client.Engine.Systems.Player.Api;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     public interface IStartup
     {
         void Setup(

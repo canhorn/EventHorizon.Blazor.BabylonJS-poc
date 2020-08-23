@@ -7,14 +7,15 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public struct AccountDisconnectedEvent : INotification
+    public struct AccountDisconnectedEvent
+        : INotification
     {
         public string Code { get; }
-        public Exception Error { get; }
+        public Exception? Error { get; }
 
         public AccountDisconnectedEvent(
             string code,
-            Exception error
+            Exception? error
         )
         {
             Code = code;

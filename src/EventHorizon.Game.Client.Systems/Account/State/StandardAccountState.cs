@@ -6,12 +6,12 @@
     public class StandardAccountState
         : IAccountState
     {
-        public string AccessToken { get; private set; }
-        public string AccountLoginUrl { get; private set; }
-        public AccountInfoModel User { get; private set; }
+        public string? AccessToken { get; private set; }
+        public string? AccountLoginUrl { get; private set; }
+        public IAccountInfo? User { get; private set; }
 
         public void SetAccountUser(
-            AccountInfoModel user
+            IAccountInfo user
         )
         {
             User = user;

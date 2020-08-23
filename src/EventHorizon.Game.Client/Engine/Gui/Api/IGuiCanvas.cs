@@ -1,11 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EventHorizon.Game.Client.Engine.Gui.Api
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Api
 {
-    // TODO: [GUI] : Finish Implementation
+    using System;
+    using System.Threading.Tasks;
+
     public interface IGuiCanvas
     {
+        Task Initialize();
+        Task Dispose();
+        void AddControl(
+            IGuiControl control
+        );
     }
 }

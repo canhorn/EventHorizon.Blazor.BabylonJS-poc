@@ -46,13 +46,12 @@
 
         public override Task Dispose()
         {
-            // TODO: Unregister from onPointerObservable.add
-            //_renderingScene.GetBabylonJSScene()
-            //    .Scene
-            //    .onPointerObservable
-            //    .add_removeAction(
-            //        _addHandler
-            //    );
+            _renderingScene.GetBabylonJSScene()
+                .Scene
+                .onPointerObservable
+                .add_Remove(
+                    _addHandler
+                );
             return Task.CompletedTask;
         }
 

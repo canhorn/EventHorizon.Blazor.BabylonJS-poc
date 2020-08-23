@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Systems.Account.Api;
     using EventHorizon.Game.Client.Systems.Connection.Core.Model;
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.State;
@@ -9,10 +10,10 @@
 
     public struct AccountConnectedEvent : INotification
     {
-        public AccountInfoModel AccountInfo { get; }
+        public IAccountInfo AccountInfo { get; }
 
         public AccountConnectedEvent(
-            AccountInfoModel accountInfo
+            IAccountInfo accountInfo
         )
         {
             AccountInfo = accountInfo;

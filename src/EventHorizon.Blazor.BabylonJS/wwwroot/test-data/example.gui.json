@@ -1,0 +1,197 @@
+{
+    "id": "example",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "example-grid",
+            "sort": 0,
+            "templateId": "platform-grid",
+            "options": {
+                "column": 2,
+                "row": 1,
+                "background": "transparent",
+                "paddingBottom": 5,
+                "paddingTop": 5,
+                "paddingLeft": 5,
+                "paddingRight": 5
+            },
+            "controlList": [
+                {
+                    "id": "example-panel",
+                    "sort": 0,
+                    "templateId": "platform-panel",
+                    "gridLocation": {
+                        "row": 0,
+                        "column": 0
+                    },
+                    "controlList": [
+                        {
+                            "id": "example-bar",
+                            "sort": 0,
+                            "templateId": "platform-bar",
+                            "options": {
+                                "__metadata": {
+                                    "modelOptions": [
+                                        "textOptions",
+                                        "barOptions"
+                                    ]
+                                },
+                                "barDirection": "paddingLeft",
+                                "percent": 88,
+                                "width": "80px",
+                                "height": "20px",
+                                "background": "green",
+                                "borderColor": "white",
+                                "verticalAlignment": 2,
+                                "thickness": 1,
+                                "textOptions": {
+                                    "fontSize": 12,
+                                    "height": "20px",
+                                    "color": "black",
+                                    "text": "88 / 100",
+                                    "textVerticalAlignment": 2
+                                },
+                                "barOptions": {
+                                    "background": "red",
+                                    "thickness": 0
+                                }
+                            }
+                        },
+                        {
+                            "id": "example-spacer_bar",
+                            "sort": 1,
+                            "templateId": "platform-spacer",
+                            "options": {
+                                "padding": 10
+                            }
+                        },
+                        {
+                            "id": "example-refresh_page-button",
+                            "sort": 2,
+                            "templateId": "platform-button",
+                            "options": {
+                                "isDisabled": true,
+                                "width": "150px",
+                                "height": "150px",
+                                "fontSize": 16,
+                                "color": "green",
+                                "background": "black",
+                                "hoverCursor": "pointer",
+                                "disabledColor": "gray",
+                                "horizontalAlignment": 2,
+                                "verticalAlignment": 2,
+                                "thickness": 0,
+                                "textBlockOptions": {
+                                    "__color": "white",
+                                    "text": "Refresh Page",
+                                    "textHorizontalAlignment": 2
+                                }
+                            }
+                        },
+                        {
+                            "id": "example-spacer",
+                            "sort": 3,
+                            "templateId": "platform-spacer",
+                            "options": {
+                                "padding": 10
+                            }
+                        },
+                        {
+                            "id": "example-alert-button",
+                            "sort": 4,
+                            "templateId": "platform-button",
+                            "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textBlockOptions" ]
+                                },
+                                "isDisabled": true,
+                                "width": "130px",
+                                "height": "35px",
+                                "fontSize": 16,
+                                "color": "white",
+                                "background": "black",
+                                "hoverCursor": "pointer",
+                                "disabledColor": "gray",
+                                "disabledHoverCursor": "mouse",
+                                "textBlockOptions": {
+                                    "__color": "white",
+                                    "text": "Alert",
+                                    "textHorizontalAlignment": 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "example-right_panel",
+                    "sort": 1,
+                    "templateId": "platform-container",
+                    "gridLocation": {
+                        "row": 0,
+                        "column": 1
+                    },
+                    "options": {
+                        "alpha": 0.2,
+                        "height": "100%",
+                        "width": "100%",
+                        "background": "gray"
+                    },
+                    "controlList": [
+                        {
+                            "id": "example-label",
+                            "sort": 0,
+                            "templateId": "platform-label",
+                            "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textOptions" ]
+                                },
+                                "height": "10%",
+                                "width": "100px",
+                                "background": "transparent",
+                                "color": "white",
+                                "horizontalAlignment": 0,
+                                "verticalAlignment": 0,
+                                "textOptions": {
+                                    "text": "Scroll View"
+                                }
+                            }
+                        },
+                        {
+                            "id": "example-scroll_view",
+                            "sort": 1,
+                            "templateId": "platform-scroll_viewer",
+                            "options": {
+                                "background": "transparent",
+                                "width": "100%",
+                                "height": "90%",
+                                "paddingTop": "10%",
+                                "paddingLeft": "20px",
+                                "paddingRight": "15px",
+                                "verticalAlignment": 0
+                            },
+                            "controlList": [
+                                {
+                                    "id": "example-text",
+                                    "sort": 1,
+                                    "templateId": "platform-text",
+                                    "options": {
+                                        "textWrapping": 1,
+                                        "paddingTop": "5px",
+                                        "paddingLeft": "15px",
+                                        "resizeToFit": true,
+                                        "textHorizontalAlignment": 0,
+                                        "textVerticalAlignment": 0,
+                                        "background": "transparent",
+                                        "color": "yellow",
+                                        "fontSize": "16px",
+                                        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis. Vel eros donec ac odio. Eget sit amet tellus cras adipiscing enim eu. Pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id. \n\rOdio ut enim blandit volutpat. Consectetur lorem donec massa sapien faucibus et molestie ac. Mattis rhoncus urna neque viverra justo nec. Tempus imperdiet nulla malesuada pellentesque. Fames ac turpis egestas maecenas pharetra convallis posuere morbi leo. \n\rQuis varius quam quisque id diam vel quam elementum pulvinar. Nunc sed blandit libero volutpat. Orci phasellus egestas tellus rutrum tellus pellentesque. Aliquam malesuada bibendum arcu vitae elementum. Odio aenean sed adipiscing diam donec adipiscing tristique risus nec. \n\r\n\rAdipiscing bibendum est ultricies integer quis auctor elit sed vulputate. Risus sed vulputate odio ut enim blandit volutpat maecenas volutpat. Feugiat vivamus at augue eget arcu dictum. Dolor sit amet consectetur adipiscing. Ultrices sagittis orci a scelerisque purus semper eget duis. In hac habitasse platea dictumst vestibulum rhoncus est. Quam nulla porttitor massa id neque aliquam. Scelerisque purus semper eget duis at tellus at. Sit amet porttitor eget dolor morbi non arcu. At tellus at urna condimentum mattis. \n\rDui id ornare arcu odio ut sem nulla. Sed elementum tempus egestas sed sed risus pretium quam vulputate. Sagittis orci a scelerisque purus semper eget duis. At ultrices mi tempus imperdiet. Vitae sapien pellentesque habitant morbi tristique senectus et netus. Non sodales neque sodales ut. Mattis molestie a iaculis at erat pellentesque adipiscing. Maecenas accumsan lacus vel facilisis volutpat est velit. Tempor nec feugiat nisl pretium fusce id velit ut tortor. Ac tortor dignissim convallis aenean et tortor at risus. Aliquam id diam maecenas ultricies mi. \n\rNeque aliquam vestibulum morbi blandit cursus. Sit amet mauris commodo quis imperdiet massa tincidunt nunc. Ipsum dolor sit amet consectetur. Nisl nunc mi ipsum faucibus. Dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra. Nulla aliquet enim tortor at auctor urna nunc id. Feugiat scelerisque varius morbi enim. Volutpat odio facilisis mauris sit. Tortor condimentum lacinia quis vel. Accumsan tortor posuere ac ut. Hac habitasse platea dictumst quisque sagittis purus sit amet volutpat. \n\rFeugiat nibh sed pulvinar proin gravida hendrerit. Mattis nunc sed blandit libero volutpat. Semper auctor neque vitae tempus. Id cursus metus aliquam eleifend mi in nulla posuere. At in tellus integer feugiat scelerisque. Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. A erat nam at lectus urna duis convallis convallis tellus. Et tortor consequat id porta nibh venenatis cras sed. Metus aliquam eleifend mi in nulla posuere sollicitudin. Ac placerat vestibulum lectus mauris ultrices eros in. Tristique risus nec feugiat in fermentum posuere. Iaculis urna id volutpat lacus laoreet non curabitur gravida. Elit ut aliquam purus sit amet luctus venenatis. Massa vitae tortor condimentum lacinia quis vel eros donec ac. \n\rAt in tellus integer feugiat scelerisque varius morbi enim nunc. Aliquam ultrices sagittis orci a scelerisque. Non arcu risus quis varius quam. Lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Posuere ac ut consequat semper viverra. Aliquam sem et tortor consequat id porta nibh. Eget dolor morbi non arcu risus. \n\r\n\r\n\rAdipiscing at in tellus integer feugiat scelerisque varius."
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

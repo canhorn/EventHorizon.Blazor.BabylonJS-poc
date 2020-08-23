@@ -13,7 +13,7 @@
     public class SignalRCoreConnectionState
         : ICoreConnectionState
     {
-        private HubConnection _connection;
+        private HubConnection? _connection;
 
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
@@ -119,7 +119,8 @@
 
         public Task StopConnection()
         {
-            return _connection.StopAsync();
+            return _connection?.StopAsync() 
+                ?? Task.CompletedTask;
         }
     }
 }

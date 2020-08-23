@@ -1,0 +1,135 @@
+{
+    "id": "main_menu",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "main_menu-grid",
+            "sort": 0,
+            "templateId": "platform-grid",
+            "options": {
+                "column": 3,
+                "row": 3,
+                "backgroundColor": "transparent",
+                "background": "transparent",
+                "paddingBottom": 5,
+                "paddingTop": 5,
+                "paddingLeft": 5,
+                "paddingRight": 5
+            },
+            "controlList": [
+                {
+                    "id": "main_menu-panel",
+                    "sort": 0,
+                    "templateId": "platform-panel",
+                    "gridLocation": {
+                        "row": 1,
+                        "column": 1
+                    },
+                    "controlList": [
+                        {
+                            "id": "main_menu-start_game-button",
+                            "sort": 0,
+                            "templateId": "platform-button",
+                            "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textBlockOptions" ]
+                                },
+                                "isDisabled": true,
+                                "width": "150px",
+                                "height": "32px",
+                                "__text": "mainMenu_StartGame",
+                                "__textKey": "mainMenu_StartGame",
+                                "fontSize": 16,
+                                "color": "white",
+                                "background": "black",
+                                "hoverCursor": "pointer",
+                                "disabledColor": "gray",
+                                "disabledHoverCursor": "mouse",
+                                "horizontalAlignment": 2,
+                                "verticalAlignment": 2,
+                                "thickness": 0,
+                                "textBlockOptions": {
+                                    "text": "test",
+                                    "textKey": "mainMenu_StartGame",
+                                    "textHorizontalAlignment": 2
+                                }
+                            }
+                        },
+                        {
+                            "id": "main_menu-spacer",
+                            "sort": 1,
+                            "templateId": "platform-spacer",
+                            "options": {
+                                "padding": 10
+                            }
+                        },
+                        {
+                            "id": "main_menu-account_details-button",
+                            "sort": 2,
+                            "templateId": "platform-button",
+                            "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textBlockOptions" ]
+                                },
+                                "isDisabled": true,
+                                "width": "130px",
+                                "height": "32px",
+                                "textKey": "mainMenu_AccountDetails",
+                                "fontSize": 16,
+                                "color": "white",
+                                "background": "black",
+                                "hoverCursor": "pointer",
+                                "disabledColor": "gray",
+                                "disabledHoverCursor": "mouse",
+                                "alignment": 2,
+                                "vAlignment": 2,
+                                "borderThickness": 0,
+                                "textBlockOptions": {
+                                    "__color": "white",
+                                    "text": "test",
+                                    "textKey": "mainMenu_AccountDetails",
+                                    "textHorizontalAlignment": 2
+                                }
+                            }
+                        },
+                        {
+                            "id": "main_menu-spacer-2",
+                            "sort": 3,
+                            "templateId": "platform-spacer",
+                            "options": {
+                                "padding": 10
+                            }
+                        },
+                        {
+                            "id": "main_menu-example_gui-button",
+                            "sort": 4,
+                            "templateId": "platform-button",
+                            "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textBlockOptions" ]
+                                },
+                                "isDisabled": true,
+                                "width": "130px",
+                                "height": "32px",
+                                "fontSize": 16,
+                                "color": "white",
+                                "background": "black",
+                                "disabledColor": "gray",
+                                "hoverCursor": "pointer",
+                                "disabledHoverCursor": "mouse",
+                                "alignment": 2,
+                                "vAlignment": 2,
+                                "borderThickness": 0,
+                                "textBlockOptions": {
+                                    "__color": "white",
+                                    "text": "Example Gui",
+                                    "textHorizontalAlignment": 2
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

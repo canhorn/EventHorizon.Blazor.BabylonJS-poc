@@ -8,6 +8,7 @@
     using EventHorizon.Game.Client.Engine.Core.Model;
     using EventHorizon.Game.Client.Engine.Entity;
     using EventHorizon.Game.Client.Engine.Entity.Tracking;
+    using EventHorizon.Game.Client.Engine.Gui;
     using EventHorizon.Game.Client.Engine.Input;
     using EventHorizon.Game.Client.Engine.Lifecycle;
     using EventHorizon.Game.Client.Engine.Rendering;
@@ -28,6 +29,7 @@
             .AddEngineSystemServices()
             .AddEngineRenderingServices()
             .AddEngineEntityServices()
+            .AddEngineGuiServices()
             .AddEngineLifecycleServices()
             .AddEngineMainServices()
             .AddEngineInputServices()

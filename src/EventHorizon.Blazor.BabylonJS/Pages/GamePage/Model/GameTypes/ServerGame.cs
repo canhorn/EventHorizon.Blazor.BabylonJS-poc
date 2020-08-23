@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Cameras;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes.GameScenes.ExampleGui;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes.GameScenes.MainMenu;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes.GameScenes.Zone;
     using EventHorizon.Game.Client;
@@ -54,6 +55,10 @@
                         {
                             "main-menu",
                             () => new MainMenuScene()
+                        },
+                        {
+                            "example-gui",
+                            () => new ExampleGuiScene()
                         },
                         //{
                         //    "account-details",

@@ -4,15 +4,15 @@
 
     public interface IAccountState
     {
-        string AccessToken { get; }
-        string AccountLoginUrl { get; }
+        string? AccessToken { get; }
+        string? AccountLoginUrl { get; }
         void Setup(
             string accessToken,
             string accountLoginUrl
         );
-        AccountInfoModel User { get; }
+        IAccountInfo? User { get; }
         void SetAccountUser(
-            AccountInfoModel user
+            IAccountInfo user
         );
     }
 }

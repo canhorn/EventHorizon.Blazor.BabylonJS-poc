@@ -1,104 +1,152 @@
 ﻿namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes.GameScenes.MainMenu
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Net.Http.Json;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client;
+    using EventHorizon.Game.Client.Core.Command.Model;
+    using EventHorizon.Game.Client.Engine.Gui.Activate;
+    using EventHorizon.Game.Client.Engine.Gui.Api;
+    using EventHorizon.Game.Client.Engine.Gui.Create;
+    using EventHorizon.Game.Client.Engine.Gui.Dispose;
+    using EventHorizon.Game.Client.Engine.Gui.Model;
+    using EventHorizon.Game.Client.Engine.Gui.Register;
+    using EventHorizon.Game.Client.Engine.Gui.Update;
+    using EventHorizon.Game.Client.Systems.Account.Api;
+    using EventHorizon.Game.Client.Systems.Account.Changed;
+    using EventHorizon.Game.Client.Systems.Account.Query;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Start;
+    using EventHorizon.Game.Client.Systems.Zone.Changed;
     using global::BabylonJS;
     using global::BabylonJS.GUI;
     using Microsoft.Extensions.Logging;
 
     public class MainMenuScene
-        : GameSceneBase
+        : GameSceneBase,
+        AccountChangedEventObserver,
+        ZoneChangedEventObserver
     {
-        AdvancedDynamicTexture _advancedTexture;
-
         private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<MainMenuScene>>();
+        private readonly HttpClient _http = GameServiceProvider.GetService<HttpClient>();
+
+        private string _mainMenuGuiId = string.Empty;
 
         public MainMenuScene() 
             : base("main-menu")
         {
         }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
-            _advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
-
-            // TODO: [I18N] : Work to be done here.
-            var startGameButton = Button.CreateSimpleButton("start-game-button", "Start Game");
-            startGameButton.width = "130px";
-            startGameButton.height = "35px";
-            startGameButton.color = "white";
-            startGameButton.background = "green";
-            startGameButton.onPointerClickObservable.add(
-                async (Vector2WithInfo arg1, EventState state) =>
-                {
-                    await _mediator.Send(
-                        new StartSceneCommand("zone")
-                    );
-                }
+            GamePlatfromServices.RegisterObserver(
+                this
+            );
+            var accountInfoResult = await _mediator.Send(
+                new QueryForAccountInfo()
             );
 
-            var accountDetailsButton = Button.CreateSimpleButton("account-details-button", "Account Details");
-            accountDetailsButton.width = "130px";
-            accountDetailsButton.height = "35px";
-            accountDetailsButton.color = "white";
-            accountDetailsButton.background = "green";
-            accountDetailsButton.onPointerClickObservable.add(
-                async (Vector2WithInfo arg1, EventState state) =>
-                {
-                    await _mediator.Send(
-                        new StartSceneCommand("account-details")
-                    );
-                }
+            // IGuiLayoutData
+            var mainMenuGui = await _http.GetFromJsonAsync<GuiLayoutDataModel>(
+                // TODO: Move into gui/main-menu.gui.json
+                "test-data/main-menu.gui.json"
+            );
+            await _mediator.Send(
+                new RegisterGuiLayoutDataCommand(
+                    mainMenuGui
+                )
             );
 
-            var grid = new Grid("main-grid");
-            grid.addColumnDefinition(1);
-            grid.addColumnDefinition(1);
-            grid.addColumnDefinition(1);
-
-            grid.addRowDefinition(1);
-            grid.addRowDefinition(1);
-            grid.addRowDefinition(1);
-            grid.background = "black";
-            grid.paddingBottom = "15px";
-            grid.paddingTop = "15px";
-            grid.paddingLeft = "15px";
-            grid.paddingRight = "15px";
-
-            _advancedTexture.addControl(grid);
-
-            var stack = new StackPanel("stack-panel");
-            grid.addControl(
-                stack,
-                1,
-                1
-            );
-            stack.addControl(
-                startGameButton
-            );
-            stack.addControl(
-                new Rectangle("Spacer")
-                {
-                    height = "10px",
-                    width = "10px",
-                    thickness = 0,
-                    isHitTestVisible = false,
-                }
-            );
-            stack.addControl(
-                accountDetailsButton
+            await _mediator.Send(
+                new CreateGuiCommand(
+                    mainMenuGui.Id,
+                    mainMenuGui.Id,
+                    GetControlWithData(
+                        accountInfoResult
+                    )
+                )
             );
 
-            return Task.CompletedTask;
+            await _mediator.Send(
+                new ActivateGuiCommand(
+                    mainMenuGui.Id
+                )
+            );
+            _mainMenuGuiId = mainMenuGui.Id;
         }
 
-        public override Task Dispose()
+        private IEnumerable<IGuiControlData> GetControlWithData(
+            CommandResult<IAccountInfo> accountInfoResult
+        )
         {
-            _advancedTexture.dispose();
+            var accountDetailsDisabled = accountInfoResult.Success;
+            var zoneDetailsAvailable = accountInfoResult.Success;
 
-            return base.Dispose();
+            Func<Task> StartZoneSceneClickHandler = () => _mediator.Send(
+                new StartSceneCommand(
+                    "zone"
+                )
+            );
+            Func<Task> StartAccountDetailsSceneClickHandler = () => _mediator.Send(
+                new StartSceneCommand(
+                    "account-details"
+                )
+            );
+            Func<Task> StartExampleGuiSceneClickHandler = () => _mediator.Send(
+                new StartSceneCommand(
+                    "example-gui"
+                )
+            );
+
+            return new List<IGuiControlData>
+            {
+                new GuiControlDataModel
+                {
+                    ControlId = "main_menu-start_game-button",
+                    Options = new GuiControlOptionsModel
+                    {
+                        { "isDisabled", !zoneDetailsAvailable },
+                        { "onClick", StartZoneSceneClickHandler },
+                    },
+                },
+                new GuiControlDataModel
+                {
+                    ControlId = "main_menu-account_details-button",
+                    Options = new GuiControlOptionsModel
+                    {
+                        { "isDisabled", !accountDetailsDisabled },
+                        { "onClick", StartAccountDetailsSceneClickHandler },
+                    },
+                },
+                new GuiControlDataModel
+                {
+                    ControlId = "main_menu-example_gui-button",
+                    Options = new GuiControlOptionsModel
+                    {
+                        { "onClick", StartExampleGuiSceneClickHandler },
+                    },
+                },
+            };
+        }
+
+        public override async Task Dispose()
+        {
+            GamePlatfromServices.UnRegisterObserver(
+                this
+            );
+            await _mediator.Send(
+                new DisposeOfGuiCommand(
+                    _mainMenuGuiId
+                )
+            );
+            await base.Dispose();
+        }
+
+        public override Task Update()
+        {
+            return base.Update();
         }
 
         public override Task Draw()
@@ -106,14 +154,42 @@
             return Task.CompletedTask;
         }
 
-        public override Task PostInitialize()
+        public async Task Handle(
+            AccountChangedEvent args
+        )
         {
-            return base.PostInitialize();
+            await _mediator.Send(
+                new UpdateGuiControlCommand(
+                    _mainMenuGuiId,
+                    new GuiControlDataModel
+                    {
+                        ControlId = "main_menu-account_details-button",
+                        Options = new GuiControlOptionsModel
+                        {
+                            { "isDisabled", false },
+                        },
+                    }
+                )
+            );
         }
 
-        public override Task Update()
+        public async Task Handle(
+            ZoneChangedEvent args
+        )
         {
-            return base.Update();
+            await _mediator.Send(
+                new UpdateGuiControlCommand(
+                    _mainMenuGuiId,
+                    new GuiControlDataModel
+                    {
+                        ControlId = "main_menu-start_game-button",
+                        Options = new GuiControlOptionsModel
+                        {
+                            { "isDisabled", false },
+                        },
+                    }
+                )
+            );
         }
     }
 }
