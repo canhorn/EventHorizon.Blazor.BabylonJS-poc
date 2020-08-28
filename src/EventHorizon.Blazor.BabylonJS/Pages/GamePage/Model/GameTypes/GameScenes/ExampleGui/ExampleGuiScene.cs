@@ -31,38 +31,30 @@
 
         public override async Task Initialize()
         {
-            try
-            {
+            // IGuiLayoutData
+            var mainMenuGui = await _http.GetFromJsonAsync<GuiLayoutDataModel>(
+                "test-data/example.gui.json"
+            );
+            await _mediator.Send(
+                new RegisterGuiLayoutDataCommand(
+                    mainMenuGui
+                )
+            );
 
-                // IGuiLayoutData
-                var mainMenuGui = await _http.GetFromJsonAsync<GuiLayoutDataModel>(
-                    "test-data/example.gui.json"
-                );
-                await _mediator.Send(
-                    new RegisterGuiLayoutDataCommand(
-                        mainMenuGui
-                    )
-                );
+            await _mediator.Send(
+                new CreateGuiCommand(
+                    mainMenuGui.Id,
+                    mainMenuGui.Id,
+                    GetControlWithData()
+                )
+            );
 
-                await _mediator.Send(
-                    new CreateGuiCommand(
-                        mainMenuGui.Id,
-                        mainMenuGui.Id,
-                        GetControlWithData()
-                    )
-                );
-
-                await _mediator.Send(
-                    new ActivateGuiCommand(
-                        mainMenuGui.Id
-                    )
-                );
-                _mainMenuGuiId = mainMenuGui.Id;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error");
-            }
+            await _mediator.Send(
+                new ActivateGuiCommand(
+                    mainMenuGui.Id
+                )
+            );
+            _mainMenuGuiId = mainMenuGui.Id;
         }
 
         private IEnumerable<IGuiControlData> GetControlWithData()
@@ -77,6 +69,18 @@
                 "alert('Button Clicked!')",
                 new { }
             );
+            Func<Task> InitScriptHandler = () =>
+            {
+                // TODO: Run Script
+                var scriptId = "Actions_TestActionScript";
+                var scriptData = new Dictionary<string, object>();
+                return Task.CompletedTask;
+            };
+            Func<Task> TriggerScriptObserverHandler = () =>
+            {
+                // TODO: Trigger Script Observer
+                return Task.CompletedTask;
+            };
 
             return new List<IGuiControlData>
             {
@@ -94,6 +98,22 @@
                     Options = new GuiControlOptionsModel
                     {
                         { "onClick", AlertClickHandler },
+                    },
+                },
+                new GuiControlDataModel
+                {
+                    ControlId = "example-init_script-button",
+                    Options = new GuiControlOptionsModel
+                    {
+                        { "onClick", InitScriptHandler },
+                    },
+                },
+                new GuiControlDataModel
+                {
+                    ControlId = "example-run_script-button",
+                    Options = new GuiControlOptionsModel
+                    {
+                        { "onClick", TriggerScriptObserverHandler },
                     },
                 },
             };

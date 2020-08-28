@@ -1,7 +1,6 @@
 ﻿@page "/login"
 @using Microsoft.AspNetCore.WebUtilities
 @inject NavigationManager NavigationManager
-@inject IAuthenticationService AuthenticationService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 @code {
@@ -26,7 +25,8 @@
         }
         else
         {
-            await AuthenticationService.SignInAsync();
+            NavigationManager.NavigateTo($"authentication/login?returnUrl=" +
+            Uri.EscapeDataString(NavigationManager.Uri));
         }
     }
 }

@@ -14,9 +14,9 @@ namespace EventHorizon.Blazor.BabylonJS
     using System.Collections.Generic;
     using System.Globalization;
     using Microsoft.AspNetCore.Localization;
-    using HLSoft.BlazorWebAssembly.Authentication.OpenIdConnect;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Configuration;
 
     public class Program
     {
@@ -63,24 +63,36 @@ namespace EventHorizon.Blazor.BabylonJS
             builder.Services
                 .AddClientServices()
                 .AddGameClient();
-            builder.Services
-                .AddOptions()
-                .AddAuthorizationCore()
-                .AddBlazoredOpenIdConnect(options =>
+            builder.Services.AddOidcAuthentication(options =>
+            {
+                builder.Configuration.Bind(
+                    "Auth",
+                    options.ProviderOptions
+                );
+                var authScopes = builder.Configuration["Auth:Scope"].Split(" ");
+                foreach (var authScope in authScopes)
                 {
-                    options.Authority = builder.Configuration["Auth:Authority"];
+                    options.ProviderOptions.DefaultScopes.Add(authScope);
+                }
+            });
+            //builder.Services
+            //    .AddOptions()
+            //    .AddAuthorizationCore()
+            //    .AddBlazoredOpenIdConnect(options =>
+            //    {
+            //        options.Authority = builder.Configuration["Auth:Authority"];
 
-                    options.ClientId = builder.Configuration["Auth:ClientId"];
-                    options.ResponseType = builder.Configuration["Auth:ResponseType"];
+            //        options.ClientId = builder.Configuration["Auth:ClientId"];
+            //        options.ResponseType = builder.Configuration["Auth:ResponseType"];
 
-                    options.Scopes = builder.Configuration["Auth:Scope"].Split(" ");
+            //        options.Scopes = builder.Configuration["Auth:Scope"].Split(" ");
 
-                    options.SignedInCallbackUri = "/signin-oidc";
+            //        options.SignedInCallbackUri = "/signin-oidc";
 
-                    //options.Scope.Add("openid");
-                    //options.Scope.Add("profile");
-                    //options.Scope.Add("api");
-                });
+            //        //options.Scope.Add("openid");
+            //        //options.Scope.Add("profile");
+            //        //options.Scope.Add("api");
+            //    });
             //builder.Services.AddEventHorizonIdentity(
             //    new EventHorizonIdentitySettings
             //    {

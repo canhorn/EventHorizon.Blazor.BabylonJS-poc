@@ -30,6 +30,7 @@
             CancellationToken cancellationToken
         )
         {
+            System.Console.WriteLine("Building Client Asset");
             var clientAsset = request.ClientAsset;
             if (_cache.Cached(
                 clientAsset.Id

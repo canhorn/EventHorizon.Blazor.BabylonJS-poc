@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using BabylonJS;
+    using EventHorizon.Game.Client.Engine.Model.Scripting.Data;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
-    using EventHorizon.Game.Client.Engine.Systems.Scripting.Model;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api.Builder;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api.Configs;
@@ -36,27 +36,34 @@
         {
             if (clientAsset.Config is IClientAssetScriptConfig config)
             {
-                var mesh = new CreateTreeScript().Run<Mesh>(
-                    new StandardScriptData(
+                var mesh = default(Mesh);
+                Action<Mesh> handleResolveMesh = (resolvedMesh) =>
+               {
+                   mesh = resolvedMesh;
+               };
+                await new CreateTreeScript().Run(
+                    new ScriptData(
                         new Dictionary<string, object>
                         {
                             { "id", clientAsset.Id },
                             { "scene", _renderingScene.GetBabylonJSScene().Scene },
                             { "config", config },
-                            //{ "cranchSize", config.BranchSize },
-                            //{ "trunkSize", config.TrunkSize },
-                            //{ "radius", config.Radius },
+                            { "resolve", handleResolveMesh }
                         }
                     )
                 );
-                await _mediator.Send(
-                    new ResolveClientAssetMeshCommand(
-                        details,
-                        new BabylonJSEngineMesh(
-                            mesh
+                // TODO: Move this into the Script when Moving into Server script
+                if (mesh != null)
+                {
+                    await _mediator.Send(
+                        new ResolveClientAssetMeshCommand(
+                            details,
+                            new BabylonJSEngineMesh(
+                                mesh
+                            )
                         )
-                    )
-                );
+                    );
+                }
             }
         }
     }

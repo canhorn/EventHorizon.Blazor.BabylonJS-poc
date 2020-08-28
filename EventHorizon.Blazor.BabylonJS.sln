@@ -31,9 +31,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{9C5C43B1-676
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Client.Scripts.SDK", "src\SDK\EventHorizon.Game.Client.Scripts.SDK\EventHorizon.Game.Client.Scripts.SDK.csproj", "{7806E2C5-DF36-4D83-B357-9EC1DD3E7E5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Client.Core.Model", "src\SDK\EventHorizon.Game.Client.Core.Model\EventHorizon.Game.Client.Core.Model.csproj", "{66EEDFA8-EE93-40EF-AB8A-B46D3D288787}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Client.Core.Model", "src\SDK\EventHorizon.Game.Client.Core.Model\EventHorizon.Game.Client.Core.Model.csproj", "{66EEDFA8-EE93-40EF-AB8A-B46D3D288787}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Client.Engine.Model", "src\SDK\EventHorizon.Game.Client.Engine.Model\EventHorizon.Game.Client.Engine.Model.csproj", "{ABCAA8A4-45E1-4A31-8F8D-5F8AA8C861FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Client.Engine.Model", "src\SDK\EventHorizon.Game.Client.Engine.Model\EventHorizon.Game.Client.Engine.Model.csproj", "{ABCAA8A4-45E1-4A31-8F8D-5F8AA8C861FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Client.Engine.Events", "src\SDK\EventHorizon.Game.Client.Engine.Events\EventHorizon.Game.Client.Engine.Events.csproj", "{276396CD-06CD-49DA-84DD-0DB18050BCBF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Client.Scripts.SDK.Generator", "src\SDK\EventHorizon.Game.Client.Scripts.SDK.Generator\EventHorizon.Game.Client.Scripts.SDK.Generator.csproj", "{71CCA729-B1A0-4445-9CAA-52200F46FA44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,14 @@ Global
 		{ABCAA8A4-45E1-4A31-8F8D-5F8AA8C861FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABCAA8A4-45E1-4A31-8F8D-5F8AA8C861FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABCAA8A4-45E1-4A31-8F8D-5F8AA8C861FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{276396CD-06CD-49DA-84DD-0DB18050BCBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{276396CD-06CD-49DA-84DD-0DB18050BCBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{276396CD-06CD-49DA-84DD-0DB18050BCBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{276396CD-06CD-49DA-84DD-0DB18050BCBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71CCA729-B1A0-4445-9CAA-52200F46FA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71CCA729-B1A0-4445-9CAA-52200F46FA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71CCA729-B1A0-4445-9CAA-52200F46FA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71CCA729-B1A0-4445-9CAA-52200F46FA44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +110,8 @@ Global
 		{7806E2C5-DF36-4D83-B357-9EC1DD3E7E5E} = {9C5C43B1-676C-4019-9642-2DC151537A40}
 		{66EEDFA8-EE93-40EF-AB8A-B46D3D288787} = {9C5C43B1-676C-4019-9642-2DC151537A40}
 		{ABCAA8A4-45E1-4A31-8F8D-5F8AA8C861FB} = {9C5C43B1-676C-4019-9642-2DC151537A40}
+		{276396CD-06CD-49DA-84DD-0DB18050BCBF} = {9C5C43B1-676C-4019-9642-2DC151537A40}
+		{71CCA729-B1A0-4445-9CAA-52200F46FA44} = {9C5C43B1-676C-4019-9642-2DC151537A40}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9497D11D-7D24-4DE2-A904-0ADE224939B6}

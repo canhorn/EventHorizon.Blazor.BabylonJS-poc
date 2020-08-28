@@ -15,5 +15,9 @@
             string methodName,
             IList<object> data
         );
+        Task<T> InvokeMethodWithResult<T>(
+            string methodName, 
+            IList<object> data
+        ) where T : class;
     }
 }

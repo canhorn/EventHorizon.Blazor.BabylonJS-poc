@@ -1,9 +1,20 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Model.Scripting.Services
 {
+    using EventHorizon.Observer.Model;
     using MediatR;
+    using Microsoft.Extensions.Logging;
 
-    public interface ClientScriptServices
+    public interface ScriptServices
     {
         IMediator Mediator { get; }
+
+        ILogger Logger<T>();
+
+        void RegisterObserver(
+            ObserverBase observer
+        );
+        void UnRegisterObserver(
+            ObserverBase observer
+        );
     }
 }

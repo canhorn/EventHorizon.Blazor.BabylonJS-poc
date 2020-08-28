@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes.GameScenes.ExampleGui;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Lights;
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Engine.Loading.Show;
@@ -17,6 +18,7 @@
     {
         private readonly IAccountState _accountState = GameServiceProvider.GetService<IAccountState>();
         private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<ZoneScene>>();
+        private readonly ExampleGuiLoader _exampleGui = new ExampleGuiLoader();
 
         public ZoneScene()
             : base("zone")
@@ -25,6 +27,7 @@
 
         public override async Task Initialize()
         {
+            await _exampleGui.Initialize();
             //await Register(
             //    new PointLightEntity(
             //        new LightSettings
@@ -44,6 +47,12 @@
                     serverAddress
                 )
             );
+        }
+
+        public override async Task Dispose()
+        {
+            await _exampleGui.Dispose();
+            await base.Dispose();
         }
 
         public override Task PostInitialize()

@@ -20,7 +20,7 @@
                 millisecondInterval
             );
             _timer.Elapsed += NotifyTimerElapsed;
-            _timer.Enabled = true;
+            _timer.Start();
         }
 
         public void Clear()

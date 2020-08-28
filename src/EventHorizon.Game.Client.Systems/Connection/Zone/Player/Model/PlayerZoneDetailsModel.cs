@@ -6,6 +6,6 @@
     public class PlayerZoneDetailsModel
         : ObjectEntityDetailsModel, IPlayerZoneDetails
     {
-        public string PlayerId { get; set; }
+        public string PlayerId { get; set; } = string.Empty;
     }
 }

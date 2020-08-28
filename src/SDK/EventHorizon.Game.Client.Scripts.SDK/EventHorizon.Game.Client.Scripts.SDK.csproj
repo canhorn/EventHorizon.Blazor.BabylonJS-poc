@@ -1,12 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EventHorizon.Game.Client.Core.Model\EventHorizon.Game.Client.Core.Model.csproj" />
-    <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Model\EventHorizon.Game.Client.Engine.Model.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Game.Client.Core.Model\EventHorizon.Game.Client.Core.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Model\EventHorizon.Game.Client.Engine.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Events\EventHorizon.Game.Client.Engine.Events.csproj" />
+    </ItemGroup>
 
 </Project>

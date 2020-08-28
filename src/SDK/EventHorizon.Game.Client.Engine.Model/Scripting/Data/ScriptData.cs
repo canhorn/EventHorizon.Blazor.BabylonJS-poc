@@ -25,5 +25,13 @@
             }
             return (T)_data[name];
         }
+
+        public void Set(
+            string name,
+            object value
+        )
+        {
+            _data[name] = value;
+        }
     }
 }

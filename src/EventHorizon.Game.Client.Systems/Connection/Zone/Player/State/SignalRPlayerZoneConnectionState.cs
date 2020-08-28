@@ -5,11 +5,13 @@
     using System.Linq;
     using System.Runtime.InteropServices;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Disconnected;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model;
+    using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using MediatR;
     using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.Extensions.Logging;
@@ -175,6 +177,24 @@
                 return;
             }
             await _connection.InvokeCoreAsync(
+                methodName,
+                data.ToArray()
+            );
+        }
+
+        public Task<T> InvokeMethodWithResult<T>(
+            string methodName,
+            IList<object> data
+        ) where T : class
+        {
+            if (_connection?.State != HubConnectionState.Connected)
+            {
+                throw new GameException(
+                    "player_zone_connection_not_connected",
+                    "Player Zone Connection is not Connected, could not make InvokeMethodWithResult call"
+                );
+            }
+            return _connection.InvokeCoreAsync<T>(
                 methodName,
                 data.ToArray()
             );

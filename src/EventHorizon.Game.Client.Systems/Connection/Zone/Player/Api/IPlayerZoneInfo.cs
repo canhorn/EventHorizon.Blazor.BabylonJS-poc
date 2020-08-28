@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+    using EventHorizon.Game.Client.Systems.ClientScripts.Api;
     using EventHorizon.Game.Client.Systems.Map.Api;
 
     public interface IPlayerZoneInfo
@@ -12,5 +13,6 @@
         IEnumerable<IClientAsset> ClientAssetList { get; }
         IEnumerable<IObjectEntityDetails> ClientEntityList { get; }
         IEnumerable<IObjectEntityDetails> EntityList { get; }
+        IClientScriptsAssemblyDetails ClientScriptsAssemblyDetails { get; }
     }
 }

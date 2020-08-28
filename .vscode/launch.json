@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to find out which attributes exist for C# debugging
+    // Use hover for the description of the existing attributes
+    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "blazorwasm",
+            "request": "launch",
+            "name": "Launch and Debug",
+            "program": "${workspaceFolder}/src/EventHorizon.Blazor.BabylonJS/bin/Debug/net5.0/browser-wasm/EventHorizon.Blazor.BabylonJS.dll",
+            "cwd": "${workspaceFolder}/src/EventHorizon.Blazor.BabylonJS",
+            "browser": "edge",
+            "url": "http://localhost:5000"
+        }
+    ]
+}

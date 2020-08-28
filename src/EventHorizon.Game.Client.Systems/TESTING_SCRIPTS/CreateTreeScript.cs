@@ -4,11 +4,10 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Threading.Tasks;
     using BabylonJS;
-    using EventHorizon.Blazor.Interop;
     using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Scripting.Api;
+    using EventHorizon.Game.Client.Engine.Model.Scripting.Data;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api.Configs;
     using Microsoft.Extensions.Logging;
 
@@ -19,7 +18,7 @@
 
         }
 
-        public T Run<T>(IScriptData Data)
+        public Task Run(ScriptData Data)
         {
             /**
  * Description: This script will create a Tree Mesh.
@@ -51,58 +50,59 @@
  *  radius: number;
  * };
  */
-
-            var id = Data.Get<string>("id");
-            var scene = Data.Get<Scene>("scene");
-            var config = Data.Get<IClientAssetScriptConfig>("config");
-            //var branchSize = Data.Get<int>("branchSize");
-            //var trunkSize = Data.Get<int>("trunkSize");
-            //var radius = Data.Get<int>("radius");
-
-            // TODO: pull from $state or Asset store
-            var leafMaterial = new StandardMaterial(
-                $"leafMaterial-${id}",
-                scene
-            );
-            leafMaterial.diffuseColor = new Color3(
-                0.5m,
-                1,
-                0.5m
-            );
-
-            // TODO: pull from $state or Asset store
-            var woodMaterial = new StandardMaterial(
-                $"woodMaterial-${id}",
-                scene
-            );
-            woodMaterial.diffuseColor = new Color3(
-                0.4m,
-                0.2m,
-                0.0m
-            );
-            //woodMaterial.specularColor = new BABYLON.Color3(0.4, 0.2, 0.0);
-            //woodMaterial.emissiveColor = new BABYLON.Color3(0.4, 0.2, 0.0);
-            //woodMaterial.ambientColor = new BABYLON.Color3(0.4, 0.2, 0.0);
-
-            if (typeof(T) != typeof(Mesh))
-            {
-                throw new GameException(
-                    "invalid_create_script",
-                    "Type does not match export type"
-                );
-            }
-
             try
             {
-                return CreateQuickTreeGenerator(
-                    id,
-                    scene,
-                    config.GetInt("branchSize"),
-                    config.GetInt("trunkSize"),
-                    config.GetInt("radius"),
-                    leafMaterial,
-                    woodMaterial
-                ).Cast<T>();
+                var id = Data.Get<string>("id");
+                var scene = Data.Get<Scene>("scene");
+                var config = Data.Get<IClientAssetScriptConfig>("config");
+                var resolve = Data.Get<Action<Mesh>>("resolve");
+                //var branchSize = Data.Get<int>("branchSize");
+                //var trunkSize = Data.Get<int>("trunkSize");
+                //var radius = Data.Get<int>("radius");
+
+                // TODO: pull from $state or Asset store
+                var leafMaterial = new StandardMaterial(
+                    $"leafMaterial-${id}",
+                    scene
+                );
+                leafMaterial.diffuseColor = new Color3(
+                    0.5m,
+                    1,
+                    0.5m
+                );
+
+                // TODO: pull from $state or Asset store
+                var woodMaterial = new StandardMaterial(
+                    $"woodMaterial-${id}",
+                    scene
+                );
+                woodMaterial.diffuseColor = new Color3(
+                    0.4m,
+                    0.2m,
+                    0.0m
+                );
+                //woodMaterial.specularColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+                //woodMaterial.emissiveColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+                //woodMaterial.ambientColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+
+                if (resolve == null)
+                {
+                    throw new GameException(
+                        "invalid_create_script",
+                        "Resolve is invalid"
+                    );
+                }
+                resolve(
+                    CreateQuickTreeGenerator(
+                        id,
+                        scene,
+                        config.GetInt("branchSize"),
+                        config.GetInt("trunkSize"),
+                        config.GetInt("radius"),
+                        leafMaterial,
+                        woodMaterial
+                    )
+                );
             }
             catch (Exception ex)
             {
@@ -110,6 +110,7 @@
                     .LogError(ex, "Error {Message}", ex.Message);
                 throw ex;
             }
+            return Task.CompletedTask;
         }
         public Mesh CreateQuickTreeGenerator(
             string id,

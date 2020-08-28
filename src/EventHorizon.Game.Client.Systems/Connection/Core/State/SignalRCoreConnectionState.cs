@@ -7,7 +7,10 @@
     using EventHorizon.Game.Client.Systems.Connection.Core.Api;
     using EventHorizon.Game.Client.Systems.Connection.Core.Model;
     using MediatR;
+    using Microsoft.AspNetCore.Connections;
+    using Microsoft.AspNetCore.Http.Connections;
     using Microsoft.AspNetCore.SignalR.Client;
+    using Microsoft.AspNetCore.SignalR.Protocol;
     using Microsoft.Extensions.Logging;
 
     public class SignalRCoreConnectionState
@@ -29,14 +32,14 @@
             _mediator = mediator;
         }
 
-        public Task StartConnection(
+        public async Task StartConnection(
             string serverUrl,
             string accessToken
         )
         {
             if (_connection != null)
             {
-                return Task.CompletedTask;
+                return;
             }
             try
             {
@@ -45,8 +48,11 @@
                         new Uri(
                             $"{serverUrl}/coreBus"
                         ),
+                        // TODO: Remove Transports when Websockets work
+                        HttpTransportType.LongPolling,
                         options =>
                         {
+                            //options.Transports = HttpTransportType.LongPolling;
                             options.AccessTokenProvider = () => accessToken.FromResult();
                         }
                     ).ConfigureLogging(
@@ -55,6 +61,7 @@
                             builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
                         }
                     ).Build();
+                ;
 
                 _connection.On(
                     "AccountConnected",
@@ -77,21 +84,21 @@
 
                 _connection.Closed += HandleConnectionClosed;
 
-                return _connection.StartAsync();
+                await _connection.StartAsync();
             }
             catch (Exception ex)
             {
                 _connection = null;
                 _logger.LogError(
-                    "Core Connection Start Failed",
-                    ex
+                    ex,
+                    "Core Connection Start Failed"
                 );
-                return _mediator.Send(
-                    new AccountDisconnectedEvent(
-                        "status_code_401",
-                        ex
-                    )
-                );
+                //await _mediator.Publish(
+                //     new AccountDisconnectedEvent(
+                //         "status_code_401",
+                //         ex
+                //     )
+                // );
             }
         }
 
@@ -119,7 +126,7 @@
 
         public Task StopConnection()
         {
-            return _connection?.StopAsync() 
+            return _connection?.StopAsync()
                 ?? Task.CompletedTask;
         }
     }

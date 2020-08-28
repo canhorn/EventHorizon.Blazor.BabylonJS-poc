@@ -119,6 +119,54 @@
                                     "textHorizontalAlignment": 2
                                 }
                             }
+                        },
+                        {
+                            "id": "example-init_script-button",
+                            "sort": 4,
+                            "templateId": "platform-button",
+                            "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textBlockOptions" ]
+                                },
+                                "isDisabled": true,
+                                "width": "130px",
+                                "height": "35px",
+                                "fontSize": 16,
+                                "color": "white",
+                                "background": "black",
+                                "hoverCursor": "pointer",
+                                "disabledColor": "gray",
+                                "disabledHoverCursor": "mouse",
+                                "textBlockOptions": {
+                                    "__color": "white",
+                                    "text": "Init Script",
+                                    "textHorizontalAlignment": 2
+                                }
+                            }
+                        },
+                        {
+                            "id": "example-run_script-button",
+                            "sort": 4,
+                            "templateId": "platform-button",
+                            "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textBlockOptions" ]
+                                },
+                                "isDisabled": true,
+                                "width": "130px",
+                                "height": "35px",
+                                "fontSize": 16,
+                                "color": "white",
+                                "background": "black",
+                                "hoverCursor": "pointer",
+                                "disabledColor": "gray",
+                                "disabledHoverCursor": "mouse",
+                                "textBlockOptions": {
+                                    "__color": "white",
+                                    "text": "Run Script",
+                                    "textHorizontalAlignment": 2
+                                }
+                            }
                         }
                     ]
                 },

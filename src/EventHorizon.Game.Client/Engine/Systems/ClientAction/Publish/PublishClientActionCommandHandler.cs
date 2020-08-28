@@ -29,6 +29,7 @@
             _logger = logger;
             _mediator = GameServiceProvider.GetService<IMediator>();
 
+            // TODO: Move ActionTypes out of here into a ClientActionState
             if (_actionTypes == null)
             {
                 _actionTypes = new Dictionary<string, Type>();
@@ -81,65 +82,75 @@
             CancellationToken cancellationToken
         )
         {
-            if (_actionTypes.TryGetValue(
-                request.ActionName,
-                out var actionType
-            ))
+            try
             {
-                var instance = Activator.CreateInstance(
-                    actionType,
-                    new ClientActionDataResolver(
-                        request.Data
-                    )
-                );
-                if (instance != null)
+                if (_actionTypes.TryGetValue(
+                    request.ActionName,
+                    out var actionType
+                ))
                 {
-                    await DebuggingLogger.EnableClientLogging();
-                    _logger.LogDebug("Action: {ClientAction}", request.ActionName);
-                    await _mediator.Publish(
-                        instance
+                    var instance = Activator.CreateInstance(
+                        actionType,
+                        new ClientActionDataResolver(
+                            request.Data
+                        )
                     );
+                    if (instance != null)
+                    {
+                        await DebuggingLogger.EnableClientLogging();
+                        _logger.LogDebug("Action: {ClientAction}", request.ActionName);
+                        await _mediator.Publish(
+                            instance
+                        );
+                    }
                 }
+
+                //return new StandardCommandResult().FromResult();
+                //// TODO: Lookup all IClientAction
+                //var clientActionType = typeof(IClientAction);
+                //var interfaces = AppDomain.CurrentDomain.GetAssemblies()
+                //    .SelectMany(x => x.DefinedTypes)
+                //    .Where(type => typeof(IClientAction).IsAssignableFrom(type));
+                //foreach (var item in interfaces)
+                //{
+                //    var attributes = Attribute.GetCustomAttributes(item, typeof(ClientActionAttribute));
+                //    if (attributes.Length > 0)
+                //    {
+                //        var ClientActionAttribute = (ClientActionAttribute)attributes.First();
+                //        if (ClientActionAttribute.Name == request.ActionName)
+                //        {
+
+                //        }
+                //        //Console.WriteLine(clientActionyAttribute.Name);
+
+                //        //foreach (var prop in request.Data)
+                //        //{
+                //        //    Console.WriteLine(prop.Key);
+                //        //}
+
+                //        var instance = Activator.CreateInstance(
+                //            item,
+                //            new ClientActionDataResolver(
+                //                request.Data
+                //            )
+                //        );
+                //        if (instance != null)
+                //        {
+                //            GameServiceProvider.GetService<IMediator>().Publish(
+                //                instance
+                //            );
+                //        }
+                //    }
+
+                //}
             }
-
-            //return new StandardCommandResult().FromResult();
-            //// TODO: Lookup all IClientAction
-            //var clientActionType = typeof(IClientAction);
-            //var interfaces = AppDomain.CurrentDomain.GetAssemblies()
-            //    .SelectMany(x => x.DefinedTypes)
-            //    .Where(type => typeof(IClientAction).IsAssignableFrom(type));
-            //foreach (var item in interfaces)
-            //{
-            //    var attributes = Attribute.GetCustomAttributes(item, typeof(ClientActionAttribute));
-            //    if (attributes.Length > 0)
-            //    {
-            //        var ClientActionAttribute = (ClientActionAttribute)attributes.First();
-            //        if (ClientActionAttribute.Name == request.ActionName)
-            //        {
-
-            //        }
-            //        //Console.WriteLine(clientActionyAttribute.Name);
-
-            //        //foreach (var prop in request.Data)
-            //        //{
-            //        //    Console.WriteLine(prop.Key);
-            //        //}
-
-            //        var instance = Activator.CreateInstance(
-            //            item,
-            //            new ClientActionDataResolver(
-            //                request.Data
-            //            )
-            //        );
-            //        if (instance != null)
-            //        {
-            //            GameServiceProvider.GetService<IMediator>().Publish(
-            //                instance
-            //            );
-            //        }
-            //    }
-
-            //}
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "error"
+                );
+            }
             return new StandardCommandResult();
         }
     }

@@ -11,6 +11,7 @@
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.ClientAssets.Builder;
     using EventHorizon.Game.Client.Systems.ClientAssets.Fetch;
+    using EventHorizon.Game.Client.Systems.ClientAssets.Loaded;
     using EventHorizon.Game.Client.Systems.ClientAssets.Register;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Loaded;
@@ -25,7 +26,8 @@
     public class ModelLoaderModule
         : ModuleEntityBase,
         IModelLoaderModule,
-        ClientAssetInstanceRegisteredEventObserver
+        ClientAssetInstanceRegisteredEventObserver,
+        ClientAssetsLoadedEventObserver
     {
         private readonly IMediator _mediator;
         private readonly IObjectEntity _entity;
@@ -48,29 +50,7 @@
                     this
                 )
             );
-            var modelState = _entity.GetProperty<IModelState>(
-                IModelState.NAME
-            );
-            if (!string.IsNullOrWhiteSpace(modelState.Mesh.AssetId))
-            {
-                Console.WriteLine($"{_entity.Name} | AssetId: {modelState.Mesh.AssetId}");
-                var clientAssetResult = await _mediator.Send(
-                    new FetchClientAssetQuery(
-                        modelState.Mesh.AssetId
-                    )
-                );
-                if (clientAssetResult.Success)
-                {
-
-                    await _mediator.Send(
-                        new BuildClientAssetInstanceCommand(
-                            _assetInstanceId,
-                            clientAssetResult.Result,
-                            _entity.Transform.Position
-                        )
-                    );
-                }
-            }
+            await LoadModelAsset();
         }
 
         public override Task Dispose()
@@ -124,24 +104,40 @@
                     )
                 );
             }
-            /**
-            // TODO: implement Animation Module
-            if (this._clientAsset.data.type === "GLTF") {
-                // Publish Animation Related Event
-                this._eventService.publish(
-                    createAnimationListLoadedEvent({
-                        clientId: this._entity.clientId,
-                        animationList: mesh.animationList || [],
-                    })
+        }
+
+        public async Task Handle(
+            ClientAssetsLoadedEvent args
+        )
+        {
+            await LoadModelAsset();
+        }
+
+        private async Task LoadModelAsset()
+        {
+            var modelState = _entity.GetProperty<IModelState>(
+                IModelState.NAME
+            );
+            if (!string.IsNullOrWhiteSpace(
+                modelState.Mesh.AssetId
+            ))
+            {
+                var clientAssetResult = await _mediator.Send(
+                    new FetchClientAssetQuery(
+                        modelState.Mesh.AssetId
+                    )
                 );
-                this._eventService.publish(
-                    createPlayAnimationEvent({
-                        clientId: this._entity.clientId,
-                        animation: "Idle",
-                    })
-                );
+                if (clientAssetResult.Success)
+                {
+                    await _mediator.Send(
+                        new BuildClientAssetInstanceCommand(
+                            _assetInstanceId,
+                            clientAssetResult.Result,
+                            _entity.Transform.Position
+                        )
+                    );
+                }
             }
-             */
         }
     }
 }

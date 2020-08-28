@@ -9,10 +9,12 @@
     <ItemGroup>
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-preview.7.20365.19" />
+        <PackageReference Include="CS-Script.Core" Version="1.4.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Game.Client\EventHorizon.Game.Client.csproj" />
+        <ProjectReference Include="..\SDK\EventHorizon.Game.Client.Scripts.SDK\EventHorizon.Game.Client.Scripts.SDK.csproj" />
         <ProjectReference Include="..\Shared\_generated\Blazor.BabylonJS.WASM\Blazor.BabylonJS.WASM.csproj" />
     </ItemGroup>
 

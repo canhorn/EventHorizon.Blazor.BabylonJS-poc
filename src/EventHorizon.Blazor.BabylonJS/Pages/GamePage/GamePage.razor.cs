@@ -15,12 +15,9 @@
     using Microsoft.AspNetCore.Authorization;
     using EventHorizon.Html.Interop;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes;
-    using System.Threading;
-    using System.Timers;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Timer.Api;
-    using EventHorizon.Game.Client.Core.Factory.Api;
     using EventHorizon.Game.Client.Engine.Systems.Player.Model;
+    using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
     [Authorize]
     public class GamePageModel : ComponentBase
@@ -34,14 +31,15 @@
         [Inject]
         public IConfiguration Configuration { get; set; }
         [Inject]
-        public IFactory<ITimerService> TimerServiceFactory { get; set; }
+        IAccessTokenProvider TokenProvider { get; set; }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnAfterRenderAsync(
+            bool firstRender
+        )
         {
             if (firstRender)
             {
-                //TimerService.SetTimer(2000, () => HandleStartGame().ConfigureAwait(false).GetAwaiter().GetResult());
-                await HandleStartGame();
+                await StartGame_ByClient();
             }
         }
 
@@ -76,7 +74,14 @@
         public async Task StartGame_ByClient()
         {
             var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
+            //var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
+            var accessTokenResult = await TokenProvider.RequestAccessToken();
+            var accessToken = string.Empty;
+
+            if (accessTokenResult.TryGetToken(out var token))
+            {
+                accessToken = token.Value;
+            }
             var playerId = state.User.Claims.FirstOrDefault(a => a.Type == "sub").Value;
             Startup.Setup(
                 new ServerGame(),
