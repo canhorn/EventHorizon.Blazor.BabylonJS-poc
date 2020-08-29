@@ -6,6 +6,7 @@
     using EventHorizon.Game.Client.Systems.Connection.Core.Account.Disconnected;
     using EventHorizon.Game.Client.Systems.Connection.Core.Api;
     using EventHorizon.Game.Client.Systems.Connection.Core.Model;
+    using EventHorizon.Game.Client.Systems.Connection.HubBuilder;
     using MediatR;
     using Microsoft.AspNetCore.Connections;
     using Microsoft.AspNetCore.Http.Connections;
@@ -43,25 +44,32 @@
             }
             try
             {
-                _connection = new HubConnectionBuilder()
-                    .WithUrl(
-                        new Uri(
-                            $"{serverUrl}/coreBus"
-                        ),
-                        // TODO: Remove Transports when Websockets work
-                        HttpTransportType.LongPolling,
-                        options =>
-                        {
-                            //options.Transports = HttpTransportType.LongPolling;
-                            options.AccessTokenProvider = () => accessToken.FromResult();
-                        }
-                    ).ConfigureLogging(
-                        builder =>
-                        {
-                            builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
-                        }
-                    ).Build();
-                ;
+                _connection = MyCustomSignalrHubBuilder.BuildHubConnection(
+                    new Uri(
+                        $"{serverUrl}/coreBus"
+                    ),
+                    () => accessToken.FromResult(),
+                    loggingBuilder =>
+                    {
+                        loggingBuilder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
+                    }
+                );
+                // _connection = new HubConnectionBuilder()
+                //     .WithUrl(
+                //         new Uri(
+                //             $"{serverUrl}/coreBus"
+                //         ),
+                //         options =>
+                //         {
+                //             //options.Transports = HttpTransportType.LongPolling;
+                //             options.AccessTokenProvider = () => accessToken.FromResult();
+                //         }
+                //     ).ConfigureLogging(
+                //         builder =>
+                //         {
+                //             builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
+                //         }
+                //     ).Build();
 
                 _connection.On(
                     "AccountConnected",

@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
+    using EventHorizon.Game.Client.Systems.Connection.HubBuilder;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Disconnected;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
@@ -46,21 +47,31 @@
             }
             try
             {
-                _connection = new HubConnectionBuilder()
-                    .WithUrl(
-                        new Uri(
-                            $"{serverUrl}/playerHub"
-                        ),
-                        options =>
-                        {
-                            options.AccessTokenProvider = () => accessToken.FromResult();
-                        }
-                    ).ConfigureLogging(
-                        builder =>
-                        {
-                            builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
-                        }
-                    ).Build();
+                _connection = MyCustomSignalrHubBuilder.BuildHubConnection(
+                    new Uri(
+                        $"{serverUrl}/playerHub"
+                    ),
+                    () => accessToken.FromResult(),
+                    loggingBuilder =>
+                    {
+                        loggingBuilder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
+                    }
+                );
+                // _connection = new HubConnectionBuilder()
+                //     .WithUrl(
+                //         new Uri(
+                //             $"{serverUrl}/playerHub"
+                //         ),
+                //         options =>
+                //         {
+                //             options.AccessTokenProvider = () => accessToken.FromResult();
+                //         }
+                //     ).ConfigureLogging(
+                //         builder =>
+                //         {
+                //             builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
+                //         }
+                //     ).Build();
 
                 _connection.On(
                     "ZoneInfo",

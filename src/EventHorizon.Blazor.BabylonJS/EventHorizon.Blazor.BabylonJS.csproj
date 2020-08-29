@@ -17,15 +17,15 @@
         <PackageReference Include="BlazorJsFastDataExchanger" Version="1.0.6" />
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0-preview.7.20365.19" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.0-preview.7.20365.19" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0-preview.7.20365.19" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0-preview.8.20414.8" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.0-preview.8.20414.8" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0-preview.8.20414.8" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-preview.7.20365.19" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-preview.8.20414.8" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="5.0.0-preview.7.20364.11" />
-        <PackageReference Include="System.Net.Http.Json" Version="5.0.0-preview.7.20364.11" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="5.0.0-preview.8.20407.11" />
+        <PackageReference Include="System.Net.Http.Json" Version="5.0.0-preview.8.20407.11" />
 
         <!--<PackageReference Include="HLSoft.BlazorWebAssembly.Authentication.OpenIdConnect" Version="0.7.2-preview4" />-->
     </ItemGroup>
