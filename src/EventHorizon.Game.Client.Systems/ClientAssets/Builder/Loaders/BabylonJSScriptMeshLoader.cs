@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using BabylonJS;
-    using EventHorizon.Game.Client.Engine.Model.Scripting.Data;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
+    using EventHorizon.Game.Client.Engine.Scripting.Data;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api.Builder;

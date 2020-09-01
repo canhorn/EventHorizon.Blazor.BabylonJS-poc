@@ -2,7 +2,7 @@ namespace EventHorizon.Game.Client.Systems.TESTING_SCRIPTS
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Events.Testing;
+    using EventHorizon.Game.Client.Engine.Testing.Events;
     using EventHorizon.Observer.State;
     using MediatR;
 

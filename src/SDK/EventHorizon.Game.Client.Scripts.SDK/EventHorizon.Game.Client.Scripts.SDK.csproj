@@ -2,12 +2,17 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>EventHorizon.Game.Client.Scripts.SDK$(PackageIdPostfix)</PackageId>
+        <RepositoryUrl>https://github.com/canhorn/EventHorizon.Blazor.BabylonJS-poc</RepositoryUrl>
+        <Description>This project is the SDK for the EventHorizon Game Client Scripts.</Description>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\EventHorizon.Game.Client.Core.Model\EventHorizon.Game.Client.Core.Model.csproj" />
-        <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Model\EventHorizon.Game.Client.Engine.Model.csproj" />
-        <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Events\EventHorizon.Game.Client.Engine.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Client.Core.Api\EventHorizon.Game.Client.Core.Api.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Api\EventHorizon.Game.Client.Engine.Api.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Gui.Api\EventHorizon.Game.Client.Engine.Gui.Api.csproj" />
+        <ProjectReference Include="..\Server\EventHorizon.Game.Server.ServerModule.Api\EventHorizon.Game.Server.ServerModule.Api.csproj" />
     </ItemGroup>
 
 </Project>

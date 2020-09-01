@@ -2,7 +2,7 @@
 {
     using System;
     using System.Reflection;
-    using EventHorizon.Game.Client.Engine.Model.Scripting.Api;
+    using EventHorizon.Game.Client.Engine.Scripting.Api;
 
     public interface ClientScriptsState
     {
@@ -11,7 +11,7 @@
             string hash,
             Assembly scriptAssembly
         );
-        IClientScript GetScript(
+        Option<IClientScript> GetScript(
             string id
         );
     }

@@ -6,7 +6,6 @@
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Unregister;
     using MediatR;
 
     public class DisposeOfGuiCommandHandler

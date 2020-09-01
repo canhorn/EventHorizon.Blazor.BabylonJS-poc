@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Client.Core.Command.Model;
-using EventHorizon.Game.Client.Engine.Model.Scripting.Data;
-using EventHorizon.Game.Client.Engine.Model.Scripting.Services;
-using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
-using EventHorizon.Game.Client.Systems.ClientScripts.Api;
-using MediatR;
-
 namespace EventHorizon.Game.Client.Systems.ClientScripts.Run
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Command.Model;
+    using EventHorizon.Game.Client.Engine.Scripting.Data;
+    using EventHorizon.Game.Client.Engine.Scripting.Services;
+    using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
+    using EventHorizon.Game.Client.Systems.ClientScripts.Api;
+    using MediatR;
+
     public class RunClientScriptCommandHandler
         : IRequestHandler<RunClientScriptCommand, StandardCommandResult>
     {
@@ -33,9 +33,9 @@ namespace EventHorizon.Game.Client.Systems.ClientScripts.Run
                 request.Id
             );
 
-            if (request.Id == script.Id)
+            if (script.HasValue)
             {
-                await script.Run(
+                await script.Value.Run(
                     _scriptServices,
                     new ScriptData(
                         request.Data

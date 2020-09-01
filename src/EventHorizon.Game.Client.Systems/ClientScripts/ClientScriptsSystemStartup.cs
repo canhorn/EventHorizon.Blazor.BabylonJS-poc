@@ -1,7 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientScripts
 {
     using System;
-    using EventHorizon.Game.Client.Engine.Model.Scripting.Services;
+    using EventHorizon.Game.Client.Engine.Scripting.Services;
     using EventHorizon.Game.Client.Systems.ClientScripts.Api;
     using EventHorizon.Game.Client.Systems.ClientScripts.Services;
     using EventHorizon.Game.Client.Systems.ClientScripts.State;

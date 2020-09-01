@@ -9,6 +9,7 @@
     using EventHorizon.Game.Client.Systems.Local.Scenes;
     using EventHorizon.Game.Client.Systems.Map;
     using EventHorizon.Game.Client.Systems.Player;
+    using EventHorizon.Game.Client.Systems.ServerModule;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -32,6 +33,7 @@
             .AddHeightSystemServices()
             .AddClientAssetsSystemServices()
             .AddClientScriptsSystemServices()
+            .AddServerModuleSystemServices()
         ;
     }
 }

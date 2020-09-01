@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using EventHorizon.Game.Client.Engine.Model.Scripting.Api;
+    using EventHorizon.Game.Client.Engine.Scripting.Api;
     using EventHorizon.Game.Client.Systems.ClientScripts.Api;
     using CSScriptLib;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Model.Scripting.Services;
-    using EventHorizon.Game.Client.Engine.Model.Scripting.Data;
+    using EventHorizon.Game.Client.Engine.Scripting.Services;
+    using EventHorizon.Game.Client.Engine.Scripting.Data;
     using EventHorizon.Game.Client.Scripts.SDK;
     using Microsoft.Extensions.Logging;
     using System.Linq;
@@ -16,7 +16,6 @@
     public class StandardClientScriptsState
         : ClientScriptsState
     {
-        private static readonly IClientScript EMPTY_SCRIPT = new EmptyScript();
         private static readonly IList<Assembly> ASSEMBLIES = GameClientSDKRoot.ASSEMBLIES;
 
         public string Hash { get; private set; } = string.Empty;
@@ -40,73 +39,82 @@
             _scriptAssembly = scriptAssembly;
         }
 
-        public IClientScript GetScript(
+        public Option<IClientScript> GetScript(
             string id
         )
         {
+            id = NormailzeIdForAssemblyScriptLookup(
+                id
+            );
             if (_scripts.TryGetValue(
                 id,
                 out var script
             ))
             {
-                return script;
+                return script.ToOption();
             }
             if (_scriptAssembly == null)
             {
-                return EMPTY_SCRIPT;
+                return new Option<IClientScript>(
+                    null
+                );
             }
 
             // Get script from Assembly
             try
             {
-                var assemblyScript = _scriptAssembly.CreateObject(
+                if (_scriptAssembly.CreateObject(
                     $"css_root+{id}"
-                ) as IClientScript;
-                if (assemblyScript != null)
+                ) is IClientScript assemblyScript)
                 {
                     _scripts.Add(
                         id,
                         assemblyScript
                     );
-                    return assemblyScript;
+                    return assemblyScript.ToOption();
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(
                     ex,
-                    "Failed to Create Script"
+                    "Failed to Create Script: {Id}",
+                    id
                 );
                 var scriptNames = string.Join(
                     ",",
                     _scriptAssembly.GetTypes()
                         .Select(
                             a => a.FullName?.Replace(
-                                "css_root+", 
+                                "css_root+",
                                 string.Empty
                             ) ?? string.Empty
                         )
-                ); 
+                );
                 _logger.LogInformation(
                     "Currently Supported Script Names: \n\r {AssemblyNames}",
                     scriptNames
                 );
             }
-            return EMPTY_SCRIPT;
+            return new Option<IClientScript>(
+                null
+            );
         }
 
-        private class EmptyScript
-            : IClientScript
+        /// <summary>
+        /// This "fixes" the client script id so it can be looked up in the Assembly.
+        /// TODO: [TS_DEPRECATED] - Remove after old ts client is deprecated.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private string NormailzeIdForAssemblyScriptLookup(
+            string id
+        )
         {
-            public string Id => "__EMPTY_SCRIPT__";
-
-            public Task Run(
-                ScriptServices services,
-                ScriptData data
-            )
-            {
-                return Task.CompletedTask;
-            }
+            return id.Replace(
+                ".js",
+                string.Empty
+            );
         }
     }
 }

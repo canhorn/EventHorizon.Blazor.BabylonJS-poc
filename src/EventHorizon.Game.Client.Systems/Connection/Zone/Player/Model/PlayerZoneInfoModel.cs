@@ -1,8 +1,8 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model
 {
     using System.Collections.Generic;
-    using System.Linq;
-    using EventHorizon.Game.Client.Engine.Entity.Api;
+    using EventHorizon.Game.Client.Engine.Gui.Api;
+    using EventHorizon.Game.Client.Engine.Gui.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
@@ -12,6 +12,8 @@
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
     using EventHorizon.Game.Client.Systems.Map.Api;
     using EventHorizon.Game.Client.Systems.Map.Model;
+    using EventHorizon.Game.Client.Systems.ServerModule;
+    using EventHorizon.Game.Client.Systems.ServerModule.Api;
 
     public class PlayerZoneInfoModel
         : IPlayerZoneInfo
@@ -23,6 +25,10 @@
 
         public List<ClientAssetModel> ClientAssetList { get; set; } = new List<ClientAssetModel>();
         IEnumerable<IClientAsset> IPlayerZoneInfo.ClientAssetList => ClientAssetList;
+
+        public List<GuiLayoutDataModel> GuiLayoutList { get; set; } = new List<GuiLayoutDataModel>();
+        IEnumerable<IGuiLayoutData> IPlayerZoneInfo.GuiLayoutList => GuiLayoutList;
+
         public List<ObjectEntityDetailsModel> ClientEntityList { get; set; } = new List<ObjectEntityDetailsModel>();
         IEnumerable<IObjectEntityDetails> IPlayerZoneInfo.ClientEntityList => ClientEntityList;
 
@@ -31,5 +37,9 @@
 
         public ClientScriptsAssemblyDetails ClientScriptsAssemblyDetails { get; set; } = new ClientScriptsAssemblyDetails();
         IClientScriptsAssemblyDetails IPlayerZoneInfo.ClientScriptsAssemblyDetails => ClientScriptsAssemblyDetails;
+
+        public List<ServerModuleScriptsModel> ServerModuleScriptList { get; set; } = new List<ServerModuleScriptsModel>();
+        IEnumerable<IServerModuleScripts> IPlayerZoneInfo.ServerModuleScriptList => ServerModuleScriptList;
+
     }
 }

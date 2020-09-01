@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
     using EventHorizon.Blazor.Interop;
     using EventHorizon.Game.Client;
-    using EventHorizon.Game.Client.Engine.Events.Testing;
     using EventHorizon.Game.Client.Engine.Gui.Activate;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Gui.Create;
@@ -15,6 +14,7 @@
     using EventHorizon.Game.Client.Engine.Gui.Model;
     using EventHorizon.Game.Client.Engine.Gui.Register;
     using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
+    using EventHorizon.Game.Client.Engine.Testing.Events;
     using MediatR;
     using Microsoft.Extensions.Logging;
 

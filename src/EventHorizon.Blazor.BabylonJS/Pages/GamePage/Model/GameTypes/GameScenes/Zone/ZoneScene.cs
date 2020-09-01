@@ -27,7 +27,8 @@
 
         public override async Task Initialize()
         {
-            await _exampleGui.Initialize();
+            // Uncomment the line below to see a Data Generated GUI displayed when this scene is loaded.
+            //await _exampleGui.Initialize();
             //await Register(
             //    new PointLightEntity(
             //        new LightSettings

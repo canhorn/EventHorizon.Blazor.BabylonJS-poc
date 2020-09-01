@@ -8,6 +8,7 @@
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Systems.ClientScripts.Api;
     using EventHorizon.Game.Client.Systems.ClientScripts.Fetch;
+    using EventHorizon.Game.Client.Systems.ClientScripts.Set;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Invoke;
     using MediatR;
 
@@ -61,6 +62,10 @@
                     _state.SetScriptAssembly(
                         assemblyHash,
                         assembly
+                    );
+
+                    await _mediator.Publish(
+                        new ClientScriptsAssemblySetEvent()
                     );
                 }
             }

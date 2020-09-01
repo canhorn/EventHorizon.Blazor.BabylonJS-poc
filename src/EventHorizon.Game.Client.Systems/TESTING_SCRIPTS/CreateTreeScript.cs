@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using BabylonJS;
     using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Model.Scripting.Data;
+    using EventHorizon.Game.Client.Engine.Scripting.Data;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api.Configs;
     using Microsoft.Extensions.Logging;
 

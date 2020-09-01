@@ -1,11 +1,11 @@
-using EventHorizon.Game.Client.Engine.Model.Scripting.Services;
-using EventHorizon.Observer.Model;
-using EventHorizon.Observer.State;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
 {
+    using EventHorizon.Game.Client.Engine.Scripting.Services;
+    using EventHorizon.Observer.Model;
+    using EventHorizon.Observer.State;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
     public class StandardScriptServices
         : ScriptServices
     {

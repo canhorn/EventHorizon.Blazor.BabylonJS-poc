@@ -37,7 +37,7 @@
             if (!result.Success)
             {
                 _logger.LogError(
-                    "Filed to load ClientScriptAssembly: {Hash} | {ErrorCode}",
+                    "Failed to load ClientScriptAssembly: {Hash} | {ErrorCode}",
                     hash,
                     result.ErrorCode
                 );

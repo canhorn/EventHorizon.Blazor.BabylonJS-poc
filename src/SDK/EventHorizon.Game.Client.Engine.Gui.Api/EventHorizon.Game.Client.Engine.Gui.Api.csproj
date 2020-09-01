@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>EventHorizon.Game.Client.Engine.Gui</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>EventHorizon.Game.Client.Engine.Gui.Api$(PackageIdPostfix)</PackageId>
+        <RepositoryUrl>https://github.com/canhorn/EventHorizon.Blazor.BabylonJS-poc</RepositoryUrl>
+        <Description>This project is the Engine GUI Api/Model/Events for the EventHorizon Game Client.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="8.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\EventHorizon.Common\EventHorizon.Common.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Client.Core.Api\EventHorizon.Game.Client.Core.Api.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Api\EventHorizon.Game.Client.Engine.Api.csproj" />
+    </ItemGroup>
+
+</Project>

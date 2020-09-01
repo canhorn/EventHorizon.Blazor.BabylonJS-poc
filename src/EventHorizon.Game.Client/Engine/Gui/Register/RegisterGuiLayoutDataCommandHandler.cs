@@ -6,22 +6,26 @@
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Gui.Api;
+    using EventHorizon.Game.Client.Engine.Gui.Changed;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
     public class RegisterGuiLayoutDataCommandHandler
         : IRequestHandler<RegisterGuiLayoutDataCommand, StandardCommandResult>
     {
+        private readonly IMediator _mediator;
         private readonly IGuiLayoutDataState _state;
 
         public RegisterGuiLayoutDataCommandHandler(
+            IMediator mediator,
             IGuiLayoutDataState state
         )
         {
+            _mediator = mediator;
             _state = state;
         }
 
-        public Task<StandardCommandResult> Handle(
+        public async Task<StandardCommandResult> Handle(
             RegisterGuiLayoutDataCommand request,
             CancellationToken cancellationToken
         )
@@ -32,8 +36,13 @@
                     request.LayoutData
                 );
 
-                return new StandardCommandResult()
-                    .FromResult();
+                await _mediator.Publish(
+                    new GuiLayoutDataChangedEvent(
+                        request.LayoutData.Id
+                    )
+                );
+
+                return new StandardCommandResult();
             }
             catch (GameException ex)
             {
@@ -45,7 +54,7 @@
 
                 return new StandardCommandResult(
                     ex.ErrorCode
-                ).FromResult();
+                );
             }
             catch (Exception ex)
             {
@@ -57,7 +66,7 @@
 
                 return new StandardCommandResult(
                     "general_exception"
-                ).FromResult();
+                );
             }
         }
     }
