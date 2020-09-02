@@ -7,10 +7,17 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public struct DisplayFeedbackMessageEvent 
+    public struct DisplayFeedbackMessageEvent
         : INotification
     {
+        public string Message { get; }
 
+        public DisplayFeedbackMessageEvent(
+            string message
+        )
+        {
+            Message = message;
+        }
     }
 
     public interface DisplayFeedbackMessageEventObserver

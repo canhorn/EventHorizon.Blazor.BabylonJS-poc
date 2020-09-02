@@ -17,6 +17,17 @@
     public class ScriptGuiLayoutDataChangedObserver
         : GuiLayoutDataChangedEventObserver
     {
+        /// <summary>
+        /// Generate Key for usage with the ScriptData unique to this type of Observer.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string DataKey(
+            string layoutId,
+            string guiId,
+            string key
+        ) => $"{layoutId}-{guiId}-{key}";
+
         private readonly ScriptServices _services;
         private readonly ScriptData _data;
         private readonly string _guiId;
@@ -32,13 +43,13 @@
         )
         {
             _services = services;
-            _data = data;
+             _data = data;
             _layoutId = layoutId;
             _guiId = guiId;
             _getGuiControlData = getGuiControlData;
 
             _data.Set(
-                "active",
+                DataKey(_layoutId, _guiId, "active"),
                 false
             );
         }
@@ -56,7 +67,7 @@
 
         public async Task OnChange()
         {
-            if (_data.Get<bool>("active"))
+            if (_data.Get<bool>(DataKey(_layoutId, _guiId, "active")))
             {
                 await _services.Mediator.Send(
                     new DisposeOfGuiCommand(
@@ -64,7 +75,7 @@
                     )
                 );
                 _data.Set(
-                    "active",
+                    DataKey(_layoutId, _guiId, "active"),
                     false
                 );
             }
@@ -84,7 +95,7 @@
                     )
                 );
                 _data.Set(
-                    "active",
+                    DataKey(_layoutId, _guiId, "active"),
                     true
                 );
             }

@@ -176,7 +176,6 @@
         {
             foreach (var option in options)
             {
-                Console.WriteLine("Grid Key: " + option.Key);
                 if (!IGNORE_PROPERTY_LIST.Contains(
                     option.Key
                 ))
