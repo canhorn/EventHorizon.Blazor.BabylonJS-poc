@@ -16,4 +16,16 @@
       <PackageReference Include="MediatR" Version="8.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\EventHorizon.Observer\EventHorizon.Observer.csproj" />
+      <ProjectReference Include="..\..\EventHorizon.Game.Client.Engine.Api\EventHorizon.Game.Client.Engine.Api.csproj" />
+      <ProjectReference Include="..\..\EventHorizon.Game.Client.Engine.Gui.Api\EventHorizon.Game.Client.Engine.Gui.Api.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Gui\" />
+      <Folder Include="Leaderboard\" />
+      <Folder Include="PlayerCaptures\" />
+    </ItemGroup>
+
 </Project>

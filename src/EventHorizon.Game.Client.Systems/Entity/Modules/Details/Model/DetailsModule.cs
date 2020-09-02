@@ -53,7 +53,7 @@
         }
 
         public async Task Handle(
-            ClientActionEntityChangedEvent args
+            ClientActionEntityClientChangedEvent args
         )
         {
             if (_entity.EntityId != args.Details.Id)

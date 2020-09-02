@@ -31,8 +31,15 @@ Because of this connection between the two services any work being done with the
 The Zone/Game Server architecture in setup to use the SDK project hosted in a NuGet repository, because of this any new functionality added to the SDK will need to be pushed to NuGet.
 Below is the details about what needs to be done, with a CLI script that can be ran from PowerShell Core to Build/Package/Push the SDK package.
 
-- You will need to setup the an environment variable of 'NUGET_ORG_KEY'
+- If using NuGet.org, you will need to setup the an environment variable of 'NUGET_ORG_KEY' for the key
   - This is used during the push to add the packages to NuGet for referencing by the Zone/Game Server.
+- You can also setup a local NuGet registry, baget configuration is included.
+  - Checkout https://loic-sharma.github.io/BaGet/installation/docker/ for docker installation instructions
+  - Using Docker to host Baget NuGet server
+    ~~~ bash
+    # Startup local baget server
+    docker run --rm --name nuget-server -p 1313:80 --env-file baget.env -v "$(pwd)/baget-data:/var/baget" loicsharma/baget:latest
+    ~~~
 - The packages will be have versions of 0.0.*.
 - The file .dev.version and .sdk.version are used to keep track of the next versions to publish.
 - Scripting Configuration on the Zone/Game server should be using the Development settings.

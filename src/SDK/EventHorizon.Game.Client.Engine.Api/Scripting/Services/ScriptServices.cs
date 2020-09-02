@@ -10,11 +10,17 @@
 
         ILogger Logger<T>();
 
+        T GetService<T>();
+
         void RegisterObserver(
             ObserverBase observer
         );
         void UnRegisterObserver(
             ObserverBase observer
+        );
+        string Translate(
+            string key,
+            params string[] replaces
         );
     }
 }

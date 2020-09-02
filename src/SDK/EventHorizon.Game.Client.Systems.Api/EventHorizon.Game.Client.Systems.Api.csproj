@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>EventHorizon.Game.Client.Systems</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageId>EventHorizon.Game.Client.Systems.Api$(PackageIdPostfix)</PackageId>
+        <RepositoryUrl>https://github.com/canhorn/EventHorizon.Blazor.BabylonJS-poc</RepositoryUrl>
+        <Description>This project is the Systems Api/Model/Events for the EventHorizon Game Client.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Api\EventHorizon.Game.Client.Engine.Api.csproj" />
+    </ItemGroup>
+
+</Project>

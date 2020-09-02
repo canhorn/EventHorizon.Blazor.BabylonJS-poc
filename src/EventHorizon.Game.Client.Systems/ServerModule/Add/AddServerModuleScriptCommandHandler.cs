@@ -55,12 +55,12 @@
             );
             var disposeScript = await _mediator.Send(
                 new QueryForClientScriptById(
-                    serverModuleScripts.InitializeScript
+                    serverModuleScripts.DisposeScript
                 )
             );
             var updateScript = await _mediator.Send(
                 new QueryForClientScriptById(
-                    serverModuleScripts.InitializeScript
+                    serverModuleScripts.UpdateScript
                 )
             );
             _scriptsState.Add(

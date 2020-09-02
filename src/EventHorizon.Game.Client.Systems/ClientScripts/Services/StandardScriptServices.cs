@@ -31,6 +31,11 @@ namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
             return _loggerFactory.CreateLogger<T>();
         }
 
+        public T GetService<T>()
+        {
+            return GameServiceProvider.GetService<T>();
+        }
+
         public void RegisterObserver(
             ObserverBase observer
         ) => _observerState.Register(
@@ -42,5 +47,24 @@ namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
         ) => _observerState.Remove(
             observer
         );
+
+        public string Translate(
+            string key,
+            params string[] replaces
+        )
+        {
+            // TODO: [Localization] - Finish Implementation
+            var translation = key;
+
+            for (int i = 0; i < replaces.Length; i++)
+            {
+                translation = translation.Replace(
+                    $"{{{i}}}",
+                    replaces[i]
+                );
+            }
+
+            return translation;
+        }
     }
 }
