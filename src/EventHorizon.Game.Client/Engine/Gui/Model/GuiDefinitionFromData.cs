@@ -252,6 +252,9 @@
                     var accumulatorControl = new GuiLayoutControlDataModel(
                         control
                     );
+                    var optionsFromData = GetControlOptionsForControl(
+                        accumulatorControl.Id
+                    );
                     accumulatorControl.Options = GuiControlOptionsModel.MergeControlOptions(
                         SanitizeControlOptions(
                             accumulatorControl.Options ?? new GuiControlOptionsModel()
@@ -262,8 +265,12 @@
                             accumulatorControl.Options,
                             accumulatorControl
                         ),
-                        GetControlOptionsForControl(
-                            accumulatorControl.Id
+                        optionsFromData,
+                        GetGeneratedOptions(
+                            GuiId,
+                            _layout,
+                            optionsFromData,
+                            accumulatorControl
                         )
                     );
                     accumulator.Add(
@@ -366,10 +373,9 @@
             string guiId,
             IGuiLayoutData layout,
             IGuiLayoutControlData control,
-            IGuiControlOptions controlOptions
+            IGuiControlOptions options
         )
         {
-            var options = control.Options;
             var onClick = options.GetValue<Func<Task>>(
                 "onClick"
             );
@@ -410,6 +416,7 @@
             // Contains textKey, run through Localizer
             if (options.ContainsKey("textKey"))
             {
+                Console.WriteLine("Hi: " + options.GetValue<string>("textKey").Value);
                 return _localizer[options.GetValue<string>("textKey").Value];
             }
             // Check text

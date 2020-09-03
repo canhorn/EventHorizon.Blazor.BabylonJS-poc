@@ -18,6 +18,12 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.Player.Model;
     using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+    using System.Net.Http;
+    using EventHorizon.Game.Client.Core.I18n.Model;
+    using System.Net.Http.Json;
+    using Microsoft.Extensions.Logging;
+    using EventHorizon.Game.Client.Core.I18n.Api;
+    using EventHorizon.Game.Client.Core.I18n.Set;
 
     [Authorize]
     public class GamePageModel : ComponentBase
@@ -73,6 +79,8 @@
 
         public async Task StartGame_ByClient()
         {
+            await LoadInDefaultI18nBundle();
+
             var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             //var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
             var accessTokenResult = await TokenProvider.RequestAccessToken();
@@ -147,6 +155,74 @@
             //engine.StartRenderLoop(
             //    scene
             //);
+        }
+
+        [Inject]
+        public HttpClient HttpClient { get; set; }
+        [Inject]
+        public ILogger<GamePageModel> Logger { get; set; }
+
+        private async Task LoadInDefaultI18nBundle()
+        {
+            // TODO: Grab this from User Claims
+            var locale = "en-us"; 
+            II18nBundle resourceBundle;
+            try
+            {
+                resourceBundle = await HttpClient.GetFromJsonAsync<I18nBundleModel>(
+                    $"i18n/default.{locale}.json"
+                );
+            }
+            catch (HttpRequestException ex)
+            {
+                if (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    // Try to pull in i18n/default.json
+                    resourceBundle = await GetDefaultBundle();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(
+                    ex,
+                    "Failed I18n Bundle Request for Locale: {Locale}",
+                    locale
+                );
+                throw;
+            }
+
+            if (resourceBundle != default)
+            {
+                await Mediator.Send(
+                    new SetI18nBundleCommand(
+                        resourceBundle
+                    )
+                );
+            }
+        }
+
+        public async Task<II18nBundle> GetDefaultBundle()
+        {
+
+            try
+            {
+                var bundle = await HttpClient.GetFromJsonAsync<I18nBundleModel>(
+                    $"i18n/default.json"
+                );
+                return bundle;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(
+                    ex,
+                    "Failed Default Bundle I18n Request"
+                );
+                throw;
+            }
         }
     }
 }

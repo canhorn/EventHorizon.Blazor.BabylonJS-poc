@@ -2,17 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public struct InputOptions
     {
         public string Key { get; }
-        public Action<InputKeyEvent> Pressed { get; }
-        public Action<InputKeyEvent> Released { get; }
+        public Func<InputKeyEvent, Task> Pressed { get; }
+        public Func<InputKeyEvent, Task> Released { get; }
 
         public InputOptions(
             string key,
-            Action<InputKeyEvent> pressed,
-            Action<InputKeyEvent> released
+            Func<InputKeyEvent, Task> pressed,
+            Func<InputKeyEvent, Task> released
         )
         {
             Key = key;
@@ -25,8 +26,8 @@
         {
             return obj is InputOptions options &&
                    Key == options.Key &&
-                   EqualityComparer<Action<InputKeyEvent>>.Default.Equals(Pressed, options.Pressed) &&
-                   EqualityComparer<Action<InputKeyEvent>>.Default.Equals(Released, options.Released);
+                   EqualityComparer<Func<InputKeyEvent, Task>>.Default.Equals(Pressed, options.Pressed) &&
+                   EqualityComparer<Func<InputKeyEvent, Task>>.Default.Equals(Released, options.Released);
         }
 
         public override int GetHashCode()

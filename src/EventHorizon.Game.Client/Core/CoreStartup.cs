@@ -16,9 +16,9 @@
             this IServiceCollection services
         ) => services
             // I18n Services
-            .AddSingleton<StandardI18nService>()
-            .AddSingleton<II18nService>(services => services.GetRequiredService<StandardI18nService>())
-            .AddSingleton<ILocalizer>(services => services.GetRequiredService<StandardI18nService>())
+            .AddSingleton<StandardI18nState>()
+            .AddSingleton<II18nState>(services => services.GetRequiredService<StandardI18nState>())
+            .AddSingleton<ILocalizer>(services => services.GetRequiredService<StandardI18nState>())
 
             .AddSingleton<IPlatformMonitor, StandardPlatformMonitor>()
             .AddSingleton<IFactory<ITimerService>>(new StandardFactory<ITimerService>(() => new TimerService()))

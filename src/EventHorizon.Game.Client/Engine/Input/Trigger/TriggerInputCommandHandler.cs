@@ -18,7 +18,7 @@
             _inputState = inputState;
         }
 
-        public Task<Unit> Handle(
+        public async Task<Unit> Handle(
             TriggerInputCommand request,
             CancellationToken cancellationToken
         )
@@ -30,7 +30,7 @@
             {
                 if (request.TriggerType == Model.InputTriggerType.Pressed)
                 {
-                    option.Pressed(
+                    await option.Pressed(
                         new InputKeyEvent(
                             request.Key
                         )
@@ -38,7 +38,7 @@
                 }
                 else if (request.TriggerType == Model.InputTriggerType.Released)
                 {
-                    option.Released(
+                    await option.Released(
                         new InputKeyEvent(
                             request.Key
                         )
@@ -46,7 +46,7 @@
                 }
             }
 
-            return Unit.Task;
+            return Unit.Value;
         }
     }
 }

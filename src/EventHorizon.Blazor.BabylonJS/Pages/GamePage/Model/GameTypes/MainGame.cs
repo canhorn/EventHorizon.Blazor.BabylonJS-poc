@@ -50,18 +50,22 @@
             );
         }
 
-        private void HandleKeyReleased(
+        private Task HandleKeyReleased(
             InputKeyEvent obj
         )
         {
             Console.WriteLine(obj.Key);
+
+            return Task.CompletedTask;
         }
 
-        private void HandleKeyPressed(
+        private Task HandleKeyPressed(
             InputKeyEvent obj
         )
         {
             Console.WriteLine(obj.Key);
+
+            return Task.CompletedTask;
         }
 
         public override Task Start()

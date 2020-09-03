@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <Folder Include="Core\DI\" />
+      <Folder Include="Core\Query\" />
       <Folder Include="Engine\Particle\Module\" />
       <Folder Include="Engine\Particle\Update\" />
       <Folder Include="Engine\Particle\Stop\" />

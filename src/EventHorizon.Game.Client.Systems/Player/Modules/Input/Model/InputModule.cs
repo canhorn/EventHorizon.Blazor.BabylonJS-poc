@@ -73,11 +73,15 @@
             await TrackInputOption(
                 new InputOptions(
                     "f",
-                    pressed: _ => { },
+                    pressed: _ =>
+                    {
+                        return Task.CompletedTask;
+                    },
                     released: _ =>
                     {
                         // TODO: INTERACTION_MODULE_NAME 
                         // publish RunInteractionEvent
+                        return Task.CompletedTask;
                     }
                 )
             );
@@ -87,10 +91,12 @@
                     pressed: _ =>
                     {
                         _moveDirection = "FORWARD";
+                        return Task.CompletedTask;
                     },
                     released: _ =>
                     {
                         _moveDirection = "STOP";
+                        return Task.CompletedTask;
                     }
                 )
             );
@@ -100,10 +106,12 @@
                     pressed: _ =>
                     {
                         _moveDirection = "LEFT";
+                        return Task.CompletedTask;
                     },
                     released: _ =>
                     {
                         _moveDirection = "STOP";
+                        return Task.CompletedTask;
                     }
                 )
             );
@@ -113,10 +121,12 @@
                     pressed: _ =>
                     {
                         _moveDirection = "RIGHT";
+                        return Task.CompletedTask;
                     },
                     released: _ =>
                     {
                         _moveDirection = "STOP";
+                        return Task.CompletedTask;
                     }
                 )
             );
@@ -126,10 +136,12 @@
                     pressed: _ =>
                     {
                         _moveDirection = "BACKWARDS";
+                        return Task.CompletedTask;
                     },
                     released: _ =>
                     {
                         _moveDirection = "STOP";
+                        return Task.CompletedTask;
                     }
                 )
             );

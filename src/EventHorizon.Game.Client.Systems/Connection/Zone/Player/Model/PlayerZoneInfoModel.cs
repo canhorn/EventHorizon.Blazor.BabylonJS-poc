@@ -1,6 +1,8 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model
 {
     using System.Collections.Generic;
+    using EventHorizon.Game.Client.Core.I18n.Api;
+    using EventHorizon.Game.Client.Core.I18n.Model;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Gui.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
@@ -20,6 +22,10 @@
     {
         public PlayerZoneDetailsModel Player { get; set; } = new PlayerZoneDetailsModel();
         IPlayerZoneDetails IPlayerZoneInfo.Player => Player;
+
+        public I18nBundleModel I18nMap { get; set; } = new I18nBundleModel();
+        II18nBundle IPlayerZoneInfo.I18nMap => I18nMap;
+
         public MapMeshDetailsModel MapMesh { get; set; } = new MapMeshDetailsModel();
         IMapMeshDetails IPlayerZoneInfo.MapMesh => MapMesh;
 
@@ -40,6 +46,5 @@
 
         public List<ServerModuleScriptsModel> ServerModuleScriptList { get; set; } = new List<ServerModuleScriptsModel>();
         IEnumerable<IServerModuleScripts> IPlayerZoneInfo.ServerModuleScriptList => ServerModuleScriptList;
-
     }
 }

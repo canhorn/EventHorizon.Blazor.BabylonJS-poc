@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api
 {
     using System.Collections.Generic;
+    using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
@@ -11,6 +12,7 @@
     public interface IPlayerZoneInfo
     {
         IPlayerZoneDetails Player { get; }
+        II18nBundle I18nMap { get; }
         IMapMeshDetails MapMesh { get; }
         IEnumerable<IClientAsset> ClientAssetList { get; }
         IEnumerable<IGuiLayoutData> GuiLayoutList { get; }

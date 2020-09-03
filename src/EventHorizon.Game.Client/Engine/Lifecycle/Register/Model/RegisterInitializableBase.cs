@@ -9,18 +9,22 @@
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Initialized;
     using MediatR;
+    using Microsoft.Extensions.Logging;
 
     public class RegisterInitializableBase
         : RegisterBase<IInitializableEntity>, IRegisterInitializable
     {
+        private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly ITimerService _timerService;
 
         public RegisterInitializableBase(
+            ILogger<RegisterInitializableBase> logger,
             IMediator mediator,
             IFactory<ITimerService> timerServiceFactory
         )
         {
+            _logger = logger;
             _mediator = mediator;
             _timerService = timerServiceFactory.Create();
         }
@@ -36,7 +40,17 @@
             _entityList.Clear();
             foreach (var entity in list)
             {
-                await entity.Initialize();
+                try
+                {
+                    await entity.Initialize();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(
+                        ex,
+                        "Failed to Initialize Entity"
+                    );
+                }
             }
             foreach (var entity in list)
             {

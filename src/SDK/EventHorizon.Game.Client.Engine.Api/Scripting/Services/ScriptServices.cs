@@ -18,7 +18,7 @@
         void UnRegisterObserver(
             ObserverBase observer
         );
-        string Translate(
+        string Localize(
             string key,
             params string[] replaces
         );

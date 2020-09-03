@@ -35,6 +35,10 @@
         <ProjectReference Include="..\EventHorizon.Game.Client\EventHorizon.Game.Client.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot\i18n\" />
+    </ItemGroup>
+
     <!--<ItemGroup>
         <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
     </ItemGroup>-->

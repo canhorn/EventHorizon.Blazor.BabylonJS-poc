@@ -1,5 +1,6 @@
 namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
 {
+    using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Engine.Scripting.Services;
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.State;
@@ -12,16 +13,19 @@ namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
         public readonly IMediator _mediator;
         public readonly ILoggerFactory _loggerFactory;
         private readonly ObserverState _observerState;
+        private readonly ILocalizer _localizer;
 
         public StandardScriptServices(
             IMediator mediator,
             ILoggerFactory loggerFactory,
-            ObserverState observerState
+            ObserverState observerState,
+            ILocalizer localizer
         )
         {
             _mediator = mediator;
             _loggerFactory = loggerFactory;
             _observerState = observerState;
+            _localizer = localizer;
         }
 
         public IMediator Mediator => _mediator;
@@ -48,23 +52,12 @@ namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
             observer
         );
 
-        public string Translate(
-            string key,
-            params string[] replaces
+        public string Localize(
+            string name,
+            params string[] arguments
         )
         {
-            // TODO: [Localization] - Finish Implementation
-            var translation = key;
-
-            for (int i = 0; i < replaces.Length; i++)
-            {
-                translation = translation.Replace(
-                    $"{{{i}}}",
-                    replaces[i]
-                );
-            }
-
-            return translation;
+            return _localizer[name, arguments];
         }
     }
 }

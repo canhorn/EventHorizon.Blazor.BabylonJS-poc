@@ -2,7 +2,7 @@
 {
     using System;
 
-    public interface II18nService
+    public interface II18nState
     {
         void SetResourceBundle(
             II18nBundle bundle
