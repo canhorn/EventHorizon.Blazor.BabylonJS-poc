@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Entity.Actions
+﻿namespace EventHorizon.Game.Client.Systems.Player.Changed
 {
     using System;
     using System.Threading;
@@ -6,12 +6,12 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public class ClientActionEntityChangedEventEventHandler
-        : INotificationHandler<ClientActionEntityClientChangedEvent>
+    public class PlayerDetailsChangedEventHandler
+        : INotificationHandler<PlayerDetailsChangedEvent>
     {
         private readonly ObserverState _observer;
 
-        public ClientActionEntityChangedEventEventHandler(
+        public PlayerDetailsChangedEventHandler(
             ObserverState observer
         )
         {
@@ -19,9 +19,9 @@
         }
 
         public Task Handle(
-            ClientActionEntityClientChangedEvent notification,
+            PlayerDetailsChangedEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<ClientActionEntityClientChangedEventObserver, ClientActionEntityClientChangedEvent>(
+        ) => _observer.Trigger<PlayerDetailsChangedEventObserver, PlayerDetailsChangedEvent>(
             notification,
             cancellationToken
         );

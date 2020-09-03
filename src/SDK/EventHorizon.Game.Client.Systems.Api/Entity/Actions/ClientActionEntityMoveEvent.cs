@@ -19,7 +19,6 @@
             IClientActionDataResolver resolver
         )
         {
-            Console.WriteLine("Move Entity");
             EntityId = resolver.Resolve<long>("entityId");
             MoveTo = resolver.Resolve<IVector3>("moveTo");
         }

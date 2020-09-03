@@ -416,7 +416,6 @@
             // Contains textKey, run through Localizer
             if (options.ContainsKey("textKey"))
             {
-                Console.WriteLine("Hi: " + options.GetValue<string>("textKey").Value);
                 return _localizer[options.GetValue<string>("textKey").Value];
             }
             // Check text

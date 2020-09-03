@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EventHorizon.Game.Client.Core.Exceptions;
-using EventHorizon.Game.Client.Engine.Services.Api;
-
-namespace EventHorizon.Game.Client.Engine.Services.Model
+﻿namespace EventHorizon.Game.Client.Engine.Services.Model
 {
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Exceptions;
+    using EventHorizon.Game.Client.Engine.Services.Api;
+
     public class StandardGameService
         : IGameService
     {
@@ -14,7 +12,7 @@ namespace EventHorizon.Game.Client.Engine.Services.Model
         public IGame Get()
         {
 #if DEBUG
-            if(_game == null)
+            if (_game == null)
             {
                 throw new GameRuntimeException(
                     "game_is_null",
@@ -39,6 +37,15 @@ namespace EventHorizon.Game.Client.Engine.Services.Model
             }
 #endif
             _game = game;
+        }
+
+        public async Task Dispose()
+        {
+            if (_game != null)
+            {
+                await _game.Dispose();
+                _game = null;
+            }
         }
     }
 }

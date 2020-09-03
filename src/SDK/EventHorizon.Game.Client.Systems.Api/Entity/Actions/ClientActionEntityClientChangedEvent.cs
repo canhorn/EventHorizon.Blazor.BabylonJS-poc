@@ -23,7 +23,7 @@
         }
     }
 
-    public interface ClientActionEntityChangedEventObserver
+    public interface ClientActionEntityClientChangedEventObserver
         : ArgumentObserver<ClientActionEntityClientChangedEvent>
     {
     }

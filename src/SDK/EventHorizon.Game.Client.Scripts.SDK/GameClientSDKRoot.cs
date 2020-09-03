@@ -11,7 +11,7 @@
             typeof(CoreSdkRoot).Assembly,
             typeof(EngineSdkRoot).Assembly,
             typeof(EngineGuiSdkRoot).Assembly,
-            //typeof(SystemsSdkRoot).Assembly,
+            typeof(SystemsSdkRoot).Assembly,
 
             // Server SDK
             typeof(ServerModuleSdkRoot).Assembly,

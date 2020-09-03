@@ -7,6 +7,7 @@
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
     using EventHorizon.Game.Client.Systems.Player.Api;
+    using EventHorizon.Game.Client.Systems.Player.Changed;
     using EventHorizon.Game.Client.Systems.Player.Model;
     using MediatR;
 
@@ -51,6 +52,10 @@
 
             _state.Set(
                 player
+            );
+
+            await _mediator.Publish(
+                new PlayerDetailsChangedEvent()
             );
 
             return new StandardCommandResult();

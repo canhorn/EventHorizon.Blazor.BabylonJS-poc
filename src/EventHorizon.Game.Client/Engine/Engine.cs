@@ -170,6 +170,8 @@
             }
 
             await _registerDisposable.Run();
+            await _renderingScene.Dispose();
+            await _renderingEngine.Dispose();
             _disposed = true;
             _platformMonitor.TrackEvent("Game:End");
         }

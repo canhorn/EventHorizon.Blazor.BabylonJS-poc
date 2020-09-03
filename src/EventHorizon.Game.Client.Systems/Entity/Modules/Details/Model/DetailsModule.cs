@@ -14,7 +14,7 @@
     public class DetailsModule
         : ModuleEntityBase,
         IDetailsModule,
-        ClientActionEntityChangedEventObserver
+        ClientActionEntityClientChangedEventObserver
     {
         private readonly IMediator _mediator;
         private readonly IObjectEntity _entity;

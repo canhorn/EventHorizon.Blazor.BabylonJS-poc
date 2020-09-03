@@ -26,7 +26,9 @@
     using EventHorizon.Game.Client.Core.I18n.Set;
 
     [Authorize]
-    public class GamePageModel : ComponentBase
+    public class GamePageModel
+        : ComponentBase,
+        IDisposable
     {
         [Inject]
         public IStartup Startup { get; set; }
@@ -47,6 +49,11 @@
             {
                 await StartGame_ByClient();
             }
+        }
+
+        public void Dispose()
+        {
+            Startup.Stop().ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         public async Task HandleStartGame()
@@ -160,7 +167,7 @@
         [Inject]
         public HttpClient HttpClient { get; set; }
         [Inject]
-        public ILogger<GamePageModel> Logger { get; set; }
+        public ILogger<GamePage> Logger { get; set; }
 
         private async Task LoadInDefaultI18nBundle()
         {

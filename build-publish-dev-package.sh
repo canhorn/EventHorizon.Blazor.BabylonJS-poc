@@ -3,6 +3,10 @@ Get-ChildItem Published -Include *.* -Recurse | ForEach { $_.Delete()}
 # Cleanup Directories
 Remove-Item 'Published/*' -Recurse
 
+# Cleanup Local NuGet Cache for the local source feed
+# This helps to clear the http metadata for the nuget versions.
+Remove-Item "$($env:LOCALAPPDATA)/NuGet/v3-cache/*_localhost_1313*/list_eventhorizon*" -Recurse
+
 # dotnet build --configuration Release; 
 $nuget_source_feed = "http://localhost:1313/v3/index.json"
 $file_data = Get-Content .dev.version

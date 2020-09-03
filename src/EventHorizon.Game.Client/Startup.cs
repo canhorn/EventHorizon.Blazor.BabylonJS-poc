@@ -126,7 +126,7 @@
         {
             _logger.LogInformation("Disposing");
             await _engine.Dispose();
-            await _gameService.Get().Dispose();
+            await _gameService.Dispose();
             //cleanUpSystemServices();
         }
 
