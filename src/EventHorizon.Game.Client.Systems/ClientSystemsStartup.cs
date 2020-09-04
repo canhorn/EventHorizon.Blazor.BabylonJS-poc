@@ -1,10 +1,12 @@
 ﻿namespace EventHorizon.Game.Client.Systems
 {
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client.Account;
+    // TODO: Move SystemsStartups into Systems Root Namespace
     using EventHorizon.Game.Client.Systems.ClientAssets;
     using EventHorizon.Game.Client.Systems.ClientScripts;
     using EventHorizon.Game.Client.Systems.Connection;
     using EventHorizon.Game.Client.Systems.Entity;
+    using EventHorizon.Game.Client.Systems.EntityModule;
     using EventHorizon.Game.Client.Systems.Height;
     using EventHorizon.Game.Client.Systems.Local.Scenes;
     using EventHorizon.Game.Client.Systems.Map;
@@ -33,6 +35,7 @@
             .AddHeightSystemServices()
             .AddClientAssetsSystemServices()
             .AddClientScriptsSystemServices()
+            .AddEntityModuleSystemServices()
             .AddServerModuleSystemServices()
         ;
     }

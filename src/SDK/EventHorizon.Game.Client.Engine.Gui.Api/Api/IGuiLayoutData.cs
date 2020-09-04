@@ -8,10 +8,10 @@
         string Id { get; }
         int Sort { get; }
         IEnumerable<IGuiLayoutControlData> ControlList { get; }
-        string? InitializeScript { get; }
-        string? ActivateScript { get; }
-        string? DisposeScript { get; }
-        string? UpdateScript { get; }
-        string? DrawScript { get; }
+        string InitializeScript { get; }
+        string ActivateScript { get; }
+        string DisposeScript { get; }
+        string UpdateScript { get; }
+        string DrawScript { get; }
     }
 }

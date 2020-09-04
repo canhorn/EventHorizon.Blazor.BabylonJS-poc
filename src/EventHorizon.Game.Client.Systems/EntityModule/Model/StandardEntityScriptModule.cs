@@ -1,16 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Model
+﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Entity.Model;
     using EventHorizon.Game.Client.Engine.Scripting.Api;
     using EventHorizon.Game.Client.Engine.Scripting.Data;
     using EventHorizon.Game.Client.Engine.Scripting.Services;
-    using EventHorizon.Game.Client.Systems.ServerModule.Api;
+    using EventHorizon.Game.Client.Systems.EntityModule.Api;
 
-    public class StandardServerModule
+    public class StandardEntityScriptModule
         : ClientEntityBase,
-        IServerModule
+        IEntityModule
     {
         private readonly ScriptServices _scriptServices;
         private readonly ScriptData _scriptData;
@@ -18,13 +19,14 @@
         private readonly Option<IClientScript> _disposeScript;
         private readonly Option<IClientScript> _updateScript;
 
-        private Option<IClientScript> _runnableUpdateScript = new Option<IClientScript>(
-            null
-        );
+        private Func<ScriptServices, ScriptData, Task> _runnableUpdateScript = (_, __) => Task.CompletedTask;
 
         public string Name { get; }
+        public bool IsInitializable => _initializeScript.HasValue;
+        public bool IsDisposable => _disposeScript.HasValue;
+        public bool IsUpdatable => _updateScript.HasValue;
 
-        public StandardServerModule(
+        public StandardEntityScriptModule(
             long clientId,
             string name,
             Option<IClientScript> initializeScript,
@@ -59,7 +61,7 @@
         {
             if (_updateScript.HasValue)
             {
-                _runnableUpdateScript = _updateScript;
+                _runnableUpdateScript = _updateScript.Value.Run;
             }
             return Task.CompletedTask;
         }
@@ -78,14 +80,10 @@
 
         public Task Update()
         {
-            if (_runnableUpdateScript.HasValue)
-            {
-                return _runnableUpdateScript.Value.Run(
-                    _scriptServices,
-                    _scriptData
-                );
-            }
-            return Task.CompletedTask;
+            return _runnableUpdateScript(
+                _scriptServices,
+                _scriptData
+            );
         }
     }
 }

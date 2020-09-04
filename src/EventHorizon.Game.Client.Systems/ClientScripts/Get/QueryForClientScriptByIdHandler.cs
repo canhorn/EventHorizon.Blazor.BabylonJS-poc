@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Engine.Scripting.Api;
+    using EventHorizon.Game.Client.Engine.Scripting.Get;
     using EventHorizon.Game.Client.Systems.ClientScripts.Api;
     using MediatR;
 

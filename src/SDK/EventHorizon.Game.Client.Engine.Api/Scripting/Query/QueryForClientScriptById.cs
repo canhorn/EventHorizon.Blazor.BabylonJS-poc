@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Get
+﻿namespace EventHorizon.Game.Client.Engine.Scripting.Get
 {
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Engine.Scripting.Api;

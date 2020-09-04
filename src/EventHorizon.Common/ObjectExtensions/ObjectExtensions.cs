@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
 public static class ObjectExtensions
@@ -22,7 +23,7 @@ public static class ObjectExtensions
         return (T)objectToCast;
     }
     public static void NullCheck(
-        [ValidatedNotNull] this object objectToCheck,
+        [NotNull] this object objectToCheck,
         string paramName = ""
     )
     {
@@ -35,13 +36,15 @@ public static class ObjectExtensions
     }
 
     public static bool IsNull(
-        [ValidatedNotNull] this object objectToCheck
+        [NotNullWhen(false)] this object objectToCheck
     )
     {
         return objectToCheck == null;
     }
-}
-[AttributeUsage(AttributeTargets.Parameter)]
-internal sealed class ValidatedNotNullAttribute : Attribute
-{
+    public static bool IsNotNull(
+        [NotNullWhen(true)] this object objectToCheck
+    )
+    {
+        return objectToCheck != null;
+    }
 }

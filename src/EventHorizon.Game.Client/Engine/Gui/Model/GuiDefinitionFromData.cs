@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.Model
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.InteropServices;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Engine.Gui.Api;
@@ -13,9 +11,12 @@
     using EventHorizon.Game.Client.Engine.Gui.Setup;
     using EventHorizon.Game.Client.Engine.Gui.Update;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
+    using EventHorizon.Game.Client.Engine.Scripting.Api;
+    using EventHorizon.Game.Client.Engine.Scripting.Data;
+    using EventHorizon.Game.Client.Engine.Scripting.Get;
+    using EventHorizon.Game.Client.Engine.Scripting.Services;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
     using MediatR;
-    using Microsoft.Extensions.Logging;
 
     public class GuiDefinitionFromData
         : ClientLifecycleEntityBase,
@@ -24,15 +25,17 @@
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly ILocalizer _localizer = GameServiceProvider.GetService<ILocalizer>();
         private readonly IGuiControlChildrenState _guiControlChildrenState = GameServiceProvider.GetService<IGuiControlChildrenState>();
+        private readonly ScriptServices _scriptServices = GameServiceProvider.GetService<ScriptServices>();
 
-        private IGuiLayoutData _layout;
-        private IEnumerable<IGuiControlData> _controlDataList;
+        private readonly IGuiLayoutData _layout;
+        private readonly IEnumerable<IGuiControlData> _controlDataList;
         private string? _parentControlId;
         private bool _initialized = false;
         private bool _runActivate = false;
         private IList<IGuiLayoutControlData> _flattenedControlList = new List<IGuiLayoutControlData>();
         private Func<Task> _handleUpdateScript;
         private Func<Task> _handleDrawScript;
+        private readonly ScriptData _scriptData;
 
         public string GuiId { get; }
         public string LayoutId => _layout.Id;
@@ -56,52 +59,64 @@
             _parentControlId = parentControlId;
             _handleUpdateScript = () => Task.CompletedTask;
             _handleDrawScript = () => Task.CompletedTask;
+            _scriptData = new ScriptData(
+                new Dictionary<string, object>()
+            );
         }
 
         public override async Task Initialize()
         {
-            if (!string.IsNullOrEmpty(
+            var initializeScript = await GetClientScript(
                 _layout.InitializeScript
-            ))
+            );
+            if (initializeScript.IsNotNull())
             {
-                // TODO: [Client Script] : Run Client Script
+                await initializeScript.Run(
+                    _scriptServices,
+                    _scriptData
+                );
             }
+
             _initialized = true;
             if (_runActivate)
             {
                 await Activate();
             }
 
-            if (!string.IsNullOrEmpty(
+            var updateScript = await GetClientScript(
                 _layout.UpdateScript
-            ))
+            );
+            if (updateScript.IsNotNull())
             {
-                _handleUpdateScript = () =>
-                {
-                    // TODO: [Client Script] : Run Client Script
-                    return Task.CompletedTask;
-                };
+                _handleUpdateScript = () => updateScript.Run(
+                    _scriptServices,
+                    _scriptData
+                );
             }
 
-            if (!string.IsNullOrEmpty(
+            var drawScript = await GetClientScript(
                 _layout.DrawScript
-            ))
+            );
+            if (drawScript.IsNotNull())
             {
-                _handleDrawScript = () =>
-                {
-                    // TODO: [Client Script] : Run Client Script
-                    return Task.CompletedTask;
-                };
+                _handleDrawScript = () => drawScript.Run(
+                    _scriptServices,
+                    _scriptData
+                );
             }
         }
 
         public override async Task Dispose()
         {
-            if (!string.IsNullOrEmpty(
+            var disposeScript = await GetClientScript(
                 _layout.DisposeScript
-            ))
+            );
+            if (disposeScript.IsNotNull())
             {
-                // TODO: [Client Script] : Run Client Script
+                await disposeScript.Run(
+                    _scriptServices,
+                    _scriptData
+                );
             }
 
             foreach (var control in _flattenedControlList)
@@ -136,7 +151,7 @@
                 return;
             }
 
-            _flattenedControlList = GetFlattenedControls();
+            _flattenedControlList = await GetFlattenedControls();
             foreach (var control in _flattenedControlList)
             {
                 await _mediator.Send(
@@ -164,13 +179,16 @@
                 );
             }
 
-            if (!string.IsNullOrEmpty(
+            var activateScript = await GetClientScript(
                 _layout.ActivateScript
-            ))
+            );
+            if (activateScript.IsNotNull())
             {
-                // TODO: [Client Script] : Run Client Script
+                await activateScript.Run(
+                    _scriptServices,
+                    _scriptData
+                );
             }
-
         }
 
         public async Task Hide()
@@ -226,7 +244,7 @@
             }
         }
 
-        private IList<IGuiLayoutControlData> GetFlattenedControls()
+        private Task<IList<IGuiLayoutControlData>> GetFlattenedControls()
         {
             return FlattenControlListInto(
                 new List<IGuiLayoutControlData>(),
@@ -234,54 +252,51 @@
             );
         }
 
-        private IList<IGuiLayoutControlData> FlattenControlListInto(
-            List<IGuiLayoutControlData> list,
+        private async Task<IList<IGuiLayoutControlData>> FlattenControlListInto(
+            IList<IGuiLayoutControlData> list,
             IEnumerable<IGuiLayoutControlData> controlList
         )
         {
-            return controlList.Aggregate(
-                list,
-                (accumulator, control) =>
-                {
-                    // Take all controls and add them to the Accumulator
-                    FlattenControlListInto(
-                        accumulator,
-                        control.ControlList ?? new List<IGuiLayoutControlData>()
-                    );
-                    // Add the current Control into the Accumulator list
-                    var accumulatorControl = new GuiLayoutControlDataModel(
-                        control
-                    );
-                    var optionsFromData = GetControlOptionsForControl(
-                        accumulatorControl.Id
-                    );
-                    accumulatorControl.Options = GuiControlOptionsModel.MergeControlOptions(
-                        SanitizeControlOptions(
-                            accumulatorControl.Options ?? new GuiControlOptionsModel()
-                        ),
-                        GetGeneratedOptions(
-                            GuiId,
-                            _layout,
-                            accumulatorControl.Options,
-                            accumulatorControl
-                        ),
-                        optionsFromData,
-                        GetGeneratedOptions(
-                            GuiId,
-                            _layout,
-                            optionsFromData,
-                            accumulatorControl
-                        )
-                    );
-                    accumulator.Add(
+            foreach (var control in controlList)
+            {
+                // Take all controls and add them to the Accumulator
+                list = await FlattenControlListInto(
+                    list,
+                    control.ControlList ?? new List<IGuiLayoutControlData>()
+                );
+                // Add the current Control into the Accumulator list
+                var accumulatorControl = new GuiLayoutControlDataModel(
+                    control
+                );
+                var optionsFromData = GetControlOptionsForControl(
+                    accumulatorControl.Id
+                );
+                accumulatorControl.Options = GuiControlOptionsModel.MergeControlOptions(
+                    SanitizeControlOptions(
+                        accumulatorControl.Options ?? new GuiControlOptionsModel()
+                    ),
+                    await GetGeneratedOptions(
+                        GuiId,
+                        _layout,
+                        accumulatorControl.Options,
                         accumulatorControl
-                    );
-                    return accumulator;
-                }
-            );
+                    ),
+                    optionsFromData,
+                    await GetGeneratedOptions(
+                        GuiId,
+                        _layout,
+                        optionsFromData,
+                        accumulatorControl
+                    )
+                );
+                list.Add(
+                    accumulatorControl
+                );
+            }
+            return list;
         }
 
-        private IGuiControlOptions GetGeneratedOptions(
+        private async Task<IGuiControlOptions> GetGeneratedOptions(
             string guiId,
             IGuiLayoutData layout,
             IGuiControlOptions? controlOptions,
@@ -303,7 +318,7 @@
             {
                 options["text"] = text;
             }
-            var onClick = OptionOnClickFromOnClick(
+            var onClick = await OptionOnClickFromOnClick(
                 guiId,
                 layout,
                 control,
@@ -321,7 +336,7 @@
                     out var controlOption
                 ))
                 {
-                    options[modelOption] = GetGeneratedOptions(
+                    options[modelOption] = await GetGeneratedOptions(
                         guiId,
                         layout,
                         controlOption.Cast<GuiControlOptionsModel>(),
@@ -369,7 +384,7 @@
             return new GuiControlOptionsModel.GuiControlMetadataOptionModel();
         }
 
-        private Func<Task>? OptionOnClickFromOnClick(
+        private async Task<Func<Task>?> OptionOnClickFromOnClick(
             string guiId,
             IGuiLayoutData layout,
             IGuiLayoutControlData control,
@@ -388,14 +403,24 @@
             );
             if (onClickScript.HasValue)
             {
-                return () =>
+                var onClickClientScript = await GetClientScript(
+                    onClickScript.Value
+                );
+                if (onClickClientScript.IsNotNull())
                 {
-                    // TODO: [Client Scripting] - Run Script
-                    GameServiceProvider.GetService<ILogger<GuiDefinitionFromData>>().LogError(
-                        "TODO: [Client Scripting] - Run Script Not Implemented"
+                    var onClickData = new ScriptData(
+                        new Dictionary<string, object>
+                        {
+                            { "guiId", guiId },
+                            { "layout", layout },
+                            { "control", control },
+                        }
                     );
-                    return Task.CompletedTask;
-                };
+                    return () => onClickClientScript.Run(
+                        _scriptServices,
+                        onClickData
+                    );
+                }
             }
             return null;
         }
@@ -427,6 +452,29 @@
                 return text.Value;
             }
             return string.Empty;
+        }
+
+        private async Task<IClientScript?> GetClientScript(
+            string scriptId
+        )
+        {
+            if (string.IsNullOrWhiteSpace(
+                scriptId
+            ))
+            {
+                return default;
+            }
+            var queryResult = await _mediator.Send(
+                new QueryForClientScriptById(
+                    scriptId
+                )
+            );
+            if (!queryResult.Success)
+            {
+                return default;
+            }
+
+            return queryResult.Result;
         }
     }
 }

@@ -1,18 +1,19 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Api
 {
     using System.Collections.Generic;
+    using EventHorizon.Game.Client.Systems.EntityModule.Api;
 
     public interface ServerModuleState
     {
-        IEnumerable<IServerModule> All();
-        Option<IServerModule> Get(
+        IEnumerable<IEntityModule> All();
+        Option<IEntityModule> Get(
             string name
         );
-        Option<IServerModule> Remove(
+        Option<IEntityModule> Remove(
             string name
         );
-        Option<IServerModule> Set(
-            IServerModule serverModule
+        Option<IEntityModule> Set(
+            IEntityModule entityModule
         );
         void Clear();
     }

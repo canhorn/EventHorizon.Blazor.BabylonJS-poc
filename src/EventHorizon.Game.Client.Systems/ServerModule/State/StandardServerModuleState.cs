@@ -1,14 +1,15 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ServerModule.State
 {
     using System.Collections.Generic;
+    using EventHorizon.Game.Client.Systems.EntityModule.Api;
     using EventHorizon.Game.Client.Systems.ServerModule.Api;
 
     public class StandardServerModuleState
         : ServerModuleState
     {
-        private readonly IDictionary<string, IServerModule> _serverModules = new Dictionary<string, IServerModule>();
+        private readonly IDictionary<string, IEntityModule> _serverModules = new Dictionary<string, IEntityModule>();
 
-        public IEnumerable<IServerModule> All()
+        public IEnumerable<IEntityModule> All()
         {
             return _serverModules.Values;
         }
@@ -18,11 +19,10 @@
             _serverModules.Clear();
         }
 
-        public Option<IServerModule> Get(
+        public Option<IEntityModule> Get(
             string name
         )
         {
-            // Get the current from Dictionary
             if (_serverModules.TryGetValue(
                 name,
                 out var currentServerModule
@@ -30,18 +30,17 @@
             {
                 return currentServerModule.ToOption();
             }
-            return new Option<IServerModule>(
+            return new Option<IEntityModule>(
                 null
             );
         }
 
-        public Option<IServerModule> Set(
-            IServerModule serverModule
+        public Option<IEntityModule> Set(
+            IEntityModule entityModule
         )
         {
-            // Check/Get the current from Dictionary
             if (_serverModules.TryGetValue(
-                serverModule.Name,
+                entityModule.Name,
                 out var currentServerModule
             ))
             {
@@ -49,18 +48,17 @@
             }
 
             // Set in dictionary
-            _serverModules[serverModule.Name] = serverModule;
+            _serverModules[entityModule.Name] = entityModule;
 
-            return new Option<IServerModule>(
+            return new Option<IEntityModule>(
                 null
             );
         }
 
-        public Option<IServerModule> Remove(
+        public Option<IEntityModule> Remove(
             string name
         )
         {
-            // Check/Get the current from Dictionary
             if (_serverModules.TryGetValue(
                 name,
                 out var serverModule
@@ -72,7 +70,7 @@
                 return serverModule.ToOption();
             }
 
-            return new Option<IServerModule>(
+            return new Option<IEntityModule>(
                 null
             );
         }

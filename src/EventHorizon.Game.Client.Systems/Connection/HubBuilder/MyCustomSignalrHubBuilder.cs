@@ -65,6 +65,7 @@ namespace EventHorizon.Game.Client.Systems.Connection.HubBuilder
             {
                 var o = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(HttpConnectionOptions))
                     as HttpConnectionOptions;
+                o.NullCheck();
 
                 o.Headers = new Dictionary<string, string>();
                 o.Cookies = new System.Net.CookieContainer();

@@ -69,18 +69,6 @@
                 "alert('Button Clicked!')",
                 new { }
             );
-            Func<Task> InitScriptHandler = () =>
-            {
-                // TODO: Run Script
-                var scriptId = "Actions_TestActionScript";
-                var scriptData = new Dictionary<string, object>();
-                return Task.CompletedTask;
-            };
-            Func<Task> TriggerScriptObserverHandler = () =>
-            {
-                // TODO: Trigger Script Observer
-                return Task.CompletedTask;
-            };
 
             return new List<IGuiControlData>
             {
@@ -98,22 +86,6 @@
                     Options = new GuiControlOptionsModel
                     {
                         { "onClick", AlertClickHandler },
-                    },
-                },
-                new GuiControlDataModel
-                {
-                    ControlId = "example-init_script-button",
-                    Options = new GuiControlOptionsModel
-                    {
-                        { "onClick", InitScriptHandler },
-                    },
-                },
-                new GuiControlDataModel
-                {
-                    ControlId = "example-run_script-button",
-                    Options = new GuiControlOptionsModel
-                    {
-                        { "onClick", TriggerScriptObserverHandler },
                     },
                 },
             };

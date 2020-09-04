@@ -6,17 +6,16 @@
     using EventHorizon.Game.Client.Engine.Core.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
     using EventHorizon.Game.Client.Engine.Scripting.Api;
-    using EventHorizon.Game.Client.Systems.ClientScripts.Get;
+    using EventHorizon.Game.Client.Engine.Scripting.Get;
+    using EventHorizon.Game.Client.Systems.EntityModule.Create;
     using EventHorizon.Game.Client.Systems.ServerModule.Api;
     using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
-    using EventHorizon.Game.Client.Systems.ServerModule.Model;
     using MediatR;
 
     public class AddServerModuleScriptCommandHandler
         : IRequestHandler<AddServerModuleScriptCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
-        private readonly IIndexPool _indexPool;
         private readonly ServerModuleState _state;
         private readonly ServerModuleScriptsState _scriptsState;
         private readonly IRegisterInitializable _registerInitializable;
@@ -25,7 +24,6 @@
 
         public AddServerModuleScriptCommandHandler(
             IMediator mediator,
-            IIndexPool indexPool,
             ServerModuleState state,
             ServerModuleScriptsState scriptsState,
             IRegisterInitializable registerInitializable,
@@ -34,7 +32,6 @@
         )
         {
             _mediator = mediator;
-            _indexPool = indexPool;
             _state = state;
             _scriptsState = scriptsState;
             _registerInitializable = registerInitializable;
@@ -48,34 +45,23 @@
         )
         {
             var serverModuleScripts = notification.Scripts;
-            var initializeScript = await GetClientScript(
-                serverModuleScripts.InitializeScript
-            );
-            var disposeScript = await GetClientScript(
-                serverModuleScripts.DisposeScript
-            );
-            var updateScript = await GetClientScript(
-                serverModuleScripts.UpdateScript
-            );
-
             _scriptsState.Add(
                 serverModuleScripts
             );
 
-            // Create new ServerModule
-            var serverModule = new StandardServerModule(
-                _indexPool.NextIndex(),
-                serverModuleScripts.Name,
-                new Option<IClientScript>(
-                    initializeScript
+            var serverModuleResult = await _mediator.Send(
+                new CreateEntityModuleCommand(
+                    serverModuleScripts
                 ),
-                new Option<IClientScript>(
-                    disposeScript
-                ),
-                new Option<IClientScript>(
-                    updateScript
-                )
+                CancellationToken.None
             );
+            if (!serverModuleResult.Success)
+            {
+                return new StandardCommandResult(
+                    "failed_to_create_server_module"
+                );
+            }
+            var serverModule = serverModuleResult.Result;
             // Set and get any existing
             var current = _state.Set(
                 serverModule
@@ -106,7 +92,7 @@
             await _registerDisposable.Register(
                 serverModule
             );
-            if (updateScript != default)
+            if (serverModule.IsUpdatable)
             {
                 await _registerUpdatable.Register(
                     serverModule
@@ -114,29 +100,6 @@
             }
 
             return new StandardCommandResult();
-        }
-
-        private async Task<IClientScript?> GetClientScript(
-            string scriptId
-        )
-        {
-            if (string.IsNullOrWhiteSpace(
-                scriptId
-            ))
-            {
-                return default;
-            }
-            var queryResult = await _mediator.Send(
-                new QueryForClientScriptById(
-                    scriptId
-                )
-            );
-            if (!queryResult.Success)
-            {
-                return default;
-            }
-
-            return queryResult.Result;
         }
     }
 }

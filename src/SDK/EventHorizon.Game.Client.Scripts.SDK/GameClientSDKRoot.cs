@@ -14,7 +14,7 @@
             typeof(SystemsSdkRoot).Assembly,
 
             // Server SDK
-            typeof(ServerModuleSdkRoot).Assembly,
+            typeof(ServerSdkRoot).Assembly,
         };
     }
 }

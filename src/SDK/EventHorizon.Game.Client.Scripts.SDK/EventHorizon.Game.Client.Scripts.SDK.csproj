@@ -12,7 +12,7 @@
         <ProjectReference Include="..\EventHorizon.Game.Client.Core.Api\EventHorizon.Game.Client.Core.Api.csproj" />
         <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Api\EventHorizon.Game.Client.Engine.Api.csproj" />
         <ProjectReference Include="..\EventHorizon.Game.Client.Engine.Gui.Api\EventHorizon.Game.Client.Engine.Gui.Api.csproj" />
-        <ProjectReference Include="..\Server\EventHorizon.Game.Server.ServerModule.Api\EventHorizon.Game.Server.ServerModule.Api.csproj" />
+        <ProjectReference Include="..\Server\EventHorizon.Game.Server.Api\EventHorizon.Game.Server.Api.csproj" />
         <ProjectReference Include="..\EventHorizon.Game.Client.Systems.Api\EventHorizon.Game.Client.Systems.Api.csproj" />
     </ItemGroup>
 

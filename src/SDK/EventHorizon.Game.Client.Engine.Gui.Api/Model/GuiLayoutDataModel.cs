@@ -8,13 +8,13 @@
         : IGuiLayoutData
     {
         public string Id { get; set; } = string.Empty;
-        public int Sort { get; set; }
+        public int Sort { get; set; } = 0;
         public List<GuiLayoutControlDataModel> ControlList { get; set; } = new List<GuiLayoutControlDataModel>();
         IEnumerable<IGuiLayoutControlData> IGuiLayoutData.ControlList => ControlList;
-        public string? InitializeScript { get; set; }
-        public string? ActivateScript { get; set; }
-        public string? DisposeScript { get; set; }
-        public string? UpdateScript { get; set; }
-        public string? DrawScript { get; set; }
+        public string InitializeScript { get; set; } = string.Empty;
+        public string ActivateScript { get; set; } = string.Empty;
+        public string DisposeScript { get; set; } = string.Empty;
+        public string UpdateScript { get; set; } = string.Empty;
+        public string DrawScript { get; set; } = string.Empty;
     }
 }
