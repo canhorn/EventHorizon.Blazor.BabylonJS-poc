@@ -48,21 +48,16 @@
         )
         {
             var serverModuleScripts = notification.Scripts;
-            var initializeScript = await _mediator.Send(
-                new QueryForClientScriptById(
-                    serverModuleScripts.InitializeScript
-                )
+            var initializeScript = await GetClientScript(
+                serverModuleScripts.InitializeScript
             );
-            var disposeScript = await _mediator.Send(
-                new QueryForClientScriptById(
-                    serverModuleScripts.DisposeScript
-                )
+            var disposeScript = await GetClientScript(
+                serverModuleScripts.DisposeScript
             );
-            var updateScript = await _mediator.Send(
-                new QueryForClientScriptById(
-                    serverModuleScripts.UpdateScript
-                )
+            var updateScript = await GetClientScript(
+                serverModuleScripts.UpdateScript
             );
+
             _scriptsState.Add(
                 serverModuleScripts
             );
@@ -72,13 +67,13 @@
                 _indexPool.NextIndex(),
                 serverModuleScripts.Name,
                 new Option<IClientScript>(
-                    initializeScript.Result
+                    initializeScript
                 ),
                 new Option<IClientScript>(
-                    disposeScript.Result
+                    disposeScript
                 ),
                 new Option<IClientScript>(
-                    updateScript.Result
+                    updateScript
                 )
             );
             // Set and get any existing
@@ -111,7 +106,7 @@
             await _registerDisposable.Register(
                 serverModule
             );
-            if (updateScript.Success)
+            if (updateScript != default)
             {
                 await _registerUpdatable.Register(
                     serverModule
@@ -119,6 +114,29 @@
             }
 
             return new StandardCommandResult();
+        }
+
+        private async Task<IClientScript?> GetClientScript(
+            string scriptId
+        )
+        {
+            if (string.IsNullOrWhiteSpace(
+                scriptId
+            ))
+            {
+                return default;
+            }
+            var queryResult = await _mediator.Send(
+                new QueryForClientScriptById(
+                    scriptId
+                )
+            );
+            if (!queryResult.Success)
+            {
+                return default;
+            }
+
+            return queryResult.Result;
         }
     }
 }

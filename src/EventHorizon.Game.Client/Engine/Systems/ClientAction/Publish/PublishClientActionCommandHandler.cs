@@ -97,8 +97,8 @@
                     );
                     if (instance != null)
                     {
-                        await DebuggingLogger.EnableClientLogging();
-                        _logger.LogDebug("Action: {ClientAction}", request.ActionName);
+                        //await DebuggingLogger.EnableClientLogging();
+                        //_logger.LogDebug("Action: {ClientAction}", request.ActionName);
                         await _mediator.Publish(
                             instance
                         );
