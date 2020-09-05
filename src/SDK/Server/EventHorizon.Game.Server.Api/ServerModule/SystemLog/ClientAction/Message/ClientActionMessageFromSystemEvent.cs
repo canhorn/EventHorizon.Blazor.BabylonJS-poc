@@ -1,9 +1,5 @@
 ﻿namespace EventHorizon.Game.Server.ServerModule.SystemLog.Message
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Gui.Model;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
@@ -46,27 +42,5 @@
     public interface ClientActionMessageFromSystemEventObserver
         : ArgumentObserver<ClientActionMessageFromSystemEvent>
     {
-    }
-
-    // TODO: Move this into an Implementation Project, Remove from the SDK
-    public class ClientActionMessageFromSystemEventHandler
-        : INotificationHandler<ClientActionMessageFromSystemEvent>
-    {
-        private readonly ObserverState _observer;
-
-        public ClientActionMessageFromSystemEventHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            ClientActionMessageFromSystemEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<ClientActionMessageFromSystemEventObserver, ClientActionMessageFromSystemEvent>(
-            notification,
-            cancellationToken
-        );
     }
 }

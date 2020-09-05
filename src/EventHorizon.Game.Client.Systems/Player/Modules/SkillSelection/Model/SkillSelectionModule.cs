@@ -6,6 +6,7 @@
     using EventHorizon.Game.Client.Engine.Gui.Show;
     using EventHorizon.Game.Client.Engine.Scripting.Data;
     using EventHorizon.Game.Client.Engine.Scripting.Services;
+    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
     using EventHorizon.Game.Client.Systems.ClientScripts.Set;
@@ -14,6 +15,7 @@
     using EventHorizon.Game.Client.Systems.EntityModule.Create;
     using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.Camera.Api;
+    using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
     using EventHorizon.Game.Server.SkillSelection.Model;
     using MediatR;
     using Microsoft.Extensions.Logging;
@@ -194,6 +196,24 @@
                                 {
                                     { "entity", this },
                                 }
+                            )
+                        );
+                    }
+                },
+                new SkillDetails
+                {
+                    SkillName = "Test System Message",
+                    OnClick = async () =>
+                    {
+                        _logger.LogDebug("RUN Test System Message");
+                        await _mediator.Publish(
+                            new ClientActionMessageFromSystemEvent(
+                                new ClientActionDataResolver(
+                                    new Dictionary<string, object>
+                                    {
+                                        { "message", "Hello from Skill Selection" }
+                                    }
+                                )
                             )
                         );
                     }

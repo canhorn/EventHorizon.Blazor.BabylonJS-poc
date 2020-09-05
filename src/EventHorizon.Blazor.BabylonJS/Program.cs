@@ -17,6 +17,7 @@ namespace EventHorizon.Blazor.BabylonJS
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Configuration;
+    using EventHorizon.Game.Server;
 
     public class Program
     {
@@ -60,9 +61,7 @@ namespace EventHorizon.Blazor.BabylonJS
                 .AddSingleton<ObserverState>(services => services.GetService<GenericObserverState>())
                 .AddSingleton<AdminObserverState>(services => services.GetService<GenericObserverState>());
 
-            builder.Services
-                .AddClientServices()
-                .AddGameClient();
+            // Add Authentication Configuration
             builder.Services.AddOidcAuthentication(options =>
             {
                 builder.Configuration.Bind(
@@ -75,39 +74,19 @@ namespace EventHorizon.Blazor.BabylonJS
                     options.ProviderOptions.DefaultScopes.Add(authScope);
                 }
             });
-            //builder.Services
-            //    .AddOptions()
-            //    .AddAuthorizationCore()
-            //    .AddBlazoredOpenIdConnect(options =>
-            //    {
-            //        options.Authority = builder.Configuration["Auth:Authority"];
 
-            //        options.ClientId = builder.Configuration["Auth:ClientId"];
-            //        options.ResponseType = builder.Configuration["Auth:ResponseType"];
-
-            //        options.Scopes = builder.Configuration["Auth:Scope"].Split(" ");
-
-            //        options.SignedInCallbackUri = "/signin-oidc";
-
-            //        //options.Scope.Add("openid");
-            //        //options.Scope.Add("profile");
-            //        //options.Scope.Add("api");
-            //    });
-            //builder.Services.AddEventHorizonIdentity(
-            //    new EventHorizonIdentitySettings
-            //    {
-            //        Authority = Configuration["Auth:Authority"],
-            //        ResponseType = Configuration["Auth:ResponseType"],
-            //        Scope = Configuration["Auth:Scope"],
-            //        ClientId = Configuration["Auth:ClientId"],
-            //    }
-            //);
+            // Setup Solution Dependencies
+            builder.Services
+                .AddClientServices()
+                .AddGameClient()
+                .AddGameServerServices();
 
             builder.Services
                 .AddMediatR(
                     typeof(Program).Assembly,
                     typeof(ObserverState).Assembly,
-                    typeof(ClientExtensions).Assembly
+                    typeof(ClientExtensions).Assembly,
+                    typeof(GameServerStartup).Assembly
                 );
 
             // Configure Logging
