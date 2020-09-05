@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Entity.Model;
     using EventHorizon.Game.Client.Engine.Scripting.Api;
@@ -14,10 +13,10 @@
         IEntityModule
     {
         private readonly ScriptServices _scriptServices;
-        private readonly ScriptData _scriptData;
         private readonly Option<IClientScript> _initializeScript;
         private readonly Option<IClientScript> _disposeScript;
         private readonly Option<IClientScript> _updateScript;
+        private readonly ScriptData _scriptData;
 
         private Func<ScriptServices, ScriptData, Task> _runnableUpdateScript = (_, __) => Task.CompletedTask;
 
@@ -31,18 +30,17 @@
             string name,
             Option<IClientScript> initializeScript,
             Option<IClientScript> disposeScript,
-            Option<IClientScript> updateScript
+            Option<IClientScript> updateScript,
+            ScriptData scriptData
         ) : base(clientId)
         {
             Name = name;
 
             _scriptServices = GameServiceProvider.GetService<ScriptServices>();
-            _scriptData = new ScriptData(
-                new Dictionary<string, object>()
-            );
             _initializeScript = initializeScript;
             _disposeScript = disposeScript;
             _updateScript = updateScript;
+            _scriptData = scriptData;
         }
 
         public Task Initialize()

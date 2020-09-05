@@ -29,7 +29,7 @@
             );
             if (gui.HasValue)
             {
-                gui.Value.Hide();
+                gui.Value.Show();
             }
 
             return new StandardCommandResult()

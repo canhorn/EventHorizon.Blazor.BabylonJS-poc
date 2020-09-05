@@ -22,6 +22,8 @@
       <Folder Include="Connection\Zone\Player\Connected\" />
       <Folder Include="Connection\Zone\Player\Action\" />
       <Folder Include="Connection\Zone\Player\Stop\" />
+      <Folder Include="Dialog\Api\" />
+      <Folder Include="Dialog\Model\" />
       <Folder Include="Local\Camera\Api\" />
       <Folder Include="Local\ScreenPointer\Api\" />
       <Folder Include="Map\Create\" />

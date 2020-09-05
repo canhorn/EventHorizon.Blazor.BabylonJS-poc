@@ -53,7 +53,8 @@
                 ),
                 new Option<IClientScript>(
                     updateScript
-                )
+                ),
+                request.ScriptData
             );
 
             return new CommandResult<IEntityModule>(
