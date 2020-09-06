@@ -43,7 +43,7 @@
 
         public override async Task Initialize()
         {
-            await InitKeybaord();
+            await InitKeyboard();
             _movePlayerIntervalTimer.Setup(
                 50,
                 HandleMovePlayer
@@ -69,8 +69,9 @@
             return Task.CompletedTask;
         }
 
-        private async Task InitKeybaord()
+        private async Task InitKeyboard()
         {
+            // TODO: [Input] - Implement way to Load this from some where.
             await TrackInputOption(
                 new InputOptions(
                     "1",
