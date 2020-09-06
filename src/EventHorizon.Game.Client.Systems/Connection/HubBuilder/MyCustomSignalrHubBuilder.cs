@@ -39,7 +39,7 @@ namespace EventHorizon.Game.Client.Systems.Connection.HubBuilder
 
             return builder.ConfigureLogging(
                 configureLogging
-            ).Build();
+            ).WithAutomaticReconnect().Build();
         }
 
         /// <summary>

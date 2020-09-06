@@ -23,8 +23,7 @@
 
     public abstract class LifecycleEntityBase
         : ClientEntityBase,
-        ILifecycleEntity,
-        IObjectEntity
+        ILifecycleEntity
     {
         protected IObjectEntityDetails _details;
 
@@ -215,6 +214,7 @@
                 {
                     TagBuilder.CreateTypeTag(_details.Type ?? TagBuilder.UNDEFINED),
                     TagBuilder.CreateIdTag(_details.Id.ToString()),
+                    TagBuilder.CreateEntityIdTag(_details.Id.ToString()),
                     TagBuilder.CreateGlobalIdTag(_details.GlobalId ?? TagBuilder.UNDEFINED),
                 }
             ).Concat(

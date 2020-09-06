@@ -10,7 +10,8 @@ using MediatR;
 
 namespace EventHorizon.Game.Client.Engine.Systems.Entity.Register
 {
-    public struct RegisterClientEntity : IRequest
+    public struct RegisterClientEntity 
+        : IRequest
     {
         public IObjectEntityDetails EntityDetails { get; }
 

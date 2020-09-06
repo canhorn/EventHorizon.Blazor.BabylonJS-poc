@@ -1,13 +1,13 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.State
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Disposed;
+    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using MediatR;
 
     public class StandardServerEntityTrackingState
@@ -45,7 +45,7 @@
 
         public IEnumerable<T> QueryByNotTag<T>(
             string tag
-        ) where T : ServerLifecycleEntityBase
+        ) where T : ILifecycleEntity
         {
             return _entityMap.Values.Where(
                 a => !a.Tags.Contains(tag)
@@ -54,7 +54,7 @@
 
         public IEnumerable<T> QueryByTag<T>(
             string tag
-        ) where T : ServerLifecycleEntityBase
+        ) where T : ILifecycleEntity
         {
             return _entityMap.Values.Where(
                 a => a.Tags.Contains(tag)

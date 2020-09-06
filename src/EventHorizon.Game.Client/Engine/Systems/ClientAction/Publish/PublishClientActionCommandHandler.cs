@@ -20,138 +20,39 @@
     {
         private readonly ILogger<PublishClientActionCommandHandler> _logger;
         private readonly IMediator _mediator;
-        private static IDictionary<string, Type> _actionTypes;
+        private readonly ClientActionState _state;
 
         public PublishClientActionCommandHandler(
-            ILogger<PublishClientActionCommandHandler> logger
+            ILogger<PublishClientActionCommandHandler> logger,
+            IMediator mediator,
+            ClientActionState state
         )
         {
             _logger = logger;
-            _mediator = GameServiceProvider.GetService<IMediator>();
-
-            // TODO: Move ActionTypes out of here into a ClientActionState
-            if (_actionTypes == null)
-            {
-                _actionTypes = new Dictionary<string, Type>();
-
-
-                var clientActionType = typeof(IClientAction);
-                var interfaces = AppDomain.CurrentDomain.GetAssemblies()
-                    .SelectMany(x => x.DefinedTypes)
-                    .Where(type => typeof(IClientAction).IsAssignableFrom(type));
-                foreach (var item in interfaces)
-                {
-                    var attributes = Attribute.GetCustomAttributes(item, typeof(ClientActionAttribute));
-                    if (attributes.Length > 0)
-                    {
-                        var ClientActionAttribute = (ClientActionAttribute)attributes.First();
-                        //if (ClientActionAttribute.Name == request.ActionName)
-                        //{
-
-                        //}
-                        _actionTypes.Add(
-                            ClientActionAttribute.Name,
-                            item
-                        );
-                        //Console.WriteLine(clientActionyAttribute.Name);
-
-                        //foreach (var prop in request.Data)
-                        //{
-                        //    Console.WriteLine(prop.Key);
-                        //}
-
-                        //var instance = Activator.CreateInstance(
-                        //    item,
-                        //    new ClientActionDataResolver(
-                        //        request.Data
-                        //    )
-                        //);
-                        //if (instance != null)
-                        //{
-                        //    GameServiceProvider.GetService<IMediator>().Publish(
-                        //        instance
-                        //    );
-                        //}
-                    }
-
-                }
-            }
+            _mediator = mediator;
+            _state = state;
         }
+
         public async Task<StandardCommandResult> Handle(
             PublishClientActionCommand request,
             CancellationToken cancellationToken
         )
         {
-            try
+            var clientAction = _state.Get(
+                request.ActionName,
+                request.Data
+            );
+            _logger.LogDebug("Action: {ClientAction}", request.ActionName);
+            if (clientAction.HasValue)
             {
-                if (_actionTypes.TryGetValue(
-                    request.ActionName,
-                    out var actionType
-                ))
-                {
-                    var instance = Activator.CreateInstance(
-                        actionType,
-                        new ClientActionDataResolver(
-                            request.Data
-                        )
-                    );
-                    if (instance != null)
-                    {
-                        //await DebuggingLogger.EnableClientLogging();
-                        //_logger.LogDebug("Action: {ClientAction}", request.ActionName);
-                        await _mediator.Publish(
-                            instance
-                        );
-                    }
-                }
-
-                //return new StandardCommandResult().FromResult();
-                //// TODO: Lookup all IClientAction
-                //var clientActionType = typeof(IClientAction);
-                //var interfaces = AppDomain.CurrentDomain.GetAssemblies()
-                //    .SelectMany(x => x.DefinedTypes)
-                //    .Where(type => typeof(IClientAction).IsAssignableFrom(type));
-                //foreach (var item in interfaces)
-                //{
-                //    var attributes = Attribute.GetCustomAttributes(item, typeof(ClientActionAttribute));
-                //    if (attributes.Length > 0)
-                //    {
-                //        var ClientActionAttribute = (ClientActionAttribute)attributes.First();
-                //        if (ClientActionAttribute.Name == request.ActionName)
-                //        {
-
-                //        }
-                //        //Console.WriteLine(clientActionyAttribute.Name);
-
-                //        //foreach (var prop in request.Data)
-                //        //{
-                //        //    Console.WriteLine(prop.Key);
-                //        //}
-
-                //        var instance = Activator.CreateInstance(
-                //            item,
-                //            new ClientActionDataResolver(
-                //                request.Data
-                //            )
-                //        );
-                //        if (instance != null)
-                //        {
-                //            GameServiceProvider.GetService<IMediator>().Publish(
-                //                instance
-                //            );
-                //        }
-                //    }
-
-                //}
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(
-                    ex,
-                    "error"
+                await _mediator.Publish(
+                    clientAction.Value
                 );
+                return new StandardCommandResult();
             }
-            return new StandardCommandResult();
+            return new StandardCommandResult(
+                "not_found"
+            );
         }
     }
     public class ClientActionDataResolver

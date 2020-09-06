@@ -36,10 +36,11 @@
                 await _mediator.Send(
                     new DisposeOfEntityCommand(
                         _state.Player.Value
-                    )
+                    ),
+                    cancellationToken
                 );
             }
-            var player = new StandardPlayerEntity(
+            var player = new BabylonJSPlayerEntity(
                 request.Player
             );
 
@@ -55,7 +56,8 @@
             );
 
             await _mediator.Publish(
-                new PlayerDetailsChangedEvent()
+                new PlayerDetailsChangedEvent(),
+                cancellationToken
             );
 
             return new StandardCommandResult();

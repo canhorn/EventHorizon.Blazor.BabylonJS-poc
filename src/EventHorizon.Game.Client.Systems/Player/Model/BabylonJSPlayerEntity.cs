@@ -14,15 +14,13 @@
     using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Model;
     using MediatR;
 
-    public class StandardPlayerEntity
+    public class BabylonJSPlayerEntity
         : StandardServerEntity,
         IPlayerEntity
     {
-        private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
-
         private IPlayerZoneDetails _player;
 
-        public StandardPlayerEntity(
+        public BabylonJSPlayerEntity(
             IPlayerZoneDetails player
         ) : base(player)
         {

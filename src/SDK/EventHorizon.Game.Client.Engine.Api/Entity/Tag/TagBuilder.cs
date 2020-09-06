@@ -10,7 +10,11 @@
 
         public static string CreateIdTag(
             string identifier
-        ) => CreateTag("id", identifier);
+        ) => CreateTag("entityId", identifier);
+
+        public static string CreateEntityIdTag(
+            string identifier
+        ) => CreateTag("entityId", identifier);
 
         public static string CreateGlobalIdTag(
             string identifier

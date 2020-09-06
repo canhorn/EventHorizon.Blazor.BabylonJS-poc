@@ -98,6 +98,10 @@
             {
                 _timer.Dispose();
             }
+            if (Mesh != null)
+            {
+                Mesh.Dispose();
+            }
             return Task.CompletedTask;
         }
 
@@ -132,7 +136,7 @@
             }
             else
             {
-                if (_modelState != null 
+                if (_modelState != null
                     && _modelState.ScalingDeterminant.HasValue
                 )
                 {

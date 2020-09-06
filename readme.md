@@ -46,7 +46,7 @@ Below is the details about what needs to be done, with a CLI script that can be 
 - Run "build-publish-dev-package.sh" in PowerShell Core.
     ~~~ bash
     # Using PowerShell Core
-    pwsh.exe -File .\build-publish-dev-package.sh  
+    pwsh.exe -File .\build-publish-dev-package.ps1
     ~~~
 
 ### Adding New SDK Package References

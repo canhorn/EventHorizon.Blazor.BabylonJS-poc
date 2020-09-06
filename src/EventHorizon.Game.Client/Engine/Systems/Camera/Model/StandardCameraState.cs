@@ -38,6 +38,7 @@
             {
                 ActiveCamera = camera;
                 camera.SetAsActive();
+                camera.AttachControl();
                 return;
             }
 #if DEBUG

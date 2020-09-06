@@ -28,6 +28,15 @@
                 "message"
             );
         }
+
+        public ClientActionMessageFromCombatSystemEvent(
+            string messageCode, 
+            string message
+        )
+        {
+            MessageCode = messageCode;
+            Message = message;
+        }
     }
 
     public interface ClientActionMessageFromCombatSystemEventObserver

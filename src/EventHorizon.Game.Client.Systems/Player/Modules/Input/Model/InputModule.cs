@@ -10,6 +10,7 @@
     using EventHorizon.Game.Client.Engine.Input.Api;
     using EventHorizon.Game.Client.Engine.Input.Register;
     using EventHorizon.Game.Client.Engine.Input.Unregister;
+    using EventHorizon.Game.Client.Engine.Systems.Camera.Set;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Player.Action.Model;
     using EventHorizon.Game.Client.Systems.Player.Action.Model.Send;
@@ -70,6 +71,40 @@
 
         private async Task InitKeybaord()
         {
+            await TrackInputOption(
+                new InputOptions(
+                    "1",
+                    pressed: _ =>
+                    {
+                        return Task.CompletedTask;
+                    },
+                    released: async _ =>
+                    {
+                        await _mediator.Send(
+                            new SetActiveCameraCommand(
+                                "player_universal_camera"
+                            )
+                        );
+                    }
+                )
+            );
+            await TrackInputOption(
+                new InputOptions(
+                    "2",
+                    pressed: _ =>
+                    {
+                        return Task.CompletedTask;
+                    },
+                    released: async _ =>
+                    {
+                        await _mediator.Send(
+                            new SetActiveCameraCommand(
+                                "player_follow_camera"
+                            )
+                        );
+                    }
+                )
+            );
             await TrackInputOption(
                 new InputOptions(
                     "f",

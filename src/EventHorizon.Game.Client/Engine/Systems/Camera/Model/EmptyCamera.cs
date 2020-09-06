@@ -10,34 +10,32 @@
 
         public void AttachControl()
         {
-            throw new System.NotImplementedException();
         }
 
         public Task Dispose()
         {
-            throw new System.NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task Initialize()
         {
-            throw new System.NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public bool IsInFrustum(
             IEngineMesh mesh
         )
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
         public Task PostInitialize()
         {
-            throw new System.NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public void SetAsActive()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

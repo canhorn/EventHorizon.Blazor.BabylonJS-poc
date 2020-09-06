@@ -8,7 +8,6 @@
     //[ClientAction("SERVER_MODULE_SYSTEM_RELOADED_CLIENT_ACTION_EVENT")]
     public struct ServerModuleSystemReloadedClientAction : INotification
     {
-        public static string ACTION_NAME = "SERVER_MODULE_SYSTEM_RELOADED_CLIENT_ACTION_EVENT";
         public IList<IServerModuleScripts> ServerModuleScriptList { get; set; }
     }
 }

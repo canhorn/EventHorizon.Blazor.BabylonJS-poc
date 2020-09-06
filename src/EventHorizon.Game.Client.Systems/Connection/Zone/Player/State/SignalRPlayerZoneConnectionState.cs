@@ -117,13 +117,23 @@
                     "ClientAction",
                     async (actionName, data) =>
                     {
-                        // TODO: [ClientAction] : Publish on Received From Server
-                        await _mediator.Send(
-                            new PublishClientActionCommand(
-                                actionName,
-                                data
-                            )
-                        );
+                        try
+                        {
+                            await _mediator.Send(
+                                new PublishClientActionCommand(
+                                    actionName,
+                                    data
+                                )
+                            );
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(
+                                ex,
+                                "Client Action Error: {ClientAction}",
+                                actionName
+                            );
+                        }
                     }
                 );
 
