@@ -12,8 +12,7 @@
     // TODO: [Game] : Finish Implementation
     //[ClientAction("CLIENT_ACTION_GAME_STATE_UPDATED")]
     public struct ClientActionGameStateUpdatedEvent
-        : INotification,
-        IClientAction
+        : IClientAction
     {
         // public GameState GameState { get; }
         public ClientActionGameStateUpdatedEvent(

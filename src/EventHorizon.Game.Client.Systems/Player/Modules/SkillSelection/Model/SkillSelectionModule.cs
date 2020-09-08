@@ -20,12 +20,12 @@
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class SkillSelectionModule
+    public class StandardSkillSelectionModule
         : ModuleEntityBase,
-        ICameraModule,
+        CameraModule,
         ClientScriptsAssemblySetEventObserver
     {
-        private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<SkillSelectionModule>>();
+        private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<StandardSkillSelectionModule>>();
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly IPlayerEntity _entity;
 
@@ -34,12 +34,12 @@
 
         public override int Priority => 0;
 
-        public SkillSelectionModule(
+        public StandardSkillSelectionModule(
             IPlayerEntity entity
         )
         {
             _entity = entity;
-            GamePlatfromServices.RegisterObserver(this);
+            GamePlatfrom.RegisterObserver(this);
         }
 
         public override async Task Initialize()
@@ -77,7 +77,7 @@
                 await _entityModule.Dispose();
             }
 
-            GamePlatfromServices.UnRegisterObserver(this);
+            GamePlatfrom.UnRegisterObserver(this);
         }
 
         public override Task Update()

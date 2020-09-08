@@ -11,6 +11,7 @@
     using EventHorizon.Game.Client.Engine.Gui;
     using EventHorizon.Game.Client.Engine.Input;
     using EventHorizon.Game.Client.Engine.Lifecycle;
+    using EventHorizon.Game.Client.Engine.Particle;
     using EventHorizon.Game.Client.Engine.Rendering;
     using EventHorizon.Game.Client.Engine.Services;
     using EventHorizon.Game.Client.Engine.Settings.Api;
@@ -30,6 +31,7 @@
             .AddEngineRenderingServices()
             .AddEngineEntityServices()
             .AddEngineGuiServices()
+            .AddEngineParticleServices()
             .AddEngineLifecycleServices()
             .AddEngineMainServices()
             .AddEngineInputServices()

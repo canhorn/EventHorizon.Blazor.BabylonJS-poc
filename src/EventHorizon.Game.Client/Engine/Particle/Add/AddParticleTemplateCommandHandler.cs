@@ -2,23 +2,24 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Engine.Particle.Api;
     using MediatR;
 
     public class AddParticleTemplateCommandHandler
-        : IRequestHandler<AddParticleTemplateCommand>
+        : IRequestHandler<AddParticleTemplateCommand, StandardCommandResult>
     {
-        private readonly IParticleService _particleService;
+        private readonly ParticleState _particleService;
 
         public AddParticleTemplateCommandHandler(
-            IParticleService particleService
+            ParticleState particleService
         )
         {
             _particleService = particleService;
         }
 
-        public Task<Unit> Handle(
-            AddParticleTemplateCommand request, 
+        public Task<StandardCommandResult> Handle(
+            AddParticleTemplateCommand request,
             CancellationToken cancellationToken
         )
         {
@@ -26,7 +27,8 @@
                 request.Template
             );
 
-            return Unit.Task;
+            return new StandardCommandResult()
+                .FromResult();
         }
     }
 }

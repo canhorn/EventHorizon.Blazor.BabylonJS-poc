@@ -11,6 +11,8 @@
     using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Model;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Api;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Model;
     using EventHorizon.Game.Client.Systems.Local.Modules.InView.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.InView.Model;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
@@ -35,6 +37,9 @@
                 "resolveHeight",
                 true
             );
+
+            // TODO: DETAILS_MODULE_NAME
+            //this.registerModule(DETAILS_MODULE_NAME, new DetailsModule(this));
 
             RegisterModule(
                 ITransformModule.MODULE_NAME,
@@ -77,10 +82,10 @@
                 )
             );
             // TODO: SELECTED_INDICATOR_MODULE_NAME
-            //this.registerModule(
-            //    SELECTED_INDICATOR_MODULE_NAME,
-            //    new SelectedIndicatorModule(this)
-            //);
+            RegisterModule(
+                SelectedIndicatorModule.MODULE_NAME,
+                new StandardSelectedIndicatorModule(this)
+            );
             RegisterModule(
                 IAnimationModule.MODULE_NAME,
                 new AnimationModule(
@@ -95,17 +100,19 @@
                 )
             );
             // TODO: INTERACTION_MODULE_NAME
-            //this.registerModule(
-            //    INTERACTION_MODULE_NAME,
-            //    new InteractionModule(this)
+            //RegisterModule(
+            //    InteractionModule.MODULE_NAME,
+            //    new StandardInteractionModule(this)
             //);
             // TODO: INTERACTION_INDICATOR_MODULE_NAME
-            //if (this.getProperty <{ active: boolean }> ("interactionState").active) {
-            //    this.registerModule(
-            //        INTERACTION_INDICATOR_MODULE_NAME,
-            //        new InteractionIndicatorModule(this)
-            //    );
-            //}
+            // TODO: Move this into InteractionIndicatorModule
+            //var interactionState = GetPropertyAsOption<InteractionState>(
+            //    InteractionState.NAME
+            //);
+            //RegisterModule(
+            //    InteractionIndicatorModule.MODULE_NAME,
+            //    new StandardInteractionIndicatorModule(this)
+            //);
             // TODO: Register Base Modules
             //this._commandService.send(
             //    createRegisterAllBaseModulesCommand({

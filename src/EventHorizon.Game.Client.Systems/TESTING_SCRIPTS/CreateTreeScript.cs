@@ -123,9 +123,6 @@
         )
         {
 
-            var tree = new Mesh($"tree-${id}", scene);
-            tree.setEnabled(true);
-            tree.isVisible = true;
 
             var leaves = new Mesh($"leaves-${id}", scene);
 
@@ -137,7 +134,7 @@
                 }
             );
 
-            vertexData.applyToMesh(leaves, false);
+            vertexData.applyToMesh(leaves, true);
 
             var positions = leaves.getVerticesData(
                 VertexBuffer.PositionKind
@@ -221,8 +218,13 @@
             trunk.material = woodMaterial;
             trunk.convertToFlatShadedMesh();
 
-            leaves.parent = tree;
-            trunk.parent = tree;
+
+            var tree = new Mesh($"tree-{id}", scene);
+            tree.addChild(leaves);
+            tree.addChild(trunk);
+
+            tree.setEnabled(false);
+
             return tree;
         }
 

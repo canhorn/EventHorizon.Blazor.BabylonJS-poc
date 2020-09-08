@@ -24,9 +24,16 @@
       <Folder Include="Connection\Zone\Player\Stop\" />
       <Folder Include="Dialog\Api\" />
       <Folder Include="Dialog\Model\" />
+      <Folder Include="Entity\Modules\InteractionIndicator\Api\" />
+      <Folder Include="Entity\Modules\InteractionIndicator\Model\" />
+      <Folder Include="Entity\Modules\Interaction\Api\" />
+      <Folder Include="Entity\Modules\Interaction\Model\" />
       <Folder Include="Local\Camera\Api\" />
       <Folder Include="Local\ScreenPointer\Api\" />
       <Folder Include="Map\Create\" />
+      <Folder Include="Particle\UnRegister\" />
+      <Folder Include="Particle\Register\" />
+      <Folder Include="Particle\State\" />
     </ItemGroup>
 
 </Project>

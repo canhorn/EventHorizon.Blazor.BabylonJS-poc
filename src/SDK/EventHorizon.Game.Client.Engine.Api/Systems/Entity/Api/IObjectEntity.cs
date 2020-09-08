@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
@@ -19,6 +20,7 @@
             string name,
             IModule module
         );
+        [return: MaybeNull]
         T GetModule<T>(
             string name
         ) where T : IModule;

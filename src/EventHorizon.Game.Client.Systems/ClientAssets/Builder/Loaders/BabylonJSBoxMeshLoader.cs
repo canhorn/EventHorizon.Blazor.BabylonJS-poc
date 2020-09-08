@@ -33,20 +33,22 @@
         {
             if (clientAsset.Config is IClientAssetBoxMeshConfig config)
             {
+                var mesh = MeshBuilder.CreateBox(
+                    $"loaded_model_mesh_{Guid.NewGuid()}",
+                    new
+                    {
+                        size = config.Size,
+                    },
+                    _renderingScene.GetBabylonJSScene().Scene
+                );
+                // We "hide" the Cached mesh, since all instances will be "cloned" from this one.
+                mesh.setEnabled(false);
+
                 await _mediator.Send(
                     new ResolveClientAssetMeshCommand(
                         details,
                         new BabylonJSEngineMesh(
-                            BoundingBoxGizmo.MakeNotPickableAndWrapInBoundingBox(
-                                MeshBuilder.CreateBox(
-                                    $"loaded_model_mesh_{Guid.NewGuid()}",
-                                    new
-                                    {
-                                        size = config.Size,
-                                    },
-                                    _renderingScene.GetBabylonJSScene().Scene
-                                )
-                            )
+                            mesh
                         )
                     )
                 );

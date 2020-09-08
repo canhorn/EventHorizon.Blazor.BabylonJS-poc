@@ -38,6 +38,7 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\i18n\" />
+      <Folder Include="wwwroot\game-data\" />
     </ItemGroup>
 
     <!--<ItemGroup>

@@ -28,8 +28,11 @@
             CancellationToken cancellationToken
         )
         {
+            var mesh = request.Mesh;
             if (!request.Details.SkipCaching 
-                && !_cache.Cached(request.Details.ClientAsset.Id)
+                && !_cache.Cached(
+                    request.Details.ClientAsset.Id
+                )
             )
             {
                 // Cache Mesh
@@ -37,12 +40,15 @@
                     request.Details.ClientAsset.Id,
                     request.Mesh
                 );
+
+                // Since we are caching the instance, we will register the ClientAsset Instance with the clone
+                mesh = mesh.Clone($"client_id-{request.Details.AssetInstanceId}");
             }
 
             await _mediator.Send(
                 new RegisterClientAssetInstanceCommand(
                     request.Details.AssetInstanceId,
-                    request.Mesh,
+                    mesh,
                     request.Details.Position
                 )
             );

@@ -46,7 +46,7 @@
             GameServiceProvider.SetServiceProvider(
                 _serviceScope.ServiceProvider
             );
-            GamePlatfromServices.Setup();
+            GamePlatfrom.Setup();
         }
 
         public void Setup(

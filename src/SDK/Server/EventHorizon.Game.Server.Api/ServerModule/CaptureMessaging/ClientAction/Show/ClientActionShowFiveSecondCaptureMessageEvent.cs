@@ -11,8 +11,7 @@
     // TODO: [ClientAction] : Finish Implementation
     //[ClientAction("Server.SHOW_FIVE_SECOND_CAPTURE_MESSAGE")]
     public struct ClientActionShowFiveSecondCaptureMessageEvent
-        : INotification,
-        IClientAction
+        : IClientAction
     {
         public ClientActionShowFiveSecondCaptureMessageEvent(
             IClientActionDataResolver _

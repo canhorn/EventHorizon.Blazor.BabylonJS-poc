@@ -10,6 +10,14 @@
     using EventHorizon.Game.Client.Systems.Player.Modules.Camera.Model;
     using EventHorizon.Game.Client.Systems.Player.Modules.Input.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
+    using EventHorizon.Game.Client.Systems.Player.Modules.MoveSelected.Api;
+    using EventHorizon.Game.Client.Systems.Player.Modules.MoveSelected.Model;
+    using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.Api;
+    using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.Model;
+    using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Api;
+    using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Model;
+    using EventHorizon.Game.Client.Systems.Player.Modules.SelectedTracker.Api;
+    using EventHorizon.Game.Client.Systems.Player.Modules.SelectedTracker.Model;
     using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Model;
     using MediatR;
@@ -33,51 +41,47 @@
             await base.Initialize();
 
             RegisterModule(
-                ICameraModule.MODULE_NAME,
+                CameraModule.MODULE_NAME,
                 new BabylonJSCameraModule(
                     this
                 )
             );
             RegisterModule(
-                IInputModule.MODULE_NAME,
-                new InputModule(
+                InputModule.MODULE_NAME,
+                new StandardInputModule(
                     this
                 )
             );
             RegisterModule(
-                IScreenPointerModule.MODULE_NAME,
+                ScreenPointerModule.MODULE_NAME,
                 new BabylonJSScreenPointerModule(
                     this
                 )
             );
-            // TODO: SELECTED_TRACKER_MODULE_NAME
-            //RegisterModule(
-            //    ISelectedTrackerModule.MODULE_NAME,
-            //    new SelectedTrackerModule(
-            //        this
-            //    )
-            //);
-            // TODO: MOVE_SELECTED_MODULE_NAME
-            //RegisterModule(
-            //    IMoveSelectedModule.MODULE_NAME,
-            //    new MoveSelectedModule(
-            //        this
-            //    )
-            //);
-            // TODO: SELECTED_COMPANION_TRACKER_MODULE_NAME
-            //RegisterModule(
-            //    IMoveSelectedModule.MODULE_NAME,
-            //    new MoveSelectedModule(
-            //        this
-            //    )
-            //);
-            // TODO: PLAYER_INTERACTION_MODULE_NAME
-            //RegisterModule(
-            //    IMoveSelectedModule.MODULE_NAME,
-            //    new MoveSelectedModule(
-            //        this
-            //    )
-            //);
+            RegisterModule(
+                SelectedTrackerModule.MODULE_NAME,
+                new StandardSelectedTrackerModule(
+                    this
+                )
+            );
+            RegisterModule(
+                MoveSelectedModule.MODULE_NAME,
+                new StandardMoveSelectedModule(
+                    this
+                )
+            );
+            RegisterModule(
+                SelectedCompanionTrackerModule.MODULE_NAME,
+                new StandardSelectedCompanionTrackerModule(
+                    this
+                )
+            );
+            RegisterModule(
+                PlayerInteractionModule.MODULE_NAME,
+                new StandardPlayerInteractionModule(
+                    this
+                )
+            );
 
             // TODO: Register Player Modules
             //this._commandService.send(
@@ -88,8 +92,8 @@
 
             // TODO: Put this into a Server Player EntityModule
             RegisterModule(
-                ISkillSelectionModule.MODULE_NAME,
-                new SkillSelectionModule(
+                SkillSelectionModule.MODULE_NAME,
+                new StandardSkillSelectionModule(
                     this
                 )
             );

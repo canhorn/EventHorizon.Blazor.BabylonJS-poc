@@ -1,18 +1,20 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Particle.Create
 {
+    using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Engine.Particle.Api;
     using MediatR;
 
-    public struct CreateParticleFromTemplateCommand : IRequest
+    public struct CreateParticleFromTemplateCommand 
+        : IRequest<StandardCommandResult>
     {
         public long Id { get; }
         public string TemplateId { get; }
-        public IParticleSettings Settings { get; }
+        public ParticleSettings Settings { get; }
 
         public CreateParticleFromTemplateCommand(
             long id,
             string templateId,
-            IParticleSettings settings
+            ParticleSettings settings
         )
         {
             Id = id;

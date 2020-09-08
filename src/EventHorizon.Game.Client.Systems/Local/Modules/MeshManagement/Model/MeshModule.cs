@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Model
 {
+    using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Factory.Api;
     using EventHorizon.Game.Client.Core.Timer.Api;
@@ -65,16 +66,12 @@
             Mesh = BuildMesh();
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
             _modelState = _entity.GetProperty<IModelState>(
                 IModelState.NAME
             );
-            await _mediator.Send(
-                new RegisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.RegisterObserver(this);
 
             PositionMesh();
 
@@ -90,6 +87,8 @@
                         return Task.CompletedTask;
                     }
                 ).Start();
+
+            return Task.CompletedTask;
         }
 
         public override Task Dispose()

@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
+    using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Builder.Loader;
     using EventHorizon.Game.Client.Systems.ClientAssets.Model.Mesh;
@@ -31,18 +32,24 @@
         )
         {
             var clientAsset = request.ClientAsset;
-            if (_cache.Cached(
+            if (clientAsset.Config.IsNull())
+            {
+
+                return new StandardCommandResult(
+                    "config_is_null"
+                );
+            }
+            else if (_cache.Cached(
                 clientAsset.Id
             ))
             {
-                var details = new ClientAssetMeshDetails(
-                    request.AssetInstanceId,
-                    clientAsset,
-                    request.Position
-                );
                 await _mediator.Send(
                     new ResolveClientAssetMeshCommand(
-                        details,
+                        new ClientAssetMeshDetails(
+                            request.AssetInstanceId,
+                            clientAsset,
+                            request.Position
+                        ),
                         _cache.Get(
                             clientAsset.Id
                         ).Clone(

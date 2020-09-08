@@ -5,12 +5,10 @@
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Observer.Model;
-    using MediatR;
 
     [ClientAction("EntityClientChanged")]
     public struct ClientActionEntityClientChangedEvent
-        : INotification,
-        IClientAction
+        : IClientAction
     {
         public IObjectEntityDetails Details { get; }
 

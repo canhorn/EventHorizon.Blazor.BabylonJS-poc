@@ -8,8 +8,7 @@
 
     [ClientAction("ClientEntityStopping")]
     public struct ClientActionEntityStoppingEvent
-        : INotification,
-        IClientAction
+        : IClientAction
     {
         public long EntityId { get; }
 

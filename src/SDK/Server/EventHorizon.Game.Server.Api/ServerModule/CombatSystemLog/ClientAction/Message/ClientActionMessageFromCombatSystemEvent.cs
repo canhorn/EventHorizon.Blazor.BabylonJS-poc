@@ -11,8 +11,7 @@
     // TODO: [ClientAction] : Finish Implementation
     //[ClientAction("MessageFromCombatSystem")]
     public struct ClientActionMessageFromCombatSystemEvent
-        : INotification,
-        IClientAction
+        : IClientAction
     {
         public string MessageCode { get; set; }
         public string Message { get; set; }

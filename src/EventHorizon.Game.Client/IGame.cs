@@ -53,10 +53,10 @@
         }
     }
 
-    public static class GamePlatfromServices
+    public static class GamePlatfrom
     {
         private static ObserverState? _observerState;
-        public static void Setup()
+        internal static void Setup()
         {
             _observerState = GameServiceProvider.GetService<ObserverState>();
         }

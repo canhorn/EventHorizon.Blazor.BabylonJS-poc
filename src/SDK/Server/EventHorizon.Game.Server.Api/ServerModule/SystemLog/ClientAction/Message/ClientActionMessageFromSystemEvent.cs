@@ -10,8 +10,7 @@
     // TODO: [ClientAction] : Finish Implementation
     //[ClientAction("MessageFromSystem")]
     public struct ClientActionMessageFromSystemEvent
-        : INotification,
-        IClientAction
+        : IClientAction
     {
         public string Message { get; }
         public IGuiControlOptions SenderControlOptions { get; }

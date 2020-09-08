@@ -31,7 +31,7 @@
         {
             _entity = entity;
 
-            GamePlatfromServices.RegisterObserver(this);
+            GamePlatfrom.RegisterObserver(this);
 
             Reset(
                 entity.Transform.Position
@@ -54,7 +54,7 @@
 
         public override Task Dispose()
         {
-            GamePlatfromServices.UnRegisterObserver(this);
+            GamePlatfrom.UnRegisterObserver(this);
             return Task.CompletedTask;
         }
 

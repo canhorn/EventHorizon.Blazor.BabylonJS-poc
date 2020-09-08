@@ -28,22 +28,22 @@
             CancellationToken cancellationToken
         )
         {
-            Console.WriteLine("ClientAction: " + notification.EntityId);
             var entitiesResult = await _mediator.Send(
                 new QueryForEntity(
                     TagBuilder.CreateEntityIdTag(
                         notification.EntityId.ToString()
                     )
-                )
+                ),
+                cancellationToken
             );
             if (entitiesResult.Success
-                && entitiesResult.Result.Count() > 0)
+                && entitiesResult.Result.Any())
             {
-                Console.WriteLine("UnregisterEntityEvent");
                 await _mediator.Send(
                     new DisposeOfEntityCommand(
                         entitiesResult.Result.First()
-                    )
+                    ),
+                    cancellationToken
                 );
             }
         }

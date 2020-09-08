@@ -82,7 +82,19 @@
 
         public void SetEnabled(
             bool value
-        ) => Mesh.setEnabled(value);
+        )
+        {
+            Mesh.setEnabled(value);
+            var children = Mesh.getChildMeshes();
+            foreach (var child in children)
+            {
+                child.setEnabled(value);
+            }
+        }
+
+        public void SetVisible(
+            bool visible
+        ) => Mesh.isVisible = visible;
 
         public IEngineMesh Clone(
             string identifier

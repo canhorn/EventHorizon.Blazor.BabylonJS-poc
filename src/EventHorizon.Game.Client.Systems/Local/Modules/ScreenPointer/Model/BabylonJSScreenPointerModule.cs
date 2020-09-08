@@ -14,7 +14,7 @@
 
     public class BabylonJSScreenPointerModule
         : ModuleEntityBase,
-        IScreenPointerModule
+        ScreenPointerModule
     {
         private readonly IMediator _mediator;
         private readonly IRenderingScene _renderingScene;

@@ -137,6 +137,12 @@
             _propertyMap[name] = property;
         }
 
+        public Option<T> GetPropertyAsOption<T>(
+            string name
+        ) => new Option<T>(
+            GetProperty<T>(name)
+        );
+
         [return: MaybeNull]
         // TODO: Use Option<T> to get rid of MaybeNull
         public T GetProperty<T>(

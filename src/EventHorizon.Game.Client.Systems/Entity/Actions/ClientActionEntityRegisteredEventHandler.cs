@@ -25,7 +25,6 @@
             CancellationToken cancellationToken
         )
         {
-            Console.WriteLine("ClientAction: " + notification.Entity);
             await _mediator.Publish(
                 new RegisterEntityEvent(
                     new StandardServerEntity(

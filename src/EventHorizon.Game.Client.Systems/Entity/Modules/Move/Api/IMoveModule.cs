@@ -7,7 +7,7 @@
     public interface IMoveModule
         : IModule
     {
-        public static string MODULE_NAME = "MOVE_MODULE_NAME";
+        public static string MODULE_NAME => "MOVE_MODULE_NAME";
 
         void SetCurrentMoveTo(
             IVector3 position

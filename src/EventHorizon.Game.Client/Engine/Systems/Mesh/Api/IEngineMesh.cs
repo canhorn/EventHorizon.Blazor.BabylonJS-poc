@@ -20,6 +20,9 @@
         void SetEnabled(
             bool enabled
         );
+        void SetVisible(
+            bool visible
+        );
         void Dispose();
         IEngineMesh Clone(
             string identifier

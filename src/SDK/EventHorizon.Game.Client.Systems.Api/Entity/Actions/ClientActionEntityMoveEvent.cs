@@ -9,8 +9,7 @@
 
     [ClientAction("EntityClientMove")]
     public class ClientActionEntityMoveEvent
-        : INotification,
-        IClientAction
+        : IClientAction
     {
         public long EntityId { get; }
         public IVector3 MoveTo { get; }

@@ -24,6 +24,11 @@
     using Microsoft.Extensions.Logging;
     using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Core.I18n.Set;
+    using System.Collections.Generic;
+    using EventHorizon.Game.Client.Systems.Account.Query;
+    using EventHorizon.Game.Client.Engine.Particle.Api;
+    using EventHorizon.Game.Client.Engine.Particle.Model;
+    using EventHorizon.Game.Client.Engine.Particle.Add;
 
     [Authorize]
     public class GamePageModel
@@ -86,7 +91,7 @@
 
         public async Task StartGame_ByClient()
         {
-            await LoadInDefaultI18nBundle();
+            await LoadInTestingData();
 
             var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             //var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
@@ -169,10 +174,17 @@
         [Inject]
         public ILogger<GamePage> Logger { get; set; }
 
+        private async Task LoadInTestingData()
+        {
+            await LoadInDefaultI18nBundle();
+            // Particle 
+            //await LoadInParticleTemplates();
+        }
+
         private async Task LoadInDefaultI18nBundle()
         {
             // TODO: Grab this from User Claims
-            var locale = "en-us"; 
+            var locale = "en-us";
             II18nBundle resourceBundle;
             try
             {
@@ -227,6 +239,49 @@
                 Logger.LogError(
                     ex,
                     "Failed Default Bundle I18n Request"
+                );
+                throw;
+            }
+        }
+
+        private async Task LoadInParticleTemplates()
+        {
+            var templateList = new List<string>
+            {
+                "Bomb.json",
+                "Flame.json",
+                "SelectedIndicator.json",
+            };
+            foreach (var templateFileName in templateList)
+            {
+                var template = await GetParticleTemplate(
+                    templateFileName
+                );
+                await Mediator.Send(
+                    new AddParticleTemplateCommand(
+                        template
+                    )
+                );
+            }
+        }
+
+        public async Task<ParticleTemplate> GetParticleTemplate(
+            string templateFileName
+        )
+        {
+
+            try
+            {
+                var bundle = await HttpClient.GetFromJsonAsync<ParticleTemplateModel>(
+                    $"game-data/test-particles/{templateFileName}"
+                );
+                return bundle;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(
+                    ex,
+                    "Failed Particle Template Request"
                 );
                 throw;
             }

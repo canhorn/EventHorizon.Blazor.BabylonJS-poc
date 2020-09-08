@@ -17,23 +17,22 @@
 
     public class BabylonJSCameraModule
         : ModuleEntityBase,
-        ICameraModule,
+        CameraModule,
         MeshSetEventObserver
     {
         private readonly static string PLAYER_UNIVERSAL_CAMERA_NAME = "player_universal_camera";
         private readonly static string PLAYER_FOLLOW_CAMERA_NAME = "player_follow_camera";
 
-        private readonly IMediator _mediator;
+        private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly IPlayerEntity _entity;
 
         public override int Priority => 0;
 
         public BabylonJSCameraModule(
-            IPlayerEntity entity
+            IPlayerEntity playerEntity
         )
         {
-            _mediator = GameServiceProvider.GetService<IMediator>();
-            _entity = entity;
+            _entity = playerEntity;
         }
 
         public override async Task Initialize()

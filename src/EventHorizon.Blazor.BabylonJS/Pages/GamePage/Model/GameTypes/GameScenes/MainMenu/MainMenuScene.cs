@@ -41,7 +41,7 @@
 
         public override async Task Initialize()
         {
-            GamePlatfromServices.RegisterObserver(
+            GamePlatfrom.RegisterObserver(
                 this
             );
             var accountInfoResult = await _mediator.Send(
@@ -133,7 +133,7 @@
 
         public override async Task Dispose()
         {
-            GamePlatfromServices.UnRegisterObserver(
+            GamePlatfrom.UnRegisterObserver(
                 this
             );
             await _mediator.Send(

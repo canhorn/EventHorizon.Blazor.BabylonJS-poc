@@ -1,14 +1,16 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Particle.Add
 {
+    using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Engine.Particle.Api;
     using MediatR;
 
-    public struct AddParticleTemplateCommand : IRequest
+    public struct AddParticleTemplateCommand 
+        : IRequest<StandardCommandResult>
     {
-        public IParticleTemplate Template { get; }
+        public ParticleTemplate Template { get; }
 
         public AddParticleTemplateCommand(
-            IParticleTemplate template
+            ParticleTemplate template
         )
         {
             Template = template;

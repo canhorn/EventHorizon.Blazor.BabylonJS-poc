@@ -3,9 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using BabylonJS;
-    using EventHorizon.Blazor.Interop.Callbacks;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
-    using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api.Builder;
@@ -35,21 +33,23 @@
         {
             if (clientAsset.Config is IClientAssetSphereMeshConfig config)
             {
+                var mesh = MeshBuilder.CreateSphere(
+                    $"loaded_model_mesh_{Guid.NewGuid()}",
+                    new
+                    {
+                        segments = config.Segments,
+                        diameter = config.Diameter,
+                    },
+                    _renderingScene.GetBabylonJSScene().Scene
+                );
+                // We "hide" the Cached mesh, since all instances will be "cloned" from this one.
+                mesh.setEnabled(false);
+
                 await _mediator.Send(
                     new ResolveClientAssetMeshCommand(
                         details,
                         new BabylonJSEngineMesh(
-                            BoundingBoxGizmo.MakeNotPickableAndWrapInBoundingBox(
-                                MeshBuilder.CreateSphere(
-                                    $"loaded_model_mesh_{Guid.NewGuid()}",
-                                    new
-                                    {
-                                        segments = config.Segments,
-                                        diameter = config.Diameter,
-                                    },
-                                    _renderingScene.GetBabylonJSScene().Scene
-                                )
-                            )
+                            mesh
                         )
                     )
                 );

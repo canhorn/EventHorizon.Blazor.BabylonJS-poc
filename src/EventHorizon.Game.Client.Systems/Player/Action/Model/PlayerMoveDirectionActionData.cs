@@ -4,7 +4,7 @@
     using EventHorizon.Game.Client.Systems.Player.Action.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
 
-    public class PlayerMoveDirectionActionData
+    public struct PlayerMoveDirectionActionData
         : IPlayerActionData
     {
         public MoveDirection MoveDirection { get; }
