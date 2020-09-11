@@ -4,14 +4,11 @@
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Core.ModelResolver.Api;
-    using EventHorizon.Game.Client.Engine.Debugging.Model;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
@@ -38,11 +35,11 @@
             CancellationToken cancellationToken
         )
         {
+            _logger.LogDebug("ActionName: {ActionName}", request.ActionName);
             var clientAction = _state.Get(
                 request.ActionName,
                 request.Data
             );
-            _logger.LogDebug("Action: {ClientAction}", request.ActionName);
             if (clientAction.HasValue)
             {
                 await _mediator.Publish(
@@ -78,14 +75,14 @@
             ))
             {
                 var resolver = GameServiceProvider.GetService__UNSAFE<IModelResolver<T>>();
-                if (resolver != null)
+                if (resolver.IsNotNull())
                 {
                     return resolver.Resolve(
                         argument
                     );
                 }
                 var value = argument.Cast<T>();
-                if (value != null)
+                if (value.IsNotNull())
                 {
                     return value;
                 }

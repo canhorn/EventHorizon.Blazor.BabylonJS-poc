@@ -7,7 +7,6 @@
     using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Actions;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Loaded;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Play;

@@ -9,11 +9,11 @@
         : INotification
     {
         public IObjectEntity Entity { get; }
-        public float DistanceToPlayer { get; }
+        public decimal DistanceToPlayer { get; }
 
         public EntityWithinInteractionDistanceEvent(
             IObjectEntity entity,
-            float distanceToPlayer
+            decimal distanceToPlayer
         )
         {
             Entity = entity;

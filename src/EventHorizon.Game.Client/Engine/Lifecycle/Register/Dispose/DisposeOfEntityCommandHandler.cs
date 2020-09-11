@@ -6,7 +6,6 @@
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Disposed;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Unregister;
     using MediatR;
-    using MediatR.Pipeline;
 
     public class DisposeOfEntityCommandHandler
         : IRequestHandler<DisposeOfEntityCommand>
@@ -30,7 +29,8 @@
                 await _mediator.Publish(
                     new UnregisterEntityEvent(
                         lifecycleEntity
-                    )
+                    ),
+                    cancellationToken
                 );
             }
 
@@ -39,7 +39,8 @@
             await _mediator.Publish(
                 new EntityDisposedEvent(
                     request.Entity
-                )
+                ),
+                cancellationToken
             );
 
             return Unit.Value;

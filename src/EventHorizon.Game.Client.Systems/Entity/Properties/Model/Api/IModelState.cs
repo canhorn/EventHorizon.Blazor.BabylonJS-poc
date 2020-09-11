@@ -4,7 +4,7 @@
 
     public interface IModelState
     {
-        public static string NAME { get; } = "modelState";
+        public static string NAME => "modelState";
 
         decimal? ScalingDeterminant { get; }
         IModelMesh Mesh { get; }

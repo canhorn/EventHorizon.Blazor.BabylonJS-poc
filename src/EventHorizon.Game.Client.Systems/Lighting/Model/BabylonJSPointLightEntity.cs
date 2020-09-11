@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Lighting.Model
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
     using BabylonJS;
@@ -14,10 +15,12 @@
     using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Model;
 
     public class BabylonJSPointLightEntity
-        : ServerLifecycleEntityBase, ILightEntity
+        : ServerLifecycleEntityBase, 
+        ILightEntity
     {
         private readonly LightDetailsModel _lightDetails;
 
+        [MaybeNull]
         public PointLight Light { get; private set; }
 
         public BabylonJSPointLightEntity(
@@ -63,8 +66,8 @@
             if (_lightDetails.EnableDayNightCycle)
             {
                 RegisterModule(
-                    ISunlightModule.MODULE_NAME,
-                    new SunlightModule(
+                    SunlightModule.MODULE_NAME,
+                    new StandardSunlightModule(
                         this,
                         false,
                         (position, intensity) =>
@@ -85,7 +88,7 @@
 
         public override Task Dispose()
         {
-            Light.dispose();
+            Light?.dispose();
             return base.Dispose();
         }
 

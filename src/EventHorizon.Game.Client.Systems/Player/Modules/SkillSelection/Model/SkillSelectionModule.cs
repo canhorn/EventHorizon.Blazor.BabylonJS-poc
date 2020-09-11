@@ -5,7 +5,6 @@
     using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Engine.Gui.Show;
     using EventHorizon.Game.Client.Engine.Scripting.Data;
-    using EventHorizon.Game.Client.Engine.Scripting.Services;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
@@ -14,7 +13,7 @@
     using EventHorizon.Game.Client.Systems.EntityModule.Api;
     using EventHorizon.Game.Client.Systems.EntityModule.Create;
     using EventHorizon.Game.Client.Systems.Player.Api;
-    using EventHorizon.Game.Client.Systems.Player.Modules.Camera.Api;
+    using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Api;
     using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
     using EventHorizon.Game.Server.SkillSelection.Model;
     using MediatR;
@@ -22,7 +21,7 @@
 
     public class StandardSkillSelectionModule
         : ModuleEntityBase,
-        CameraModule,
+        SkillSelectionModule,
         ClientScriptsAssemblySetEventObserver
     {
         private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<StandardSkillSelectionModule>>();
@@ -115,7 +114,7 @@
                                 "skill.client_selection",
                                 new Dictionary<string, object>
                                 {
-                                    { "entity", this },
+                                    { "entity", _entity },
                                 }
                             )
                         );
@@ -176,7 +175,7 @@
                                 "skill.show_system_log",
                                 new Dictionary<string, object>
                                 {
-                                    { "entity", this },
+                                    { "entity", _entity },
                                 }
                             )
                         );
@@ -194,7 +193,7 @@
                                 "skill.hide_system_log",
                                 new Dictionary<string, object>
                                 {
-                                    { "entity", this },
+                                    { "entity", _entity },
                                 }
                             )
                         );
@@ -231,7 +230,7 @@
                                 "skill.fireball",
                                 new Dictionary<string, object>
                                 {
-                                    { "entity", this },
+                                    { "entity", _entity },
                                 }
                             )
                         );
@@ -250,7 +249,7 @@
                                 "skill.capture_target",
                                 new Dictionary<string, object>
                                 {
-                                    { "entity", this },
+                                    { "entity", _entity },
                                 }
                             )
                         );
@@ -269,7 +268,7 @@
                                 "skill.companion_targeted_skill",
                                 new Dictionary<string, object>
                                 {
-                                    { "entity", this },
+                                    { "entity", _entity },
                                     { "skillId", "Skills_FireBall.json" },
                                     { "noSelectionsMessage", GameServiceProvider.GetService<ILocalizer>()["noSelectionsMessage"] },
                                 }

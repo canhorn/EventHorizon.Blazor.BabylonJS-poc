@@ -37,6 +37,24 @@
             }
         }
 
+        public string Template(
+            string template,
+            IDictionary<string, object> data
+        )
+        {
+            var resolvedTemplate = this[template];
+
+            foreach (var dataItem in data)
+            {
+                resolvedTemplate = resolvedTemplate.Replace(
+                    $"${{{dataItem.Key}}}",
+                    dataItem.Value.ToString()
+                );
+            }
+
+            return resolvedTemplate;
+        }
+
         public void SetResourceBundle(
             II18nBundle bundle
         )

@@ -43,7 +43,6 @@
                     this
                 )
             );
-
             SetProperty(
                 IModelState.NAME,
                 new StandardModelState

@@ -25,9 +25,11 @@
             CancellationToken cancellationToken
         )
         {
-            if (request.GlobalId.IsNull() || _state.Contains(
-                request.GlobalId
-            ))
+            if (request.GlobalId.IsNull() 
+                || !_state.Contains(
+                    request.GlobalId
+                )
+            )
             {
                 return true;
             }

@@ -4,14 +4,9 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
-    using System.Diagnostics.Contracts;
     using System.Linq;
-    using System.Linq.Expressions;
-    using System.Numerics;
     using System.Threading.Tasks;
-    using BabylonJS;
     using EventHorizon.Game.Client.Core.Builder.Api;
-    using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Core.Mapper.Api;
     using EventHorizon.Game.Client.Engine.Core.Api;
     using EventHorizon.Game.Client.Engine.Entity.Api;
@@ -20,6 +15,7 @@
     using EventHorizon.Game.Client.Engine.Lifecycle.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Api;
+    using Microsoft.Extensions.Logging;
 
     public abstract class LifecycleEntityBase
         : ClientEntityBase,
@@ -45,7 +41,7 @@
             Transform = transformBuilder.Build(
                 details.Transform
             );
-            UpdateDetails(
+            _details = UpdateDetails(
                 details
             );
         }
@@ -116,14 +112,29 @@
                 {
                     return typedModule;
                 }
-            }
-
 #if DEBUG
-            // TODO: Log Error??
-            new GameException(
-                "module_not_found",
-                $"Was not able to find Module on entity: EntityId = {EntityId} | GlobalId = {GlobalId} | Property: {name}"
-            );
+                GamePlatfrom.Logger<LifecycleEntityBase>()
+                    .LogDebug(
+                        "Module was not the correct type on entity: EntityId = {EntityId} | GlobalId = {GlobalId} | Module: {ModuleName} | Type: {ModuleType}",
+                        EntityId,
+                        GlobalId,
+                        name,
+                        typeof(T)
+                    );
+#endif
+            }
+#if DEBUG
+            else
+            {
+                GamePlatfrom.Logger<LifecycleEntityBase>()
+                    .LogDebug(
+                        "Module was not found on entity: EntityId = {EntityId} | GlobalId = {GlobalId} | Module: {ModuleName} | Type: {ModuleType}",
+                        EntityId,
+                        GlobalId,
+                        name,
+                        typeof(T)
+                    );
+            }
 #endif
             return default;
         }
@@ -159,14 +170,15 @@
                     return typedProperty;
                 }
             }
+
             if (Data.TryGetValue(
                 name,
                 out var dataProperty
             ))
             {
-                try
+                var mapper = GameServiceProvider.GetService__UNSAFE<IMapper<T>>();
+                if (mapper.IsNotNull())
                 {
-                    var mapper = GameServiceProvider.GetService<IMapper<T>>();
                     var value = mapper.Map(
                         dataProperty
                     );
@@ -179,57 +191,59 @@
                         return value;
                     }
                 }
-                catch (Exception ex)
+                else if (dataProperty.Cast<T>() is T typedDataProperty)
                 {
-                    // TODO: ignore for now
-                }
-
-                try
-                {
-                    if (dataProperty.Cast<T>() is T typedDataProperty)
-                    {
-                        _propertyMap.Add(
-                            name,
-                            typedDataProperty
-                        );
-                        return typedDataProperty;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // TODO: ignore for now
+                    _propertyMap.Add(
+                        name,
+                        typedDataProperty
+                    );
+                    return typedDataProperty;
                 }
             }
 #if DEBUG
-            // TODO: Log Error??
-            new GameException(
-                "property_not_found",
-                $"Was not able to find Property on entity: EntityId = {EntityId} | GlobalId = {GlobalId} | Property: {name}"
-            );
+            GamePlatfrom.Logger<LifecycleEntityBase>()
+                .LogDebug(
+                    "Property was not found on entity: EntityId = {EntityId} | GlobalId = {GlobalId} | Property: {PropertyName} | Type: {PropertyType}",
+                    EntityId,
+                    GlobalId,
+                    name,
+                    typeof(T)
+                );
 #endif
             return default;
         }
 
-        public void UpdateDetails(
+        public IObjectEntityDetails UpdateDetails(
             IObjectEntityDetails details
         )
         {
             _details = details;
-            Tags = new List<string>(
-                new List<string>
-                {
-                    TagBuilder.CreateTypeTag(_details.Type ?? TagBuilder.UNDEFINED),
-                    TagBuilder.CreateIdTag(_details.Id.ToString()),
-                    TagBuilder.CreateEntityIdTag(_details.Id.ToString()),
-                    TagBuilder.CreateGlobalIdTag(_details.GlobalId ?? TagBuilder.UNDEFINED),
-                }
-            ).Concat(
+            var baseTags = new List<string>
+            {
+                TagBuilder.CreateTypeTag(_details.Type ?? TagBuilder.UNDEFINED),
+                TagBuilder.CreateGlobalIdTag(_details.GlobalId ?? TagBuilder.UNDEFINED),
+            };
+            if (_details.Id != IObjectEntityDetails.DEFAULT_ID)
+            {
+                baseTags.Add(
+                    TagBuilder.CreateIdTag(_details.Id.ToString())
+                );
+                baseTags.Add(
+                    TagBuilder.CreateEntityIdTag(_details.Id.ToString())
+                );
+            }
+            Tags = baseTags.Concat(
                 details.TagList
             ).ToList().AsReadOnly();
             Data = new ReadOnlyDictionary<string, object>(
                 details.Data
             );
             // Remove all Data keys from _propertyList
+            foreach (var dataKey in Data.Keys)
+            {
+                _propertyMap.Remove(dataKey);
+            }
+            return details;
         }
     }
 }

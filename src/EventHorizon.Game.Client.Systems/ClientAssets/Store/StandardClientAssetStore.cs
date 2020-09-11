@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-
-namespace EventHorizon.Game.Client.Systems.ClientAssets.Store
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Store
 {
+    using System.Collections.Generic;
+    using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+
     public class StandardClientAssetStore
         : IClientAssetStore
     {
         private readonly IDictionary<string, IClientAsset> _map = new Dictionary<string, IClientAsset>();
 
-        public IClientAsset Get(
+        public Option<IClientAsset> Get(
             string id
         )
         {
@@ -21,9 +17,11 @@ namespace EventHorizon.Game.Client.Systems.ClientAssets.Store
                 out var value
             ))
             {
-                return value;
+                return value.ToOption();
             }
-            return default;
+            return new Option<IClientAsset>(
+                null
+            );
         }
 
         public void Set(

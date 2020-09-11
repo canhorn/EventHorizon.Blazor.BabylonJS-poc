@@ -72,7 +72,7 @@
                 //             builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
                 //         }
                 //     ).Build();
-
+                var clientActionRegistered = false;
                 _connection.On(
                     "ZoneInfo",
                     async (PlayerZoneInfoModel zoneInfo) =>
@@ -101,37 +101,46 @@
                             await _mediator.Publish(
                                 new FinishedPlayerZoneInfoReceivedEvent()
                             );
+
+                            _logger.LogDebug(
+                                "ZoneInfo Finished {Now}",
+                                DateTime.UtcNow
+                            );
+
+                            if (!clientActionRegistered)
+                            {
+                                // Setup ClientAction Handler
+                                _connection.On<string, IDictionary<string, object>>(
+                                    "ClientAction",
+                                    async (actionName, data) =>
+                                    {
+                                        try
+                                        {
+                                            await _mediator.Send(
+                                                new PublishClientActionCommand(
+                                                    actionName,
+                                                    data
+                                                )
+                                            );
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            _logger.LogError(
+                                                ex,
+                                                "Client Action Error: {ClientAction}",
+                                                actionName
+                                            );
+                                        }
+                                    }
+                                );
+                                clientActionRegistered = true;
+                            }
                         }
                         catch (Exception ex)
                         {
                             _logger.LogError(
                                 ex,
                                 "Player Zone Connection ZoneInfo Failed"
-                            );
-                        }
-                    }
-                );
-
-                // Setup ClientAction Handler
-                _connection.On<string, IDictionary<string, object>>(
-                    "ClientAction",
-                    async (actionName, data) =>
-                    {
-                        try
-                        {
-                            await _mediator.Send(
-                                new PublishClientActionCommand(
-                                    actionName,
-                                    data
-                                )
-                            );
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(
-                                ex,
-                                "Client Action Error: {ClientAction}",
-                                actionName
                             );
                         }
                     }

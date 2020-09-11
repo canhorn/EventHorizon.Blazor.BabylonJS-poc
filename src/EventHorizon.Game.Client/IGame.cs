@@ -7,11 +7,11 @@
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Unregister;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Unregister;
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.State;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     public static class GameServiceProvider
     {
@@ -23,10 +23,10 @@
             _serviceProvider = serviceProvider;
         }
 
-        public static T GetService<T>()
+        public static T GetService<T>() where T : notnull
         {
 #if DEBUG
-            if (_serviceProvider == null)
+            if (_serviceProvider.IsNull())
             {
                 throw new GameRuntimeException(
                     "service_provider_not_set",
@@ -34,21 +34,16 @@
                 );
             }
 #endif
-            var service = _serviceProvider.GetRequiredService<T>();
-#if DEBUG
-            if (service == null)
-            {
-                throw new GameRuntimeException(
-                    "service_not_registered",
-                    $"Service was not registered. {nameof(T)}"
-                );
-            }
-#endif
-            return service;
+            return _serviceProvider.GetRequiredService<T>();
         }
 
+        [return: MaybeNull]
         public static T GetService__UNSAFE<T>()
         {
+            if (_serviceProvider.IsNull())
+            {
+                return default;
+            }
             return _serviceProvider.GetService<T>();
         }
     }
@@ -76,6 +71,10 @@
             _observerState!.Remove(
                 observer
             );
+        }
+        public static ILogger Logger<T>()
+        {
+            return GameServiceProvider.GetService<ILogger<T>>();
         }
     }
 

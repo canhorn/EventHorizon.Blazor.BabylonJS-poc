@@ -21,7 +21,6 @@
         ) : base(
             new ObjectEntityDetailsModel
             {
-                Id = -1,
                 Type = "ClientAssetInstance",
                 Name = $"ClientAssetInstance_{assetInstanceId}",
                 IsReadOnly = true,

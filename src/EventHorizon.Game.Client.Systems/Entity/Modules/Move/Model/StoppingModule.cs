@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Actions;
+    using EventHorizon.Game.Client.Systems.Entity.ClientAction;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Api;
     using EventHorizon.Game.Client.Systems.Entity.Stopping;
     using EventHorizon.Observer.Register;
@@ -55,11 +55,11 @@
             {
                 return;
             }
-            //await _mediator.Publish(
-            //    new EntityStoppingEvent(
-            //        _entity.ClientId
-            //    )
-            //);
+            await _mediator.Publish(
+                new EntityStoppingEvent(
+                    _entity.ClientId
+                )
+            );
         }
     }
 }

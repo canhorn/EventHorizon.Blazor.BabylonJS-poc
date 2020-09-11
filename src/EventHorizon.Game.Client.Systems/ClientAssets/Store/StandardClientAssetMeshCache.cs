@@ -16,7 +16,7 @@
             id
         );
 
-        public IEngineMesh Get(
+        public Option<IEngineMesh> Get(
             string id
         )
         {
@@ -25,9 +25,11 @@
                 out var value
             ))
             {
-                return value;
+                return value.ToOption();
             }
-            return default;
+            return new Option<IEngineMesh>(
+                null
+            );
         }
 
         public void Set(

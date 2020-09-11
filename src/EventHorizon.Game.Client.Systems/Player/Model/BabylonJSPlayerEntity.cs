@@ -26,7 +26,7 @@
         : StandardServerEntity,
         IPlayerEntity
     {
-        private IPlayerZoneDetails _player;
+        private readonly IPlayerZoneDetails _player;
 
         public BabylonJSPlayerEntity(
             IPlayerZoneDetails player

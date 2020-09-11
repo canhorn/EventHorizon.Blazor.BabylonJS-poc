@@ -54,7 +54,8 @@
                             new StandardServerEntity(
                                 entityDetails
                             )
-                        )
+                        ),
+                        cancellationToken
                     );
                 }
             }

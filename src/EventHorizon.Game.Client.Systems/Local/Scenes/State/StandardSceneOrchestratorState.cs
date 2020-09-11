@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Core.Exceptions;
@@ -14,17 +15,17 @@
     public class StandardSceneOrchestratorState
         : ISceneOrchestratorState
     {
+        private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly IDictionary<string, Func<GameSceneBase>> _scenes = new Dictionary<string, Func<GameSceneBase>>();
-        private string _defaultSceneId;
-        private GameSceneBase _runningScene;
+
+        private string _defaultSceneId = string.Empty;
+        private GameSceneBase? _runningScene;
 
         public void Clear()
         {
-            if (_runningScene != null)
-            {
-                _runningScene.Dispose();
-                _runningScene = null;
-            }
+            _runningScene?.Dispose();
+            _runningScene = null;
+
             _scenes.Clear();
         }
 
@@ -60,22 +61,24 @@
             string sceneId
         )
         {
-            if (_runningScene != null)
+            if (_runningScene.IsNotNull())
             {
-                var mediator = GameServiceProvider.GetService<IMediator>();
                 await _runningScene.Dispose();
-                await mediator.Publish(
+                await _mediator.Publish(
                     new EntityDisposedEvent(
                         _runningScene
                     )
                 );
                 _runningScene = null;
             }
-            if(_scenes.TryGetValue(sceneId, out var sceneBuilder))
+            if (_scenes.TryGetValue(
+                sceneId, 
+                out var sceneBuilder
+            ))
             {
-                var mediator = GameServiceProvider.GetService<IMediator>();
                 _runningScene = sceneBuilder();
-                await mediator.Publish(
+
+                await _mediator.Publish(
                     new RegisterEntityEvent(
                         _runningScene
                     )

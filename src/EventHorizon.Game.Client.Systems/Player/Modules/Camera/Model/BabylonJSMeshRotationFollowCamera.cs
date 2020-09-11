@@ -19,16 +19,18 @@
         public BabylonJSMeshRotationFollowCamera(
             string name,
             IPlayerEntity entity
-        ) : base(new ArcFollowCamera(
-            name,
-            DEFAULT_X_ROTATION,
-            DEFAULT_Y_ROTATION,
-            DEFAULT_RADIUS,
-            entity.GetModule<IMeshModule>(
-                IMeshModule.MODULE_NAME
-            ).Mesh.Cast<BabylonJSEngineMesh>().Mesh,
-            GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene
-        ))
+        ) : base(
+            new ArcFollowCamera(
+                name,
+                DEFAULT_X_ROTATION,
+                DEFAULT_Y_ROTATION,
+                DEFAULT_RADIUS,
+                entity.GetModule<IMeshModule>(
+                    IMeshModule.MODULE_NAME
+                )?.Mesh.Cast<BabylonJSEngineMesh>().Mesh,
+                GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene
+            )
+        )
         {
             _entity = entity;
             _camera.speed = -1;

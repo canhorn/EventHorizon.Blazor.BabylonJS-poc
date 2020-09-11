@@ -19,15 +19,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Combat\Skill\Api\" />
+      <Folder Include="Combat\Skill\Model\" />
       <Folder Include="Connection\Zone\Player\Connected\" />
       <Folder Include="Connection\Zone\Player\Action\" />
       <Folder Include="Connection\Zone\Player\Stop\" />
       <Folder Include="Dialog\Api\" />
       <Folder Include="Dialog\Model\" />
-      <Folder Include="Entity\Modules\InteractionIndicator\Api\" />
-      <Folder Include="Entity\Modules\InteractionIndicator\Model\" />
-      <Folder Include="Entity\Modules\Interaction\Api\" />
-      <Folder Include="Entity\Modules\Interaction\Model\" />
       <Folder Include="Local\Camera\Api\" />
       <Folder Include="Local\ScreenPointer\Api\" />
       <Folder Include="Map\Create\" />

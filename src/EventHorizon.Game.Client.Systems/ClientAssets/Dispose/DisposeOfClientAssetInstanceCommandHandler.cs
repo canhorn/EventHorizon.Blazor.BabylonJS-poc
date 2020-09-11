@@ -27,9 +27,9 @@
             var clientInstanceAsset = _store.Get(
                 request.AssetInstanceId
             );
-            if (clientInstanceAsset != null)
+            if (clientInstanceAsset.HasValue)
             {
-                clientInstanceAsset.Dispose();
+                clientInstanceAsset.Value.Dispose();
                 _store.Remove(
                     request.AssetInstanceId
                 );

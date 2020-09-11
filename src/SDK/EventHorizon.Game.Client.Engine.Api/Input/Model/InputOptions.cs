@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
 
     public struct InputOptions
@@ -22,7 +23,7 @@
         }
 
         #region Generated
-        public override bool Equals(object? obj)
+        public override bool Equals([MaybeNull] object obj)
         {
             return obj is InputOptions options &&
                    Key == options.Key &&

@@ -1,5 +1,6 @@
 namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
 {
+    using System.Collections.Generic;
     using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Engine.Scripting.Services;
     using EventHorizon.Observer.Model;
@@ -29,13 +30,14 @@ namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
         }
 
         public IMediator Mediator => _mediator;
+        public ILocalizer Localizer => _localizer;
 
         public ILogger Logger<T>()
         {
             return _loggerFactory.CreateLogger<T>();
         }
 
-        public T GetService<T>()
+        public T GetService<T>() where T : notnull
         {
             return GameServiceProvider.GetService<T>();
         }
@@ -51,13 +53,5 @@ namespace EventHorizon.Game.Client.Systems.ClientScripts.Services
         ) => _observerState.Remove(
             observer
         );
-
-        public string Localize(
-            string name,
-            params string[] arguments
-        )
-        {
-            return _localizer[name, arguments];
-        }
     }
 }

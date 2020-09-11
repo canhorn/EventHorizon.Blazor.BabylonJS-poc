@@ -27,7 +27,7 @@
         public BabylonJSMapMeshMaterial(
             IMapMeshMaterialDetails settings,
             string name,
-            Light light,
+            Light? light,
             Scene scene
         ) : base()
         {

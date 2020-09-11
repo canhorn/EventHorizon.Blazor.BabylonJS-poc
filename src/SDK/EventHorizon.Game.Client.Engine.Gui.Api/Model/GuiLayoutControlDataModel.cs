@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.Model
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using EventHorizon.Game.Client.Engine.Gui.Api;
 
@@ -11,13 +12,20 @@
         public int Sort { get; set; }
         public int? Layer { get; set; }
         public string TemplateId { get; set; } = string.Empty;
-        public GuiControlOptionsModel? Options { get; set; }
-        IGuiControlOptions? IGuiLayoutControlData.Options => Options;
-        public GuiGridLocationModel? GridLocation { get; set; }
-        IGuiGridLocation? IGuiLayoutControlData.GridLocation => GridLocation;
-        public List<GuiLayoutControlDataModel>? ControlList { get; set; }
-        IEnumerable<IGuiLayoutControlData>? IGuiLayoutControlData.ControlList => ControlList;
-        public object? LinkWith { get; set; }
+        [MaybeNull]
+        public GuiControlOptionsModel Options { get; set; }
+        [MaybeNull]
+        IGuiControlOptions IGuiLayoutControlData.Options => Options;
+        [MaybeNull]
+        public GuiGridLocationModel GridLocation { get; set; }
+        [MaybeNull]
+        IGuiGridLocation IGuiLayoutControlData.GridLocation => GridLocation;
+        [MaybeNull]
+        public List<GuiLayoutControlDataModel> ControlList { get; set; }
+        [MaybeNull]
+        IEnumerable<IGuiLayoutControlData> IGuiLayoutControlData.ControlList => ControlList;
+        [MaybeNull]
+        public object LinkWith { get; set; }
 
         public GuiLayoutControlDataModel() { }
         public GuiLayoutControlDataModel(

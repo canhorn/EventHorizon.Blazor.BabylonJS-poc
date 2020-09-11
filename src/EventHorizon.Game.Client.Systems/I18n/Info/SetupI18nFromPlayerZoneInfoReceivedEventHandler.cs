@@ -24,7 +24,6 @@
             CancellationToken cancellationToken
         )
         {
-            Console.WriteLine("Map Count: " + notification.PlayerZoneInfo.I18nMap.Count);
             await _mediator.Send(
                 new SetI18nBundleCommand(
                     notification.PlayerZoneInfo.I18nMap

@@ -3,11 +3,9 @@
     using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Map.Hit;
     using EventHorizon.Game.Client.Systems.Player.Action.Api;
-    using EventHorizon.Game.Client.Systems.Player.Action.Model;
     using EventHorizon.Game.Client.Systems.Player.Action.Model.Send;
     using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.MoveSelected.Api;
@@ -60,7 +58,9 @@
                 SelectedCompanionTrackerModule.MODULE_NAME
             );
 
-            if (selectedCompanionTrackerModule.HasSelectedEntity)
+            if (selectedCompanionTrackerModule.IsNotNull() 
+                && selectedCompanionTrackerModule.HasSelectedEntity
+            )
             {
                 // TODO: [Combat] - Move into Player Property
                 await _mediator.Publish(

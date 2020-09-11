@@ -2,7 +2,7 @@
 {
     public interface IClientAssetStore
     {
-        IClientAsset Get(
+        Option<IClientAsset> Get(
             string id
         );
         void Set(

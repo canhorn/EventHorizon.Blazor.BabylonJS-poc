@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
-using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
-using EventHorizon.Game.Client.Engine.Systems.Entity.Register;
-using EventHorizon.Game.Client.Systems.Map.Api;
-using MediatR;
-
-namespace EventHorizon.Game.Client.Systems.Map.State
+﻿namespace EventHorizon.Game.Client.Systems.Map.State
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
+    using EventHorizon.Game.Client.Systems.Map.Api;
+    using MediatR;
+
     public class StandardMapMeshState
         : IMapState
     {
-
-        public IMapMeshEntity CurrentMap { get; private set; }
-
+        [MaybeNull]
+        public IMapMeshEntity? CurrentMap { get; private set; }
 
         public async Task DisposeOfMap()
         {
-            if (CurrentMap != null)
+            if (CurrentMap.IsNotNull())
             {
                 var mediator = GameServiceProvider.GetService<IMediator>();
                 await mediator.Send(
@@ -36,7 +32,7 @@ namespace EventHorizon.Game.Client.Systems.Map.State
         )
         {
             var mediator = GameServiceProvider.GetService<IMediator>();
-            if (CurrentMap != null)
+            if (CurrentMap.IsNotNull())
             {
                 await DisposeOfMap();
             }

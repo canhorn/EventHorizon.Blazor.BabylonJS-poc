@@ -6,7 +6,7 @@
     using EventHorizon.Game.Client.Engine.Entity.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Actions;
+    using EventHorizon.Game.Client.Systems.Entity.ClientAction;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Api;
     using EventHorizon.Game.Client.Systems.Entity.Moving;
     using EventHorizon.Game.Client.Systems.Entity.States.Move.Model;

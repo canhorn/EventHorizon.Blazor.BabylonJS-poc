@@ -9,7 +9,7 @@
     using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
     using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Api;
-    using EventHorizon.Game.Server.Actions.Agent;
+    using EventHorizon.Game.Server.ClientAction.Agent;
     using MediatR;
 
     public class StandardSelectedCompanionTrackerModule
@@ -64,6 +64,7 @@
             PointerHitEntityEvent args
         )
         {
+            SelectedEntityId = NOT_SELECTED_ID;
             if (_entity.EntityId == args.EntityId)
             {
                 return;
@@ -76,7 +77,7 @@
                 )
             );
             if (!hitEntityResult.Success
-                || hitEntityResult.Result.Any())
+                || !hitEntityResult.Result.Any())
             {
                 return;
             }

@@ -40,7 +40,7 @@
         private readonly IObjectEntity _entity;
         private readonly ParticleEmitterOptions _options;
 
-        public bool IsActive { get; } = true;
+        public bool IsActive { get; private set; }
 
         public StandardServerParticle(
             IObjectEntity entity,
@@ -88,6 +88,7 @@
                     _options.ParticleId
                 )
             );
+            IsActive = true;
         }
 
         public async Task Stop()
@@ -97,6 +98,7 @@
                     _options.ParticleId
                 )
             );
+            IsActive = false;
         }
 
         //public moveTo(position: ServerVector3)

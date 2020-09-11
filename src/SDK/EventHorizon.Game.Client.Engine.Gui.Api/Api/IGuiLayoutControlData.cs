@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.Api
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
     public interface IGuiLayoutControlData
     {
@@ -8,9 +9,13 @@
         int Sort { get; }
         int? Layer { get; }
         string TemplateId { get; }
-        IGuiControlOptions? Options { get; }
-        IGuiGridLocation? GridLocation { get; }
-        IEnumerable<IGuiLayoutControlData>? ControlList { get; }
-        object? LinkWith { get; }
+        [MaybeNull]
+        IGuiControlOptions Options { get; }
+        [MaybeNull]
+        IGuiGridLocation GridLocation { get; }
+        [MaybeNull]
+        IEnumerable<IGuiLayoutControlData> ControlList { get; }
+        [MaybeNull]
+        object LinkWith { get; }
     }
 }

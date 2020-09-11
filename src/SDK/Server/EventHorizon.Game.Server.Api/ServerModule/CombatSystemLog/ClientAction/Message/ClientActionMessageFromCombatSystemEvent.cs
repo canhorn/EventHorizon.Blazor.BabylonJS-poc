@@ -1,67 +1,43 @@
 ﻿namespace EventHorizon.Game.Server.ServerModule.CombatSystemLog.ClientAction.Message
 {
     using System;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using System.Diagnostics.CodeAnalysis;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
+    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
     using EventHorizon.Observer.Model;
-    using EventHorizon.Observer.State;
-    using MediatR;
 
-    // TODO: [ClientAction] : Finish Implementation
-    //[ClientAction("MessageFromCombatSystem")]
+    [ClientAction("MessageFromCombatSystem")]
     public struct ClientActionMessageFromCombatSystemEvent
         : IClientAction
     {
-        public string MessageCode { get; set; }
         public string Message { get; set; }
+        [MaybeNull]
+        public string MessageCode { get; set; }
 
         public ClientActionMessageFromCombatSystemEvent(
             IClientActionDataResolver resolver
         )
         {
-            MessageCode = resolver.Resolve<string>(
-                "messageCode"
-            );
             Message = resolver.Resolve<string>(
                 "message"
+            );
+            MessageCode = resolver.Resolve<string>(
+                "messageCode"
             );
         }
 
         public ClientActionMessageFromCombatSystemEvent(
-            string messageCode, 
-            string message
+            string message,
+            string messageCode = ""
         )
         {
-            MessageCode = messageCode;
             Message = message;
+            MessageCode = messageCode;
         }
     }
 
     public interface ClientActionMessageFromCombatSystemEventObserver
         : ArgumentObserver<ClientActionMessageFromCombatSystemEvent>
     {
-    }
-
-    // TODO: Move this into an Implementation Project, Remove from the SDK
-    public class ClientActionMessageFromCombatSystemEventHandler
-        : INotificationHandler<ClientActionMessageFromCombatSystemEvent>
-    {
-        private readonly ObserverState _observer;
-
-        public ClientActionMessageFromCombatSystemEventHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            ClientActionMessageFromCombatSystemEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<ClientActionMessageFromCombatSystemEventObserver, ClientActionMessageFromCombatSystemEvent>(
-            notification,
-            cancellationToken
-        );
     }
 }

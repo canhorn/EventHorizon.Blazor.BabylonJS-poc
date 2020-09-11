@@ -6,13 +6,13 @@
     public class StandardPlayerState
         : IPlayerState
     {
-        public Option<IPlayerEntity> Player { get; private set; } = OptionFactory.Build<IPlayerEntity>(null);
+        public Option<IPlayerEntity> Player { get; private set; } = new Option<IPlayerEntity>(null);
 
         public void Set(
             IPlayerEntity player
         )
         {
-            Player = OptionFactory.Build(player);
+            Player = new Option<IPlayerEntity>(player);
         }
     }
 }

@@ -3,7 +3,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Systems.ServerModule.Actions;
+    using EventHorizon.Game.Client.Systems.ServerModule.ClientAction;
     using MediatR;
 
     public class ServerModuleSystemReloadedClientActionHandler

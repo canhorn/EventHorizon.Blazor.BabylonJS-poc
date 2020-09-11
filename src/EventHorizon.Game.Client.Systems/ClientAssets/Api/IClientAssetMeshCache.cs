@@ -7,7 +7,7 @@
         bool Cached(
             string id
         );
-        IEngineMesh Get(
+        Option<IEngineMesh> Get(
             string id
         );
         void Set(

@@ -27,10 +27,10 @@
                 request.AssetId
             );
             
-            if (clientAsset != default(IClientAsset))
+            if (clientAsset.HasValue)
             {
                 return new QueryResult<IClientAsset>(
-                    clientAsset
+                    clientAsset.Value
                 ).FromResult();
             }
 

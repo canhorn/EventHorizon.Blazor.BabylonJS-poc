@@ -6,12 +6,12 @@
     public class LightDetailsModel
         : ILightDetails
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public IList<string> Tags { get; set; } = new List<string>();
         public bool EnableDayNightCycle { get; set; }
         /// <summary>
-        /// Supported Types: point | hemispheric
+        /// Supported Types: unknown | point | hemispheric
         /// </summary>
-        public string Type { get; set; }
+        public string Type { get; set; } = "unknown";
     }
 }

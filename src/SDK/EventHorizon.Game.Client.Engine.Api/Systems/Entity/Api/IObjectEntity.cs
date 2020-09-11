@@ -24,7 +24,9 @@
         T GetModule<T>(
             string name
         ) where T : IModule;
-
+        Option<T> GetPropertyAsOption<T>(
+            string name
+        );
         void SetProperty(
             string name,
             object property
@@ -33,7 +35,12 @@
             string name
         );
 
-        void UpdateDetails(
+        /// <summary>
+        /// Take in details and override existing details.
+        /// </summary>
+        /// <param name="details">New details for Entity</param>
+        /// <returns>The details set into entity.</returns>
+        IObjectEntityDetails UpdateDetails(
             IObjectEntityDetails details
         );
     }

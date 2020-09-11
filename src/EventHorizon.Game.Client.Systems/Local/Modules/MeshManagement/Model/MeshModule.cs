@@ -16,7 +16,6 @@
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set;
     using EventHorizon.Game.Client.Systems.Map.Ready;
-    using EventHorizon.Observer.Register;
     using MediatR;
 
     public class MeshModuleOptions
@@ -47,7 +46,6 @@
         private readonly MeshModuleOptions _options;
 
         private IIntervalTimerService? _timer;
-        private IModelState? _modelState;
 
         public override int Priority => 0;
 
@@ -68,9 +66,6 @@
 
         public override Task Initialize()
         {
-            _modelState = _entity.GetProperty<IModelState>(
-                IModelState.NAME
-            );
             GamePlatfrom.RegisterObserver(this);
 
             PositionMesh();
@@ -135,11 +130,12 @@
             }
             else
             {
-                if (_modelState != null
-                    && _modelState.ScalingDeterminant.HasValue
-                )
+                var modelState = _entity.GetProperty<IModelState>(
+                    IModelState.NAME
+                );
+                if (modelState.ScalingDeterminant.HasValue)
                 {
-                    Mesh.ScalingDeterminant = _modelState.ScalingDeterminant.Value;
+                    Mesh.ScalingDeterminant = modelState.ScalingDeterminant.Value;
                 }
             }
 

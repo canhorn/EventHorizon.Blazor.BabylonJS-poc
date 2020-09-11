@@ -10,7 +10,7 @@
     using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
     using EventHorizon.Game.Client.Systems.Particle.Api;
     using EventHorizon.Game.Client.Systems.Particle.Model;
-    using EventHorizon.Game.Server.Actions.Agent;
+    using EventHorizon.Game.Server.ClientAction.Agent;
     using Microsoft.Extensions.Logging;
 
     public class StandardSelectedIndicatorModule

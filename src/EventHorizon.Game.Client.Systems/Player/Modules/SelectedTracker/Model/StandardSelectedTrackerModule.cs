@@ -6,7 +6,7 @@
     using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
     using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedTracker.Api;
-    using EventHorizon.Game.Server.Actions.Agent;
+    using EventHorizon.Game.Server.ClientAction.Agent;
 
     public class StandardSelectedTrackerModule
         : ModuleEntityBase,

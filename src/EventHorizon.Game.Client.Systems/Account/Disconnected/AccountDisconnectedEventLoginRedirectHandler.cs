@@ -10,6 +10,8 @@
     public class AccountDisconnectedEventLoginRedirectHandler
         : INotificationHandler<AccountDisconnectedEvent>
     {
+        private static string HOME_PAGE => "/";
+
         private readonly ISystemWindow _systemWindow;
         private readonly IAccountState _state;
 
@@ -30,7 +32,7 @@
             if (notification.Code == "status_code_401")
             {
                 _systemWindow.NavigateTo(
-                    _state.AccountLoginUrl
+                    _state.AccountLoginUrl ?? HOME_PAGE
                 );
             }
             return Task.CompletedTask;

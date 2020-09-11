@@ -43,20 +43,24 @@
                 clientAsset.Id
             ))
             {
-                await _mediator.Send(
-                    new ResolveClientAssetMeshCommand(
-                        new ClientAssetMeshDetails(
-                            request.AssetInstanceId,
-                            clientAsset,
-                            request.Position
-                        ),
-                        _cache.Get(
-                            clientAsset.Id
-                        ).Clone(
-                            $"client_id-{request.AssetInstanceId}"
-                        )
-                    )
+                var cachedClientAsset = _cache.Get(
+                    clientAsset.Id
                 );
+                if (cachedClientAsset.HasValue)
+                {
+                    await _mediator.Send(
+                        new ResolveClientAssetMeshCommand(
+                            new ClientAssetMeshDetails(
+                                request.AssetInstanceId,
+                                clientAsset,
+                                request.Position
+                            ),
+                            cachedClientAsset.Value.Clone(
+                                $"client_id-{request.AssetInstanceId}"
+                            )
+                        )
+                    );
+                }
             }
             // If MESH && Config of GLTF
             else if (clientAsset.Type == "MESH" && clientAsset.Config.Type == "GLTF")

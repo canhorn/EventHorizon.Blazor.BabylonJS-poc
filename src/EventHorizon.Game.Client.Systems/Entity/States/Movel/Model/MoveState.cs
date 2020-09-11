@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Core.Api;
     using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Entity.Model;
@@ -25,8 +26,9 @@
         : ClientEntityBase,
         IState
     {
-        private static decimal DEFAULT_MOVE_SPEED = 125;
-        private static decimal DEFAULT_ROTATION_SPEED = 0.05m;
+        private static decimal DEFAULT_MOVE_SPEED => 125;
+        private static decimal DEFAULT_ROTATION_SPEED => 0.05m;
+
         private readonly IMediator _mediator;
         private readonly IRenderingTime _renderingTime;
         private readonly IHeightResolver _heightResolver;
@@ -61,19 +63,28 @@
             );
             _moveModule = _entity.GetModule<IMoveModule>(
                 IMoveModule.MODULE_NAME
+            ) ?? throw new GameException(
+                "move_state_requires_move_module",
+                $"{nameof(MoveState)} Requires {nameof(IMoveModule)} Module to Function."
             );
             _transformModule = _entity.GetModule<ITransformModule>(
                 ITransformModule.MODULE_NAME
+            ) ?? throw new GameException(
+                "move_state_requires_transform_module",
+                $"{nameof(MoveState)} Requires {nameof(ITransformModule)} Module to Function."
             );
             _meshModule = _entity.GetModule<IMeshModule>(
                 IMeshModule.MODULE_NAME
+            ) ?? throw new GameException(
+                "move_state_requires_Mesh_module",
+                $"{nameof(MoveState)} Requires {nameof(IMeshModule)} Module to Function."
             );
         }
 
         public Task Reset()
         {
             Remove = false;
-            _path = new IVector3[0];
+            _path = Array.Empty<IVector3>();
 
             return Task.CompletedTask;
         }
@@ -101,7 +112,6 @@
                     direction,
                     deltaTime
                 );
-                // TODO: Rotation
                 Rotate(
                     toDestination
                 );

@@ -7,6 +7,7 @@
     using EventHorizon.Blazor.Interop.Callbacks;
     using EventHorizon.Game.Client.Engine.Entity.Tag;
     using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
+    using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
     using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
@@ -20,19 +21,21 @@
     using EventHorizon.Observer.Register;
     using EventHorizon.Observer.Unregister;
     using MediatR;
+    using Microsoft.Extensions.Logging;
 
     public class BabylonJSMapMeshFromHeightMapEntity
         : ServerLifecycleEntityBase,
         IMapMeshEntity,
         PointerHitMeshEventObserver
     {
-        private readonly IMediator _mediator;
-        private readonly IRenderingScene _renderingScene;
-        private readonly IServerEntityTrackingState _trackingService;
+        private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
+        private readonly IRenderingScene _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
+        private readonly IServerEntityTrackingState _trackingService = GameServiceProvider.GetService<IServerEntityTrackingState>();
+
         private readonly IMapMeshDetails _mapDetails;
 
-        private GroundMesh _mesh;
-        private BabylonJSMapMeshMaterial _material;
+        private GroundMesh? _mesh;
+        private BabylonJSMapMeshMaterial? _material;
 
         public BabylonJSMapMeshFromHeightMapEntity(
             IMapMeshDetails details
@@ -50,9 +53,6 @@
             }
         )
         {
-            _mediator = GameServiceProvider.GetService<IMediator>();
-            _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
-            _trackingService = GameServiceProvider.GetService<IServerEntityTrackingState>();
             _mapDetails = details;
         }
 
@@ -76,13 +76,16 @@
                         async (GroundMesh mesh) =>
                         {
                             mesh.updateCoordinateHeights();
-                            await _mediator.Send(
-                                new SetHeightResolverCoordinatesCommand(
-                                    new BabylonJSHeightCoordinates(
-                                        _mesh
+                            if (_mesh.IsNotNull())
+                            {
+                                await _mediator.Send(
+                                    new SetHeightResolverCoordinatesCommand(
+                                        new BabylonJSHeightCoordinates(
+                                            _mesh
+                                        )
                                     )
-                                )
-                            );
+                                );
+                            }
                             await _mediator.Publish(
                                 new MapMeshReadyEvent()
                             );
@@ -94,7 +97,7 @@
             _mesh.material = _material = new BabylonJSMapMeshMaterial(
                 _mapDetails.Material,
                 $"{name}-material",
-                GetLight(),
+                await GetLight(),
                 scene
             );
             _mesh.isPickable = _mapDetails.IsPickable;
@@ -110,9 +113,15 @@
         public override async Task PostInitialize()
         {
             await base.PostInitialize();
-            _material.setLight(
-                GetLight()
-            );
+            var light = await GetLight();
+
+            if (_material.IsNotNull()
+                && light.IsNotNull())
+            {
+                _material.setLight(
+                    light
+                );
+            }
         }
 
         public override async Task Dispose()
@@ -120,7 +129,7 @@
             await _mediator.Send(
                 new UnregisterObserverCommand(this)
             );
-            _mesh.dispose();
+            _mesh?.dispose();
 
             await base.Dispose();
         }
@@ -134,23 +143,33 @@
         {
             return Task.CompletedTask;
         }
-        private Light GetLight()
+        private async Task<Light?> GetLight()
         {
-            var entityQueryList = _trackingService.QueryByTag<BabylonJSPointLightEntity>(
-                TagBuilder.CreateNameTag(
-                    _mapDetails.Light
+            var entityQueryList = await _mediator.Send(
+                new QueryForEntity(
+                    TagBuilder.CreateNameTag(
+                        _mapDetails.Light
+                    )
                 )
             );
-            return entityQueryList
-                .FirstOrDefault()
-                ?.Light;
+            if (entityQueryList.Result.Any())
+            {
+                var light = entityQueryList.Result.First();
+                if (light is BabylonJSPointLightEntity babylonJSLight)
+                {
+                    return babylonJSLight.Light;
+                }
+            }
+            return null;
         }
 
         public async Task Handle(
             PointerHitMeshEvent args
         )
         {
-            if (args.MeshName != _mesh.name)
+            if (_mesh.IsNull() 
+                || args.MeshName != _mesh.name
+            )
             {
                 return;
             }

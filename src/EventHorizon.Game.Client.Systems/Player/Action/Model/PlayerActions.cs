@@ -4,8 +4,8 @@
 
     public static class PlayerActions
     {
-        public static string MOVE = "Move";
-        public static string STOP = "STOP";
-        public static string INTERACT = "INTERACT";
+        public static string MOVE => "Move";
+        public static string STOP => "STOP";
+        public static string INTERACT => "INTERACT";
     }
 }

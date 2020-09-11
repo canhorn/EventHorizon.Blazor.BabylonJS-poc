@@ -2,11 +2,16 @@
 {
     using System;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Entity.Model;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Model;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.Details.Api;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.Details.Model;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.Interaction.Api;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.Interaction.Model;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Api;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Api;
@@ -39,7 +44,12 @@
             );
 
             // TODO: DETAILS_MODULE_NAME
-            //this.registerModule(DETAILS_MODULE_NAME, new DetailsModule(this));
+            RegisterModule(
+                DetailsModule.MODULE_NAME,
+                new StandardDetailsModule(
+                    this
+                )
+            );
 
             RegisterModule(
                 ITransformModule.MODULE_NAME,
@@ -81,7 +91,6 @@
                     this
                 )
             );
-            // TODO: SELECTED_INDICATOR_MODULE_NAME
             RegisterModule(
                 SelectedIndicatorModule.MODULE_NAME,
                 new StandardSelectedIndicatorModule(this)
@@ -99,20 +108,15 @@
                     this
                 )
             );
-            // TODO: INTERACTION_MODULE_NAME
-            //RegisterModule(
-            //    InteractionModule.MODULE_NAME,
-            //    new StandardInteractionModule(this)
-            //);
+            RegisterModule(
+                InteractionModule.MODULE_NAME,
+                new StandardInteractionModule(this)
+            );
             // TODO: INTERACTION_INDICATOR_MODULE_NAME
-            // TODO: Move this into InteractionIndicatorModule
-            //var interactionState = GetPropertyAsOption<InteractionState>(
-            //    InteractionState.NAME
-            //);
-            //RegisterModule(
-            //    InteractionIndicatorModule.MODULE_NAME,
-            //    new StandardInteractionIndicatorModule(this)
-            //);
+            RegisterModule(
+                InteractionIndicatorModule.MODULE_NAME,
+                new StandardInteractionIndicatorModule(this)
+            );
             // TODO: Register Base Modules
             //this._commandService.send(
             //    createRegisterAllBaseModulesCommand({

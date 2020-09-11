@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.Model
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using EventHorizon.Game.Client.Engine.Gui.Api;
 
     public class GuiControlTemplateModel
@@ -8,14 +9,15 @@
     {
         public string Id { get; set; }
         public GuiControlType Type { get; }
-        public IGuiGridLocation? GridLocation { get; }
+        [MaybeNull]
+        public IGuiGridLocation GridLocation { get; }
         public IGuiControlOptions Options { get; }
 
         public GuiControlTemplateModel(
             string id,
             GuiControlType type,
             IGuiControlOptions options,
-            IGuiGridLocation? gridLocation = null
+            [MaybeNull] IGuiGridLocation gridLocation = null
         )
         {
             Id = id;

@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using MediatR;
@@ -12,14 +13,16 @@
     {
         public string GuiId { get; }
         public string LayoutId { get; }
-        public IEnumerable<IGuiControlData>? ControlDataList { get; }
-        public string? ParentControlId { get; }
+        [MaybeNull]
+        public IEnumerable<IGuiControlData> ControlDataList { get; }
+        [MaybeNull]
+        public string ParentControlId { get; }
 
         public CreateGuiCommand(
             string guiId,
             string layoutId,
-            IEnumerable<IGuiControlData>? controlDataList = null,
-            string? parentControlId = null
+            [MaybeNull] IEnumerable<IGuiControlData> controlDataList = null,
+            [MaybeNull] string parentControlId = null
         )
         {
             GuiId = guiId;

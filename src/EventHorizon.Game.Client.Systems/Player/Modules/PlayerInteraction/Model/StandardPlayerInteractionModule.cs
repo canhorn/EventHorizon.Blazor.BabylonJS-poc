@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.Model
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Linq;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
@@ -99,7 +97,6 @@
                 .Select(a => a.Value);
             if (interactionItemList.Any())
             {
-
                 await _mediator.Publish(
                     new ShowInteractionIndicatorEvent(
                         interactionItemList
@@ -117,11 +114,11 @@
         private struct InteractionItem
         {
             public IObjectEntity Entity { get; }
-            public float DistanceToPlayer { get; }
+            public decimal DistanceToPlayer { get; }
 
             public InteractionItem(
                 IObjectEntity entity,
-                float distanceToPlayer
+                decimal distanceToPlayer
             )
             {
                 Entity = entity;

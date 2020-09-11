@@ -46,10 +46,7 @@
             IEnumerable<IGuiControlData>? controlDataList,
             string? parentControlId
         ) : base(
-            new ObjectEntityDetailsModel
-            {
-                Id = -1,
-            }
+            new ObjectEntityDetailsModel()
         )
         {
             GuiId = id;

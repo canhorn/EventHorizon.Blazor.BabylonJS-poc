@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.InView.Model
 {
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Core.Factory.Api;
     using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
@@ -33,7 +34,12 @@
         )
         {
             _entity = entity;
-            _meshModule = entity.GetModule<IMeshModule>(IMeshModule.MODULE_NAME);
+            _meshModule = entity.GetModule<IMeshModule>(
+                IMeshModule.MODULE_NAME
+            ) ?? throw new GameException(
+                "in_view_module_requires_mesh_module",
+                $"{nameof(IInViewModule)} Requires {nameof(IMeshModule)} Module to Function."
+            );
 
             _mediator = GameServiceProvider.GetService<IMediator>();
             _renderingScene = GameServiceProvider.GetService<IRenderingScene>();

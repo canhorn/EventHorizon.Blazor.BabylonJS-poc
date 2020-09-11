@@ -6,12 +6,12 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public class ClientActionMessageFromSystemEventHandler
+    public class ClientActionMessageFromSystemEventObserverHandler
         : INotificationHandler<ClientActionMessageFromSystemEvent>
     {
         private readonly ObserverState _observer;
 
-        public ClientActionMessageFromSystemEventHandler(
+        public ClientActionMessageFromSystemEventObserverHandler(
             ObserverState observer
         )
         {

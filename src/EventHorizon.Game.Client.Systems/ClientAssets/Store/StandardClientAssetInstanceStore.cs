@@ -8,7 +8,7 @@
     {
         private readonly IDictionary<string, IClientAssetInstance> _map = new Dictionary<string, IClientAssetInstance>();
 
-        public IClientAssetInstance Get(
+        public Option<IClientAssetInstance> Get(
             string id
         )
         {
@@ -17,9 +17,11 @@
                 out var clientAssetInstance
             ))
             {
-                return clientAssetInstance;
+                return clientAssetInstance.ToOption();
             }
-            return default;
+            return new Option<IClientAssetInstance>(
+                null
+            );
         }
 
         public void Set(

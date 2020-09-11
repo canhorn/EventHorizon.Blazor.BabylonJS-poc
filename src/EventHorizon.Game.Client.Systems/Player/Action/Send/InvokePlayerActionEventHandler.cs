@@ -11,6 +11,7 @@
     public class InvokePlayerActionEventHandler
         : INotificationHandler<InvokePlayerActionEvent>
     {
+        private static IDictionary<string, object> EMPTY_DATA => new Dictionary<string, object>();
         private readonly IMediator _mediator;
 
         public InvokePlayerActionEventHandler(
@@ -25,15 +26,29 @@
             CancellationToken cancellationToken
         )
         {
+            var data = new List<object>
+            {
+                notification.Action,
+            };
+            if (notification.Data.IsNotNull())
+            {
+                data.Add(
+                    notification.Data
+                );
+            }
+            else
+            {
+                data.Add(
+                    EMPTY_DATA
+                );
+            }
+
             return _mediator.Send(
                 new InvokeMethodOnZoneConnectionCommand(
                     "PlayerAction",
-                    new List<object>
-                    {
-                        notification.Action,
-                        notification.Data,
-                    }
-                )
+                    data
+                ),
+                cancellationToken
             );
         }
     }

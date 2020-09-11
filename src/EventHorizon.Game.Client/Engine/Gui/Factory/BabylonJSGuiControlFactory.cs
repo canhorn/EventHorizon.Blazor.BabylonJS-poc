@@ -1,8 +1,8 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.Factory
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Gui.Factory.Controls;
@@ -157,8 +157,8 @@
         public IGuiControl Build(
             string id,
             IGuiControlTemplate template,
-            IGuiControlOptions? options,
-            IGuiGridLocation? gridLocation
+            [MaybeNull] IGuiControlOptions options,
+            [MaybeNull] IGuiGridLocation gridLocation
         )
         {
             if (string.IsNullOrEmpty(

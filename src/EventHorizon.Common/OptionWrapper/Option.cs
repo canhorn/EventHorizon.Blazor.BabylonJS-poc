@@ -1,23 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-
-public struct OptionFactory
-{
-    public static Option<T> Build<T>(T value)
-    {
-        return new Option<T>(value);
-    }
-}
 
 public static class OptionExtensions
 {
     public static Option<T> ToOption<T>(
        this T value
-    ) => OptionFactory.Build(value);
+    ) => new Option<T>(value);
 }
 
 [Serializable]
-public struct Option<T>
+#pragma warning disable CA1716 // Identifiers should not match keywords
+public struct Option<T> 
+    : IEquatable<Option<T>>
+#pragma warning restore CA1716 // Identifiers should not match keywords
 {
     private readonly bool _hasValue;
     private readonly T _value;
@@ -48,4 +44,33 @@ public struct Option<T>
             return _value;
         }
     }
+
+    #region Generated
+    public override bool Equals(object obj)
+    {
+        return obj is Option<T> option && Equals(option);
+    }
+
+    public bool Equals(Option<T> other)
+    {
+        return _hasValue == other._hasValue &&
+               EqualityComparer<T>.Default.Equals(_value, other._value);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(_hasValue, _value);
+    }
+
+    public static bool operator ==(Option<T> left, Option<T> right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(Option<T> left, Option<T> right)
+    {
+        return !(left == right);
+    }
+
+    #endregion
 }

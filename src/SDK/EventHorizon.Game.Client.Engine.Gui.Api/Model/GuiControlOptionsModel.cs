@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using EventHorizon.Game.Client.Engine.Gui.Api;
 
@@ -34,21 +35,14 @@
                     // Check to see if the value is of type IGuiControlOptions
                     if (value is IGuiControlOptions)
                     {
-                        try
-                        {
-                            // For IGuiControlOptions, merge these into a single option
-                            value = MergeControlOptions(
-                                y.Select(
-                                    guiKeyValue => guiKeyValue.Value
-                                ).Select(
-                                    a => new GuiControlOptionsModel(a as IGuiControlOptions)
-                                ).ToArray()
-                            );
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
+                        // For IGuiControlOptions, merge these into a single option
+                        value = MergeControlOptions(
+                            y.Select(
+                                guiKeyValue => guiKeyValue.Value
+                            ).Select(
+                                a => new GuiControlOptionsModel(a as IGuiControlOptions)
+                            ).ToArray()
+                        );
                     }
                     return value;
                 }
@@ -63,7 +57,7 @@
         }
 
         public GuiControlOptionsModel(
-            IDictionary<string, object>? dictionary
+            [MaybeNull] IDictionary<string, object> dictionary
         ) : base(dictionary ?? new Dictionary<string, object>())
         {
         }

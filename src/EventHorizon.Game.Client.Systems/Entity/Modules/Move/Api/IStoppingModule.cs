@@ -6,6 +6,6 @@
     public interface IStoppingModule
         : IModule
     {
-        public static string MODULE_NAME = "STOPPING_MODULE_NAME";
+        public static string MODULE_NAME => "STOPPING_MODULE_NAME";
     }
 }

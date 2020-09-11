@@ -6,6 +6,6 @@
     public interface IModelLoaderModule
         : IModule
     {
-        public static string MODULE_NAME = "MODEL_LOADER_MODULE_NAME";
+        public static string MODULE_NAME => "MODEL_LOADER_MODULE_NAME";
     }
 }

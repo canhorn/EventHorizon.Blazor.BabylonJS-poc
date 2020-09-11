@@ -75,10 +75,10 @@
             }
             var mesh = args.ClientAssetInstance.Mesh;
             mesh.SystemType = MeshSystemType.ENTITY;
-            mesh.OwnerEntityId = this._entity.EntityId;
+            mesh.OwnerEntityId = _entity.EntityId;
             await _mediator.Publish(
                 new MeshLoadedEvent(
-                    this._entity.ClientId,
+                    _entity.ClientId,
                     mesh
                 )
             );
