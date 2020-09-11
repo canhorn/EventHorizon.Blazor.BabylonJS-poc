@@ -18,7 +18,6 @@
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Api;
-    using EventHorizon.Game.Client.Systems.Local.Transform.Set;
     using MediatR;
 
     // TODO: Create StateBase on new IState

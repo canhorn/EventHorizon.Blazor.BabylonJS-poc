@@ -24,7 +24,7 @@
         private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<StandardSelectedIndicatorModule>>();
 
         private readonly IObjectEntity _entity;
-        private readonly IParticleEmitter _activeParticle;
+        private readonly ParticleEmitter _activeParticle;
 
         public override int Priority => 0;
 

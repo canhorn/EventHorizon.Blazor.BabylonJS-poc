@@ -7,7 +7,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Core.ModelResolver.Api;
+    using EventHorizon.Game.Client.Core.Mapper.Api;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
     using MediatR;
     using Microsoft.Extensions.Logging;
@@ -43,7 +43,8 @@
             if (clientAction.HasValue)
             {
                 await _mediator.Publish(
-                    clientAction.Value
+                    clientAction.Value,
+                    cancellationToken
                 );
                 return new StandardCommandResult();
             }
@@ -74,10 +75,11 @@
                 out var argument
             ))
             {
-                var resolver = GameServiceProvider.GetService__UNSAFE<IModelResolver<T>>();
+                // TODO: Update to use a IMapper
+                var resolver = GameServiceProvider.GetService__UNSAFE<IMapper<T>>();
                 if (resolver.IsNotNull())
                 {
-                    return resolver.Resolve(
+                    return resolver.Map(
                         argument
                     );
                 }

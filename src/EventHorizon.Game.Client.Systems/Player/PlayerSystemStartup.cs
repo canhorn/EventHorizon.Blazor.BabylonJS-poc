@@ -2,8 +2,8 @@
 {
     using System;
     using EventHorizon.Game.Client.Core.Mapper.Api;
+    using EventHorizon.Game.Client.Core.Mapper.Model;
     using EventHorizon.Game.Client.Systems.Player.Api;
-    using EventHorizon.Game.Client.Systems.Player.Mapper;
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Mapper;
     using EventHorizon.Game.Client.Systems.Player.State;
@@ -15,7 +15,7 @@
         public static IServiceCollection AddPlayerSystemServices(
             this IServiceCollection services
         ) => services
-            .AddSingleton<IMapper<IGamePlayerCaptureState>, GamePlayerCaptureStateMapper>()
+            .AddSingleton<IMapper<IGamePlayerCaptureState>, StandardMapper<IGamePlayerCaptureState, GamePlayerCaptureState>>()
 
             // Module Model Mappers
             .AddSingleton<IMapper<OwnerState>, StandardOwnerStateMapper>()

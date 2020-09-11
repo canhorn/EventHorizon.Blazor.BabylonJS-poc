@@ -2,31 +2,13 @@
 {
     using System;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Factory.Api;
-    using EventHorizon.Game.Client.Core.Timer.Api;
-    using EventHorizon.Game.Client.Engine.Core.Api;
     using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
-    using EventHorizon.Game.Client.Engine.Particle.Create;
     using EventHorizon.Game.Client.Engine.Particle.Dispose;
     using EventHorizon.Game.Client.Engine.Particle.Start;
     using EventHorizon.Game.Client.Engine.Particle.Stop;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Api;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Api;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
-    using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Api;
-    using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Model;
-    using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
-    using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Model;
-    using EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
-    using EventHorizon.Game.Client.Systems.Local.Modules.State.Model;
-    using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Api;
-    using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Model;
     using EventHorizon.Game.Client.Systems.Particle.Api;
     using EventHorizon.Game.Client.Systems.Particle.Modules.ParticleEmitter.Api;
     using EventHorizon.Game.Client.Systems.Particle.Modules.ParticleEmitter.Model;
@@ -34,7 +16,7 @@
 
     public class StandardServerParticle
         : ClientLifecycleEntityBase,
-        IParticleEmitter
+        ParticleEmitter
     {
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly IObjectEntity _entity;
@@ -101,13 +83,10 @@
             IsActive = false;
         }
 
-        //public moveTo(position: ServerVector3)
-        //{
-        //    this.getProperty<IMoveModule>(MOVE_MODULE_NAME).onMove({
-        //        entityId: -1,
-        //        moveTo: ServerVector3Mapper.mapToVector3(position),
-        //    });
-        //}
+        public void MoveTo(
+            IVector3 position
+        )
+        { }
 
         private void Setup()
         {

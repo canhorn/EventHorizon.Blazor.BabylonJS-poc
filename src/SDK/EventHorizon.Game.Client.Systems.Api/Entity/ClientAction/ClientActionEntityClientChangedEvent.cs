@@ -16,7 +16,6 @@
             IClientActionDataResolver resolver
         )
         {
-            // TODO: Test This ( add in DetailsModule)
             Details = resolver.Resolve<IObjectEntityDetails>("details");
         }
     }

@@ -2,12 +2,9 @@
 {
     using System;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Factory.Api;
-    using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Engine.Core.Api;
     using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
-    using EventHorizon.Game.Client.Engine.Particle.Create;
     using EventHorizon.Game.Client.Engine.Particle.Dispose;
     using EventHorizon.Game.Client.Engine.Particle.Start;
     using EventHorizon.Game.Client.Engine.Particle.Stop;
@@ -33,13 +30,14 @@
 
     public class StandardParticleEmitter
         : ClientLifecycleEntityBase,
-        IParticleEmitter
+        ParticleEmitter
     {
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly string _templateId;
         private readonly decimal _speed;
 
         private long _particleId = -1;
+        private IVector3? _currentMoveTo;
 
         public bool IsActive { get; } = true;
 
@@ -50,7 +48,6 @@
         ) : base(
             new ObjectEntityDetailsModel
             {
-                Id = -1,
                 Name = $"particle-{templateId}",
                 GlobalId = $"particle-{templateId}",
                 Type = "CLIENT_PARTICLE_EMITTER",
@@ -105,13 +102,21 @@
             );
         }
 
-        //public moveTo(position: ServerVector3)
-        //{
-        //    this.getProperty<IMoveModule>(MOVE_MODULE_NAME).onMove({
-        //        entityId: -1,
-        //        moveTo: ServerVector3Mapper.mapToVector3(position),
-        //    });
-        //}
+        public void MoveTo(
+            IVector3 position
+        )
+        {
+            var module = GetModule<IMoveModule>(
+                IMoveModule.MODULE_NAME
+            );
+            _currentMoveTo = position;
+            if(module.IsNotNull())
+            {
+                module.SetCurrentMoveTo(
+                    position
+                );
+            }
+        }
 
         private void Setup()
         {
@@ -154,9 +159,16 @@
                     new MeshModuleOptions(false, false)
                 )
             );
+            var moveModule = new MoveModule(this);
+            if(_currentMoveTo.IsNotNull())
+            {
+                moveModule.SetCurrentMoveTo(
+                    _currentMoveTo
+                );
+            }
             RegisterModule(
                 IMoveModule.MODULE_NAME,
-                new MoveModule(this)
+                moveModule
             );
             RegisterModule(
                 ParticleEmitterModule.MODULE_NAME,

@@ -9,11 +9,11 @@
     {
         public string Code { get; }
         [MaybeNull]
-        public Exception Error { get; }
+        public Exception? Error { get; }
 
         public PlayerZoneConnectionDisconnectedEvent(
             string code,
-            [MaybeNull] Exception error
+            [MaybeNull] Exception? error
         )
         {
             Code = code;

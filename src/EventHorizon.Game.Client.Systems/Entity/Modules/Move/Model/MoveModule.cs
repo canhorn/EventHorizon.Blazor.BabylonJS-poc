@@ -50,6 +50,12 @@
                     this
                 )
             );
+            if (_currentMoveTo.IsNotNull())
+            {
+                await SetMoveTo(
+                    _currentMoveTo
+                );
+            }
         }
 
         public override async Task Dispose()
@@ -77,13 +83,22 @@
             ClientActionEntityMoveEvent args
         )
         {
-            if (args.EntityId != _entity.EntityId 
+            if (args.EntityId != _entity.EntityId
                 || args.MoveTo == null)
             {
                 return;
             }
-            var moveTo = MapMoveTo(
+            await SetMoveTo(
                 args.MoveTo
+            );
+        }
+
+        private async Task SetMoveTo(
+            IVector3 moveTo
+        )
+        {
+            moveTo = MapMoveTo(
+                moveTo
             );
             if (_currentMoveTo == moveTo)
             {

@@ -167,11 +167,11 @@
         }
 
         private Task HandleConnectionClosed(
-            Exception ex
+            Exception? ex
         )
         {
             var code = "closed";
-            if (ex != null)
+            if (ex.IsNotNull())
             {
                 _logger.LogError(
                     "Core Bus Closed, with Exception",

@@ -176,6 +176,27 @@
                 out var dataProperty
             ))
             {
+                // This is a ObjectProperty specific rule
+                // An ObjectProperty is for Dictionary based state, 
+                // making it easier to create dynamic scripts.
+                if (typeof(ObjectProperty).IsAssignableFrom(typeof(T)))
+                {
+                    var value = Activator.CreateInstance(
+                        typeof(T),
+                        dataProperty.Cast<Dictionary<string, object>>()
+                    );
+                    if (value.IsNotNull())
+                    {
+                        _propertyMap.Add(
+                            name,
+                            value
+                        );
+                        if (value is T typedValue)
+                        {
+                            return typedValue;
+                        }
+                    }
+                }
                 var mapper = GameServiceProvider.GetService__UNSAFE<IMapper<T>>();
                 if (mapper.IsNotNull())
                 {

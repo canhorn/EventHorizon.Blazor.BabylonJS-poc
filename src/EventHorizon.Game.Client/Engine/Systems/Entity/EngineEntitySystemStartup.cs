@@ -1,8 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity
 {
-    using EventHorizon.Game.Client.Core.ModelResolver.Api;
+    using EventHorizon.Game.Client.Core.Mapper.Api;
+    using EventHorizon.Game.Client.Core.Mapper.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Resolver;
+    using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.State;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +13,7 @@
             this IServiceCollection services
         ) => services
             .AddSingleton<IEntityDetailsState, StandardEntityDetailsState>()
-            .AddSingleton<IModelResolver<IObjectEntityDetails>, ObjectEntityDetailsModelResolver>()
+            .AddSingleton<IMapper<IObjectEntityDetails>, StandardMapper<IObjectEntityDetails, ObjectEntityDetailsModel>>()
         ;
     }
 }

@@ -50,7 +50,8 @@
                     request.Details.AssetInstanceId,
                     mesh,
                     request.Details.Position
-                )
+                ),
+                cancellationToken
             );
 
             return new StandardCommandResult();

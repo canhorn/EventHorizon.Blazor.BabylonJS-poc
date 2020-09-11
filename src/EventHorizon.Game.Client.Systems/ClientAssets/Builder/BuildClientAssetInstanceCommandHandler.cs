@@ -58,7 +58,8 @@
                             cachedClientAsset.Value.Clone(
                                 $"client_id-{request.AssetInstanceId}"
                             )
-                        )
+                        ),
+                        cancellationToken
                     );
                 }
             }

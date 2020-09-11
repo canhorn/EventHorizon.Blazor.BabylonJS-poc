@@ -27,7 +27,7 @@
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
 
         private readonly IObjectEntity _entity;
-        private readonly IParticleEmitter _particle;
+        private readonly ParticleEmitter _particle;
 
         public override int Priority => 0;
 
