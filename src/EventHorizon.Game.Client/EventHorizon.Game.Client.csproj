@@ -21,7 +21,6 @@
 
     <ItemGroup>
       <Folder Include="Core\DI\" />
-      <Folder Include="Core\Mapper\Model\" />
       <Folder Include="Core\Query\" />
       <Folder Include="Engine\Systems\ClientAction\Model\" />
       <Folder Include="Engine\Systems\EntityModule\" />

@@ -118,7 +118,7 @@
             _particleId = GameServiceProvider.GetService<IIndexPool>().NextIndex();
             SetProperty(
                 IModelState.NAME,
-                new StandardModelState
+                new ModelStateModel
                 {
                     Mesh = new StandardModelMesh
                     {
@@ -128,7 +128,7 @@
             );
             SetProperty(
                 IMovementState.NAME,
-                new StandardMovementState
+                new MovementStateModel
                 {
                     Speed = _speed,
                 }

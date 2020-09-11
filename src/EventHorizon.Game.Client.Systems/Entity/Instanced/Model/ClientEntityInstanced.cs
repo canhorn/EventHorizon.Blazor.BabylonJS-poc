@@ -45,7 +45,7 @@
             );
             SetProperty(
                 IModelState.NAME,
-                new StandardModelState
+                new ModelStateModel
                 {
                     Mesh = new StandardModelMesh
                     {

@@ -9,6 +9,7 @@
 
     public interface IMapper<T>
     {
+        [return: MaybeNull]
         T Map(
             object obj
         );

@@ -7,16 +7,19 @@ public static class ObjectExtensions
 {
     public static T Cast<T>(this object objectToCast)
     {
-        if (typeof(T).IsInterface)
+        if (objectToCast is T typedObject)
         {
-            return (T)objectToCast;
+            return typedObject;
         }
-        else if (objectToCast != null && objectToCast is JObject jObject)
+        else if (!typeof(T).IsInterface
+            && objectToCast != null
+            && objectToCast is JObject jObject)
         {
             return jObject.ToObject<T>() ?? default;
         }
-        else if (objectToCast != null
-                && objectToCast is JsonElement jsonElement)
+        else if (!typeof(T).IsInterface
+            && objectToCast != null
+            && objectToCast is JsonElement jsonElement)
         {
             return jsonElement.ToObject<T>() ?? default;
         }

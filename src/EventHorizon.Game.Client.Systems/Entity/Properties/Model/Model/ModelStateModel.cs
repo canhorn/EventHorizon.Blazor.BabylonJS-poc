@@ -3,7 +3,7 @@
     using System;
     using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
 
-    public class StandardModelState
+    public class ModelStateModel
         : IModelState
     {
         public decimal? ScalingDeterminant { get; set; }

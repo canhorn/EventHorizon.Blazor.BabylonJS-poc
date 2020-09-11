@@ -48,18 +48,30 @@
                 {
                     _logger.LogError(
                         ex,
-                        "Failed to Initialize Entity"
+                        "Failed to Initialize Entity: {ClientId}",
+                        entity.ClientId
                     );
                 }
             }
             foreach (var entity in list)
             {
-                await entity.PostInitialize();
-                await _mediator.Publish(
-                    new EntityInitializedEvent(
-                        entity
-                    )
-                );
+                try
+                {
+                    await entity.PostInitialize();
+                    await _mediator.Publish(
+                        new EntityInitializedEvent(
+                            entity
+                        )
+                    );
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(
+                        ex,
+                        "Failed to PostInitialize Entity: {ClientId}",
+                        entity.ClientId
+                    );
+                }
             }
             _timerService.SetTimer(100, HandleRun);
         }
