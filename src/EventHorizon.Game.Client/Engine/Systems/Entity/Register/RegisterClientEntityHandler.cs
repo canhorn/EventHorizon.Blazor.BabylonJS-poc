@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-using MediatR;
-
-namespace EventHorizon.Game.Client.Engine.Systems.Entity.Register
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Register
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Command.Model;
+    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+    using MediatR;
+
     public class RegisterClientEntityHandler
-        : IRequestHandler<RegisterClientEntity>
+        : IRequestHandler<RegisterClientEntity, StandardCommandResult>
     {
         private readonly IMediator _mediator;
         private readonly IEntityDetailsState _state;
@@ -23,7 +21,7 @@ namespace EventHorizon.Game.Client.Engine.Systems.Entity.Register
             _state = state;
         }
 
-        public async Task<Unit> Handle(
+        public async Task<StandardCommandResult> Handle(
             RegisterClientEntity request,
             CancellationToken cancellationToken
         )
@@ -31,7 +29,8 @@ namespace EventHorizon.Game.Client.Engine.Systems.Entity.Register
             await _mediator.Publish(
                 new RegisteringClientEntity(
                     request.EntityDetails
-                )
+                ),
+                cancellationToken
             );
             _state.Set(
                 request.EntityDetails
@@ -39,10 +38,11 @@ namespace EventHorizon.Game.Client.Engine.Systems.Entity.Register
             await _mediator.Publish(
                 new ClientEntityRegistered(
                     request.EntityDetails
-                )
+                ),
+                cancellationToken
             );
 
-            return Unit.Value;
+            return new StandardCommandResult();
         }
     }
 }

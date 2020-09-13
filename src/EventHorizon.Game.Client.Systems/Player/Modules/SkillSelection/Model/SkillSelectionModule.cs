@@ -261,7 +261,7 @@
                     // KeyboardShortcut = "l",
                     OnClick = async () =>
                     {
-                        _logger.LogDebug("RUN Capture Target");
+                        _logger.LogDebug("RUN Companion Fire Ball");
                         await _mediator.Send(
                             new RunClientScriptCommand(
                                 "Skill_Runners_RunSelectedCompanionTargetedSkill",

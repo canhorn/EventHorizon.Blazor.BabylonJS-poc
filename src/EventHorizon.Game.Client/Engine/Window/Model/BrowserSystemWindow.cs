@@ -21,7 +21,8 @@
         )
         {
             _navigationManager.NavigateTo(
-                url
+                url,
+                true
             );
         }
     }

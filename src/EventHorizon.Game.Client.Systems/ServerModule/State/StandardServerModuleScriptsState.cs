@@ -13,7 +13,12 @@
             return _serverModules.Values;
         }
 
-        public void Add(
+        public void Clear()
+        {
+            _serverModules.Clear();
+        }
+
+        public void Set(
             IServerModuleScripts serverModuleScript
         )
         {

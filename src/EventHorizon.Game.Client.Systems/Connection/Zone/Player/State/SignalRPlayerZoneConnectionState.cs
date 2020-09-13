@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.InteropServices;
+    using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
@@ -12,7 +12,6 @@
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Disconnected;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model;
-    using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using MediatR;
     using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.Extensions.Logging;
@@ -188,13 +187,17 @@
             );
         }
 
-        public Task StopConnection()
+        public Task StopConnection(
+            CancellationToken cancellationToken = default
+        )
         {
             if (_connection == null)
             {
                 return Task.CompletedTask;
             }
-            return _connection.StopAsync();
+            return _connection.StopAsync(
+                cancellationToken
+            );
         }
 
         public async Task InvokeMethod(

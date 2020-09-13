@@ -6,6 +6,7 @@
     using EventHorizon.Game.Client.Engine.Entity.Tag;
     using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedCompanionIndicator.Selected;
     using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
     using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Api;
@@ -64,7 +65,6 @@
             PointerHitEntityEvent args
         )
         {
-            SelectedEntityId = NOT_SELECTED_ID;
             if (_entity.EntityId == args.EntityId)
             {
                 return;
@@ -90,6 +90,11 @@
                 && ownerState.OwnerId == _entity.GlobalId)
             {
                 SelectedEntityId = args.EntityId;
+                await _mediator.Publish(
+                    new CompanionSelectedEvent(
+                        SelectedEntityId
+                    )
+                );
             }
         }
 

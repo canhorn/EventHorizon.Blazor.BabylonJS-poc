@@ -16,6 +16,8 @@
     using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Model;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedCompanionIndicator.Api;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedCompanionIndicator.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Model;
     using EventHorizon.Game.Client.Systems.Local.Modules.InView.Api;
@@ -43,7 +45,6 @@
                 true
             );
 
-            // TODO: DETAILS_MODULE_NAME
             RegisterModule(
                 DetailsModule.MODULE_NAME,
                 new StandardDetailsModule(
@@ -101,7 +102,6 @@
                     this
                 )
             );
-            // TODO: Add back after more testing
             RegisterModule(
                 IInViewModule.MODULE_NAME,
                 new InViewModule(
@@ -112,10 +112,13 @@
                 InteractionModule.MODULE_NAME,
                 new StandardInteractionModule(this)
             );
-            // TODO: INTERACTION_INDICATOR_MODULE_NAME
             RegisterModule(
                 InteractionIndicatorModule.MODULE_NAME,
                 new StandardInteractionIndicatorModule(this)
+            );
+            RegisterModule(
+                SelectedCompanionIndicatorModule.MODULE_NAME,
+                new StandardSelectedCompanionIndicatorModule(this)
             );
             // TODO: Register Base Modules
             //this._commandService.send(

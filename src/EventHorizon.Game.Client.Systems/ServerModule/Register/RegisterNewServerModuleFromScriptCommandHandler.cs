@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Add
+﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Register
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -9,8 +9,8 @@
     using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
     using MediatR;
 
-    public class AddServerModuleScriptCommandHandler
-        : IRequestHandler<AddServerModuleScriptCommand, StandardCommandResult>
+    public class RegisterNewServerModuleFromScriptCommandHandler
+        : IRequestHandler<RegisterNewServerModuleFromScriptCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
         private readonly ServerModuleState _state;
@@ -19,7 +19,7 @@
         private readonly IRegisterUpdatable _registerUpdatable;
         private readonly IRegisterDisposable _registerDisposable;
 
-        public AddServerModuleScriptCommandHandler(
+        public RegisterNewServerModuleFromScriptCommandHandler(
             IMediator mediator,
             ServerModuleState state,
             ServerModuleScriptsState scriptsState,
@@ -37,12 +37,12 @@
         }
 
         public async Task<StandardCommandResult> Handle(
-            AddServerModuleScriptCommand notification,
+            RegisterNewServerModuleFromScriptCommand notification,
             CancellationToken cancellationToken
         )
         {
             var serverModuleScripts = notification.Scripts;
-            _scriptsState.Add(
+            _scriptsState.Set(
                 serverModuleScripts
             );
 
@@ -69,7 +69,8 @@
                 await _mediator.Send(
                     new DisposeOfServerModuleCommand(
                         current.Value.Name
-                    )
+                    ),
+                    cancellationToken
                 );
                 // Set and get existing (again)
                 current = _state.Set(

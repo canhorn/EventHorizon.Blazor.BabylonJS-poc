@@ -3,7 +3,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Systems.ServerModule.Add;
+    using EventHorizon.Game.Client.Systems.ServerModule.Register;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
     using MediatR;
     using Microsoft.Extensions.Logging;
@@ -32,20 +32,21 @@
             var serverModuleScriptsList = notification.PlayerZoneInfo.ServerModuleScriptList;
 
             _logger.LogInformation(
-                "ServerModule: {ScriptCount}",
+                "ServerModuleScripts Count: {ScriptCount}",
                 serverModuleScriptsList.Count()
             );
             foreach (var serverModuleScript in serverModuleScriptsList)
             {
                 var result = await _mediator.Send(
-                    new AddServerModuleScriptCommand(
+                    new RegisterNewServerModuleFromScriptCommand(
                         serverModuleScript
-                    )
+                    ),
+                    cancellationToken
                 );
                 if (!result.Success)
                 {
                     _logger.LogWarning(
-                        "Failed to Add ServerModule Script: {ScriptName} | {ErrorCode}",
+                        "Failed to Register ServerModule Script: {ScriptName} | {ErrorCode}",
                         serverModuleScript.Name,
                         result.ErrorCode
                     );

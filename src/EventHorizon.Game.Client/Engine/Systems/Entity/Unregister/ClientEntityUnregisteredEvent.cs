@@ -1,6 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Unregister
 {
-    public class ClientEntityUnregisteredEvent
+    using MediatR;
+
+    public struct ClientEntityUnregisteredEvent
+        : INotification
     {
         public string GlobalId { get; }
 

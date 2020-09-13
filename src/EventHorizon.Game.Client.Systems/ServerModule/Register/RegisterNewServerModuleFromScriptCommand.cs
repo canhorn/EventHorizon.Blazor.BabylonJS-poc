@@ -1,15 +1,15 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Add
+﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Register
 {
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Systems.ServerModule.Api;
     using MediatR;
 
-    public struct AddServerModuleScriptCommand
+    public struct RegisterNewServerModuleFromScriptCommand
         : IRequest<StandardCommandResult>
     {
         public IServerModuleScripts Scripts { get; }
 
-        public AddServerModuleScriptCommand(
+        public RegisterNewServerModuleFromScriptCommand(
             IServerModuleScripts scripts
         )
         {

@@ -37,7 +37,8 @@
             await _mediator.Publish(
                 new UnregisteringClientEntityEvent(
                     request.GlobalId
-                )
+                ),
+                cancellationToken
             );
             _state.Remove(
                 request.GlobalId
@@ -45,7 +46,8 @@
             await _mediator.Publish(
                 new ClientEntityUnregisteredEvent(
                     request.GlobalId
-                )
+                ),
+                cancellationToken
             );
 
             return true;

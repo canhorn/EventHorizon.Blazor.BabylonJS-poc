@@ -7,7 +7,8 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public struct ClientScriptsAssemblySetEvent : INotification
+    public struct ClientScriptsAssemblySetEvent 
+        : INotification
     {
 
     }

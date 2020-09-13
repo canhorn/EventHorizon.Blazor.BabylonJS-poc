@@ -5,7 +5,8 @@
     public interface ServerModuleScriptsState
     {
         IEnumerable<IServerModuleScripts> All();
-        void Add(
+        void Clear();
+        void Set(
             IServerModuleScripts serverModuleScripts
         );
     }

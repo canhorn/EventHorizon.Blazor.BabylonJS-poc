@@ -1,6 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Map
 {
+    using EventHorizon.Game.Client.Core.Mapper.Api;
+    using EventHorizon.Game.Client.Core.Mapper.Model;
     using EventHorizon.Game.Client.Systems.Map.Api;
+    using EventHorizon.Game.Client.Systems.Map.Model;
     using EventHorizon.Game.Client.Systems.Map.State;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +13,8 @@
             this IServiceCollection services
         ) => services
             .AddSingleton<IMapState, StandardMapMeshState>()
+
+            .AddSingleton<IMapper<IMapMeshDetails>, StandardMapper<IMapMeshDetails, MapMeshDetailsModel>>()
         ;
     }
 }

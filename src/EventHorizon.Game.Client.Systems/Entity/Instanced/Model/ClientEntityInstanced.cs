@@ -11,8 +11,6 @@
     using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Model;
     using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
     using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Model;
-    using EventHorizon.Game.Client.Systems.Local.Modules.InView.Api;
-    using EventHorizon.Game.Client.Systems.Local.Modules.InView.Model;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Model;
     using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Api;
@@ -22,7 +20,7 @@
     using MediatR;
 
     public class ClientEntityInstanced
-        : ClientLifecycleEntityBase,
+        : ServerLifecycleEntityBase,
         ClientAssetInstanceRegisteredEventObserver
     {
         private readonly IMediator _mediator;

@@ -26,6 +26,7 @@
             _mediator = mediator;
             _state = state;
         }
+
         public async Task<StandardCommandResult> Handle(
             LoadClientScriptsAssembly request,
             CancellationToken cancellationToken
@@ -50,22 +51,12 @@
                             "script_assembly_invalid_from_fetch"
                         );
                     }
-                    // Load Assembly into Default context
-                    var assembly = AssemblyLoadContext.Default.LoadFromStream(
-                        new MemoryStream(
-                            Convert.FromBase64String(
-                                scriptAssemblyString
-                            )
-                        )
-                    );
-                    // Save Loaded Assembly to State
-                    _state.SetScriptAssembly(
-                        assemblyHash,
-                        assembly
-                    );
-
-                    await _mediator.Publish(
-                        new ClientScriptsAssemblySetEvent()
+                    return await _mediator.Send(
+                        new SetClientScriptsAssemblyCommand(
+                            assemblyHash,
+                            scriptAssemblyString
+                        ),
+                        cancellationToken
                     );
                 }
             }

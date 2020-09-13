@@ -5,7 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Systems.ClientScripts.Set;
-    using EventHorizon.Game.Client.Systems.ServerModule.Add;
+    using EventHorizon.Game.Client.Systems.ServerModule.Register;
     using EventHorizon.Game.Client.Systems.ServerModule.Api;
     using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
     using MediatR;
@@ -39,7 +39,8 @@
                 await _mediator.Send(
                     new DisposeOfServerModuleCommand(
                         serverModule.Name
-                    )
+                    ),
+                    cancellationToken
                 );
             }
 
@@ -47,9 +48,10 @@
             foreach (var serverModuleScripts in _serverModuleScriptsState.All())
             {
                 await _mediator.Send(
-                    new AddServerModuleScriptCommand(
+                    new RegisterNewServerModuleFromScriptCommand(
                         serverModuleScripts
-                    )
+                    ),
+                    cancellationToken
                 );
             }
         }

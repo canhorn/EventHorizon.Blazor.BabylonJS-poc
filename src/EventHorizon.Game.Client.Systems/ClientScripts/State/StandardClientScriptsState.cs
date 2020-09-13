@@ -18,10 +18,12 @@
     {
         private static readonly IList<Assembly> ASSEMBLIES = GameClientSDKRoot.ASSEMBLIES;
 
-        public string Hash { get; private set; } = string.Empty;
-        private Assembly? _scriptAssembly;
-        private ILogger _logger;
+        private readonly ILogger _logger;
         private readonly IDictionary<string, IClientScript> _scripts = new Dictionary<string, IClientScript>();
+
+        private Assembly? _scriptAssembly;
+
+        public string Hash { get; private set; } = string.Empty;
 
         public StandardClientScriptsState(
             ILogger<StandardClientScriptsState> logger
@@ -37,6 +39,8 @@
         {
             Hash = hash;
             _scriptAssembly = scriptAssembly;
+            LogOutSupported();
+            _scripts.Clear();
         }
 
         public Option<IClientScript> GetScript(
@@ -81,23 +85,34 @@
                     "Failed to Create Script: {Id}",
                     id
                 );
-                var scriptNames = string.Join(
-                    ",",
-                    _scriptAssembly.GetTypes()
-                        .Select(
-                            a => a.FullName?.Replace(
-                                "css_root+",
-                                string.Empty
-                            ) ?? string.Empty
-                        )
-                );
-                _logger.LogInformation(
-                    "Currently Supported Script Names: \n\r {AssemblyNames}",
-                    scriptNames
-                );
+                LogOutSupported();
             }
             return new Option<IClientScript>(
                 null
+            );
+        }
+
+        private void LogOutSupported()
+        {
+            if (_scriptAssembly.IsNull())
+            {
+                return;
+            }
+            var scriptNames = string.Join(
+                $"{Environment.NewLine}\t",
+                _scriptAssembly.GetTypes()
+                    .Where(
+                        a => a.FullName?.StartsWith("css_root+") ?? false
+                    ).Select(
+                        a => a.FullName?.Replace(
+                            "css_root+",
+                            string.Empty
+                        ) ?? string.Empty
+                    )
+            );
+            _logger.LogInformation(
+                "Currently Supported Script Names: \n\r\t{AssemblyNames}",
+                scriptNames
             );
         }
 
