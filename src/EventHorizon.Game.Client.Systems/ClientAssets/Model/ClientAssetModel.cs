@@ -5,17 +5,17 @@
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 
     public class ClientAssetModel
-        : IClientAsset
+        : ClientAsset
     {
         public string Id { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public IDictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
         [MaybeNull]
-        public IClientAssetConfig Config { get; private set; }
+        public ClientAssetConfig Config { get; private set; }
 
         public void SetConfig(
-            IClientAssetConfig config
+            ClientAssetConfig config
         )
         {
             Config = config;

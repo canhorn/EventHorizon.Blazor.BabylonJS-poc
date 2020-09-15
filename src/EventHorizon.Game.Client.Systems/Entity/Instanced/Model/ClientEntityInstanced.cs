@@ -5,6 +5,7 @@
     using EventHorizon.Game.Client.Engine.Lifecycle.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
+    using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
     using EventHorizon.Game.Client.Systems.ClientAssets.Register;
     using EventHorizon.Game.Client.Systems.Entity.Instanced.Creation;
     using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Api;
@@ -115,16 +116,19 @@
             {
                 return;
             }
-            var mesh = args.ClientAssetInstance.Mesh;
-            mesh.SystemType = MeshSystemType.CLIENT_ENTITY;
-            mesh.MetaData.Add("entity.clientId", this.ClientId);
-            mesh.MetaData.Add("clientEntity", this._details);
+            if (args.ClientAssetInstance is ClientAssetMeshInstance meshClientAsset)
+            {
+                var mesh = meshClientAsset.Mesh;
+                mesh.SystemType = MeshSystemType.CLIENT_ENTITY;
+                mesh.MetaData.Add("entity.clientId", this.ClientId);
+                mesh.MetaData.Add("clientEntity", this._details);
 
-            await _mediator.Publish(
-                new ClientEntityInstanceFinishedCreationEvent(
-                    this
-                )
-            );
+                await _mediator.Publish(
+                    new ClientEntityInstanceFinishedCreationEvent(
+                        this
+                    )
+                );
+            }
         }
     }
 }

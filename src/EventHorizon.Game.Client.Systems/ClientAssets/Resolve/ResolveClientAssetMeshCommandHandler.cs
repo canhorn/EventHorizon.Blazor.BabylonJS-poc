@@ -4,7 +4,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+    using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
+    using EventHorizon.Game.Client.Systems.ClientAssets.Model.Mesh;
     using EventHorizon.Game.Client.Systems.ClientAssets.Register;
     using MediatR;
 
@@ -12,10 +13,10 @@
         : IRequestHandler<ResolveClientAssetMeshCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
-        private readonly IClientAssetMeshCache _cache;
+        private readonly ClientAssetMeshCache _cache;
 
         public ResolveClientAssetMeshCommandHandler(
-            IClientAssetMeshCache cache,
+            ClientAssetMeshCache cache,
             IMediator mediator
         )
         {
@@ -47,9 +48,11 @@
 
             await _mediator.Send(
                 new RegisterClientAssetInstanceCommand(
-                    request.Details.AssetInstanceId,
-                    mesh,
-                    request.Details.Position
+                    new StandardClientAssetMeshInstance(
+                        request.Details.AssetInstanceId,
+                        mesh,
+                        request.Details.Position
+                    )
                 ),
                 cancellationToken
             );

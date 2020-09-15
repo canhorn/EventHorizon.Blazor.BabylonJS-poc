@@ -5,22 +5,21 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Model;
     using MediatR;
 
     public class RegisterClientAssetInstanceCommandHandler
         : IRequestHandler<RegisterClientAssetInstanceCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
-        private readonly IClientAssetInstanceStore _store;
+        private readonly ClientAssetInstanceState _state;
 
         public RegisterClientAssetInstanceCommandHandler(
             IMediator mediator,
-            IClientAssetInstanceStore store
+            ClientAssetInstanceState state
         )
         {
             _mediator = mediator;
-            _store = store;
+            _state = state;
         }
 
         public async Task<StandardCommandResult> Handle(
@@ -28,18 +27,14 @@
             CancellationToken cancellationToken
         )
         {
-            var clientAssetInstance = new ClientAssetInstance(
-                request.AssetInstanceId,
-                request.Mesh,
-                request.Position
-            );
-            _store.Set(
-                clientAssetInstance
+            _state.Set(
+                request.Instance
             );
             await _mediator.Publish(
                 new ClientAssetInstanceRegisteredEvent(
-                    clientAssetInstance
-                )
+                    request.Instance
+                ),
+                cancellationToken
             );
 
             return new StandardCommandResult();

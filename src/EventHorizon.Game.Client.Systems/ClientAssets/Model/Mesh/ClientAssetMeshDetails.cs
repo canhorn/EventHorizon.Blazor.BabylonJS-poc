@@ -4,15 +4,17 @@
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 
     public class ClientAssetMeshDetails
+        : ClientAssetDetails
     {
         public string AssetInstanceId { get; }
-        public IClientAsset ClientAsset { get; }
+        public ClientAsset ClientAsset { get; }
         public IVector3 Position { get; }
+
         public bool SkipCaching { get; }
 
         public ClientAssetMeshDetails(
             string assetInstanceId,
-            IClientAsset clientAsset,
+            ClientAsset clientAsset,
             IVector3 position
         )
         {
@@ -24,7 +26,7 @@
 
         public ClientAssetMeshDetails(
             string assetInstanceId,
-            IClientAsset clientAsset,
+            ClientAsset clientAsset,
             IVector3 position,
             bool skipCaching
         )

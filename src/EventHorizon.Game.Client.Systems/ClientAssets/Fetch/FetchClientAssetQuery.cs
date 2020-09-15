@@ -5,7 +5,7 @@
     using MediatR;
 
     public class FetchClientAssetQuery
-        : IRequest<QueryResult<IClientAsset>>
+        : IRequest<QueryResult<ClientAsset>>
     {
         public string AssetId { get; }
 

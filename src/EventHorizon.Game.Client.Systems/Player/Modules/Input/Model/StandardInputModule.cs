@@ -1,11 +1,8 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Model
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Core.Factory.Api;
     using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Engine.Input.Api;
@@ -13,6 +10,7 @@
     using EventHorizon.Game.Client.Engine.Input.Unregister;
     using EventHorizon.Game.Client.Engine.Systems.Camera.Set;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Run;
     using EventHorizon.Game.Client.Systems.Player.Action.Model;
     using EventHorizon.Game.Client.Systems.Player.Action.Model.Send;
     using EventHorizon.Game.Client.Systems.Player.Api;
@@ -114,7 +112,9 @@
                     {
                         // TODO: INTERACTION_MODULE_NAME 
                         // publish RunInteractionEvent
-                        return Task.CompletedTask;
+                        return _mediator.Publish(
+                            new RunInteractionEvent()
+                        );
                     }
                 )
             );

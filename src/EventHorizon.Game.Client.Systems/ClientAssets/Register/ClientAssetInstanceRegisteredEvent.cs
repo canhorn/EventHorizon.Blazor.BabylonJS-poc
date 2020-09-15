@@ -11,10 +11,10 @@
     public struct ClientAssetInstanceRegisteredEvent
         : INotification
     {
-        public IClientAssetInstance ClientAssetInstance { get; }
+        public ClientAssetInstance ClientAssetInstance { get; }
 
         public ClientAssetInstanceRegisteredEvent(
-            IClientAssetInstance clientAssetInstance
+            ClientAssetInstance clientAssetInstance
         )
         {
             ClientAssetInstance = clientAssetInstance;

@@ -16,12 +16,12 @@
     {
     }
 
-    public class ClientAssetsLoadedEventHandler
+    public class ClientAssetsLoadedEventObserverHandler
         : INotificationHandler<ClientAssetsLoadedEvent>
     {
         private readonly ObserverState _observer;
 
-        public ClientAssetsLoadedEventHandler(
+        public ClientAssetsLoadedEventObserverHandler(
             ObserverState observer
         )
         {

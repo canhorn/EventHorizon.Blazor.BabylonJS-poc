@@ -22,7 +22,7 @@
 
         private readonly IObjectEntity _entity;
 
-        private bool _inDistance = false;
+        private bool _inDistance;
 
         public override int Priority => 0;
 
@@ -74,7 +74,7 @@
             var distanceToPlayer = toPlayer.Length();
 
             // TODO: Move to Entity Property State, so it can be customized
-            if (distanceToPlayer <= 1)
+            if (distanceToPlayer <= 10)
             {
                 await _mediator.Publish(
                     new EntityWithinInteractionDistanceEvent(

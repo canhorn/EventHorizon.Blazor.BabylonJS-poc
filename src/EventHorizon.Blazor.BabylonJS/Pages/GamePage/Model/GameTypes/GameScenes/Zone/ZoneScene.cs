@@ -3,18 +3,16 @@
     using System;
     using System.Threading.Tasks;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes.GameScenes.ExampleGui;
-    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Lights;
     using EventHorizon.Game.Client;
-    using EventHorizon.Game.Client.Engine.Loading.Show;
     using EventHorizon.Game.Client.Systems.Account.Api;
+    using EventHorizon.Game.Client.Systems.Account.Changed;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
-    using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer;
-    using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Model;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using Microsoft.Extensions.Logging;
 
     public class ZoneScene
-         : GameSceneBase
+         : GameSceneBase,
+        AccountChangedEventObserver
     {
         private readonly IAccountState _accountState = GameServiceProvider.GetService<IAccountState>();
         private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<ZoneScene>>();
@@ -27,6 +25,9 @@
 
         public override async Task Initialize()
         {
+            GamePlatfrom.RegisterObserver(
+                this
+            );
             // Uncomment the line below to see a Data Generated GUI displayed when this scene is loaded.
             //await _exampleGui.Initialize();
             //await Register(
@@ -41,18 +42,15 @@
             //await _mediator.Publish(
             //    new ShowLoadingUIEvent()
             //);
-            var serverAddress = _accountState.User.Zone.ServerAddress;
-            _logger.LogDebug($"Started Player Connection {DateTime.UtcNow}");
-            await _mediator.Send(
-                new StartPlayerZoneConnectionCommand(
-                    serverAddress
-                )
-            );
+            await StartZoneConnection();
         }
 
         public override async Task Dispose()
         {
             await _exampleGui.Dispose();
+            GamePlatfrom.UnRegisterObserver(
+                this
+            );
             await base.Dispose();
         }
 
@@ -69,6 +67,31 @@
         public override Task Draw()
         {
             return Task.CompletedTask;
+        }
+
+        public Task Handle(
+            AccountChangedEvent args
+        )
+        {
+            return StartZoneConnection();
+        }
+
+        private async Task StartZoneConnection()
+        {
+            if (_accountState.User.IsNotNull()
+                && !string.IsNullOrEmpty(
+                    _accountState.User.Zone.ServerAddress
+                )
+            )
+            {
+                var serverAddress = _accountState.User.Zone.ServerAddress;
+                _logger.LogDebug($"Started Player Connection {DateTime.UtcNow}");
+                await _mediator.Send(
+                    new StartPlayerZoneConnectionCommand(
+                        serverAddress
+                    )
+                );
+            }
         }
     }
 }

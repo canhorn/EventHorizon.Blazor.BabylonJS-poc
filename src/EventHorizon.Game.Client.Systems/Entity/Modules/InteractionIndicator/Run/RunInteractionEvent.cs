@@ -18,12 +18,12 @@
     {
     }
 
-    public class RunInteractionEventHandler
+    public class RunInteractionEventObserverHandler
         : INotificationHandler<RunInteractionEvent>
     {
         private readonly ObserverState _observer;
 
-        public RunInteractionEventHandler(
+        public RunInteractionEventObserverHandler(
             ObserverState observer
         )
         {

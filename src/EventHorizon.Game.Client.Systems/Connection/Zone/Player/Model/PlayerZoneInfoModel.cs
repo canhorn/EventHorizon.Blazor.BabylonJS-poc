@@ -32,7 +32,7 @@
         IMapMeshDetails IPlayerZoneInfo.MapMesh => MapMesh;
 
         public List<ClientAssetModel> ClientAssetList { get; set; } = new List<ClientAssetModel>();
-        IEnumerable<IClientAsset> IPlayerZoneInfo.ClientAssetList => ClientAssetList;
+        IEnumerable<ClientAsset> IPlayerZoneInfo.ClientAssetList => ClientAssetList;
 
         public List<GuiLayoutDataModel> GuiLayoutList { get; set; } = new List<GuiLayoutDataModel>();
         IEnumerable<IGuiLayoutData> IPlayerZoneInfo.GuiLayoutList => GuiLayoutList;

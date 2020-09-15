@@ -7,18 +7,18 @@
     using MediatR;
 
     public class FetchClientAssetQueryHandler
-        : IRequestHandler<FetchClientAssetQuery, QueryResult<IClientAsset>>
+        : IRequestHandler<FetchClientAssetQuery, QueryResult<ClientAsset>>
     {
-        private readonly IClientAssetStore _clientAssetStore;
+        private readonly ClientAssetState _clientAssetStore;
 
         public FetchClientAssetQueryHandler(
-            IClientAssetStore clientAssetStore
+            ClientAssetState clientAssetStore
         )
         {
             _clientAssetStore = clientAssetStore;
         }
 
-        public Task<QueryResult<IClientAsset>> Handle(
+        public Task<QueryResult<ClientAsset>> Handle(
             FetchClientAssetQuery request,
             CancellationToken cancellationToken
         )
@@ -29,12 +29,12 @@
             
             if (clientAsset.HasValue)
             {
-                return new QueryResult<IClientAsset>(
+                return new QueryResult<ClientAsset>(
                     clientAsset.Value
                 ).FromResult();
             }
 
-            return new QueryResult<IClientAsset>(
+            return new QueryResult<ClientAsset>(
                 "not_found"
             ).FromResult();
         }

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Info
 {
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Builder.Api;
@@ -14,16 +13,17 @@
         : INotificationHandler<PlayerZoneInfoReceivedEvent>
     {
         private readonly IMediator _mediator;
-        private readonly IClientAssetStore _clientAssetStore;
-        private readonly IBuilder<IClientAssetConfig, IDictionary<string, object>> _clientAssetConfigBuilder;
+        private readonly ClientAssetState _clientAssetState;
+        private readonly IBuilder<ClientAssetConfig, IDictionary<string, object>> _clientAssetConfigBuilder;
 
         public SetupClientAssetsFromPlayerZoneInfoReceivedEventHandler(
             IMediator mediator,
-            IClientAssetStore clientAssetStore,
-            IBuilder<IClientAssetConfig, IDictionary<string, object>> clientAssetConfigBuilder)
+            ClientAssetState clientAssetState,
+            IBuilder<ClientAssetConfig, IDictionary<string, object>> clientAssetConfigBuilder
+        )
         {
             _mediator = mediator;
-            _clientAssetStore = clientAssetStore;
+            _clientAssetState = clientAssetState;
             _clientAssetConfigBuilder = clientAssetConfigBuilder;
         }
 
@@ -39,12 +39,13 @@
                         clientAsset.Data
                     )
                 );
-                _clientAssetStore.Set(
+                _clientAssetState.Set(
                     clientAsset
                 );
             }
             await _mediator.Publish(
-                new ClientAssetsLoadedEvent()
+                new ClientAssetsLoadedEvent(),
+                cancellationToken
             );
         }
     }

@@ -8,7 +8,7 @@
     using BabylonJS;
     using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Scripting.Data;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Api.Configs;
+    using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
     using Microsoft.Extensions.Logging;
 
     public class CreateTreeScript
@@ -54,7 +54,7 @@
             {
                 var id = Data.Get<string>("id");
                 var scene = Data.Get<Scene>("scene");
-                var config = Data.Get<IClientAssetScriptConfig>("config");
+                var config = Data.Get<ClientAssetScriptConfig>("config");
                 var resolve = Data.Get<Action<Mesh>>("resolve");
                 //var branchSize = Data.Get<int>("branchSize");
                 //var trunkSize = Data.Get<int>("trunkSize");

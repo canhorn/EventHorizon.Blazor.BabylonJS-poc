@@ -49,7 +49,7 @@
             // Setup The Scene Orchestrator
             await _mediator.Send(
                 new CreateGameSceneOrchestratorCommand(
-                    "main-menu",
+                    "zone",
                     new Dictionary<string, Func<GameSceneBase>>
                     {
                         {

@@ -1,15 +1,14 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Model
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Builder.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Builder;
+    using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
+    using EventHorizon.Game.Client.Systems.ClientAssets.Build;
     using EventHorizon.Game.Client.Systems.ClientAssets.Fetch;
     using EventHorizon.Game.Client.Systems.ClientAssets.Loaded;
     using EventHorizon.Game.Client.Systems.ClientAssets.Register;
@@ -67,42 +66,44 @@
             ClientAssetInstanceRegisteredEvent args
         )
         {
-            var assetInstanceId = args.ClientAssetInstance.AssetInstanceId;
-            if (_assetInstanceId != assetInstanceId)
+            if (_assetInstanceId != args.ClientAssetInstance.AssetInstanceId)
             {
                 // Not our ClientAssetInstance
                 return;
             }
-            var mesh = args.ClientAssetInstance.Mesh;
-            mesh.SystemType = MeshSystemType.ENTITY;
-            mesh.OwnerEntityId = _entity.EntityId;
-            await _mediator.Publish(
-                new MeshLoadedEvent(
-                    _entity.ClientId,
-                    mesh
-                )
-            );
-
-            if (mesh.MetaData.TryGetValue(
-                AnimationConstants.ANIMATION_LIST_PROPERTY_NAME,
-                out var animationListRaw
-            ))
+            if (args.ClientAssetInstance is ClientAssetMeshInstance meshInstance)
             {
-                var animationList = animationListRaw
-                    .Cast<IEnumerable<object>>()
-                    .Cast<IAnimationGroup>();
+                var mesh = meshInstance.Mesh;
+                mesh.SystemType = MeshSystemType.ENTITY;
+                mesh.OwnerEntityId = _entity.EntityId;
                 await _mediator.Publish(
-                    new AnimationListLoadedEvent(
+                    new MeshLoadedEvent(
                         _entity.ClientId,
-                        animationList ?? new List<IAnimationGroup>()
+                        mesh
                     )
                 );
-                await _mediator.Publish(
-                    new PlayAnimationEvent(
-                        _entity.ClientId,
-                        AnimationConstants.DEFAULT_ANIMATION
-                    )
-                );
+
+                if (mesh.MetaData.TryGetValue(
+                    AnimationConstants.ANIMATION_LIST_PROPERTY_NAME,
+                    out var animationListRaw
+                ))
+                {
+                    var animationList = animationListRaw
+                        .Cast<IEnumerable<object>>()
+                        .Cast<IAnimationGroup>();
+                    await _mediator.Publish(
+                        new AnimationListLoadedEvent(
+                            _entity.ClientId,
+                            animationList ?? new List<IAnimationGroup>()
+                        )
+                    );
+                    await _mediator.Publish(
+                        new PlayAnimationEvent(
+                            _entity.ClientId,
+                            AnimationConstants.DEFAULT_ANIMATION
+                        )
+                    );
+                }
             }
         }
 

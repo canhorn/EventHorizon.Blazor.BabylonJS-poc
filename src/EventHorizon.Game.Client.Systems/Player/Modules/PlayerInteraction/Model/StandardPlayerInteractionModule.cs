@@ -8,7 +8,10 @@
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Clear;
+    using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Run;
     using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Show;
+    using EventHorizon.Game.Client.Systems.Player.Action.Model;
+    using EventHorizon.Game.Client.Systems.Player.Action.Model.Send;
     using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.ClientAction;
@@ -20,7 +23,8 @@
         PlayerInteractionModule,
         ClientActionServerInteractionEventObserver,
         EntityWithinInteractionDistanceEventObserver,
-        EntityLeftInteractionDistanceEventObserver
+        EntityLeftInteractionDistanceEventObserver,
+        RunInteractionEventObserver
     {
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
 
@@ -88,6 +92,26 @@
                 args.Entity.EntityId
             );
             return CalculateFocus();
+        }
+
+        public async Task Handle(
+            RunInteractionEvent args
+        )
+        {
+            var interactionItemList = _distanceEntityMap
+                .OrderBy(a => a.Value.DistanceToPlayer)
+                .Select(a => a.Value);
+            if (interactionItemList.Any())
+            {
+                await _mediator.Publish(
+                    new InvokePlayerActionEvent(
+                        PlayerActions.INTERACT,
+                        new PlayerInteractActionData(
+                            interactionItemList.First().Entity.EntityId
+                        )
+                    )
+                );
+            }
         }
 
         private async Task CalculateFocus()

@@ -20,8 +20,6 @@
     using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Start;
     using EventHorizon.Game.Client.Systems.Zone.Changed;
-    using global::BabylonJS;
-    using global::BabylonJS.GUI;
     using Microsoft.Extensions.Logging;
 
     public class MainMenuScene

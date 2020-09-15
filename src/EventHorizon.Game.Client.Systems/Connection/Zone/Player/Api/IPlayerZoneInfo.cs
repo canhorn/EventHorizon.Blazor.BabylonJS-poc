@@ -15,7 +15,7 @@
         IPlayerZoneDetails Player { get; }
         II18nBundle I18nMap { get; }
         IMapMeshDetails MapMesh { get; }
-        IEnumerable<IClientAsset> ClientAssetList { get; }
+        IEnumerable<ClientAsset> ClientAssetList { get; }
         IEnumerable<IGuiLayoutData> GuiLayoutList { get; }
         IEnumerable<IObjectEntityDetails> ClientEntityList { get; }
         IEnumerable<IObjectEntityDetails> EntityList { get; }

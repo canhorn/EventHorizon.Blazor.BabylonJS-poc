@@ -22,10 +22,4 @@
         <ProjectReference Include="..\..\EventHorizon.Game.Client.Engine.Gui.Api\EventHorizon.Game.Client.Engine.Gui.Api.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="ServerModule\Gui\" />
-        <Folder Include="ServerModule\Leaderboard\" />
-        <Folder Include="ServerModule\PlayerCaptures\" />
-    </ItemGroup>
-
 </Project>

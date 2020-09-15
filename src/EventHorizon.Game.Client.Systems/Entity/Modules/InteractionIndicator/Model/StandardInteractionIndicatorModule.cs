@@ -7,20 +7,16 @@
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Clear;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Run;
     using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Show;
     using EventHorizon.Game.Client.Systems.Particle.Api;
     using EventHorizon.Game.Client.Systems.Particle.Model;
-    using EventHorizon.Game.Client.Systems.Player.Action.Model;
-    using EventHorizon.Game.Client.Systems.Player.Action.Model.Send;
     using MediatR;
 
     public class StandardInteractionIndicatorModule
         : ModuleEntityBase,
         InteractionIndicatorModule,
         ShowInteractionIndicatorEventObserver,
-        ClearInteractionIndicatorEventObserver,
-        RunInteractionEventObserver
+        ClearInteractionIndicatorEventObserver
     {
         private static string INTERACTION_INDICATOR_TEMPLATE_ID => "Particle_Flame";
 
@@ -54,7 +50,7 @@
                 InteractionState.NAME
             );
             if (!interactionState.HasValue
-                || !interactionState.Value.Active)
+                || interactionState.Value.Active)
             {
                 // We are not active, so don't register as observer
                 GamePlatfrom.RegisterObserver(
@@ -76,23 +72,6 @@
         public override Task Update()
         {
             return _particle.Update();
-        }
-
-        public async Task Handle(
-            RunInteractionEvent args
-        )
-        {
-            if (_particle.IsActive)
-            {
-                await _mediator.Publish(
-                    new InvokePlayerActionEvent(
-                        PlayerActions.INTERACT,
-                        new PlayerInteractActionData(
-                            _entity.EntityId
-                        )
-                    )
-                );
-            }
         }
 
         public async Task Handle(

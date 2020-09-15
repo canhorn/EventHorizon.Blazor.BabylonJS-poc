@@ -10,10 +10,10 @@
     public class DisposeOfClientAssetInstanceCommandHandler
         : IRequestHandler<DisposeOfClientAssetInstanceCommand, StandardCommandResult>
     {
-        private readonly IClientAssetInstanceStore _store;
+        private readonly ClientAssetInstanceState _store;
 
         public DisposeOfClientAssetInstanceCommandHandler(
-            IClientAssetInstanceStore store
+            ClientAssetInstanceState store
         )
         {
             _store = store;

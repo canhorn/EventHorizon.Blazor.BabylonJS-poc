@@ -6,13 +6,13 @@
     public class PlayerInteractActionData
         : IPlayerActionData
     {
-        public long EntityId { get; }
+        public long InteractionEntityId { get; }
 
         public PlayerInteractActionData(
             long entityId
         )
         {
-            EntityId = entityId;
+            InteractionEntityId = entityId;
         }
     }
 }
