@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-preview.8.20414.8" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-rc.1.*" />
         <PackageReference Include="CS-Script.Core" Version="1.4.0" />
     </ItemGroup>
 
@@ -23,7 +23,6 @@
       <Folder Include="Combat\Skill\Model\" />
       <Folder Include="Connection\Zone\Player\Connected\" />
       <Folder Include="Connection\Zone\Player\Action\" />
-      <Folder Include="Dialog\Model\" />
       <Folder Include="Local\Camera\Api\" />
       <Folder Include="Local\ScreenPointer\Api\" />
       <Folder Include="Map\Create\" />

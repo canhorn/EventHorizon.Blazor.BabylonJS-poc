@@ -5,6 +5,7 @@
     using EventHorizon.Game.Client.Systems.ClientAssets;
     using EventHorizon.Game.Client.Systems.ClientScripts;
     using EventHorizon.Game.Client.Systems.Connection;
+    using EventHorizon.Game.Client.Systems.Dialog;
     using EventHorizon.Game.Client.Systems.Entity;
     using EventHorizon.Game.Client.Systems.EntityModule;
     using EventHorizon.Game.Client.Systems.Height;
@@ -37,6 +38,7 @@
             .AddClientScriptsSystemServices()
             .AddEntityModuleSystemServices()
             .AddServerModuleSystemServices()
+            .AddDialogSystemServices()
         ;
     }
 }

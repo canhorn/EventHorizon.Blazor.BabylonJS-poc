@@ -44,32 +44,22 @@
             }
             try
             {
-                _connection = MyCustomSignalrHubBuilder.BuildHubConnection(
-                    new Uri(
-                        $"{serverUrl}/coreBus"
-                    ),
-                    () => accessToken.FromResult(),
-                    loggingBuilder =>
-                    {
-                        loggingBuilder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
-                    }
-                );
-                // _connection = new HubConnectionBuilder()
-                //     .WithUrl(
-                //         new Uri(
-                //             $"{serverUrl}/coreBus"
-                //         ),
-                //         options =>
-                //         {
-                //             //options.Transports = HttpTransportType.LongPolling;
-                //             options.AccessTokenProvider = () => accessToken.FromResult();
-                //         }
-                //     ).ConfigureLogging(
-                //         builder =>
-                //         {
-                //             builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
-                //         }
-                //     ).Build();
+                _connection = new HubConnectionBuilder()
+                    .WithUrl(
+                        new Uri(
+                            $"{serverUrl}/coreBus"
+                        ),
+                        options =>
+                        {
+                             options.AccessTokenProvider = () => accessToken.FromResult();
+                        }
+                    ).ConfigureLogging(
+                        builder =>
+                        {
+                            builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
+                        }
+                    ).WithAutomaticReconnect()
+                    .Build();
 
                 _connection.On(
                     "AccountConnected",

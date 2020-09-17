@@ -11,7 +11,7 @@ public static class OptionExtensions
 
 [Serializable]
 #pragma warning disable CA1716 // Identifiers should not match keywords
-public struct Option<T> 
+public struct Option<T>
     : IEquatable<Option<T>>
 #pragma warning restore CA1716 // Identifiers should not match keywords
 {

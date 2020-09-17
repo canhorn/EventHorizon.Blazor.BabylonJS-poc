@@ -35,7 +35,8 @@
                 await _mediator.Send(
                     new DisposeOfGuiCommand(
                         childGuiId
-                    )
+                    ),
+                    cancellationToken
                 );
             }
 

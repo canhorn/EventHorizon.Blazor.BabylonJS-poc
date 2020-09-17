@@ -43,7 +43,9 @@
                 return control
                     .ToOption();
             }
-            return new Option<IGuiControl>();
+            return new Option<IGuiControl>(
+                null
+            );
         }
 
         public void Remove(

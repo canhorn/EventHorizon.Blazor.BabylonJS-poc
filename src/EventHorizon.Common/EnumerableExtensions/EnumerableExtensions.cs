@@ -15,6 +15,17 @@ public static class EnumerableExtensions
         return newList.AsReadOnly();
     }
 
+    public static IEnumerable<T> InsertItem<T>(
+        this IEnumerable<T> enumerable,
+        int index,
+        T item
+    )
+    {
+        var newList = enumerable.ToList();
+        newList.Insert(index, item);
+        return newList.AsReadOnly();
+    }
+
     public static IEnumerable<T> RemoveItem<T>(
         this IEnumerable<T> enumerable,
         T item

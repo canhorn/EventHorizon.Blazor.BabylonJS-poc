@@ -35,8 +35,9 @@
             {
                 _mediator.Send(
                     new DisposeOfGuiControlChildrenCommand(
-                        control.Value.Id
-                    )
+                        request.ControlId
+                    ),
+                    cancellationToken
                 );
                 control.Value.Dispose();
                 _controlState.Remove(
