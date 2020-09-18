@@ -165,6 +165,22 @@
                     _parentControlId
                 )
             );
+
+            // Setup LinkWith
+            foreach (var control in _flattenedControlList)
+            {
+                await _mediator.Send(
+                    new UpdateGuiControlCommand(
+                        GuiId,
+                        new GuiControlDataModel
+                        {
+                            ControlId = control.Id,
+                            LinkWith = control.LinkWith,
+                        }
+                    )
+                );
+            }
+
             // Track GUI to Parent
             if (!string.IsNullOrEmpty(
                 _parentControlId
@@ -286,6 +302,11 @@
                         accumulatorControl
                     )
                 );
+
+                accumulatorControl.LinkWith = GetControlDataForControl(
+                    accumulatorControl.Id
+                )?.LinkWith ?? accumulatorControl.LinkWith;
+
                 list.Add(
                     accumulatorControl
                 );
@@ -426,9 +447,18 @@
             string controlId
         )
         {
+            return GetControlDataForControl(
+                controlId
+            )?.Options ?? new GuiControlOptionsModel();
+        }
+
+        private IGuiControlData? GetControlDataForControl(
+            string controlId
+        )
+        {
             return _controlDataList.FirstOrDefault(
                 a => a.ControlId == controlId
-            )?.Options ?? new GuiControlOptionsModel();
+            );
         }
 
         private string OptionTextFromKey(

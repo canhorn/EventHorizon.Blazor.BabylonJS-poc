@@ -1,9 +1,11 @@
 ﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Api
 {
-    using EventHorizon.Game.Client.Engine.Systems.Module.Api;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 
-    public interface IEntityModule
-        : IModule
+    public interface IEntityLifeCycleModule
+        : IInitializableEntity,
+        IDisposableEntity,
+        IUpdatableEntity
     {
         string Name { get; }
 

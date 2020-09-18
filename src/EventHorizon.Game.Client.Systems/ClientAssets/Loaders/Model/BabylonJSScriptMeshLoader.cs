@@ -53,6 +53,7 @@
                {
                    mesh = resolvedMesh;
                };
+                // TODO: [SCRIPTING] - This should be a ClientScript Run
                 await new CreateTreeScript().Run(
                     new ScriptData(
                         new Dictionary<string, object>

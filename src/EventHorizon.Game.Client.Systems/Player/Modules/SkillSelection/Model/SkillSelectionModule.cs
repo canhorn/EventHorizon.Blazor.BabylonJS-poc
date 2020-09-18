@@ -28,7 +28,7 @@
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly IPlayerEntity _entity;
 
-        private IEntityModule? _entityModule;
+        private IEntityLifeCycleModule? _entityModule;
         private ScriptData _scriptData = new ScriptData(new Dictionary<string, object>());
 
         public override int Priority => 0;
@@ -57,7 +57,7 @@
                 }
             );
             var entityModuleResult = await _mediator.Send(
-                new CreateEntityModuleCommand(
+                new CreateEntityLifeCycleModuleCommand(
                     entityModuleScripts,
                     _scriptData
                 )

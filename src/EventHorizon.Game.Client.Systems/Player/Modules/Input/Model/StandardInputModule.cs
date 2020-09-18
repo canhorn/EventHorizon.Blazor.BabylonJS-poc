@@ -110,8 +110,6 @@
                     },
                     released: _ =>
                     {
-                        // TODO: INTERACTION_MODULE_NAME 
-                        // publish RunInteractionEvent
                         return _mediator.Publish(
                             new RunInteractionEvent()
                         );

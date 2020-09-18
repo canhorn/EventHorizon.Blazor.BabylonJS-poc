@@ -6,14 +6,14 @@
     using EventHorizon.Game.Client.Systems.EntityModule.Api;
     using MediatR;
 
-    public class CreateEntityModuleCommand
-        : IRequest<CommandResult<IEntityModule>>
+    public class CreateEntityLifeCycleModuleCommand
+        : IRequest<CommandResult<IEntityLifeCycleModule>>
     {
-        public IEntityModuleScripts Scripts { get; }
+        public EntityModuleScripts Scripts { get; }
         public ScriptData ScriptData { get; }
 
-        public CreateEntityModuleCommand(
-            IEntityModuleScripts scripts,
+        public CreateEntityLifeCycleModuleCommand(
+            EntityModuleScripts scripts,
             ScriptData scriptData
         )
         {
@@ -21,8 +21,8 @@
             ScriptData = scriptData;
         }
 
-        public CreateEntityModuleCommand(
-            IEntityModuleScripts scripts
+        public CreateEntityLifeCycleModuleCommand(
+            EntityModuleScripts scripts
         )
         {
             Scripts = scripts;

@@ -2,13 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using BabylonJS;
     using BabylonJS.GUI;
     using EventHorizon.Blazor.Interop;
     using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Gui.Model;
-    using EventHorizon.Game.Client.Engine.Gui.Model.Options;
+    using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
 
     public class BabylonJSGuiBar
         : IBabylonJSGuiControl
@@ -74,10 +73,10 @@
             object obj
         )
         {
-            if (obj is AbstractMesh mesh)
+            if (obj is BabylonJSEngineMesh mesh)
             {
                 Control.linkWithMesh(
-                    mesh
+                    mesh.Mesh
                 );
             }
         }

@@ -47,7 +47,7 @@
             );
 
             var serverModuleResult = await _mediator.Send(
-                new CreateEntityModuleCommand(
+                new CreateEntityLifeCycleModuleCommand(
                     serverModuleScripts
                 ),
                 CancellationToken.None

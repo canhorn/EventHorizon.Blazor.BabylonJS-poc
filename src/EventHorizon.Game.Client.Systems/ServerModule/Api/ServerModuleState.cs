@@ -5,15 +5,15 @@
 
     public interface ServerModuleState
     {
-        IEnumerable<IEntityModule> All();
-        Option<IEntityModule> Get(
+        IEnumerable<IEntityLifeCycleModule> All();
+        Option<IEntityLifeCycleModule> Get(
             string name
         );
-        Option<IEntityModule> Remove(
+        Option<IEntityLifeCycleModule> Remove(
             string name
         );
-        Option<IEntityModule> Set(
-            IEntityModule entityModule
+        Option<IEntityLifeCycleModule> Set(
+            IEntityLifeCycleModule entityModule
         );
         void Clear();
     }

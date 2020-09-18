@@ -10,13 +10,13 @@
     using EventHorizon.Game.Client.Systems.EntityModule.Model;
     using MediatR;
 
-    public class CreateEntityModuleCommandHandler
-        : IRequestHandler<CreateEntityModuleCommand, CommandResult<IEntityModule>>
+    public class CreateEntityLifeCycleModuleCommandHandler
+        : IRequestHandler<CreateEntityLifeCycleModuleCommand, CommandResult<IEntityLifeCycleModule>>
     {
         private readonly IMediator _mediator;
         private readonly IIndexPool _indexPool;
 
-        public CreateEntityModuleCommandHandler(
+        public CreateEntityLifeCycleModuleCommandHandler(
             IMediator mediator,
             IIndexPool indexPool
         )
@@ -25,8 +25,8 @@
             _indexPool = indexPool;
         }
 
-        public async Task<CommandResult<IEntityModule>> Handle(
-            CreateEntityModuleCommand request, 
+        public async Task<CommandResult<IEntityLifeCycleModule>> Handle(
+            CreateEntityLifeCycleModuleCommand request, 
             CancellationToken cancellationToken
         )
         {
@@ -42,7 +42,7 @@
             );
 
             // Create new ServerModule
-            var scriptModule = new StandardEntityScriptModule(
+            var scriptModule = new StandardEntityLifeCycleModule(
                 _indexPool.NextIndex(),
                 scripts.Name,
                 new Option<IClientScript>(
@@ -57,7 +57,7 @@
                 request.ScriptData
             );
 
-            return new CommandResult<IEntityModule>(
+            return new CommandResult<IEntityLifeCycleModule>(
                 scriptModule
             );
         }

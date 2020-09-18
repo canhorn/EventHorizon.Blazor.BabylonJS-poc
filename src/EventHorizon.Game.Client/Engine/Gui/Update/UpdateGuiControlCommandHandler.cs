@@ -10,7 +10,7 @@
     public class UpdateGuiControlCommandHandler
         : IRequestHandler<UpdateGuiControlCommand, StandardCommandResult>
     {
-        private IGuiControlState _state;
+        private readonly IGuiControlState _state;
 
         public UpdateGuiControlCommandHandler(
             IGuiControlState state

@@ -6,12 +6,8 @@
     using EventHorizon.Game.Client.Systems.Connection.Core.Account.Disconnected;
     using EventHorizon.Game.Client.Systems.Connection.Core.Api;
     using EventHorizon.Game.Client.Systems.Connection.Core.Model;
-    using EventHorizon.Game.Client.Systems.Connection.HubBuilder;
     using MediatR;
-    using Microsoft.AspNetCore.Connections;
-    using Microsoft.AspNetCore.Http.Connections;
     using Microsoft.AspNetCore.SignalR.Client;
-    using Microsoft.AspNetCore.SignalR.Protocol;
     using Microsoft.Extensions.Logging;
 
     public class SignalRCoreConnectionState

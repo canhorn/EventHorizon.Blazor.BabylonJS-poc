@@ -6,7 +6,7 @@
     public interface IMeshModule
         : IModule
     {
-        public static string MODULE_NAME = "MESH_MODULE_NAME";
+        public static string MODULE_NAME => "MESH_MODULE_NAME";
 
         IEngineMesh Mesh { get; }
     }

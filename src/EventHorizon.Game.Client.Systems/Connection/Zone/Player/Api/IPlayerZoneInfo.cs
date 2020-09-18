@@ -7,6 +7,7 @@
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
     using EventHorizon.Game.Client.Systems.ClientScripts.Api;
+    using EventHorizon.Game.Client.Systems.EntityModule.Api;
     using EventHorizon.Game.Client.Systems.Map.Api;
     using EventHorizon.Game.Client.Systems.ServerModule.Api;
 
@@ -22,5 +23,7 @@
         IClientScriptsAssemblyDetails ClientScriptsAssemblyDetails { get; }
         IEnumerable<IServerModuleScripts> ServerModuleScriptList { get; }
         IEnumerable<ParticleTemplate> ParticleTemplateList { get; }
+        IEnumerable<EntityModuleScripts> BaseEntityScriptModuleList { get; }
+        IEnumerable<EntityModuleScripts> PlayerEntityScriptModuleList { get; }
     }
 }

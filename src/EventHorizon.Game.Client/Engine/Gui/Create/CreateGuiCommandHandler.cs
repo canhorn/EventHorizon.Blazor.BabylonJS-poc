@@ -54,7 +54,8 @@
             await _mediator.Publish(
                 new RegisterEntityEvent(
                     guiFromData
-                )
+                ),
+                cancellationToken
             );
 
             return new StandardCommandResult();

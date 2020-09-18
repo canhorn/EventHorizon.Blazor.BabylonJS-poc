@@ -8,9 +8,9 @@
     using EventHorizon.Game.Client.Engine.Scripting.Services;
     using EventHorizon.Game.Client.Systems.EntityModule.Api;
 
-    public class StandardEntityScriptModule
+    public class StandardEntityLifeCycleModule
         : ClientEntityBase,
-        IEntityModule
+        IEntityLifeCycleModule
     {
         private readonly ScriptServices _scriptServices;
         private readonly Option<IClientScript> _initializeScript;
@@ -25,7 +25,7 @@
         public bool IsDisposable => _disposeScript.HasValue;
         public bool IsUpdatable => _updateScript.HasValue;
 
-        public StandardEntityScriptModule(
+        public StandardEntityLifeCycleModule(
             long clientId,
             string name,
             Option<IClientScript> initializeScript,

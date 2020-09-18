@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
     using EventHorizon.Game.Client.Systems.Entity.Model;
+    using EventHorizon.Game.Client.Systems.EntityModule.Register;
     using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Model;
     using EventHorizon.Game.Client.Systems.Player.Api;
@@ -83,12 +84,11 @@
                 )
             );
 
-            // TODO: Register Player Modules
-            //this._commandService.send(
-            //    createRegisterAllPlayerModulesCommand({
-            //        entity: this,
-            //    })
-            //);
+            await _mediator.Send(
+                new RegisterAllPlayerModulesOnEntityCommand(
+                    this
+                )
+            );
 
             // TODO: Put this into a Server Player EntityModule
             RegisterModule(

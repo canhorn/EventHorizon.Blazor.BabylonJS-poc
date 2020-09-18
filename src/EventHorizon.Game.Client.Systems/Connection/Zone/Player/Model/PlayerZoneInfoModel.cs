@@ -14,6 +14,8 @@
     using EventHorizon.Game.Client.Systems.ClientScripts.Api;
     using EventHorizon.Game.Client.Systems.ClientScripts.Model;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
+    using EventHorizon.Game.Client.Systems.EntityModule;
+    using EventHorizon.Game.Client.Systems.EntityModule.Api;
     using EventHorizon.Game.Client.Systems.Map.Api;
     using EventHorizon.Game.Client.Systems.Map.Model;
     using EventHorizon.Game.Client.Systems.ServerModule;
@@ -51,5 +53,10 @@
 
         public List<ParticleTemplateModel> ParticleTemplateList { get; set; } = new List<ParticleTemplateModel>();
         IEnumerable<ParticleTemplate> IPlayerZoneInfo.ParticleTemplateList => ParticleTemplateList;
+
+        public List<EntityModuleScriptsModel> BaseEntityScriptModuleList { get; set; } = new List<EntityModuleScriptsModel>();
+        IEnumerable<EntityModuleScripts> IPlayerZoneInfo.BaseEntityScriptModuleList => BaseEntityScriptModuleList;
+        public List<EntityModuleScriptsModel> PlayerEntityScriptModuleList { get; set; } = new List<EntityModuleScriptsModel>();
+        IEnumerable<EntityModuleScripts> IPlayerZoneInfo.PlayerEntityScriptModuleList => PlayerEntityScriptModuleList;
     }
 }

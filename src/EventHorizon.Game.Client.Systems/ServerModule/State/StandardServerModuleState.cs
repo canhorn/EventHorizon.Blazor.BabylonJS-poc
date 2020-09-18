@@ -7,9 +7,9 @@
     public class StandardServerModuleState
         : ServerModuleState
     {
-        private readonly IDictionary<string, IEntityModule> _serverModules = new Dictionary<string, IEntityModule>();
+        private readonly IDictionary<string, IEntityLifeCycleModule> _serverModules = new Dictionary<string, IEntityLifeCycleModule>();
 
-        public IEnumerable<IEntityModule> All()
+        public IEnumerable<IEntityLifeCycleModule> All()
         {
             return _serverModules.Values;
         }
@@ -19,7 +19,7 @@
             _serverModules.Clear();
         }
 
-        public Option<IEntityModule> Get(
+        public Option<IEntityLifeCycleModule> Get(
             string name
         )
         {
@@ -30,13 +30,13 @@
             {
                 return currentServerModule.ToOption();
             }
-            return new Option<IEntityModule>(
+            return new Option<IEntityLifeCycleModule>(
                 null
             );
         }
 
-        public Option<IEntityModule> Set(
-            IEntityModule entityModule
+        public Option<IEntityLifeCycleModule> Set(
+            IEntityLifeCycleModule entityModule
         )
         {
             if (_serverModules.TryGetValue(
@@ -50,12 +50,12 @@
             // Set in dictionary
             _serverModules[entityModule.Name] = entityModule;
 
-            return new Option<IEntityModule>(
+            return new Option<IEntityLifeCycleModule>(
                 null
             );
         }
 
-        public Option<IEntityModule> Remove(
+        public Option<IEntityLifeCycleModule> Remove(
             string name
         )
         {
@@ -70,7 +70,7 @@
                 return serverModule.ToOption();
             }
 
-            return new Option<IEntityModule>(
+            return new Option<IEntityLifeCycleModule>(
                 null
             );
         }

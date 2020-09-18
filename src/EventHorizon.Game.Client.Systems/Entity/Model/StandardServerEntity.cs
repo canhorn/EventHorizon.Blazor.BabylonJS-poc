@@ -20,6 +20,7 @@
     using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedCompanionIndicator.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Api;
     using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Model;
+    using EventHorizon.Game.Client.Systems.EntityModule.Register;
     using EventHorizon.Game.Client.Systems.Local.Modules.InView.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.InView.Model;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
@@ -28,17 +29,20 @@
     using EventHorizon.Game.Client.Systems.Local.Modules.State.Model;
     using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Model;
+    using MediatR;
 
     public class StandardServerEntity
         : ServerLifecycleEntityBase
     {
+        protected readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
+
         public StandardServerEntity(
             IObjectEntityDetails details
         ) : base(details)
         {
         }
 
-        public override Task Initialize()
+        public override async Task Initialize()
         {
             SetProperty(
                 "resolveHeight",
@@ -120,13 +124,12 @@
                 SelectedCompanionIndicatorModule.MODULE_NAME,
                 new StandardSelectedCompanionIndicatorModule(this)
             );
-            // TODO: Register Base Modules
-            //this._commandService.send(
-            //    createRegisterAllBaseModulesCommand({
-            //        entity: this,
-            //    })
-            //);
-            return Task.CompletedTask;
+
+            await _mediator.Send(
+                new RegisterAllBaseModulesOnEntityCommand(
+                    this
+                )
+            );
         }
 
         public override Task PostInitialize()

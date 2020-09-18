@@ -78,6 +78,12 @@
                     control.Value
                 );
             }
+            if (layoutControl.LinkWith != null)
+            {
+                control.Value.LinkWith(
+                    layoutControl.LinkWith
+                );
+            }
 
             foreach (var layoutChildControl in (layoutControl.ControlList ?? new List<IGuiLayoutControlData>()).OrderBy(a => a.Sort))
             {

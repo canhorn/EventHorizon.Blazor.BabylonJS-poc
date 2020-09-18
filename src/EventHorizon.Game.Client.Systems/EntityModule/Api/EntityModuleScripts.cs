@@ -1,6 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Api
 {
-    public interface IEntityModuleScripts
+    public interface EntityModuleScripts
     {
         public string Name { get; }
         public string InitializeScript { get; }
