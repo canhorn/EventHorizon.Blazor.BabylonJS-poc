@@ -11,5 +11,6 @@
             string id, 
             DialogTree config
         );
+        void Clear();
     }
 }

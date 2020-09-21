@@ -11,5 +11,6 @@
         void Remove(
             string id
         );
+        void Clear();
     }
 }

@@ -10,6 +10,13 @@
         public string? AccountLoginUrl { get; private set; }
         public IAccountInfo? User { get; private set; }
 
+        public void Reset()
+        {
+            AccessToken = null;
+            AccountLoginUrl = null;
+            User = null;
+        }
+
         public void SetAccountUser(
             IAccountInfo user
         )

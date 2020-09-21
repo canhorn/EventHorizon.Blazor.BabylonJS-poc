@@ -24,6 +24,11 @@
             );
         }
 
+        public void Reset()
+        {
+            _map.Clear();
+        }
+
         public void Set(
             ClientAsset clientAsset
         )

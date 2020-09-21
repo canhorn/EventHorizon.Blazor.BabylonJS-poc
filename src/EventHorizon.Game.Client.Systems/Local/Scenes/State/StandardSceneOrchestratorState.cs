@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Core.Exceptions;

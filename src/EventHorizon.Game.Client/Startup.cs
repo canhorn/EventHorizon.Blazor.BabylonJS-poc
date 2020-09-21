@@ -125,8 +125,8 @@
         private async Task Dispose()
         {
             _logger.LogInformation("Disposing");
-            await _engine.Dispose();
             await _gameService.Dispose();
+            await _engine.Dispose();
             //cleanUpSystemServices();
         }
 

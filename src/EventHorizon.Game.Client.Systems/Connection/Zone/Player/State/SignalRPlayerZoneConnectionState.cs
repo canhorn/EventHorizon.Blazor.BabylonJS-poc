@@ -171,6 +171,8 @@
                 code = "exception";
             }
 
+            _connection = null;
+
             return _mediator.Publish(
                 new PlayerZoneConnectionDisconnectedEvent(
                     code,
@@ -179,17 +181,18 @@
             );
         }
 
-        public Task StopConnection(
+        public async Task StopConnection(
             CancellationToken cancellationToken = default
         )
         {
             if (_connection == null)
             {
-                return Task.CompletedTask;
+                return;
             }
-            return _connection.StopAsync(
+            await _connection.StopAsync(
                 cancellationToken
             );
+            _connection = null;
         }
 
         public async Task InvokeMethod(

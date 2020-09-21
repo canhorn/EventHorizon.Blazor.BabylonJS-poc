@@ -4,10 +4,11 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Monitoring.Api;
     using EventHorizon.Game.Client.Engine.Canvas.Api;
-    using EventHorizon.Game.Client.Engine.Debugging.Model;
+    using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
     using EventHorizon.Game.Client.Engine.Services.Api;
+    using MediatR;
     using Microsoft.Extensions.Logging;
 
     public interface IEngine
@@ -23,15 +24,15 @@
     public class Engine : IEngine
     {
         private readonly ILogger _logger;
+        private readonly IMediator _mediator;
         private readonly IPlatformMonitor _platformMonitor;
         private readonly IGameService _gameService;
 
         private readonly IInitializeServices _initializeServices;
+        private readonly IDisposeServices _disposeServices;
 
-        //private readonly ICanvas _canvas;
         private readonly IRenderingEngine _renderingEngine;
         private readonly IRenderingScene _renderingScene;
-        //private readonly IRenderingGui _renderingGui;
 
         private readonly IRegisterInitializable _registerInitializable;
         private readonly IRegisterDisposable _registerDisposable;
@@ -41,15 +42,15 @@
 
         public Engine(
             ILogger<Engine> logger,
+            IMediator mediator,
             IPlatformMonitor platformMonitor,
             IGameService gameService,
 
             IInitializeServices initializeServices,
+            IDisposeServices disposeServices,
 
-            ICanvas canvas,
             IRenderingEngine renderingEngine,
             IRenderingScene renderingScene,
-            IRenderingGui renderingGui,
 
             IRegisterInitializable registerInitializable,
             IRegisterDisposable registerDisposable,
@@ -58,15 +59,15 @@
         )
         {
             _logger = logger;
+            _mediator = mediator;
             _platformMonitor = platformMonitor;
             _gameService = gameService;
 
             _initializeServices = initializeServices;
+            _disposeServices = disposeServices;
 
-            //_canvas = canvas;
             _renderingEngine = renderingEngine;
             _renderingScene = renderingScene;
-            //_renderingGui = renderingGui;
             _beforeRendering = beforeRendering;
 
             _registerInitializable = registerInitializable;
@@ -85,19 +86,6 @@
             _logger.LogDebug("Setup");
             _platformMonitor.TrackEvent("Game:Setup");
 
-            // Engine System Services
-            //setupEngineSystemServices();
-
-            // Particle Services
-            //setupParticleServices();
-
-            // Input services
-            //setupInputServices();
-
-            //if (debugEnabled())
-            //{
-            //    setupEngineDebugging();
-            //}
 
             return Task.CompletedTask;
         }
@@ -107,15 +95,7 @@
             _logger.LogDebug("Start");
             _platformMonitor.TrackEvent("Game:Start");
             _renderingScene.RegisterBeforeRender(
-                async () =>
-                {
-                    //var deltaTime = _renderingEngine.GetEngine().GetDeltaTime();
-                    //Console.WriteLine($"deltaTime: {deltaTime}");
-                    //using (DebuggingLogger.CreateLoggerGroup())
-                    //{
-                        await _registerUpdatable.Run();
-                    //}
-                }
+                () => _registerUpdatable.Run()
             );
             _renderingEngine.RunRenderLoop(
                 () =>
@@ -133,16 +113,6 @@
         {
             _logger.LogDebug("PreInitialize");
             _platformMonitor.TrackEvent("Game:PreInitialize:Start");
-
-            // Core 
-            //await _canvas.Initialize();
-            //await _renderingEngine.Initialize();
-            //await _renderingScene.Initialize();
-            //await _renderingGui.Initialize();
-
-            // Systems (Engine.System namespace)
-            // Loading (Engine.Loading namespace)
-            // Particle (Engine.Particle namespace)
 
             // Startup all Standard Registered IServiceEntities
             await _initializeServices.InitializeServices();
@@ -169,9 +139,13 @@
                 return;
             }
 
+            // Dispose of all Registered IServiceEntities
+            await _mediator.Publish(
+                new DisposeOfEngineEvent()
+            );
             await _registerDisposable.Run();
-            await _renderingScene.Dispose();
-            await _renderingEngine.Dispose();
+            await _disposeServices.DisposeServices();
+
             _disposed = true;
             _platformMonitor.TrackEvent("Game:End");
         }

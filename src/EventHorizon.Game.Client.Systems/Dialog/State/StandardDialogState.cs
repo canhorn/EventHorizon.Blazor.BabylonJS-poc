@@ -9,6 +9,11 @@
     {
         private readonly IDictionary<string, DialogTree> _map = new Dictionary<string, DialogTree>();
 
+        public void Clear()
+        {
+            _map.Clear();
+        }
+
         public Option<DialogTree> Get(
             string id
         )

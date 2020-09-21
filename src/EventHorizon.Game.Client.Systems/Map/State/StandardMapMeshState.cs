@@ -23,8 +23,8 @@
                         CurrentMap
                     )
                 );
-                CurrentMap = null;
             }
+            CurrentMap = null;
         }
 
         public async Task SetMap(

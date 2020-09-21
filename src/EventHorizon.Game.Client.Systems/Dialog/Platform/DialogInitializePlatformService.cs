@@ -37,7 +37,7 @@
 
         public Task Dispose()
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }

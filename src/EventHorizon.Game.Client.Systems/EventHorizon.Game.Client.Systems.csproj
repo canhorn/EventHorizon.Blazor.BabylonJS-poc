@@ -23,12 +23,8 @@
       <Folder Include="Combat\Skill\Model\" />
       <Folder Include="Connection\Zone\Player\Connected\" />
       <Folder Include="Connection\Zone\Player\Action\" />
-      <Folder Include="Local\Camera\Api\" />
       <Folder Include="Local\ScreenPointer\Api\" />
       <Folder Include="Map\Create\" />
-      <Folder Include="Particle\UnRegister\" />
-      <Folder Include="Particle\Register\" />
-      <Folder Include="Particle\State\" />
     </ItemGroup>
 
 </Project>

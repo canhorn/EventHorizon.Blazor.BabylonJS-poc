@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EventHorizon.Game.Client.Systems.Connection.Core.Api
 {
-    public interface ICoreConnectionState
+    public interface CoreConnectionState
     {
         bool IsConnected { get; }
         Task StartConnection(

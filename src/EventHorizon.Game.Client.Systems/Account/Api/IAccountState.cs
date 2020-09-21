@@ -14,5 +14,6 @@
         void SetAccountUser(
             IAccountInfo user
         );
+        void Reset();
     }
 }

@@ -36,7 +36,8 @@
                 await _mediator.Send(
                     new DisposeOfEntityCommand(
                         gui.Value
-                    )
+                    ),
+                    cancellationToken
                 );
                 _state.Remove(
                     gui.Value.GuiId

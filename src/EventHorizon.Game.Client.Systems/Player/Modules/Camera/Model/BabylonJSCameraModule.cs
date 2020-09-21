@@ -37,11 +37,7 @@
 
         public override async Task Initialize()
         {
-            await _mediator.Send(
-                new RegisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.RegisterObserver(this);
             await _mediator.Send(
                 new ManageCameraCommand(
                     PLAYER_UNIVERSAL_CAMERA_NAME,
@@ -71,11 +67,7 @@
 
         public override async Task Dispose()
         {
-            await _mediator.Send(
-                new UnregisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.UnRegisterObserver(this);
             await _mediator.Send(
                 new DisposeOfCameraCommand(
                     PLAYER_UNIVERSAL_CAMERA_NAME

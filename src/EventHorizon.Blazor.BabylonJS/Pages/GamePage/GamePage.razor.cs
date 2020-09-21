@@ -33,7 +33,7 @@
     [Authorize]
     public class GamePageModel
         : ComponentBase,
-        IDisposable
+        IAsyncDisposable
     {
         [Inject]
         public IStartup Startup { get; set; }
@@ -56,9 +56,9 @@
             }
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
-            Startup.Stop().ConfigureAwait(false).GetAwaiter().GetResult();
+            await Startup.Stop();
         }
 
         public async Task HandleStartGame()

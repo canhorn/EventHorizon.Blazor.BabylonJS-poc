@@ -11,7 +11,7 @@
     using Microsoft.Extensions.Logging;
 
     public class SignalRCoreConnectionState
-        : ICoreConnectionState
+        : CoreConnectionState
     {
         private HubConnection? _connection;
 
@@ -47,7 +47,7 @@
                         ),
                         options =>
                         {
-                             options.AccessTokenProvider = () => accessToken.FromResult();
+                            options.AccessTokenProvider = () => accessToken.FromResult();
                         }
                     ).ConfigureLogging(
                         builder =>
@@ -110,6 +110,8 @@
                 code = "exception";
             }
 
+            _connection = null;
+
             return _mediator.Publish(
                 new AccountDisconnectedEvent(
                     code,
@@ -118,10 +120,13 @@
             );
         }
 
-        public Task StopConnection()
+        public async Task StopConnection()
         {
-            return _connection?.StopAsync()
-                ?? Task.CompletedTask;
+            if (_connection.IsNotNull())
+            {
+                await _connection.StopAsync();
+            }
+            _connection = null;
         }
     }
 }

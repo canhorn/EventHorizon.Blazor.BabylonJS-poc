@@ -44,16 +44,13 @@
 
         public override async Task Initialize()
         {
-            await _mediator.Send(
-                new RegisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.RegisterObserver(this);
             await LoadModelAsset();
         }
 
         public override Task Dispose()
         {
+            GamePlatfrom.UnRegisterObserver(this);
             return Task.CompletedTask;
         }
 
@@ -89,12 +86,11 @@
                 ))
                 {
                     var animationList = animationListRaw
-                        .Cast<IEnumerable<object>>()
-                        .Cast<IAnimationGroup>();
+                        .Cast<IEnumerable<IAnimationGroup>>() ?? new List<IAnimationGroup>();
                     await _mediator.Publish(
                         new AnimationListLoadedEvent(
                             _entity.ClientId,
-                            animationList ?? new List<IAnimationGroup>()
+                            animationList
                         )
                     );
                     await _mediator.Publish(

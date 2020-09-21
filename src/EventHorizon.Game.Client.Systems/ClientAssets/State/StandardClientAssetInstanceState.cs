@@ -39,5 +39,10 @@
                 id
             );
         }
+
+        public void Clear()
+        {
+            _map.Clear();
+        }
     }
 }

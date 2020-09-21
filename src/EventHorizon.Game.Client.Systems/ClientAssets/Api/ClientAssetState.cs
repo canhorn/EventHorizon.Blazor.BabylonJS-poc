@@ -8,5 +8,6 @@
         void Set(
             ClientAsset clientAsset
         );
+        void Reset();
     }
 }

@@ -21,7 +21,6 @@
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedTracker.Model;
     using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Model;
-    using MediatR;
 
     public class BabylonJSPlayerEntity
         : StandardServerEntity,

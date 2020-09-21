@@ -3,7 +3,6 @@
     using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Canvas.Model;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Gui.Canvas;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
@@ -13,7 +12,7 @@
     {
         private IGuiCanvas? _guiCanvas;
 
-        public int Priority { get; }
+        public int Priority => 0;
 
         public IGuiCanvas GetGuiCanvas()
         {

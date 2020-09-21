@@ -35,13 +35,9 @@
             _mediator = GameServiceProvider.GetService<IMediator>();
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await _mediator.Send(
-                new RegisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.RegisterObserver(this);
             SetProperty(
                 IModelState.NAME,
                 new ModelStateModel
@@ -81,6 +77,8 @@
             //        this
             //    )
             //);
+
+            return Task.CompletedTask;
         }
 
         public override Task PostInitialize()
@@ -88,14 +86,10 @@
             return base.PostInitialize();
         }
 
-        public override async Task Dispose()
+        public override Task Dispose()
         {
-            await _mediator.Send(
-                new UnregisterObserverCommand(
-                    this
-                )
-            );
-            await base.Dispose();
+            GamePlatfrom.UnRegisterObserver(this);
+            return base.Dispose();
         }
 
         public override Task Draw()

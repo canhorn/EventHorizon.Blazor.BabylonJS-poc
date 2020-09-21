@@ -28,17 +28,17 @@
             _entity = entity;
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await _mediator.Send(
-                new RegisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.RegisterObserver(this);
+
+            return Task.CompletedTask;
         }
 
         public override Task Dispose()
         {
+            GamePlatfrom.UnRegisterObserver(this);
+
             return Task.CompletedTask;
         }
 

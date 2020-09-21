@@ -6,6 +6,7 @@
     {
         Option<IPlayerEntity> Player { get; }
 
+        void Reset();
         public void Set(
             IPlayerEntity player
         );

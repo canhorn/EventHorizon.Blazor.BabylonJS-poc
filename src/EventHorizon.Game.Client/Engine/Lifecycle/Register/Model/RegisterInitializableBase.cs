@@ -12,29 +12,29 @@
     using Microsoft.Extensions.Logging;
 
     public class RegisterInitializableBase
-        : RegisterBase<IInitializableEntity>, IRegisterInitializable
+        : RegisterBase<IInitializableEntity>, 
+        IRegisterInitializable
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
-        private readonly ITimerService _timerService;
+        private readonly IIntervalTimerService _intervalTimer;
 
         public RegisterInitializableBase(
             ILogger<RegisterInitializableBase> logger,
             IMediator mediator,
-            IFactory<ITimerService> timerServiceFactory
+            IFactory<IIntervalTimerService> intervalTimerFactory
         )
         {
             _logger = logger;
             _mediator = mediator;
-            _timerService = timerServiceFactory.Create();
+            _intervalTimer = intervalTimerFactory.Create();
+            _intervalTimer.Setup(
+                100, 
+                HandleRun
+            );
         }
 
-        private void HandleRun()
-        {
-            Run().ConfigureAwait(false).GetAwaiter().GetResult();
-        }
-
-        public override async Task Run()
+        private async Task HandleRun()
         {
             var list = _entityList.ToList();
             _entityList.Clear();
@@ -73,12 +73,19 @@
                     );
                 }
             }
-            _timerService.SetTimer(100, HandleRun);
+        }
+
+        public override Task Run()
+        {
+            _intervalTimer.Start();
+
+            return Task.CompletedTask;
         }
 
         public override Task CleanUp()
         {
-            _timerService.Clear();
+            _intervalTimer.Pause();
+            _entityList.Clear();
             return base.CleanUp();
         }
     }

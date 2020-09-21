@@ -14,5 +14,6 @@
             string id,
             IEngineMesh mesh
         );
+        void Clear();
     }
 }

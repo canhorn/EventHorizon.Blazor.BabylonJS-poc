@@ -88,6 +88,7 @@
 
         public override Task Dispose()
         {
+            GamePlatfrom.UnRegisterObserver(this);
             if (_timer != null)
             {
                 _timer.Dispose();

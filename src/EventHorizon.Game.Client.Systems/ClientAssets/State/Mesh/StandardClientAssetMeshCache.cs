@@ -16,6 +16,15 @@
             id
         );
 
+        public void Clear()
+        {
+            foreach (var cachedMesh in _cacheMap)
+            {
+                cachedMesh.Value.Dispose();
+            }
+            _cacheMap.Clear();
+        }
+
         public Option<IEngineMesh> Get(
             string id
         )

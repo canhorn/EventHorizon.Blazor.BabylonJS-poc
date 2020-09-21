@@ -9,11 +9,11 @@
     public class StartCoreServerConnectionCommandHandler
         : IRequestHandler<StartCoreServerConnectionCommand, bool>
     {
-        private readonly ICoreConnectionState _state;
+        private readonly CoreConnectionState _state;
         private readonly IGameSettings _settings;
 
         public StartCoreServerConnectionCommandHandler(
-            ICoreConnectionState state, 
+            CoreConnectionState state, 
             IGameSettings settings
         )
         {

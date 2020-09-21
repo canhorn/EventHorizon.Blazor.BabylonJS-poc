@@ -9,7 +9,7 @@
         public static IServiceCollection AddCoreConnectionServices(
             this IServiceCollection services
         ) => services
-            .AddSingleton<ICoreConnectionState, SignalRCoreConnectionState>()
+            .AddSingleton<CoreConnectionState, SignalRCoreConnectionState>()
         ;
     }
 }

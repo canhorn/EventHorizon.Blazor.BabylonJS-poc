@@ -45,11 +45,7 @@
             _stateModule = _entity.GetModule<IStateModule>(
                 IStateModule.MODULE_NAME
             );
-            await _mediator.Send(
-                new RegisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.RegisterObserver(this);
             if (_currentMoveTo.IsNotNull())
             {
                 await SetMoveTo(
@@ -58,13 +54,11 @@
             }
         }
 
-        public override async Task Dispose()
+        public override Task Dispose()
         {
-            await _mediator.Send(
-                new UnregisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.RegisterObserver(this);
+
+            return Task.CompletedTask;
         }
 
         public override Task Update()

@@ -14,5 +14,6 @@
         Option<IClientScript> GetScript(
             string id
         );
+        void Reset();
     }
 }

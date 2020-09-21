@@ -9,5 +9,6 @@
         void Set(
             EntityModuleScripts baseModule
         );
+        void Reset();
     }
 }

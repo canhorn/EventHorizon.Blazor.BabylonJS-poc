@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Info
 {
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Configuration;

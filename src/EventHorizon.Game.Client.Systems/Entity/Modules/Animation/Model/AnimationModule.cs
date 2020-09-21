@@ -48,7 +48,7 @@
             _entity = entity;
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
             _intervalTimer.Setup(
                 100,
@@ -56,21 +56,17 @@
             );
             _intervalTimer.Start();
 
-            await _mediator.Send(
-                new RegisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.RegisterObserver(this);
+
+            return Task.CompletedTask;
         }
 
-        public override async Task Dispose()
+        public override Task Dispose()
         {
             _intervalTimer.Dispose();
-            await _mediator.Send(
-                new UnregisterObserverCommand(
-                    this
-                )
-            );
+            GamePlatfrom.UnRegisterObserver(this);
+
+            return Task.CompletedTask;
         }
 
         public override Task Update()

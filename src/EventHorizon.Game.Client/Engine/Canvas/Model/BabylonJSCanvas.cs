@@ -7,8 +7,6 @@
     using EventHorizon.Game.Client.Engine.Canvas.Initialized;
     using EventHorizon.Game.Client.Engine.Canvas.Reset;
     using EventHorizon.Game.Client.Engine.Settings.Api;
-    using EventHorizon.Observer.Register;
-    using EventHorizon.Observer.Unregister;
     using MediatR;
 
     public class BabylonJSCanvas
@@ -33,23 +31,21 @@
 
         public T GetDrawingCanvas<T>() where T : class
         {
-            if(_canvas is T typedCanvas)
+            if (_canvas is T typedCanvas)
             {
                 return typedCanvas;
             }
             throw new GameRuntimeException(
                 "canvas_not_initialized",
-                "Canvas is not Intialized"
+                "Canvas is not Initialized"
             );
         }
 
         public async Task Initialize()
         {
             // Register Observer
-            await _mediator.Send(
-                new RegisterObserverCommand(this)
-            );
-            if(_gameSettings.CanvasTagId.IsNull())
+            GamePlatfrom.RegisterObserver(this);
+            if (_gameSettings.CanvasTagId.IsNull())
             {
                 throw new Exception();
             }
@@ -61,12 +57,12 @@
             );
         }
 
-        public async Task Dispose()
+        public Task Dispose()
         {
-            await _mediator.Send(
-                new UnregisterObserverCommand(this)
-            );
+            GamePlatfrom.UnRegisterObserver(this);
             _canvas = null;
+
+            return Task.CompletedTask;
         }
 
         public async Task Handle(

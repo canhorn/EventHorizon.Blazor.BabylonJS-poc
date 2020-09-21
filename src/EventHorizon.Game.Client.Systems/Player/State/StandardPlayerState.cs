@@ -8,6 +8,11 @@
     {
         public Option<IPlayerEntity> Player { get; private set; } = new Option<IPlayerEntity>(null);
 
+        public void Reset()
+        {
+            Player = new Option<IPlayerEntity>(null);
+        }
+
         public void Set(
             IPlayerEntity player
         )

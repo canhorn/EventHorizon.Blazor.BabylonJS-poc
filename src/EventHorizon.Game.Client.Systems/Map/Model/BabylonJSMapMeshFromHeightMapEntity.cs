@@ -104,9 +104,7 @@
 
             if (_mesh.isPickable)
             {
-                await _mediator.Send(
-                    new RegisterObserverCommand(this)
-                );
+                GamePlatfrom.RegisterObserver(this);
             }
         }
 
@@ -124,14 +122,12 @@
             }
         }
 
-        public override async Task Dispose()
+        public override Task Dispose()
         {
-            await _mediator.Send(
-                new UnregisterObserverCommand(this)
-            );
+            GamePlatfrom.UnRegisterObserver(this);
             _mesh?.dispose();
 
-            await base.Dispose();
+            return base.Dispose();
         }
 
         public override Task Update()

@@ -10,6 +10,7 @@
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Systems.Account.Setup;
     using EventHorizon.Game.Client.Systems.Connection.Core.Start;
+    using EventHorizon.Game.Client.Systems.Connection.Core.Stop;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Create;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Start;
@@ -18,16 +19,17 @@
     {
         public WorldCamera _startupCamera;
 
-        public override Task Dispose()
+        public override async Task Dispose()
         {
-            return Task.CompletedTask;
+            // Start Connection to Core Server
+            await _mediator.Send(
+                new StopCoreServerConnectionCommand()
+            );
         }
 
-        public override async Task Initialize()
+        public override Task Initialize()
         {
-            await _mediator.Send(
-                new StartDefaultSceneCommand()
-            );
+            return Task.CompletedTask;
         }
 
         public override async Task Setup()
@@ -73,9 +75,12 @@
             );
         }
 
-        public override Task Start()
+        public override async Task Start()
         {
-            return Task.CompletedTask;
+            Console.WriteLine("Start");
+            await _mediator.Send(
+                new StartDefaultSceneCommand()
+            );
         }
 
         public override Task Update()

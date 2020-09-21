@@ -32,6 +32,13 @@
             _logger = logger;
         }
 
+        public void Reset()
+        {
+            _scriptAssembly = null;
+            Hash = string.Empty;
+            _scripts.Clear();
+        }
+
         public void SetScriptAssembly(
             string hash,
             Assembly scriptAssembly

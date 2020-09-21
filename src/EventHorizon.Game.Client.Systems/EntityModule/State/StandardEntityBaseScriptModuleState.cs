@@ -14,6 +14,11 @@
             return _map.Values;
         }
 
+        public void Reset()
+        {
+            _map.Clear();
+        }
+
         public void Set(
             EntityModuleScripts baseModule
         )

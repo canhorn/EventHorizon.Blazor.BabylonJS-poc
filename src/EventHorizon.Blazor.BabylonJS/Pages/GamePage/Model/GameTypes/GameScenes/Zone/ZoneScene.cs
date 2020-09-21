@@ -7,6 +7,7 @@
     using EventHorizon.Game.Client.Systems.Account.Api;
     using EventHorizon.Game.Client.Systems.Account.Changed;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
+    using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Stop;
     using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
     using Microsoft.Extensions.Logging;
 
@@ -17,6 +18,8 @@
         private readonly IAccountState _accountState = GameServiceProvider.GetService<IAccountState>();
         private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<ZoneScene>>();
         private readonly ExampleGuiLoader _exampleGui = new ExampleGuiLoader();
+
+        private string _serverAddress = string.Empty;
 
         public ZoneScene()
             : base("zone")
@@ -51,6 +54,14 @@
             GamePlatfrom.UnRegisterObserver(
                 this
             );
+            if (!string.IsNullOrEmpty(_serverAddress))
+            {
+                await _mediator.Send(
+                    new StopPlayerZoneConnectionCommand(
+                        _serverAddress
+                    )
+                );
+            }
             await base.Dispose();
         }
 
@@ -84,11 +95,11 @@
                 )
             )
             {
-                var serverAddress = _accountState.User.Zone.ServerAddress;
+                _serverAddress = _accountState.User.Zone.ServerAddress;
                 _logger.LogDebug($"Started Player Connection {DateTime.UtcNow}");
                 await _mediator.Send(
                     new StartPlayerZoneConnectionCommand(
-                        serverAddress
+                        _serverAddress
                     )
                 );
             }
