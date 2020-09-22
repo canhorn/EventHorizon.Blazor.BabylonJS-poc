@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using EventHorizon.Game.Client.Systems.ServerModule.Api;
     using EventHorizon.Game.Client.Systems.ServerModule.State;

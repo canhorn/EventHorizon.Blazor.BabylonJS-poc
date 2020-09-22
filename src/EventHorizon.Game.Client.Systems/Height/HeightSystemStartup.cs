@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Height
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using EventHorizon.Game.Client.Systems.Height.Api;
     using EventHorizon.Game.Client.Systems.Height.State;

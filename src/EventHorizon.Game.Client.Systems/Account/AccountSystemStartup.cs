@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client.Account
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using EventHorizon.Game.Client.Systems.Account.Api;
     using EventHorizon.Game.Client.Systems.Account.State;

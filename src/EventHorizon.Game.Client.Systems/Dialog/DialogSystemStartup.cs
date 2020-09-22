@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Dialog
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using System;
     using EventHorizon.Game.Client.Engine.Lifecycle.Api;

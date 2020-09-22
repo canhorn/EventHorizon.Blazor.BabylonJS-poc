@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Scenes
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using EventHorizon.Game.Client.Systems.Local.Scenes.Api;
     using EventHorizon.Game.Client.Systems.Local.Scenes.State;

@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Connection
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using EventHorizon.Game.Client.Systems.Connection.Core;
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player;

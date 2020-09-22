@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using System;
     using EventHorizon.Game.Client.Engine.Scripting.Services;

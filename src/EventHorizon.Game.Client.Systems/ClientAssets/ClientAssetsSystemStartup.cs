@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using System.Collections.Generic;
     using EventHorizon.Game.Client.Core.Builder.Api;

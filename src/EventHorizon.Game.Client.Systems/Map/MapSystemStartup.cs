@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Map
+﻿namespace EventHorizon.Game.Client.Systems
 {
     using EventHorizon.Game.Client.Core.Mapper.Api;
     using EventHorizon.Game.Client.Core.Mapper.Model;
