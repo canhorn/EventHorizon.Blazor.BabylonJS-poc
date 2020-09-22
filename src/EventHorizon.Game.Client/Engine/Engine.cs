@@ -3,7 +3,6 @@
     using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Monitoring.Api;
-    using EventHorizon.Game.Client.Engine.Canvas.Api;
     using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
     using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
     using EventHorizon.Game.Client.Engine.Rendering.Api;

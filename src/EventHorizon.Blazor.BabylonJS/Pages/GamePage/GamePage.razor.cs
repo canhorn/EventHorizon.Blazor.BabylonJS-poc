@@ -2,7 +2,6 @@
 {
     using System;
     using global::BabylonJS;
-    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model;
     using EventHorizon.Game.Client;
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Web;
@@ -25,10 +24,11 @@
     using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Core.I18n.Set;
     using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.Account.Query;
     using EventHorizon.Game.Client.Engine.Particle.Api;
     using EventHorizon.Game.Client.Engine.Particle.Model;
     using EventHorizon.Game.Client.Engine.Particle.Add;
+    using BlazorPro.BlazorSize;
+    using EventHorizon.Game.Client.Engine.Window.Resize;
 
     [Authorize]
     public class GamePageModel
@@ -45,6 +45,8 @@
         public IConfiguration Configuration { get; set; }
         [Inject]
         IAccessTokenProvider TokenProvider { get; set; }
+        [Inject]
+        ResizeListener ResizeListener { get; set; }
 
         protected override async Task OnAfterRenderAsync(
             bool firstRender
@@ -52,6 +54,7 @@
         {
             if (firstRender)
             {
+                ResizeListener.OnResized += WindowResized;
                 await StartGame_ByClient();
             }
         }
@@ -59,6 +62,7 @@
         public async ValueTask DisposeAsync()
         {
             await Startup.Stop();
+            ResizeListener.OnResized -= WindowResized;
         }
 
         public async Task HandleStartGame()
@@ -285,6 +289,13 @@
                 );
                 throw;
             }
+        }
+
+        private void WindowResized(object _, BrowserWindowSize __)
+        {
+            Mediator.Publish(
+                new SystemWindowResizedEvent()
+            );
         }
     }
 }

@@ -18,6 +18,7 @@ namespace EventHorizon.Blazor.BabylonJS
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Configuration;
     using EventHorizon.Game.Server;
+    using BlazorPro.BlazorSize;
 
     public class Program
     {
@@ -54,6 +55,8 @@ namespace EventHorizon.Blazor.BabylonJS
                         opts.SupportedUICultures = supportedCultures;
                     })
                 ;
+
+            builder.Services.AddScoped<ResizeListener>();
 
             // Add ExternalServices
             // Observer State Manager 

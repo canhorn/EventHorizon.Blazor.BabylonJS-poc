@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using BabylonJS;
     using EventHorizon.Game.Client.Engine.Rendering.Api;
+    using EventHorizon.Game.Client.Engine.Window.Resize;
 
     public class MyEngineOptions : EngineOptionsCachedEntity
     {
@@ -11,7 +12,8 @@
     }
 
     public class BabylonJSEngineImplementation
-        : IEngineImplementation
+        : IEngineImplementation,
+        SystemWindowResizedEventObserver
     {
         public BabylonJS.Engine Engine { get; }
 
@@ -25,6 +27,7 @@
             {
                 preserveDrawingBuffer = preserveDrawingBuffer,
             });
+            GamePlatfrom.RegisterObserver(this);
         }
 
         public void DisplayLoadingUI()
@@ -35,6 +38,7 @@
         public void Dispose()
         {
             Engine.dispose();
+            GamePlatfrom.UnRegisterObserver(this);
         }
 
         public long GetDeltaTime()
@@ -50,6 +54,15 @@
         public string RunRenderLoop(Func<Task> action)
         {
             return Engine.runRenderLoop(action);
+        }
+
+        public Task Handle(
+            SystemWindowResizedEvent args
+        )
+        {
+            Engine.resize();
+
+            return Task.CompletedTask;
         }
     }
 }
