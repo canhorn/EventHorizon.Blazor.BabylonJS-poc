@@ -61,12 +61,6 @@
                 request.GuiId,
                 builtControl
             );
-            if (request.Control.LinkWith != null)
-            {
-                builtControl.LinkWith(
-                    request.Control.LinkWith
-                );
-            }
 
             return new StandardCommandResult()
                 .FromResult();
