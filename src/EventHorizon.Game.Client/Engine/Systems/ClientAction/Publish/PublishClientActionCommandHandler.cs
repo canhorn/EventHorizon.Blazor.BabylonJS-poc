@@ -75,11 +75,10 @@
                 out var argument
             ))
             {
-                // TODO: Update to use a IMapper
-                var resolver = GameServiceProvider.GetService__UNSAFE<IMapper<T>>();
-                if (resolver.IsNotNull())
+                var mapper = GameServiceProvider.GetService__UNSAFE<IMapper<T>>();
+                if (mapper.IsNotNull())
                 {
-                    return resolver.Map(
+                    return mapper.Map(
                         argument
                     );
                 }
