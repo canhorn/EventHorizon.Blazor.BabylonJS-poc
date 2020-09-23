@@ -14,14 +14,12 @@
         : IClientAction
     {
         public string Hash { get; }
-        public string ScriptAssembly { get; }
 
         public ClientActionClientScriptsAssemblyChangedEvent(
             IClientActionDataResolver resolver
         )
         {
             Hash = resolver.Resolve<string>("hash");
-            ScriptAssembly = resolver.Resolve<string>("scriptAssembly");
         }
     }
 

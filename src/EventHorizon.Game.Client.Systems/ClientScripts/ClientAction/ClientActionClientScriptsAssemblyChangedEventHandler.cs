@@ -4,11 +4,10 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Systems.ClientScripts.Api;
+    using EventHorizon.Game.Client.Systems.ClientScripts.Fetch;
     using EventHorizon.Game.Client.Systems.ClientScripts.Scripting.ClientAction;
     using EventHorizon.Game.Client.Systems.ClientScripts.Set;
-    using EventHorizon.Game.Server.ServerModule.BackToMenu.Reload;
     using MediatR;
-    using Newtonsoft.Json.Serialization;
 
     public class ClientActionClientScriptsAssemblyChangedEventHandler
         : INotificationHandler<ClientActionClientScriptsAssemblyChangedEvent>
@@ -32,19 +31,21 @@
         {
             if (notification.Hash != _state.Hash)
             {
-                await _mediator.Send(
-                    new TriggerPageReloadCommand(),
+                var result = await _mediator.Send(
+                    new FetchClientScriptsAssembly(),
                     cancellationToken
                 );
+                if (result.Success)
+                {
+                    await _mediator.Send(
+                        new SetClientScriptsAssemblyCommand(
+                            notification.Hash,
+                            result.Result.ScriptAssembly
+                        ),
+                        cancellationToken
+                    );
+                }
             }
-            // TODO: [SCRIPTING] - Look at how to support live reloading of scripts.
-            //await _mediator.Send(
-            //    new SetClientScriptsAssemblyCommand(
-            //        notification.Hash,
-            //        notification.ScriptAssembly
-            //    ),
-            //    cancellationToken
-            //);
         }
     }
 }
