@@ -80,7 +80,6 @@
             );
             Func<Task> InitScriptHandler = async () =>
             {
-                // TODO: Run Script
                 var scriptId = "Actions_TestActionScript";
                 var scriptData = new Dictionary<string, object>();
                 await _mediator.Send(
@@ -93,7 +92,6 @@
             };
             Func<Task> TriggerScriptObserverHandler = async () =>
             {
-                // TODO: Trigger Script Observer
                 await _mediator.Publish(
                     new ScriptTestingEvent()
                 );
