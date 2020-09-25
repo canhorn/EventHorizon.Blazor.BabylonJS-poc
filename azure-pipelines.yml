@@ -14,6 +14,12 @@ steps:
     releaseType: stable
 
 - task: Docker@2
+  displayName: Login to Personal ACR
+  inputs:
+    command: login
+    containerRegistry: eventHorizonGamesConnection
+    
+- task: Docker@2
   displayName: Build Image - Base EventHorizon.Blazor.BabylonJS 
   inputs: 
     command: build

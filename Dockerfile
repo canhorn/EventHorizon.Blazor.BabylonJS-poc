@@ -7,19 +7,19 @@ WORKDIR /source
 
 ENV PATH="$PATH:/root/.dotnet/tools"
 
-# Install Source Code Generation Tool
-RUN dotnet tool install --global EventHorizon.Blazor.TypeScript.Interop.Tool --version 0.1.12
-
 COPY ./*.sln ./
 
-# Copy the source project files
-## Shared
-COPY src/Shared/_generated/Blazor.BabylonJS.WASM/Blazor.BabylonJS.WASM.csproj ./src/Shared/_generated/Blazor.BabylonJS.WASM/Blazor.BabylonJS.WASM.csproj
+# Install Source Code Generation Tool
+# RUN dotnet tool install --global EventHorizon.Blazor.TypeScript.Interop.Tool --version 0.1.12
 
 ### Build _generated/Blazor.BabylonJS.WASM from scratch
 # RUN mkdir -p ./src/Shared && \ 
 #     cd ./src/Shared && \
 #     ehz-generate -f -a Blazor.BabylonJS.WASM -s https://raw.githubusercontent.com/BabylonJS/Babylon.js/master/dist/babylon.d.ts -s https://raw.githubusercontent.com/BabylonJS/Babylon.js/master/dist/gui/babylon.gui.d.ts -c Button -c MeshBuilder -c PointLight -c StandardMaterial -c HemisphericLight -c UniversalCamera -c Grid -c StackPanel -c SceneLoader -c BoundingBoxGizmo -c ArcFollowCamera -c ScrollViewer
+
+# Copy the source project files
+## Generated - Blazor.BabylonJS.WASM
+COPY src/Shared/_generated/Blazor.BabylonJS.WASM/Blazor.BabylonJS.WASM.csproj ./src/Shared/_generated/Blazor.BabylonJS.WASM/Blazor.BabylonJS.WASM.csproj
 
 ## Main
 COPY src/EventHorizon.Blazor.BabylonJS/EventHorizon.Blazor.BabylonJS.csproj ./src/EventHorizon.Blazor.BabylonJS/EventHorizon.Blazor.BabylonJS.csproj
