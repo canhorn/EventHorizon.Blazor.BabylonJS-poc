@@ -7,3 +7,5 @@
 **/appsettings.*.json
 **/certificate.pfx
 **/global.json
+azure-pipeline.yml
+readme.md
