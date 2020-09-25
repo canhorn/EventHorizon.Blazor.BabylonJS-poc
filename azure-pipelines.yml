@@ -59,6 +59,7 @@ steps:
     tags: |
       latest
       
-- script: docker run --rm --name push-packages ehz/game/client/packages:latest --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+- script: docker run --rm --name push-packages ACR_NAME.azurecr.io/ehz/game/client/packages:latest --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
   env:
+    ACR_NAME: $(ACR_NAME)
     NUGET_API_KEY: $(NUGET_API_KEY)
