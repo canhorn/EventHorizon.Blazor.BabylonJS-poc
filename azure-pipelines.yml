@@ -20,9 +20,9 @@ steps:
     containerRegistry: eventHorizonGamesConnection
     
 - task: Docker@2
-  displayName: Build and Push Image - Base EventHorizon.Blazor.BabylonJS 
+  displayName: Build Image - Base EventHorizon.Blazor.BabylonJS 
   inputs: 
-    command: buildAndPush
+    command: build
     containerRegistry: eventHorizonGamesConnection
     buildContext: $(Build.SourcesDirectory)
     repository: ehz/game/client
@@ -31,13 +31,31 @@ steps:
       latest
 
 - task: Docker@2
-  displayName: Build and Push Image - Packages EventHorizon.Blazor.BabylonJS
+  displayName: Build Image - Packages EventHorizon.Blazor.BabylonJS
   inputs: 
-    command: buildAndPush
+    command: build
     containerRegistry: eventHorizonGamesConnection
     buildContext: $(Build.SourcesDirectory)
     repository: ehz/game/client/packages
     arguments: --build-arg Version=$(Build.BuildNumber)
+    tags: |
+      latest
+    
+- task: Docker@2
+  displayName: Push Image - Base EventHorizon.Blazor.BabylonJS 
+  inputs: 
+    command: push
+    containerRegistry: eventHorizonGamesConnection
+    repository: ehz/game/client
+    tags: |
+      latest
+
+- task: Docker@2
+  displayName: Push Image - Packages EventHorizon.Blazor.BabylonJS
+  inputs: 
+    command: push
+    containerRegistry: eventHorizonGamesConnection
+    repository: ehz/game/client/packages
     tags: |
       latest
       
