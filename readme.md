@@ -65,11 +65,28 @@ The SDK project is the single project that pulls all of the packages together fo
 - (Optional) Add the "RootNamespace" to PropertyGroup
   - This hints to the editor that new files should start at the root of 'EventHorizon.Game.Server.ServerModule' for example, instead of 'EventHorizon.Game.Server.ServerModule.Api' that the folder and csproj could be named after.
 
- ~~~ xml
-    <PropertyGroup>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageId>[[PROJECT]]$(PackageIdPostfix)</PackageId>
-        <RepositoryUrl>[[HOSTED_REPOSITORY]]</RepositoryUrl>
-        <Description>[[PROJECT_DESCRIPTION]]</Description>
-    </PropertyGroup>
- ~~~
+~~~ xml
+<PropertyGroup>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>[[PROJECT]]$(PackageIdPostfix)</PackageId>
+    <RepositoryUrl>[[HOSTED_REPOSITORY]]</RepositoryUrl>
+    <Description>[[PROJECT_DESCRIPTION]]</Description>
+</PropertyGroup>
+~~~
+
+## Docker Build
+
+~~~
+# Build Runtime Docker Image
+docker build --build-arg Version=0.1.0 -f Dockerfile -t ehz/game/client:0.1.0 .
+
+# Build NuGet Push Docker Image
+docker build --target dotnet-nuget-push --build-arg Version=0.1.0 -f Dockerfile -t ehz/game/client/packages:0.1.0 .
+
+# Run Image (uses appsettings.Production.json for settings, not included by default)
+docker run -it --rm --name nu-client -v "$(PWD)/src/EventHorizon.Blazor.BabylonJS/wwwroot/appsettings.Production.json:/app/wwwroot/appsettings.json" -p 5000:80 ehz/game/nu_client:latest
+
+# Run NuGet Push
+docker run --rm --name push-packages ehz/game/client/packages:0.1.0 --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_ORG_KEY
+
+~~~

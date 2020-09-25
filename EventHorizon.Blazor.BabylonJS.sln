@@ -44,11 +44,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{FCA498
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Client.Systems.Api", "src\SDK\EventHorizon.Game.Client.Systems.Api\EventHorizon.Game.Client.Systems.Api.csproj", "{B9F0908B-B7E3-44E2-B8D4-2C08B3524422}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Server.Api", "src\SDK\Server\EventHorizon.Game.Server.Api\EventHorizon.Game.Server.Api.csproj", "{21BBC196-55C2-46C5-A6C1-ABFDF312A362}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server.Api", "src\SDK\Server\EventHorizon.Game.Server.Api\EventHorizon.Game.Server.Api.csproj", "{21BBC196-55C2-46C5-A6C1-ABFDF312A362}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{F618DF54-0226-45C8-B06D-145C462D9570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Server", "src\Server\EventHorizon.Game.Server\EventHorizon.Game.Server.csproj", "{4B559D52-FD1B-42B1-8410-473DD8930537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server", "src\Server\EventHorizon.Game.Server\EventHorizon.Game.Server.csproj", "{4B559D52-FD1B-42B1-8410-473DD8930537}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Blazor.BabylonJS.Server", "src\EventHorizon.Blazor.BabylonJS.Server\EventHorizon.Blazor.BabylonJS.Server.csproj", "{99822E0B-DF08-4A5A-B008-EF828A9064FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +118,10 @@ Global
 		{4B559D52-FD1B-42B1-8410-473DD8930537}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B559D52-FD1B-42B1-8410-473DD8930537}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B559D52-FD1B-42B1-8410-473DD8930537}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,6 +146,7 @@ Global
 		{21BBC196-55C2-46C5-A6C1-ABFDF312A362} = {FCA4985C-A237-495E-856D-1734249DA5E5}
 		{F618DF54-0226-45C8-B06D-145C462D9570} = {072FB275-8291-4979-B319-22237D5E7C6E}
 		{4B559D52-FD1B-42B1-8410-473DD8930537} = {F618DF54-0226-45C8-B06D-145C462D9570}
+		{99822E0B-DF08-4A5A-B008-EF828A9064FF} = {072FB275-8291-4979-B319-22237D5E7C6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9497D11D-7D24-4DE2-A904-0ADE224939B6}
