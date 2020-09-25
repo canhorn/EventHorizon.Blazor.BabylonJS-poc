@@ -16,7 +16,7 @@ steps:
     containerRegistry: eventHorizonGamesConnection
     buildContext: $(Build.SourcesDirectory)
     repository: ehz/game/client
-    arguments: Version=$(Build.BuildNumber)
+    arguments: --build-arg Version=$(Build.BuildNumber)
     tags: |
       latest
 
@@ -27,6 +27,6 @@ steps:
     containerRegistry: eventHorizonGamesConnection
     buildContext: $(Build.SourcesDirectory)
     repository: ehz/game/client/packages
-    arguments: Version=$(Build.BuildNumber)
+    arguments: --build-arg Version=$(Build.BuildNumber)
     tags: |
       latest
