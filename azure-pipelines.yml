@@ -18,6 +18,11 @@ steps:
   inputs:
     command: login
     containerRegistry: eventHorizonGamesConnection
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'env | sort'
     
 - task: Docker@2
   displayName: Build Image - Base EventHorizon.Blazor.BabylonJS 
