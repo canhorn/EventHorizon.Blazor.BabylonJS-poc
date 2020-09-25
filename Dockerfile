@@ -1,8 +1,5 @@
-# Stage 1 - Build .NET Project
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-build
-
-ARG Version 
-
+# Stage 1 - Restore .NET Project
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-restore
 WORKDIR /source
 
 ENV PATH="$PATH:/root/.dotnet/tools"
@@ -46,6 +43,13 @@ COPY src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj ./src/S
 
 RUN dotnet restore
 
+# Stage 2 - Build .NET Project
+FROM dotnet-restore AS dotnet-build
+
+ARG Version 
+
+WORKDIR /source
+
 COPY ./src ./src
 RUN dotnet build /p:Version=$Version -c Release --no-restore
 
@@ -54,7 +58,7 @@ RUN dotnet publish /p:Version=$Version --output /app/ --configuration Release --
 # RUN dotnet pack /p:Version=$Version --output /publish/ --configuration Release --no-restore --no-build
 RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts/
 
-# Stage 2 - Publish to NuGet
+# Stage 3 - Publish to NuGet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
 WORKDIR /app
 COPY --from=dotnet-build /artifacts .
@@ -62,7 +66,7 @@ RUN find . -name '*.nupkg' -ls
 ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
 CMD ["--source", "https://api.nuget.org/v3/index.json"]
 
-# Stage 3 - Runtime
+# Stage 4 - Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 WORKDIR /app
 COPY --from=dotnet-build /app .
