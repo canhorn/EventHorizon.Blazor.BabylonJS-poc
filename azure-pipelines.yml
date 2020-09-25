@@ -37,7 +37,7 @@ steps:
     containerRegistry: eventHorizonGamesConnection
     buildContext: $(Build.SourcesDirectory)
     repository: ehz/game/client/packages
-    arguments: --build-arg Version=$(Build.BuildNumber)
+    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-nuget-push
     tags: |
       latest
     
@@ -56,7 +56,6 @@ steps:
     command: push
     containerRegistry: eventHorizonGamesConnection
     repository: ehz/game/client/packages
-    arguments: --target dotnet-nuget-push
     tags: |
       latest
       
