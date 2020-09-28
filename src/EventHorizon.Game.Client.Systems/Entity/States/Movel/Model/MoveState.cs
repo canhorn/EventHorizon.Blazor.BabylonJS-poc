@@ -25,7 +25,7 @@
         : ClientEntityBase,
         IState
     {
-        private static decimal DEFAULT_MOVE_SPEED => 125;
+        private static decimal DEFAULT_MOVE_SPEED => 105;
         private static decimal DEFAULT_ROTATION_SPEED => 0.05m;
 
         private readonly IMediator _mediator;

@@ -12,8 +12,6 @@
     using EventHorizon.Game.Client.Systems.Entity.States.Move.Model;
     using EventHorizon.Game.Client.Systems.Height.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
-    using EventHorizon.Observer.Register;
-    using EventHorizon.Observer.Unregister;
     using MediatR;
 
     public class MoveModule
@@ -24,7 +22,7 @@
         private readonly IMediator _mediator;
         private readonly IHeightResolver _heightResolver;
         private readonly IObjectEntity _entity;
-
+        
         private IStateModule? _stateModule;
 
         private IVector3? _currentMoveTo;

@@ -42,7 +42,7 @@
         {
             await InitKeyboard();
             _movePlayerIntervalTimer.Setup(
-                50,
+                100,
                 HandleMovePlayer
             );
             _movePlayerIntervalTimer.Start();
