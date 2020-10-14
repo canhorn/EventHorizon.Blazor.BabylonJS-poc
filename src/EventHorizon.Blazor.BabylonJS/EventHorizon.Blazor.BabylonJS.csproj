@@ -16,15 +16,15 @@
         <PackageReference Include="BlazorPro.BlazorSize" Version="2.3.0" />
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0-rc.1.*" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.0-rc.1.*" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0-rc.1.*" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0-rc.2.*" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-rc.1.*" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0-rc.2.*" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="5.0.0-rc.1.*" />
-        <PackageReference Include="System.Net.Http.Json" Version="5.0.0-rc.1.*" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="System.Net.Http.Json" Version="5.0.0-rc.2.*" />
 
         <!--<PackageReference Include="HLSoft.BlazorWebAssembly.Authentication.OpenIdConnect" Version="0.7.2-preview4" />-->
     </ItemGroup>
