@@ -82,6 +82,5 @@ steps:
     containerRegistry: docker-hub
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-server-client
-    arguments: --build-arg Version=$(Build.BuildNumber)
     tags: |
       latest
