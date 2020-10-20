@@ -67,7 +67,7 @@ steps:
 - task: Docker@2
   displayName: Push Image (docker-hub) - Base EventHorizon.Blazor.BabylonJS 
   inputs: 
-    command: push
+    command: buildAndPush
     containerRegistry: docker-hub
     repository: canhorn/ehz-platform-server-client
     tags: |
