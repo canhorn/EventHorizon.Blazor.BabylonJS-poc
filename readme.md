@@ -89,4 +89,6 @@ docker run -it --rm --name nu-client -v "$(PWD)/src/EventHorizon.Blazor.BabylonJ
 # Run NuGet Push
 docker run --rm --name push-packages ehz/game/client/packages:0.1.0 --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_ORG_KEY
 
+# Build Runtime Docker Image
+docker build --build-arg Version=0.1.0 -f Dockerfile -t canhorn/ehz-platform-server-client:dev .
 ~~~

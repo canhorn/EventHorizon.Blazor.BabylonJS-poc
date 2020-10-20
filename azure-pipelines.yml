@@ -42,7 +42,7 @@ steps:
       latest
     
 - task: Docker@2
-  displayName: Push Image - Base EventHorizon.Blazor.BabylonJS 
+  displayName: Push Image (azure) - Base EventHorizon.Blazor.BabylonJS 
   inputs: 
     command: push
     containerRegistry: eventHorizonGamesConnection
@@ -51,7 +51,7 @@ steps:
       latest
 
 - task: Docker@2
-  displayName: Push Image - Packages EventHorizon.Blazor.BabylonJS
+  displayName: Push Image (azure) - Packages EventHorizon.Blazor.BabylonJS
   inputs: 
     command: push
     containerRegistry: eventHorizonGamesConnection
@@ -63,3 +63,12 @@ steps:
   env:
     ACR_NAME: $(ACR_NAME)
     NUGET_API_KEY: $(NUGET_API_KEY)
+    
+- task: Docker@2
+  displayName: Push Image (docker-hub) - Base EventHorizon.Blazor.BabylonJS 
+  inputs: 
+    command: push
+    containerRegistry: docker-hub
+    repository: canhorn/ehz-platform-server-client
+    tags: |
+      latest
