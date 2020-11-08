@@ -92,7 +92,7 @@ namespace EventHorizon.Observer.State
             }
             foreach (var toRemoveObserver in exceptionListToRemove)
             {
-                List.RemoveItem(
+                List = List.RemoveItem(
                     toRemoveObserver
                 );
             }
@@ -124,7 +124,7 @@ namespace EventHorizon.Observer.State
             }
             foreach (var toRemoveObserver in adminExceptionListToRemove)
             {
-                _adminList.RemoveItem(
+                _adminList = _adminList.RemoveItem(
                     toRemoveObserver
                 );
             }
