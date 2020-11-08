@@ -66,6 +66,7 @@ namespace EventHorizon.Observer.State
             var typeOf = typeof(TInstance);
             var list = List.Where(a => typeOf.IsAssignableFrom(a.GetType())).ToList();
             var shouldRunOnce = ShouldRunOnce(typeOf);
+            var exceptionListToRemove = new List<ObserverBase>();
             foreach (var observer in list)
             {
                 try
@@ -84,8 +85,19 @@ namespace EventHorizon.Observer.State
                         ex,
                         _localizer["Exception thrown while triggering observer."]
                     );
+                    exceptionListToRemove.Add(
+                        observer
+                    );
                 }
             }
+            foreach (var toRemoveObserver in exceptionListToRemove)
+            {
+                List.RemoveItem(
+                    toRemoveObserver
+                );
+            }
+
+            var adminExceptionListToRemove = new List<AdminObserverBase>();
             foreach (var observer in _adminList)
             {
                 try
@@ -105,7 +117,16 @@ namespace EventHorizon.Observer.State
                         ex,
                         _localizer["Exception thrown while triggering observer."]
                     );
+                    adminExceptionListToRemove.Add(
+                        observer
+                    );
                 }
+            }
+            foreach (var toRemoveObserver in adminExceptionListToRemove)
+            {
+                _adminList.RemoveItem(
+                    toRemoveObserver
+                );
             }
         }
 
