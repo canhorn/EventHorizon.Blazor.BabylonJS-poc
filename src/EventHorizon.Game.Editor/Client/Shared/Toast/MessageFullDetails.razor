@@ -1,0 +1,25 @@
+﻿@inherits MessageFullDetailsModel
+
+<div class="message @MessageLevelStyle">
+    <div class="message__heading">
+        <h3 class="message__heading-text"
+            data-test-selector="toast-header">
+            @Message.Heading
+        </h3>
+        @if (!string.IsNullOrWhiteSpace(LocalizedMessageLevel))
+        {
+            <span class="message__message-level @MessageLevelStyle"
+                  data-test-selector="toast-level">
+                @LocalizedMessageLevel
+            </span>
+        }
+        <hr />
+        <span class="message__timestamp">
+            @Message.Timestamp.ToString("F")
+        </span>
+    </div>
+    <div class="message__body"
+         data-test-selector="toast-message">
+        @Message.Message
+    </div>
+</div>

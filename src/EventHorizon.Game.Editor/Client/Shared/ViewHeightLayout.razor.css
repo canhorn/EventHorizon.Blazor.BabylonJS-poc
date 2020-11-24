@@ -1,0 +1,42 @@
+.view-height-page {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas: "blades" "main";
+}
+
+.page__blades {
+    grid-area: blades;
+    overflow-x: hidden;
+    background-image: linear-gradient(180deg, rgb(0, 0, 0) 30%, #3a0647 100%);
+    z-index: 999;
+}
+
+.page__main {
+    grid-area: main;
+    overflow: hidden;
+}
+
+.page__content {
+    height: 100vh;
+}
+
+
+@media (min-width: 641px) {
+}
+
+@media (min-width: 768px) {
+    .view-height-page {
+        display: grid;
+        grid-template-columns: 20% auto;
+        grid-template-rows: auto;
+        grid-template-areas: "blades main";
+    }
+
+    .page__blades {
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+}

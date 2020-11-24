@@ -1,0 +1,31 @@
+﻿@inherits FileEditorProviderModel
+
+@if (EditorFile.IsNotNull()
+   && EditorNode.IsNotNull())
+{
+    <CascadingValue Value="EditorNode">
+        <CascadingValue Value="EditorFile">
+            @ChildContent
+        </CascadingValue>
+    </CascadingValue>
+}
+else
+{
+    <div>
+        <div>
+            ErrorMessage: @ErrorMessage
+        </div>
+
+        <div>
+            ZoneState ID: @ZoneState.Zone.Id
+        </div>
+
+        <div>
+            EncodedFileNodeId: @EncodedFileNodeId
+        </div>
+
+        <div>
+            FileNodeId: @EncodedFileNodeId.Base64Decode()
+        </div>
+    </div>
+}

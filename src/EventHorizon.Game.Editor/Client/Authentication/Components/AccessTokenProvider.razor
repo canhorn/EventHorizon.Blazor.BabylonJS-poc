@@ -1,0 +1,68 @@
+﻿@using MediatR
+@using EventHorizon.Game.Client.Core.I18n.Api
+@using EventHorizon.Game.Editor.Client.Authentication.Model
+@using EventHorizon.Game.Editor.Client.Authentication.Set
+
+@*@AccessToken.AccessToken*@
+
+<CascadingValue Value="AccessToken">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    [Inject]
+    public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+    [Inject]
+    public IAccessTokenProvider TokenProvider { get; set; } = null!;
+    [Inject]
+    public IMediator Mediator { get; set; } = null!;
+    [Inject]
+    public ILocalizer Localizer { get; set; } = null!;
+
+    public AccessTokenModel AccessToken { get; private set; } = new AccessTokenModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationStateProvider.AuthenticationStateChanged += HandleAuthStateChanged;
+        var accessTokenResult = await TokenProvider.RequestAccessToken();
+
+        if (accessTokenResult.TryGetToken(out var token))
+        {
+            AccessToken = new AccessTokenModel(
+                token.Value
+            );
+            await Mediator.Send(
+                new SetEditorAccessTokenCommand(
+                    token.Value
+                )
+            );
+        }
+    }
+
+    public void HandleAuthStateChanged(
+        Task<AuthenticationState> _
+    )
+    {
+        InvokeAsync(
+            async () =>
+            {
+                var accessTokenResult = await TokenProvider.RequestAccessToken();
+
+                if (accessTokenResult.TryGetToken(out var token))
+                {
+                    AccessToken = new AccessTokenModel(
+                        token.Value
+                    );
+                    await Mediator.Send(
+                        new SetEditorAccessTokenCommand(
+                            token.Value
+                        )
+                    );
+                }
+            }
+        );
+    }
+}

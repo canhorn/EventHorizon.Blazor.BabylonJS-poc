@@ -1,0 +1,53 @@
+﻿
+@using MediatR;
+
+@if (IsConnected)
+{
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+}
+else
+{
+    <div>Requires Login...</div>
+}
+
+@code {
+    [CascadingParameter]
+    public AccessTokenModel AccessToken { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    [Inject]
+    public IMediator Mediator { get; set; } = null!;
+
+    public bool IsConnected { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CheckState();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await CheckState();
+    }
+
+    private async Task CheckState()
+    {
+        if (!AccessToken.IsFilled)
+        {
+            return;
+        }
+        var result = await Mediator.Send(
+            new StartConnectionToCoreServerCommand(
+                AccessToken.AccessToken
+            )
+        );
+        if (result.Success)
+        {
+            IsConnected = true;
+        }
+    }
+}

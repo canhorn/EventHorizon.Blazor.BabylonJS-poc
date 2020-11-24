@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>EventHorizon.Game.Editor</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\EventHorizon.Game.Client.Systems\EventHorizon.Game.Client.Systems.csproj" />
+        <ProjectReference Include="..\..\..\EventHorizon.Game.Client\EventHorizon.Game.Client.csproj" />
+    </ItemGroup>
+
+</Project>

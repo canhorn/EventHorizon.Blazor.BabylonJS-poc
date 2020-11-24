@@ -1,0 +1,30 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Api
+@using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
+
+<TreeView Root="@QuickLinkData" />
+
+@code {
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+
+    public TreeViewNodeData QuickLinkData { get; set; }
+
+    protected override void OnInitialized()
+    {
+        QuickLinkData = new TreeViewNodeData
+        {
+            Name = "pages",
+            Text = Localizer["Quick Links"],
+            Children = new List<TreeViewNodeData>
+            {
+                new TreeViewNodeData
+                {
+                    Name = "sandbox",
+                    Text = Localizer["Sandbox"],
+                    Href = "/sandbox",
+                    IconCssClass = "--icon oi oi-list-rich"
+                },
+            }
+        };
+    }
+}

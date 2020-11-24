@@ -1,0 +1,23 @@
+﻿.editor {
+    height: 100%;
+}
+
+.editor-toolbar {
+}
+
+    .editor-toolbar .menu-item.--remove-button-styles {
+        background: none;
+        color: inherit;
+        border: none;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+    }
+
+    .editor-toolbar .menu-item {
+        padding: 0.6rem;
+    }
+
+::deep .editor-container {
+    height: 100%;
+}

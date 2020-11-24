@@ -1,0 +1,60 @@
+﻿@inherits TreeViewNodeModel
+
+<ul class="tree-view__node"
+    data-test-selector="tree-node"
+    data-test-id="@Node.Id">
+
+    <li class="tree-view__node-item"
+        role="presentation"
+        @oncontextmenu="@HandleContextMenu"
+        @oncontextmenu:preventDefault
+        @oncontextmenu:stopPropagation
+        data-selector="@Node.Id">
+
+        <NavLink class="@GetNavLinkClass()"
+                 href="@GetNodeHref()"
+                 aria-expanded="@GetAriaExpanded()"
+                 @onclick="@HandleClickOfNode"
+                 data-selector="tree-node-link">
+
+            @if (IsParentNode)
+            {
+                <span class="tree-view__node-icon --clickable @GetExpandedIconClass()"
+                      aria-hidden="true"></span>
+            }
+            @if (Node.IconCssClass != null)
+            {
+                <span class="tree-view__node-icon --clickable @GetIconClass()"
+                      aria-hidden="true"></span>
+            }
+            <span class="tree-view__node-text"
+                  data-selector="tree-node-text">
+                @Node.Text
+            </span>
+
+        </NavLink>
+
+        @if (ContextMenu.Show)
+        {
+            <div class="tree-view__context-menu"
+                 data-selector="tree-node-context-menu">
+                @foreach (var contextItem in Node.ContextMenu.Items)
+                {
+                    <div class="tree-view__context-menu__item"
+                         data-selector="tree-node-context-menu-item"
+                         @onclick="@contextItem.OnClick">@contextItem.Text</div>
+                    }
+            </div>
+        }
+
+    </li>
+
+    @if (IsParentNode && Node.IsExpanded)
+    {
+        @foreach (var child in Node.Children)
+        {
+            <TreeViewNode Node="@child" />
+        }
+    }
+
+</ul>

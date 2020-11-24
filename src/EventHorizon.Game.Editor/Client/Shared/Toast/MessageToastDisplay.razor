@@ -1,0 +1,7 @@
+﻿@inherits MessageToastDisplayModel
+
+<div class="toast-display @(ShowMessage ? "--show" : string.Empty)" 
+        role="alert" 
+        @onclick="HandleHide">
+    <MessageFullDetails Message="Message" />
+</div>

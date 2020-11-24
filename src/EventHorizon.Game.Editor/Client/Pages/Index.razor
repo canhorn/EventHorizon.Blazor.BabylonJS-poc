@@ -1,0 +1,24 @@
+﻿@page "/"
+@using EventHorizon.Game.Editor.Client.Zone.Components
+
+<h1>Hello, world!</h1>
+
+<a href="sandbox">Sandbox</a>
+
+<button @onclick="HandleShowMessage">Show Message</button>
+
+@code {
+    [Inject]
+    public MediatR.IMediator Mediator { get; set; } = null!;
+
+    public async Task HandleShowMessage()
+    {
+        await Mediator.Publish(
+            new EventHorizon.Game.Editor.Client.Shared.Toast.Show.ShowMessageEvent(
+                "Hello World",
+                "Hello from this new message event",
+                Shared.Toast.Model.MessageLevel.Error
+            )
+        );
+    }
+}

@@ -1,0 +1,29 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Api
+
+<div>
+    @foreach (var entity in ZoneState.ZoneInfo.ClientEntityList)
+    {
+        <div class="entity-item --shaded-background">
+            <div>
+                @entity.Name (@entity.GlobalId)
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .entity-item {
+        margin: 1rem;
+        padding: 0.8rem;
+    }
+
+        .entity-item.--shaded-background {
+            color: white;
+            background-color: black;
+        }
+</style>
+
+@code {
+    [CascadingParameter]
+    public ZoneState ZoneState { get; set; } = null!;
+}

@@ -1,0 +1,134 @@
+﻿.standard-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+}
+
+.standard-modal__overlay {
+    overflow: auto;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.8;
+}
+
+.standard-modal__content {
+    padding: 0.8em;
+    background-color: var(--background-dark);
+    position: relative;
+    outline: 0;
+    margin: 0.5em auto;
+    width: 98%;
+    height: 98%;
+    align-content: stretch;
+    display: flex;
+    flex-direction: column;
+}
+
+.standard-modal__header {
+    overflow: hidden;
+    height: 10%;
+}
+
+.standard-modal__body {
+    overflow: auto;
+    height: 200px;
+    flex-grow: 1;
+}
+
+.standard-modal__footer {
+    overflow: hidden;
+    height: 10%;
+}
+
+.standard-modal__header + .standard-modal__body, .standard-modal__body + .standard-modal__footer {
+    margin-top: 10px;
+}
+
+/* var(--screen-min-width) */
+@media only screen and (min-width: 640px) {
+    .standard-modal__content {
+        margin: 3em auto;
+        width: 75%;
+        height: 75%;
+    }
+
+        .standard-modal__content .--full {
+            margin: 0.5em auto;
+            width: 98%;
+            height: 98%;
+        }
+
+        .standard-modal__content .--slim {
+            margin: 0.5em auto;
+            height: 50%;
+        }
+
+    .standard-modal__header .--slim {
+        height: 18%;
+    }
+
+    .standard-modal__footer .--slim {
+        height: 18%;
+    }
+}
+
+/* var(--screen-mid-width) */
+@media only screen and (min-width: 832px) {
+    .standard-modal__content {
+        margin: 3em auto;
+        width: 50%;
+        height: 50%;
+    }
+
+        .standard-modal__content .--full {
+            margin: 0.5em auto;
+            width: 98%;
+            height: 98%;
+        }
+
+        .standard-modal__content .--slim {
+            margin: 0.5em auto;
+            height: 30%;
+        }
+
+    .standard-modal__header .--slim {
+        height: 25%;
+    }
+
+    .standard-modal__footer .--slim {
+        height: 25%;
+    }
+}
+
+/* var(--screen-max-width) */
+@media only screen and (min-width: 1024px) {
+    .standard-modal__content {
+        margin: 3em auto;
+        width: 50%;
+        height: 50%;
+    }
+
+        .standard-modal__content .--full {
+            margin: 0.5em auto;
+            width: 98%;
+            height: 98%;
+        }
+
+        .standard-modal__content .--slim {
+            margin: 0.5em auto;
+            height: 30%;
+        }
+
+    .standard-modal__header .--slim {
+        height: 25%;
+    }
+
+    .standard-modal__footer .--slim {
+        height: 25%;
+    }
+}

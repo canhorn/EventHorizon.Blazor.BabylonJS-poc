@@ -1,0 +1,37 @@
+@using Microsoft.AspNetCore.Components.Authorization
+@using EventHorizon.Game.Editor.Client.Authentication.Components
+@using EventHorizon.Game.Editor.Client.Shared.ClickCapture
+@using EventHorizon.Game.Editor.Client.Shared.Toast
+
+<CascadingAuthenticationState>
+    <ClickCaptureProvider>
+        <AccessTokenProvider>
+            <Router AppAssembly="@typeof(Program).Assembly">
+                <Found Context="routeData">
+                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                        <NotAuthorized>
+                            @if (context.User.Identity.IsAuthenticated.IsNotTrue())
+                            {
+                                <RedirectToLogin />
+                            }
+                            else
+                            {
+                                <p>
+                                    You are not authorized to access this resource.
+                                </p>
+                            }
+                        </NotAuthorized>
+                    </AuthorizeRouteView>
+                </Found>
+                <NotFound>
+                    <LayoutView Layout="@typeof(MainLayout)">
+                        @*TODO: Add NotFoundPage *@
+                        <p>Sorry, there's nothing at this address.</p>
+                    </LayoutView>
+                </NotFound>
+            </Router>
+        </AccessTokenProvider>
+    </ClickCaptureProvider>
+</CascadingAuthenticationState>
+
+<MessageToastContainer />

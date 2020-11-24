@@ -1,0 +1,60 @@
+﻿.message {
+    margin: 1rem;
+    border-top: 1px solid var(--accent-light);
+    border-right: 1px solid var(--accent-light);
+    border-bottom: 1px solid var(--accent-light);
+    border-left: 5px solid var(--accent-light);
+    background: var(--background-dark);
+    padding: 1rem;
+    border-radius: 3px 6px;
+    box-shadow: var(--accent-light) -2px 2px;
+}
+
+    .message.--success {
+        box-shadow: var(--success) -2px 2px;
+        border-top: 1px solid var(--success);
+        border-right: 1px solid var(--success);
+        border-bottom: 1px solid var(--success);
+        border-left: 5px solid var(--success);
+    }
+
+    .message.--warning {
+        box-shadow: var(--warning) -2px 2px;
+        border-top: 1px solid var(--warning);
+        border-right: 1px solid var(--warning);
+        border-bottom: 1px solid var(--warning);
+        border-left: 5px solid var(--warning);
+    }
+
+    .message.--error {
+        box-shadow: var(--error) -2px 2px;
+        border-top: 1px solid var(--error);
+        border-right: 1px solid var(--error);
+        border-bottom: 1px solid var(--error);
+        border-left: 5px solid var(--error);
+    }
+
+.message__heading-text {
+    margin: 0px;
+}
+
+.message__timestamp {
+    color: var(--accent-light);
+    font-size: 0.8rem;
+}
+
+.message__message-level {
+    font-size: 0.8rem;
+}
+
+    .message__message-level.--success {
+        color: var(--success);
+    }
+
+    .message__message-level.--warning {
+        color: var(--warning);
+    }
+
+    .message__message-level.--error {
+        color: var(--error);
+    }

@@ -1,0 +1,34 @@
+﻿.toast-container {
+    position: fixed;
+    bottom: 40px;
+    right: 10px;
+    max-width: 500px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+    .toast-container.--show {
+        opacity: 1;
+        animation: fadein 1.5s;
+        pointer-events: initial;
+    }
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

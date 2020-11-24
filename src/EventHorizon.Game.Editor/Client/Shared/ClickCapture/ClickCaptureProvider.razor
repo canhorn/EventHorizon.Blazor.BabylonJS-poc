@@ -1,0 +1,9 @@
+﻿@inherits ClickCaptureProviderModel
+
+<span @onclick="@HandleOnClick" @oncontextmenu="@HandleOnContextMenu">
+
+    <CascadingValue Value="@this">
+        @ChildContent
+    </CascadingValue>
+
+</span>

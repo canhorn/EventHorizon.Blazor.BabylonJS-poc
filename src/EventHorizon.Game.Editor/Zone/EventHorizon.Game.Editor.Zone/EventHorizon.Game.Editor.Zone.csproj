@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="8.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Api\EventHorizon.Game.Editor.Api\EventHorizon.Game.Editor.Api.csproj" />
+      <ProjectReference Include="..\..\Core\EventHorizon.Game.Editor.Core.Api\EventHorizon.Game.Editor.Core.Api.csproj" />
+      <ProjectReference Include="..\EventHorizon.Game.Editor.Zone.Api\EventHorizon.Game.Editor.Zone.Api.csproj" />
+    </ItemGroup>
+
+</Project>

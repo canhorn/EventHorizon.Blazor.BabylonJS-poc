@@ -1,0 +1,41 @@
+﻿
+<pre class="pre">
+@JsonString
+</pre>
+
+<style>
+    .pre {
+        color: white;
+        word-wrap: break-word;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public object Data { get; set; }
+
+    public string JsonString { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        JsonString = System.Text.Json.JsonSerializer.Serialize(
+            Data,
+            new System.Text.Json.JsonSerializerOptions()
+            {
+                WriteIndented = true,
+            }
+        );
+    }
+
+    protected override void OnParametersSet()
+    {
+        JsonString = System.Text.Json.JsonSerializer.Serialize(
+            Data,
+            new System.Text.Json.JsonSerializerOptions()
+            {
+                WriteIndented = true,
+            }
+        );
+    }
+
+}

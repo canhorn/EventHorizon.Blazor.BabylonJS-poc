@@ -1,0 +1,13 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer.Modals
+@inherits EditorFileExplorerModel
+
+
+<div class="zone-editor-explorer" data-selector="zone-editor-explorer">
+    <TreeView Root="@EditorTreeView" />
+    <div class="zone-editor-explorer__modal"
+         data-selector="zone-editor-explorer__modal">
+        <EditorFileExplorerModal ModalState="ModalState"
+                                 OnSubmit="SubmitModal"
+                                 OnClose="CloseModal" />
+    </div>
+</div>

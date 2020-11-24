@@ -1,0 +1,67 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer.Model
+@inherits EditorFileExplorerModalModel
+
+<EditForm Model="@ModalState" OnValidSubmit="@OnSubmit">
+    <StandardModal IsOpen="@ModalState.IsOpen" OnClose="@ModalState.HandleModalClosed">
+        <Header>
+            <h2>@ModalState.ModalName(Localizer)</h2>
+        </Header>
+        <Body>
+            <div class="zone-editor-explorer__modal__body">
+                @if (!string.IsNullOrEmpty(ModalState.ErrorMessage))
+                {
+                    <div class="zone-editor-explorer__modal --error-message"
+                         role="alert">
+                        @ModalState.ErrorMessage
+                    </div>
+                }
+                @switch (ModalState.ModalType)
+                {
+                    case EditorFileModalType.AddFolder:
+                    case EditorFileModalType.AddFile:
+                        <div>
+                            @ModalState.DisplayMessage(Localizer)
+                            <div>
+                                <input @ref="@ModalState.InputFocusElement"
+                                       class="c-text-input"
+                                       placeholder="@ModalState.Placeholder(Localizer)"
+                                       @bind-value="@ModalState.TextInput" />
+                            </div>
+                        </div>
+                        break;
+                    case EditorFileModalType.DeleteFolder:
+                    case EditorFileModalType.DeleteFile:
+                        <div>
+                            @ModalState.DisplayMessage(Localizer)
+                        </div>
+                        break;
+                }
+            </div>
+        </Body>
+        <Footer>
+            <div>
+                <button class="c-button"
+                        type="button"
+                        @onclick="@OnClose"
+                        @onclick:preventDefault
+                        @onclick:stopPropagation>
+                    @ModalState.CloseButtonText(Localizer)
+                </button>
+                <button @ref="@ModalState.ButtonFocusElement"
+                        class="c-button c-button--@ModalState.SubmitButtonCssState"
+                        type="submit">
+                    @ModalState.SubmitButtonText(Localizer)
+                </button>
+            </div>
+        </Footer>
+    </StandardModal>
+</EditForm>
+
+<style>
+    .zone-editor-explorer__modal .--error-message {
+        color: var(--error);
+        background-color: var(--primary-light);
+        padding: 0.5em;
+        font-weight: bold;
+    }
+</style>

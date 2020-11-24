@@ -1,0 +1,43 @@
+﻿@page "/sandbox"
+@using EventHorizon.Game.Editor.Client.Zone.Components
+@using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer
+
+@*<ZoneSelection SelectionDisplay="SELECT" />*@
+
+<ZoneStateProvider>
+    <EditorFileExplorer />
+    @*<ZoneStateSandbox />*@
+</ZoneStateProvider>
+
+
+<button @onclick="HandleOpenModal">Open</button>
+
+<StandardModal IsOpen="IsOpen" OnClose="HandleCloseModal">
+    <Header>
+        <h2>Header</h2>
+    </Header>
+    <Body>
+        <div>
+            Body!
+        </div>
+    </Body>
+    <Footer>
+        <div>
+            <button @onclick="HandleCloseModal">Cancel</button>
+        </div>
+    </Footer>
+</StandardModal>
+
+@code {
+    public bool IsOpen { get; set; }
+
+    public void HandleOpenModal()
+    {
+        IsOpen = true;
+    }
+
+    public void HandleCloseModal()
+    {
+        IsOpen = false;
+    }
+}

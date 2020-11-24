@@ -1,0 +1,8 @@
+﻿@inherits ZoneStateProviderModel
+
+@if (ZoneState != null)
+{
+    <CascadingValue Value="@ZoneState">
+        @ChildContent
+    </CascadingValue>
+}

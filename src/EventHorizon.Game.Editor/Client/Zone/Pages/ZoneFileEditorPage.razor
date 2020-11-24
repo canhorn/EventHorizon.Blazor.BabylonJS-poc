@@ -1,0 +1,14 @@
+﻿@page "/edit/file/{encodedFileNodeId}"
+@layout ViewHeightLayout
+@using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor
+
+<ZoneStateProvider>
+    <FileEditorProvider EncodedFileNodeId="@EncodedFileNodeId">
+        <ZoneFileEditorComponent @key="@EncodedFileNodeId" />
+    </FileEditorProvider>
+</ZoneStateProvider>
+
+@code {
+    [Parameter]
+    public string EncodedFileNodeId { get; set; } = string.Empty;
+}

@@ -1,0 +1,32 @@
+﻿@inherits StandardModalModel
+
+@if (IsOpen)
+{
+    <div class="standard-modal @Theme"
+         data-test-selector="standard-modal">
+        <div class="standard-modal__overlay" @onclick="@HandleMouseClick">
+        </div>
+        <div class="standard-modal__content @SizeCss">
+            @if (Header != null)
+            {
+                <div class="standard-modal__header @SizeCss"
+                     data-selector="header">
+                    @Header
+                </div>
+                <hr />
+            }
+            <div class="standard-modal__body"
+                 data-selector="body">
+                @Body
+            </div>
+            @if (Footer != null)
+            {
+                <hr />
+                <div class="standard-modal__footer @SizeCss"
+                     data-selector="footer">
+                    @Footer
+                </div>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,31 @@
+﻿.toast-display {
+    opacity: 0;
+    animation: fadeout 1s;
+    pointer-events: none;
+}
+
+    .toast-display.--show {
+        opacity: 1;
+        animation: fadein 1.5s;
+        pointer-events: initial;
+    }
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

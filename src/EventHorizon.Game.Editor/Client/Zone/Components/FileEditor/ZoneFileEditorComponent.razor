@@ -1,0 +1,29 @@
+﻿@using BlazorMonaco
+@inherits ZoneFileEditorComponentModel
+
+<div class="editor">
+    <div class="editor-toolbar">
+        <button class="menu-item --remove-button-styles"
+                title="@Localizer["Save File"]"
+                @onclick="HandleSaveFile">
+            @Localizer["Save"]
+        </button>
+        <button class="menu-item --remove-button-styles"
+                title="@Localizer["Open Details for Editor"]"
+                @onclick="HandleOpenDetails">
+            @Localizer["Details"]
+        </button>
+    </div>
+    <MonacoEditor @ref="MonacoEditor"
+                  Id="any-id-string"
+                  CssClass="editor-container"
+                  ConstructionOptions="BuildConstructionOptions" />
+
+    <StandardModal IsOpen="IsDetailsModalOpen"
+                   OnClose="HandleCloseDeatils">
+        <Body>
+            <DumpToJson Data="EditorNode"></DumpToJson>
+        </Body>
+    </StandardModal>
+
+</div>
