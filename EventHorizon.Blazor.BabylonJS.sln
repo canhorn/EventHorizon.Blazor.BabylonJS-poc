@@ -54,24 +54,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Blazor.BabylonJS.Server", "src\EventHorizon.Blazor.BabylonJS.Server\EventHorizon.Blazor.BabylonJS.Server.csproj", "{99822E0B-DF08-4A5A-B008-EF828A9064FF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Editor", "Editor", "{0D37DDEA-FF43-485D-8458-4C428CEBDB38}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Server", "src\EventHorizon.Game.Editor\Server\EventHorizon.Game.Editor.Server.csproj", "{3C9A2F8E-41D1-4918-8632-EBDBBF7B20B6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Client", "src\EventHorizon.Game.Editor\Client\EventHorizon.Game.Editor.Client.csproj", "{685F760D-339A-40DF-A2CB-2DEC25AD783F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Shared", "src\EventHorizon.Game.Editor\Shared\EventHorizon.Game.Editor.Shared.csproj", "{0C7F596D-FAA8-41C5-BC17-3D9E0FD5B53E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Core", "src\EventHorizon.Game.Editor\Core\EventHorizon.Game.Editor.Core\EventHorizon.Game.Editor.Core.csproj", "{F642B35B-77EF-4F19-AF66-E1507B194F3B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Core.Api", "src\EventHorizon.Game.Editor\Core\EventHorizon.Game.Editor.Core.Api\EventHorizon.Game.Editor.Core.Api.csproj", "{CA79CD49-EB62-4A90-8814-1DD7D0FAB95C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Api", "src\EventHorizon.Game.Editor\Api\EventHorizon.Game.Editor.Api\EventHorizon.Game.Editor.Api.csproj", "{B6717A2C-90D8-43C8-857D-000F4E2DBDEF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Zone", "src\EventHorizon.Game.Editor\Zone\EventHorizon.Game.Editor.Zone\EventHorizon.Game.Editor.Zone.csproj", "{44C3F607-EFAF-4D7D-A947-840FFC71BBD5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Zone.Api", "src\EventHorizon.Game.Editor\Zone\EventHorizon.Game.Editor.Zone.Api\EventHorizon.Game.Editor.Zone.Api.csproj", "{2F8ECD73-0914-45F5-AC4E-BBA64AD60E06}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,38 +124,6 @@ Global
 		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C9A2F8E-41D1-4918-8632-EBDBBF7B20B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C9A2F8E-41D1-4918-8632-EBDBBF7B20B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C9A2F8E-41D1-4918-8632-EBDBBF7B20B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C9A2F8E-41D1-4918-8632-EBDBBF7B20B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{685F760D-339A-40DF-A2CB-2DEC25AD783F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{685F760D-339A-40DF-A2CB-2DEC25AD783F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{685F760D-339A-40DF-A2CB-2DEC25AD783F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{685F760D-339A-40DF-A2CB-2DEC25AD783F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C7F596D-FAA8-41C5-BC17-3D9E0FD5B53E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C7F596D-FAA8-41C5-BC17-3D9E0FD5B53E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C7F596D-FAA8-41C5-BC17-3D9E0FD5B53E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C7F596D-FAA8-41C5-BC17-3D9E0FD5B53E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F642B35B-77EF-4F19-AF66-E1507B194F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F642B35B-77EF-4F19-AF66-E1507B194F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F642B35B-77EF-4F19-AF66-E1507B194F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F642B35B-77EF-4F19-AF66-E1507B194F3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA79CD49-EB62-4A90-8814-1DD7D0FAB95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA79CD49-EB62-4A90-8814-1DD7D0FAB95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA79CD49-EB62-4A90-8814-1DD7D0FAB95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA79CD49-EB62-4A90-8814-1DD7D0FAB95C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6717A2C-90D8-43C8-857D-000F4E2DBDEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6717A2C-90D8-43C8-857D-000F4E2DBDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6717A2C-90D8-43C8-857D-000F4E2DBDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6717A2C-90D8-43C8-857D-000F4E2DBDEF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44C3F607-EFAF-4D7D-A947-840FFC71BBD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44C3F607-EFAF-4D7D-A947-840FFC71BBD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44C3F607-EFAF-4D7D-A947-840FFC71BBD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44C3F607-EFAF-4D7D-A947-840FFC71BBD5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F8ECD73-0914-45F5-AC4E-BBA64AD60E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F8ECD73-0914-45F5-AC4E-BBA64AD60E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F8ECD73-0914-45F5-AC4E-BBA64AD60E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F8ECD73-0914-45F5-AC4E-BBA64AD60E06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,15 +149,6 @@ Global
 		{F618DF54-0226-45C8-B06D-145C462D9570} = {072FB275-8291-4979-B319-22237D5E7C6E}
 		{4B559D52-FD1B-42B1-8410-473DD8930537} = {F618DF54-0226-45C8-B06D-145C462D9570}
 		{99822E0B-DF08-4A5A-B008-EF828A9064FF} = {072FB275-8291-4979-B319-22237D5E7C6E}
-		{0D37DDEA-FF43-485D-8458-4C428CEBDB38} = {072FB275-8291-4979-B319-22237D5E7C6E}
-		{3C9A2F8E-41D1-4918-8632-EBDBBF7B20B6} = {0D37DDEA-FF43-485D-8458-4C428CEBDB38}
-		{685F760D-339A-40DF-A2CB-2DEC25AD783F} = {0D37DDEA-FF43-485D-8458-4C428CEBDB38}
-		{0C7F596D-FAA8-41C5-BC17-3D9E0FD5B53E} = {0D37DDEA-FF43-485D-8458-4C428CEBDB38}
-		{F642B35B-77EF-4F19-AF66-E1507B194F3B} = {0D37DDEA-FF43-485D-8458-4C428CEBDB38}
-		{CA79CD49-EB62-4A90-8814-1DD7D0FAB95C} = {0D37DDEA-FF43-485D-8458-4C428CEBDB38}
-		{B6717A2C-90D8-43C8-857D-000F4E2DBDEF} = {0D37DDEA-FF43-485D-8458-4C428CEBDB38}
-		{44C3F607-EFAF-4D7D-A947-840FFC71BBD5} = {0D37DDEA-FF43-485D-8458-4C428CEBDB38}
-		{2F8ECD73-0914-45F5-AC4E-BBA64AD60E06} = {0D37DDEA-FF43-485D-8458-4C428CEBDB38}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9497D11D-7D24-4DE2-A904-0ADE224939B6}

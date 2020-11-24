@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\EventHorizon.Observer\EventHorizon.Observer.csproj" />
+        <ProjectReference Include="..\..\..\src\EventHorizon.Observer\EventHorizon.Observer.csproj" />
     </ItemGroup>
 
 </Project>
