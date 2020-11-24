@@ -84,3 +84,14 @@ steps:
     repository: canhorn/ehz-platform-server-client
     tags: |
       latest
+
+- task: Docker@2
+  displayName: Push and Push Image (docker-hub) - EventHorizon.Game.Editor 
+  inputs: 
+    command: buildAndPush
+    containerRegistry: docker-hub
+    buildContext: $(Build.SourcesDirectory)
+    repository: canhorn/ehz-platform-server-editor
+    Dockerfile: $(Build.SourcesDirectory)/EventHorizon.Game.Editor/Dockerfile
+    tags: |
+      latest
