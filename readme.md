@@ -77,6 +77,7 @@ The SDK project is the single project that pulls all of the packages together fo
 ## Docker Commands
 
 ~~~ 
+# Run the image, ignoring normal startup
 docker run -it --rm --entrypoint /bin/bash canhorn/ehz-platform-server-client-dotnet-build:dev
 ~~~
 

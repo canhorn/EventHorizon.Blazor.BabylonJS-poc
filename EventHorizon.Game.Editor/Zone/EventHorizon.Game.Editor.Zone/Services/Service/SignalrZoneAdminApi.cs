@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
 {
-    using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Zone.Services.Api;
     using EventHorizon.Game.Editor.Zone.Services.Model;
@@ -11,11 +10,17 @@
     {
         private readonly HubConnection _hubConnection;
 
+        public ZoneAdminClientEntityApi ClientEntity { get; }
+
         internal SignalrZoneAdminApi(
             HubConnection hubConnection
         )
         {
             _hubConnection = hubConnection;
+
+            ClientEntity = new SignalrZoneAdminClientEntityApi(
+                hubConnection
+            );
         }
 
         public Task<ZoneInfo> GetZoneInfo()

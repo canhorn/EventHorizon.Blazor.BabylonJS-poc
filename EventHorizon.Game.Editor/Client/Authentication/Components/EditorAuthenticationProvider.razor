@@ -1,0 +1,10 @@
+﻿<AccessTokenProvider>
+    <SessionValuesProvider>
+        @ChildContent
+    </SessionValuesProvider>
+</AccessTokenProvider>>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+}

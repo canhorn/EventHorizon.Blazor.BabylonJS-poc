@@ -6,11 +6,15 @@
 </div>
 
 <div class="blade @NavMenuCssClass" @onclick="ToggleNavMenu">
-    <select @bind="@CurrentBlade">
-        <option value="NAV_MENU">Nav</option>
-        <option value="ENTITY_LIST">Entity List</option>
-        <option value="EDITOR_FILE_EXPLORER">Filed Explorer</option>
-    </select>
+    <EditForm Model="this">
+        <InputSelect Value="CurrentBlade"
+                     ValueExpression="() => CurrentBlade"
+                     ValueChanged="(string value) => HandleSelectionChanged(value)">
+            <option value="NAV_MENU">Nav</option>
+            <option value="ENTITY_LIST">Entity List</option>
+            <option value="EDITOR_FILE_EXPLORER">File Explorer</option>
+        </InputSelect>
+    </EditForm>
 
     @switch (CurrentBlade)
     {
@@ -27,20 +31,44 @@
 </div>
 
 @code {
+    [CascadingParameter]
+    public EventHorizon.Game.Editor.Client.Authentication.Api.SessionValues SessionValues { get; set; } = null!;
 
     [Parameter]
     public EventCallback OnToggleExpand { get; set; }
 
     [Inject]
-    public NavigationManager Navigation { get; set; }
+    public NavigationManager Navigation { get; set; } = null!;
     [Inject]
-    public SignOutSessionStateManager SignOutManager { get; set; }
+    public SignOutSessionStateManager SignOutManager { get; set; } = null!;
+    [Inject]
+    public MediatR.IMediator Mediator { get; set; } = null!;
 
     public string CurrentBlade { get; set; } = "NAV_MENU";
 
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    protected override void OnInitialized()
+    {
+        CurrentBlade = SessionValues.Get(
+            "currentBlade",
+            CurrentBlade
+        );
+
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        CurrentBlade = SessionValues.Get(
+            "currentBlade",
+            CurrentBlade
+        );
+
+        base.OnParametersSet();
+    }
 
     private void ToggleNavMenu()
     {
@@ -52,5 +80,18 @@
     {
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout?returnUrl=/");
+    }
+
+    private async Task HandleSelectionChanged(
+        string value
+    )
+    {
+        CurrentBlade = value;
+        await Mediator.Send(
+            new EventHorizon.Game.Editor.Client.Authentication.Set.SetSessionValueCommand(
+                "currentBlade",
+                CurrentBlade
+            )
+        );
     }
 }

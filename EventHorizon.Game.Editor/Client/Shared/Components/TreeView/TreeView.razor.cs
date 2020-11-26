@@ -7,5 +7,7 @@
     {
         [Parameter]
         public TreeViewNodeData Root { get; set; }
+        [Parameter]
+        public EventCallback OnChanged { get; set; }
     }
 }

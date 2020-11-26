@@ -4,8 +4,14 @@
     {
         string AccessToken { get; }
 
+        SessionValues Session { get; }
+
         void SetAccessToken(
             string accessToken
+        );
+
+        void SetSessionValues(
+            SessionValues sessionValues
         );
     }
 }

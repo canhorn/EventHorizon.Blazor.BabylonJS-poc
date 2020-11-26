@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Editor.Client.Authentication.Api;
+    using EventHorizon.Game.Editor.Client.Authentication.Set;
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Components;
@@ -24,6 +26,8 @@
     {
         [CascadingParameter]
         public ZoneState ZoneState { get; set; } = null!;
+        [CascadingParameter]
+        public SessionValues SessionValues { get; set; } = null!;
 
         [Inject]
         public IMediator Mediator { get; set; } = null!;
@@ -46,11 +50,56 @@
             return HandleZoneStateChange();
         }
 
+        public async Task HandleTreeViewChanged()
+        {
+            // Save Session Value for Currently expanded Nodes
+            var expandedList = new List<string>();
+            FillExpandedList(
+                EditorTreeView,
+                ref expandedList
+            );
+            await Mediator.Send(
+                new SetSessionValueCommand(
+                    "editorFileExplorer",
+                    string.Join(
+                        ',',
+                        expandedList
+                    )
+                )
+            );
+        }
+
+        private void FillExpandedList(
+            TreeViewNodeData editorTreeView,
+            ref List<string> expandedList
+        )
+        {
+            if (editorTreeView.IsExpanded)
+            {
+                expandedList.Add(
+                    editorTreeView.Id
+                );
+            }
+            foreach (var child in editorTreeView.Children)
+            {
+                FillExpandedList(
+                    child,
+                    ref expandedList
+                );
+            }
+        }
+
         private async Task HandleZoneStateChange()
         {
+            var expandedList = SessionValues.Get(
+                "editorFileExplorer",
+                ""
+            ).Split(",");
+
             var result = await Mediator.Send(
                 new QueryForActiveEditorNodeTreeView(
                     EditorTreeView,
+                    expandedList,
                     HandleOpenWithModalType
                 )
             );

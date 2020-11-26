@@ -3,9 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net.Http.Headers;
-    using System.Text;
-    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
@@ -51,7 +48,14 @@
                 BuildEditorTreeView(
                     request.ExistingTreeView,
                     request.OnContextMenuClick,
-                    result.Result
+                    result.Result,
+                    request.ExpandedList.Select(
+                        a => new TreeViewNodeData
+                        {
+                            Id = a,
+                            IsExpanded = true,
+                        }
+                    )
                 )
             );
         }
@@ -59,7 +63,8 @@
         private TreeViewNodeData BuildEditorTreeView(
             TreeViewNodeData exitingTreeView,
             Action<EditorNode, EditorFileModalType, bool, bool> onContextMenuClick,
-            EditorNodeList editorNodeList
+            EditorNodeList editorNodeList,
+            IEnumerable<TreeViewNodeData> expandedList
         )
         {
             return new TreeViewNodeData
@@ -72,7 +77,8 @@
                     node => BuildEditorTreeViewNode(
                         exitingTreeView,
                         onContextMenuClick,
-                        node
+                        node,
+                        expandedList
                     )
                 ).OrderBy(a => a.Text).ToList()
             };
@@ -81,7 +87,8 @@
         private TreeViewNodeData BuildEditorTreeViewNode(
             TreeViewNodeData existingTreeView,
             Action<EditorNode, EditorFileModalType, bool, bool> onContextMenuClick,
-            EditorNode node
+            EditorNode node,
+            IEnumerable<TreeViewNodeData> expandedList
         )
         {
             return new TreeViewNodeData
@@ -96,7 +103,8 @@
                     childNode => BuildEditorTreeViewNode(
                         existingTreeView,
                         onContextMenuClick,
-                        childNode
+                        childNode,
+                        expandedList
                     )
                 ).OrderBy(a => a.Text).ToList(),
                 ContextMenu = BuildContextMenuForNode(
@@ -105,6 +113,9 @@
                 ),
                 IsExpanded = GetExistingValueOrDefault(
                     existingTreeView?.Children ?? new List<TreeViewNodeData>(),
+                    node.Id
+                ) || GetExistingValueOrDefault(
+                    expandedList,
                     node.Id
                 )
             };
@@ -177,7 +188,7 @@
         }
 
         private bool GetExistingValueOrDefault(
-            IList<TreeViewNodeData> nodeChildren,
+            IEnumerable<TreeViewNodeData> nodeChildren,
             string nodeDataId
         )
         {

@@ -11,8 +11,6 @@
     {
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; }
-        //[Inject]
-        //public JavaScriptRunner ScriptRunner { get; set; }
 
         [Parameter]
         public EditorFileExplorerModalState ModalState { get; set; }
@@ -25,31 +23,17 @@
             bool firstRender
         )
         {
-            // TODO: Update Focus setting, use the new Blazor feature for Focus
-            //if (ModalState.TriggerInputFocus)
-            //{
-            //    await ScriptRunner.Run(
-            //        "zoneEditorExplorer.focusElement",
-            //        "$args.element.focus();",
-            //        new
-            //        {
-            //            element = ModalState.InputFocusElement
-            //        }
-            //    );
-            //    ModalState.TriggerInputFocus = false;
-            //}
-            //else if (ModalState.TriggerButtonFocus)
-            //{
-            //    await ScriptRunner.Run(
-            //        "zoneEditorExplorer.focusElement",
-            //        "$args.element.focus();",
-            //        new
-            //        {
-            //            element = ModalState.ButtonFocusElement
-            //        }
-            //    );
-            //    ModalState.TriggerButtonFocus = false;
-            //}
+            if (firstRender)
+            {
+                if (ModalState.TriggerInputFocus)
+                {
+                    await ModalState.InputFocusElement.FocusAsync();
+                }
+                else if (ModalState.TriggerButtonFocus)
+                {
+                    await ModalState.ButtonFocusElement.FocusAsync();
+                }
+            }
         }
     }
 }

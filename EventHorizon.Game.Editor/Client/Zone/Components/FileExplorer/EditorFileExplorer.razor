@@ -3,7 +3,8 @@
 
 
 <div class="zone-editor-explorer" data-selector="zone-editor-explorer">
-    <TreeView Root="@EditorTreeView" />
+    <TreeView Root="EditorTreeView"
+              OnChanged="HandleTreeViewChanged"/>
     <div class="zone-editor-explorer__modal"
          data-selector="zone-editor-explorer__modal">
         <EditorFileExplorerModal ModalState="ModalState"

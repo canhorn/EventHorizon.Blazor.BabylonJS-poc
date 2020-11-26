@@ -15,6 +15,8 @@
 
         [Parameter]
         public TreeViewNodeData Node { get; set; } = null!;
+        [Parameter]
+        public EventCallback OnChanged { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -72,22 +74,15 @@
             return Node.IsExpanded.ToLower();
         }
 
-        protected Task HandleClickOfNode()
+        protected async Task HandleClickOfNode()
         {
-            if (Node.IsDisabled)
+            if (Node.IsDisabled
+                || !IsParentNode)
             {
-                return Task.CompletedTask;
-            }
-            if (!IsParentNode)
-            {
-                // TODO: Look into if this is necessary for href on parent node clicks
-                //NavigationManager.NavigateTo(
-                //    Node.Href
-                //);
-                return Task.CompletedTask;
+                return;
             }
             Node.IsExpanded = !Node.IsExpanded;
-            return Task.CompletedTask;
+            await OnChanged.InvokeAsync();
         }
 
         protected string GetNavLinkClass()

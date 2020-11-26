@@ -14,7 +14,7 @@
         <NavLink class="@GetNavLinkClass()"
                  href="@GetNodeHref()"
                  aria-expanded="@GetAriaExpanded()"
-                 @onclick="@HandleClickOfNode"
+                 @onclick="HandleClickOfNode"
                  data-selector="tree-node-link">
 
             @if (IsParentNode)
@@ -53,7 +53,8 @@
     {
         @foreach (var child in Node.Children)
         {
-            <TreeViewNode Node="@child" />
+            <TreeViewNode Node="@child"
+                          OnChanged="OnChanged"/>
         }
     }
 
