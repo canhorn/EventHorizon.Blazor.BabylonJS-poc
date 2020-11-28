@@ -30,6 +30,8 @@
             CancellationToken cancellationToken
         )
         {
+            var guid = Guid.NewGuid().ToString();
+            Console.WriteLine("Running Reload: " + guid);
             // Get Active Zone State
             var activeZoneResult = await _mediator.Send(
                 new QueryForActiveZone(),
@@ -67,9 +69,12 @@
             }
             // Publish Active Zone State Changed
             await _mediator.Publish(
-                new ActiveZoneStateChangedEvent(),
+                new ActiveZoneStateChangedEvent(
+                    zoneStateResult.Result.Zone.Id
+                ),
                 cancellationToken
             );
+            Console.WriteLine("Finished Running Reload: " + guid);
 
             return new();
         }

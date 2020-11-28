@@ -13,5 +13,6 @@
         IServerTransform Transform { get; }
         IList<string> TagList { get; }
         IDictionary<string, object> Data { get; }
+        IDictionary<string, object> RawData { get; }
     }
 }

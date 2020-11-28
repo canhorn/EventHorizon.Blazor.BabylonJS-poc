@@ -7,6 +7,7 @@
 
 <div class="blade @NavMenuCssClass" @onclick="ToggleNavMenu">
     <EditForm Model="this">
+        @* Updated to StandardSelect *@
         <InputSelect Value="CurrentBlade"
                      ValueExpression="() => CurrentBlade"
                      ValueChanged="(string value) => HandleSelectionChanged(value)">

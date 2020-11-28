@@ -23,6 +23,9 @@
 
 .tree-view__node-item {
     font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
     .tree-view__node-item ::deep .active {

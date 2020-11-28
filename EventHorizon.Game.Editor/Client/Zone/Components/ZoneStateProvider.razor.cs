@@ -18,25 +18,19 @@
 
         protected override async Task OnInitializedAsync()
         {
-            await CheckState();
+            await Setup();
             await base.OnInitializedAsync();
-        }
-
-        protected override async Task OnParametersSetAsync()
-        {
-            await CheckState();
-            await base.OnParametersSetAsync();
         }
 
         public async Task Handle(
             ActiveZoneStateChangedEvent args
         )
         {
-            await CheckState();
+            await Setup();
             await InvokeAsync(StateHasChanged);
         }
 
-        private async Task CheckState()
+        private async Task Setup()
         {
             // Get Active ZoneState
             var result = await Mediator.Send(

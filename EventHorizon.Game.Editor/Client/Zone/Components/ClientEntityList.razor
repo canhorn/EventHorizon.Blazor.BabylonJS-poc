@@ -1,29 +1,43 @@
-﻿@using EventHorizon.Game.Editor.Client.Zone.Api
+﻿@inherits ClientEntityListModel
 
-<div>
+<div class="entity-list">
     @foreach (var entity in ZoneState.ZoneInfo.ClientEntityList)
     {
-        <div class="entity-item --shaded-background">
-            <div>
-                @entity.Name (@entity.GlobalId)
-            </div>
-        </div>
+        <button title="@entity.Name (@entity.GlobalId)"
+                class="entity-item --shaded-background --text --padding"
+                @onclick="() => HandleEntityClicked(entity)">
+            @entity.Name (@entity.GlobalId)
+        </button>
+        @*<a title="@entity.Name (@entity.GlobalId)"
+               href="zone/client-entity/@entity.GlobalId">
+                <span class="entity-item --shaded-background">
+                    @entity.Name (@entity.GlobalId)
+                </span>
+            </a>*@
     }
 </div>
 
 <style>
-    .entity-item {
-        margin: 1rem;
+    .entity-list {
         padding: 0.8rem;
     }
 
+    .entity-item {
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+        .entity-item.--padding {
+            margin: 0px;
+            padding: 0.3rem;
+        }
+
         .entity-item.--shaded-background {
-            color: white;
-            background-color: black;
+            color: black;
+            background-color: white;
         }
 </style>
-
-@code {
-    [CascadingParameter]
-    public ZoneState ZoneState { get; set; } = null!;
-}

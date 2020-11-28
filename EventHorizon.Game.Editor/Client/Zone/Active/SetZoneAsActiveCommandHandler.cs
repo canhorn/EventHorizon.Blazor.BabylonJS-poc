@@ -23,7 +23,7 @@
             _cache = cache;
         }
 
-        public async Task<StandardCommandResult> Handle(
+        public Task<StandardCommandResult> Handle(
             SetZoneAsActiveCommand request,
             CancellationToken cancellationToken
         )
@@ -40,15 +40,8 @@
                 () => request.Zone
             );
 
-            // Publish Active ZoneState Changed
-            await _mediator.Publish(
-                new ActiveZoneStateChangedEvent(
-                    request.Zone.Zone.Id
-                ),
-                cancellationToken
-            );
-
-            return new();
+            return new StandardCommandResult()
+                .FromResult();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿@using MediatR;
-@using EventHorizon.Game.Editor.Client.Zone.Get
-@using EventHorizon.Game.Editor.Client.Zone.Api
+﻿@inherits ZoneSelectionModel
 
 <div>
     @ErrorMessage
@@ -8,7 +6,7 @@
 
 @if (!AccessToken.IsFilled)
 {
-    <div>Please Login...</div>
+    <div>@Localizer["Please Login..."]</div>
 }
 else if (SelectedZone == null)
 {
@@ -18,6 +16,7 @@ else if (SelectedZone == null)
             @foreach (var zone in Zones)
             {
                 <div>
+                    @* Tile Selection Display *@
                     <div>Id: @zone.Id</div>
                     <div>Server Address: @zone.ServerAddress</div>
                     <div>Tag: @zone.Tag</div>
@@ -33,17 +32,18 @@ else if (SelectedZone == null)
     {
         <EditForm Model="this">
             <label>
-                Zone Select: (@SelectedZoneId)
+                @Localizer["Zone Select: ({0})", SelectedZoneId]
                 <InputSelect TValue="string"
                              ValueExpression="() => SelectedZoneId"
                              ValueChanged="HandleZoneSelectionChanged">
-                    <option value="">Select a Zone...</option>
+                    <option value="">
+                        @Localizer["Select a Zone..."]
+                    </option>
                     @foreach (var zone in Zones)
                     {
                         <option value="@zone.Id">@zone.Id</option>
                     }
                 </InputSelect>
-
             </label>
         </EditForm>
     }
@@ -53,109 +53,11 @@ else
     if (ZoneState != null)
     {
         <div>
-            SelectedZone: @SelectedZoneId
+            @Localizer["SelectedZone: {0}", SelectedZoneId]
         </div>
     }
     else
     {
-        <div>Loading...</div>
-    }
-}
-
-@code {
-    [CascadingParameter]
-    public AccessTokenModel AccessToken { get; set; } = null!;
-    [Parameter]
-    public string SelectionDisplay { get; set; } = "TILE";
-
-    [Inject]
-    public IMediator Mediator { get; set; } = null!;
-
-    public string SelectedZoneId { get; set; } = string.Empty;
-    public CoreZoneDetails SelectedZone { get; set; }
-    public ZoneState ZoneState { get; set; }
-
-    public string ErrorMessage { get; set; }
-    public bool IsConnected { get; set; }
-    public IList<CoreZoneDetails> Zones = new List<CoreZoneDetails>();
-
-    protected override async Task OnInitializedAsync()
-    {
-        await CheckState();
-    }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        await CheckState();
-    }
-
-    private async Task HandleZoneSelectionChanged(
-        string newValue
-    )
-    {
-        if (SelectedZoneId == newValue
-            || string.IsNullOrWhiteSpace(newValue))
-        {
-            return;
-        }
-        SelectedZoneId = newValue;
-        SelectedZone = Zones.FirstOrDefault(
-            a => a.Id == SelectedZoneId
-        );
-        var result = await Mediator.Send(
-            new GetZoneStateCommand(
-                SelectedZone
-            )
-        );
-        if (!result.Success)
-        {
-            SelectedZoneId = string.Empty;
-            ErrorMessage = result.ErrorCode;
-            return;
-        }
-        ZoneState = result.Result;
-        await Mediator.Send(
-            new EventHorizon.Game.Editor.Client.Zone.Active.SetZoneAsActiveCommand(
-                ZoneState
-            )
-        );
-    }
-
-    private async Task CheckState()
-    {
-        if (!AccessToken.IsFilled)
-        {
-            return;
-        }
-        var result = await Mediator.Send(
-            new StartConnectionToCoreServerCommand(
-                AccessToken.AccessToken
-            )
-        );
-        if (!result.Success)
-        {
-            // TODO: Show Error Message
-            return;
-        }
-
-        IsConnected = true;
-
-        var zonesResult = await Mediator.Send(
-            new QueryForAllZoneDetails()
-        );
-        if (zonesResult.Success)
-        {
-            Zones = new List<CoreZoneDetails>(
-                zonesResult.Result
-            );
-
-            if (Zones.Count == 1)
-            {
-                // We will just select the first by default
-                await HandleZoneSelectionChanged(
-                    Zones.First().Id
-                );
-            }
-        }
+        <div>@Localizer["Loading..."]</div>
     }
 }

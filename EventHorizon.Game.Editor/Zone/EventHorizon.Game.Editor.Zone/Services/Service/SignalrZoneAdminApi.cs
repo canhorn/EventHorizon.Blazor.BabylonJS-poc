@@ -27,8 +27,9 @@
         {
             if (_hubConnection == null)
             {
-                return new ZoneInfo()
-                    .FromResult();
+                return Task.FromResult<ZoneInfo>(
+                    null
+                );
             }
             return _hubConnection.InvokeAsync<ZoneInfo>(
                 "ZoneInfo"

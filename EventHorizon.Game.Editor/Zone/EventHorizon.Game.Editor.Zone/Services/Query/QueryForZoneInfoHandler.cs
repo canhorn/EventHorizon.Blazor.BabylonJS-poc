@@ -25,10 +25,17 @@
             CancellationToken cancellationToken
         )
         {
+            var zoneInfo = await _zoneAdminServices
+                .Api
+                .GetZoneInfo();
+            if (zoneInfo.IsNull())
+            {
+                return new(
+                    ZoneAdminErrorCodes.ZONE_INFO_INVALID
+                );
+            }
             return new(
-                await _zoneAdminServices
-                    .Api
-                    .GetZoneInfo()
+                zoneInfo
             );
         }
     }

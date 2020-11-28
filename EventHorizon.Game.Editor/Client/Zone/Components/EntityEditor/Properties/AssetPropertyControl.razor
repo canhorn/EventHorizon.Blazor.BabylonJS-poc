@@ -1,0 +1,97 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Api
+@using EventHorizon.Game.Editor.Zone.Services.Model
+@inherits PropertyControlBase
+
+<div>
+    <label class="font-bold cursor-pointer"
+           title="@Localizer["Remove"]">
+        @if (ShowRemove)
+        {
+            <button class="c-button --text"
+                    @onclick="HandleRemove">
+                &#10060
+            </button>
+        }
+        @PropertyName
+    </label>
+
+    <StandardSelect Options="AssetOptions"
+                   ValueChanged="HandleAssetValueChanged"
+                   Value="SelectedAssetOption"></StandardSelect>
+</div>
+
+
+@code {
+    [CascadingParameter]
+    public ZoneState ZoneState { get; set; } = null!;
+
+    protected ZoneInfo ZoneInfo => ZoneState.ZoneInfo;
+
+    protected string AssetId = string.Empty;
+
+    [System.Diagnostics.CodeAnalysis.MaybeNull]
+    protected StandardSelectOption SelectedAssetOption { get; private set; }
+    protected List<StandardSelectOption> AssetOptions { get; private set; } = new List<StandardSelectOption>();
+
+    protected override object Parse(object value)
+    {
+        AssetId = value.Cast<string>();
+        this.SetSelectedAssetOption();
+        return value.Cast<string>();
+    }
+
+    protected override void OnInitialized()
+    {
+        var options = ZoneInfo.ClientAssetList
+            .Select(clientAsset => new StandardSelectOption
+            {
+                Value = clientAsset.Id,
+                Text = Localizer[
+                    "{0} ({1}) ({2})",
+                    clientAsset.Name,
+                    clientAsset.Type,
+                    clientAsset.Id
+                ]
+            }).OrderBy(a => a.Text).ToList();
+        options.Insert(0, new StandardSelectOption
+        {
+            Value = "none",
+            Text = Localizer["Select an Asset..."],
+        });
+        AssetId = Property.ToString();
+        AssetOptions = options;
+        this.SetSelectedAssetOption();
+    }
+
+    private void SetSelectedAssetOption()
+    {
+        if (AssetOptions.Exists(a => a.Value == AssetId))
+        {
+            SelectedAssetOption = AssetOptions.First(
+                a => a.Value == AssetId
+            );
+        }
+        else
+        {
+            SelectedAssetOption = AssetOptions.First();
+        }
+    }
+
+    public async Task HandleAssetValueChanged(
+        StandardSelectOption option
+    )
+    {
+        option.NullCheck(nameof(option));
+
+        SelectedAssetOption = option;
+
+        var AssetId = option.Value;
+
+        await HandleChange(
+            new ChangeEventArgs
+            {
+                Value = AssetId
+            }
+        );
+    }
+}

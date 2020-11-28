@@ -14,6 +14,7 @@
         IServerTransform IObjectEntityDetails.Transform => Transform;
         public IList<string> TagList { get; set; } = new List<string>();
         public IDictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
+        public IDictionary<string, object> RawData { get; set; } = new Dictionary<string, object>();
         public bool IsReadOnly { get; set; }
     }
 }

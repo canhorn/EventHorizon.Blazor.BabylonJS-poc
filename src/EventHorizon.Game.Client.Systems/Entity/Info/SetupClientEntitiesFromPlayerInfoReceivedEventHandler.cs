@@ -29,7 +29,8 @@
                 await _mediator.Send(
                     new RegisterClientEntity(
                         clientEntityDetails
-                    )
+                    ),
+                    cancellationToken
                 );
             }
         }

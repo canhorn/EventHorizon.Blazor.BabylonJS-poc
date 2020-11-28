@@ -1,0 +1,14 @@
+﻿.standard-toolbar-item.--remove-button-styles {
+    padding: 0.6rem;
+    background: var(--background-dark);
+    color: inherit;
+    border: 1px solid transparent;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.standard-toolbar-item:hover {
+    background-color: var(--contrast-light-disabled);
+    border: 1px solid var(--contrast-dark-secondary)
+}

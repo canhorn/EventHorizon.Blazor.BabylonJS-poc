@@ -1,0 +1,26 @@
+﻿@inherits PropertyControlBase
+
+<div>
+    <label class="font-bold cursor-pointer"
+           title="@Localizer["Remove"]">
+        @if (ShowRemove)
+        {
+            <button class="c-button --text"
+                    @onclick="HandleRemove">
+                &#10060
+            </button>
+        }
+        @PropertyName
+        <input class="c-checkbox"
+               type="checkbox"
+               checked="@Property"
+               @onchange="HandleChange" />
+    </label>
+</div>
+
+@code {
+    protected override object Parse(object value)
+    {
+        return (bool)value;
+    }
+}

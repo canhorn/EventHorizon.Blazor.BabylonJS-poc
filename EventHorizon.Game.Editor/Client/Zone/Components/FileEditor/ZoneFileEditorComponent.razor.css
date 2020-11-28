@@ -1,5 +1,8 @@
 ﻿.editor {
     height: 100%;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 2.7rem auto;
 }
 
 .editor-toolbar {

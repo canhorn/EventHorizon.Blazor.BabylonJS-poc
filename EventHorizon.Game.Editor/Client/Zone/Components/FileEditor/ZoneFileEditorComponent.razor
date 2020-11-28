@@ -2,18 +2,16 @@
 @inherits ZoneFileEditorComponentModel
 
 <div class="editor">
-    <div class="editor-toolbar">
-        <button class="menu-item --remove-button-styles"
-                title="@Localizer["Save File"]"
-                @onclick="HandleSaveFile">
+    <StandardToolbar>
+        <StandardToolbarButton title="@Localizer["Save File"]"
+                               @onclick="HandleSaveFile">
             @Localizer["Save"]
-        </button>
-        <button class="menu-item --remove-button-styles"
-                title="@Localizer["Open Details for Editor"]"
-                @onclick="HandleOpenDetails">
+        </StandardToolbarButton>
+        <StandardToolbarButton title="@Localizer["Open Details for Editor"]"
+                               @onclick="HandleOpenDetails">
             @Localizer["Details"]
-        </button>
-    </div>
+        </StandardToolbarButton>
+    </StandardToolbar>
     <MonacoEditor @ref="MonacoEditor"
                   Id="any-id-string"
                   CssClass="editor-container"

@@ -1,0 +1,26 @@
+﻿@inherits ClientEntityProviderModel
+
+@if (ClientEntity.IsNotNull())
+{
+    <CascadingValue Value="EntityEditorState">
+        <CascadingValue Value="ClientEntity">
+            @ChildContent
+        </CascadingValue>
+    </CascadingValue>
+}
+else
+{
+    <div>
+        <div>
+            ErrorMessage: @ErrorMessage
+        </div>
+
+        <div>
+            ZoneState ID: @ZoneState.Zone.Id
+        </div>
+
+        <div>
+            ClientEntityId: @ClientEntityId
+        </div>
+    </div>
+}

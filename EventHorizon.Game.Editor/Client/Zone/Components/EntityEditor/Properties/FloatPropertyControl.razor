@@ -1,0 +1,29 @@
+﻿@inherits PropertyControlBase
+
+<div>
+    <label class="font-bold cursor-pointer"
+           title="@Localizer["Remove"]">
+        @if (ShowRemove)
+        {
+            <button class="c-button --text"
+                    @onclick="HandleRemove">
+                &#10060
+            </button>
+        }
+        @PropertyName
+    </label>
+    <input class="c-text-input"
+           type="number"
+           step="0.01"
+           value="@Property"
+           @onchange="HandleChange" />
+</div>
+
+@code {
+    protected override object Parse(object value)
+    {
+        return float.Parse(
+            value.Cast<string>()
+        );
+    }
+}

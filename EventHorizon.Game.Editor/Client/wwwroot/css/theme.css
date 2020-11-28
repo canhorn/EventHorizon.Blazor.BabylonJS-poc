@@ -35,7 +35,7 @@
     --icon-base: #aaa;
     --icon-light: #fff;
     --icon-dark: #616161;
-    /* Contrast - Dark*/
+    /* Contrast - Dark */
     --contrast-dark-primary: rgb(255, 255, 255);
     --contrast-dark-secondary: rgba(255, 255, 255, 0.7);
     --contrast-dark-disabled: rgba(255, 255, 255, 0.5);
@@ -45,4 +45,14 @@
     --contrast-light-secondary: rgba(0, 0, 0, 0.54);
     --contrast-light-disabled: rgba(0, 0, 0, 0.38);
     --contrast-light-hint: rgba(0, 0, 0, 0.12);
+    /* Error - Dark */
+    --error-dark-primary: rgb(255, 0, 0);
+    --error-dark-secondary: rgba(255, 0, 0, 0.7);
+    --error-dark-disabled: rgba(255, 0, 0, 0.5);
+    --error-dark-hint: rgba(255, 0, 0, 0.12);
+    /* error - Light */
+    --error-light-primary: rgba(255, 0, 0, 0.87);
+    --error-light-secondary: rgba(255, 0, 0, 0.54);
+    --error-light-disabled: rgba(255, 0, 0, 0.38);
+    --error-light-hint: rgba(255, 0, 0, 0.12);
 }

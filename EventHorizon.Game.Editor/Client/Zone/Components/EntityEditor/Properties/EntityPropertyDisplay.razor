@@ -1,0 +1,66 @@
+﻿@inherits EntityPropertyDisplayModel
+@using EventHorizon.Game.Editor.Zone.Editor.Services.Model
+
+<div class="entity-property-display">
+    @foreach (var prop in DisplayProperties.Values)
+    {
+        @switch (prop.Type)
+        {
+            case ZoneEditorPropertyType.PropertyBoolean:
+                <BooleanPropertyControl PropertyName="@prop.Name"
+                                        Property="prop.Value"
+                                        OnChange="HandlePropertyChanged"
+                                        OnRemove="HandleRemoveProperty" />
+                break;
+
+            case ZoneEditorPropertyType.PropertyFloat:
+                <FloatPropertyControl PropertyName="@prop.Name"
+                                      Property="prop.Value"
+                                      OnChange="HandlePropertyChanged"
+                                      OnRemove="HandleRemoveProperty" />
+                break;
+
+            case ZoneEditorPropertyType.PropertyLong:
+                <LongPropertyControl PropertyName="@prop.Name"
+                                     Property="prop.Value"
+                                     OnChange="HandlePropertyChanged"
+                                     OnRemove="HandleRemoveProperty" />
+                break;
+
+            case ZoneEditorPropertyType.PropertyString:
+                <StringPropertyControl PropertyName="@prop.Name"
+                                       Property="prop.Value"
+                                       OnChange="HandlePropertyChanged"
+                                       OnRemove="HandleRemoveProperty" />
+                break;
+
+            case ZoneEditorPropertyType.PropertyVector3:
+                <VectorPropertyControl PropertyName="@prop.Name"
+                                       Property="prop.Value"
+                                       OnChange="HandlePropertyChanged"
+                                       OnRemove="HandleRemoveProperty" />
+                break;
+
+            case ZoneEditorPropertyType.PropertyAsset:
+                <AssetPropertyControl PropertyName="@prop.Name"
+                                       Property="prop.Value"
+                                       OnChange="HandlePropertyChanged"
+                                       OnRemove="HandleRemoveProperty" />
+                break;
+
+            default:
+                <div>
+                    @Localizer["not_supported_property_type"]
+                </div>
+                break;
+        }
+        <hr class="--accent-color" />
+    }
+</div>
+
+<style>
+    .entity-property-display {
+        display: grid;
+        grid-gap: 0.3rem;
+    }
+</style>
