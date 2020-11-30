@@ -17,7 +17,7 @@
                 ["assetId"] = ZoneEditorPropertyType.PropertyAsset,
                 ["dense"] = ZoneEditorPropertyType.PropertyBoolean,
                 ["resolveHeight"] = ZoneEditorPropertyType.PropertyBoolean,
-                ["heightOffset"] = ZoneEditorPropertyType.PropertyLong,
+                ["heightOffset"] = ZoneEditorPropertyType.PropertyDecimal,
                 ["densityBox"] = ZoneEditorPropertyType.PropertyVector3,
             },
         };

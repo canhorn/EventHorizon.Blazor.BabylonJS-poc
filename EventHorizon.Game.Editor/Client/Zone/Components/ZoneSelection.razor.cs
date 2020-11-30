@@ -98,6 +98,7 @@
         {
             try
             {
+                ErrorMessage = string.Empty;
                 SelectedZoneId = args.ZoneId;
 
                 // Set Zone Details

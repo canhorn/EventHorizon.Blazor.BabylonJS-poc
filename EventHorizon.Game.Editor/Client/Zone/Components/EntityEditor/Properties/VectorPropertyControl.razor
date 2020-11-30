@@ -3,25 +3,33 @@
 @inherits PropertyControlBase
 
 <div class="vector">
-    <label class="font-bold cursor-pointer"
-           title="@Localizer["Remove"]">
-        @if (ShowRemove)
-        {
+    @if (ShowRemove)
+    {
+        <label class="--font-bold --cursor-pointer"
+               title="@Localizer["Remove"]">
             <button class="c-button --text"
                     @onclick="HandleRemove">
                 &#10060
             </button>
-        }
-        @PropertyName
-    </label>
-    <div class="vector__property-description">(@ParsedProperty.X, @ParsedProperty.Y, @ParsedProperty.Z)</div>
+            @PropertyName
+        </label>
+    }
+    else
+    {
+        <label class="--font-bold">
+            @PropertyName
+        </label>
+    }
+    <div class="vector__property-description">
+        (@ParsedProperty.X, @ParsedProperty.Y, @ParsedProperty.Z)
+    </div>
     <div class="vector__property-values">
         <div class="vector__property">
             <div class="vector__property__label">
                 X
             </div>
-            <div class="vector__property__value">
-                <input class="c-text-input"
+            <div class="vector__value">
+                <input class="--text-input"
                        value="@ParsedProperty.X"
                        type="number"
                        step="0.01"
@@ -32,8 +40,8 @@
             <div class="vector__property__label">
                 Y
             </div>
-            <div class="vector__property__value">
-                <input class="c-text-input"
+            <div class="vector__value">
+                <input class="--text-input"
                        value="@ParsedProperty.Y"
                        type="number"
                        step="0.01"
@@ -44,8 +52,8 @@
             <div class="vector__property__label">
                 Z
             </div>
-            <div class="vector__property__value">
-                <input class="c-text-input"
+            <div class="vector__value">
+                <input class="--text-input"
                        value="@ParsedProperty.Z"
                        type="number"
                        step="0.01"
@@ -78,6 +86,10 @@
     .vector__value {
         grid-area: value;
     }
+
+        .vector__value .--text-input {
+            width: 100%;
+        }
 </style>
 
 

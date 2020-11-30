@@ -2,10 +2,11 @@
 {
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+    using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
     using MediatR;
 
     public struct CloneObjectEntityDetailsCommand
-        : IRequest<CommandResult<IObjectEntityDetails>>
+        : IRequest<CommandResult<ObjectEntityDetailsModel>>
     {
         public IObjectEntityDetails EntityDetails { get; }
 

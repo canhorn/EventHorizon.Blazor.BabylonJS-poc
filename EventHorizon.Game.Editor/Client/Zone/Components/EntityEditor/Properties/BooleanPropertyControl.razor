@@ -1,26 +1,64 @@
 ﻿@inherits PropertyControlBase
 
-<div>
-    <label class="font-bold cursor-pointer"
-           title="@Localizer["Remove"]">
+<EditForm Model="this">
+    <div class="boolean-property">
         @if (ShowRemove)
         {
             <button class="c-button --text"
+                    title="@Localizer["Remove"]"
                     @onclick="HandleRemove">
                 &#10060
             </button>
         }
-        @PropertyName
-        <input class="c-checkbox"
-               type="checkbox"
-               checked="@Property"
-               @onchange="HandleChange" />
-    </label>
-</div>
+        <label class="label --font-bold --cursor-pointer">
+            <InputCheckbox class="c-checkbox"
+                           type="checkbox"
+                           Value="@ParsedProperty"
+                           ValueExpression="() => ParsedProperty"
+                           ValueChanged="HandleBooleanChanged"></InputCheckbox>
+            @PropertyName
+        </label>
+    </div>
+</EditForm>
+
+<style>
+    .boolean-property {
+    }
+
+        .boolean-property .label {
+            padding-left: 1rem;
+        }
+</style>
 
 @code {
+
+    private bool ParsedProperty { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ParsedProperty = Property.Cast<bool>();
+    }
+
+    protected override void OnParametersSet()
+    {
+        ParsedProperty = Property.Cast<bool>();
+    }
+
     protected override object Parse(object value)
     {
-        return (bool)value;
+        return value.Cast<bool>();
+    }
+
+    public Task HandleBooleanChanged(
+        Boolean value
+    )
+    {
+        ParsedProperty = value;
+        return base.HandleChange(
+            new ChangeEventArgs
+            {
+                Value = value,
+            }
+        );
     }
 }

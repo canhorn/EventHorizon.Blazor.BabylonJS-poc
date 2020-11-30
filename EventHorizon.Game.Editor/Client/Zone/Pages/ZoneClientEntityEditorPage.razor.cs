@@ -1,30 +1,33 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Pages
 {
-    using System;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
-    using EventHorizon.Game.Editor.Client.Zone.Selected;
+    using EventHorizon.Game.Editor.Client.Zone.Opened;
+    using MediatR;
     using Microsoft.AspNetCore.Components;
 
     public class ZoneClientEntityEditorPageModel
-        : ObservableComponentBase,
-        ClientEntitySelectedEventObserver
+        : ComponentBase
     {
         [Parameter]
         public string ClientEntityId { get; set; } = string.Empty;
 
         [Inject]
-        public NavigationManager NavigationManager { get; set; } = null!;
+        public IMediator Mediator { get; set; } = null!;
 
-        public Task Handle(
-            ClientEntitySelectedEvent args
-        )
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            NavigationManager.NavigateTo(
-                $"zone/client-entity/{args.Entity.GlobalId}"
-            );
-
-            return Task.CompletedTask;
+            if (firstRender
+                && string.IsNullOrWhiteSpace(ClientEntityId).IsNotTrue()
+            )
+            {
+                await Mediator.Publish(
+                    new ObjectEntityOpenedEvent(
+                        ClientEntityId
+                    )
+                );
+            }
+            await base.OnAfterRenderAsync(firstRender);
         }
     }
 }

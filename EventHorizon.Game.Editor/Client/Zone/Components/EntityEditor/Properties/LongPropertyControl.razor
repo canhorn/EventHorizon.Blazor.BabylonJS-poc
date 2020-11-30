@@ -1,22 +1,38 @@
 ﻿@inherits PropertyControlBase
 
-<div>
-    <label class="font-bold cursor-pointer"
-           title="@Localizer["Remove"]">
-        @if (ShowRemove)
-        {
+<div class="long-property">
+    @if (ShowRemove)
+    {
+        <label class="--font-bold --cursor-pointer"
+               title="@Localizer["Remove"]">
             <button class="c-button --text"
                     @onclick="HandleRemove">
                 &#10060
             </button>
-        }
-        @PropertyName
-    </label>
-    <input class="c-text-input"
+            @PropertyName
+        </label>
+    }
+    else
+    {
+        <label class="--font-bold">
+            @PropertyName
+        </label>
+    }
+
+    <input class="--text-input"
            type="number"
            value="@Property"
            @onchange="HandleChange" />
 </div>
+
+<style>
+    .long-property {
+    }
+
+        .long-property .--text-input {
+            width: 100%;
+        }
+</style>
 
 @code {
     protected override object Parse(object value)

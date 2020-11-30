@@ -27,6 +27,10 @@
             ChangeEventArgs args
         )
         {
+            System.Console.WriteLine(PropertyName + " | " + args.Value);
+            System.Console.WriteLine("Parsed Value: " + Parse(
+                args.Value
+            ));
             args.NullCheck();
             await OnChange.InvokeAsync(
                 new PropertyChangedArgs

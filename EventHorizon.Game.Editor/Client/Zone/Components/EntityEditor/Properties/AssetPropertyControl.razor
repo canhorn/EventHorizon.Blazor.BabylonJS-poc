@@ -3,21 +3,27 @@
 @inherits PropertyControlBase
 
 <div>
-    <label class="font-bold cursor-pointer"
-           title="@Localizer["Remove"]">
-        @if (ShowRemove)
-        {
+    @if (ShowRemove)
+    {
+        <label class="--font-bold --cursor-pointer"
+               title="@Localizer["Remove"]">
             <button class="c-button --text"
                     @onclick="HandleRemove">
                 &#10060
             </button>
-        }
-        @PropertyName
-    </label>
+            @PropertyName
+        </label>
+    }
+    else
+    {
+        <label class="--font-bold">
+            @PropertyName
+        </label>
+    }
 
     <StandardSelect Options="AssetOptions"
-                   ValueChanged="HandleAssetValueChanged"
-                   Value="SelectedAssetOption"></StandardSelect>
+                    ValueChanged="HandleAssetValueChanged"
+                    Value="SelectedAssetOption"></StandardSelect>
 </div>
 
 

@@ -1,6 +1,6 @@
 ﻿@inherits PropertyControlBase
 
-<div class="string-property">
+<div class="decimal-property">
     @if (ShowRemove)
     {
         <label class="--font-bold --cursor-pointer"
@@ -18,16 +18,19 @@
             @PropertyName
         </label>
     }
+
     <input class="--text-input"
+           type="number"
+           step="0.01"
            value="@Property"
            @onchange="HandleChange" />
 </div>
 
 <style>
-    .string-property {
+    .decimal-property {
     }
 
-        .string-property .--text-input {
+        .decimal-property .--text-input {
             width: 100%;
         }
 </style>
@@ -35,6 +38,8 @@
 @code {
     protected override object Parse(object value)
     {
-        return value;
+        return decimal.Parse(
+            value.Cast<string>()
+        );
     }
 }

@@ -13,11 +13,11 @@
                                         OnRemove="HandleRemoveProperty" />
                 break;
 
-            case ZoneEditorPropertyType.PropertyFloat:
-                <FloatPropertyControl PropertyName="@prop.Name"
-                                      Property="prop.Value"
-                                      OnChange="HandlePropertyChanged"
-                                      OnRemove="HandleRemoveProperty" />
+            case ZoneEditorPropertyType.PropertyDecimal:
+                <DecimalPropertyControl PropertyName="@prop.Name"
+                                        Property="prop.Value"
+                                        OnChange="HandlePropertyChanged"
+                                        OnRemove="HandleRemoveProperty" />
                 break;
 
             case ZoneEditorPropertyType.PropertyLong:
@@ -43,9 +43,9 @@
 
             case ZoneEditorPropertyType.PropertyAsset:
                 <AssetPropertyControl PropertyName="@prop.Name"
-                                       Property="prop.Value"
-                                       OnChange="HandlePropertyChanged"
-                                       OnRemove="HandleRemoveProperty" />
+                                      Property="prop.Value"
+                                      OnChange="HandlePropertyChanged"
+                                      OnRemove="HandleRemoveProperty" />
                 break;
 
             default:

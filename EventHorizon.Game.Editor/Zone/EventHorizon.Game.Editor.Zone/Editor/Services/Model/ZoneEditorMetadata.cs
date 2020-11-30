@@ -30,7 +30,7 @@
                 return propertyType switch
                 {
                     ZoneEditorPropertyType.PropertyBoolean => false,
-                    ZoneEditorPropertyType.PropertyFloat => 0.0f,
+                    ZoneEditorPropertyType.PropertyDecimal => 0.0m,
                     ZoneEditorPropertyType.PropertyLong => 0,
                     ZoneEditorPropertyType.PropertyVector3 => ServerVector3.Zero(),
                     _ => string.Empty,
@@ -44,7 +44,7 @@
     public static class ZoneEditorPropertyType
     {
         public const string PropertyBoolean = "Boolean";
-        public const string PropertyFloat = "Float";
+        public const string PropertyDecimal = "Decimal";
         public const string PropertyLong = "Long";
         public const string PropertyString = "String";
         public const string PropertyVector3 = "Vector3";

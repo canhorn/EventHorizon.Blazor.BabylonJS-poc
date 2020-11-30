@@ -1,8 +1,4 @@
-﻿@page "/zone/client-entity"
-@page "/zone/client-entity/{clientEntityId}"
-@using EventHorizon.Game.Editor.Client.Zone.Components.EntityEditor
-@layout ThreeSplitLayout
-@inherits ZoneClientEntityEditorPageModel
+﻿@inherits ObjectEntityEditorBladeModel
 
 <ZoneStateProvider>
     @if (string.IsNullOrWhiteSpace(ClientEntityId))

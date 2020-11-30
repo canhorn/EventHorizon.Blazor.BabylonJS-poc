@@ -14,11 +14,41 @@
 
 <div>
     <div class="object-entity-editor__properties">
-        <h3 class="--font-bold">
-            @Localizer["Properties ({0})", EditEntity.Data.Count]
-        </h3>
+        <div>
+            <StringPropertyControl PropertyName="@nameof(EditEntity.Name)"
+                                   Property="EditEntity.Name"
+                                   OnChange="HandlePropertyChanged" />
+        </div>
+        <div>
+            <VectorPropertyControl PropertyName="@nameof(EditEntity.Transform.Position)"
+                                   Property="EditEntity.Transform.Position"
+                                   OnChange="HandlePropertyChanged" />
+        </div>
+        <div>
+            <VectorPropertyControl PropertyName="@nameof(EditEntity.Transform.Rotation)"
+                                   Property="EditEntity.Transform.Rotation"
+                                   OnChange="HandlePropertyChanged" />
+        </div>
+        <div>
+            <VectorPropertyControl PropertyName="@nameof(EditEntity.Transform.Scaling)"
+                                   Property="EditEntity.Transform.Scaling"
+                                   OnChange="HandlePropertyChanged" />
+        </div>
+        <div>
+            <DecimalPropertyControl PropertyName="@nameof(EditEntity.Transform.ScalingDeterminant)"
+                                    Property="EditEntity.Transform.ScalingDeterminant"
+                                    OnChange="HandlePropertyChanged" />
+        </div>
 
-        <EntityPropertyDisplay Data="EditEntity.Data" />
+        <div>
+            <h3 class="--font-bold">
+                @Localizer["Data Properties ({0})", EditEntity.Data.Count]
+            </h3>
+
+            <EntityPropertyDisplay Data="EditEntity.Data"
+                                   OnChanged="HandleDataChanged"
+                                   OnRemove="HandleRemoveData" />
+        </div>
 
         <div class="object-entity-editor__add-section">
             <EditForm Model="NewPropertyModel"

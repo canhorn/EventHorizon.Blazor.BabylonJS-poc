@@ -1,0 +1,135 @@
+﻿@using EventHorizon.Game.Editor.Client.Authentication.Set
+@using EventHorizon.Game.Editor.Client.Authentication.Api
+@using EventHorizon.Game.Editor.Client.Zone.Components.EntityEditor.Blade
+
+<div class="blade">
+    <EditForm Model="this">
+        <StandardSelect Options="BladeOptions"
+                        ValueChanged="HandleBladeValueChanged"
+                        Value="SelectedBladeOption"></StandardSelect>
+    </EditForm>
+
+    @switch (CurrentBlade)
+    {
+        case "ENTITY_LIST":
+            <ClientEntityListBlade />
+            break;
+        case "EDITOR_FILE_EXPLORER":
+            <EditorFileExplorerBlade />
+            break;
+        case "OBJECT_ENTITY_EDITOR":
+            <ObjectEntityEditorBlade />
+            break;
+        default:
+            <NavMenuBlade />
+            break;
+    }
+</div>
+
+@code {
+    [CascadingParameter]
+    public SessionValues SessionValues { get; set; } = null!;
+
+    [Parameter]
+    public string Id { get; set; } = string.Empty;
+
+    [Inject]
+    public MediatR.IMediator Mediator { get; set; } = null!;
+
+    private IDictionary<string, string> DEFAULT_BLADES = new Dictionary<string, string>
+    {
+        {
+            "NAV_MENU",
+            "Nav"
+        },
+        {
+            "ENTITY_LIST",
+            "Entity List"
+        },
+        {
+            "EDITOR_FILE_EXPLORER",
+            "File Explorer"
+        },
+        {
+            "OBJECT_ENTITY_EDITOR",
+            "Entity Editor"
+        },
+    };
+
+
+    protected StandardSelectOption SelectedBladeOption { get; private set; }
+    protected List<StandardSelectOption> BladeOptions { get; private set; } = new List<StandardSelectOption>();
+
+
+    public string CurrentBlade { get; set; } = "NAV_MENU";
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    protected override void OnInitialized()
+    {
+        // TODO: Pull this from a Command
+        BladeOptions = DEFAULT_BLADES.Select(
+            a => new StandardSelectOption
+            {
+                Value = a.Key,
+                Text = a.Value,
+            }
+        ).ToList();
+        SetSelectedOption(
+            CurrentBlade
+        );
+
+        Setup();
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        Setup();
+        base.OnParametersSet();
+    }
+
+    private void Setup()
+    {
+        if (string.IsNullOrWhiteSpace(Id).IsNotTrue())
+        {
+            CurrentBlade = SessionValues.Get(
+                $"currentBlade__{Id}",
+                CurrentBlade
+            );
+            SetSelectedOption(
+                CurrentBlade
+            );
+        }
+    }
+
+    private async Task HandleBladeValueChanged(
+        StandardSelectOption option
+    )
+    {
+        CurrentBlade = option.Value;
+        SetSelectedOption(
+            CurrentBlade
+        );
+        if (string.IsNullOrWhiteSpace(Id).IsNotTrue())
+        {
+            await Mediator.Send(
+                new SetSessionValueCommand(
+                $"currentBlade__{Id}",
+                    CurrentBlade
+                )
+            );
+        }
+    }
+
+    private void SetSelectedOption(
+        string bladeOptionValue
+    )
+    {
+        SelectedBladeOption = BladeOptions.Where(
+            a => a.Value == bladeOptionValue
+        ).FirstOrDefault();
+    }
+}

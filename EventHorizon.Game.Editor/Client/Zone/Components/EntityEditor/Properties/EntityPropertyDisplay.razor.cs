@@ -5,6 +5,7 @@
     using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
     using Microsoft.AspNetCore.Components;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -67,9 +68,10 @@
                     ZoneEditorMetadata.EDITOR_METADATA_PREFIX,
                     System.StringComparison.InvariantCulture
                 )
-            );
+            ).OrderBy(a => a.Key);
             foreach (var prop in data)
             {
+                System.Console.WriteLine("Key: " + prop.Key + " | Value: " + prop.Value);
                 DisplayProperties.Add(
                     prop.Key,
                     new EntityPropertyDisplayType
