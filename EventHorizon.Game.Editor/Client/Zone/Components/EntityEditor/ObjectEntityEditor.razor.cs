@@ -41,13 +41,11 @@
 
         protected override async Task OnInitializedAsync()
         {
-            System.Console.WriteLine("OnInitializedAsync");
             await Setup();
             await base.OnInitializedAsync();
         }
         protected override async Task OnParametersSetAsync()
         {
-            System.Console.WriteLine("OnParametersSetAsync");
             await Setup();
             await base.OnParametersSetAsync();
         }
@@ -104,7 +102,6 @@
                     EditEntity.Name = args.Property.Cast<string>();
                     break;
                 case nameof(EditEntity.Transform.Position):
-                    System.Console.WriteLine("hello: position : " + args.Property.Cast<ServerVector3>().X);
                     EditEntity.Transform.Position = args.Property.Cast<ServerVector3>();
                     break;
                 case nameof(EditEntity.Transform.Rotation):
@@ -130,11 +127,6 @@
         {
             IsPendingChange = true;
             EditEntity.Data = new Dictionary<string, object>(data);
-
-            foreach (var val in data)
-            {
-                System.Console.WriteLine("Key: "+ val.Key + " | Value: " + val.Value);
-            }
 
             await Mediator.Publish(
                 new ObjectEntityDetailsEditedEvent(
@@ -192,20 +184,17 @@
             ObjectEntityDetailsEditedEvent args
         )
         {
-            System.Console.WriteLine("Args: " + args.Entity.Data["dense"]);
             if (args.Entity.GlobalId != EditEntity.GlobalId
             )
             {
                 // Mostly likely triggered from here. ;)
                 return;
             }
-            System.Console.WriteLine("Args1: " + args.Entity.Data["dense"]);
             var result = await Mediator.Send(
                 new CloneObjectEntityDetailsCommand(
                     args.Entity
                 )
             );
-            System.Console.WriteLine("Args2: " + args.Entity.Data["dense"]);
             if (result.Success.IsNotTrue())
             {
                 await Mediator.Publish(
@@ -217,10 +206,8 @@
                 );
                 return;
             }
-            System.Console.WriteLine("Args3: " + args.Entity.Data["dense"]);
             IsPendingChange = true;
             EditEntity = result.Result;
-            System.Console.WriteLine("Args4: " + EditEntity.Data["dense"]);
             await InvokeAsync(StateHasChanged);
         }
     }

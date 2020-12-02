@@ -71,7 +71,6 @@
             ).OrderBy(a => a.Key);
             foreach (var prop in data)
             {
-                System.Console.WriteLine("Key: " + prop.Key + " | Value: " + prop.Value);
                 DisplayProperties.Add(
                     prop.Key,
                     new EntityPropertyDisplayType
