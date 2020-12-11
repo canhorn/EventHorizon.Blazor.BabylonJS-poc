@@ -17,22 +17,30 @@
     public class SignalrZoneEditorServices
         : ZoneEditorServices
     {
+        private readonly ILoggerFactory _loggerFactory;
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
 
-        public ZoneEditorApi Api { get; private set; } = new SignalrZoneEditorApi(null);
+        public ZoneEditorApi Api { get; private set; }
 
         private string _currentZoneId = string.Empty;
         private bool _initialized;
         private HubConnection _connection;
 
         public SignalrZoneEditorServices(
+            ILoggerFactory loggerFactory,
             ILogger<SignalrZoneEditorServices> logger,
             IMediator mediator
         )
         {
+            _loggerFactory = loggerFactory;
             _logger = logger;
             _mediator = mediator;
+
+            Api = new SignalrZoneEditorApi(
+                _loggerFactory.CreateLogger<SignalrZoneEditorApi>(),
+                null
+            );
         }
 
         public async Task<StandardCommandResult> Connect(
@@ -57,7 +65,16 @@
                 _initialized = true;
                 _currentZoneId = zoneDetails.Id;
                 _connection = new HubConnectionBuilder()
-                    .WithUrl(
+                    .WithAutomaticReconnect(
+                        new TimeSpan[]
+                        {
+                            TimeSpan.FromSeconds(0),
+                            TimeSpan.FromSeconds(2),
+                            TimeSpan.FromSeconds(5),
+                            TimeSpan.FromSeconds(30),
+                            TimeSpan.FromSeconds(30),
+                        }
+                    ).WithUrl(
                         $"{zoneDetails.ServerAddress}/systemEditor",
                         options =>
                         {
@@ -81,6 +98,7 @@
                 _logger.LogInformation(
                     "Connection State: " + _connection.State);
                 Api = new SignalrZoneEditorApi(
+                    _loggerFactory.CreateLogger<SignalrZoneEditorApi>(),
                     _connection
                 );
                 await _mediator.Publish(
@@ -146,7 +164,10 @@
             _connection = null;
             _initialized = false;
             _currentZoneId = string.Empty;
-            Api = new SignalrZoneEditorApi(null);
+            Api = new SignalrZoneEditorApi(
+                _loggerFactory.CreateLogger<SignalrZoneEditorApi>(),
+                null
+            );
 
             return Task.CompletedTask;
         }
@@ -157,7 +178,10 @@
             {
                 await _connection.DisposeAsync();
                 _connection = null;
-                Api = new SignalrZoneEditorApi(null);
+                Api = new SignalrZoneEditorApi(
+                    _loggerFactory.CreateLogger<SignalrZoneEditorApi>(), 
+                    null
+                );
             }
             _initialized = false;
             _currentZoneId = string.Empty;

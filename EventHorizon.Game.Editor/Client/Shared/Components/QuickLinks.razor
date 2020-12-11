@@ -1,5 +1,4 @@
-﻿@using EventHorizon.Game.Editor.Client.Zone.Api
-@using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
+﻿@using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
 
 <TreeView Root="@QuickLinkData" />
 
@@ -29,6 +28,20 @@
                     Name = "zone-client-entity",
                     Text = Localizer["Client Entity Editor"],
                     Href = "/zone/client-entity",
+                    IconCssClass = "--icon oi oi-list-rich"
+                },
+                new TreeViewNodeData
+                {
+                    Name = "live-editor",
+                    Text = Localizer["Live Editor"],
+                    Href = "/live-editor",
+                    IconCssClass = "--icon oi oi-list-rich"
+                },
+                new TreeViewNodeData
+                {
+                    Name = "zone-commands",
+                    Text = Localizer["Zone Commands"],
+                    Href = "/zone/commands",
                     IconCssClass = "--icon oi oi-list-rich"
                 },
             }

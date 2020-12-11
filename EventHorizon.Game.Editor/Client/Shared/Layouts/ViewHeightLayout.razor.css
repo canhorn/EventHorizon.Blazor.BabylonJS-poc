@@ -1,0 +1,36 @@
+.page {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas: "nav" "main";
+}
+
+.page__nav {
+    grid-area: nav;
+    overflow-x: hidden;
+    background-image: linear-gradient(180deg, rgb(0, 0, 0) 30%, #3a0647 100%);
+    z-index: 999;
+}
+
+.page__content {
+    height: 100vh;
+}
+
+@media (min-width: 641px) {
+}
+
+@media (min-width: 768px) {
+    .page {
+        display: grid;
+        grid-template-columns: 20% auto;
+        grid-template-rows: auto;
+        grid-template-areas: "nav main";
+    }
+
+    .page__nav {
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+}

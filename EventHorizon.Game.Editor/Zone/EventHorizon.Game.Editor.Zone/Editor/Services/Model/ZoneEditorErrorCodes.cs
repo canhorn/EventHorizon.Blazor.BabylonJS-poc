@@ -6,6 +6,8 @@
         public static string FAILED_CREATE_ZONE_EDITOR_FILE => nameof(FAILED_CREATE_ZONE_EDITOR_FILE);
         public static string FAILED_DELETE_ZONE_EDITOR_FOLDER => nameof(FAILED_DELETE_ZONE_EDITOR_FOLDER);
         public static string FAILED_DELETE_ZONE_EDITOR_FILE => nameof(FAILED_DELETE_ZONE_EDITOR_FILE);
+        public static string NOT_CONNECTED => nameof(NOT_CONNECTED);
         public static string EDITOR_FILE_NOT_FOUND => nameof(EDITOR_FILE_NOT_FOUND);
+        public static string EDITOR_API_ERROR => nameof(EDITOR_API_ERROR);
     }
 }

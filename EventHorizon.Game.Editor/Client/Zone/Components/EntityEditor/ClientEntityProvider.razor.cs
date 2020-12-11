@@ -6,9 +6,12 @@
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
+    using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
     using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Client.Zone.Model;
+    using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Create;
+    using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Save;
     using MediatR;
     using Microsoft.AspNetCore.Components;
 
@@ -69,8 +72,25 @@
         {
             await Mediator.Publish(
                 new ShowMessageEvent(
-                    "Hello",
-                    "Saving"
+                    Localizer["Client Entity"],
+                    Localizer["Saving Client Entity..."]
+                )
+            );
+            var result = await Mediator.Send(
+                new SaveClientEntityCommand(
+                    entity
+                )
+            );
+            if (result.Success.IsNotTrue())
+            {
+                ErrorMessage = Localizer["Failed to Create Client Entity: {0}", result.ErrorCode];
+                return;
+            }
+            await Mediator.Publish(
+                new ShowMessageEvent(
+                    Localizer["Client Entity"],
+                    Localizer["Saved Client Entity."],
+                    MessageLevel.Success
                 )
             );
         }

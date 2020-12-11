@@ -3,11 +3,11 @@
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
-    grid-template-areas: "blades" "main";
+    grid-template-areas: "nav" "main" "aside";
 }
 
-.page__blades {
-    grid-area: blades;
+.page__nav {
+    grid-area: nav;
     overflow-x: hidden;
     background-image: linear-gradient(180deg, rgb(0, 0, 0) 30%, #3a0647 100%);
     z-index: 999;
@@ -15,8 +15,19 @@
 
 .page__main {
     grid-area: main;
+    height: 100vh;
+    overflow: auto;
 }
 
+.page__content {
+}
+
+.page__aside {
+    grid-area: aside;
+    overflow-x: hidden;
+    background-image: linear-gradient(180deg, rgb(0, 0, 0) 30%, #3a0647 100%);
+    z-index: 999;
+}
 
 @media (min-width: 641px) {
 }
@@ -24,18 +35,20 @@
 @media (min-width: 768px) {
     .page {
         display: grid;
-        grid-template-columns: 20% auto;
+        grid-template-columns: 20% auto 20%;
         grid-template-rows: auto;
-        grid-template-areas: "blades main";
+        grid-template-areas: "nav main aside";
     }
 
-    .page__blades {
+    .page__nav {
         height: 100vh;
         position: sticky;
         top: 0;
     }
 
-    .page__main > div {
-        padding: 2rem 1.5rem 2rem 2rem;
+    .page__aside {
+        height: 100vh;
+        position: sticky;
+        top: 0;
     }
 }

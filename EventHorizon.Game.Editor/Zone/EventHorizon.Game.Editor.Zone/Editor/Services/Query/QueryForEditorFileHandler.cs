@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Query
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;

@@ -1,0 +1,35 @@
+﻿@inherits ZoneCommandResponseListModel
+
+<h3>@Localizer["Zone Command Responses"]</h3>
+<div class="response-list">
+    <Virtualize Context="response" Items="CommandResponseList">
+        <div @key="response.Key"
+             class="response @(response.Response.Success ? "--success" : "--failed")">
+            <h4 class="response__content">
+                @Localizer["Command Response for '{0}'", response.Response.CommandFunction]
+            </h4>
+            <div class="response__timestamp">
+                @response.Timestamp.ToString("F")
+            </div>
+            @if (response.Response.Success)
+            {
+                <div class="response__success-status --success">
+                    @Localizer["Successful"]
+                </div>
+            }
+            else
+            {
+                <div class="response__success-status --failed">
+                    @Localizer["Failed"]
+                </div>
+            }
+            <p class="response__raw-command">
+                @Localizer["Raw Command: {0}", response.Response.RawCommand]
+            </p>
+            <p class="response__content">
+                @Localizer["Message: {0}", response.Response.Message]
+            </p>
+        </div>
+    </Virtualize>
+
+</div>

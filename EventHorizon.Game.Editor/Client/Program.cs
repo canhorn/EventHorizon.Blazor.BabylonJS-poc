@@ -25,6 +25,9 @@ namespace EventHorizon.Game.Editor.Client
     using Microsoft.Extensions.Logging.Configuration;
     using Microsoft.Extensions.Logging;
     using Blazored.LocalStorage;
+    using BlazorPro.BlazorSize;
+    using EventHorizon.Game.Client.Systems;
+    using EventHorizon.Game.Server;
 
     public class Program
     {
@@ -42,8 +45,14 @@ namespace EventHorizon.Game.Editor.Client
                     typeof(EditorSharedExtensions),
                     typeof(EditorCoreExtensions),
                     typeof(EditorZoneExtensions),
+                    // Game Service Registration
+                    typeof(ClientExtensions),
+                    typeof(GameServerStartup)
                 }
             );
+
+            // Setup Blazor Services
+            builder.Services.AddScoped<ResizeListener>();
 
             // Setup Game Settings
             builder.Services.AddSingleton(
@@ -56,9 +65,9 @@ namespace EventHorizon.Game.Editor.Client
 
             // Game Client Services
             builder.Services
-                //.AddClientServices()
+                .AddClientSystemsServices()
                 .AddGameClient()
-            //.AddGameServerServices()
+                .AddGameServerServices()
             ;
 
             // Core Services

@@ -1,11 +1,4 @@
-﻿<div class="top-row navbar navbar-dark">
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand @NavMenuCssClass" href="/">Game Editor</a>
-</div>
-
-<div class="blade @NavMenuCssClass" @onclick="ToggleNavMenu">
+﻿<div class="blade">
     <BladeSelection Id="editor-blade-selection" />
 </div>
 
@@ -13,21 +6,12 @@
     [CascadingParameter]
     public EventHorizon.Game.Editor.Client.Authentication.Api.SessionValues SessionValues { get; set; } = null!;
 
-    [Parameter]
-    public EventCallback OnToggleExpand { get; set; }
-
     [Inject]
     public NavigationManager Navigation { get; set; } = null!;
-    [Inject]
-    public SignOutSessionStateManager SignOutManager { get; set; } = null!;
     [Inject]
     public MediatR.IMediator Mediator { get; set; } = null!;
 
     public string CurrentBlade { get; set; } = "NAV_MENU";
-
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     protected override void OnInitialized()
     {
@@ -47,18 +31,6 @@
         );
 
         base.OnParametersSet();
-    }
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-        OnToggleExpand.InvokeAsync();
-    }
-
-    private async Task BeginSignOut(MouseEventArgs args)
-    {
-        await SignOutManager.SetSignOutState();
-        Navigation.NavigateTo("authentication/logout?returnUrl=/");
     }
 
     private async Task HandleSelectionChanged(

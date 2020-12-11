@@ -20,15 +20,13 @@
             _zoneEditorServices = zoneEditorServices;
         }
 
-        public async Task<CommandResult<EditorNodeList>> Handle(
+        public Task<CommandResult<EditorNodeList>> Handle(
             QueryForActiveEditorNodeList request,
             CancellationToken cancellationToken
         )
         {
             // TODO: pull from cache the ZoneEditorState.EditorNodeList
-            return new CommandResult<EditorNodeList>(
-                await _zoneEditorServices.Api.GetEditorZoneList()
-            );
+            return _zoneEditorServices.Api.GetEditorZoneList();
         }
     }
 }

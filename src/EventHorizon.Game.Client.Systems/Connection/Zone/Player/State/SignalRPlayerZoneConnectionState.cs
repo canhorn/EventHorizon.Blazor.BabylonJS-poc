@@ -13,7 +13,6 @@
     using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model;
     using MediatR;
     using Microsoft.AspNetCore.SignalR.Client;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
     public class SignalRPlayerZoneConnectionState
@@ -47,7 +46,16 @@
             try
             {
                 _connection = new HubConnectionBuilder()
-                    .WithUrl(
+                    .WithAutomaticReconnect(
+                        new TimeSpan[]
+                        {
+                            TimeSpan.FromSeconds(0),
+                            TimeSpan.FromSeconds(2),
+                            TimeSpan.FromSeconds(5),
+                            TimeSpan.FromSeconds(30),
+                            TimeSpan.FromSeconds(30),
+                        }
+                    ).WithUrl(
                         new Uri(
                             $"{serverUrl}/playerHub"
                         ),
@@ -60,8 +68,7 @@
                         {
                             builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
                         }
-                    ).WithAutomaticReconnect()
-                    .Build();
+                    ).Build();
 
                 var clientActionRegistered = false;
                 _connection.On(

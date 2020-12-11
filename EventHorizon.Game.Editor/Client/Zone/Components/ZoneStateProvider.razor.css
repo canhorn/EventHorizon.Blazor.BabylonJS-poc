@@ -1,0 +1,18 @@
+﻿.disconnected {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+.disconnected__header {
+    color: var(--error);
+}
+
+.disconnected__reason {
+}
+
+.reconnecting-modal__content {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}

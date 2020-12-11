@@ -8,6 +8,7 @@
     <ItemGroup>
         <PackageReference Include="Blazored.LocalStorage" Version="3.0.0" />
         <PackageReference Include="BlazorMonaco" Version="1.5.0" />
+        <PackageReference Include="BlazorPro.BlazorSize" Version="2.3.0" />
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
@@ -19,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\Server\EventHorizon.Game.Server\EventHorizon.Game.Server.csproj" />
         <ProjectReference Include="..\Core\EventHorizon.Game.Editor.Core\EventHorizon.Game.Editor.Core.csproj" />
         <ProjectReference Include="..\Shared\EventHorizon.Game.Editor.Shared.csproj" />
         <ProjectReference Include="..\Zone\EventHorizon.Game.Editor.Zone\EventHorizon.Game.Editor.Zone.csproj" />
@@ -26,6 +28,10 @@
 
     <ItemGroup>
         <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Zone\Admin\" />
     </ItemGroup>
 
 </Project>

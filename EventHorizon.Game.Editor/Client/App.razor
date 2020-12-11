@@ -36,3 +36,12 @@
     </ClickCaptureProvider>
 </CascadingAuthenticationState>
 
+@code {
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
+    protected override void OnInitialized()
+    {
+        EventHorizon.Blazor.Interop.EventHorizonBlazorInterop.JSRuntime = JSRuntime;
+    }
+}

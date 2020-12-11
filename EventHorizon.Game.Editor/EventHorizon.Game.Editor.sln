@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Client.Sy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server.Api", "..\src\SDK\Server\EventHorizon.Game.Server.Api\EventHorizon.Game.Server.Api.csproj", "{E1DC5E0F-69B2-4F31-902E-F3B23CCE1DB7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server", "..\src\Server\EventHorizon.Game.Server\EventHorizon.Game.Server.csproj", "{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -315,6 +317,18 @@ Global
 		{E1DC5E0F-69B2-4F31-902E-F3B23CCE1DB7}.Release|x64.Build.0 = Release|Any CPU
 		{E1DC5E0F-69B2-4F31-902E-F3B23CCE1DB7}.Release|x86.ActiveCfg = Release|Any CPU
 		{E1DC5E0F-69B2-4F31-902E-F3B23CCE1DB7}.Release|x86.Build.0 = Release|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Debug|x64.Build.0 = Debug|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Debug|x86.Build.0 = Debug|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Release|x64.ActiveCfg = Release|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Release|x64.Build.0 = Release|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Release|x86.ActiveCfg = Release|Any CPU
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -340,6 +354,7 @@ Global
 		{D43324DE-8378-4727-B771-DADFDCA5E2F2} = {3B919482-9571-406F-A5E9-66F80EC3503C}
 		{7A7D0835-D0CF-4D53-9FC9-8EDB99918148} = {3B919482-9571-406F-A5E9-66F80EC3503C}
 		{E1DC5E0F-69B2-4F31-902E-F3B23CCE1DB7} = {3B919482-9571-406F-A5E9-66F80EC3503C}
+		{5ABFE5DD-C49C-4EE5-B987-3BACF26B0D78} = {3B919482-9571-406F-A5E9-66F80EC3503C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEEA7938-9CF0-43F2-9770-2590B4818F6A}

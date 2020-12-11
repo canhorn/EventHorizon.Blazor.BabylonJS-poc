@@ -22,6 +22,15 @@
             },
         };
 
+        public ZoneEditorStateModel(
+            EditorNodeList editorNodeList
+        )
+        {
+            SetInternalState(
+                editorNodeList
+            );
+        }
+
         public ZoneEditorStateModel SetInternalState(
             EditorNodeList editorNodeList
         )

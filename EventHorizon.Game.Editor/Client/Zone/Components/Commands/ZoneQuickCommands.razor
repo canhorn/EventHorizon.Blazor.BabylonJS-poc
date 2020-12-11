@@ -1,0 +1,10 @@
+﻿@inherits ZoneQuickCommandsModel
+
+<div>
+    <h3>@Localizer["Zone Quick Commands"]</h3>
+    <StandardSelect Options="@QuickCommandOptions"
+                    Value="@SelectedCommand"
+                    ValueChanged="@HandleSelectedComandChanged"
+                    Disabled="@IsDisabled"></StandardSelect>
+</div>
+

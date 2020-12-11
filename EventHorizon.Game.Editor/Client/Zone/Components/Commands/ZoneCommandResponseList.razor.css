@@ -1,0 +1,38 @@
+﻿.response {
+    padding: 0.3rem;
+    margin: 1rem;
+    border: var(--accent-color) 1px solid;
+}
+
+    .response.--success {
+        border: var(--success) 1px solid;
+    }
+
+    .response.--failed {
+        border: var(--error) 1px solid;
+    }
+
+.response__raw-command {
+    margin: 0px;
+}
+
+.response__content {
+    margin: 0px;
+}
+
+.response__success-status {
+    font-size: 0.8rem;
+}
+
+    .response__success-status.--success {
+        color: var(--success);
+    }
+
+    .response__success-status.--failed {
+        color: var(--error);
+    }
+
+.response__timestamp {
+    color: var(--accent-light);
+    font-size: 0.8rem;
+}

@@ -25,10 +25,17 @@
             CancellationToken cancellationToken
         )
         {
-            // TODO: Use Cached to get State
+            // TODO: Use Cache to get State
+            var result = await _zoneEditorServices.Api.GetEditorZoneList();
+            if (!result.Success)
+            {
+                return new(
+                    result.ErrorCode ?? ZoneEditorErrorCodes.EDITOR_API_ERROR
+                );
+            }
             return new CommandResult<ZoneEditorState>(
-                new ZoneEditorStateModel().SetInternalState(
-                    await _zoneEditorServices.Api.GetEditorZoneList()
+                new ZoneEditorStateModel(
+                    result.Result
                 )
             );
         }

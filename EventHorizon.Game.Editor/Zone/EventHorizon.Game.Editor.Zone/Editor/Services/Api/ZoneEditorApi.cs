@@ -2,11 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
 
     public interface ZoneEditorApi
     {
-        Task<EditorNodeList> GetEditorZoneList();
+        Task<CommandResult<EditorNodeList>> GetEditorZoneList();
 
         Task<EditorFile> GetEditorFileContent(
             IList<string> path,

@@ -1,0 +1,25 @@
+﻿<div class="top-row navbar navbar-dark">
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand @NavMenuCssClass" href="/">Game Editor</a>
+</div>
+
+<div class="nav__content @NavMenuCssClass">
+    <QuickLinks />
+    <EditorBladeSelection />
+    <DisplayLoginStatus />
+    <ZoneSelection SelectionDisplay="SELECT" />
+</div>
+
+@code {
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => !collapseNavMenu ? "--expanded" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
