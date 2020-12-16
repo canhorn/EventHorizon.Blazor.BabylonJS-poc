@@ -7,8 +7,10 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 COPY ./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln ./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln
 
 # Generated Source
+## Generated - Blazor.BabylonJS.WASM
 COPY src/Shared/_generated/Blazor.BabylonJS.WASM/Blazor.BabylonJS.WASM.csproj ./src/Shared/_generated/Blazor.BabylonJS.WASM/Blazor.BabylonJS.WASM.csproj
 
+# Game Client
 ## Main
 COPY src/EventHorizon.Common/EventHorizon.Common.csproj ./src/EventHorizon.Common/EventHorizon.Common.csproj
 COPY src/EventHorizon.Game.Client/EventHorizon.Game.Client.csproj ./src/EventHorizon.Game.Client/EventHorizon.Game.Client.csproj
@@ -22,9 +24,14 @@ COPY src/SDK/EventHorizon.Game.Client.Engine.Api/EventHorizon.Game.Client.Engine
 COPY src/SDK/EventHorizon.Game.Client.Engine.Gui.Api/EventHorizon.Game.Client.Engine.Gui.Api.csproj ./src/SDK/EventHorizon.Game.Client.Engine.Gui.Api/EventHorizon.Game.Client.Engine.Gui.Api.csproj
 COPY src/SDK/EventHorizon.Game.Client.Scripts.SDK/EventHorizon.Game.Client.Scripts.SDK.csproj ./src/SDK/EventHorizon.Game.Client.Scripts.SDK/EventHorizon.Game.Client.Scripts.SDK.csproj
 COPY src/SDK/EventHorizon.Game.Client.Systems.Api/EventHorizon.Game.Client.Systems.Api.csproj ./src/SDK/EventHorizon.Game.Client.Systems.Api/EventHorizon.Game.Client.Systems.Api.csproj
-COPY src/SDK/Server/EventHorizon.Game.Server.Api/EventHorizon.Game.Server.Api.csproj ./src/SDK/Server/EventHorizon.Game.Server.Api/EventHorizon.Game.Server.Api.csproj
 
-# Editor - Copy the source project files
+COPY src/SDK/Server/EventHorizon.Game.Server.Api/EventHorizon.Game.Server.Api.csproj ./src/SDK/Server/EventHorizon.Game.Server.Api/EventHorizon.Game.Server.Api.csproj
+COPY src/SDK/Server/EventHorizon.Game.Server.ServerModule.Api/EventHorizon.Game.Server.ServerModule.Api.csproj ./src/SDK/Server/EventHorizon.Game.Server.ServerModule.Api/EventHorizon.Game.Server.ServerModule.Api.csproj
+
+## Server
+COPY src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj ./src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj
+
+# Editor
 ## Editor - Main Source
 COPY EventHorizon.Game.Editor/Client/EventHorizon.Game.Editor.Client.csproj ./EventHorizon.Game.Editor/Client/EventHorizon.Game.Editor.Client.csproj
 COPY EventHorizon.Game.Editor/Api/EventHorizon.Game.Editor.Api/EventHorizon.Game.Editor.Api.csproj ./EventHorizon.Game.Editor/Api/EventHorizon.Game.Editor.Api/EventHorizon.Game.Editor.Api.csproj
@@ -40,7 +47,7 @@ COPY EventHorizon.Game.Editor/Shared/EventHorizon.Game.Editor.Shared.csproj ./Ev
 ## Editor - Server
 COPY EventHorizon.Game.Editor/Server/EventHorizon.Game.Editor.Server.csproj ./EventHorizon.Game.Editor/Server/EventHorizon.Game.Editor.Server.csproj
 
-RUN dotnet restore ./EventHorizon.Game.Editor
+RUN dotnet restore ./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln
 
 
 # Stage 2 - Build/Publish Client/Editor/SDK .NET Project
