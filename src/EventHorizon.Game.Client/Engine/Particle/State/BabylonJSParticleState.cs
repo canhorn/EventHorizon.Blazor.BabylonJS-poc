@@ -58,7 +58,7 @@
             {
                 throw new GameException(
                     "particle_template_not_found",
-                    "Particle Template was not Found"
+                    $"Particle Template was not Found. templateId: {templateId}"
                 );
             }
             if(_particleSystemList.ContainsKey(
@@ -67,7 +67,7 @@
             {
                 throw new GameException(
                     "engine_particle_system_already_exists",
-                    "Engine Particle System already exists."
+                    $"Engine Particle System already exists. templateId: {templateId}"
                 );
             }
 

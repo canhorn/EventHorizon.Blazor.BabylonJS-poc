@@ -77,18 +77,15 @@
             ZoneAdminServiceDisconnectedEvent args
         )
         {
-            if (args.ZoneId == ZoneState?.Zone.Id)
-            {
-                ZoneState = null;
-                IsReconnecting = false;
-                await Mediator.Publish(
-                    new ShowMessageEvent(
-                        "Connection Details",
-                        "Connection: " + args.ReasonCode
-                    )
-                );
-                ConnectionDisconnectionCode = args.ReasonCode;
-            }
+            ZoneState = null;
+            IsReconnecting = false;
+            await Mediator.Publish(
+                new ShowMessageEvent(
+                    "Connection Details",
+                    "Connection: " + args.ReasonCode
+                )
+            );
+            ConnectionDisconnectionCode = args.ReasonCode;
             await InvokeAsync(StateHasChanged);
         }
 
