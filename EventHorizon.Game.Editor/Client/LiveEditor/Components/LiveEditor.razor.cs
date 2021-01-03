@@ -41,7 +41,7 @@
         private async Task Setup()
         {
             var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-            PlayerId = state.User.Claims.FirstOrDefault(a => a.Type == "sub").Value ?? string.Empty;
+            PlayerId = state.User.Claims.FirstOrDefault(a => a.Type == "sub")?.Value ?? string.Empty;
 
             IsSetup = string.IsNullOrWhiteSpace(
                 PlayerId
