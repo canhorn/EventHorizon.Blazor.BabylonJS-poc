@@ -6,7 +6,6 @@ namespace EventHorizon.Blazor.BabylonJS
     using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
     using Microsoft.Extensions.DependencyInjection;
     using MediatR;
-    using EventHorizon.Blazor.BabylonJS.Pages.Testing.DITesting.Model;
     using EventHorizon.Game.Client;
     using EventHorizon.Observer.State;
     using EventHorizon.Observer.Admin.State;
@@ -34,8 +33,6 @@ namespace EventHorizon.Blazor.BabylonJS
                         BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
                     }
                 );
-            builder.Services
-                .AddSingleton<IDIRunHandler, DIRunHandlerImplementation>();
 
             builder.Services
                 // I18n Services
