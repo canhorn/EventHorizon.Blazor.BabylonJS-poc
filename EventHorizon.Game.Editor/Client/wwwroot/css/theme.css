@@ -55,4 +55,16 @@
     --error-light-secondary: rgba(255, 0, 0, 0.54);
     --error-light-disabled: rgba(255, 0, 0, 0.38);
     --error-light-hint: rgba(255, 0, 0, 0.12);
+
+    /* Alpha Banner */
+    --alpha-banner-color: black;
+    --alpha-banner-background-color: white;
+    --alpha-banner-shadow-color: rgb(204, 219, 232);
+    --alpha-banner-shadow2-color: rgba(255, 255, 255, 0.5);
 }
+
+    :root .--dark-theme {
+        --alpha-banner-background-color: lightgray;
+        --alpha-banner-shadow-color: rgb(68, 72, 75);
+        --alpha-banner-shadow2-color: rgba(36, 36, 36, 0.726);
+    }

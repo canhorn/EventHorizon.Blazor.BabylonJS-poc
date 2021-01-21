@@ -1,0 +1,16 @@
+﻿@using Microsoft.Extensions.Configuration
+
+<div class="alpha-banner">
+    <p class="--remove-spacing">
+        We are currently in <span class="--font-bold">Early Alpha Access</span> and so the <span class="--font-bold">Platform</span> is not complete and may change in the future.
+        <a class="--font-bold" href="https://cloud.@Configuration["DeploymentDetails:PlatformDomain"]/feedback/game_platform/@Configuration["DeploymentDetails:PlatformId"]?client=game"
+           target="_blank">
+            Please Submit Any Feedback Here
+        </a>
+    </p>
+</div>
+
+@code {
+    [Inject]
+    public IConfiguration Configuration { get; set; } = null!;
+}
