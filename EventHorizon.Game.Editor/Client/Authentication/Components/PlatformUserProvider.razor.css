@@ -1,0 +1,8 @@
+﻿.platform-user-provider {
+    text-align: center;
+}
+
+    .platform-user-provider .header {
+        color: var(--error);
+        font-size: 2rem;
+    }

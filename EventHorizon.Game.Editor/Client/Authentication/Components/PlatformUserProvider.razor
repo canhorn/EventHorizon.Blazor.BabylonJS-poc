@@ -1,0 +1,99 @@
+﻿@using MediatR
+@using EventHorizon.Game.Client.Core.I18n.Api
+@using EventHorizon.Game.Editor.Client.Authentication.Model
+@using Microsoft.Extensions.Configuration
+
+@if (IsValid)
+{
+    <CascadingValue Value="PlatformUser">
+        @ChildContent
+    </CascadingValue>
+}
+else
+{
+    @if (PlatformUser.IsAuthenticated)
+    {
+
+        <div class="platform-user-provider">
+            <h1 class="header">
+                @Localizer["You do not have Access to this Editor"]
+            </h1>
+            <DisplayLoginStatus />
+        </div>
+    }
+    else
+    {
+        <AuthorizeView>
+            <Authorizing>
+                <div class="platform-user-provider">
+                    <h1>@Localizer["Authorizing..."]</h1>
+                </div>
+            </Authorizing>
+            <NotAuthorized>
+                <div class="platform-user-provider">
+                    <h1>@Localizer["Login to Access the Editor"]</h1>
+                    <DisplayLoginStatus />
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+    }
+}
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    [Inject]
+    public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+    [Inject]
+    public IMediator Mediator { get; set; } = null!;
+    [Inject]
+    public IConfiguration Configuration { get; set; } = null!;
+    [Inject]
+    public ILocalizer Localizer { get; set; } = null!;
+
+    public bool IsValid { get; private set; }
+    public PlatformUserModel PlatformUser { get; private set; } = new PlatformUserModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationStateProvider.AuthenticationStateChanged += HandleAuthStateChanged;
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        PlatformUser.IsAuthenticated = state.User.Identity.IsAuthenticated;
+
+        if (PlatformUser.IsAuthenticated)
+        {
+            var userId = Configuration["DeploymentDetails:UserId"];
+            IsValid = state.User.IsInRole("Admin")
+                || state.User.HasClaim(
+                    "sub",
+                    userId
+                );
+            PlatformUser.IsAdmin = state.User.IsInRole("Admin");
+        }
+    }
+
+    public void HandleAuthStateChanged(
+        Task<AuthenticationState> _
+    )
+    {
+        InvokeAsync(
+            async () =>
+            {
+                var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+                PlatformUser.IsAuthenticated = state.User.Identity.IsAuthenticated;
+
+                if (PlatformUser.IsAuthenticated)
+                {
+                    var userId = Configuration["DeploymentDetails:UserId"];
+                    IsValid = state.User.IsInRole("Admin")
+                        || state.User.HasClaim(
+                            "sub",
+                            userId
+                        );
+                    PlatformUser.IsAdmin = state.User.IsInRole("Admin");
+                }
+            }
+        );
+    }
+}

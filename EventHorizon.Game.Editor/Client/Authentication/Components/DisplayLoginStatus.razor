@@ -3,18 +3,23 @@
         <a class="nav-link"
            href="authentication/logout"
            @onclick="BeginSignOut">
-            @Localizer["Logout"]
+            @(LogoutDisplayText ?? Localizer["Logout"])
         </a>
     </Authorized>
     <NotAuthorized>
         <a class="nav-link"
            href="authentication/login">
-            @Localizer["Login"]
+            @(LoginDisplayText ?? Localizer["Login"])
         </a>
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
+    [Parameter]
+    public string LoginDisplayText { get; set; }
+    [Parameter]
+    public string LogoutDisplayText { get; set; }
+
     [Inject]
     public NavigationManager Navigation { get; set; } = null!;
     [Inject]

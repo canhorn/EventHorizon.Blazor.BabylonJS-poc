@@ -1,9 +1,19 @@
 ﻿@page "/authentication/{action}"
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@layout AuthenticationLayout
 
-<RemoteAuthenticatorView Action="@Action" />
+<RemoteAuthenticatorView Action="@Action">
+    <LogOutSucceeded>
+        @Localizer["You have been logged out."]
+        <DisplayLoginStatus LoginDisplayText="@Localizer["Log Back In?"]" />
+    </LogOutSucceeded>
+</RemoteAuthenticatorView>
 
 @code {
     [Parameter]
     public string Action { get; set; }
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+
 }

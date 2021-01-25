@@ -6,13 +6,18 @@
 </div>
 
 <div class="nav__content @NavMenuCssClass">
-    <QuickLinks />
-    <EditorBladeSelection />
-    <DisplayLoginStatus />
-    <ZoneSelection SelectionDisplay="SELECT" />
+    @if (PlatformUser.IsAuthenticated)
+    {
+        <QuickLinks />
+        <EditorBladeSelection />
+        <DisplayLoginStatus />
+        <ZoneSelection SelectionDisplay="SELECT" />
+    }
 </div>
 
 @code {
+    [CascadingParameter]
+    public PlatformUserModel PlatformUser { get; set; } = null!;
 
     private bool collapseNavMenu = true;
 

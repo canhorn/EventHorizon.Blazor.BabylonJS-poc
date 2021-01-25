@@ -52,8 +52,8 @@ else
 {
     if (ZoneState != null)
     {
-        <div>
-            @Localizer["SelectedZone: {0}", SelectedZoneId]
+        <div class="selected-zone" title="@Localizer["The Selected Zone is {0}", SelectedZoneId]">
+            @Localizer["Selected Zone: {0}", SelectedZoneId]
         </div>
     }
     else

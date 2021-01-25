@@ -1,18 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="page__nav">
-        <NavigationBase />
-    </div>
-
-    <div class="page__main">
-        <AlphaBanner />
-        <div class="page__content">
-            @Body
+<PlatformUserProvider>
+    <div class="page">
+        <div class="page__nav">
+            <NavigationBase />
         </div>
+        <div class="page__main">
+            <AlphaBanner />
+            <div class="page__content">
+                @Body
+            </div>
+        </div>
+        <aside class="page__aside">
+            <BladeSelection Id="three-split-page" />
+        </aside>
     </div>
-
-    <aside class="page__aside">
-        <BladeSelection Id="three-split-page" />
-    </aside>
-</div>
+</PlatformUserProvider>
