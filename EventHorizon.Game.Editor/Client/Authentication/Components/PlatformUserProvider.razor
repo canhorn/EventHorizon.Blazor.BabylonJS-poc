@@ -2,6 +2,7 @@
 @using EventHorizon.Game.Client.Core.I18n.Api
 @using EventHorizon.Game.Editor.Client.Authentication.Model
 @using Microsoft.Extensions.Configuration
+@using System.IdentityModel.Tokens.Jwt 
 
 @if (IsValid)
 {
@@ -46,6 +47,8 @@ else
     [Inject]
     public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
     [Inject]
+    public IAccessTokenProvider TokenProvider { get; set; } = null!;
+    [Inject]
     public IMediator Mediator { get; set; } = null!;
     [Inject]
     public IConfiguration Configuration { get; set; } = null!;
@@ -63,13 +66,7 @@ else
 
         if (PlatformUser.IsAuthenticated)
         {
-            var userId = Configuration["DeploymentDetails:UserId"];
-            IsValid = state.User.IsInRole("Admin")
-                || state.User.HasClaim(
-                    "sub",
-                    userId
-                );
-            PlatformUser.IsAdmin = state.User.IsInRole("Admin");
+            await SetupAuthenticatedPlatformUser();
         }
     }
 
@@ -85,15 +82,30 @@ else
 
                 if (PlatformUser.IsAuthenticated)
                 {
-                    var userId = Configuration["DeploymentDetails:UserId"];
-                    IsValid = state.User.IsInRole("Admin")
-                        || state.User.HasClaim(
-                            "sub",
-                            userId
-                        );
-                    PlatformUser.IsAdmin = state.User.IsInRole("Admin");
+                    await SetupAuthenticatedPlatformUser();
                 }
             }
+        );
+    }
+
+    private async Task SetupAuthenticatedPlatformUser()
+    {
+        var userId = Configuration["DeploymentDetails:UserId"];
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var accessTokenResult = await TokenProvider.RequestAccessToken();
+        PlatformUser.IsAuthenticated = state.User.Identity.IsAuthenticated;
+        if (!accessTokenResult.TryGetToken(out var token))
+        {
+            return;
+        }
+
+        var jwtToken = new JwtSecurityToken(token.Value);
+        PlatformUser.IsAdmin = jwtToken.Claims.Any(
+            a => a.Type == "role" && a.Value == "Admin"
+        );
+        IsValid = PlatformUser.IsAdmin || state.User.HasClaim(
+            "sub",
+            userId
         );
     }
 }

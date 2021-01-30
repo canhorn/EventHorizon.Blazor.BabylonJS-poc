@@ -1,5 +1,5 @@
 # Stage 1 - Restore .NET Project
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-restore
+FROM mcr.microsoft.com/dotnet/sdk:5.0.102-ca-patch-buster-slim AS dotnet-restore
 WORKDIR /source
 
 ENV PATH="$PATH:/root/.dotnet/tools"
