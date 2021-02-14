@@ -1,5 +1,19 @@
 ﻿@inherits LiveEditorWindowModel
 
-<canvas id="live-editor-window" style="width:100%"
-        @onkeydown="HandleKeyDown"
-        @onkeyup="HandleKeyUp"></canvas>
+@if (FailedStartup)
+{
+    <div style="text-align: center;">
+        @Localizer["Failed Connect Live Editor."]
+        <div>
+            <a href="#reload-page" @onclick="HandleReloadPage">
+                @Localizer["Try Reload?"]
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <canvas id="live-editor-window" style="width:100%"
+            @onkeydown="HandleKeyDown"
+            @onkeyup="HandleKeyUp"></canvas>
+}

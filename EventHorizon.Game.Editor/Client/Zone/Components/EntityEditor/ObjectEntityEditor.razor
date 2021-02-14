@@ -51,22 +51,23 @@
         </div>
 
         <div class="object-entity-editor__add-section">
-            <EditForm Model="NewPropertyModel"
+            <EditForm class="add-section__form"
+                      Model="NewPropertyModel"
                       OnSubmit="HandleAddProperty">
                 <InputText class="c-text-input"
                            @bind-Value="NewPropertyModel.Name"
-                           placeholder="@Localizer["Name of New Property"]" />
-                @if (!NewPropertyModel.IsValid)
-                {
-                    <div class="object-entity-editor --error --font-bold">
-                        @Localizer["Validation Error: {0}", NewPropertyModel.ErrorMessage]
-                    </div>
-                }
+                           placeholder="@Localizer["New Property Name"]" />
                 <button class="c-button select-client-entity__add-button"
                         type="submit">
                     @Localizer["Add"]
                 </button>
             </EditForm>
+            @if (!NewPropertyModel.IsValid)
+            {
+                <div class="object-entity-editor --error --font-bold">
+                    @Localizer["Validation Error: {0}", NewPropertyModel.ErrorMessage]
+                </div>
+            }
         </div>
     </div>
 </div>

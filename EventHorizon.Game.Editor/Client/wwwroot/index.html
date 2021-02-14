@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>EventHorizon.Game.Editor</title>
     <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
+
     <link href="css/theme.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="EventHorizon.Game.Editor.Client.styles.css" rel="stylesheet" />
@@ -17,6 +18,8 @@
 
     <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/77dd49eca2.js" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/ammo.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/cannon.js"></script>
@@ -41,10 +44,43 @@
     <div id="app">
         <div style="color: white; position:absolute; width:100%; text-align:center">
             <h1>EventHorizon Game Editor</h1>
+            <div class="app-loader">
+                <div class="row">
+                    <div class="arrow up outer outer-18"></div>
+                    <div class="arrow down outer outer-17"></div>
+                    <div class="arrow up outer outer-16"></div>
+                    <div class="arrow down outer outer-15"></div>
+                    <div class="arrow up outer outer-14"></div>
+                </div>
+                <div class="row">
+                    <div class="arrow up outer outer-1"></div>
+                    <div class="arrow down outer outer-2"></div>
+                    <div class="arrow up inner inner-6"></div>
+                    <div class="arrow down inner inner-5"></div>
+                    <div class="arrow up inner inner-4"></div>
+                    <div class="arrow down outer outer-13"></div>
+                    <div class="arrow up outer outer-12"></div>
+                </div>
+                <div class="row">
+                    <div class="arrow down outer outer-3"></div>
+                    <div class="arrow up outer outer-4"></div>
+                    <div class="arrow down inner inner-1"></div>
+                    <div class="arrow up inner inner-2"></div>
+                    <div class="arrow down inner inner-3"></div>
+                    <div class="arrow up outer outer-11"></div>
+                    <div class="arrow down outer outer-10"></div>
+                </div>
+                <div class="row">
+                    <div class="arrow down outer outer-5"></div>
+                    <div class="arrow up outer outer-6"></div>
+                    <div class="arrow down outer outer-7"></div>
+                    <div class="arrow up outer outer-8"></div>
+                    <div class="arrow down outer outer-9"></div>
+                </div>
+            </div>
             <p>The Editor is loading...</p>
         </div>
     </div>
-    <!--<div id="app">Loading...</div>-->
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.

@@ -40,10 +40,8 @@
 ::deep .tree-view__node-link {
     color: var(--icon-color);
     border-radius: 4px;
-    height: 1.5rem;
     display: flex;
     align-items: center;
-    line-height: 1.5rem;
     text-decoration: none;
     padding: 0.3rem;
 }
@@ -74,3 +72,8 @@
     .tree-view__context-menu__item:hover {
         background: var(--main-background);
     }
+
+.--transparent {
+    color: transparent;
+    background-color: transparent;
+}

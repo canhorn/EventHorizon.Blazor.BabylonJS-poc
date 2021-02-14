@@ -1,0 +1,44 @@
+﻿.selected-zone {
+    margin: 0.3rem;
+    color: var(--accent-color);
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+}
+
+.selected-zone__icon {
+    font-size: 1.8rem;
+}
+
+.--connected {
+    animation: anim-glow-green 2s ease infinite;
+    border-radius: 50%;
+}
+
+.--disconnected {
+    animation: anim-glow-red 2s ease infinite;
+    border-radius: 50%;
+}
+
+@keyframes anim-glow-green {
+    0% {
+        box-shadow: 0 0 var(--success);
+    }
+
+    100% {
+        box-shadow: 0 0 10px 8px transparent;
+        border-width: 2px;
+    }
+}
+
+@keyframes anim-glow-red {
+    0% {
+        box-shadow: 0 0 var(--error);
+    }
+
+    100% {
+        box-shadow: 0 0 10px 8px transparent;
+        border-width: 2px;
+    }
+}

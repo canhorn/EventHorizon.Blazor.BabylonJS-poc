@@ -65,23 +65,9 @@
                         }
                     ).Build();
 
-                _connection.On(
+                _connection.On<AccountInfoModel>(
                     "AccountConnected",
-                    async (AccountInfoModel accountInfo) =>
-                    {
-                        // TODO: [DEBUGGING] : Track Debugging Object Command
-                        //await _mediator.Send(
-                        //    new TrackDebuggingObjectCommand(
-                        //        "AccountDetails",
-                        //        accountInfo
-                        //    )
-                        //);
-                        await _mediator.Publish(
-                            new AccountConnectedEvent(
-                                accountInfo
-                            )
-                        );
-                    }
+                    HandleAccountConnected
                 );
 
                 _connection.Closed += HandleConnectionClosed;
@@ -102,6 +88,24 @@
                 //     )
                 // );
             }
+        }
+
+        private async Task HandleAccountConnected(
+            AccountInfoModel accountInfo
+        )
+        {
+            // TODO: [DEBUGGING] : Track Debugging Object Command
+            //await _mediator.Send(
+            //    new TrackDebuggingObjectCommand(
+            //        "AccountDetails",
+            //        accountInfo
+            //    )
+            //);
+            await _mediator.Publish(
+                new AccountConnectedEvent(
+                    accountInfo
+                )
+            );
         }
 
         private Task HandleConnectionClosed(

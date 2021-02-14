@@ -1,3 +1,8 @@
 ﻿.object-entity-editor__properties {
     padding: 1rem;
 }
+
+::deep .add-section__form {
+    display: grid;
+    grid-template-columns: auto 50px;
+}

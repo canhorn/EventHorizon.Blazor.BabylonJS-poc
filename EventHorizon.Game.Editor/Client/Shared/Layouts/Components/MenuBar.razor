@@ -1,0 +1,38 @@
+﻿<div class="menu-bar">
+    <button class="menu-toggler"
+            title="@Localizer["Global Settings"]"
+            @onclick="HandleOpenGlobalSettings">
+        <i class="menu-toggler-icon fab fa-elementor"></i>
+    </button>
+    <a class="menu-brand navbar-brand" href="/">@Localizer["Game Editor"]</a>
+    <DisplayLoginStatus />
+    <ZoneStatus />
+    <Loading />
+</div>
+
+<StandardModal IsOpen="IsGlobalSettingsOpen"
+               OnClose="HandleCloseGlobalSettings">
+    <Header>
+        @Localizer["Global Settings"]
+    </Header>
+    <Body>
+        <ZoneSelection SelectionDisplay="SELECT" />
+    </Body>
+</StandardModal>
+
+@code {
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+
+    private bool IsGlobalSettingsOpen { get; set; }
+
+    private void HandleOpenGlobalSettings()
+    {
+        IsGlobalSettingsOpen = true;
+    }
+
+    private void HandleCloseGlobalSettings()
+    {
+        IsGlobalSettingsOpen = false;
+    }
+}

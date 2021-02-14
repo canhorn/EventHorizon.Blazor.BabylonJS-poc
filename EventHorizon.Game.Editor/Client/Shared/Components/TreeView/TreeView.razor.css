@@ -1,5 +1,6 @@
 ﻿.tree-view {
-    padding: 0.5em;
+    width: fit-content;
+    padding: 0.5em 0 0.5em 0.5em;
 }
 
     .tree-view .--icon {

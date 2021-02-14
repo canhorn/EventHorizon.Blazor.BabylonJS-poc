@@ -19,9 +19,7 @@ else if (!string.IsNullOrEmpty(ConnectionDisconnectionCode))
 }
 else
 {
-    <div>
-        @Localizer["Loading..."]
-    </div>
+    <Loading />
 }
 <StandardModal IsOpen="IsReconnecting">
     <Body>

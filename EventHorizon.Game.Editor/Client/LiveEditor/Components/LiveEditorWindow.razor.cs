@@ -9,10 +9,13 @@
     using EventHorizon.Game.Client.Engine.Systems.Player.Model;
     using EventHorizon.Game.Client.Engine.Window.Resize;
     using EventHorizon.Game.Editor.Client.LiveEditor.Game;
+    using EventHorizon.Game.Editor.Client.Localization;
+    using EventHorizon.Game.Editor.Client.Localization.Api;
     using MediatR;
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Web;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
 
     public class LiveEditorWindowModel
         : ComponentBase,
@@ -24,14 +27,21 @@
         public string PlayerId { get; set; } = string.Empty;
 
         [Inject]
+        public ILogger<LiveEditorWindowModel> Logger { get; set; } = null!;
+        [Inject]
         public IConfiguration Configuration { get; set; } = null!;
         [Inject]
+        public NavigationManager NavigationManager { get; set; } = null!;
+        [Inject]
         public IMediator Mediator { get; set; } = null!;
+        [Inject]
+        public Localizer<SharedResource> Localizer { get; set; } = null!;
         [Inject]
         public ResizeListener ResizeListener { get; set; } = null!;
         [Inject]
         public IStartup Startup { get; set; } = null!;
 
+        protected bool FailedStartup { get; set; }
 
         protected override async Task OnAfterRenderAsync(
             bool firstRender
@@ -42,27 +52,38 @@
                 ResizeListener.OnResized += WindowResized;
                 await StartGame();
             }
-
-            await base.OnAfterRenderAsync(
-                firstRender
-            );
         }
 
         private async Task StartGame()
         {
-            Startup.Setup(
-                new LiveEditorGame(),
-                "live-editor-window",
-                new StandardPlayerDetails(
-                    PlayerId,
-                    AccessToken
-                ),
-                "/login?returnUrl=/game",
-                Configuration["Game:CoreServer"],
-                Configuration["Game:AssetServer"],
-                ""
-            );
-            await Startup.Run();
+            try
+            {
+                FailedStartup = false;
+                // Place a slight delay on startup for background process to settle before game start.
+                await Task.Delay(250);
+                Startup.Setup(
+                    new LiveEditorGame(),
+                    "live-editor-window",
+                    new StandardPlayerDetails(
+                        PlayerId,
+                        AccessToken
+                    ),
+                    "/login?returnUrl=/game",
+                    Configuration["Game:CoreServer"],
+                    Configuration["Game:AssetServer"],
+                    ""
+                );
+                await Startup.Run();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(
+                    ex,
+                    "Failed to Start"
+                );
+                await Startup.Stop();
+                FailedStartup = true;
+            }
         }
 
         public async ValueTask DisposeAsync()
@@ -71,7 +92,15 @@
             ResizeListener.OnResized -= WindowResized;
         }
 
-        public void HandleKeyDown(
+        protected void HandleReloadPage()
+        {
+            NavigationManager.NavigateTo(
+                NavigationManager.Uri,
+                true
+            );
+        }
+
+        protected void HandleKeyDown(
             KeyboardEventArgs args
         )
         {
@@ -82,7 +111,8 @@
                 )
             );
         }
-        public void HandleKeyUp(
+
+        protected void HandleKeyUp(
             KeyboardEventArgs args
         )
         {

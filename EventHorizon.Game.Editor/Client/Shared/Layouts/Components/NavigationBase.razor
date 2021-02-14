@@ -1,17 +1,24 @@
 ﻿<div class="top-row navbar navbar-dark">
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
+    <button class="menu-toggler" @onclick="ToggleNavMenu">
+        @if (collapseNavMenu)
+        {
+            <i class="menu-toggler-icon fas fa-chevron-right"></i>
+        }
+        else
+        {
+            <i class="menu-toggler-icon fas fa-chevron-down"></i>
+        }
     </button>
-    <a class="navbar-brand @NavMenuCssClass" href="/">Game Editor</a>
+    @*<a class="menu-brand @NavMenuCssClass" href="/">Game Editor</a>*@
 </div>
 
 <div class="nav__content @NavMenuCssClass">
     @if (PlatformUser.IsAuthenticated)
     {
         <QuickLinks />
+        @*<ZoneSelection SelectionDisplay="SELECT" />*@
         <EditorBladeSelection />
-        <DisplayLoginStatus />
-        <ZoneSelection SelectionDisplay="SELECT" />
+        @*<DisplayLoginStatus />*@
     }
 </div>
 

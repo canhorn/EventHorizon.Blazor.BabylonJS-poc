@@ -8,6 +8,9 @@
     --success: #00da12;
     --error: #c20000;
     --warn: #fffb00;
+    --loading-color: purple;
+    --loading-filter-color: rebeccapurple;
+    --brand-color: rebeccapurple;
     /* Sizes */
     --sidebar-width: 300px;
     --top-row-height: 3.5rem;
@@ -30,7 +33,7 @@
     /* Background Colors */
     --background-base: #aaa;
     --background-light: #fff;
-    --background-dark: #616161;
+    --background-dark: #171717;
     /* Icons */
     --icon-base: #aaa;
     --icon-light: #fff;
@@ -55,12 +58,13 @@
     --error-light-secondary: rgba(255, 0, 0, 0.54);
     --error-light-disabled: rgba(255, 0, 0, 0.38);
     --error-light-hint: rgba(255, 0, 0, 0.12);
-
     /* Alpha Banner */
     --alpha-banner-color: black;
     --alpha-banner-background-color: white;
     --alpha-banner-shadow-color: rgb(204, 219, 232);
     --alpha-banner-shadow2-color: rgba(255, 255, 255, 0.5);
+    /* Top Bar */
+    --top-bar-height: 3.5rem;
 }
 
     :root .--dark-theme {

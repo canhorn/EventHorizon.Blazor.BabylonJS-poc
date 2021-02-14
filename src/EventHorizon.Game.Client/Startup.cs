@@ -59,6 +59,9 @@
             string applicationInsightsKey
         )
         {
+            _logger.LogInformation(
+                "Invoking Setup"
+            );
             _gameService.Set(
                 game
             );
@@ -90,6 +93,9 @@
                 "APPLICATION_INSIGHTS_INSTRUMENTATION_KEY",
                 applicationInsightsKey
             );
+            _logger.LogInformation(
+                "Finished Invoking Setup"
+            );
         }
 
         public async Task Restart()
@@ -100,6 +106,9 @@
 
         public async Task Run()
         {
+            _logger.LogInformation(
+                "Invoking Run"
+            );
             // TODO: [PerformanceTimer] : Implement performanceTimer
             //performanceTimer("[Startup]: Run");
             //this._engine = new Engine();
@@ -114,42 +123,70 @@
             //    "Run performance: ",
             //    performanceTimerEnd("[Startup]: Run")
             //);
+            _logger.LogInformation(
+                "Finished Invoking Run"
+            );
         }
 
         public async Task Stop()
         {
-            _logger.LogInformation("Stopping");
+            _logger.LogInformation(
+                "Invoking Stop"
+            );
             await Dispose();
+            _logger.LogInformation(
+                "Finished Invoking Stop"
+            );
         }
 
         private async Task Dispose()
         {
-            _logger.LogInformation("Disposing");
+            _logger.LogInformation(
+                "Invoking Dispose"
+            );
             await _gameService.Dispose();
             await _engine.Dispose();
             //cleanUpSystemServices();
+            _logger.LogInformation(
+                "Finished Invoking Dispose"
+            );
         }
 
         private async Task Setup()
         {
-            _logger.LogInformation("Setup");
+            _logger.LogInformation(
+                "Invoking Private Setup"
+            );
             await _engine.Setup();
             await _gameService.Get().Setup();
+            _logger.LogInformation(
+                "Finished Invoking Private Setup"
+            );
         }
 
         private async Task DoInitialize()
         {
-            _logger.LogInformation("Initializing");
+            _logger.LogInformation(
+                "Invoking Private Initializing"
+            );
             await _engine.PreInitialize();
             await _gameService.Get().Initialize();
             await _engine.PostInitialize();
+            _logger.LogInformation(
+                "Finished Invoking Private Initializing"
+            );
         }
 
         private async Task DoStart()
         {
-            _logger.LogInformation("Starting");
+            _logger.LogInformation(
+                "Invoking Private Start"
+            );
             await _engine.Start();
             await _gameService.Get().Start();
+            _logger.LogInformation(
+                "Finished Invoking Private Start"
+            );
         }
     }
 }

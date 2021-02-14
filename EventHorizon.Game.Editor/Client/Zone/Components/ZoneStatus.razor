@@ -1,0 +1,54 @@
+﻿@inherits ZoneStatusModel
+
+@if (!AccessToken.IsFilled)
+{
+    <span>@Localizer["Please Login..."]</span>
+}
+else if (SelectedZone == null)
+{
+    <button class="selected-zone --disconnected"
+            title="@Localizer["No Zone is Selected"]"
+            @onclick="HandleOpenZoneSelection">
+        <i class="selected-zone__icon fas fa-server"></i>
+    </button>
+}
+else
+{
+    if (ZoneState != null)
+    {
+        <button class="selected-zone --connected"
+                title="@Localizer["Connected to Zone {0}", SelectedZoneId]"
+                @onclick="HandleOpenZoneSelection">
+            <i class="selected-zone__icon fas fa-server"></i>
+        </button>
+    }
+    else
+    {
+        <Loading />
+    }
+}
+
+<StandardModal IsOpen="IsZoneSelectionOpen" 
+               OnClose="HandleCloseZoneSelection">
+    <Header>
+        @Localizer["Zone Selection"]
+    </Header>
+    <Body>
+        <div class="zone-selection__container">
+            @foreach (var zone in Zones)
+            {
+                <div class="zone-details">
+                    @* Tile Selection Display *@
+                    <div>Id: @zone.Id</div>
+                    <div>Server Address: @zone.ServerAddress</div>
+                    <div>Tag: @zone.Tag</div>
+                    <div>Last Ping: @zone.LastPing.ToString("G")</div>
+                    <button @onclick="() => HandleZoneSelectionChanged(zone.Id)"
+                            disabled="@(zone.Id == SelectedZoneId)">
+                        @(zone.Id == SelectedZoneId ? Localizer["Selected"] : Localizer["Select"])
+                    </button>
+                </div>
+            }
+        </div>
+    </Body>
+</StandardModal>

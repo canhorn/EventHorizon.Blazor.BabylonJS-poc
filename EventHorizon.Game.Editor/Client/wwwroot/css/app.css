@@ -2,18 +2,20 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: white;
-    background-color: #171717;
+    color: var(--primary-light);
+    background-color: var(--background-dark);
+    padding: 0;
+    margin: 0;
 }
 
 a, .btn-link {
-    color: #0366d6;
+    color: var(--primary-light);
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: var(--accent-color);
+    background-color: var(--primary-base);
+    border-color: var(--accent-base);
 }
 
 .content {
@@ -93,4 +95,220 @@ button.--text {
     padding: 0;
     font: inherit;
     cursor: pointer;
+}
+
+button {
+    background: var(--background-dark);
+    color: inherit;
+    border: 1px solid white;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    border-radius: 0;
+}
+
+    button:hover {
+        background-color: var(--contrast-light-disabled);
+        border: 1px solid var(--contrast-dark-secondary)
+    }
+
+input {
+    font: inherit;
+    box-sizing: border-box;
+}
+
+    input:not([type=checkbox]) {
+        width: 100%;
+    }
+
+
+.alpha-banner a {
+    color: var(--accent-base);
+}
+
+.--sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+/* App Loader */
+
+.app-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .app-loader .row {
+        display: flex;
+    }
+
+.app-loader .arrow {
+    width: 0;
+    height: 0;
+    margin: 0 -6px;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 21.6px solid var(--loading-color);
+    -webkit-animation: blink 1s infinite;
+    animation: blink 1s infinite;
+    filter: drop-shadow(0 0 18px var(--loading-filter-color));
+}
+
+    .app-loader .arrow.down {
+        transform: rotate(180deg);
+    }
+
+    .app-loader .arrow.outer-1 {
+        -webkit-animation-delay: -0.0555555556s;
+        animation-delay: -0.0555555556s;
+    }
+
+    .app-loader .arrow.outer-2 {
+        -webkit-animation-delay: -0.1111111111s;
+        animation-delay: -0.1111111111s;
+    }
+
+    .app-loader .arrow.outer-3 {
+        -webkit-animation-delay: -0.1666666667s;
+        animation-delay: -0.1666666667s;
+    }
+
+    .app-loader .arrow.outer-4 {
+        -webkit-animation-delay: -0.2222222222s;
+        animation-delay: -0.2222222222s;
+    }
+
+    .app-loader .arrow.outer-5 {
+        -webkit-animation-delay: -0.2777777778s;
+        animation-delay: -0.2777777778s;
+    }
+
+    .app-loader .arrow.outer-6 {
+        -webkit-animation-delay: -0.3333333333s;
+        animation-delay: -0.3333333333s;
+    }
+
+    .app-loader .arrow.outer-7 {
+        -webkit-animation-delay: -0.3888888889s;
+        animation-delay: -0.3888888889s;
+    }
+
+    .app-loader .arrow.outer-8 {
+        -webkit-animation-delay: -0.4444444444s;
+        animation-delay: -0.4444444444s;
+    }
+
+    .app-loader .arrow.outer-9 {
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+    }
+
+    .app-loader .arrow.outer-10 {
+        -webkit-animation-delay: -0.5555555556s;
+        animation-delay: -0.5555555556s;
+    }
+
+    .app-loader .arrow.outer-11 {
+        -webkit-animation-delay: -0.6111111111s;
+        animation-delay: -0.6111111111s;
+    }
+
+    .app-loader .arrow.outer-12 {
+        -webkit-animation-delay: -0.6666666667s;
+        animation-delay: -0.6666666667s;
+    }
+
+    .app-loader .arrow.outer-13 {
+        -webkit-animation-delay: -0.7222222222s;
+        animation-delay: -0.7222222222s;
+    }
+
+    .app-loader .arrow.outer-14 {
+        -webkit-animation-delay: -0.7777777778s;
+        animation-delay: -0.7777777778s;
+    }
+
+    .app-loader .arrow.outer-15 {
+        -webkit-animation-delay: -0.8333333333s;
+        animation-delay: -0.8333333333s;
+    }
+
+    .app-loader .arrow.outer-16 {
+        -webkit-animation-delay: -0.8888888889s;
+        animation-delay: -0.8888888889s;
+    }
+
+    .app-loader .arrow.outer-17 {
+        -webkit-animation-delay: -0.9444444444s;
+        animation-delay: -0.9444444444s;
+    }
+
+    .app-loader .arrow.outer-18 {
+        -webkit-animation-delay: -1s;
+        animation-delay: -1s;
+    }
+
+    .app-loader .arrow.inner-1 {
+        -webkit-animation-delay: -0.1666666667s;
+        animation-delay: -0.1666666667s;
+    }
+
+    .app-loader .arrow.inner-2 {
+        -webkit-animation-delay: -0.3333333333s;
+        animation-delay: -0.3333333333s;
+    }
+
+    .app-loader .arrow.inner-3 {
+        -webkit-animation-delay: -0.5s;
+        animation-delay: -0.5s;
+    }
+
+    .app-loader .arrow.inner-4 {
+        -webkit-animation-delay: -0.6666666667s;
+        animation-delay: -0.6666666667s;
+    }
+
+    .app-loader .arrow.inner-5 {
+        -webkit-animation-delay: -0.8333333333s;
+        animation-delay: -0.8333333333s;
+    }
+
+    .app-loader .arrow.inner-6 {
+        -webkit-animation-delay: -1s;
+        animation-delay: -1s;
+    }
+
+@-webkit-keyframes blink {
+    0% {
+        opacity: 0.1;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0.1;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.1;
+    }
 }

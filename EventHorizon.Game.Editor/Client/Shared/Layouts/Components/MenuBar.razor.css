@@ -1,6 +1,7 @@
-﻿.top-row {
-    height: 3.5rem;
+﻿.menu-bar {
+    height: var(--top-bar-height);
     background-color: rgba(0,0,0,0.4);
+    display: flex;
 }
 
 .menu-toggler {
@@ -9,13 +10,20 @@
     background-color: transparent;
     cursor: pointer;
     border: none;
+    animation: anim-glow 2s ease infinite;
+    border-radius: 50%;
 }
 
 .menu-toggler-icon {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
+
 .menu-brand {
+    font-weight: bold;
+}
+
+.menu-bar ::deep a {
     place-self: center;
     color: var(--accent-color);
     font-size: 1.1rem;
@@ -29,23 +37,19 @@
     white-space: nowrap;
 }
 
-.nav__content {
-    display: none;
-}
-
-    .nav__content.--expanded {
-        display: block;
-    }
-
 @media (min-width: 641px) {
 }
 
 @media (min-width: 768px) {
-    .top-row {
-        display: none;
+}
+
+@keyframes anim-glow {
+    0% {
+        box-shadow: 0 0 var(--brand-color);
     }
 
-    .nav__content {
-        display: block;
+    100% {
+        box-shadow: 0 0 10px 8px transparent;
+        border-width: 2px;
     }
 }

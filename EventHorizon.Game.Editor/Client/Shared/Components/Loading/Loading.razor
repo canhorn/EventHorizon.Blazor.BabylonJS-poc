@@ -1,0 +1,26 @@
+﻿<div class="loader">
+    <div class="row">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <span class="@(HideText ? "--sr-only" : string.Empty)">
+        @(Text.IsNotNull() ? Text : Localizer["Loading..."])
+    </span>
+</div>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+    [Parameter]
+    public bool HideText { get; set; }
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+}

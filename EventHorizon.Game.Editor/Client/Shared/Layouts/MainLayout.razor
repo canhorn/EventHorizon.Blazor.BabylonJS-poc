@@ -2,14 +2,18 @@
 
 <PlatformUserProvider>
     <div class="page">
-        <div class="page__nav">
-            <NavigationBase />
-        </div>
-
-        <div class="page__main">
-            <AlphaBanner />
-            <div class="page__content">
-                @Body
+        <div class="page__grid">
+            <div class="page__top-bar">
+                <MenuBar />
+            </div>
+            <div class="page__nav --screen-left">
+                <NavigationBase />
+            </div>
+            <div class="page__main">
+                <AlphaBanner />
+                <div class="page__content">
+                    @Body
+                </div>
             </div>
         </div>
     </div>
