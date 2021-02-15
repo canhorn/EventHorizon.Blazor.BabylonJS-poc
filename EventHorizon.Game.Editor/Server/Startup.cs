@@ -1,14 +1,11 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System.Linq;
-
 namespace EventHorizon.Game.Editor.Server
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -25,6 +22,7 @@ namespace EventHorizon.Game.Editor.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddResponseCompression();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,8 +41,13 @@ namespace EventHorizon.Game.Editor.Server
             }
 
             app.UseHttpsRedirection();
+            app.UseResponseCompression();
             app.UseBlazorFrameworkFiles();
-            app.UseStaticFiles();
+            app.UseStaticFiles(
+                GetStaticFileOptions(
+                    env
+                )
+            );
 
             app.UseRouting();
 
@@ -54,6 +57,38 @@ namespace EventHorizon.Game.Editor.Server
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
             });
+        }
+
+        private static StaticFileOptions GetStaticFileOptions(
+            IWebHostEnvironment env
+        )
+        {
+            var staticConfig = new StaticFileOptions
+            {
+                OnPrepareResponse = context =>
+                {
+                    // Expires time set to 15 minutes
+                    const int durationInSeconds = 60 * 15;
+                    context.Context.Response.Headers[
+                        "Cache-Control"
+                    ] = "public,max-age=" + durationInSeconds;
+                }
+            };
+            if (env.IsDevelopment())
+            {
+                staticConfig = new StaticFileOptions
+                {
+                    OnPrepareResponse = context =>
+                    {
+                        // Set the Cache Control header to max-age = 0 for development
+                        context.Context.Response.Headers[
+                            "Cache-Control"
+                        ] = "public,max-age=0";
+                    }
+                };
+            }
+
+            return staticConfig;
         }
     }
 }
