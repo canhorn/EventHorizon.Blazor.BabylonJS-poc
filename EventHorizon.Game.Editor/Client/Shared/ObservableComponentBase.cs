@@ -20,11 +20,11 @@
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
             await Mediator.Send(
                 new RegisterObserverCommand(this)
             );
             _isRegistered = true;
-            await base.OnInitializedAsync();
         }
 
         public virtual async ValueTask DisposeAsync()

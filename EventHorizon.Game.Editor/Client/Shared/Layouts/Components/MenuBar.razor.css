@@ -9,7 +9,6 @@
     color: var(--accent-color);
     background-color: transparent;
     cursor: pointer;
-    border: none;
     animation: anim-glow 2s ease infinite;
     border-radius: 50%;
 }
@@ -17,7 +16,6 @@
 .menu-toggler-icon {
     font-size: 2rem;
 }
-
 
 .menu-brand {
     font-weight: bold;
@@ -50,6 +48,6 @@
 
     100% {
         box-shadow: 0 0 10px 8px transparent;
-        border-width: 2px;
+        border-width: 1px;
     }
 }

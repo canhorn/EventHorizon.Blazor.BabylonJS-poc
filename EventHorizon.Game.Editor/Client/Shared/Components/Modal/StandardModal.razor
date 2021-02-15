@@ -7,6 +7,12 @@
         <div class="standard-modal__overlay" @onclick="@HandleMouseClick">
         </div>
         <div class="standard-modal__content @SizeCss">
+            <button class="standard-modal__close-button --no-border" 
+                    title="@Localizer["Close"]"
+                    @onclick="OnClose">
+                <i class="far fa-times-circle"></i>
+                <span class="--sr-only">@Localizer["Close"]</span>
+            </button>
             @if (Header != null)
             {
                 <div class="standard-modal__header @SizeCss"

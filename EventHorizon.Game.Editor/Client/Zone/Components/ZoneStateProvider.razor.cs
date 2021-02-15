@@ -1,16 +1,16 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Components;
+    using EventHorizon.Game.Editor.Client.Localization;
+    using EventHorizon.Game.Editor.Client.Localization.Api;
+    using EventHorizon.Game.Editor.Client.Shared.Components;
+    using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
     using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Client.Zone.Change;
     using EventHorizon.Game.Editor.Client.Zone.Query;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Zone.Services.Connection;
-    using System.Diagnostics.CodeAnalysis;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
+    using Microsoft.AspNetCore.Components;
 
     public class ZoneStateProviderModel
         : ObservableComponentBase,

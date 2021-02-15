@@ -7,17 +7,28 @@
     justify-content: space-between;
 }
 
-.expanded-toggler {
+.title__text {
     padding: 0.2rem;
     color: var(--accent-color);
     background-color: transparent;
-    cursor: pointer;
-    border-top: solid 2px var(--accent-color);
+    border-top: solid 2px var(--accent-background);
     border-right: solid 1px var(--accent-color);
     border-bottom: none;
     border-left: solid 1px var(--accent-color);
-    height: 100%;
 }
+
+    .title__text.--desktop-only {
+        display: none;
+    }
+
+.expanded-toggler {
+    cursor: pointer;
+}
+
+    .expanded-toggler:focus,
+    .expanded-toggler:hover {
+        outline: solid 1px;
+    }
 
 .expanded-toggler-icon {
     font-size: 1rem;
@@ -26,7 +37,6 @@
 
 .blade__settings__open-button {
     padding: 0.3rem;
-    border: none;
 }
 
 .blade__content {
@@ -41,8 +51,12 @@
 }
 
 @media (min-width: 768px) {
-    .expanded-toggler-icon {
+    .expanded-toggler {
         display: none;
+    }
+
+    .title__text.--desktop-only {
+        display: block;
     }
 
     .blade__content {

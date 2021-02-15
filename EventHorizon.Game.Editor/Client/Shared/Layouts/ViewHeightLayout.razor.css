@@ -7,8 +7,8 @@
     position: relative;
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: auto;
-    grid-template-areas: "top-bar" "nav" "main";
+    grid-template-rows: var(--top-bar-height) auto 150px;
+    grid-template-areas: "top-bar" "main" "nav";
 }
 
 .page__top-bar {

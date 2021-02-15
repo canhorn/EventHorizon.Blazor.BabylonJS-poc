@@ -8,11 +8,12 @@
     color: var(--accent-color);
     background-color: transparent;
     cursor: pointer;
-    border: none;
+    font-size: 1.5rem;
 }
 
 .menu-toggler-icon {
-    font-size: 1.5rem;
+    padding: 0 0.3rem 0 0;
+/*    font-size: 1.5rem;*/
 }
 
 .menu-brand {

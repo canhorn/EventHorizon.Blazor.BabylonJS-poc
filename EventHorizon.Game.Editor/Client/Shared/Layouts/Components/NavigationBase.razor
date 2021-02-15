@@ -1,5 +1,5 @@
 ﻿<div class="top-row navbar navbar-dark">
-    <button class="menu-toggler" @onclick="ToggleNavMenu">
+    <button class="menu-toggler --no-border" @onclick="ToggleNavMenu">
         @if (collapseNavMenu)
         {
             <i class="menu-toggler-icon fas fa-chevron-right"></i>
@@ -8,6 +8,7 @@
         {
             <i class="menu-toggler-icon fas fa-chevron-down"></i>
         }
+        @Localizer["Sub Menu"]
     </button>
     @*<a class="menu-brand @NavMenuCssClass" href="/">Game Editor</a>*@
 </div>
@@ -16,7 +17,7 @@
     @if (PlatformUser.IsAuthenticated)
     {
         <QuickLinks />
-        @*<ZoneSelection SelectionDisplay="SELECT" />*@
+        @*<ZoneSelection />*@
         <EditorBladeSelection />
         @*<DisplayLoginStatus />*@
     }
@@ -25,6 +26,10 @@
 @code {
     [CascadingParameter]
     public PlatformUserModel PlatformUser { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+
 
     private bool collapseNavMenu = true;
 

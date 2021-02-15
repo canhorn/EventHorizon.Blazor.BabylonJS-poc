@@ -100,16 +100,27 @@ button.--text {
 button {
     background: var(--background-dark);
     color: inherit;
-    border: 1px solid white;
+    border: 1px solid var(--accent-background);
     font: inherit;
     cursor: pointer;
     outline: inherit;
     border-radius: 0;
 }
 
-    button:hover {
+    button:hover,
+    button:focus {
         background-color: var(--contrast-light-disabled);
-        border: 1px solid var(--contrast-dark-secondary)
+        border: 1px solid var(--contrast-dark-secondary);
+    }
+
+    button.--no-border,
+    button.--no-border {
+        border: 1px solid transparent;
+    }
+
+    button:hover.--no-border,
+    button:focus.--no-border {
+        border: 1px solid var(--contrast-dark-secondary);
     }
 
 input {
@@ -137,6 +148,22 @@ input {
     border: 0;
 }
 
+/* Scroll Bars */
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--brand-color);
+    border-radius: 10px;
+}
+
 /* App Loader */
 
 .app-loader {
@@ -149,141 +176,141 @@ input {
         display: flex;
     }
 
-.app-loader .arrow {
-    width: 0;
-    height: 0;
-    margin: 0 -6px;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 21.6px solid var(--loading-color);
-    -webkit-animation: blink 1s infinite;
-    animation: blink 1s infinite;
-    filter: drop-shadow(0 0 18px var(--loading-filter-color));
-}
-
-    .app-loader .arrow.down {
-        transform: rotate(180deg);
+    .app-loader .arrow {
+        width: 0;
+        height: 0;
+        margin: 0 -6px;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-bottom: 21.6px solid var(--loading-color);
+        -webkit-animation: blink 1s infinite;
+        animation: blink 1s infinite;
+        filter: drop-shadow(0 0 18px var(--loading-filter-color));
     }
 
-    .app-loader .arrow.outer-1 {
-        -webkit-animation-delay: -0.0555555556s;
-        animation-delay: -0.0555555556s;
-    }
+        .app-loader .arrow.down {
+            transform: rotate(180deg);
+        }
 
-    .app-loader .arrow.outer-2 {
-        -webkit-animation-delay: -0.1111111111s;
-        animation-delay: -0.1111111111s;
-    }
+        .app-loader .arrow.outer-1 {
+            -webkit-animation-delay: -0.0555555556s;
+            animation-delay: -0.0555555556s;
+        }
 
-    .app-loader .arrow.outer-3 {
-        -webkit-animation-delay: -0.1666666667s;
-        animation-delay: -0.1666666667s;
-    }
+        .app-loader .arrow.outer-2 {
+            -webkit-animation-delay: -0.1111111111s;
+            animation-delay: -0.1111111111s;
+        }
 
-    .app-loader .arrow.outer-4 {
-        -webkit-animation-delay: -0.2222222222s;
-        animation-delay: -0.2222222222s;
-    }
+        .app-loader .arrow.outer-3 {
+            -webkit-animation-delay: -0.1666666667s;
+            animation-delay: -0.1666666667s;
+        }
 
-    .app-loader .arrow.outer-5 {
-        -webkit-animation-delay: -0.2777777778s;
-        animation-delay: -0.2777777778s;
-    }
+        .app-loader .arrow.outer-4 {
+            -webkit-animation-delay: -0.2222222222s;
+            animation-delay: -0.2222222222s;
+        }
 
-    .app-loader .arrow.outer-6 {
-        -webkit-animation-delay: -0.3333333333s;
-        animation-delay: -0.3333333333s;
-    }
+        .app-loader .arrow.outer-5 {
+            -webkit-animation-delay: -0.2777777778s;
+            animation-delay: -0.2777777778s;
+        }
 
-    .app-loader .arrow.outer-7 {
-        -webkit-animation-delay: -0.3888888889s;
-        animation-delay: -0.3888888889s;
-    }
+        .app-loader .arrow.outer-6 {
+            -webkit-animation-delay: -0.3333333333s;
+            animation-delay: -0.3333333333s;
+        }
 
-    .app-loader .arrow.outer-8 {
-        -webkit-animation-delay: -0.4444444444s;
-        animation-delay: -0.4444444444s;
-    }
+        .app-loader .arrow.outer-7 {
+            -webkit-animation-delay: -0.3888888889s;
+            animation-delay: -0.3888888889s;
+        }
 
-    .app-loader .arrow.outer-9 {
-        -webkit-animation-delay: -0.5s;
-        animation-delay: -0.5s;
-    }
+        .app-loader .arrow.outer-8 {
+            -webkit-animation-delay: -0.4444444444s;
+            animation-delay: -0.4444444444s;
+        }
 
-    .app-loader .arrow.outer-10 {
-        -webkit-animation-delay: -0.5555555556s;
-        animation-delay: -0.5555555556s;
-    }
+        .app-loader .arrow.outer-9 {
+            -webkit-animation-delay: -0.5s;
+            animation-delay: -0.5s;
+        }
 
-    .app-loader .arrow.outer-11 {
-        -webkit-animation-delay: -0.6111111111s;
-        animation-delay: -0.6111111111s;
-    }
+        .app-loader .arrow.outer-10 {
+            -webkit-animation-delay: -0.5555555556s;
+            animation-delay: -0.5555555556s;
+        }
 
-    .app-loader .arrow.outer-12 {
-        -webkit-animation-delay: -0.6666666667s;
-        animation-delay: -0.6666666667s;
-    }
+        .app-loader .arrow.outer-11 {
+            -webkit-animation-delay: -0.6111111111s;
+            animation-delay: -0.6111111111s;
+        }
 
-    .app-loader .arrow.outer-13 {
-        -webkit-animation-delay: -0.7222222222s;
-        animation-delay: -0.7222222222s;
-    }
+        .app-loader .arrow.outer-12 {
+            -webkit-animation-delay: -0.6666666667s;
+            animation-delay: -0.6666666667s;
+        }
 
-    .app-loader .arrow.outer-14 {
-        -webkit-animation-delay: -0.7777777778s;
-        animation-delay: -0.7777777778s;
-    }
+        .app-loader .arrow.outer-13 {
+            -webkit-animation-delay: -0.7222222222s;
+            animation-delay: -0.7222222222s;
+        }
 
-    .app-loader .arrow.outer-15 {
-        -webkit-animation-delay: -0.8333333333s;
-        animation-delay: -0.8333333333s;
-    }
+        .app-loader .arrow.outer-14 {
+            -webkit-animation-delay: -0.7777777778s;
+            animation-delay: -0.7777777778s;
+        }
 
-    .app-loader .arrow.outer-16 {
-        -webkit-animation-delay: -0.8888888889s;
-        animation-delay: -0.8888888889s;
-    }
+        .app-loader .arrow.outer-15 {
+            -webkit-animation-delay: -0.8333333333s;
+            animation-delay: -0.8333333333s;
+        }
 
-    .app-loader .arrow.outer-17 {
-        -webkit-animation-delay: -0.9444444444s;
-        animation-delay: -0.9444444444s;
-    }
+        .app-loader .arrow.outer-16 {
+            -webkit-animation-delay: -0.8888888889s;
+            animation-delay: -0.8888888889s;
+        }
 
-    .app-loader .arrow.outer-18 {
-        -webkit-animation-delay: -1s;
-        animation-delay: -1s;
-    }
+        .app-loader .arrow.outer-17 {
+            -webkit-animation-delay: -0.9444444444s;
+            animation-delay: -0.9444444444s;
+        }
 
-    .app-loader .arrow.inner-1 {
-        -webkit-animation-delay: -0.1666666667s;
-        animation-delay: -0.1666666667s;
-    }
+        .app-loader .arrow.outer-18 {
+            -webkit-animation-delay: -1s;
+            animation-delay: -1s;
+        }
 
-    .app-loader .arrow.inner-2 {
-        -webkit-animation-delay: -0.3333333333s;
-        animation-delay: -0.3333333333s;
-    }
+        .app-loader .arrow.inner-1 {
+            -webkit-animation-delay: -0.1666666667s;
+            animation-delay: -0.1666666667s;
+        }
 
-    .app-loader .arrow.inner-3 {
-        -webkit-animation-delay: -0.5s;
-        animation-delay: -0.5s;
-    }
+        .app-loader .arrow.inner-2 {
+            -webkit-animation-delay: -0.3333333333s;
+            animation-delay: -0.3333333333s;
+        }
 
-    .app-loader .arrow.inner-4 {
-        -webkit-animation-delay: -0.6666666667s;
-        animation-delay: -0.6666666667s;
-    }
+        .app-loader .arrow.inner-3 {
+            -webkit-animation-delay: -0.5s;
+            animation-delay: -0.5s;
+        }
 
-    .app-loader .arrow.inner-5 {
-        -webkit-animation-delay: -0.8333333333s;
-        animation-delay: -0.8333333333s;
-    }
+        .app-loader .arrow.inner-4 {
+            -webkit-animation-delay: -0.6666666667s;
+            animation-delay: -0.6666666667s;
+        }
 
-    .app-loader .arrow.inner-6 {
-        -webkit-animation-delay: -1s;
-        animation-delay: -1s;
-    }
+        .app-loader .arrow.inner-5 {
+            -webkit-animation-delay: -0.8333333333s;
+            animation-delay: -0.8333333333s;
+        }
+
+        .app-loader .arrow.inner-6 {
+            -webkit-animation-delay: -1s;
+            animation-delay: -1s;
+        }
 
 @-webkit-keyframes blink {
     0% {

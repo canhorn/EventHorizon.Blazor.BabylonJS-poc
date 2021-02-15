@@ -1,22 +1,21 @@
 ﻿<div class="menu-bar">
-    <button class="menu-toggler"
+    <button class="menu-toggler --no-border"
             title="@Localizer["Global Settings"]"
             @onclick="HandleOpenGlobalSettings">
         <i class="menu-toggler-icon fab fa-elementor"></i>
     </button>
     <a class="menu-brand navbar-brand" href="/">@Localizer["Game Editor"]</a>
-    <DisplayLoginStatus />
     <ZoneStatus />
-    <Loading />
+    <DisplayLoginStatus />
 </div>
 
 <StandardModal IsOpen="IsGlobalSettingsOpen"
                OnClose="HandleCloseGlobalSettings">
     <Header>
-        @Localizer["Global Settings"]
+        <h2>@Localizer["Global Settings"]</h2>
     </Header>
     <Body>
-        <ZoneSelection SelectionDisplay="SELECT" />
+        <ZoneSelection />
     </Body>
 </StandardModal>
 

@@ -5,7 +5,8 @@
 
 <div class="blade">
     <div class="blade__title">
-        <button class="expanded-toggler" @onclick="ToggleNavMenu">
+        <button class="title__text expanded-toggler" 
+                @onclick="ToggleNavMenu">
             @if (CollapseContent)
             {
                 <i class="expanded-toggler-icon fas fa-chevron-right"
@@ -24,8 +25,11 @@
             }
             @LocalizeBlade(CurrentBlade)
         </button>
+        <div class="title__text --desktop-only">@LocalizeBlade(CurrentBlade)</div>
         <span>
-            <button class="blade__settings__open-button" @onclick="HandleOpenSettings" title="@Localizer["Open Settings for this Blade."]">
+            <button class="blade__settings__open-button --no-border"
+                    @onclick="HandleOpenSettings"
+                    title="@Localizer["Open Settings for this Blade."]">
                 <i class="fas fa-cogs"></i>
                 <span class="--sr-only">
                     @Localizer["Open Settings for this Blade."]
@@ -34,7 +38,7 @@
             <StandardModal IsOpen="IsSettingsOpen"
                            OnClose="HandleCloseSettings">
                 <Header>
-                    @Localizer["Blade Settings"]
+                    <h2>@Localizer["Blade Settings"]</h2>
                 </Header>
                 <Body>
                     <EditForm Model="this">

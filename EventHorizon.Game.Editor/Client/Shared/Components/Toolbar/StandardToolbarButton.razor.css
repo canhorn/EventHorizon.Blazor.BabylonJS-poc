@@ -8,7 +8,8 @@
     outline: inherit;
 }
 
-.standard-toolbar-item:hover {
+.standard-toolbar-item:hover,
+.standard-toolbar-item:focus {
     background-color: var(--contrast-light-disabled);
     border: 1px solid var(--contrast-dark-secondary)
 }

@@ -10,50 +10,30 @@
 }
 else if (SelectedZone == null)
 {
-    @if (SelectionDisplay == "TILE")
-    {
-        <div>
-            @foreach (var zone in Zones)
-            {
-                <div>
-                    @* Tile Selection Display *@
-                    <div>Id: @zone.Id</div>
-                    <div>Server Address: @zone.ServerAddress</div>
-                    <div>Tag: @zone.Tag</div>
-                    <div>Last Ping: @zone.LastPing.ToString("G")</div>
-                    <button @onclick="() => HandleZoneSelectionChanged(zone.Id)">
-                        Select
-                    </button>
-                </div>
-            }
-        </div>
-    }
-    else if (SelectionDisplay == "SELECT")
-    {
-        <EditForm Model="this">
-            <label>
-                @Localizer["Zone Select: ({0})", SelectedZoneId]
-                <InputSelect TValue="string"
-                             ValueExpression="() => SelectedZoneId"
-                             ValueChanged="HandleZoneSelectionChanged">
-                    <option value="">
-                        @Localizer["Select a Zone..."]
-                    </option>
-                    @foreach (var zone in Zones)
-                    {
-                        <option value="@zone.Id">@zone.Id</option>
-                    }
-                </InputSelect>
-            </label>
-        </EditForm>
-    }
+    <EditForm Model="this">
+        <label>
+            <InputSelect TValue="string"
+                         ValueExpression="() => SelectedZoneId"
+                         ValueChanged="HandleZoneSelectionChanged">
+                <option value="">
+                    @Localizer["Select a Zone..."]
+                </option>
+                @foreach (var zone in Zones)
+                {
+                    <option value="@zone.Id">@zone.Id</option>
+                }
+            </InputSelect>
+        </label>
+    </EditForm>
 }
 else
 {
     if (ZoneState != null)
     {
-        <div class="selected-zone" title="@Localizer["The Selected Zone is {0}", SelectedZoneId]">
-            @Localizer["Selected Zone: {0}", SelectedZoneId]
+        <div class="selected-zone" 
+             title="@Localizer["The Selected Zone is {0}", SelectedZoneId]">
+            <div class="--font-bold">@Localizer["Selected Zone:"]</div>
+            @SelectedZoneId
         </div>
     }
     else

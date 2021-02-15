@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Editor.Client.Localization;
+    using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.ClickCapture;
     using EventHorizon.Game.Editor.Client.Shared.Components.Modal.Model;
     using Microsoft.AspNetCore.Components;
@@ -28,6 +30,9 @@
         public RenderFragment Body { get; set; }
         [Parameter]
         public RenderFragment Footer { get; set; }
+
+        [Inject]
+        public Localizer<SharedResource> Localizer { get; set; } = null!;
 
         public string SizeCss { get; set; } = string.Empty;
 

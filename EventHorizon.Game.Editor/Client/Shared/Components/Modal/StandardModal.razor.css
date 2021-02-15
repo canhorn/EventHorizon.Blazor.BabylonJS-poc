@@ -29,6 +29,14 @@
     flex-direction: column;
 }
 
+.standard-modal__close-button {
+    position: absolute;
+    font-size: 2rem;
+    right: 0;
+    top: 0;
+    background: transparent;
+}
+
 .standard-modal__header {
     overflow: hidden;
     height: 10%;
