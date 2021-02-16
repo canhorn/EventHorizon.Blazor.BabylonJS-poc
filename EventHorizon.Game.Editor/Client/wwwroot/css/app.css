@@ -91,7 +91,7 @@ hr {
 button.--text {
     background: none;
     color: inherit;
-    border: none;
+    border: solid 1px transparent;
     padding: 0;
     font: inherit;
     cursor: pointer;

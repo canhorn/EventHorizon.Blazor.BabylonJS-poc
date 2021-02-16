@@ -1,7 +1,11 @@
 ﻿.menu-bar {
     height: var(--top-bar-height);
-    background-color: rgba(0,0,0,0.4);
+}
+
+.menu-bar__content {
+/*    background-color: rgba(0,0,0,0.4);*/
     display: flex;
+    border-bottom: solid 2px var(--brand-color);
 }
 
 .menu-toggler {

@@ -23,6 +23,7 @@
         private readonly IMediator _mediator;
         private readonly GamePlatformServiceSettings _settings;
 
+        private bool _initializing = false;
         private bool _initialized = false;
         private HubConnection _connection;
 
@@ -42,13 +43,19 @@
             CancellationToken cancellationToken
         )
         {
-            if (_initialized)
+            if (_initializing)
+            {
+                return new(
+                    ConnectionErrorTypes.NotInitialized
+                );
+            }
+            else if (_initialized)
             {
                 return new();
             }
             try
             {
-                _initialized = true;
+                _initializing = true;
                 _connection = new HubConnectionBuilder()
                     .WithUrl(
                         $"{_settings.CoreServer}/admin",
@@ -66,6 +73,8 @@
                     new CoreAdminServiceConnected(),
                     cancellationToken
                 );
+                _initializing = false;
+                _initialized = true;
                 return new();
             }
             catch (HttpRequestException ex)
@@ -124,6 +133,7 @@
                 await _connection.DisposeAsync();
                 _connection = null;
             }
+            _initializing = false;
             _initialized = false;
         }
 
@@ -131,16 +141,16 @@
         {
             if (_connection != null)
             {
-                _connection.DisposeAsync()
-                    .GetAwaiter()
-                    .GetResult();
+                _ = _connection.DisposeAsync();
             }
+            _initializing = false;
             _initialized = false;
         }
 
         public async Task<IList<CoreZoneDetails>> GetAllZones()
         {
-            if (!_initialized)
+            if (!_initialized 
+                || _initializing)
             {
                 return EMPTY_LIST;
             }

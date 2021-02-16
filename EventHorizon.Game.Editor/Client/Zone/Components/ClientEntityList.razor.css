@@ -1,0 +1,27 @@
+﻿.entity-list {
+    padding: 0.8rem;
+}
+
+.entity-item {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+    .entity-item.--padding {
+        margin: 0.1rem 0;
+        padding: 0.3rem;
+    }
+
+    .entity-item.--shaded-background {
+        color: black;
+        background-color: white;
+    }
+
+    .entity-item:hover, .entity-item:focus {
+        background-color: var(--contrast-dark-disabled);
+        border: 1px solid var(--contrast-light-secondary);
+    }

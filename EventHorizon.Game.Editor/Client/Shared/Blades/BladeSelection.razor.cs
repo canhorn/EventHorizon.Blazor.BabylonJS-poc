@@ -50,7 +50,7 @@
         protected StandardSelectOption SelectedBladeOption { get; private set; }
         protected List<StandardSelectOption> BladeOptions { get; private set; } = new List<StandardSelectOption>();
 
-        public string CurrentBlade { get; set; } = "NAV_MENU";
+        public string CurrentBlade { get; set; } = string.Empty;
         public bool CollapseContent { get; private set; } = true;
         public string ContentCssClass => CollapseContent ? null : "--expanded";
 
@@ -60,10 +60,21 @@
         {
             // TODO: Pull this from a Command
             BladeOptions = DEFAULT_BLADES.Select(
-                a => new StandardSelectOption
+                blade => new StandardSelectOption
                 {
-                    Value = a.Key,
-                    Text = Localizer[a.Value],
+                    Value = blade.Key,
+                    Text = Localizer[blade.Value],
+                }
+            ).OrderBy(
+                option => option.Text
+            ).InsertItem(
+                0,
+                new StandardSelectOption
+                {
+                    Value = string.Empty,
+                    Text = Localizer["Select a Blade..."],
+                    Hidden = true,
+                    Disabled = true,
                 }
             ).ToList();
             SetSelectedOption(
@@ -80,13 +91,18 @@
             base.OnParametersSet();
         }
 
-        protected string LocalizeBlade(string bladeKey)
+        protected string LocalizeBlade(
+            string bladeKey
+        )
         {
-            return Localizer[
-                DEFAULT_BLADES.FirstOrDefault(
-                    a => a.Key == bladeKey
-                ).Value ?? "Nav"
-            ];
+            if (DEFAULT_BLADES.TryGetValue(
+                bladeKey,
+                out var bladeValue
+            ))
+            {
+                return Localizer[bladeValue];
+            }
+            return Localizer["Editor Blade"];
         }
 
         protected async Task HandleBladeValueChanged(
@@ -97,7 +113,9 @@
             SetSelectedOption(
                 CurrentBlade
             );
-            if (string.IsNullOrWhiteSpace(Id).IsNotTrue())
+            if (string.IsNullOrWhiteSpace(
+                Id
+            ).IsNotTrue())
             {
                 await Mediator.Send(
                     new SetSessionValueCommand(
@@ -125,7 +143,9 @@
 
         private void Setup()
         {
-            if (string.IsNullOrWhiteSpace(Id).IsNotTrue())
+            if (string.IsNullOrWhiteSpace(
+                Id
+            ).IsNotTrue())
             {
                 CurrentBlade = SessionValues.Get(
                     $"currentBlade__{Id}",

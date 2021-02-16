@@ -5,7 +5,7 @@
 
 <div class="blade">
     <div class="blade__title">
-        <button class="title__text expanded-toggler" 
+        <button class="title__text expanded-toggler"
                 @onclick="ToggleNavMenu">
             @if (CollapseContent)
             {
@@ -57,13 +57,6 @@
     </div>
 
     <div class="blade__content @ContentCssClass">
-
-        @*<EditForm Model="this">
-                <StandardSelect Options="BladeOptions"
-                                ValueChanged="HandleBladeValueChanged"
-                                Value="SelectedBladeOption"></StandardSelect>
-            </EditForm>*@
-
         @switch (CurrentBlade)
         {
             case "ENTITY_LIST":
@@ -75,11 +68,19 @@
             case "OBJECT_ENTITY_EDITOR":
                 <ObjectEntityEditorBlade />
                 break;
-            default:
+            case "NAV_MENU":
                 <NavMenuBlade />
                 break;
+            default:
+                <div>
+                    <label class="sr-only">
+                        @Localizer["Select a Blade"]
+                    </label>
+                    <StandardSelect Options="BladeOptions"
+                                    ValueChanged="HandleBladeValueChanged"
+                                    Value="SelectedBladeOption"></StandardSelect>
+                </div>
+                break;
         }
-
     </div>
-
 </div>

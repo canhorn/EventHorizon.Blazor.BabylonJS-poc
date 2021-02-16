@@ -4,40 +4,9 @@
     @foreach (var entity in ZoneState.ZoneInfo.ClientEntityList)
     {
         <button title="@entity.Name (@entity.GlobalId)"
-                class="entity-item --shaded-background --text --padding"
+                class="entity-item --text --shaded-background --padding"
                 @onclick="() => HandleEntityClicked(entity)">
             @entity.Name (@entity.GlobalId)
         </button>
-        @*<a title="@entity.Name (@entity.GlobalId)"
-               href="zone/client-entity/@entity.GlobalId">
-                <span class="entity-item --shaded-background">
-                    @entity.Name (@entity.GlobalId)
-                </span>
-            </a>*@
     }
 </div>
-
-<style>
-    .entity-list {
-        padding: 0.8rem;
-    }
-
-    .entity-item {
-        width: 100%;
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        cursor: pointer;
-    }
-
-        .entity-item.--padding {
-            margin: 0px;
-            padding: 0.3rem;
-        }
-
-        .entity-item.--shaded-background {
-            color: black;
-            background-color: white;
-        }
-</style>

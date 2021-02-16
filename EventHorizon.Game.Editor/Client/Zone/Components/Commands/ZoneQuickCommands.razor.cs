@@ -39,6 +39,8 @@
             {
                 Value = "none",
                 Text = Localizer["Select a Command..."],
+                Disabled = true,
+                Hidden = true,
             };
             var options = QuickCommands
                 .Select(command => new StandardSelectOption

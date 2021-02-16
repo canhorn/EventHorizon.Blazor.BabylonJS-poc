@@ -4,7 +4,7 @@
     using EventHorizon.Game.Editor.Client.Authentication.Api;
     using EventHorizon.Game.Editor.Client.Authentication.Set;
     using EventHorizon.Game.Editor.Client.Shared.Components;
-    using EventHorizon.Game.Editor.Client.Zone.Opened;
+    using EventHorizon.Game.Editor.Client.Zone.Interaction;
     using Microsoft.AspNetCore.Components;
 
     public class ObjectEntityEditorBladeModel
@@ -26,7 +26,7 @@
         }
 
         public async Task Handle(
-            ObjectEntityOpenedEvent args
+            ObjectEntityInteractionEvent args
         )
         {
             ClientEntityId = args.ObjectEntityId;

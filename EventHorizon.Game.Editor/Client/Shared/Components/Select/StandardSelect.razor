@@ -6,6 +6,10 @@
         disabled="@IsDisabled">
     @foreach (var option in Options)
     {
-        <option value="@option.Value">@option.Text</option>
+        <option value="@option.Value"
+                disabled="@option.Disabled"
+                hidden="@option.Hidden">
+            @option.Text
+        </option>
     }
 </select>

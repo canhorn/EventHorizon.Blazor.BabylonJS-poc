@@ -1,18 +1,10 @@
-﻿@page "/zone/client-entity"
-@page "/zone/client-entity/{clientEntityId}"
+﻿@page "/zone/client-entity/{clientEntityId}"
 @using EventHorizon.Game.Editor.Client.Zone.Components.EntityEditor
 @layout ThreeSplitLayout
 @inherits ZoneClientEntityEditorPageModel
 
 <ZoneStateProvider>
-    @if (string.IsNullOrWhiteSpace(ClientEntityId))
-    {
-        <ClientEntityList />
-    }
-    else
-    {
-        <ClientEntityProvider ClientEntityId="@ClientEntityId">
-            <ObjectEntityEditor />
-        </ClientEntityProvider>
-    }
+    <ClientEntityProvider ClientEntityId="@ClientEntityId">
+        <ObjectEntityEditor />
+    </ClientEntityProvider>
 </ZoneStateProvider>

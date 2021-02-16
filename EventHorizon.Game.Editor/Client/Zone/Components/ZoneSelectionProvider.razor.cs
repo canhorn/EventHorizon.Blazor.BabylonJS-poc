@@ -33,14 +33,14 @@
 
         protected override async Task OnInitializedAsync()
         {
-            await CheckState();
             await base.OnInitializedAsync();
+            await CheckState();
         }
 
         protected override async Task OnParametersSetAsync()
         {
-            await CheckState();
             await base.OnParametersSetAsync();
+            await CheckState();
         }
 
         public async Task ChangeZone(
