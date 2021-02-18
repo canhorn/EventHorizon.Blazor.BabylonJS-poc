@@ -8,8 +8,8 @@
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>EventHorizon.Game.Server.Api$(PackageIdPostfix)</PackageId>
-        <RepositoryUrl>https://github.com/canhorn/EventHorizon.Blazor.BabylonJS-poc</RepositoryUrl>
         <Description>This project is all the Server Api/Model/Events for use on the EventHorizon Game Clients.</Description>
+        <PackageTags>Blazor, Game, Server, Api</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

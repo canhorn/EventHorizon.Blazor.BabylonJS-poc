@@ -4,8 +4,8 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>EventHorizon.Game.Client.Scripts.SDK$(PackageIdPostfix)</PackageId>
-        <RepositoryUrl>https://github.com/canhorn/EventHorizon.Blazor.BabylonJS-poc</RepositoryUrl>
         <Description>This project is the SDK for the EventHorizon Game Client Scripts.</Description>
+        <PackageTags>Blazor, Game, Client, Scripts, SDK</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

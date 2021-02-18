@@ -1,0 +1,8 @@
+<Project>
+    <PropertyGroup>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Authors>Cody Merritt Anhorn</Authors>
+        <PackageProjectUrl>https://github.com/canhorn/EventHorizon.Blazor.BabylonJS-poc</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/canhorn/EventHorizon.Blazor.BabylonJS-poc</RepositoryUrl>
+    </PropertyGroup>
+</Project>
