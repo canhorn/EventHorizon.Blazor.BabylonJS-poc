@@ -53,6 +53,7 @@ ARG Version
 WORKDIR /source
 
 COPY ./src ./src
+COPY ./Directory.Build.props ./Directory.Build.props
 
 RUN dotnet build /p:Version=$Version -c Release --no-restore
 
