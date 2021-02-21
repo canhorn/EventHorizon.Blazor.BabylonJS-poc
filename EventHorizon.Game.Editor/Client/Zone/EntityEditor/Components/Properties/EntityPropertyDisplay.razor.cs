@@ -71,16 +71,9 @@
             foreach (var prop in data)
             {
                 var type = State.EditorState.Metadata.GetPropertyType(
-                    prop.Key
+                    prop.Key,
+                    prop.Value
                 );
-                if (type == ZoneEditorPropertyType.PropertyString
-                    && State.EditorState.Metadata.IsComplexPropertyType(
-                        prop.Value
-                    )
-                )
-                {
-                    type = ZoneEditorPropertyType.PropertyComplex;
-                }
 
                 DisplayProperties.Add(
                     prop.Key,
@@ -97,14 +90,14 @@
 
     public class EntityPropertyDisplayType
     {
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public object Value { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
+        public object Value { get; set; } = string.Empty;
     }
 
     public class PropertyChangedArgs
     {
-        public string PropertyName { get; set; }
-        public object Property { get; set; }
+        public string PropertyName { get; set; } = string.Empty;
+        public object Property { get; set; } = new { };
     }
 }

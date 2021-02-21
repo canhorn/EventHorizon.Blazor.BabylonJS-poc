@@ -1,0 +1,36 @@
+﻿.complex-property-control .property-text {
+    word-break: break-word;
+}
+
+.property__editor-container {
+    height: 100%;
+    display: grid;
+    grid-template-areas: "editor" "toolbar";
+    grid-template-rows: auto minmax(min-content, max-content);
+    overflow: hidden;
+}
+
+    .property__editor-container ::deep .property__editor {
+        grid-area: editor;
+        height: 100%;
+    }
+
+    .property__editor-container .property__editor-toolbar {
+        grid-area: toolbar;
+    }
+
+/* var(--screen-min-width) */
+@media only screen and (min-width: 640px) {
+    .property__editor-container {
+        grid-template-areas: "toolbar" "editor";
+        grid-template-rows: minmax(min-content, max-content) auto;
+    }
+}
+
+/* var(--screen-mid-width) */
+@media only screen and (min-width: 832px) {
+}
+
+/* var(--screen-max-width) */
+@media only screen and (min-width: 1024px) {
+}

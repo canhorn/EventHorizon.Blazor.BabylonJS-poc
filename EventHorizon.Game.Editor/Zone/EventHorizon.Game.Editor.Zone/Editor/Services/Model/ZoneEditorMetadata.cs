@@ -2,7 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.Json;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+    using Newtonsoft.Json.Linq;
 
     public class ZoneEditorMetadata
     {
@@ -13,17 +15,48 @@
         public IDictionary<string, string> ZoneEditorPropertyTypeMap { get; set; }
 
         public string GetPropertyType(
-            string name
-        ) => ZoneEditorPropertyTypeMap.FirstOrDefault(
-            metaProp => name == metaProp.Key
-        ).Value ?? ZoneEditorPropertyType.PropertyString;
+            string name,
+            object value
+        )
+        {
+            var type = ZoneEditorPropertyTypeMap.FirstOrDefault(
+                metaProp => name == metaProp.Key
+            ).Value ?? ZoneEditorPropertyType.PropertyString;
 
-        public bool IsComplexPropertyType(
+            if (type == ZoneEditorPropertyType.PropertyString
+                && IsComplexPropertyType(
+                    value
+                )
+            )
+            {
+                type = ZoneEditorPropertyType.PropertyComplex;
+            }
+
+            return type;
+        }
+
+        private static bool IsComplexPropertyType(
             object propertyValue
         )
         {
-            // TODO: Check if JSON Primitive object
-            // TODO: Check if it can be parsed into a JSON Primitive Object 
+            // Check if JSON Primitive object
+            if (propertyValue is JsonElement jElement
+                && jElement.ValueKind == JsonValueKind.Object
+            )
+            {
+                return true;
+            }
+            else if (propertyValue is JObject jObject
+                && jObject.Type == JTokenType.Object
+            )
+            {
+                return true;
+            }
+            else if (propertyValue is Dictionary<string, object>)
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -47,6 +80,11 @@
             }
             // Default value of empty string
             return string.Empty;
+        }
+
+        public object GetComplexPropertyValue()
+        {
+            return new Dictionary<string, object>();
         }
     }
 

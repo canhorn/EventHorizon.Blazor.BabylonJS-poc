@@ -5,20 +5,20 @@
     using Microsoft.AspNetCore.Components;
     using System.Threading.Tasks;
 
-    public abstract class PropertyControlBase 
+    public abstract class PropertyControlBase
         : ComponentBase
     {
         [Parameter]
-        public string PropertyName { get; set; }
+        public string PropertyName { get; set; } = string.Empty;
         [Parameter]
-        public object Property { get; set; }
+        public object Property { get; set; } = null!;
         [Parameter]
         public EventCallback<PropertyChangedArgs> OnChange { get; set; }
         [Parameter]
         public EventCallback<string> OnRemove { get; set; }
 
         [Inject]
-        public Localizer<SharedResource> Localizer { get; set; }
+        public Localizer<SharedResource> Localizer { get; set; } = null!;
 
 
         public bool ShowRemove => OnRemove.HasDelegate;
@@ -28,6 +28,7 @@
         )
         {
             args.NullCheck();
+            args.Value.NullCheck();
             await OnChange.InvokeAsync(
                 new PropertyChangedArgs
                 {

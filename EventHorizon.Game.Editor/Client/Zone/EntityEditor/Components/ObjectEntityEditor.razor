@@ -75,6 +75,11 @@
                         type="submit">
                     @Localizer["Add"]
                 </button>
+                <button class="c-button select-client-entity__add-as-complex-button"
+                        type="button"
+                        @onclick="HandleAddComplexProperty">
+                    @Localizer["Add as Complex"]
+                </button>
             </EditForm>
             @if (!NewPropertyModel.IsValid)
             {

@@ -186,6 +186,32 @@
             );
         }
 
+        public async Task HandleAddComplexProperty()
+        {
+            var (valid, _) = NewPropertyModel.Validate();
+            if (!valid)
+            {
+                return;
+            }
+            if (EditEntity.Data.ContainsKey(NewPropertyModel.Name))
+            {
+                NewPropertyModel.IsValid = false;
+                NewPropertyModel.ErrorMessage = Localizer["property_already_exists"];
+                return;
+            }
+            IsPendingChange = true;
+            EditEntity.Data.Add(
+                NewPropertyModel.Name,
+                ZoneState.EditorState.Metadata.GetComplexPropertyValue()
+            );
+            NewPropertyModel.Name = string.Empty;
+            await Mediator.Publish(
+                new ObjectEntityDetailsEditedEvent(
+                    EditEntity
+                )
+            );
+        }
+
         public async Task Handle(
             ObjectEntityDetailsEditedEvent args
         )

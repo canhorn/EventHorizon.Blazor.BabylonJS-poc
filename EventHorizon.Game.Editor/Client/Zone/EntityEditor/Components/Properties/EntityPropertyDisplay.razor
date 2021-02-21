@@ -48,6 +48,13 @@
                                       OnRemove="HandleRemoveProperty" />
                 break;
 
+            case ZoneEditorPropertyType.PropertyComplex:
+                <ComplexPropertyControl PropertyName="@prop.Name"
+                                      Property="prop.Value"
+                                      OnChange="HandlePropertyChanged"
+                                      OnRemove="HandleRemoveProperty" />
+                break;
+
             default:
                 <div>
                     @Localizer["not_supported_property_type"]
