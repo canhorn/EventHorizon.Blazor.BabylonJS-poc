@@ -13,7 +13,7 @@
             IObjectEntityDetails entity
         );
         Task<AdminAgentEntityResponse> DeleteEntity(
-            string clientEntityId
+            string entityId
         );
     }
 }

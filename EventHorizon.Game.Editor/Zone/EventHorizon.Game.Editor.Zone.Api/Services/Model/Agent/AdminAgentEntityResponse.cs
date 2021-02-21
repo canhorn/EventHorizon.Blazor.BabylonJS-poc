@@ -7,6 +7,6 @@
     {
         public bool Success { get; set; }
         public string ErrorCode { get; set; }
-        public ObjectEntityDetailsModel ClientEntity { get; set; }
+        public ObjectEntityDetailsModel AgentEntity { get; set; }
     }
 }

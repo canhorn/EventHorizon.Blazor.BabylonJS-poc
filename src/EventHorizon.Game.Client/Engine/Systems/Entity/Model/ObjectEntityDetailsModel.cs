@@ -9,7 +9,7 @@
         public long Id { get; set; } = IObjectEntityDetails.DEFAULT_ID;
         public string Name { get; set; } = string.Empty;
         public string GlobalId { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
+        public string Type { get; set; } = "OTHER";
         public ServerTransform Transform { get; set; } = new ServerTransform();
         IServerTransform IObjectEntityDetails.Transform => Transform;
         public IList<string> TagList { get; set; } = new List<string>();

@@ -1,17 +1,18 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.ClientEntity.Delete
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Agent.Delete
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Zone.Services.Api;
     using MediatR;
 
-    public class DeleteClientEntityCommandHandler
-        : IRequestHandler<DeleteClientEntityCommand, StandardCommandResult>
+    public class DeleteAgentEntityCommandHandler
+        : IRequestHandler<DeleteAgentEntityCommand, StandardCommandResult>
     {
         private readonly ZoneAdminServices _zoneAdminServices;
 
-        public DeleteClientEntityCommandHandler(
+        public DeleteAgentEntityCommandHandler(
             ZoneAdminServices zoneAdminServices
         )
         {
@@ -19,11 +20,11 @@
         }
 
         public async Task<StandardCommandResult> Handle(
-            DeleteClientEntityCommand request,
+            DeleteAgentEntityCommand request,
             CancellationToken cancellationToken
         )
         {
-            var result = await _zoneAdminServices.Api.ClientEntity.Delete(
+            var result = await _zoneAdminServices.Api.Agent.DeleteEntity(
                 request.EntityId
             );
             if (result.Success.IsNotTrue())

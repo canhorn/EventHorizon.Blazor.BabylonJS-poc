@@ -7,5 +7,8 @@
     public interface EntityEditorState
     {
         public Func<IObjectEntityDetails, Task> OnSave { get; }
+
+        public bool ShowDelete { get; }
+        public Func<IObjectEntityDetails, Task> OnDelete { get; }
     }
 }

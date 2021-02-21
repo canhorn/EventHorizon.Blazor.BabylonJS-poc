@@ -13,3 +13,13 @@
     background-color: var(--contrast-light-disabled);
     border: 1px solid var(--contrast-dark-secondary)
 }
+
+.standard-toolbar-item {
+    box-shadow: 0 0 10px 8px transparent;
+    transition: all 0.8s
+}
+
+.standard-toolbar-item:active {
+    box-shadow: 0 0 var(--brand-color);
+    transition: 0s
+}

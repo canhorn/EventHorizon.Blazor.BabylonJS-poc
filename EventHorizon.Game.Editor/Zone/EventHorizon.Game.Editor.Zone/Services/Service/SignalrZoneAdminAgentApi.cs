@@ -39,7 +39,7 @@
         }
 
         public Task<AdminAgentEntityResponse> DeleteEntity(
-            string agentEntityId
+            string entityId
         )
         {
             if (_hubConnection == null)
@@ -52,7 +52,7 @@
             }
             return _hubConnection.InvokeAsync<AdminAgentEntityResponse>(
                 "Agent_EntityDelete",
-                agentEntityId
+                entityId
             );
         }
 

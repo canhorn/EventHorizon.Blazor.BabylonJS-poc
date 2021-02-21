@@ -1,15 +1,5 @@
 ﻿@inherits ClientEntityProviderModel
 
-@if (!string.IsNullOrWhiteSpace(ErrorMessage))
-{
-    <div class="error-message">
-        @ErrorMessage
-        <div class="error-message__details">
-            @Localizer["EntityId: {0}", EntityId]
-        </div>
-    </div>
-}
-
 @if (ClientEntity.IsNotNull())
 {
     <CascadingValue Value="EntityEditorState">

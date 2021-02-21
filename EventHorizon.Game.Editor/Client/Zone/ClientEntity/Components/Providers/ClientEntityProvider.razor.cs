@@ -9,6 +9,8 @@
     using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
     using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Client.Zone.Model;
+    using EventHorizon.Game.Editor.Client.Zone.Reload;
+    using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Delete;
     using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Save;
     using MediatR;
     using Microsoft.AspNetCore.Components;
@@ -21,10 +23,10 @@
         public IObjectEntityDetails ClientEntity { get; set; }
 
         [Parameter]
-        public string EntityId { get; set; } = string.Empty;
-        [Parameter]
         public RenderFragment ChildContent { get; set; } = null!;
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; } = null!;
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
         [Inject]
@@ -32,12 +34,12 @@
 
         public EntityEditorState EntityEditorState => new EntityEditorStateModel
         {
-            OnSave = HandleOnSave,
+            OnSave = HandleSave,
+            ShowDelete = true,
+            OnDelete = HandleDelete,
         };
 
-        public string ErrorMessage { get; set; } = string.Empty;
-
-        private async Task HandleOnSave(
+        private async Task HandleSave(
             IObjectEntityDetails entity
         )
         {
@@ -54,7 +56,13 @@
             );
             if (result.Success.IsNotTrue())
             {
-                ErrorMessage = Localizer["Failed to Save Client Entity: {0}", result.ErrorCode];
+                await Mediator.Publish(
+                    new ShowMessageEvent(
+                        Localizer["Client Entity"],
+                        Localizer["Failed to Save Client Entity: {0} | {1}", result.ErrorCode, entity.GlobalId],
+                        MessageLevel.Error
+                    )
+                );
                 return;
             }
             await Mediator.Publish(
@@ -63,6 +71,50 @@
                     Localizer["Saved Client Entity."],
                     MessageLevel.Success
                 )
+            );
+            await Mediator.Send(
+                new ReloadActiveZoneStateCommand()
+            );
+        }
+
+        private async Task HandleDelete(
+            IObjectEntityDetails entity
+        )
+        {
+            await Mediator.Publish(
+                new ShowMessageEvent(
+                    Localizer["Client Entity"],
+                    Localizer["Deleting Client Entity..."]
+                )
+            );
+            var result = await Mediator.Send(
+                new DeleteClientEntityCommand(
+                    entity.GlobalId
+                )
+            );
+            if (result.Success.IsNotTrue())
+            {
+                await Mediator.Publish(
+                    new ShowMessageEvent(
+                        Localizer["Client Entity"],
+                        Localizer["Failed to Delete Client Entity: {0} | {1}", result.ErrorCode, entity.GlobalId],
+                        MessageLevel.Error
+                    )
+                );
+                return;
+            }
+            await Mediator.Publish(
+                new ShowMessageEvent(
+                    Localizer["Client Entity"],
+                    Localizer["Deleted Client Entity."],
+                    MessageLevel.Success
+                )
+            );
+
+            NavigationManager.NavigateTo("zone/entity");
+
+            await Mediator.Send(
+                new ReloadActiveZoneStateCommand()
             );
         }
     }

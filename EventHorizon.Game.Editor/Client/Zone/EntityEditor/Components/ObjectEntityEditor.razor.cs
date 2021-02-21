@@ -31,7 +31,7 @@
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
 
-        public ObjectEntityDetailsModel EditEntity { get; set; }
+        public ObjectEntityDetailsModel EditEntity { get; set; } = new ObjectEntityDetailsModel();
         public NewPropertyModel NewPropertyModel { get; set; } = new NewPropertyModel();
 
         public bool IsPendingChange { get; set; }
@@ -77,6 +77,13 @@
         public Task HandleSave()
         {
             return EditorState.OnSave(
+                EditEntity
+            );
+        }
+
+        public Task HandleDelete()
+        {
+            return EditorState.OnDelete(
                 EditEntity
             );
         }

@@ -10,6 +10,12 @@
     <StandardToolbarButton @onclick="HandleOpenHelp">
         @Localizer["Help"]
     </StandardToolbarButton>
+    @if (EditorState.ShowDelete)
+    {
+        <StandardToolbarButton @onclick="HandleDelete">
+            @Localizer["Delete"]
+        </StandardToolbarButton>
+    }
 </StandardToolbar>
 
 <div>

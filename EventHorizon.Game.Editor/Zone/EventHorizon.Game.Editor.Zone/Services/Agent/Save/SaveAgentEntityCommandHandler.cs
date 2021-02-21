@@ -36,7 +36,7 @@
             }
 
             return new(
-                result.ClientEntity
+                result.AgentEntity
             );
         }
     }

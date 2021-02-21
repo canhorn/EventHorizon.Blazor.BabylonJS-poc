@@ -18,13 +18,13 @@
         @switch (Entity.Type)
         {
             case "AGENT":
-                <AgentEntityProvider EntityId="EntityId">
+                <AgentEntityProvider>
                     @ChildContent
                 </AgentEntityProvider>
                 break;
             case "OTHER":
             default:
-                <ClientEntityProvider EntityId="EntityId">
+                <ClientEntityProvider>
                     @ChildContent
                 </ClientEntityProvider>
                 break;

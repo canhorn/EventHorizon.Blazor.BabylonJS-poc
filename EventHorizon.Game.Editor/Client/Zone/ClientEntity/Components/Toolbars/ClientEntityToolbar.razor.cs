@@ -6,6 +6,7 @@
     using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
+    using EventHorizon.Game.Editor.Client.Zone.Reload;
     using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Create;
     using MediatR;
     using Microsoft.AspNetCore.Components;
@@ -45,6 +46,9 @@
                     Localizer["Created Client Entity! {0}", result.Result.Id],
                     MessageLevel.Success
                 )
+            );
+            await Mediator.Send(
+                new ReloadActiveZoneStateCommand()
             );
         }
     }

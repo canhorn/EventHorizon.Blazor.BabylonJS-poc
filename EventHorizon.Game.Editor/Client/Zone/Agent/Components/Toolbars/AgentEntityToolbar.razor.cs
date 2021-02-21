@@ -6,6 +6,8 @@
     using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
+    using EventHorizon.Game.Editor.Client.Zone.Reload;
+    using EventHorizon.Game.Editor.Zone.Services.Agent.Create;
     using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Create;
     using MediatR;
     using Microsoft.AspNetCore.Components;
@@ -20,33 +22,39 @@
 
         public async Task HandleNew()
         {
-            var newAgentEntity = new ObjectEntityDetailsModel();
+            var newAgentEntity = new ObjectEntityDetailsModel
+            {
+                Name = "New Agent Entity",
+            };
 
-            // TODO: Create new Agent Entity
-            //var result = await Mediator.Send(
-            //    new CreateAgentEntityCommand(
-            //        newAgentEntity
-            //    )
-            //);
+            var result = await Mediator.Send(
+                new CreateAgentEntityCommand(
+                    newAgentEntity
+                )
+            );
 
-            //if (result.Success.IsNotTrue())
-            //{
-            //    await Mediator.Publish(
-            //        new ShowMessageEvent(
-            //            Localizer["Agent Entity"],
-            //            Localizer["Create Agent Failed: {0}", result.ErrorCode],
-            //            MessageLevel.Error
-            //        )
-            //    );
-            //}
+            if (result.Success.IsNotTrue())
+            {
+                await Mediator.Publish(
+                    new ShowMessageEvent(
+                        Localizer["Agent Entity"],
+                        Localizer["Create Agent Failed: {0}", result.ErrorCode],
+                        MessageLevel.Error
+                    )
+                );
+                return;
+            }
 
-            //await Mediator.Publish(
-            //    new ShowMessageEvent(
-            //        Localizer["Agent Entity"],
-            //        Localizer["Created Agent Entity! {0}", result.Result.Id],
-            //        MessageLevel.Success
-            //    )
-            //);
+            await Mediator.Publish(
+                new ShowMessageEvent(
+                    Localizer["Agent Entity"],
+                    Localizer["Created Agent Entity! {0}", result.Result.Id],
+                    MessageLevel.Success
+                )
+            );
+            await Mediator.Send(
+                new ReloadActiveZoneStateCommand()
+            );
         }
     }
 }
