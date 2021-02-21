@@ -1,0 +1,12 @@
+﻿@inherits AgentEntityListModel
+
+<div class="entity-list">
+    @foreach (var entity in ZoneState.ZoneInfo.EntityList)
+    {
+        <button title="@entity.Name (@entity.GlobalId)"
+                class="entity-item --text --shaded-background --padding"
+                @onclick="() => HandleEntityClicked(entity)">
+            @entity.Name (@entity.GlobalId)
+        </button>
+    }
+</div>

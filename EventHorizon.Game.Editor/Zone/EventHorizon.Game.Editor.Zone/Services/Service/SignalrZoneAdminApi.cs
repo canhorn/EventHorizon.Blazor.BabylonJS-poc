@@ -10,6 +10,7 @@
     {
         private readonly HubConnection _hubConnection;
 
+        public ZoneAdminAgentApi Agent { get; }
         public ZoneAdminClientEntityApi ClientEntity { get; }
         public ZoneAdminCommandApi Command { get; }
 
@@ -19,6 +20,9 @@
         {
             _hubConnection = hubConnection;
 
+            Agent = new SignalrZoneAdminAgentApi(
+                hubConnection
+            );
             ClientEntity = new SignalrZoneAdminClientEntityApi(
                 hubConnection
             );

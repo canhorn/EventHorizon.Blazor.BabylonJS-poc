@@ -1,0 +1,30 @@
+﻿<ZoneStateProvider>
+    @if (IsNotOnEditorPage())
+    {
+        <div class="--center --padding">
+            <a href="/zone/entity">
+                @Localizer["Open Entity Editor"]
+            </a>
+        </div>
+    }
+    <EntityList />
+</ZoneStateProvider>
+
+@code {
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+
+
+    protected bool IsNotOnEditorPage()
+    {
+        return !NavigationManager.Uri.Replace(
+            NavigationManager.BaseUri,
+            string.Empty
+        ).StartsWith(
+            "zone/entity"
+        );
+    }
+
+}

@@ -1,0 +1,15 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Providers
+@inherits ObjectEntityEditorBladeModel
+
+<ZoneStateProvider>
+    @if (string.IsNullOrWhiteSpace(EntityId))
+    {
+        <EntityList />
+    }
+    else
+    {
+        <EntityProvider EntityId="@EntityId">
+            <ObjectEntityEditor />
+        </EntityProvider>
+    }
+</ZoneStateProvider>

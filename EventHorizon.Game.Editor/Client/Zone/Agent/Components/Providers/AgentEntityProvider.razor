@@ -1,0 +1,18 @@
+﻿@inherits AgentEntityProviderModel
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <div class="error-message">
+        @ErrorMessage
+        <div class="error-message__details">
+            @Localizer["EntityId: {0}", EntityId]
+        </div>
+    </div>
+}
+
+@if (AgentEntity.IsNotNull())
+{
+    <CascadingValue Value="EntityEditorState">
+        @ChildContent
+    </CascadingValue>
+}

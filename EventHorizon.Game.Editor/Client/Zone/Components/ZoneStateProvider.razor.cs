@@ -24,7 +24,8 @@
 
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
-
+        [Inject]
+        public NavigationManager NavigationManager { get; set; } = null!;
 
         [MaybeNull]
         public ZoneState ZoneState { get; set; }
@@ -35,6 +36,14 @@
         {
             await Setup();
             await base.OnInitializedAsync();
+        }
+
+        protected void HandleReloadPage()
+        {
+            NavigationManager.NavigateTo(
+                NavigationManager.Uri,
+                true
+            );
         }
 
         public async Task Handle(

@@ -1,0 +1,23 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Agent.Components
+@using EventHorizon.Game.Editor.Client.Zone.Agent.Components.Toolbars
+@using EventHorizon.Game.Editor.Client.Zone.ClientEntity.Components
+@using EventHorizon.Game.Editor.Client.Zone.ClientEntity.Components.Toolbars
+
+<div class="entity-list">
+    <div class="entity-list__section">
+        <h3>@Localizer["Client Entity List"]</h3>
+        <ClientEntityToolbar />
+        <ClientEntityList />
+    </div>
+
+    <div class="entity-list__section">
+        <h3>@Localizer["Agent Entity List"]</h3>
+        <AgentEntityToolbar />
+        <AgentEntityList />
+    </div>
+</div>
+
+@code {
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+}

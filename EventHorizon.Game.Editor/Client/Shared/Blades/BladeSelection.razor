@@ -1,5 +1,4 @@
-﻿@using EventHorizon.Game.Editor.Client.Shared.Components.Dropdown
-@using EventHorizon.Game.Editor.Client.Zone.Components.EntityEditor.Blade
+﻿@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Blades
 
 @inherits BladeSelectionModel
 
@@ -60,7 +59,7 @@
         @switch (CurrentBlade)
         {
             case "ENTITY_LIST":
-                <ClientEntityListBlade />
+                <EntityListBlade />
                 break;
             case "EDITOR_FILE_EXPLORER":
                 <EditorFileExplorerBlade />

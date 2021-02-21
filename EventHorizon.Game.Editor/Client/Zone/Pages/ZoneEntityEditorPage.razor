@@ -1,0 +1,13 @@
+﻿@page "/zone/entity/{entityId}"
+@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components
+@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Providers
+@layout MainLayout
+@inherits ZoneEntityEditorPageModel
+
+<ZoneStateProvider>
+    <EntityProvider EntityId="@EntityId"
+                    EntitySessionValue="clientEntityPage"
+                    DisableInteractionEvent="true">
+        <ObjectEntityEditor />
+    </EntityProvider>
+</ZoneStateProvider>

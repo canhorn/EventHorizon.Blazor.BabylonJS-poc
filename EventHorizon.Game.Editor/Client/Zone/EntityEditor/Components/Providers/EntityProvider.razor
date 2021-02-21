@@ -1,0 +1,33 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Agent.Components.Providers
+@using EventHorizon.Game.Editor.Client.Zone.ClientEntity.Components.Providers
+@inherits EntityProviderModel
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <div class="error-message">
+        @ErrorMessage
+        <div class="error-message__details">
+            @Localizer["EntityId: {0}", EntityId]
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(EntityId) && Entity.IsNotNull())
+{
+    <CascadingValue Value="Entity">
+        @switch (Entity.Type)
+        {
+            case "AGENT":
+                <AgentEntityProvider EntityId="EntityId">
+                    @ChildContent
+                </AgentEntityProvider>
+                break;
+            case "OTHER":
+            default:
+                <ClientEntityProvider EntityId="EntityId">
+                    @ChildContent
+                </ClientEntityProvider>
+                break;
+        }
+    </CascadingValue>
+}

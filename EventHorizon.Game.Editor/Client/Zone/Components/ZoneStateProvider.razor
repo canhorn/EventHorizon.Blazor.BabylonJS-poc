@@ -15,6 +15,9 @@ else if (!string.IsNullOrEmpty(ConnectionDisconnectionCode))
         <p class="disconnected__reason">
             @Localizer["Disconnected Code: {0}", ConnectionDisconnectionCode]
         </p>
+        <a href="#reload-page" @onclick="HandleReloadPage">
+            @Localizer["Reload Page?"]
+        </a>
     </div>
 }
 else

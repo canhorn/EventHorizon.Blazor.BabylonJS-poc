@@ -6,6 +6,7 @@
     public interface ZoneAdminApi
     {
         Task<ZoneInfo> GetZoneInfo();
+        ZoneAdminAgentApi Agent { get; }
         ZoneAdminClientEntityApi ClientEntity { get; }
         ZoneAdminCommandApi Command { get; }
     }

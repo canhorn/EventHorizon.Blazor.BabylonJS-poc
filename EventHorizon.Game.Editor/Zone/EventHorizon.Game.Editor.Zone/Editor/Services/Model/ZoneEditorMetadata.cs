@@ -18,6 +18,15 @@
             metaProp => name == metaProp.Key
         ).Value ?? ZoneEditorPropertyType.PropertyString;
 
+        public bool IsComplexPropertyType(
+            object propertyValue
+        )
+        {
+            // TODO: Check if JSON Primitive object
+            // TODO: Check if it can be parsed into a JSON Primitive Object 
+            return false;
+        }
+
         public object GetDefaultValueForPropertyName(
             string propertyName
         )
@@ -48,6 +57,7 @@
         public const string PropertyLong = "Long";
         public const string PropertyString = "String";
         public const string PropertyVector3 = "Vector3";
+        public const string PropertyComplex = "Complex";
 
         public const string PropertyAsset = "Asset";
 

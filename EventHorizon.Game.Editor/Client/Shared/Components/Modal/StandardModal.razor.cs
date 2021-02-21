@@ -1,8 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Modal
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
@@ -17,6 +15,8 @@
         public ClickCaptureProvider ClickCapture { get; set; }
 
         [Parameter]
+        public string id { get; set; } = string.Empty;
+        [Parameter]
         public string Theme { get; set; } = string.Empty;
         [Parameter]
         public bool IsOpen { get; set; }
@@ -30,6 +30,8 @@
         public RenderFragment Body { get; set; }
         [Parameter]
         public RenderFragment Footer { get; set; }
+        [Parameter]
+        public bool HideClose { get; set; }
 
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
