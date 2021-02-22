@@ -69,7 +69,7 @@
                     "Failed to Find Selected Zone Details: {0}",
                     SelectedZoneId
                 ];
-                SelectedZoneId = string.Empty;
+                //SelectedZoneId = string.Empty;
                 return;
             }
             SelectedZone = zone;
@@ -192,7 +192,7 @@
             var zonesResult = await Mediator.Send(
                 new QueryForAllZoneDetails()
             );
-            if (zonesResult.Success)
+            if (!zonesResult.Success)
             {
                 ErrorMessage = Localizer[
                     "Failed to Query Zone Details: {0}",
