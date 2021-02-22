@@ -94,7 +94,7 @@
 
 
 @code {
-    private ServerVector3 ParsedProperty { get; set; }
+    private ServerVector3 ParsedProperty { get; set; } = ServerVector3.Zero();
 
     protected override void OnInitialized()
     {
@@ -112,7 +112,7 @@
     {
         args.NullCheck();
         ParsedProperty.X = decimal.Parse(
-            (string)args.Value
+            ((string?)args.Value) ?? "0"
         );
         await TriggerChanged(
             ParsedProperty
@@ -125,7 +125,7 @@
     {
         args.NullCheck();
         ParsedProperty.Y = decimal.Parse(
-            (string)args.Value
+            ((string?)args.Value) ?? "0"
         );
         await TriggerChanged(
             ParsedProperty
@@ -138,7 +138,7 @@
     {
         args.NullCheck();
         ParsedProperty.Z = decimal.Parse(
-            (string)args.Value
+            ((string?)args.Value) ?? "0"
         );
         await TriggerChanged(
             ParsedProperty

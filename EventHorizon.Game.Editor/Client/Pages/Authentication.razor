@@ -11,7 +11,7 @@
 
 @code {
     [Parameter]
-    public string Action { get; set; }
+    public string Action { get; set; } = string.Empty;
 
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;

@@ -9,7 +9,7 @@
     public class StandardSelectModel
         : ComponentBase
     {
-        private StandardSelectOption _value;
+        private StandardSelectOption _value = new StandardSelectOption();
 
         [Parameter]
         public IList<StandardSelectOption> Options { get; set; } = null!;
@@ -32,7 +32,7 @@
                 ) ?? DefaultValue;
                 _value = Options.FirstOrDefault(
                     option => option.Value == newValue
-                );
+                ) ?? new StandardSelectOption();
             }
         }
 
@@ -44,7 +44,7 @@
                 var newValue = value ?? DefaultValue;
                 _value = Options.FirstOrDefault(
                     option => option.Value == newValue
-                ); ;
+                ) ?? new StandardSelectOption();
             }
         }
         protected string SelectedText => Value?.Text ?? DefaultText;
@@ -76,8 +76,8 @@
 
     public class StandardSelectOption
     {
-        public string Value { get; set; }
-        public string Text { get; set; }
+        public string Value { get; set; } = string.Empty;
+        public string Text { get; set; } = string.Empty;
         public bool Disabled { get; set; }
         public bool Hidden { get; set; }
     }

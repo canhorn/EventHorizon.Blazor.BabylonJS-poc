@@ -6,7 +6,7 @@
     public class TreeViewModel : ComponentBase
     {
         [Parameter]
-        public TreeViewNodeData Root { get; set; }
+        public TreeViewNodeData Root { get; set; } = null!;
         [Parameter]
         public EventCallback OnChanged { get; set; }
     }

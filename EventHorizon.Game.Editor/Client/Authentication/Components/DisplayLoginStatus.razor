@@ -15,8 +15,10 @@
 </AuthorizeView>
 
 @code {
+    [MaybeNull]
     [Parameter]
     public string LoginDisplayText { get; set; }
+    [MaybeNull]
     [Parameter]
     public string LogoutDisplayText { get; set; }
 

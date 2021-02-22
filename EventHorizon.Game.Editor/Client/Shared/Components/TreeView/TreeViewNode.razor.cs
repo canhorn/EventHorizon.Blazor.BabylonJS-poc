@@ -19,7 +19,7 @@
         public EventCallback OnChanged { get; set; }
 
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        public NavigationManager NavigationManager { get; set; } = null!;
 
         public ContextMenuState ContextMenu { get; set; } = new ContextMenuState();
 

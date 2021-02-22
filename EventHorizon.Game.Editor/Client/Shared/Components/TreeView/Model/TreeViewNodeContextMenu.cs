@@ -9,7 +9,7 @@
     }
     public class TreeViewNodeContextMenuItem
     {
-        public string Text { get; set; }
-        public Action OnClick { get; set; }
+        public string Text { get; set; } = string.Empty;
+        public Action OnClick { get; set; } = () => { };
     }
 }

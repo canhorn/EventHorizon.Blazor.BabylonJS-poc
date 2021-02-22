@@ -8,8 +8,8 @@
     public class ZoneStateModel
         : ZoneState
     {
-        public CoreZoneDetails Zone { get; set; }
-        public ZoneInfo ZoneInfo { get; set; }
-        public ZoneEditorState EditorState { get; set; }
+        public CoreZoneDetails Zone { get; set; } = null!;
+        public ZoneInfo ZoneInfo { get; set; } = null!;
+        public ZoneEditorState EditorState { get; set; } = null!;
     }
 }

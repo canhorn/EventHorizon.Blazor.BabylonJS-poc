@@ -2,9 +2,9 @@
 {
     public class AdminCommandResponse
     {
-        public string CommandFunction { get; set; }
-        public string RawCommand { get; set; }
+        public string CommandFunction { get; set; } = "invalid";
+        public string RawCommand { get; set; } = string.Empty;
         public bool Success { get; set; }
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }

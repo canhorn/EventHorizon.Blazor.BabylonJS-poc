@@ -13,10 +13,6 @@
             Func<ZoneState> notFoundBuilder
         );
 
-        ZoneState Get(
-            string zoneId
-        );
-
         void Set(
             string zoneId,
             ZoneState zone

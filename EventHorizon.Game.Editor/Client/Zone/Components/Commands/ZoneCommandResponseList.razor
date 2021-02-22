@@ -6,7 +6,7 @@
         <div @key="response.Key"
              class="response @(response.Response.Success ? "--success" : "--failed")">
             <h4 class="response__content">
-                @Localizer["Command Response for '{0}'", response.Response.CommandFunction]
+                @Localizer["Command Response for '{0}'", response.Response.CommandFunction ?? "invalid"]
             </h4>
             <div class="response__timestamp">
                 @response.Timestamp.ToString("F")

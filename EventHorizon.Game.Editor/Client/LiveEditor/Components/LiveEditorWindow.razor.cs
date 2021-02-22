@@ -125,7 +125,7 @@
         }
 
         private void WindowResized(
-            object _,
+            object? _,
             BrowserWindowSize __
         )
         {

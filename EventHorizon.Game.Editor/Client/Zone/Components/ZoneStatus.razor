@@ -4,7 +4,7 @@
 {
     <span>@Localizer["Please Login..."]</span>
 }
-else if (SelectedZone == null)
+else if (SelectedZone.IsNull())
 {
     <button class="selected-zone --no-border --disconnected"
             title="@Localizer["No Zone is Selected"]"
@@ -14,7 +14,7 @@ else if (SelectedZone == null)
 }
 else
 {
-    if (ZoneState != null)
+    if (ZoneState.IsNotNull())
     {
         <button class="selected-zone --no-border --connected"
                 title="@Localizer["Connected to Zone {0}", SelectedZoneId]"

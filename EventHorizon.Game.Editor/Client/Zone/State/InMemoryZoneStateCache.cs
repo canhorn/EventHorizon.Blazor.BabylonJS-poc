@@ -22,21 +22,6 @@
             );
         }
 
-        public ZoneState Get(
-            string zoneId
-        )
-        {
-            if (_map.TryGetValue(
-                zoneId,
-                out var zone
-            ))
-            {
-                return zone;
-            }
-
-            return default;
-        }
-
         public void Set(
             string zoneId,
             ZoneState zone
@@ -60,8 +45,17 @@
                 );
             }
 
-            Active = Get(
-                zoneId
+            if (_map.TryGetValue(
+                zoneId,
+                out var zone
+            ))
+            {
+                Active = zone;
+                return;
+            }
+
+            throw new InvalidOperationException(
+                "Failed to set Active Zone State."
             );
         }
     }

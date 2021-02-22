@@ -27,8 +27,7 @@
         [Inject]
         public NavigationManager NavigationManager { get; set; } = null!;
 
-        [MaybeNull]
-        public ZoneState ZoneState { get; set; }
+        public ZoneState? ZoneState { get; set; }
         public string ConnectionDisconnectionCode { get; set; } = string.Empty;
         public bool IsReconnecting { get; set; }
 
@@ -86,7 +85,7 @@
             ZoneAdminServiceDisconnectedEvent args
         )
         {
-            ZoneState = null;
+            ZoneState = default;
             IsReconnecting = false;
             await Mediator.Publish(
                 new ShowMessageEvent(

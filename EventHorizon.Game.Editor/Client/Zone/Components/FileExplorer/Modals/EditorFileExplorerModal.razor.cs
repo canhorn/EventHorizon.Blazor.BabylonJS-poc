@@ -10,10 +10,10 @@
         : ComponentBase
     {
         [Inject]
-        public Localizer<SharedResource> Localizer { get; set; }
+        public Localizer<SharedResource> Localizer { get; set; } = null!;
 
         [Parameter]
-        public EditorFileExplorerModalState ModalState { get; set; }
+        public EditorFileExplorerModalState ModalState { get; set; } = null!;
         [Parameter]
         public EventCallback OnSubmit { get; set; }
         [Parameter]

@@ -96,7 +96,7 @@
                 Id = node.Id,
                 Name = node.Name,
                 Text = node.Name,
-                Href = !node.IsFolder ? BuildHrefForNode(node) : null,
+                Href = !node.IsFolder ? BuildHrefForNode(node) : string.Empty,
                 IsDisabled = node.IsFolder && (node.Children == null || node.Children.Count == 0),
                 IconCssClass = "--icon oi oi-" + (node.IsFolder ? "folder" : "file"),
                 Children = node.Children?.Select(
@@ -106,7 +106,7 @@
                         childNode,
                         expandedList
                     )
-                ).OrderBy(a => a.Text).ToList(),
+                ).OrderBy(a => a.Text).ToList() ?? new List<TreeViewNodeData>(),
                 ContextMenu = BuildContextMenuForNode(
                     node,
                     onContextMenuClick
@@ -134,9 +134,9 @@
             Action<EditorNode, EditorFileModalType, bool, bool> onContextMenuClick
         )
         {
-            if (node.Properties.SupportContextMenu != null && !(bool)node.Properties.SupportContextMenu)
+            if (!node.Properties.SupportContextMenu ?? false)
             {
-                return null;
+                return new TreeViewNodeContextMenu();
             }
             var items = new List<TreeViewNodeContextMenuItem>
             {

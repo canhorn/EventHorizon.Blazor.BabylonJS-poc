@@ -47,12 +47,12 @@
             },
         };
 
-        protected StandardSelectOption SelectedBladeOption { get; private set; }
+        protected StandardSelectOption? SelectedBladeOption { get; private set; }
         protected List<StandardSelectOption> BladeOptions { get; private set; } = new List<StandardSelectOption>();
 
         public string CurrentBlade { get; set; } = string.Empty;
         public bool CollapseContent { get; private set; } = true;
-        public string ContentCssClass => CollapseContent ? null : "--expanded";
+        public string ContentCssClass => CollapseContent ? string.Empty : "--expanded";
 
         public bool IsSettingsOpen { get; private set; }
 

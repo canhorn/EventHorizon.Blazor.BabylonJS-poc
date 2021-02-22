@@ -4,6 +4,8 @@
     using System.Linq;
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Client.Authentication.Model;
+    using EventHorizon.Game.Editor.Client.Localization;
+    using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Zone.Active;
     using EventHorizon.Game.Editor.Client.Zone.Api;
@@ -24,12 +26,16 @@
         [Parameter]
         public RenderFragment ChildContent { get; set; } = null!;
 
-        public string ErrorMessage { get; private set; }
+        [Inject]
+        public Localizer<SharedResource> Localizer { get; set; } = null!;
+
+
+        public string ErrorMessage { get; private set; } = string.Empty;
 
         public IEnumerable<CoreZoneDetails> Zones { get; private set; } = new List<CoreZoneDetails>();
         public string SelectedZoneId { get; private set; } = string.Empty;
-        public CoreZoneDetails SelectedZone { get; private set; }
-        public ZoneState ZoneState { get; private set; }
+        public CoreZoneDetails? SelectedZone { get; private set; }
+        public ZoneState? ZoneState { get; private set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -54,9 +60,19 @@
                 return;
             }
             SelectedZoneId = selectedZoneId;
-            SelectedZone = Zones.FirstOrDefault(
+            var zone = Zones.FirstOrDefault(
                 a => a.Id == SelectedZoneId
             );
+            if (zone.IsNull())
+            {
+                ErrorMessage = Localizer[
+                    "Failed to Find Selected Zone Details: {0}",
+                    SelectedZoneId
+                ];
+                SelectedZoneId = string.Empty;
+                return;
+            }
+            SelectedZone = zone;
             var result = await Mediator.Send(
                 new GetZoneStateCommand(
                     SelectedZone
@@ -64,11 +80,12 @@
             );
             if (!result.Success)
             {
+                ErrorMessage = Localizer[
+                    "Failed to get Active Zone: {0} | {1}",
+                    result.ErrorCode,
+                    SelectedZoneId
+                ];
                 SelectedZoneId = string.Empty;
-                ErrorMessage = string.Format(
-                    "Failed to get Active Zone: {0}",
-                    result.ErrorCode
-                );
                 return;
             }
             ZoneState = result.Result;
@@ -99,10 +116,10 @@
                 if (zonesResult.Success.IsNotTrue())
                 {
                     SelectedZoneId = string.Empty;
-                    ErrorMessage = string.Format(
+                    ErrorMessage = Localizer[
                         "Failed to get Zone Details: {0}",
                         zonesResult.ErrorCode
-                    );
+                    ];
                     return;
                 }
                 Zones = new List<CoreZoneDetails>(
@@ -115,9 +132,19 @@
                 }
 
                 // Set Selected Zone
-                SelectedZone = Zones.FirstOrDefault(
+                var zone = Zones.FirstOrDefault(
                     a => a.Id == SelectedZoneId
                 );
+                if (zone.IsNull())
+                {
+                    ErrorMessage = Localizer[
+                        "Failed to Find Selected Zone Details: {0}",
+                        SelectedZoneId
+                    ];
+                    SelectedZoneId = string.Empty;
+                    return;
+                }
+                SelectedZone = zone;
                 var zoneStateResult = await Mediator.Send(
                     new GetZoneStateCommand(
                         SelectedZone
@@ -125,10 +152,12 @@
                 );
                 if (!zoneStateResult.Success)
                 {
-                    ErrorMessage = string.Format(
-                        "Failed to get Active Zone: {0}",
-                        zoneStateResult.ErrorCode
-                    );
+                    ErrorMessage = Localizer[
+                        "Failed to get Active Zone: {0} | {1}",
+                        zoneStateResult.ErrorCode,
+                        SelectedZoneId
+                    ];
+                    SelectedZoneId = string.Empty;
                     return;
                 }
                 ZoneState = zoneStateResult.Result;
@@ -153,7 +182,10 @@
             );
             if (!result.Success)
             {
-                // TODO: Show Error Message
+                ErrorMessage = Localizer[
+                    "Failed to Start Connection to Core Server: {0}",
+                    result.ErrorCode
+                ];
                 return;
             }
 
@@ -162,17 +194,22 @@
             );
             if (zonesResult.Success)
             {
-                Zones = new List<CoreZoneDetails>(
-                    zonesResult.Result
-                );
+                ErrorMessage = Localizer[
+                    "Failed to Query Zone Details: {0}",
+                    result.ErrorCode
+                ];
+                return;
+            }
+            Zones = new List<CoreZoneDetails>(
+                zonesResult.Result
+            );
 
-                if (Zones.Count() == 1)
-                {
-                    // We will just select the first by default
-                    await ChangeZone(
-                        Zones.First().Id
-                    );
-                }
+            if (Zones.Count() == 1)
+            {
+                // We will just select the first by default
+                await ChangeZone(
+                    Zones.First().Id
+                );
             }
         }
     }

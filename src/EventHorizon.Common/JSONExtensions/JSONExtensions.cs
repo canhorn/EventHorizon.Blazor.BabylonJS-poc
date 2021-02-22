@@ -6,6 +6,11 @@
 
     public static partial class JsonExtensions
     {
+        private readonly static JsonSerializerOptions DEFAULT_OPTIONS = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+        };
+
         public static T ToObject<T>(
             this JsonElement element,
             JsonSerializerOptions options = null
@@ -20,10 +25,7 @@
             }
             return JsonSerializer.Deserialize<T>(
                 bufferWriter.WrittenSpan,
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true,
-                }
+                options ?? DEFAULT_OPTIONS
             );
         }
 

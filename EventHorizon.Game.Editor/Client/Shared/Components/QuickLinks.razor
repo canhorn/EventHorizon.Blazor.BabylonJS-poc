@@ -6,7 +6,7 @@
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;
 
-    public TreeViewNodeData QuickLinkData { get; set; }
+    public TreeViewNodeData QuickLinkData { get; set; } = new TreeViewNodeData();
 
     protected override void OnInitialized()
     {

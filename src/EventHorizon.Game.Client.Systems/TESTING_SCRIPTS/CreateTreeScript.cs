@@ -108,7 +108,7 @@
             {
                 GameServiceProvider.GetService<ILoggerFactory>().CreateLogger("testin")
                     .LogError(ex, "Error {Message}", ex.Message);
-                throw ex;
+                throw;
             }
             return Task.CompletedTask;
         }

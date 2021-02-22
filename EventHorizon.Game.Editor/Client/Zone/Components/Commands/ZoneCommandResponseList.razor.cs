@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Client.Localization;
@@ -39,6 +40,6 @@
     {
         public string Key { get; set; } = Guid.NewGuid().ToString();
         public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;
-        public AdminCommandResponse Response { get; set; }
+        public AdminCommandResponse Response { get; set; } = new AdminCommandResponse();
     }
 }

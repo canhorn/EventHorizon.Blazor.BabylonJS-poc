@@ -72,7 +72,7 @@
                     Hidden = true,
                 }
             ).ToList();
-        AssetId = Property.ToString();
+        AssetId = Property.ToString() ?? string.Empty;
         AssetOptions = options;
         this.SetSelectedAssetOption();
     }

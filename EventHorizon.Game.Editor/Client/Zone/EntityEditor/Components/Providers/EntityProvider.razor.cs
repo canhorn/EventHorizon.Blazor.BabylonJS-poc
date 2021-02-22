@@ -73,20 +73,23 @@
         private void SetupEntity()
         {
             ErrorMessage = string.Empty;
-            Entity = ZoneState.ZoneInfo.EntityList.FirstOrDefault(
+            var entity = ZoneState.ZoneInfo.EntityList.FirstOrDefault(
                 entity => entity.GlobalId == EntityId
             );
-            if (Entity.IsNotNull())
+            if (entity.IsNotNull())
             {
+                Entity = entity;
                 return;
             }
-            Entity = ZoneState.ZoneInfo.ClientEntityList.FirstOrDefault(
+            entity = ZoneState.ZoneInfo.ClientEntityList.FirstOrDefault(
                 entity => entity.GlobalId == EntityId
             );
-            if (Entity.IsNull())
+            if (entity.IsNull())
             {
                 ErrorMessage = Localizer["Entity was not found."];
+                return;
             }
+            Entity = entity;
         }
     }
 }

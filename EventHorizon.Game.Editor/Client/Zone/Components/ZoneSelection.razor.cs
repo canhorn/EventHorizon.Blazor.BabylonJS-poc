@@ -24,8 +24,8 @@
 
         public IEnumerable<CoreZoneDetails> Zones => ZoneSelectionProvider.Zones;
         public string SelectedZoneId => ZoneSelectionProvider.SelectedZoneId;
-        public CoreZoneDetails SelectedZone => ZoneSelectionProvider.SelectedZone;
-        public ZoneState ZoneState => ZoneSelectionProvider.ZoneState;
+        public CoreZoneDetails? SelectedZone => ZoneSelectionProvider.SelectedZone;
+        public ZoneState? ZoneState => ZoneSelectionProvider.ZoneState;
 
         public Task HandleZoneSelectionChanged(
             string zoneId

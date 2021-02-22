@@ -14,7 +14,7 @@
     {
         private readonly IRenderingScene _renderingScene;
         private readonly ICanvas _canvas;
-        private UniversalCamera _camera;
+        private UniversalCamera? _camera;
 
         public WorldCamera()
             : base(
@@ -55,7 +55,7 @@
 
         public override Task Dispose()
         {
-            _camera.dispose();
+            _camera?.dispose();
             return base.Dispose();
         }
 

@@ -15,7 +15,7 @@
         public ZoneState State { get; set; } = null!;
 
         [Parameter]
-        public IDictionary<string, object> Data { get; set; }
+        public IDictionary<string, object> Data { get; set; } = null!;
         [Parameter]
         public EventCallback<IDictionary<string, object>> OnChanged { get; set; }
         [Parameter]

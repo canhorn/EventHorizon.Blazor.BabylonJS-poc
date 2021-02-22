@@ -126,8 +126,8 @@ namespace EventHorizon.Game.Editor.Client
 
             // Observer State Manager 
             builder.Services.AddSingleton<GenericObserverState>()
-                .AddSingleton<ObserverState>(services => services.GetService<GenericObserverState>())
-                .AddSingleton<AdminObserverState>(services => services.GetService<GenericObserverState>());
+                .AddSingleton<ObserverState>(services => services.GetRequiredService<GenericObserverState>())
+                .AddSingleton<AdminObserverState>(services => services.GetRequiredService<GenericObserverState>());
 
             // Configure Logging
             builder.Logging.AddConfiguration(

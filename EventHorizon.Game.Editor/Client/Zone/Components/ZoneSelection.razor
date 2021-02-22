@@ -1,8 +1,11 @@
 ﻿@inherits ZoneSelectionModel
 
-<div>
-    @ErrorMessage
-</div>
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <div>
+        @ErrorMessage
+    </div>
+}
 
 @if (!AccessToken.IsFilled)
 {
@@ -30,7 +33,7 @@ else
 {
     if (ZoneState != null)
     {
-        <div class="selected-zone" 
+        <div class="selected-zone"
              title="@Localizer["The Selected Zone is {0}", SelectedZoneId]">
             <div class="--font-bold">@Localizer["Selected Zone:"]</div>
             @SelectedZoneId

@@ -1,5 +1,4 @@
-﻿@using BlazorMonaco
-@inherits ZoneFileEditorComponentModel
+﻿@inherits ZoneFileEditorComponentModel
 
 <div class="editor">
     <StandardToolbar>
@@ -12,7 +11,7 @@
             @Localizer["Details"]
         </StandardToolbarButton>
     </StandardToolbar>
-    <MonacoEditor @ref="MonacoEditor"
+    <BlazorMonaco.MonacoEditor @ref="MonacoEditor"
                   Id="any-id-string"
                   CssClass="editor-container"
                   ConstructionOptions="BuildConstructionOptions" />

@@ -6,10 +6,10 @@
     public class ClickCaptureProviderModel : ComponentBase
     {
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public RenderFragment ChildContent { get; set; } = null!;
 
         #region OnMouseClick
-        private Action _onMouseClickEvents;
+        private Action? _onMouseClickEvents;
 
         public void OnMouseClick(
             Action action
@@ -32,7 +32,7 @@
         #endregion
 
         #region OnContextMenu
-        private Action _onContextMenuEvents;
+        private Action? _onContextMenuEvents;
 
         public void OnContextMenu(
             Action action

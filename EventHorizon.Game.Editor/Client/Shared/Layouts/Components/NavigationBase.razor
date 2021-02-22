@@ -10,16 +10,13 @@
         }
         @Localizer["Sub Menu"]
     </button>
-    @*<a class="menu-brand @NavMenuCssClass" href="/">Game Editor</a>*@
 </div>
 
 <div class="nav__content @NavMenuCssClass">
     @if (PlatformUser.IsAuthenticated)
     {
         <QuickLinks />
-        @*<ZoneSelection />*@
         <EditorBladeSelection />
-        @*<DisplayLoginStatus />*@
     }
 </div>
 
@@ -33,7 +30,7 @@
 
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => !collapseNavMenu ? "--expanded" : null;
+    private string NavMenuCssClass => !collapseNavMenu ? "--expanded" : string.Empty;
 
     private void ToggleNavMenu()
     {

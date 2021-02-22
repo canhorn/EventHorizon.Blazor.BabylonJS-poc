@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Modal
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
@@ -12,7 +13,7 @@
         : ComponentBase
     {
         [CascadingParameter]
-        public ClickCaptureProvider ClickCapture { get; set; }
+        public ClickCaptureProvider ClickCapture { get; set; } = null!;
 
         [Parameter]
         public string id { get; set; } = string.Empty;
@@ -25,10 +26,12 @@
         [Parameter]
         public EventCallback OnClose { get; set; }
         [Parameter]
+        [MaybeNull]
         public RenderFragment Header { get; set; }
         [Parameter]
-        public RenderFragment Body { get; set; }
+        public RenderFragment Body { get; set; } = null!;
         [Parameter]
+        [MaybeNull]
         public RenderFragment Footer { get; set; }
         [Parameter]
         public bool HideClose { get; set; }

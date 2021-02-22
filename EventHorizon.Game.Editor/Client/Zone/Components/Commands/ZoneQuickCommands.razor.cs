@@ -23,7 +23,7 @@
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
 
-        public StandardSelectOption SelectedCommand { get; set; }
+        public StandardSelectOption SelectedCommand { get; set; } = null!;
         public IList<StandardSelectOption> QuickCommandOptions { get; private set; } = new List<StandardSelectOption>();
 
         public bool IsDisabled { get; set; }
@@ -82,7 +82,7 @@
             // This then allows for the change back to the first select to be picked-up.
             SelectedCommand = option;
             await InvokeAsync(StateHasChanged);
-            SelectedCommand = QuickCommandOptions.FirstOrDefault();
+            SelectedCommand = QuickCommandOptions.First();
         }
 
         public Task Handle(
