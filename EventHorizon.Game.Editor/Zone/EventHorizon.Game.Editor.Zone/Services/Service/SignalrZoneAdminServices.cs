@@ -4,9 +4,10 @@
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+    using EventHorizon.Connection.Shared;
+    using EventHorizon.Connection.Shared.Unauthorized;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.Zone.Services.Command.Response;
-    using EventHorizon.Game.Editor.Connection;
     using EventHorizon.Game.Editor.Core.Services.Model;
     using EventHorizon.Game.Editor.Services.Model.Command;
     using EventHorizon.Game.Editor.Zone.Services.Api;

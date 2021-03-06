@@ -1,30 +1,30 @@
-﻿namespace EventHorizon.Game.Editor.Client.Logging.Setup
+﻿namespace EventHorizon.Platform.LogProvider.Connection.Start
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.Authentication.Set;
+    using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Platform.LogProvider.Connection.Api;
     using MediatR;
 
-    public class SetupLoggerConnectionWhenAccessTokenSetEventHandler
-        : INotificationHandler<AccessTokenSetEvent>
+    public class StartConnectionToLoggingServerCommandHandler
+        : IRequestHandler<StartConnectionToLoggingServerCommand, StandardCommandResult>
     {
         private readonly PlatformLoggerConnection _connection;
 
-        public SetupLoggerConnectionWhenAccessTokenSetEventHandler(
+        public StartConnectionToLoggingServerCommandHandler(
             PlatformLoggerConnection connection
         )
         {
             _connection = connection;
         }
 
-        public Task Handle(
-            AccessTokenSetEvent notification,
+        public Task<StandardCommandResult> Handle(
+            StartConnectionToLoggingServerCommand request, 
             CancellationToken cancellationToken
         )
         {
             return _connection.Connect(
-                notification.AccessToken,
+                request.AccessToken,
                 cancellationToken
             );
         }

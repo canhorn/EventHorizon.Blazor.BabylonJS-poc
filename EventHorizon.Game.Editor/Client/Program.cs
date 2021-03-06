@@ -21,6 +21,8 @@ namespace EventHorizon.Game.Editor.Client
     using EventHorizon.Game.Server;
     using EventHorizon.Observer.Admin.State;
     using EventHorizon.Observer.State;
+    using EventHorizon.Platform.LogProvider;
+    using EventHorizon.Platform.LogProvider.Model;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -41,8 +43,8 @@ namespace EventHorizon.Game.Editor.Client
 
             // Setup Logging
             builder.Logging
-                .AddPlatformConsoleLogger(
-                    new PlatformConsoleLoggerConfiguration()
+                .AddPlatformLogger(
+                    new PlatformLoggerConfiguration()
                 )
             ;
 
@@ -55,9 +57,13 @@ namespace EventHorizon.Game.Editor.Client
                     typeof(EditorSharedExtensions),
                     typeof(EditorCoreExtensions),
                     typeof(EditorZoneExtensions),
+
+                    // Platform Services
+                    typeof(PlatformLoggerExtensions),
+
                     // Game Service Registration
                     typeof(ClientExtensions),
-                    typeof(GameServerStartup)
+                    typeof(GameServerStartup),
                 }
             );
 

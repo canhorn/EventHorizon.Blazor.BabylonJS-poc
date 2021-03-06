@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\EventHorizon.Connection.Shared\EventHorizon.Connection.Shared.csproj" />
         <ProjectReference Include="..\..\src\EventHorizon.Game.Client.Systems\EventHorizon.Game.Client.Systems.csproj" />
         <ProjectReference Include="..\..\src\EventHorizon.Game.Client\EventHorizon.Game.Client.csproj" />
         <ProjectReference Include="..\..\src\EventHorizon.Observer\EventHorizon.Observer.csproj" />

@@ -1,42 +1,42 @@
-﻿namespace EventHorizon.Game.Editor.Core.Services.Service
+﻿namespace EventHorizon.Platform.LogProvider.Connection.Service
 {
     using System;
-    using System.Collections.Generic;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Connection.Shared;
+    using EventHorizon.Connection.Shared.Unauthorized;
     using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Core.Services.Api;
-    using EventHorizon.Game.Editor.Core.Services.Connection;
-    using EventHorizon.Game.Editor.Core.Services.Model;
-    using EventHorizon.Game.Editor.Model;
+    using EventHorizon.Platform.LogProvider.Connection.Api;
+    using EventHorizon.Platform.LogProvider.Connection.Model;
     using MediatR;
     using Microsoft.AspNetCore.SignalR.Client;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
 
-    public class SignalrCoreAdminServices
-        : CoreAdminServices, IDisposable
+    public class SignalrClientLoggerConnection
+        : PlatformLoggerConnection
     {
-        private static IList<CoreZoneDetails> EMPTY_LIST { get; } = new List<CoreZoneDetails>().AsReadOnly();
-
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
-        private readonly GamePlatformServiceSettings _settings;
+        private readonly string _loggingServerUrl;
 
         private bool _initializing = false;
         private bool _initialized = false;
-        private HubConnection _connection;
+        private string _connectionAccessToken = string.Empty;
+        private HubConnection? _connection;
 
-        public SignalrCoreAdminServices(
-            ILogger<SignalrCoreAdminServices> logger,
+        public bool IsConnected => _initialized;
+
+        public SignalrClientLoggerConnection(
+            ILogger<SignalrClientLoggerConnection> logger,
             IMediator mediator,
-            GamePlatformServiceSettings settings
+            IConfiguration configuration
         )
         {
             _logger = logger;
             _mediator = mediator;
-            _settings = settings;
+            _loggingServerUrl = configuration["Platform:Logging:Server"];
         }
 
         public async Task<StandardCommandResult> Connect(
@@ -44,6 +44,12 @@
             CancellationToken cancellationToken
         )
         {
+            if (!string.IsNullOrWhiteSpace(_connectionAccessToken)
+                && accessToken != _connectionAccessToken)
+            {
+                await Dispose();
+            }
+
             if (_initializing)
             {
                 return new(
@@ -59,7 +65,7 @@
                 _initializing = true;
                 _connection = new HubConnectionBuilder()
                     .WithUrl(
-                        $"{_settings.CoreServer}/admin",
+                        _loggingServerUrl,
                         options =>
                         {
                             // options..LogLevel = SignalRLogLevel.Error;
@@ -70,24 +76,24 @@
                     ).Build();
 
                 await _connection.StartAsync(cancellationToken);
-                await _mediator.Publish(
-                    new CoreAdminServiceConnected(),
-                    cancellationToken
-                );
+
                 _initializing = false;
                 _initialized = true;
+                _connectionAccessToken = accessToken;
                 return new();
             }
             catch (HttpRequestException ex)
             {
                 await LogAndDispose(
                     ex,
-                    "Failed to start connection to Core Admin Service."
+                    "Failed to start connection to Logging Service."
                 );
                 if (ex.Message.Contains("401 (Unauthorized)"))
                 {
                     await _mediator.Publish(
-                        new ConnectionUnauthorizedEvent(),
+                        new ConnectionUnauthorizedEvent(
+                            "client-logger-connection"
+                        ),
                         cancellationToken
                     );
                     return new(
@@ -102,7 +108,7 @@
             {
                 await LogAndDispose(
                     ex,
-                    "Operation Exception starting connection to Core Admin Service."
+                    "Operation Exception starting connection to Logging Service."
                 );
                 return new(
                     ConnectionErrorTypes.Operational
@@ -112,7 +118,7 @@
             {
                 await LogAndDispose(
                     ex,
-                    "Generic Exception starting connection to Core Admin Service."
+                    "Generic Exception starting connection to Logging Service."
                 );
                 return new(
                     ConnectionErrorTypes.Unknown
@@ -138,26 +144,49 @@
             _initialized = false;
         }
 
-        public void Dispose()
+        public async Task Dispose()
         {
             if (_connection != null)
             {
-                _ = _connection.DisposeAsync();
+                await _connection.DisposeAsync();
+                _connection = null;
             }
             _initializing = false;
             _initialized = false;
         }
 
-        public async Task<IList<CoreZoneDetails>> GetAllZones()
+        public async Task<StandardCommandResult> LogMessage(
+            ClientLogMessage message,
+            CancellationToken cancellationToken
+        )
         {
-            if (!_initialized 
-                || _initializing)
+            if (!_initialized
+                || _initializing
+            )
             {
-                return EMPTY_LIST;
+                return new(
+                    ConnectionErrorTypes.NotInitialized
+                );
             }
-            return await _connection.InvokeAsync<IList<CoreZoneDetails>>(
-                "GetAllZones"
+            var success = await _connection.InvokeAsync<bool>(
+                "LogMessage",
+                message,
+                cancellationToken: cancellationToken
             );
+            if (!success)
+            {
+                return new(
+                    "FailedLogMessageInvoke"
+                );
+            }
+
+            return new();
+        }
+
+        public class ApiCommandResult
+        {
+            public bool Success { get; }
+            public string? ErrorCode { get; }
         }
     }
 }
