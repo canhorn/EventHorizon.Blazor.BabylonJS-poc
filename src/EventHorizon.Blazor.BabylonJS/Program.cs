@@ -34,10 +34,7 @@ namespace EventHorizon.Blazor.BabylonJS
             // Setup Logging
             builder.Logging
                 .AddPlatformLogger(
-                    new PlatformLoggerConfiguration
-                    {
-                        DebugView = true,
-                    }
+                    new PlatformLoggerConfiguration()
                 )
             ;
 
