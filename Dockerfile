@@ -23,6 +23,8 @@ COPY src/Shared/_generated/Blazor.BabylonJS.WASM/Blazor.BabylonJS.WASM.csproj ./
 COPY src/EventHorizon.Blazor.BabylonJS/EventHorizon.Blazor.BabylonJS.csproj ./src/EventHorizon.Blazor.BabylonJS/EventHorizon.Blazor.BabylonJS.csproj
 COPY src/EventHorizon.Blazor.BabylonJS.Server/EventHorizon.Blazor.BabylonJS.Server.csproj ./src/EventHorizon.Blazor.BabylonJS.Server/EventHorizon.Blazor.BabylonJS.Server.csproj
 COPY src/EventHorizon.Common/EventHorizon.Common.csproj ./src/EventHorizon.Common/EventHorizon.Common.csproj
+COPY src/EventHorizon.Connection.Shared/EventHorizon.Connection.Shared.csproj ./src/EventHorizon.Connection.Shared/EventHorizon.Connection.Shared.csproj
+COPY src/EventHorizon.Platform.LogProvider/EventHorizon.Platform.LogProvider.csproj ./src/EventHorizon.Platform.LogProvider/EventHorizon.Platform.LogProvider.csproj
 COPY src/EventHorizon.Game.Client/EventHorizon.Game.Client.csproj ./src/EventHorizon.Game.Client/EventHorizon.Game.Client.csproj
 COPY src/EventHorizon.Game.Client.Systems/EventHorizon.Game.Client.Systems.csproj ./src/EventHorizon.Game.Client.Systems/EventHorizon.Game.Client.Systems.csproj
 COPY src/EventHorizon.Html.Interop/EventHorizon.Html.Interop.csproj ./src/EventHorizon.Html.Interop/EventHorizon.Html.Interop.csproj
