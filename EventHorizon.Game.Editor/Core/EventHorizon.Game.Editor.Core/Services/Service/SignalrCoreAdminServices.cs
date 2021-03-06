@@ -6,6 +6,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Connection.Shared;
+    using EventHorizon.Connection.Shared.Unauthorized;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Core.Services.Api;
     using EventHorizon.Game.Editor.Core.Services.Connection;
@@ -87,7 +88,9 @@
                 if (ex.Message.Contains("401 (Unauthorized)"))
                 {
                     await _mediator.Publish(
-                        new ConnectionUnauthorizedEvent(),
+                        new ConnectionUnauthorizedEvent(
+                            "core-admin"
+                        ),
                         cancellationToken
                     );
                     return new(
