@@ -1,4 +1,6 @@
 @using EventHorizon.Blazor.Interop
+@using EventHorizon.Game.Client.Core.Monitoring.Api
+@using EventHorizon.Platform.LogProvider.Api
 
 <CascadingAuthenticationState>
     <Router AppAssembly="@typeof(Program).Assembly">
@@ -20,9 +22,26 @@
 @code {
     [Inject]
     public IJSRuntime JSRuntime { get; set; }
+    [Inject]
+    public IPlatformMonitor PlatformMonitor { get; set; } = null!;
+    [Inject]
+    public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
+    [Inject]
+    public LoggingHostedService LoggingHostedService { get; set; } = null!;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         EventHorizonBlazorInterop.JSRuntime = JSRuntime;
+
+        ClientEnrichmentService.EnrichWith(
+            "Client.ServiceName",
+            "Client"
+        );
+        ClientEnrichmentService.EnrichWith(
+            $"Client.{nameof(PlatformMonitor.InterfaceId)}",
+            PlatformMonitor.InterfaceId
+        );
+
+        await LoggingHostedService.StartAsync();
     }
 }

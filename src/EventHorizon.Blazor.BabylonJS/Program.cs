@@ -1,30 +1,45 @@
 namespace EventHorizon.Blazor.BabylonJS
 {
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Globalization;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-    using Microsoft.Extensions.DependencyInjection;
-    using MediatR;
-    using EventHorizon.Game.Client;
-    using EventHorizon.Observer.State;
-    using EventHorizon.Observer.Admin.State;
-    using Microsoft.AspNetCore.Builder;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using Microsoft.AspNetCore.Localization;
-    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Configuration;
-    using EventHorizon.Game.Server;
     using BlazorPro.BlazorSize;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client;
+    using EventHorizon.Game.Client;
+    using EventHorizon.Game.Server;
+    using EventHorizon.Observer.Admin.State;
+    using EventHorizon.Observer.State;
+    using EventHorizon.Platform.LogProvider;
+    using EventHorizon.Platform.LogProvider.Model;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+    using Microsoft.AspNetCore.Localization;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     public class Program
     {
         public static async Task Main(string[] args)
         {
+            Activity.DefaultIdFormat = ActivityIdFormat.Hierarchical;
+
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
+
+            // Setup Logging
+            builder.Logging
+                .AddPlatformLogger(
+                    new PlatformLoggerConfiguration
+                    {
+                        DebugView = true,
+                    }
+                )
+            ;
 
             builder.Services
                 .AddTransient(
@@ -83,10 +98,18 @@ namespace EventHorizon.Blazor.BabylonJS
 
             builder.Services
                 .AddMediatR(
-                    typeof(Program).Assembly,
-                    typeof(ObserverState).Assembly,
-                    typeof(ClientExtensions).Assembly,
-                    typeof(GameServerStartup).Assembly
+                    new Type[]
+                    {
+                        typeof(Program),
+                        typeof(ObserverState),
+
+                        // Platform Services
+                        typeof(PlatformLoggerExtensions),
+                        
+                        // Game Service Registration
+                        typeof(ClientExtensions),
+                        typeof(GameServerStartup),
+                    }
                 );
 
             // Configure Logging

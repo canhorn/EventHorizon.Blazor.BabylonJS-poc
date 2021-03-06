@@ -1,34 +1,36 @@
 ﻿namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage
 {
     using System;
-    using global::BabylonJS;
-    using EventHorizon.Game.Client;
-    using Microsoft.AspNetCore.Components;
-    using Microsoft.AspNetCore.Components.Web;
-    using MediatR;
-    using EventHorizon.Game.Client.Engine.Input.Trigger;
-    using EventHorizon.Game.Client.Engine.Input.Model;
-    using Microsoft.AspNetCore.Components.Authorization;
-    using System.Linq;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.AspNetCore.Authorization;
-    using EventHorizon.Html.Interop;
-    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Systems.Player.Model;
-    using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-    using System.Net.Http;
-    using EventHorizon.Game.Client.Core.I18n.Model;
-    using System.Net.Http.Json;
-    using Microsoft.Extensions.Logging;
-    using EventHorizon.Game.Client.Core.I18n.Api;
-    using EventHorizon.Game.Client.Core.I18n.Set;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Net.Http.Json;
+    using System.Threading.Tasks;
+    using BlazorPro.BlazorSize;
+    using EventHorizon.Blazor.BabylonJS.Authentication.Set;
+    using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes;
+    using EventHorizon.Game.Client;
+    using EventHorizon.Game.Client.Core.I18n.Api;
+    using EventHorizon.Game.Client.Core.I18n.Model;
+    using EventHorizon.Game.Client.Core.I18n.Set;
+    using EventHorizon.Game.Client.Engine.Input.Model;
+    using EventHorizon.Game.Client.Engine.Input.Trigger;
+    using EventHorizon.Game.Client.Engine.Particle.Add;
     using EventHorizon.Game.Client.Engine.Particle.Api;
     using EventHorizon.Game.Client.Engine.Particle.Model;
-    using EventHorizon.Game.Client.Engine.Particle.Add;
-    using BlazorPro.BlazorSize;
+    using EventHorizon.Game.Client.Engine.Systems.Player.Model;
     using EventHorizon.Game.Client.Engine.Window.Resize;
+    using EventHorizon.Html.Interop;
+    using EventHorizon.Platform.LogProvider.Api;
+    using global::BabylonJS;
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Components;
+    using Microsoft.AspNetCore.Components.Authorization;
+    using Microsoft.AspNetCore.Components.Web;
+    using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
 
     [Authorize]
     public class GamePageModel
@@ -47,6 +49,9 @@
         IAccessTokenProvider TokenProvider { get; set; }
         [Inject]
         ResizeListener ResizeListener { get; set; }
+        [Inject]
+        public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
+
 
         protected override async Task OnAfterRenderAsync(
             bool firstRender
@@ -101,12 +106,32 @@
             //var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
             var accessTokenResult = await TokenProvider.RequestAccessToken();
             var accessToken = string.Empty;
+            var playerId = state.User.Claims.FirstOrDefault(a => a.Type == "sub").Value;
 
             if (accessTokenResult.TryGetToken(out var token))
             {
                 accessToken = token.Value;
+                await Mediator.Publish(
+                    new AccessTokenSetEvent(
+                        accessToken
+                    )
+                );
+
+                ClientEnrichmentService.EnrichWith(
+                    "Client.AuthenticatedUserId",
+                    playerId
+                );
+
+                ClientEnrichmentService.EnrichWith(
+                    "Client.PlayerId",
+                    playerId
+                );
+
+                ClientEnrichmentService.EnrichWith(
+                    "Client.DeploymentDetails.UserId",
+                    Configuration["DeploymentDetails:UserId"]
+                );
             }
-            var playerId = state.User.Claims.FirstOrDefault(a => a.Type == "sub").Value;
             Startup.Setup(
                 new ServerGame(),
                 "game-window",
