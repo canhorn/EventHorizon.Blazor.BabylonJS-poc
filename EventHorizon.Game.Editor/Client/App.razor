@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
+@using EventHorizon.Game.Client.Core.Monitoring.Api;
 @using EventHorizon.Game.Editor.Client.Authentication.Components
 @using EventHorizon.Game.Editor.Client.Shared.ClickCapture
 @using EventHorizon.Game.Editor.Client.Shared.Toast
+@using EventHorizon.Game.Editor.Client.Logging.Api
 
 <CascadingAuthenticationState>
     <ClickCaptureProvider>
@@ -59,10 +61,26 @@
     public NavigationManager NavigationManager { get; set; } = null!;
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;
+    [Inject]
+    public IPlatformMonitor PlatformMonitor { get; set; } = null!;
+    [Inject]
+    public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
+    [Inject]
+    public LoggingHostedService LoggingHostedService { get; set; } = null!;
 
-
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         EventHorizon.Blazor.Interop.EventHorizonBlazorInterop.JSRuntime = JSRuntime;
+
+        ClientEnrichmentService.EnrichWith(
+            "Client.ServiceName",
+            "Editor"
+        );
+        ClientEnrichmentService.EnrichWith(
+            $"Client.{nameof(PlatformMonitor.InterfaceId)}",
+            PlatformMonitor.InterfaceId
+        );
+
+        await LoggingHostedService.StartAsync();
     }
 }

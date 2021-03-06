@@ -12,16 +12,19 @@
     public class SetEditorAccessTokenCommandHandler
         : IRequestHandler<SetEditorAccessTokenCommand, StandardCommandResult>
     {
+        private readonly IMediator _mediator;
         private readonly EditorAuthenticationState _state;
 
         public SetEditorAccessTokenCommandHandler(
+            IMediator mediator,
             EditorAuthenticationState state
         )
         {
+            _mediator = mediator;
             _state = state;
         }
 
-        public Task<StandardCommandResult> Handle(
+        public async Task<StandardCommandResult> Handle(
             SetEditorAccessTokenCommand request,
             CancellationToken cancellationToken
         )
@@ -29,8 +32,18 @@
             _state.SetAccessToken(
                 request.AccessToken
             );
-            return new StandardCommandResult()
-                .FromResult();
+            if (!string.IsNullOrWhiteSpace(
+                request.AccessToken
+            ))
+            {
+                await _mediator.Publish(
+                    new AccessTokenSetEvent(
+                        request.AccessToken
+                    ),
+                    cancellationToken
+                );
+            }
+            return new();
         }
     }
 }

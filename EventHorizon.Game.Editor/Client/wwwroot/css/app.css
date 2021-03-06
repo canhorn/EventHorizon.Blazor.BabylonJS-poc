@@ -67,6 +67,14 @@ hr {
     margin: 0;
 }
 
+.--padding {
+    padding: 0.8rem;
+}
+
+.--spacing {
+    padding: 0.8rem 0;
+}
+
 .--cursor-pointer {
     cursor: pointer;
 }

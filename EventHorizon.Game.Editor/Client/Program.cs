@@ -1,10 +1,24 @@
 namespace EventHorizon.Game.Editor.Client
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using Blazored.LocalStorage;
+    using BlazorPro.BlazorSize;
     using EventHorizon.Game.Client;
+    using EventHorizon.Game.Client.Systems;
+    using EventHorizon.Game.Editor;
     using EventHorizon.Game.Editor.Client.Authentication.Api;
     using EventHorizon.Game.Editor.Client.Authentication.State;
-    using EventHorizon.Game.Editor;
+    using EventHorizon.Game.Editor.Client.Localization.Api;
+    using EventHorizon.Game.Editor.Client.Localization.Map;
+    using EventHorizon.Game.Editor.Client.Zone.Api;
+    using EventHorizon.Game.Editor.Client.Zone.State;
     using EventHorizon.Game.Editor.Model;
+    using EventHorizon.Game.Server;
     using EventHorizon.Observer.Admin.State;
     using EventHorizon.Observer.State;
     using MediatR;
@@ -13,28 +27,24 @@ namespace EventHorizon.Game.Editor.Client
     using Microsoft.AspNetCore.Localization;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Net.Http;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.Zone.Api;
-    using EventHorizon.Game.Editor.Client.Zone.State;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
-    using EventHorizon.Game.Editor.Client.Localization.Map;
-    using Microsoft.Extensions.Logging.Configuration;
     using Microsoft.Extensions.Logging;
-    using Blazored.LocalStorage;
-    using BlazorPro.BlazorSize;
-    using EventHorizon.Game.Client.Systems;
-    using EventHorizon.Game.Server;
+    using Microsoft.Extensions.Logging.Configuration;
 
     public class Program
     {
         public static async Task Main(string[] args)
         {
+            Activity.DefaultIdFormat = ActivityIdFormat.Hierarchical;
+
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
+
+            // Setup Logging
+            builder.Logging
+                .AddPlatformConsoleLogger(
+                    new PlatformConsoleLoggerConfiguration()
+                )
+            ;
 
             // Setup MediatR
             builder.Services.AddMediatR(

@@ -1,4 +1,6 @@
-﻿<div class="menu-bar">
+﻿@using EventHorizon.Game.Client.Core.Monitoring.Api 
+
+<div class="menu-bar">
     <div class="menu-bar__content">
         <button class="menu-toggler --no-border"
                 title="@Localizer["Global Settings"]"
@@ -18,12 +20,17 @@
     </Header>
     <Body>
         <ZoneSelection />
+        <div class="--spacing">
+            @Localizer["Interface Id: {0}", PlatformMonitor.InterfaceId]
+        </div>
     </Body>
 </StandardModal>
 
 @code {
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;
+    [Inject]
+    public IPlatformMonitor PlatformMonitor { get; set; } = null!;
 
     private bool IsGlobalSettingsOpen { get; set; }
 

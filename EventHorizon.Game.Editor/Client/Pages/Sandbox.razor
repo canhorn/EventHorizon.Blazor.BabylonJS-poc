@@ -1,4 +1,5 @@
 ﻿@page "/sandbox"
+@using Microsoft.Extensions.Logging
 @using EventHorizon.Game.Editor.Client.Zone.Components
 @using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer
 
@@ -28,6 +29,17 @@
     </Footer>
 </StandardModal>
 
+
+<div>
+    <button @onclick="SendErrorMessage">Send Error Log Message</button>
+</div>
+<div>
+    <button @onclick="SendInfoMessage">Send Info Log Message</button>
+</div>
+<div>
+    <button @onclick="SendArgsMessage">Send Info w/Args Log Message</button>
+</div>
+
 @code {
     public bool IsOpen { get; set; }
 
@@ -39,5 +51,37 @@
     public void HandleCloseModal()
     {
         IsOpen = false;
+    }
+
+    [Inject]
+    public ILogger<Index> Logger { get; set; } = null!;
+
+    public void SendErrorMessage()
+    {
+        try
+        {
+            throw new Exception("hello I am an Error Message");
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(
+                ex,
+                "Error Message 123-123-123-123"
+            );
+        }
+    }
+
+    public void SendInfoMessage()
+    {
+        Logger.LogInformation(
+            "Standard Message 123-123-123-123"
+        );
+    }
+    public void SendArgsMessage()
+    {
+        Logger.LogInformation(
+            "Templated Message {Guid}",
+            Guid.NewGuid().ToString()
+        );
     }
 }

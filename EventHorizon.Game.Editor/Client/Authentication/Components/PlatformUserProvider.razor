@@ -2,7 +2,7 @@
 @using EventHorizon.Game.Client.Core.I18n.Api
 @using EventHorizon.Game.Editor.Client.Authentication.Model
 @using Microsoft.Extensions.Configuration
-@using System.IdentityModel.Tokens.Jwt 
+@using System.IdentityModel.Tokens.Jwt
 
 @if (IsValid)
 {
@@ -54,6 +54,8 @@ else
     public IConfiguration Configuration { get; set; } = null!;
     [Inject]
     public ILocalizer Localizer { get; set; } = null!;
+    [Inject]
+    public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
 
     public bool IsValid { get; private set; }
     public PlatformUserModel PlatformUser { get; private set; } = new PlatformUserModel();
@@ -107,5 +109,22 @@ else
             "sub",
             userId
         ) ?? false);
+
+        if (IsValid)
+        {
+            var authenticatedUserId = state.User?.Claims.FirstOrDefault(
+                a => a.Type == "sub"
+            )?.Value ?? "anonymous";
+
+            ClientEnrichmentService.EnrichWith(
+                "Client.AuthenticatedUserId",
+                authenticatedUserId
+            );
+
+            ClientEnrichmentService.EnrichWith(
+                "Client.DeploymentDetails.UserId",
+                authenticatedUserId
+            );
+        }
     }
 }
