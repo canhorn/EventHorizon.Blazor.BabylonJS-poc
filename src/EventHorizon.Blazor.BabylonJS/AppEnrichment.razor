@@ -1,0 +1,38 @@
+@using EventHorizon.Game.Client.Core.Monitoring.Api
+@using EventHorizon.Platform.LogProvider.Api
+@using EventHorizon.ApplicationDetails.Component.Api
+
+@code {
+    [CascadingParameter]
+    public ApplicationDetailsState ApplicationDetailsState { get; set; } = null!;
+
+    [Inject]
+    public IPlatformMonitor PlatformMonitor { get; set; } = null!;
+    [Inject]
+    public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        ClientEnrichmentService.EnrichWith(
+            "Client.ServiceName",
+            "Client"
+        );
+        ClientEnrichmentService.EnrichWith(
+            $"Client.{nameof(PlatformMonitor.InterfaceId)}",
+            PlatformMonitor.InterfaceId
+        );
+
+        ClientEnrichmentService.EnrichWith(
+            $"Client.{nameof(ApplicationDetailsState.ApplicationVersion)}",
+            ApplicationDetailsState.ApplicationVersion
+        );
+    }
+
+    protected override void OnParametersSet()
+    {
+        ClientEnrichmentService.EnrichWith(
+            $"Client.{nameof(ApplicationDetailsState.ApplicationVersion)}",
+            ApplicationDetailsState.ApplicationVersion
+        );
+    }
+}

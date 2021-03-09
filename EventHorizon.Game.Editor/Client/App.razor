@@ -1,44 +1,47 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
-@using EventHorizon.Game.Client.Core.Monitoring.Api;
 @using EventHorizon.Game.Editor.Client.Authentication.Components
 @using EventHorizon.Game.Editor.Client.Shared.ClickCapture
 @using EventHorizon.Game.Editor.Client.Shared.Toast
 @using EventHorizon.Platform.LogProvider.Api
+@using EventHorizon.ApplicationDetails.Component
 
-<CascadingAuthenticationState>
-    <ClickCaptureProvider>
-        <EditorAuthenticationProvider>
-            <ZoneSelectionProvider>
-                <Router AppAssembly="@typeof(Program).Assembly">
-                    <Found Context="routeData">
-                        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-                            <NotAuthorized>
-                                @if (context.User?.Identity?.IsAuthenticated.IsNotTrue() ?? true)
-                                {
-                                    <RedirectToLogin />
-                                }
-                                else
-                                {
-                                    <h1>@Localizer["Not Authorized"]</h1>
-                                    <p>
-                                        @Localizer["You are not authorized to access this resource."]
-                                    </p>
-                                }
-                            </NotAuthorized>
-                        </AuthorizeRouteView>
-                    </Found>
-                    <NotFound>
-                        <LayoutView Layout="@typeof(MainLayout)">
-                            <h1>@Localizer["Page Not Found"]</h1>
-                        </LayoutView>
-                    </NotFound>
-                </Router>
+<ApplicationDetailsProvider>
+    <CascadingAuthenticationState>
+        <ClickCaptureProvider>
+            <EditorAuthenticationProvider>
+                <ZoneSelectionProvider>
+                    <Router AppAssembly="@typeof(Program).Assembly">
+                        <Found Context="routeData">
+                            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                                <NotAuthorized>
+                                    @if (context.User?.Identity?.IsAuthenticated.IsNotTrue() ?? true)
+                                    {
+                                        <RedirectToLogin />
+                                    }
+                                    else
+                                    {
+                                        <h1>@Localizer["Not Authorized"]</h1>
+                                        <p>
+                                            @Localizer["You are not authorized to access this resource."]
+                                        </p>
+                                    }
+                                </NotAuthorized>
+                            </AuthorizeRouteView>
+                        </Found>
+                        <NotFound>
+                            <LayoutView Layout="@typeof(MainLayout)">
+                                <h1>@Localizer["Page Not Found"]</h1>
+                            </LayoutView>
+                        </NotFound>
+                    </Router>
 
-                <MessageToastContainer />
-            </ZoneSelectionProvider>
-        </EditorAuthenticationProvider>
-    </ClickCaptureProvider>
-</CascadingAuthenticationState>
+                    <MessageToastContainer />
+                </ZoneSelectionProvider>
+            </EditorAuthenticationProvider>
+        </ClickCaptureProvider>
+        <AppEnrichment />
+    </CascadingAuthenticationState>
+</ApplicationDetailsProvider>
 
 <StandardModal id="blazor-error-ui" IsOpen="true" HideClose="true">
     <Body>
@@ -62,24 +65,11 @@
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;
     [Inject]
-    public IPlatformMonitor PlatformMonitor { get; set; } = null!;
-    [Inject]
-    public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
-    [Inject]
     public LoggingHostedService LoggingHostedService { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
         EventHorizon.Blazor.Interop.EventHorizonBlazorInterop.JSRuntime = JSRuntime;
-
-        ClientEnrichmentService.EnrichWith(
-            "Client.ServiceName",
-            "Editor"
-        );
-        ClientEnrichmentService.EnrichWith(
-            $"Client.{nameof(PlatformMonitor.InterfaceId)}",
-            PlatformMonitor.InterfaceId
-        );
 
         await LoggingHostedService.StartAsync();
     }

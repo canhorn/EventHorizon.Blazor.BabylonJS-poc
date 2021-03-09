@@ -77,6 +77,9 @@ The SDK project is the single project that pulls all of the packages together fo
 ## Docker Commands
 
 ~~~ 
+# Build Client Image
+docker build --build-arg Version=0.1.0 -t canhorn/ehz-platform-server-client:dev .
+
 # Run the image, ignoring normal startup
 docker run -it --rm --entrypoint /bin/bash canhorn/ehz-platform-server-client-dotnet-build:dev
 ~~~
@@ -116,7 +119,7 @@ docker build --build-arg Version=0.1.0 --target dotnet-restore -f ./EventHorizon
 docker build --build-arg Version=0.1.0 --target dotnet-build -f ./EventHorizon.Game.Editor/Dockerfile -t canhorn/ehz-platform-server-engine_dotnet-build:dev .
 
 # Build Runtime Stage
-docker build --build-arg Version=0.1.0 -f ./EventHorizon.Game.Editor/Dockerfile -t canhorn/ehz-platform-server-editor:dev .
+docker build --build-arg Version=1.2.3 -f ./EventHorizon.Game.Editor/Dockerfile -t canhorn/ehz-platform-server-editor:dev .
 ~~~
 
 ## Editor - Docker Build 

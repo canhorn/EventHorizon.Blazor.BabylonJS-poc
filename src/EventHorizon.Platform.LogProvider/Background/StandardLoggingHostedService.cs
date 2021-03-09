@@ -8,21 +8,17 @@
     using EventHorizon.Platform.LogProvider.Process;
     using MediatR;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     public class StandardLoggingHostedService
         : LoggingHostedService
     {
-        private readonly ILogger _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private IIntervalTimerService? _intervalTimerService;
 
         public StandardLoggingHostedService(
-            ILogger<LoggingHostedService> logger,
             IServiceScopeFactory serviceScopeFactory
         )
         {
-            _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
         }
 
@@ -30,8 +26,6 @@
             CancellationToken stoppingToken
         )
         {
-            _logger.LogInformation("Logging Hosted Service is Starting.");
-
             using var scope = _serviceScopeFactory.CreateScope();
             _intervalTimerService = scope.ServiceProvider
                 .GetRequiredService<IFactory<IIntervalTimerService>>()
@@ -48,8 +42,6 @@
             CancellationToken stoppingToken
         )
         {
-            _logger.LogInformation("Logging Hosted Service is Stopping.");
-
             _intervalTimerService?.Dispose();
 
             return Task.CompletedTask;
@@ -66,8 +58,6 @@
 
         public void Dispose()
         {
-            _logger.LogInformation("Logging Hosted Service Disposed.");
-
             _intervalTimerService?.Dispose();
         }
     }

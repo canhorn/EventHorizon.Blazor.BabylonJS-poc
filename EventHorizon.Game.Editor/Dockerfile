@@ -33,6 +33,9 @@ COPY src/SDK/Server/EventHorizon.Game.Server.ServerModule.Api/EventHorizon.Game.
 ## Server
 COPY src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj ./src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj
 
+## Shared
+COPY src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.ApplicationDetails.Component.csproj ./src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.ApplicationDetails.Component.csproj
+
 # Editor
 ## Editor - Main Source
 COPY EventHorizon.Game.Editor/Client/EventHorizon.Game.Editor.Client.csproj ./EventHorizon.Game.Editor/Client/EventHorizon.Game.Editor.Client.csproj
@@ -68,6 +71,12 @@ RUN dotnet publish --output /app/ --configuration Release --no-restore ./EventHo
 
 # Stage 3 - Editor Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+ARG Version=0.0.0
+ENV APPLICATION_VERSION=$Version
+
 WORKDIR /app
 COPY --from=dotnet-build /app .
+
+RUN echo "export const APPLICATION_VERSION = () => \"$Version\";" > /app/wwwroot/version.js
+
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Editor.Server.dll"]

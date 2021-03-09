@@ -1,46 +1,36 @@
 @using EventHorizon.Blazor.Interop
-@using EventHorizon.Game.Client.Core.Monitoring.Api
 @using EventHorizon.Platform.LogProvider.Api
+@using EventHorizon.ApplicationDetails.Component
 
-<CascadingAuthenticationState>
-    <Router AppAssembly="@typeof(Program).Assembly">
-        <Found Context="routeData">
-            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-                <NotAuthorized>
-                    <RedirectToLogin />
-                </NotAuthorized>
-            </AuthorizeRouteView>
-        </Found>
-        <NotFound>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
-            </LayoutView>
-        </NotFound>
-    </Router>
-</CascadingAuthenticationState>
+<ApplicationDetailsProvider>
+    <CascadingAuthenticationState>
+        <Router AppAssembly="@typeof(Program).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                    <NotAuthorized>
+                        <RedirectToLogin />
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+            </Found>
+            <NotFound>
+                <LayoutView Layout="@typeof(MainLayout)">
+                    <p>Sorry, there's nothing at this address.</p>
+                </LayoutView>
+            </NotFound>
+        </Router>
+    </CascadingAuthenticationState>
+    <AppEnrichment />
+</ApplicationDetailsProvider>
 
 @code {
     [Inject]
     public IJSRuntime JSRuntime { get; set; }
-    [Inject]
-    public IPlatformMonitor PlatformMonitor { get; set; } = null!;
-    [Inject]
-    public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
     [Inject]
     public LoggingHostedService LoggingHostedService { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
         EventHorizonBlazorInterop.JSRuntime = JSRuntime;
-
-        ClientEnrichmentService.EnrichWith(
-            "Client.ServiceName",
-            "Client"
-        );
-        ClientEnrichmentService.EnrichWith(
-            $"Client.{nameof(PlatformMonitor.InterfaceId)}",
-            PlatformMonitor.InterfaceId
-        );
 
         await LoggingHostedService.StartAsync();
     }

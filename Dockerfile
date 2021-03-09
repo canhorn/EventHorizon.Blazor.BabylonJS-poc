@@ -44,6 +44,9 @@ COPY src/SDK/Server/EventHorizon.Game.Server.ServerModule.Api/EventHorizon.Game.
 ## Server
 COPY src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj ./src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj
 
+## Shared
+COPY src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.ApplicationDetails.Component.csproj ./src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.ApplicationDetails.Component.csproj
+
 RUN dotnet restore
 
 
@@ -78,6 +81,12 @@ CMD ["--source", "https://api.nuget.org/v3/index.json"]
 
 # Stage 4 - Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+ARG Version=0.0.0
+ENV APPLICATION_VERSION=$Version
+
 WORKDIR /app
 COPY --from=dotnet-build /app .
+
+RUN echo "export const APPLICATION_VERSION = () => \"$Version\";" > /app/wwwroot/version.js
+
 ENTRYPOINT ["dotnet", "EventHorizon.Blazor.BabylonJS.Server.dll"]
