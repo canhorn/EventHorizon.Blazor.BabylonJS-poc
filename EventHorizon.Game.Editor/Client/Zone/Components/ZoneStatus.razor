@@ -43,6 +43,7 @@ else
                     <div>Server Address: @zone.ServerAddress</div>
                     <div>Tag: @zone.Tag</div>
                     <div>Last Ping: @zone.LastPing.ToString("G")</div>
+                    <div>Application Version: @zone.Details.ApplicationVersion</div>
                     <button @onclick="() => HandleZoneSelectionChanged(zone.Id)"
                             disabled="@(zone.Id == SelectedZoneId)">
                         @(zone.Id == SelectedZoneId ? Localizer["Active"] : Localizer["Select"])
