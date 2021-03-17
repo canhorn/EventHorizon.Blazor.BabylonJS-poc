@@ -1,7 +1,6 @@
 ﻿using EventHorizon.Observer.Admin.Model;
 using EventHorizon.Observer.Admin.State;
 using EventHorizon.Observer.Model;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -17,17 +16,14 @@ namespace EventHorizon.Observer.State
         public IEnumerable<ObserverBase> List { get; private set; } = new List<ObserverBase>().AsReadOnly();
 
         private readonly ILogger _logger;
-        private readonly IStringLocalizer _localizer;
 
         private IEnumerable<AdminObserverBase> _adminList = new List<AdminObserverBase>().AsReadOnly();
 
         public GenericObserverState(
-            ILogger<GenericObserverState> logger,
-            IStringLocalizer<ObserverState> localizer
+            ILogger<GenericObserverState> logger
         )
         {
             _logger = logger;
-            _localizer = localizer;
         }
 
         public void Register(
@@ -83,7 +79,7 @@ namespace EventHorizon.Observer.State
                 {
                     _logger.LogWarning(
                         ex,
-                        _localizer["Exception thrown while triggering observer."]
+                        "Exception thrown while triggering observer."
                     );
                     exceptionListToRemove.Add(
                         observer
@@ -115,7 +111,7 @@ namespace EventHorizon.Observer.State
                 {
                     _logger.LogWarning(
                         ex,
-                        _localizer["Exception thrown while triggering observer."]
+                        "Exception thrown while triggering observer."
                     );
                     adminExceptionListToRemove.Add(
                         observer
