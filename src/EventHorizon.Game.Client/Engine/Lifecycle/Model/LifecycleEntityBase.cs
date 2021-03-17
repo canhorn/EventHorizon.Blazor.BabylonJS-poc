@@ -183,7 +183,7 @@
                 {
                     var value = Activator.CreateInstance(
                         typeof(T),
-                        dataProperty.Cast<Dictionary<string, object>>()
+                        dataProperty.To<Dictionary<string, object>>()
                     );
                     if (value.IsNotNull())
                     {
@@ -212,7 +212,7 @@
                         return value;
                     }
                 }
-                else if (dataProperty.Cast<T>() is T typedDataProperty)
+                else if (dataProperty.To<T>() is T typedDataProperty)
                 {
                     _propertyMap.Add(
                         name,

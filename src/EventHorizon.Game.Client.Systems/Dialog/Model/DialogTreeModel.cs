@@ -19,7 +19,7 @@
         ) : base(CLIENT_ASSET_TYPE, data)
         {
             Id = GetString("id");
-            Root = data["root"].Cast<DialogTreeNodeModel>();
+            Root = data["root"].To<DialogTreeNodeModel>();
         }
     }
 }

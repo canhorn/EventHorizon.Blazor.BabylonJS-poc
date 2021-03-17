@@ -38,7 +38,7 @@
     protected override object Parse(object value)
     {
         return long.Parse(
-            value.Cast<string>()
+            value.To<string>()
         );
     }
 }

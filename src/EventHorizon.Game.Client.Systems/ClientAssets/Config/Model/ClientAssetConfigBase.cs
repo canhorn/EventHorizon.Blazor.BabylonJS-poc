@@ -27,7 +27,7 @@
             var value = default(int);
             if (_data.ContainsKey(key))
             {
-                return _data[key].Cast<int>();
+                return _data[key].To<int>();
             }
             return value;
         }
@@ -39,7 +39,7 @@
             var value = default(decimal);
             if (_data.ContainsKey(key))
             {
-                value = _data[key].Cast<decimal>();
+                value = _data[key].To<decimal>();
             }
             return value;
         }
@@ -51,7 +51,7 @@
             var value = default(float);
             if (_data.ContainsKey(key))
             {
-                value = _data[key].Cast<float>();
+                value = _data[key].To<float>();
             }
             return value;
         }
@@ -63,7 +63,7 @@
             var value = string.Empty;
             if (_data.ContainsKey(key))
             {
-                value = _data[key].Cast<string>() ?? string.Empty;
+                value = _data[key].To<string>() ?? string.Empty;
             }
             return value;
         }

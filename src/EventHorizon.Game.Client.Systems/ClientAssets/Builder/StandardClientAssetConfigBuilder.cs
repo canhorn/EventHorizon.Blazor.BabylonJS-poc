@@ -34,7 +34,7 @@
         {
             if (data.ContainsKey(key))
             {
-                return data[key].Cast<string>() ?? string.Empty;
+                return data[key].To<string>() ?? string.Empty;
             }
             return string.Empty;
         }

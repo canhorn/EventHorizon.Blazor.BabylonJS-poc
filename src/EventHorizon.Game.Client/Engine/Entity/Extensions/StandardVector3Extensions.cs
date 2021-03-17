@@ -10,7 +10,7 @@
         {
             if (vector3.GetType() == typeof(Vector3))
             {
-                return vector3.Cast<Vector3>();
+                return vector3.To<Vector3>();
             }
             return new Vector3(
                 (float)vector3.X,

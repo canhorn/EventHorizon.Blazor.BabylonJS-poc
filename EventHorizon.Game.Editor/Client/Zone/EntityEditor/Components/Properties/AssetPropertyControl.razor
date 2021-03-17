@@ -41,9 +41,9 @@
 
     protected override object Parse(object value)
     {
-        AssetId = value.Cast<string>();
+        AssetId = value.To<string>();
         this.SetSelectedAssetOption();
-        return value.Cast<string>();
+        return value.To<string>();
     }
 
     protected override void OnInitialized()

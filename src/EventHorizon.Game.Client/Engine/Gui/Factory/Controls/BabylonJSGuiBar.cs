@@ -160,7 +160,7 @@
                 }
                 else if (option.Key == "textOptions")
                 {
-                    var textOptions = option.Value.Cast<GuiControlOptionsModel>();
+                    var textOptions = option.Value.To<GuiControlOptionsModel>();
                     foreach (var textOption in textOptions)
                     {
                         SetPropertyOnControl(
@@ -172,7 +172,7 @@
                 }
                 else if (option.Key == "barOptions")
                 {
-                    var barOptions = option.Value.Cast<GuiControlOptionsModel>();
+                    var barOptions = option.Value.To<GuiControlOptionsModel>();
                     foreach (var barOption in barOptions)
                     {
                         SetPropertyOnControl(

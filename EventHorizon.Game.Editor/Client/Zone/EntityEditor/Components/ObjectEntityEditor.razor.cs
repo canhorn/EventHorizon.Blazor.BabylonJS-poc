@@ -105,19 +105,19 @@
             switch (args.PropertyName)
             {
                 case nameof(EditEntity.Name):
-                    EditEntity.Name = args.Property.Cast<string>();
+                    EditEntity.Name = args.Property.To<string>();
                     break;
                 case nameof(EditEntity.Transform.Position):
-                    EditEntity.Transform.Position = args.Property.Cast<ServerVector3>();
+                    EditEntity.Transform.Position = args.Property.To<ServerVector3>();
                     break;
                 case nameof(EditEntity.Transform.Rotation):
-                    EditEntity.Transform.Rotation = args.Property.Cast<ServerVector3>();
+                    EditEntity.Transform.Rotation = args.Property.To<ServerVector3>();
                     break;
                 case nameof(EditEntity.Transform.Scaling):
-                    EditEntity.Transform.Scaling = args.Property.Cast<ServerVector3>();
+                    EditEntity.Transform.Scaling = args.Property.To<ServerVector3>();
                     break;
                 case nameof(EditEntity.Transform.ScalingDeterminant):
-                    EditEntity.Transform.ScalingDeterminant = args.Property.Cast<decimal>();
+                    EditEntity.Transform.ScalingDeterminant = args.Property.To<decimal>();
                     break;
             }
             await Mediator.Publish(

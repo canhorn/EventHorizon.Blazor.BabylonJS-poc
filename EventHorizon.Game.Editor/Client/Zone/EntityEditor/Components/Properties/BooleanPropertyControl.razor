@@ -36,17 +36,17 @@
 
     protected override void OnInitialized()
     {
-        ParsedProperty = Property.Cast<bool>();
+        ParsedProperty = Property.To<bool>();
     }
 
     protected override void OnParametersSet()
     {
-        ParsedProperty = Property.Cast<bool>();
+        ParsedProperty = Property.To<bool>();
     }
 
     protected override object Parse(object value)
     {
-        return value.Cast<bool>();
+        return value.To<bool>();
     }
 
     public Task HandleBooleanChanged(

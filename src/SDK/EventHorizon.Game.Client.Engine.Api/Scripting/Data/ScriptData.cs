@@ -23,7 +23,7 @@
             {
                 return default;
             }
-            return _data[name].Cast<T>();
+            return _data[name].To<T>();
         }
 
         public void Set(

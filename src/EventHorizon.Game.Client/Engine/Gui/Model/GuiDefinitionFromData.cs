@@ -357,7 +357,7 @@
                     options[modelOption] = await GetGeneratedOptions(
                         guiId,
                         layout,
-                        controlOption.Cast<GuiControlOptionsModel>(),
+                        controlOption.To<GuiControlOptionsModel>(),
                         control
                     );
                 }
@@ -380,7 +380,7 @@
                     out var controlOption
                 ))
                 {
-                    controlOptions[modelOption] = controlOption.Cast<GuiControlOptionsModel>();
+                    controlOptions[modelOption] = controlOption.To<GuiControlOptionsModel>();
                 }
             }
 
@@ -396,7 +396,7 @@
                 out var metadataObject
             ))
             {
-                return metadataObject.Cast<GuiControlOptionsModel.GuiControlMetadataOptionModel>();
+                return metadataObject.To<GuiControlOptionsModel.GuiControlMetadataOptionModel>();
             }
 
             return new GuiControlOptionsModel.GuiControlMetadataOptionModel();

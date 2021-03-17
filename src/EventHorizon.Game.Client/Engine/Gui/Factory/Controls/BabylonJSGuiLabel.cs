@@ -149,7 +149,7 @@
                 }
                 else if (option.Key == "textOptions")
                 {
-                    var textBlockOptions = option.Value.Cast<GuiControlOptionsModel>();
+                    var textBlockOptions = option.Value.To<GuiControlOptionsModel>();
                     foreach (var textBlockOption in textBlockOptions)
                     {
                         SetPropertyOnControl(

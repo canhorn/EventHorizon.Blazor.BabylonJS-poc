@@ -12,7 +12,7 @@ public static class ObjectExtensions
     /// <typeparam name="T">The type this should transform to.</typeparam>
     /// <param name="objectToCast">The object to be converted to the Type Parameter.</param>
     /// <returns>The object casted to the type, can return a new object if is a raw Json Element.</returns>
-    public static T Cast<T>(this object objectToCast)
+    public static T To<T>(this object objectToCast)
     {
         if (objectToCast is T typedObject)
         {

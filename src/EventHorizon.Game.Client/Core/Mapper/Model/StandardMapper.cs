@@ -12,7 +12,7 @@
             object obj
         )
         {
-            return (T)obj.Cast<D>();
+            return (T)obj.To<D>();
         }
     }
 }

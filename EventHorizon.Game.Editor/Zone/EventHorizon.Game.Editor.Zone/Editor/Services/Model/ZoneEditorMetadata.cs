@@ -101,7 +101,7 @@
 
         public static ServerVector3 ParseVector3(object property)
         {
-            var vector = property.Cast<ServerVector3>();
+            var vector = property.To<ServerVector3>();
             // TODO: Test This
 
             return vector;

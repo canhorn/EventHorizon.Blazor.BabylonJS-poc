@@ -27,7 +27,7 @@
                 DEFAULT_RADIUS,
                 entity.GetModule<IMeshModule>(
                     IMeshModule.MODULE_NAME
-                )?.Mesh.Cast<BabylonJSEngineMesh>().Mesh,
+                )?.Mesh.To<BabylonJSEngineMesh>().Mesh,
                 GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene
             )
         )

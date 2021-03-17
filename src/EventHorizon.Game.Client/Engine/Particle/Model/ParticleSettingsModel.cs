@@ -39,10 +39,10 @@
         public string Name => TryGetValue(
             "name",
             out var value
-        ) ? value.Cast<string>() : string.Empty;
+        ) ? value.To<string>() : string.Empty;
         public decimal Capacity => TryGetValue(
             "capacity",
             out var value
-        ) ? value.Cast<decimal>() : 0;
+        ) ? value.To<decimal>() : 0;
     }
 }

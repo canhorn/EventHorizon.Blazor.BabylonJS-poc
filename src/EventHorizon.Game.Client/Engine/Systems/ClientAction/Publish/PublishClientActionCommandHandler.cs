@@ -82,7 +82,7 @@
                         argument
                     );
                 }
-                var value = argument.Cast<T>();
+                var value = argument.To<T>();
                 if (value.IsNotNull())
                 {
                     return value;

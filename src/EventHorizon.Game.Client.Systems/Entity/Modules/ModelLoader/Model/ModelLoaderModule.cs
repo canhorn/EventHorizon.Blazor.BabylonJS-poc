@@ -86,7 +86,7 @@
                 ))
                 {
                     var animationList = animationListRaw
-                        .Cast<IEnumerable<IAnimationGroup>>() ?? new List<IAnimationGroup>();
+                        .To<IEnumerable<IAnimationGroup>>() ?? new List<IAnimationGroup>();
                     await _mediator.Publish(
                         new AnimationListLoadedEvent(
                             _entity.ClientId,

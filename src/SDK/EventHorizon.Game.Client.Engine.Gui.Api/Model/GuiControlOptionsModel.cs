@@ -70,7 +70,7 @@
             ))
             {
                 return new Option<T>(
-                    value.Cast<T>()
+                    value.To<T>()
                 );
             }
             return new Option<T>();
@@ -86,7 +86,7 @@
                 out var value
             ))
             {
-                return value.Cast<T>();
+                return value.To<T>();
             }
             return defaultValue();
         }
@@ -102,7 +102,7 @@
             ))
             {
                 callback(
-                    value.Cast<T>()
+                    value.To<T>()
                 );
             }
         }
