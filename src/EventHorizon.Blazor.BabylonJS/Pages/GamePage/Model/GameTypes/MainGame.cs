@@ -11,8 +11,6 @@
 
     public class MainGame : GameBase
     {
-        public WorldCamera _startupCamera;
-
         public override Task Dispose()
         {
             return Task.CompletedTask;

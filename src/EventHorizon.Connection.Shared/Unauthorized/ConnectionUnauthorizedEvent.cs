@@ -9,7 +9,7 @@
         public string Identifier { get; }
 
         public ConnectionUnauthorizedEvent(
-            string identifier = null
+            string? identifier = null
         )
         {
             Identifier = identifier ?? string.Empty;

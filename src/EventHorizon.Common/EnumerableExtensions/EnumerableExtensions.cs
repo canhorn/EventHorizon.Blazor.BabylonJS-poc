@@ -35,4 +35,12 @@ public static class EnumerableExtensions
         newList.Remove(item);
         return newList.AsReadOnly();
     }
+
+    public static bool TryGetItem<TSource>(
+        this IEnumerable<TSource> enumerable,
+        Func<TSource, bool> predicate,
+        out TSource item
+    ) => (item = enumerable.FirstOrDefault(
+        predicate
+    )).IsNotNull();
 }

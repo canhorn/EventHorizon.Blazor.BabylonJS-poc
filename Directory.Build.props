@@ -1,5 +1,7 @@
 <Project>
     <PropertyGroup>
+        <LangVersion>9.0</LangVersion>
+        <Nullable>enable</Nullable>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Authors>Cody Merritt Anhorn</Authors>
         <PackageProjectUrl>https://github.com/canhorn/EventHorizon.Blazor.BabylonJS-poc</PackageProjectUrl>

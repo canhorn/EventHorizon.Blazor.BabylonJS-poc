@@ -70,8 +70,8 @@ namespace EventHorizon.Blazor.BabylonJS
             // Add ExternalServices
             // Observer State Manager 
             builder.Services.AddSingleton<GenericObserverState>()
-                .AddSingleton<ObserverState>(services => services.GetService<GenericObserverState>())
-                .AddSingleton<AdminObserverState>(services => services.GetService<GenericObserverState>());
+                .AddSingleton<ObserverState>(services => services.GetRequiredService<GenericObserverState>())
+                .AddSingleton<AdminObserverState>(services => services.GetRequiredService<GenericObserverState>());
 
             // Add Authentication Configuration
             builder.Services.AddOidcAuthentication(options =>

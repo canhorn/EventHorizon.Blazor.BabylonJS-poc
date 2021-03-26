@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Blazor.Interop;
     using EventHorizon.Game.Client;
+    using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Gui.Activate;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Gui.Create;
@@ -35,6 +36,13 @@
             var mainMenuGui = await _http.GetFromJsonAsync<GuiLayoutDataModel>(
                 "test-data/example.gui.json"
             );
+            if (mainMenuGui.IsNull())
+            {
+                throw new GameException(
+                    "TEST_DATA_NOT_FOUND",
+                    "Was not able to find 'test-data/example.gui.json'"
+                );
+            }
             await _mediator.Send(
                 new RegisterGuiLayoutDataCommand(
                     mainMenuGui

@@ -69,7 +69,7 @@
                         new ClientActionDataResolver(
                             data
                         )
-                    ).To<IClientAction>().ToOption();
+                    )!.To<IClientAction>()!.ToOption();
                 }
             }
             catch (Exception ex)

@@ -90,6 +90,11 @@ hr {
     justify-content: center;
 }
 
+/* Table Styles */
+table.--full {
+    width: 100%;
+}
+
 /* Controls */
 button.--text {
     background: none;

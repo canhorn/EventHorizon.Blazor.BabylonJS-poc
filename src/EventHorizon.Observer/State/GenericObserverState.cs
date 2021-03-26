@@ -1,16 +1,16 @@
-﻿using EventHorizon.Observer.Admin.Model;
-using EventHorizon.Observer.Admin.State;
-using EventHorizon.Observer.Model;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace EventHorizon.Observer.State
+﻿namespace EventHorizon.Observer.State
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Observer.Admin.Model;
+    using EventHorizon.Observer.Admin.State;
+    using EventHorizon.Observer.Model;
+    using Microsoft.Extensions.Logging;
+
     public class GenericObserverState : ObserverState, AdminObserverState
     {
         public IEnumerable<ObserverBase> List { get; private set; } = new List<ObserverBase>().AsReadOnly();
@@ -49,11 +49,6 @@ namespace EventHorizon.Observer.State
             List = List.RemoveItem(observer);
         }
 
-        [SuppressMessage(
-            "Design",
-            "CA1031:Do not catch general exception types",
-            Justification = "Ignore any and all Exception to not break all triggered observers."
-        )]
         public async Task Trigger<TInstance, TArgs>(
             TArgs args,
             CancellationToken cancellationToken = default
@@ -100,7 +95,7 @@ namespace EventHorizon.Observer.State
                 {
                     await observer.HandleAdminTrigger(
                         typeOf.Name,
-                        args
+                        args!
                     );
                     if (shouldRunOnce)
                     {

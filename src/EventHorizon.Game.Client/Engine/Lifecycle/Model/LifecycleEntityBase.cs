@@ -150,13 +150,12 @@
 
         public Option<T> GetPropertyAsOption<T>(
             string name
-        ) => new Option<T>(
+        ) => new(
             GetProperty<T>(name)
         );
 
-        [return: MaybeNull]
         // TODO: Use Option<T> to get rid of MaybeNull
-        public T GetProperty<T>(
+        public T? GetProperty<T>(
             string name
         )
         {

@@ -9,10 +9,10 @@
     public sealed class SignalrZoneAdminClientEntityApi
         : ZoneAdminClientEntityApi
     {
-        private readonly HubConnection _hubConnection;
+        private readonly HubConnection? _hubConnection;
 
         internal SignalrZoneAdminClientEntityApi(
-            HubConnection hubConnection
+            HubConnection? hubConnection
         )
         {
             _hubConnection = hubConnection;
@@ -23,7 +23,7 @@
             IObjectEntityDetails entity
         )
         {
-            if (_hubConnection == null)
+            if (_hubConnection.IsNull())
             {
                 return new AdminClientEntityResponse
                 {
@@ -44,7 +44,7 @@
             if (_hubConnection == null)
             {
                 return new AdminClientEntityResponse
-                { 
+                {
                     Success = false,
                     ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
                 }.FromResult();

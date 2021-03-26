@@ -130,7 +130,7 @@
             return (backgroundControl, textControl, percentageBarControl);
         }
 
-        private static IList<string> IGNORE_PROPERTY_LIST = new List<string>
+        private static readonly IList<string> IGNORE_PROPERTY_LIST = new List<string>
         {
             "animation",
             "barDirection",
@@ -160,7 +160,7 @@
                 }
                 else if (option.Key == "textOptions")
                 {
-                    var textOptions = option.Value.To<GuiControlOptionsModel>();
+                    var textOptions = option.Value.To(() => new GuiControlOptionsModel());
                     foreach (var textOption in textOptions)
                     {
                         SetPropertyOnControl(
@@ -172,7 +172,7 @@
                 }
                 else if (option.Key == "barOptions")
                 {
-                    var barOptions = option.Value.To<GuiControlOptionsModel>();
+                    var barOptions = option.Value.To(() => new GuiControlOptionsModel());
                     foreach (var barOption in barOptions)
                     {
                         SetPropertyOnControl(
@@ -225,7 +225,7 @@
             }
         }
 
-        private void SetPropertyOnControl(
+        private static void SetPropertyOnControl(
             Control control,
             string property,
             object value

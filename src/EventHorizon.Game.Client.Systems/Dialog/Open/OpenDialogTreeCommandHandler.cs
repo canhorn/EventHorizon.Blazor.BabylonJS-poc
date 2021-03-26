@@ -217,7 +217,7 @@
                     new CreateGuiCommand(
                         newActionGuiId,
                         "gui_dialog_action_button",
-                        parentControlId: generatedGuiId,
+                        parentControlId: generatedGuiId!,
                         controlDataList: new List<IGuiControlData>
                         {
                             new GuiControlDataModel

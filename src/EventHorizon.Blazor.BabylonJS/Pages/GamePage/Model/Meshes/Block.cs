@@ -14,8 +14,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes
     public class Block : LifecycleEntityBase
     {
         private readonly IRenderingScene _renderingScene; 
-        private Mesh _mesh;
-
+        private Mesh? _mesh;
 
         public Block()
             : base(
@@ -31,7 +30,7 @@ namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes
 
         public override Task Dispose()
         {
-            _mesh.dispose();
+            _mesh?.dispose();
             return base.Dispose();
         }
 

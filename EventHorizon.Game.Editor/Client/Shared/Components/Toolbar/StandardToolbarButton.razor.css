@@ -1,25 +1,32 @@
-﻿.standard-toolbar-item.--remove-button-styles {
-    padding: 0.6rem;
-    background: var(--background-dark);
-    color: inherit;
-    border: 1px solid transparent;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-}
-
-.standard-toolbar-item:hover,
-.standard-toolbar-item:focus {
-    background-color: var(--contrast-light-disabled);
-    border: 1px solid var(--contrast-dark-secondary)
-}
-
-.standard-toolbar-item {
+﻿.standard-toolbar-item {
     box-shadow: 0 0 10px 8px transparent;
     transition: all 0.8s
 }
 
-.standard-toolbar-item:active {
-    box-shadow: 0 0 var(--brand-color);
-    transition: 0s
-}
+    .standard-toolbar-item.--remove-button-styles {
+        padding: 0.6rem;
+        background: var(--background-dark);
+        color: inherit;
+        border: 1px solid transparent;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+        border: 1px solid var(--brand-color);
+    }
+
+    .standard-toolbar-item:hover,
+    .standard-toolbar-item:focus {
+        background-color: var(--contrast-light-disabled);
+        border: 1px solid var(--contrast-dark-primary);
+    }
+
+    .standard-toolbar-item:active {
+        box-shadow: 0 0 var(--brand-color);
+        transition: 0s
+    }
+
+    .standard-toolbar-item:disabled {
+        background: var(--contrast-dark-hint);
+        border: 1px solid var(--contrast-dark-hint);
+        cursor: not-allowed;
+    }

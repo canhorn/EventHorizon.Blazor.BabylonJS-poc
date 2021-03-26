@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Core.Command.Model
 {
     using System;
+    using System.Runtime.CompilerServices;
 
     public class CommandResult<T>
     {
@@ -15,7 +16,7 @@
             ErrorCode = string.Empty;
         }
         public CommandResult(
-            bool success, 
+            bool success,
             T result
         )
         {
@@ -30,9 +31,23 @@
         {
             Success = false;
             ErrorCode = errorCode;
-#pragma warning disable CS8601 // Possible null reference assignment.
-            Result = default;
-#pragma warning restore CS8601 // Possible null reference assignment.
+            Result = default!;
         }
+
+        public static implicit operator CommandResult<T>(
+            T result
+        ) => new(
+            result
+        );
+
+        public static implicit operator CommandResult<T>(
+            string errorCode
+        ) => new(
+            errorCode
+        );
+
+        public static implicit operator bool(
+            CommandResult<T> result
+        ) => result.Success;
     }
 }

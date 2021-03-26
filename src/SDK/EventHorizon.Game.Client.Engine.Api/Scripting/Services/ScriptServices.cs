@@ -12,7 +12,7 @@
 
         ILogger Logger<T>();
 
-        T GetService<T>();
+        T GetService<T>() where T : notnull;
 
         void RegisterObserver(
             ObserverBase observer

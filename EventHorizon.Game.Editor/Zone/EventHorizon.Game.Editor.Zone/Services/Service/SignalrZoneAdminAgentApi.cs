@@ -10,10 +10,10 @@
     public sealed class SignalrZoneAdminAgentApi
         : ZoneAdminAgentApi
     {
-        private readonly HubConnection _hubConnection;
+        private readonly HubConnection? _hubConnection;
 
         internal SignalrZoneAdminAgentApi(
-            HubConnection hubConnection
+            HubConnection? hubConnection
         )
         {
             _hubConnection = hubConnection;
@@ -24,7 +24,7 @@
             IObjectEntityDetails entity
         )
         {
-            if (_hubConnection == null)
+            if (_hubConnection.IsNull())
             {
                 return new AdminAgentEntityResponse
                 {

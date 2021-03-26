@@ -11,6 +11,7 @@
         : IClientAction
     {
         public GameState GameState { get; }
+
         public ClientActionGameStateUpdatedEvent(
             IClientActionDataResolver resolver
         )

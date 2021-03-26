@@ -96,7 +96,7 @@
             );
         }
 
-        private (Rectangle, TextBlock) CreateControl(
+        private static (Rectangle, TextBlock) CreateControl(
             string id,
             IGuiControlOptions options
         )
@@ -123,13 +123,13 @@
             return (labelBoxControl, textControl);
         }
 
-        private static IList<string> IGNORE_PROPERTY_LIST = new List<string>
+        private static readonly IList<string> IGNORE_PROPERTY_LIST = new List<string>
         {
             "animation",
             "textOptions"
         };
 
-        private void Update(
+        private static void Update(
             IGuiControlOptions options,
             Rectangle buttonControl,
             TextBlock textControl
@@ -149,7 +149,7 @@
                 }
                 else if (option.Key == "textOptions")
                 {
-                    var textBlockOptions = option.Value.To<GuiControlOptionsModel>();
+                    var textBlockOptions = option.Value.To<GuiControlOptionsModel>(() => new());
                     foreach (var textBlockOption in textBlockOptions)
                     {
                         SetPropertyOnControl(
@@ -162,7 +162,7 @@
             }
         }
 
-        private void SetPropertyOnControl(
+        private static void SetPropertyOnControl(
             Control control,
             string property,
             object value

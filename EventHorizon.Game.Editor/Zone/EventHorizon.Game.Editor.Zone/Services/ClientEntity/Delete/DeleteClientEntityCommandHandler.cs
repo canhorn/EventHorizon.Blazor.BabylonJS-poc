@@ -28,9 +28,8 @@
             );
             if (result.Success.IsNotTrue())
             {
-                return new(
-                    result.ErrorCode
-                );
+                return result.ErrorCode
+                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
             }
 
             return new();

@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Core.Command.Model;
+    using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Gui.Activate;
     using EventHorizon.Game.Client.Engine.Gui.Api;
     using EventHorizon.Game.Client.Engine.Gui.Create;
@@ -32,7 +33,7 @@
 
         private string _mainMenuGuiId = string.Empty;
 
-        public MainMenuScene() 
+        public MainMenuScene()
             : base("main-menu")
         {
         }
@@ -51,6 +52,13 @@
                 // TODO: Move into gui/main-menu.gui.json
                 "test-data/main-menu.gui.json"
             );
+            if (mainMenuGui.IsNull())
+            {
+                throw new GameException(
+                    "TEST_DATA_NOT_FOUND",
+                    "Was not able to find 'test-data/main-menu.gui.json'"
+                );
+            }
             await _mediator.Send(
                 new RegisterGuiLayoutDataCommand(
                     mainMenuGui

@@ -31,10 +31,8 @@
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
 
-        [MaybeNull]
-        public EditorFile EditorFile { get; set; }
-        [MaybeNull]
-        public EditorNode EditorNode { get; set; }
+        public EditorFile? EditorFile { get; set; }
+        public EditorNode? EditorNode { get; set; }
 
         public string ErrorMessage { get; set; } = string.Empty;
 

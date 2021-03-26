@@ -30,7 +30,6 @@
     {
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly IRenderingScene _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
-        private readonly IServerEntityTrackingState _trackingService = GameServiceProvider.GetService<IServerEntityTrackingState>();
 
         private readonly IMapMeshDetails _mapDetails;
 

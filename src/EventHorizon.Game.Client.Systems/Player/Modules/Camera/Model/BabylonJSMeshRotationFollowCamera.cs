@@ -14,8 +14,6 @@
         private readonly static decimal DEFAULT_Y_ROTATION = (decimal)System.Math.PI / 4;
         private readonly static decimal DEFAULT_RADIUS = 15;
 
-        private readonly IPlayerEntity _entity;
-
         public BabylonJSMeshRotationFollowCamera(
             string name,
             IPlayerEntity entity
@@ -27,12 +25,11 @@
                 DEFAULT_RADIUS,
                 entity.GetModule<IMeshModule>(
                     IMeshModule.MODULE_NAME
-                )?.Mesh.To<BabylonJSEngineMesh>().Mesh,
+                )?.Mesh?.To<BabylonJSEngineMesh>()?.Mesh!,
                 GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene
             )
         )
         {
-            _entity = entity;
             _camera.speed = -1;
         }
     }

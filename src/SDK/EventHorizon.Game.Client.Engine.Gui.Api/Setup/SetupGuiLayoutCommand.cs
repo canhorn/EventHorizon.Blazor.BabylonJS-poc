@@ -11,13 +11,12 @@
     {
         public string GuiId { get; }
         public IGuiLayoutData Layout { get; }
-        [MaybeNull]
-        public string ParentControlId { get; }
+        public string? ParentControlId { get; }
 
         public SetupGuiLayoutCommand(
             string guiId,
             IGuiLayoutData layout,
-            [MaybeNull] string parentControlId
+            string? parentControlId
         )
         {
             GuiId = guiId;

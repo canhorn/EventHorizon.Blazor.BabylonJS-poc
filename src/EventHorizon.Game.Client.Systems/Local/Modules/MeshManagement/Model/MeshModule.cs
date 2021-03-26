@@ -134,7 +134,9 @@
                 var modelState = _entity.GetProperty<IModelState>(
                     IModelState.NAME
                 );
-                if (modelState.ScalingDeterminant.HasValue)
+                if (modelState.IsNotNull()
+                    && modelState.ScalingDeterminant.HasValue
+                )
                 {
                     Mesh.ScalingDeterminant = modelState.ScalingDeterminant.Value;
                 }

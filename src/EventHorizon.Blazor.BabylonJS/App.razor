@@ -24,7 +24,7 @@
 
 @code {
     [Inject]
-    public IJSRuntime JSRuntime { get; set; }
+    public IJSRuntime JSRuntime { get; set; } = null!;
     [Inject]
     public LoggingHostedService LoggingHostedService { get; set; } = null!;
 

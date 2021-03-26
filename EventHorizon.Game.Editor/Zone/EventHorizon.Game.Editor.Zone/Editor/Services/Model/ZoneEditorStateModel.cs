@@ -46,7 +46,7 @@
             return this;
         }
 
-        public EditorNode GetNode(
+        public EditorNode? GetNode(
             string id
         )
         {

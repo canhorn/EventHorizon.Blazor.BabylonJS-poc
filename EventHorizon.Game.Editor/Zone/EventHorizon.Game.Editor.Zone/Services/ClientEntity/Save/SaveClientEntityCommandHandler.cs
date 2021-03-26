@@ -27,16 +27,14 @@
             var result = await _zoneAdminServices.Api.ClientEntity.Save(
                 request.Entity
             );
-            if (result.Success.IsNotTrue())
+            if (result.Success.IsNotTrue()
+                || result.ClientEntity.IsNull())
             {
-                return new(
-                    result.ErrorCode
-                );
+                return result.ErrorCode
+                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
             }
 
-            return new(
-                result.ClientEntity
-            );
+            return result.ClientEntity;
         }
     }
 }

@@ -3,6 +3,6 @@
     public class EditorResponse
     {
         public bool Successful { get; set; }
-        public string ErrorCode { get; set; }
+        public string ErrorCode { get; set; } = string.Empty;
     }
 }

@@ -116,7 +116,7 @@
                 IModelState.NAME
             );
             if (!string.IsNullOrWhiteSpace(
-                modelState.Mesh.AssetId
+                modelState?.Mesh?.AssetId
             ))
             {
                 var clientAssetResult = await _mediator.Send(

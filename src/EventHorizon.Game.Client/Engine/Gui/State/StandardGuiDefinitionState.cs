@@ -22,7 +22,7 @@
                 return definition
                     .ToOption();
             }
-            return new Option<IGuiDefinition>();
+            return new();
         }
 
         public Option<IGuiDefinition> Remove(
@@ -40,7 +40,7 @@
                 return definition
                     .ToOption();
             }
-            return new Option<IGuiDefinition>();
+            return new();
         }
 
         public void Set(

@@ -7,5 +7,8 @@
         T Resolve<T>(
             string argumentName
         );
+        T? ResolveNullable<T>(
+            string argumentName
+        );
     }
 }

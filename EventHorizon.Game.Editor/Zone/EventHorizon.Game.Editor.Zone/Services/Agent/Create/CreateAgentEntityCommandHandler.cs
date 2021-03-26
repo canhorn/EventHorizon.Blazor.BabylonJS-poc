@@ -28,16 +28,14 @@
             var result = await _zoneAdminServices.Api.Agent.CreateEntity(
                 request.Entity
             );
-            if (result.Success.IsNotTrue())
+            if (result.Success.IsNotTrue()
+                || result.AgentEntity.IsNull())
             {
-                return new(
-                    result.ErrorCode
-                );
+                return result.ErrorCode
+                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
             }
 
-            return new(
-                result.AgentEntity
-            );
+            return result.AgentEntity;
         }
     }
 }

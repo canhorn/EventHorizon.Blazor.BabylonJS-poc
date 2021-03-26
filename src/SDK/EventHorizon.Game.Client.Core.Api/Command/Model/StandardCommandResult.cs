@@ -17,5 +17,11 @@
         public class EmptyResult
         {
         }
+
+        public static implicit operator StandardCommandResult(
+            string errorCode
+        ) => new(
+            errorCode
+        );
     }
 }

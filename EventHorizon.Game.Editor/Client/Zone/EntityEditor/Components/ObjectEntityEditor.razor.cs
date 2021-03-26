@@ -105,16 +105,16 @@
             switch (args.PropertyName)
             {
                 case nameof(EditEntity.Name):
-                    EditEntity.Name = args.Property.To<string>();
+                    EditEntity.Name = args.Property.To(() => string.Empty);
                     break;
                 case nameof(EditEntity.Transform.Position):
-                    EditEntity.Transform.Position = args.Property.To<ServerVector3>();
+                    EditEntity.Transform.Position = args.Property.To(() => ServerVector3.Zero());
                     break;
                 case nameof(EditEntity.Transform.Rotation):
-                    EditEntity.Transform.Rotation = args.Property.To<ServerVector3>();
+                    EditEntity.Transform.Rotation = args.Property.To(() => ServerVector3.Zero());
                     break;
                 case nameof(EditEntity.Transform.Scaling):
-                    EditEntity.Transform.Scaling = args.Property.To<ServerVector3>();
+                    EditEntity.Transform.Scaling = args.Property.To(() => ServerVector3.One());
                     break;
                 case nameof(EditEntity.Transform.ScalingDeterminant):
                     EditEntity.Transform.ScalingDeterminant = args.Property.To<decimal>();

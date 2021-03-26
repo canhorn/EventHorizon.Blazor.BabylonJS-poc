@@ -9,7 +9,7 @@
     {
         Task<CommandResult<EditorNodeList>> GetEditorZoneList();
 
-        Task<EditorFile> GetEditorFileContent(
+        Task<EditorFile?> GetEditorFileContent(
             IList<string> path,
             string fileName
         );

@@ -57,7 +57,7 @@
         }
 
         public GuiControlOptionsModel(
-            [MaybeNull] IDictionary<string, object> dictionary
+            IDictionary<string, object>? dictionary
         ) : base(dictionary ?? new Dictionary<string, object>())
         {
         }
@@ -86,7 +86,7 @@
                 out var value
             ))
             {
-                return value.To<T>();
+                return value.To<T>() ?? defaultValue();
             }
             return defaultValue();
         }
@@ -102,7 +102,7 @@
             ))
             {
                 callback(
-                    value.To<T>()
+                    value.To<T>()!
                 );
             }
         }

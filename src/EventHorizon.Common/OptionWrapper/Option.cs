@@ -6,7 +6,7 @@ public static class OptionExtensions
 {
     public static Option<T> ToOption<T>(
        this T value
-    ) => new Option<T>(value);
+    ) => new(value);
 }
 
 [Serializable]
@@ -18,10 +18,10 @@ public struct Option<T>
     private readonly bool _hasValue;
     private readonly T _value;
 
-    public Option([AllowNull] T value)
+    public Option(T? value)
     {
         _hasValue = value != null;
-        _value = value;
+        _value = value!;
     }
 
     public bool HasValue
@@ -41,7 +41,7 @@ public struct Option<T>
             {
                 throw new InvalidOperationException("Value is not present.");
             }
-            return _value;
+            return _value!;
         }
     }
 

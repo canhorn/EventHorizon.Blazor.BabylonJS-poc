@@ -13,7 +13,7 @@
 
         public static T ToObject<T>(
             this JsonElement element,
-            JsonSerializerOptions options = null
+            JsonSerializerOptions? options = null
         )
         {
             var bufferWriter = new ArrayBufferWriter<byte>();
@@ -31,7 +31,7 @@
 
         public static T ToObject<T>(
             this JsonDocument document,
-            JsonSerializerOptions options = null
+            JsonSerializerOptions? options = null
         )
         {
             if (document == null)

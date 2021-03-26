@@ -213,7 +213,7 @@
             return (buttonControl, textControl);
         }
 
-        IList<string> IGNORE_PROPERTY_LIST = new List<string>
+        readonly IList<string> IGNORE_PROPERTY_LIST = new List<string>
         {
             "animation",
             "textBlockOptions",
@@ -240,7 +240,7 @@
                 }
                 else if (option.Key == "textBlockOptions")
                 {
-                    var textBlockOptions = option.Value.To<GuiControlOptionsModel>();
+                    var textBlockOptions = option.Value.To(() => new GuiControlOptionsModel());
                     foreach (var textBlockOption in textBlockOptions)
                     {
                         SetPropertyOnControl(
@@ -308,7 +308,7 @@
             );
         }
 
-        private void SetPropertyOnControl(
+        private static void SetPropertyOnControl(
             Control control,
             string property,
             object value

@@ -18,7 +18,10 @@
 
         }
 
+        // TODO: This should be removed when covered over
+#pragma warning disable CA1822 // Mark members as static
         public Task Run(ScriptData Data)
+#pragma warning restore CA1822 // Mark members as static
         {
             /**
  * Description: This script will create a Tree Mesh.
@@ -64,23 +67,27 @@
                 var leafMaterial = new StandardMaterial(
                     $"leafMaterial-${id}",
                     scene
-                );
-                leafMaterial.diffuseColor = new Color3(
-                    0.5m,
-                    1,
-                    0.5m
-                );
+                )
+                {
+                    diffuseColor = new Color3(
+                        0.5m,
+                        1,
+                        0.5m
+                    )
+                };
 
                 // TODO: pull from $state or Asset store
                 var woodMaterial = new StandardMaterial(
                     $"woodMaterial-${id}",
                     scene
-                );
-                woodMaterial.diffuseColor = new Color3(
-                    0.4m,
-                    0.2m,
-                    0.0m
-                );
+                )
+                {
+                    diffuseColor = new Color3(
+                        0.4m,
+                        0.2m,
+                        0.0m
+                    )
+                };
                 //woodMaterial.specularColor = new BABYLON.Color3(0.4, 0.2, 0.0);
                 //woodMaterial.emissiveColor = new BABYLON.Color3(0.4, 0.2, 0.0);
                 //woodMaterial.ambientColor = new BABYLON.Color3(0.4, 0.2, 0.0);
@@ -112,7 +119,7 @@
             }
             return Task.CompletedTask;
         }
-        public Mesh CreateQuickTreeGenerator(
+        public static Mesh CreateQuickTreeGenerator(
             string id,
             Scene scene,
             int sizeBranch,
@@ -122,8 +129,6 @@
             StandardMaterial woodMaterial
         )
         {
-
-
             var leaves = new Mesh($"leaves-${id}", scene);
 
             var vertexData = VertexData.CreateSphere(
@@ -228,8 +233,9 @@
             return tree;
         }
 
-        private readonly static Random random = new System.Random();
-        public decimal RandomNumber(double min, double max)
+        private readonly static Random random = new();
+
+        public static decimal RandomNumber(double min, double max)
         {
             if (min == max)
             {

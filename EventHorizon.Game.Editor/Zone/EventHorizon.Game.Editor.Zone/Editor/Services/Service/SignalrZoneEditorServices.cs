@@ -26,7 +26,7 @@
 
         private string _currentZoneId = string.Empty;
         private bool _initialized;
-        private HubConnection _connection;
+        private HubConnection? _connection;
 
         public SignalrZoneEditorServices(
             ILoggerFactory loggerFactory,

@@ -26,13 +26,10 @@
         : StandardServerEntity,
         IPlayerEntity
     {
-        private readonly IPlayerZoneDetails _player;
-
         public BabylonJSPlayerEntity(
             IPlayerZoneDetails player
         ) : base(player)
         {
-            _player = player;
             Transform.Scaling.Set(1, 1, 1);
         }
 

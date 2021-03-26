@@ -6,6 +6,7 @@
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Editor.Zone.Services.Api;
     using MediatR;
+    using Newtonsoft.Json.Serialization;
 
     public class CreateClientEntityCommandHandler
         : IRequestHandler<CreateClientEntityCommand, CommandResult<IObjectEntityDetails>>
@@ -27,16 +28,15 @@
             var result = await _zoneAdminServices.Api.ClientEntity.Create(
                 request.Entity
             );
-            if (result.Success.IsNotTrue())
+            if (result.Success.IsNotTrue()
+                || result.ClientEntity.IsNull()
+            )
             {
-                return new(
-                    result.ErrorCode
-                );
+                return result.ErrorCode
+                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
             }
 
-            return new(
-                result.ClientEntity
-            );
+            return result.ClientEntity;
         }
     }
 }

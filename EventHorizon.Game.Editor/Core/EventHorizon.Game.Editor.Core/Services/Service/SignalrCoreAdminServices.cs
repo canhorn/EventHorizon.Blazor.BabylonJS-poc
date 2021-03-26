@@ -27,7 +27,7 @@
 
         private bool _initializing = false;
         private bool _initialized = false;
-        private HubConnection _connection;
+        private HubConnection? _connection;
 
         public SignalrCoreAdminServices(
             ILogger<SignalrCoreAdminServices> logger,
@@ -132,7 +132,7 @@
                 ex,
                 message
             );
-            if (_connection != null)
+            if (_connection.IsNotNull())
             {
                 await _connection.DisposeAsync();
                 _connection = null;
@@ -143,7 +143,7 @@
 
         public void Dispose()
         {
-            if (_connection != null)
+            if (_connection.IsNotNull())
             {
                 _ = _connection.DisposeAsync();
             }
@@ -154,7 +154,9 @@
         public async Task<IList<CoreZoneDetails>> GetAllZones()
         {
             if (!_initialized 
-                || _initializing)
+                || _initializing
+                || _connection.IsNull()
+            )
             {
                 return EMPTY_LIST;
             }

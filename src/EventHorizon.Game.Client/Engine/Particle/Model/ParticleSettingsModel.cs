@@ -39,7 +39,8 @@
         public string Name => TryGetValue(
             "name",
             out var value
-        ) ? value.To<string>() : string.Empty;
+        ) ? value.To(() => string.Empty) : string.Empty;
+
         public decimal Capacity => TryGetValue(
             "capacity",
             out var value

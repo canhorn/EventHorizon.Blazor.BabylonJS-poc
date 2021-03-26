@@ -17,8 +17,6 @@
 
     public class ServerGame : GameBase
     {
-        public WorldCamera _startupCamera;
-
         public override async Task Dispose()
         {
             // Start Connection to Core Server

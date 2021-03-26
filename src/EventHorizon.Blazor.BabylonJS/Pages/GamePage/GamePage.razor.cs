@@ -10,6 +10,7 @@
     using EventHorizon.Blazor.BabylonJS.Authentication.Set;
     using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes;
     using EventHorizon.Game.Client;
+    using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Core.I18n.Model;
     using EventHorizon.Game.Client.Core.I18n.Set;
@@ -38,17 +39,17 @@
         IAsyncDisposable
     {
         [Inject]
-        public IStartup Startup { get; set; }
+        public IStartup Startup { get; set; } = null!;
         [Inject]
-        public IMediator Mediator { get; set; }
+        public IMediator Mediator { get; set; } = null!;
         [Inject]
-        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
         [Inject]
-        public IConfiguration Configuration { get; set; }
+        public IConfiguration Configuration { get; set; } = null!;
         [Inject]
-        IAccessTokenProvider TokenProvider { get; set; }
+        IAccessTokenProvider TokenProvider { get; set; } = null!;
         [Inject]
-        ResizeListener ResizeListener { get; set; }
+        ResizeListener ResizeListener { get; set; } = null!;
         [Inject]
         public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
 
@@ -106,7 +107,17 @@
             //var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
             var accessTokenResult = await TokenProvider.RequestAccessToken();
             var accessToken = string.Empty;
-            var playerId = state.User.Claims.FirstOrDefault(a => a.Type == "sub").Value;
+            var playerId = state.User?.Claims?.FirstOrDefault(a => a.Type == "sub")?.Value;
+
+            if (string.IsNullOrWhiteSpace(
+                playerId
+            ))
+            {
+                throw new GameRuntimeException(
+                    "INVALID_PLAYER_ID",
+                    "PlayerId is not valid to start the game."
+                );
+            }
 
             if (accessTokenResult.TryGetToken(out var token))
             {
@@ -199,9 +210,9 @@
         }
 
         [Inject]
-        public HttpClient HttpClient { get; set; }
+        public HttpClient HttpClient { get; set; } = null!;
         [Inject]
-        public ILogger<GamePage> Logger { get; set; }
+        public ILogger<GamePage> Logger { get; set; } = null!;
 
         private async Task LoadInTestingData()
         {
@@ -219,7 +230,7 @@
             {
                 resourceBundle = await HttpClient.GetFromJsonAsync<I18nBundleModel>(
                     $"i18n/default.{locale}.json"
-                );
+                ) ?? new I18nBundleModel();
             }
             catch (HttpRequestException ex)
             {
@@ -261,7 +272,7 @@
                 var bundle = await HttpClient.GetFromJsonAsync<I18nBundleModel>(
                     $"i18n/default.json"
                 );
-                return bundle;
+                return bundle ?? new I18nBundleModel();
             }
             catch (Exception ex)
             {
@@ -304,7 +315,7 @@
                 var bundle = await HttpClient.GetFromJsonAsync<ParticleTemplateModel>(
                     $"game-data/test-particles/{templateFileName}"
                 );
-                return bundle;
+                return bundle ?? new ParticleTemplateModel();
             }
             catch (Exception ex)
             {
@@ -316,7 +327,7 @@
             }
         }
 
-        private void WindowResized(object _, BrowserWindowSize __)
+        private void WindowResized(object? _, BrowserWindowSize __)
         {
             Mediator.Publish(
                 new SystemWindowResizedEvent()

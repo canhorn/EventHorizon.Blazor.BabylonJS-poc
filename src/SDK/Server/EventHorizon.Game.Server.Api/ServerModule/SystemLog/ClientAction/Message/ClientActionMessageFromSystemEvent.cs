@@ -11,16 +11,16 @@
         : IClientAction
     {
         public string Message { get; }
-        public IGuiControlOptions SenderControlOptions { get; }
-        public IGuiControlOptions MessageControlOptions { get; }
+        public IGuiControlOptions? SenderControlOptions { get; }
+        public IGuiControlOptions? MessageControlOptions { get; }
 
         public ClientActionMessageFromSystemEvent(
-            IClientActionDataResolver _
+            IClientActionDataResolver resolver
         )
         {
-            Message = _.Resolve<string>("message");
-            SenderControlOptions = _.Resolve<GuiControlOptionsModel>("senderControlOptions");
-            MessageControlOptions = _.Resolve<GuiControlOptionsModel>("messageControlOptions");
+            Message = resolver.Resolve<string>("message");
+            SenderControlOptions = resolver.ResolveNullable<GuiControlOptionsModel>("senderControlOptions");
+            MessageControlOptions = resolver.ResolveNullable<GuiControlOptionsModel>("messageControlOptions");
         }
 
         public ClientActionMessageFromSystemEvent(

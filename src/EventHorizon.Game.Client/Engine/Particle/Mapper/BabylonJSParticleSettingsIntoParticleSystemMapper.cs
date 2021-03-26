@@ -60,9 +60,9 @@
                     if (setting.Key == "particleTexture")
                     {
                         particleSystem.Value.particleTexture = new Texture(
-                            null,
+                            null!,
                             AssetServer.CreateAssetLocationUrl(
-                                setting.Value.To<string>()
+                                setting.Value.To(() => string.Empty)
                             )
                         );
                         continue;
@@ -79,7 +79,7 @@
                         setting.Key
                     ))
                     {
-                        var vector3 = setting.Value.To<Vector3Model>();
+                        var vector3 = setting.Value.To<Vector3Model>(() => new());
                         SetPropertyOnParticleSystem(
                             particleSystem.Value.___guid,
                             setting.Key,
@@ -96,7 +96,7 @@
                         setting.Key
                     ))
                     {
-                        var color4 = setting.Value.To<Color4Model>();
+                        var color4 = setting.Value.To(() => new Color4Model());
                         SetPropertyOnParticleSystem(
                             particleSystem.Value.___guid,
                             setting.Key,

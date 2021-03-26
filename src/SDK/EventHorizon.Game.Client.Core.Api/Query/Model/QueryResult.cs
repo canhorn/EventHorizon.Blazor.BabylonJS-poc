@@ -19,9 +19,7 @@
         {
             Success = false;
             ErrorCode = errorCode;
-#pragma warning disable CS8601 // Possible null reference assignment.
-            Result = default;
-#pragma warning restore CS8601 // Possible null reference assignment.
+            Result = default!;
         }
     }
 }

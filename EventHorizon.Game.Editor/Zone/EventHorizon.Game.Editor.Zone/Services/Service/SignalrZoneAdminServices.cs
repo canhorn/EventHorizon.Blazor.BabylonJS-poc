@@ -26,7 +26,7 @@
 
         private string _currentZoneId = string.Empty;
         private bool _initialized;
-        private HubConnection _connection;
+        private HubConnection? _connection;
 
         public SignalrZoneAdminServices(
             ILogger<SignalrZoneAdminServices> logger,
@@ -182,7 +182,7 @@
 
         private void SetupEvents()
         {
-            _connection.On<AdminCommandResponse>(
+            _connection?.On<AdminCommandResponse>(
                 "AdminCommandResponse",
                 response => _mediator.Publish(
                     new AdminCommandResponseEvent(
@@ -204,7 +204,7 @@
         }
 
         private async Task LogAndDispose(
-            Exception ex,
+            Exception? ex,
             string message,
             string disposeReason
         )

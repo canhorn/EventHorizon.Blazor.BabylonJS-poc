@@ -14,11 +14,11 @@
         : ZoneEditorApi
     {
         private readonly ILogger _logger;
-        private readonly HubConnection _hubConnection;
+        private readonly HubConnection? _hubConnection;
 
         internal SignalrZoneEditorApi(
             ILogger<SignalrZoneEditorApi> logger,
-            HubConnection hubConnection
+            HubConnection? hubConnection
         )
         {
             _logger = logger;
@@ -54,11 +54,11 @@
             }
         }
 
-        public Task<EditorFile> GetEditorFileContent(
+        public Task<EditorFile?> GetEditorFileContent(
             IList<string> path,
             string fileName
         ) => LogOnError(
-            () => _hubConnection.InvokeAsync<EditorFile>(
+            () => _hubConnection.InvokeAsync<EditorFile?>(
                 "GetEditorFileContent",
                 path,
                 fileName

@@ -39,7 +39,7 @@
     protected override object Parse(object value)
     {
         return decimal.Parse(
-            value.To<string>()
+            value.To<string>() ?? "0"
         );
     }
 }

@@ -29,9 +29,9 @@
 
 @code {
     [Inject]
-    public IAccessTokenProvider TokenProvider { get; set; }
+    public IAccessTokenProvider TokenProvider { get; set; } = null!;
     [Inject]
-    public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+    public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
 
     public string AccessToken { get; set; } = string.Empty;
 

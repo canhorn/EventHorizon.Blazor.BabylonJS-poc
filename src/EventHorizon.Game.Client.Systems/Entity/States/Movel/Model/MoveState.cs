@@ -59,6 +59,9 @@
 
             _movementState = _entity.GetProperty<IMovementState>(
                 IMovementState.NAME
+            ) ?? throw new GameException(
+                "move_state_requires_movement_state_property",
+                $"{nameof(MoveState)} Requires {nameof(IMovementState)} Property to Function."
             );
             _moveModule = _entity.GetModule<IMoveModule>(
                 IMoveModule.MODULE_NAME

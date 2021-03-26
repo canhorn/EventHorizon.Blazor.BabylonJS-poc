@@ -11,12 +11,13 @@
     {
         public string Name { get; set; }
     }
+    
     public class PointLightEntity
         : LifecycleEntityBase
     {
         private readonly LightSettings _settings;
         private readonly IRenderingScene _renderingScene;
-        private PointLight _light;
+        private PointLight? _light;
 
         public PointLightEntity(
             LightSettings settings
@@ -50,7 +51,7 @@
 
         public override Task Dispose()
         {
-            _light.dispose();
+            _light?.dispose();
             return base.Dispose();
         }
 

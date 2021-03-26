@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
 {
-    using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Zone.Services.Api;
@@ -9,10 +8,10 @@
     public class SignalrZoneAdminCommandApi
         : ZoneAdminCommandApi
     {
-        private readonly HubConnection _hubConnection;
+        private readonly HubConnection? _hubConnection;
 
         internal SignalrZoneAdminCommandApi(
-            HubConnection hubConnection
+            HubConnection? hubConnection
         )
         {
             _hubConnection = hubConnection;
@@ -23,7 +22,7 @@
             object data
         )
         {
-            if (_hubConnection == null)
+            if (_hubConnection.IsNull())
             {
                 return new(
                     ZoneAdminErrorCodes.NOT_CONNECTED

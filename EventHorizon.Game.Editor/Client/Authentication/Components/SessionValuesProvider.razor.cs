@@ -22,7 +22,7 @@
             var result = await Mediator.Send(
                 new FillSessionValuesCommand()
             );
-            if (result.Success)
+            if (result)
             {
                 SessionValues = result.Result;
             }
@@ -37,7 +37,7 @@
             var result = await Mediator.Send(
                 new QueryForSessionValues()
             );
-            if (result.Success)
+            if (result)
             {
                 SessionValues = result.Result;
             }

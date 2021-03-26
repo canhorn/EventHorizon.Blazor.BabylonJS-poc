@@ -29,7 +29,7 @@
 
         private readonly IGuiLayoutData _layout;
         private readonly IEnumerable<IGuiControlData> _controlDataList;
-        private string? _parentControlId;
+        private readonly string? _parentControlId;
         private bool _initialized = false;
         private bool _runActivate = false;
         private IList<IGuiLayoutControlData> _flattenedControlList = new List<IGuiLayoutControlData>();
@@ -366,7 +366,7 @@
             return options;
         }
 
-        private IGuiControlOptions SanitizeControlOptions(
+        private static IGuiControlOptions SanitizeControlOptions(
             GuiControlOptionsModel controlOptions
         )
         {
@@ -380,14 +380,18 @@
                     out var controlOption
                 ))
                 {
-                    controlOptions[modelOption] = controlOption.To<GuiControlOptionsModel>();
+                    var optionValue = controlOption.To<GuiControlOptionsModel>();
+                    if (optionValue.IsNotNull())
+                    {
+                        controlOptions[modelOption] = optionValue;
+                    }
                 }
             }
 
             return controlOptions;
         }
 
-        private GuiControlOptionsModel.GuiControlMetadataOptionModel GetMetadata(
+        private static GuiControlOptionsModel.GuiControlMetadataOptionModel GetMetadata(
             IGuiControlOptions controlOptions
         )
         {
@@ -396,7 +400,7 @@
                 out var metadataObject
             ))
             {
-                return metadataObject.To<GuiControlOptionsModel.GuiControlMetadataOptionModel>();
+                return metadataObject.To(() => new GuiControlOptionsModel.GuiControlMetadataOptionModel());
             }
 
             return new GuiControlOptionsModel.GuiControlMetadataOptionModel();

@@ -9,8 +9,7 @@
         : INotification
     {
         public string Action { get; }
-        [MaybeNull]
-        public IPlayerActionData Data { get; }
+        public IPlayerActionData? Data { get; }
 
         public InvokePlayerActionEvent(
             string action
@@ -20,7 +19,7 @@
 
         public InvokePlayerActionEvent(
             string action,
-            IPlayerActionData data
+            IPlayerActionData? data
         )
         {
             Action = action;

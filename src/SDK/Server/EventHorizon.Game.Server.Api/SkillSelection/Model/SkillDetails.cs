@@ -5,7 +5,7 @@
 
     public class SkillDetails
     {
-        public string SkillName { get; set; }
-        public Func<Task> OnClick { get; set; }
+        public string SkillName { get; set; } = string.Empty;
+        public Func<Task> OnClick { get; set; } = () => Task.CompletedTask;
     }
 }

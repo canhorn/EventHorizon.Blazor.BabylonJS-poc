@@ -57,7 +57,7 @@
                 var heightOffset = config.HeightOffset;
                 var scene = _renderingScene.GetBabylonJSScene().Scene;
                 SceneLoader.ImportMesh(
-                    null,
+                    string.Empty, //
                     filePath,
                     fileName,
                     scene,

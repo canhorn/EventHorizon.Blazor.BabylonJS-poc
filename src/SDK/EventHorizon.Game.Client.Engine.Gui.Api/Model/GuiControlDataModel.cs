@@ -9,11 +9,8 @@
     {
         public string ControlId { get; set; } = string.Empty;
         public bool? IsVisible { get; set; }
-        [MaybeNull]
-        public GuiControlOptionsModel Options { get; set; }
-        [MaybeNull]
-        IGuiControlOptions IGuiControlData.Options => Options;
-        [MaybeNull]
-        public object LinkWith { get; set; }
+        public GuiControlOptionsModel? Options { get; set; }
+        IGuiControlOptions? IGuiControlData.Options => Options;
+        public object? LinkWith { get; set; }
     }
 }

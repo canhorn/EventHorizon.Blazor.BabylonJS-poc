@@ -9,6 +9,7 @@
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Core.Mapper.Api;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
+    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Execptions;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
@@ -65,8 +66,7 @@
             _data = data;
         }
 
-        [return: MaybeNull]
-        public T Resolve<T>(
+        public T? ResolveNullable<T>(
             string argumentName
         )
         {
@@ -91,5 +91,14 @@
 
             return default;
         }
+
+        public T Resolve<T>(
+            string argumentName
+        ) => ResolveNullable<T>(
+            argumentName
+        ) ?? throw new InvalidClientActionArgument(
+            argumentName,
+            $"Could not resolve '{argumentName}'"
+        );
     }
 }

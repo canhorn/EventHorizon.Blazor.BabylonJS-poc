@@ -6,7 +6,7 @@
     {
         ZoneEditorMetadata Metadata { get; }
         EditorNodeList EditorNodeList { get; }
-        EditorNode GetNode(
+        EditorNode? GetNode(
             string id
         );
     }

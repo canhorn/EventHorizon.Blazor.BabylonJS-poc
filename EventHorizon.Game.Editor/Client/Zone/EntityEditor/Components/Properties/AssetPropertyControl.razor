@@ -41,9 +41,9 @@
 
     protected override object Parse(object value)
     {
-        AssetId = value.To<string>();
+        AssetId = value.To<string>() ?? string.Empty;
         this.SetSelectedAssetOption();
-        return value.To<string>();
+        return value.To<string>() ?? string.Empty;
     }
 
     protected override void OnInitialized()
@@ -63,7 +63,7 @@
             ).OrderBy(
                 a => a.Text
             ).InsertItem(
-                0, 
+                0,
                 new StandardSelectOption
                 {
                     Value = "none",

@@ -12,7 +12,7 @@
         /// <summary>
         /// Use the <see cref="ZoneEditorPropertyType"/> for a list of property types.
         /// </summary>
-        public IDictionary<string, string> ZoneEditorPropertyTypeMap { get; set; }
+        public IDictionary<string, string> ZoneEditorPropertyTypeMap { get; set; } = new Dictionary<string, string>();
 
         public string GetPropertyType(
             string name,
@@ -101,7 +101,7 @@
 
         public static ServerVector3 ParseVector3(object property)
         {
-            var vector = property.To<ServerVector3>();
+            var vector = property.To(() => ServerVector3.Zero());
             // TODO: Test This
 
             return vector;

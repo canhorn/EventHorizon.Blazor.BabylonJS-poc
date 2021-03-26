@@ -21,9 +21,9 @@
                 name
             ))
             {
-                return default;
+                return default!;
             }
-            return _data[name].To<T>();
+            return _data[name].To<T>()!;
         }
 
         public void Set(

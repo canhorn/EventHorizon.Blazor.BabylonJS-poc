@@ -157,8 +157,8 @@
         public IGuiControl Build(
             string id,
             IGuiControlTemplate template,
-            [MaybeNull] IGuiControlOptions options,
-            [MaybeNull] IGuiGridLocation gridLocation
+            IGuiControlOptions? options,
+            IGuiGridLocation? gridLocation
         )
         {
             if (string.IsNullOrEmpty(
