@@ -3,13 +3,13 @@
 @using EventHorizon.Game.Editor.Client.Wizard.Components.Provider
 
 <ClickCaptureProvider>
-<EditorAuthenticationProvider>
-<ZoneSelectionProvider>
-<WizardStateProvider>
-    @ChildContent
-</WizardStateProvider>
-</ZoneSelectionProvider>
-</EditorAuthenticationProvider>
+    <EditorAuthenticationProvider>
+        <ZoneSelectionProvider>
+            <WizardStateProvider>
+                @ChildContent
+            </WizardStateProvider>
+        </ZoneSelectionProvider>
+    </EditorAuthenticationProvider>
 </ClickCaptureProvider>
 
 @code {
