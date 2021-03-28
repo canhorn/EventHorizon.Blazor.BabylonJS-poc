@@ -1,4 +1,6 @@
-﻿<div class="top-row navbar navbar-dark">
+﻿@using EventHorizon.Game.Editor.Client.Wizard.Components 
+
+<div class="top-row navbar navbar-dark">
     <button class="menu-toggler --no-border" @onclick="ToggleNavMenu">
         @if (collapseNavMenu)
         {
@@ -16,6 +18,7 @@
     @if (PlatformUser.IsAuthenticated)
     {
         <QuickLinks />
+        <WizardSelection />
         <EditorBladeSelection />
     }
 </div>

@@ -16,13 +16,4 @@
         <ProjectReference Include="..\Shared\_generated\Blazor.BabylonJS.WASM\Blazor.BabylonJS.WASM.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Combat\Skill\Api\" />
-      <Folder Include="Combat\Skill\Model\" />
-      <Folder Include="Connection\Zone\Player\Connected\" />
-      <Folder Include="Connection\Zone\Player\Action\" />
-      <Folder Include="Local\ScreenPointer\Api\" />
-      <Folder Include="Map\Create\" />
-    </ItemGroup>
-
 </Project>

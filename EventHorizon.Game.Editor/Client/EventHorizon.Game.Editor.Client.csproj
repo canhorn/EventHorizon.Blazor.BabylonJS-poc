@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-        <Nullable>enable</Nullable>
         <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     </PropertyGroup>
 
@@ -29,6 +28,7 @@
         <ProjectReference Include="..\Core\EventHorizon.Game.Editor.Core\EventHorizon.Game.Editor.Core.csproj" />
         <ProjectReference Include="..\Shared\EventHorizon.Game.Editor.Shared.csproj" />
         <ProjectReference Include="..\Zone\EventHorizon.Game.Editor.Zone\EventHorizon.Game.Editor.Zone.csproj" />
+        <ProjectReference Include="..\Zone\Systems\EventHorizon.Zone.Systems.Wizard\EventHorizon.Zone.Systems.Wizard.csproj" />
     </ItemGroup>
 
     <ItemGroup>

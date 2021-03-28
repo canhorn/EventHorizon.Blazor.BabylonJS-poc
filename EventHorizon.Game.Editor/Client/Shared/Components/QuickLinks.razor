@@ -1,8 +1,16 @@
-﻿@using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
+﻿@using EventHorizon.Game.Editor.Client.Authentication.Api
+@using EventHorizon.Game.Editor.Client.Authentication.Set
+@using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
 
-<TreeView Root="@QuickLinkData" />
+<TreeView Root="@QuickLinkData" OnChanged="HandleTreeViewChanged" />
 
 @code {
+    [CascadingParameter]
+    public SessionValues SessionValues { get; set; } = null!;
+
+    [Inject]
+    public MediatR.IMediator Mediator { get; set; } = null!;
+
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;
 
@@ -10,19 +18,15 @@
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         QuickLinkData = new TreeViewNodeData
         {
             Name = "pages",
             Text = Localizer["Quick Links"],
+            IsExpanded = (SessionValues.Get("quickLinks_IsExpanded", string.Empty) == "true"),
             Children = new List<TreeViewNodeData>
-            {
-                @*new TreeViewNodeData
-                {
-                    Name = "sandbox",
-                    Text = Localizer["Sandbox"],
-                    Href = "/sandbox",
-                    IconCssClass = "--icon oi oi-list-rich"
-                },*@
+{
                 new TreeViewNodeData
                 {
                     Name = "zone-entity",
@@ -44,7 +48,31 @@
                     Href = "/zone/commands",
                     IconCssClass = "--icon oi oi-list-rich"
                 },
+                new TreeViewNodeData
+                {
+                    Name = "wizard-editor",
+                    Text = Localizer["Wizard"],
+                    Href = "/wizard-editor",
+                    IconCssClass = "--icon oi oi-list-rich"
+                },
             }
         };
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        QuickLinkData.IsExpanded = (SessionValues.Get("quickLinks_IsExpanded", string.Empty) == "true");
+    }
+
+    private Task HandleTreeViewChanged()
+    {
+        return Mediator.Send(
+            new SetSessionValueCommand(
+                "quickLinks_IsExpanded",
+                QuickLinkData.IsExpanded ? "true" : string.Empty
+            )
+        );
     }
 }

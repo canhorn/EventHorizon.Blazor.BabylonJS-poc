@@ -17,6 +17,7 @@
       <ProjectReference Include="..\..\Api\EventHorizon.Game.Editor.Api\EventHorizon.Game.Editor.Api.csproj" />
       <ProjectReference Include="..\..\Core\EventHorizon.Game.Editor.Core.Api\EventHorizon.Game.Editor.Core.Api.csproj" />
       <ProjectReference Include="..\EventHorizon.Game.Editor.Zone.Api\EventHorizon.Game.Editor.Zone.Api.csproj" />
+      <ProjectReference Include="..\Systems\EventHorizon.Zone.Systems.Wizard\EventHorizon.Zone.Systems.Wizard.csproj" />
     </ItemGroup>
 
 </Project>

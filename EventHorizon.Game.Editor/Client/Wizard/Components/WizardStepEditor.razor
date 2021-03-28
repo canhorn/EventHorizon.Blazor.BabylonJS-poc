@@ -1,0 +1,75 @@
+﻿
+<div>
+    <StandardToolbar>
+        <StandardToolbarButton @onclick="HandlePreviousClicked" disabled="@(!Step.HasPrevious)">
+            @Localizer["Previous"]
+        </StandardToolbarButton>
+        <StandardToolbarButton @onclick="HandleNextClicked" disabled="@(!Step.HasNext)">
+            @Localizer["Next"]
+        </StandardToolbarButton>
+        <StandardToolbarButton @onclick="HandleCancelClicked">
+            @Localizer["Cancel"]
+        </StandardToolbarButton>
+    </StandardToolbar>
+    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+    {
+        <div class="error-message">
+            @ErrorMessage
+        </div>
+    }
+    <div>
+        <DumpToJson Data="Step" />
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public WizardState State { get; set; } = null!;
+
+    [Parameter]
+    public WizardStep Step { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+
+    public string ErrorMessage { get; set; } = string.Empty;
+
+    public async Task HandlePreviousClicked()
+    {
+        ErrorMessage = string.Empty;
+        var result = await State.Previous();
+        if (!result)
+        {
+            ErrorMessage = Localizer[
+                "Failed to Go Back: {0}",
+                result.ErrorCode
+            ];
+        }
+    }
+
+    public async Task HandleNextClicked()
+    {
+        ErrorMessage = string.Empty;
+        var result = await State.Next();
+        if (!result)
+        {
+            ErrorMessage = Localizer[
+                "Failed to Proceed: {0}",
+                result.ErrorCode
+            ];
+        }
+    }
+
+    public async Task HandleCancelClicked()
+    {
+        ErrorMessage = string.Empty;
+        var result = await State.Cancel();
+        if (!result)
+        {
+            ErrorMessage = Localizer[
+                "Failed to Proceed: {0}",
+                result.ErrorCode
+            ];
+        }
+    }
+} 

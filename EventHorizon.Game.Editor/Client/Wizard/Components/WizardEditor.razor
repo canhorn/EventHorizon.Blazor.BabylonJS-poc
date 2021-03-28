@@ -1,0 +1,73 @@
+﻿
+@if (State.CurrentStep)
+{
+    <WizardStepEditor Step="State.CurrentStep.Result" />
+}
+else
+{
+    <EditForm Model="this">
+        <InputText @bind-Value="WizardFilter" />
+        @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+        {
+            <div class="error-message">
+                @ErrorMessage
+            </div>
+        }
+        <table class="wizard-list-table --full">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var wizard in State.WizardList.Where(a => WizardFilter == string.Empty || a.Name.Contains(WizardFilter)))
+                {
+                    <tr class="wizard-container">
+                        <td>
+                            @wizard.Name
+                        </td>
+                        <td>
+                            @wizard.Description
+                        </td>
+                        <td>
+                            <button @onclick="() => HandleWizardSelected(wizard)">
+                                @Localizer["Select"]
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </EditForm>
+}
+
+@code {
+    [CascadingParameter]
+    public WizardState State { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+
+    public string ErrorMessage { get; set; } = string.Empty;
+    public string WizardFilter { get; set; } = string.Empty;
+
+    public async Task HandleWizardSelected(
+        WizardMetadata wizard
+    )
+    {
+        ErrorMessage = string.Empty;
+        var result = await State.Start(
+            wizard
+        );
+        if (result.Success.IsNotTrue())
+        {
+            ErrorMessage = Localizer[
+                "Failed to start Wizard: {0}",
+                wizard.Id
+            ];
+            return;
+        }
+    }
+}

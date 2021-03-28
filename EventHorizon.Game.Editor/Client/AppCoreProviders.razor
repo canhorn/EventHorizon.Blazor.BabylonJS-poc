@@ -1,0 +1,18 @@
+﻿@using EventHorizon.Game.Editor.Client.Authentication.Components
+@using EventHorizon.Game.Editor.Client.Shared.ClickCapture
+@using EventHorizon.Game.Editor.Client.Wizard.Components.Provider
+
+<ClickCaptureProvider>
+<EditorAuthenticationProvider>
+<ZoneSelectionProvider>
+<WizardStateProvider>
+    @ChildContent
+</WizardStateProvider>
+</ZoneSelectionProvider>
+</EditorAuthenticationProvider>
+</ClickCaptureProvider>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+}

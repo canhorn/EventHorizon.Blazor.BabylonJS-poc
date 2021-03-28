@@ -1,0 +1,30 @@
+﻿<button @onclick="HandleOpenWizardSelection">
+    @Localizer["Create from Wizard"]
+</button>
+
+<StandardModal IsOpen="IsOpen" OnClose="HandleCloseModal">
+    <Header>@Localizer["Wizard Editor"]</Header>
+    <Body>
+        <WizardEditor />
+    </Body>
+</StandardModal>
+
+@code {
+    [CascadingParameter]
+    public WizardState State { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+
+    public bool IsOpen { get; set; }
+
+    public void HandleOpenWizardSelection()
+    {
+        IsOpen = true;
+    }
+
+    public void HandleCloseModal()
+    {
+        IsOpen = false;
+    }
+}

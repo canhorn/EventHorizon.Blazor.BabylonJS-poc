@@ -8,14 +8,15 @@
     public sealed class SignalrZoneAdminApi
         : ZoneAdminApi
     {
-        private readonly HubConnection _hubConnection;
+        private readonly HubConnection? _hubConnection;
 
         public ZoneAdminAgentApi Agent { get; }
         public ZoneAdminClientEntityApi ClientEntity { get; }
         public ZoneAdminCommandApi Command { get; }
+        public ZoneAdminWizardApi Wizard { get; }
 
         internal SignalrZoneAdminApi(
-            HubConnection hubConnection
+            HubConnection? hubConnection
         )
         {
             _hubConnection = hubConnection;
@@ -29,17 +30,20 @@
             Command = new SignalrZoneAdminCommandApi(
                 hubConnection
             );
+            Wizard = new SignalrZoneAdminWizardApi(
+                hubConnection
+            );
         }
 
-        public Task<ZoneInfo> GetZoneInfo()
+        public Task<ZoneInfo?> GetZoneInfo()
         {
-            if (_hubConnection == null)
+            if (_hubConnection.IsNull())
             {
-                return Task.FromResult<ZoneInfo>(
+                return Task.FromResult<ZoneInfo?>(
                     null
                 );
             }
-            return _hubConnection.InvokeAsync<ZoneInfo>(
+            return _hubConnection.InvokeAsync<ZoneInfo?>(
                 "ZoneInfo"
             );
         }

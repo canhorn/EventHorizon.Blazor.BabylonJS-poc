@@ -90,6 +90,10 @@ namespace EventHorizon.Game.Editor.Client
             builder.Services
                 .AddEditorCoreServices();
 
+            // Editor Services
+            builder.Services
+                .AddEditorWizard();
+
             // Zone Services
             builder.Services
                 .AddSingleton<ZoneStateCache, InMemoryZoneStateCache>()
