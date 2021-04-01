@@ -1,0 +1,61 @@
+﻿@using EventHorizon.Zone.Systems.Wizard.Run
+
+@if (Step.IsProcessing)
+{
+    <div>
+        <Loading Text="Processing..." />
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <div class="error-message">
+        @ErrorMessage
+    </div>
+}
+
+@code {
+    [CascadingParameter]
+    public WizardState State { get; set; } = null!;
+
+    [Parameter]
+    public WizardStep Step { get; set; } = null!;
+    [Parameter]
+    public WizardData Data { get; set; } = null!;
+    [Parameter]
+    public EventCallback<WizardData> OnWizardDataChanged { get; set; }
+
+    [Inject]
+    public MediatR.IMediator Mediator { get; set; } = null!;
+
+    public string ErrorMessage { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await State.IsProcessing(
+            true
+        );
+
+        var result = await Mediator.Send(
+            new RunWizardScriptProcessorCommand(
+                State.CurrentWizardId,
+                Step.Id,
+                Step.Details["ProcessorScriptId"],
+                Data
+            )
+        );
+
+        if (!result)
+        {
+            ErrorMessage = "Error Code: " + result.ErrorCode;
+            await State.SetToInvalid(
+                result.ErrorCode
+            );
+        }
+
+        await State.IsProcessing(
+            false
+        );
+    }
+}

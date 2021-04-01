@@ -12,5 +12,15 @@
 
         public bool HasNext => !string.IsNullOrWhiteSpace(NextStep);
         public bool HasPrevious => !string.IsNullOrWhiteSpace(PreviousStep);
+
+        public bool IsInvalid { get; set; }
+        public string ErrorCode { get; set; } = string.Empty;
+        public bool IsProcessing { get; set; }
+        public void Reset()
+        {
+            IsInvalid = false;
+            ErrorCode = string.Empty;
+            IsProcessing = false;
+        }
     }
 }

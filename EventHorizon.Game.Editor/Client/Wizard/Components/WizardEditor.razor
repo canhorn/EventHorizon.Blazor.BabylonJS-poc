@@ -1,7 +1,8 @@
 ﻿
 @if (State.CurrentStep)
 {
-    <WizardStepEditor Step="State.CurrentStep.Result" />
+    <WizardStepEditor Step="State.CurrentStep.Result"
+                      Data="State.CurrentData" />
 }
 else
 {
@@ -64,8 +65,9 @@ else
         if (result.Success.IsNotTrue())
         {
             ErrorMessage = Localizer[
-                "Failed to start Wizard: {0}",
-                wizard.Id
+                "Failed to start Wizard: {0} | {1}",
+                wizard.Id,
+                result.ErrorCode
             ];
             return;
         }

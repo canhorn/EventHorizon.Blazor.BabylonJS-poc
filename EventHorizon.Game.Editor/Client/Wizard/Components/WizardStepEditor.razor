@@ -1,25 +1,36 @@
-﻿
+﻿@using EventHorizon.Game.Editor.Client.Wizard.Components.Renderer
+
 <div>
-    <StandardToolbar>
-        <StandardToolbarButton @onclick="HandlePreviousClicked" disabled="@(!Step.HasPrevious)">
-            @Localizer["Previous"]
-        </StandardToolbarButton>
-        <StandardToolbarButton @onclick="HandleNextClicked" disabled="@(!Step.HasNext)">
-            @Localizer["Next"]
-        </StandardToolbarButton>
-        <StandardToolbarButton @onclick="HandleCancelClicked">
-            @Localizer["Cancel"]
-        </StandardToolbarButton>
-    </StandardToolbar>
-    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
-    {
-        <div class="error-message">
-            @ErrorMessage
+    <EditForm Model="Step" OnSubmit="HandleNextClicked">
+        <div>
+            @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+            {
+                <div class="error-message">
+                    @ErrorMessage
+                </div>
+            }
+            <WizardStepRenderer Step="Step" Data="Data" />
+
+            <DumpToJson Data="Step" />
+            <DumpToJson Data="State.CurrentData" />
         </div>
-    }
-    <div>
-        <DumpToJson Data="Step" />
-    </div>
+        <StandardToolbar>
+            <StandardToolbarButton @onclick="HandlePreviousClicked"
+                                   disabled="@(Step.IsProcessing || !Step.HasPrevious)"
+                                   type="button">
+                @Localizer["Previous"]
+            </StandardToolbarButton>
+            <StandardToolbarButton @onclick="HandleNextClicked"
+                                   disabled="@(Step.IsInvalid || Step.IsProcessing || !Step.HasNext)"
+                                   type="submit">
+                @Localizer["Next"]
+            </StandardToolbarButton>
+            <StandardToolbarButton @onclick="HandleCancelClicked"
+                                   disabled="@(Step.IsProcessing)">
+                @Localizer["Cancel"]
+            </StandardToolbarButton>
+        </StandardToolbar>
+    </EditForm>
 </div>
 
 @code {
@@ -28,6 +39,8 @@
 
     [Parameter]
     public WizardStep Step { get; set; } = null!;
+    [Parameter]
+    public WizardData Data { get; set; } = null!;
 
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;

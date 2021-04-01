@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Systems.Wizard.Query
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
@@ -23,16 +22,18 @@
         }
 
         public async Task<CommandResult<IEnumerable<WizardMetadata>>> Handle(
-            QueryForAllZoneWizards request, 
+            QueryForAllZoneWizards request,
             CancellationToken cancellationToken
         )
         {
-            var result = await _zoneAdminServices.Api.Wizard.All();
+            var result = await _zoneAdminServices.Api.Wizard.All(
+                cancellationToken
+            );
             if (result.Success.IsNotTrue()
                 || result.Result.IsNull()
             )
             {
-                return result.ErrorCode 
+                return result.ErrorCode
                     ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
             }
 

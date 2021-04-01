@@ -1,0 +1,56 @@
+﻿@using EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types
+
+<div>
+    Type: @Step.Type
+</div>
+@switch (Step.Type)
+{
+    case WizardStepTypes.TextInput:
+        <div>
+            @Step.Name
+        </div>
+        <input type="text"
+               placeholder="@Step.Name"
+               @onchange="HandleTextChanged" />
+        <div>
+            @Step.Description
+        </div>
+        break;
+    case WizardStepTypes.ServerProcess:
+        <WizardStepServerProcess Step="Step"
+                                 Data="Data"
+                                 OnWizardDataChanged="OnWizardDataChanged" />
+        break;
+    default:
+        <div>Invalid Type: @Step.Type</div>
+        break;
+}
+
+@code {
+    [Parameter]
+    public WizardStep Step { get; set; } = null!;
+    [Parameter]
+    public WizardData Data { get; set; } = null!;
+    [Parameter]
+    public EventCallback<WizardData> OnWizardDataChanged { get; set; }
+
+    public Task HandleTextChanged(
+        ChangeEventArgs args
+    )
+    {
+        var value = args.Value?.ToString() ?? string.Empty;
+        Console.WriteLine("Value: " + value);
+
+        if (Step.Details.TryGetValue(
+            "property",
+            out var property
+        ))
+        {
+            Data[property] = value;
+        }
+
+        OnWizardDataChanged.InvokeAsync(Data);
+
+        return Task.CompletedTask;
+    }
+}

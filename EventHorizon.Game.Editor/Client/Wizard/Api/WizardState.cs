@@ -13,6 +13,7 @@
             IEnumerable<WizardMetadata> wizardList
         );
 
+        string CurrentWizardId { get; }
         CommandResult<WizardStep> CurrentStep { get; }
         WizardData CurrentData { get; }
 
@@ -22,6 +23,12 @@
         Task<StandardCommandResult> Next();
         Task<StandardCommandResult> Previous();
         Task<StandardCommandResult> Cancel();
+        Task<StandardCommandResult> SetToInvalid(
+            string errorCode
+        );
+        Task<StandardCommandResult> IsProcessing(
+            bool isProcessing
+        );
 
         delegate Task OnChangeHandler();
         event OnChangeHandler OnChange;
