@@ -30,6 +30,10 @@
             bool isProcessing
         );
 
+        Task<StandardCommandResult> UpdateData(
+            WizardData data
+        );
+
         delegate Task OnChangeHandler();
         event OnChangeHandler OnChange;
     }

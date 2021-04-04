@@ -1,0 +1,31 @@
+﻿.server-process {
+}
+
+.server-process__name {
+    font-size: 1.8rem;
+    padding-bottom: 0.5rem;
+}
+
+.server-process__description {
+    padding: 0.3rem;
+}
+
+.server-process__success-message {
+    font-size: 1.4rem;
+    padding: .8rem;
+}
+
+.server-process__error-message {
+    font-size: 1.2rem;
+    padding: .8rem;
+}
+
+
+@media (min-width: 641px) {
+}
+
+@media (min-width: 768px) {
+    .server-process__error-message {
+        font-size: 1.4rem;
+    }
+}

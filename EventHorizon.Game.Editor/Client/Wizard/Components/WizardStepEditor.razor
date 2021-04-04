@@ -1,88 +1,38 @@
 ﻿@using EventHorizon.Game.Editor.Client.Wizard.Components.Renderer
+@inherits WizardStepEditorModel
 
-<div>
+<div class="wizard-step-editor">
     <EditForm Model="Step" OnSubmit="HandleNextClicked">
-        <div>
-            @if (!string.IsNullOrWhiteSpace(ErrorMessage))
-            {
-                <div class="error-message">
-                    @ErrorMessage
-                </div>
-            }
-            <WizardStepRenderer Step="Step" Data="Data" />
-
-            <DumpToJson Data="Step" />
-            <DumpToJson Data="State.CurrentData" />
+        <div class="wizard-step-editor__form-content">
+            <div class="wizard-step-editor__renderer">
+                @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+                {
+                    <div class="error-message">
+                        @ErrorMessage
+                    </div>
+                }
+                <WizardStepRenderer Step="Step"
+                                    Data="Data" />
+            </div>
+            <div class="wizard-step-editor__toolbar">
+                <StandardToolbar>
+                    <StandardToolbarButton @onclick="HandlePreviousClicked"
+                                           disabled="@IsPreviousDisabled()"
+                                           type="button">
+                        @Localizer["Previous"]
+                    </StandardToolbarButton>
+                    <StandardToolbarButton @onclick="HandleNextClicked"
+                                           disabled="@IsNextDisabled()"
+                                           type="submit">
+                        @Localizer["Next"]
+                    </StandardToolbarButton>
+                    <StandardToolbarButton @onclick="HandleCancelClicked"
+                                           disabled="@IsCancelDisabled()">
+                        @Localizer["Cancel"]
+                    </StandardToolbarButton>
+                </StandardToolbar>
+            </div>
         </div>
-        <StandardToolbar>
-            <StandardToolbarButton @onclick="HandlePreviousClicked"
-                                   disabled="@(Step.IsProcessing || !Step.HasPrevious)"
-                                   type="button">
-                @Localizer["Previous"]
-            </StandardToolbarButton>
-            <StandardToolbarButton @onclick="HandleNextClicked"
-                                   disabled="@(Step.IsInvalid || Step.IsProcessing || !Step.HasNext)"
-                                   type="submit">
-                @Localizer["Next"]
-            </StandardToolbarButton>
-            <StandardToolbarButton @onclick="HandleCancelClicked"
-                                   disabled="@(Step.IsProcessing)">
-                @Localizer["Cancel"]
-            </StandardToolbarButton>
-        </StandardToolbar>
+
     </EditForm>
 </div>
-
-@code {
-    [CascadingParameter]
-    public WizardState State { get; set; } = null!;
-
-    [Parameter]
-    public WizardStep Step { get; set; } = null!;
-    [Parameter]
-    public WizardData Data { get; set; } = null!;
-
-    [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
-
-    public string ErrorMessage { get; set; } = string.Empty;
-
-    public async Task HandlePreviousClicked()
-    {
-        ErrorMessage = string.Empty;
-        var result = await State.Previous();
-        if (!result)
-        {
-            ErrorMessage = Localizer[
-                "Failed to Go Back: {0}",
-                result.ErrorCode
-            ];
-        }
-    }
-
-    public async Task HandleNextClicked()
-    {
-        ErrorMessage = string.Empty;
-        var result = await State.Next();
-        if (!result)
-        {
-            ErrorMessage = Localizer[
-                "Failed to Proceed: {0}",
-                result.ErrorCode
-            ];
-        }
-    }
-
-    public async Task HandleCancelClicked()
-    {
-        ErrorMessage = string.Empty;
-        var result = await State.Cancel();
-        if (!result)
-        {
-            ErrorMessage = Localizer[
-                "Failed to Proceed: {0}",
-                result.ErrorCode
-            ];
-        }
-    }
-} 

@@ -90,10 +90,53 @@ hr {
     justify-content: center;
 }
 
-/* Table Styles */
-table.--full {
-    width: 100%;
+.--success {
+    color: var(--success);
 }
+
+.--error {
+    color: var(--error);
+}
+
+.--info {
+    color: var(--info);
+}
+
+/* Table Styles */
+/*Generic Styling, for Desktops/Laptops */
+table {
+    border-collapse: collapse;
+}
+
+    table.--full {
+        width: 100%;
+    }
+
+tr {
+    background: var(--contrast-light-primary);
+}
+
+    tr:nth-of-type(odd) {
+        background: var(--background-dark);  
+    }
+
+th {
+    background: var(--contrast-light-primary);
+    font-weight: bold;
+    border-bottom: var(--accent-light) 1px solid;
+}
+
+td, th {
+    padding: 6px;
+    text-align: left;
+}
+
+@media (min-width: 641px) {
+}
+
+@media (min-width: 768px) {
+}
+
 
 /* Controls */
 button.--text {

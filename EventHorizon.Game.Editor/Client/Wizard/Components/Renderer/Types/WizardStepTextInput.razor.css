@@ -1,0 +1,12 @@
+﻿.text-input {
+}
+
+.text-input__name {
+    font-size: 1.8rem;
+    padding-bottom: 0.5rem;
+}
+
+.text-input__description {
+    padding: 0.3rem;
+}
+

@@ -1,18 +1,34 @@
 ﻿@using EventHorizon.Zone.Systems.Wizard.Run
 
-@if (Step.IsProcessing)
-{
-    <div>
-        <Loading Text="Processing..." />
+<div class="server-process">
+    <div class="server-process__name --font-bold --header-font-size">
+        @Localizer[Step.Name]
     </div>
-}
+    <div class="server-process__description">
+        <i class="fas fa-info-circle --info"></i> @Localizer[Step.Description]
+    </div>
 
-@if (!string.IsNullOrWhiteSpace(ErrorMessage))
-{
-    <div class="error-message">
-        @ErrorMessage
-    </div>
-}
+    @if (Step.IsProcessing)
+    {
+        <div>
+            <Loading Text="Processing..." />
+        </div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(SuccessMesssage))
+    {
+        <div class="server-process__success-message --success">
+            <i class="far fa-star"></i> @SuccessMesssage
+        </div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+    {
+        <div class="server-process__error-message --error">
+            <i class="fas fa-exclamation-triangle"></i> @ErrorMessage
+        </div>
+    }
+</div>
 
 @code {
     [CascadingParameter]
@@ -22,17 +38,27 @@
     public WizardStep Step { get; set; } = null!;
     [Parameter]
     public WizardData Data { get; set; } = null!;
-    [Parameter]
-    public EventCallback<WizardData> OnWizardDataChanged { get; set; }
 
     [Inject]
     public MediatR.IMediator Mediator { get; set; } = null!;
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
 
+    public string SuccessMesssage { get; set; } = string.Empty;
     public string ErrorMessage { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+
+        if (Data[$"Processor:{Step.Id}:Ran"] == "true")
+        {
+            SuccessMesssage = Localizer[
+                "Successful Processed Request, please continue to next step."
+            ];
+            return;
+        }
+
         await State.IsProcessing(
             true
         );
@@ -41,14 +67,23 @@
             new RunWizardScriptProcessorCommand(
                 State.CurrentWizardId,
                 Step.Id,
-                Step.Details["ProcessorScriptId"],
+                Step.Details["Processor:ScriptId"],
                 Data
             )
         );
 
         if (!result)
         {
-            ErrorMessage = "Error Code: " + result.ErrorCode;
+            ErrorMessage = Localizer[result.ErrorCode];
+            if (ErrorMessage == result.ErrorCode)
+            {
+                // since they match show a standard Error Code Message
+                ErrorMessage = Localizer[
+                    "Error Code: {0}",
+                    result.ErrorCode
+                ];
+            }
+
             await State.SetToInvalid(
                 result.ErrorCode
             );
@@ -57,5 +92,29 @@
         await State.IsProcessing(
             false
         );
+
+        if (!Step.IsInvalid)
+        {
+            Data[$"Processor:{Step.Id}:Ran"] = "true";
+            SuccessMesssage = Localizer[
+                "Successful Processed Request, you can Cancel/Close the Wizard."
+            ];
+
+            if (Step.Details["DisablePrevious"] == "true")
+            {
+                Data[$"DisablePrevious:{Step.Id}"] = "true";
+            }
+
+            if (Step.HasNext)
+            {
+                SuccessMesssage = Localizer[
+                    "Successful Processed Request, please continue to next step."
+                ];
+            }
+
+            await State.UpdateData(
+                Data
+            );
+        }
     }
 }

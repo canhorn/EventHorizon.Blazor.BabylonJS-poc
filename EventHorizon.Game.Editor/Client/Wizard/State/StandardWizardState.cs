@@ -166,5 +166,21 @@
 
             return new();
         }
+
+        public async Task<StandardCommandResult> UpdateData(
+            WizardData data
+        )
+        {
+            if (!CurrentStep)
+            {
+                return WizardErrorCodes.WIZARD_NOT_STARTED;
+            }
+
+            CurrentData = data;
+
+            await OnChange.Invoke();
+
+            return new();
+        }
     }
 }

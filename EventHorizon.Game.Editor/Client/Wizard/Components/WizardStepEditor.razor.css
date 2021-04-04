@@ -1,0 +1,33 @@
+﻿.wizard-step-editor {
+}
+
+.wizard-step-editor__form-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 25%;
+    grid-template: "renderer" "toolbar";
+    grid-gap: 0.3rem;
+}
+
+.wizard-step-editor__renderer {
+    grid-area: renderer;
+    min-height: 200px;
+}
+
+.wizard-step-editor__toolbar {
+    grid-area: toolbar;
+}
+
+
+@media (min-width: 641px) {
+}
+
+@media (min-width: 768px) {
+    .wizard-step-editor__form-content {
+        grid-template: "toolbar" "renderer";
+    }
+
+    .wizard-step-editor__renderer {
+        min-height: auto;
+    }
+}

@@ -45,6 +45,16 @@ public struct Option<T>
         }
     }
 
+    public static implicit operator Option<T>(
+        T? result
+    ) => new(
+        result
+    );
+
+    public static implicit operator bool(
+        Option<T> result
+    ) => result.HasValue;
+
     #region Generated
     public override bool Equals(object obj)
     {
@@ -71,6 +81,13 @@ public struct Option<T>
     {
         return !(left == right);
     }
+
+    public Option<T> ToOption() => new(
+        Value
+    );
+
+    public bool ToBoolean()
+        => HasValue;
 
     #endregion
 }

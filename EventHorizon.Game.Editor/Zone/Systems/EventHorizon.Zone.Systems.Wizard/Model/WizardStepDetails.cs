@@ -12,7 +12,9 @@
 
         public new string this[string key]
         {
-            get => base[NormalizeKey(key)];
+            get => ContainsKey(NormalizeKey(key))
+                ? base[NormalizeKey(key)]
+                : string.Empty;
         }
 
         public new bool TryGetValue(

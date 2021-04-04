@@ -117,4 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="wizard_failed_script_run" xml:space="preserve">
+    <value>Failed to successfully run the Wizard Script.</value>
+  </data>
+  <data name="wizard_invalid_processor_script_id" xml:space="preserve">
+    <value>The Processor Script Id attached to this Wizard Step was invalid.</value>
+  </data>
+  <data name="wizard_not_found" xml:space="preserve">
+    <value>The Wizard was not found.</value>
+  </data>
+  <data name="wizard_step_not_found" xml:space="preserve">
+    <value>The Wizard Step was not found.</value>
+  </data>
+  <data name="wizard_validation_files_exist" xml:space="preserve">
+    <value>Files already exist for the Name/Folder combination.</value>
+  </data>
+  <data name="wizard_validation_folder_invalid" xml:space="preserve">
+    <value>The Folder provided was not a valid alphanumeric value.</value>
+  </data>
+  <data name="wizard_validation_name_invalid" xml:space="preserve">
+    <value>The Name provided was not a valid alphanumeric value.</value>
+  </data>
 </root>
