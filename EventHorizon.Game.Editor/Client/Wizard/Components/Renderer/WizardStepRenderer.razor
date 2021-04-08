@@ -10,8 +10,12 @@
         <WizardStepServerProcess Step="Step"
                                  Data="Data" />
         break;
+    case WizardStepTypes.Navigate:
+        <WizardStepNavigate Step="Step"
+                            Data="Data" />
+        break;
     default:
-        <div>Invalid Type: @Step.Type</div>
+        <div>@Localizer["Invalid Type: {0}", Step.Type]</div>
         break;
 }
 
@@ -20,4 +24,7 @@
     public WizardStep Step { get; set; } = null!;
     [Parameter]
     public WizardData Data { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
 }
