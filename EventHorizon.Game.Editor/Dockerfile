@@ -1,5 +1,5 @@
 # Stage 1 - Restore .NET Project
-FROM mcr.microsoft.com/dotnet/sdk:5.0.102-ca-patch-buster-slim AS dotnet-restore
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-restore
 WORKDIR /source
 
 ENV PATH="$PATH:/root/.dotnet/tools"
@@ -47,10 +47,14 @@ COPY EventHorizon.Game.Editor/Core/EventHorizon.Game.Editor.Core.Api/EventHorizo
 COPY EventHorizon.Game.Editor/Zone/EventHorizon.Game.Editor.Zone/EventHorizon.Game.Editor.Zone.csproj ./EventHorizon.Game.Editor/Zone/EventHorizon.Game.Editor.Zone/EventHorizon.Game.Editor.Zone.csproj
 COPY EventHorizon.Game.Editor/Zone/EventHorizon.Game.Editor.Zone.Api/EventHorizon.Game.Editor.Zone.Api.csproj ./EventHorizon.Game.Editor/Zone/EventHorizon.Game.Editor.Zone.Api/EventHorizon.Game.Editor.Zone.Api.csproj
 
+COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/EventHorizon.Zone.Systems.Wizard.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/EventHorizon.Zone.Systems.Wizard.csproj
+
 COPY EventHorizon.Game.Editor/Shared/EventHorizon.Game.Editor.Shared.csproj ./EventHorizon.Game.Editor/Shared/EventHorizon.Game.Editor.Shared.csproj
 
 ## Editor - Server
 COPY EventHorizon.Game.Editor/Server/EventHorizon.Game.Editor.Server.csproj ./EventHorizon.Game.Editor/Server/EventHorizon.Game.Editor.Server.csproj
+
+COPY Directory.Build.props ./Directory.Build.props
 
 RUN dotnet restore ./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln
 

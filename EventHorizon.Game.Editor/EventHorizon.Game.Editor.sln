@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 	ProjectSection(SolutionItems) = preProject
 		..\.dockerignore = ..\.dockerignore
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		Directory.Build.props = Directory.Build.props
 		Dockerfile = Dockerfile
 		..\readme.md = ..\readme.md
 	EndProjectSection

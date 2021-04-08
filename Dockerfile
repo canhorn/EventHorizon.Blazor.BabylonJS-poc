@@ -1,6 +1,5 @@
 # Stage 1 - Restore .NET Project
-# FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-restore
-FROM mcr.microsoft.com/dotnet/sdk:5.0.102-ca-patch-buster-slim AS dotnet-restore
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-restore
 WORKDIR /source
 
 ENV PATH="$PATH:/root/.dotnet/tools"
@@ -47,6 +46,8 @@ COPY src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj ./src/S
 ## Shared
 COPY src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.ApplicationDetails.Component.csproj ./src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.ApplicationDetails.Component.csproj
 
+COPY Directory.Build.props ./Directory.Build.props
+
 RUN dotnet restore
 
 
@@ -70,8 +71,7 @@ RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts
 
 
 # Stage 3 - Publish to NuGet
-# FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
-FROM mcr.microsoft.com/dotnet/sdk:5.0.102-ca-patch-buster-slim AS dotnet-nuget-push
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
 WORKDIR /app
 COPY --from=dotnet-build /artifacts .
 RUN find . -name '*.nupkg' -ls
