@@ -4,11 +4,12 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Zone.Services.Api;
+    using EventHorizon.Zone.Systems.Wizard.Model;
     using EventHorizon.Zone.Systems.Wizard.Run;
     using MediatR;
 
     public class RunWizardScriptProcessorCommandHandler
-        : IRequestHandler<RunWizardScriptProcessorCommand, StandardCommandResult>
+        : IRequestHandler<RunWizardScriptProcessorCommand, CommandResult<WizardData>>
     {
         private readonly ZoneAdminServices _zoneAdminServices;
 
@@ -19,7 +20,7 @@
             _zoneAdminServices = zoneAdminServices;
         }
 
-        public async Task<StandardCommandResult> Handle(
+        public async Task<CommandResult<WizardData>> Handle(
             RunWizardScriptProcessorCommand request,
             CancellationToken cancellationToken
         )
@@ -37,7 +38,7 @@
                     ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
             }
 
-            return new();
+            return result.Result;
         }
     }
 }

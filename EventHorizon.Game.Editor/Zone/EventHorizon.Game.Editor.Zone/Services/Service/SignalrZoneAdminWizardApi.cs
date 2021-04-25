@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Zone.Services.Api;
     using EventHorizon.Game.Editor.Zone.Services.Model;
+    using EventHorizon.Game.Editor.Zone.Systems.Wizard.Model;
     using EventHorizon.Zone.Systems.Wizard.Model;
     using Microsoft.AspNetCore.SignalR.Client;
 
@@ -40,7 +41,7 @@
             );
         }
 
-        public async Task<StandardApiResponse> RunScriptProcessor(
+        public async Task<WizardApiResponse> RunScriptProcessor(
             string wizardId,
             string wizardStepId,
             string processorScriptId,
@@ -50,14 +51,14 @@
         {
             if (_hubConnection.IsNull())
             {
-                return new StandardApiResponse()
+                return new WizardApiResponse()
                 {
                     Success = false,
                     ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
                 };
             }
 
-            return await _hubConnection.InvokeAsync<StandardApiResponse>(
+            return await _hubConnection.InvokeAsync<WizardApiResponse>(
                 "Wizard_RunScriptProcessor",
                 wizardId,
                 wizardStepId,

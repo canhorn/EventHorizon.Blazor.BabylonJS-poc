@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Zone.Services.Model;
+    using EventHorizon.Game.Editor.Zone.Systems.Wizard.Model;
     using EventHorizon.Zone.Systems.Wizard.Model;
 
     public interface ZoneAdminWizardApi
@@ -12,7 +13,7 @@
             CancellationToken cancellationToken
         );
 
-        Task<StandardApiResponse> RunScriptProcessor(
+        Task<WizardApiResponse> RunScriptProcessor(
             string wizardId,
             string wizardStepId,
             string processorScriptId,

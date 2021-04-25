@@ -121,11 +121,16 @@
                 ];
             }
 
+            foreach (var property in result.Result)
+            {
+                Data[property.Key] = property.Value;
+            }
+
             await Mediator.Send(
-                new UpdateWizardDataCommand(
-                    Data
-                )
-            );
+            new UpdateWizardDataCommand(
+                Data
+            )
+        );
         }
     }
 }
