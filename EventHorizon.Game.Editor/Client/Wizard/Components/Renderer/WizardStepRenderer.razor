@@ -14,6 +14,11 @@
         <WizardStepNavigate Step="Step"
                             Data="Data" />
         break;
+    case WizardStepTypes.FormInput:
+        <WizardStepFormInput Step="Step"
+                             Data="Data" />
+        break;
+
     default:
         <div>@Localizer["Invalid Type: {0}", Step.Type]</div>
         break;

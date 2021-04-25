@@ -4,9 +4,11 @@
     using System.Linq;
     using System.Text.Json;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+    using EventHorizon.Game.Editor.Properties.Api;
     using Newtonsoft.Json.Linq;
 
     public class ZoneEditorMetadata
+        : PropertiesMetadata
     {
         public static readonly string EDITOR_METADATA_PREFIX = "editor:Metadata";
         /// <summary>
