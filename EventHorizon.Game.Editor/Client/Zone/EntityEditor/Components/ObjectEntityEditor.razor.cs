@@ -1,19 +1,18 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Components;
+    using EventHorizon.Game.Editor.Client.Shared.Properties;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
     using EventHorizon.Game.Editor.Client.Zone.Api;
-    using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Model;
-    using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Properties;
     using EventHorizon.Game.Editor.Client.Zone.Edited;
+    using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Model;
     using EventHorizon.Game.Editor.Zone.Editor.Clone;
     using Microsoft.AspNetCore.Components;
 

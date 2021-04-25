@@ -1,21 +1,26 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Properties
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Properties
 {
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Zone.Api;
+    using EventHorizon.Game.Editor.Properties.Api;
     using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
     using Microsoft.AspNetCore.Components;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class EntityPropertyDisplayModel : ComponentBase
+    public class PropertyDisplayModel : ComponentBase
     {
         [CascadingParameter]
         public ZoneState State { get; set; } = null!;
 
         [Parameter]
+        public IDictionary<string, string> LabelMap { get; set; } = new Dictionary<string, string>();
+        [Parameter]
         public IDictionary<string, object> Data { get; set; } = null!;
+        [Parameter]
+        public PropertiesMetadata PropertiesMetadata { get; set; } = null!;
         [Parameter]
         public EventCallback<IDictionary<string, object>> OnChanged { get; set; }
         [Parameter]
@@ -24,7 +29,8 @@
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
 
-        protected IDictionary<string, EntityPropertyDisplayType> DisplayProperties { get; private set; } = new Dictionary<string, EntityPropertyDisplayType>();
+        public bool ShowRemove => OnRemove.HasDelegate;
+        protected IDictionary<string, PropertyDisplayType> DisplayProperties { get; private set; } = new Dictionary<string, PropertyDisplayType>();
 
         protected override Task OnInitializedAsync()
         {
@@ -50,14 +56,14 @@
             );
         }
 
-        protected async Task HandleRemoveProperty(
-            string propertyName
-        )
-        {
-            await OnRemove.InvokeAsync(
-                propertyName
-            );
-        }
+        //protected async Task HandleRemoveProperty(
+        //    string propertyName
+        //)
+        //{
+        //    await OnRemove.InvokeAsync(
+        //        propertyName
+        //    );
+        //}
 
         private void SetupProperties()
         {
@@ -70,15 +76,16 @@
             ).OrderBy(a => a.Key);
             foreach (var prop in data)
             {
-                var type = State.EditorState.Metadata.GetPropertyType(
+                var type = PropertiesMetadata.GetPropertyType(
                     prop.Key,
                     prop.Value
                 );
 
                 DisplayProperties.Add(
                     prop.Key,
-                    new EntityPropertyDisplayType
+                    new PropertyDisplayType
                     {
+                        Label = GetLabel(prop.Key),
                         Name = prop.Key,
                         Type = type,
                         Value = prop.Value
@@ -86,18 +93,15 @@
                 );
             }
         }
-    }
 
-    public class EntityPropertyDisplayType
-    {
-        public string Name { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
-        public object Value { get; set; } = string.Empty;
-    }
-
-    public class PropertyChangedArgs
-    {
-        public string PropertyName { get; set; } = string.Empty;
-        public object Property { get; set; } = new { };
+        public string GetLabel(
+            string key
+        )
+        {
+            return LabelMap.TryGetValue(
+                key,
+                out var value
+            ) ? value : string.Empty;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@inherits PropertyControlBase
 
-<div class="decimal-property">
+<div class="string-property">
     @if (ShowRemove)
     {
         <label class="--font-bold --cursor-pointer"
@@ -9,28 +9,25 @@
                     @onclick="HandleRemove">
                 &#10060
             </button>
-            @PropertyName
+            @LabelText
         </label>
     }
     else
     {
         <label class="--font-bold">
-            @PropertyName
+            @LabelText
         </label>
     }
-
     <input class="--text-input"
-           type="number"
-           step="0.01"
            value="@Property"
            @onchange="HandleChange" />
 </div>
 
 <style>
-    .decimal-property {
+    .string-property {
     }
 
-        .decimal-property .--text-input {
+        .string-property .--text-input {
             width: 100%;
         }
 </style>
@@ -38,8 +35,6 @@
 @code {
     protected override object Parse(object value)
     {
-        return decimal.Parse(
-            value.To<string>() ?? "0"
-        );
+        return value;
     }
 }

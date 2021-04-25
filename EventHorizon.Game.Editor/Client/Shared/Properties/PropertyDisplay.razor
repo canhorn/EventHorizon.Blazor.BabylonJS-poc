@@ -1,4 +1,4 @@
-﻿@inherits EntityPropertyDisplayModel
+﻿@inherits PropertyDisplayModel
 @using EventHorizon.Game.Editor.Zone.Editor.Services.Model
 
 <div class="entity-property-display">
@@ -9,50 +9,57 @@
             case ZoneEditorPropertyType.PropertyBoolean:
                 <BooleanPropertyControl PropertyName="@prop.Name"
                                         Property="prop.Value"
+                                        Label="@prop.Label"
                                         OnChange="HandlePropertyChanged"
-                                        OnRemove="HandleRemoveProperty" />
+                                        OnRemove="OnRemove" />
                 break;
 
             case ZoneEditorPropertyType.PropertyDecimal:
                 <DecimalPropertyControl PropertyName="@prop.Name"
                                         Property="prop.Value"
+                                        Label="@prop.Label"
                                         OnChange="HandlePropertyChanged"
-                                        OnRemove="HandleRemoveProperty" />
+                                        OnRemove="OnRemove" />
                 break;
 
             case ZoneEditorPropertyType.PropertyLong:
                 <LongPropertyControl PropertyName="@prop.Name"
                                      Property="prop.Value"
+                                     Label="@prop.Label"
                                      OnChange="HandlePropertyChanged"
-                                     OnRemove="HandleRemoveProperty" />
+                                     OnRemove="OnRemove" />
                 break;
 
             case ZoneEditorPropertyType.PropertyString:
                 <StringPropertyControl PropertyName="@prop.Name"
                                        Property="prop.Value"
+                                       Label="@prop.Label"
                                        OnChange="HandlePropertyChanged"
-                                       OnRemove="HandleRemoveProperty" />
+                                       OnRemove="OnRemove" />
                 break;
 
             case ZoneEditorPropertyType.PropertyVector3:
                 <VectorPropertyControl PropertyName="@prop.Name"
                                        Property="prop.Value"
+                                       Label="@prop.Label"
                                        OnChange="HandlePropertyChanged"
-                                       OnRemove="HandleRemoveProperty" />
+                                       OnRemove="OnRemove" />
                 break;
 
             case ZoneEditorPropertyType.PropertyAsset:
                 <AssetPropertyControl PropertyName="@prop.Name"
                                       Property="prop.Value"
+                                      Label="@prop.Label"
                                       OnChange="HandlePropertyChanged"
-                                      OnRemove="HandleRemoveProperty" />
+                                      OnRemove="OnRemove" />
                 break;
 
             case ZoneEditorPropertyType.PropertyComplex:
                 <ComplexPropertyControl PropertyName="@prop.Name"
-                                      Property="prop.Value"
-                                      OnChange="HandlePropertyChanged"
-                                      OnRemove="HandleRemoveProperty" />
+                                        Property="prop.Value"
+                                        Label="@prop.Label"
+                                        OnChange="HandlePropertyChanged"
+                                        OnRemove="OnRemove" />
                 break;
 
             default:

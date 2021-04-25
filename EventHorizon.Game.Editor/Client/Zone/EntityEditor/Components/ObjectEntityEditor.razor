@@ -1,4 +1,4 @@
-﻿@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Properties
+﻿@using EventHorizon.Game.Editor.Client.Shared.Properties
 @inherits ObjectEntityEditorModel
 
 <h3>@Localizer["Entity Editor ({0})", Entity.GlobalId]</h3>
@@ -59,9 +59,10 @@
                 @Localizer["Data Properties ({0})", EditEntity.Data.Count]
             </h3>
 
-            <EntityPropertyDisplay Data="EditEntity.Data"
-                                   OnChanged="HandleDataChanged"
-                                   OnRemove="HandleRemoveData" />
+            <PropertyDisplay Data="EditEntity.Data"
+                             PropertiesMetadata="ZoneState.EditorState.Metadata"
+                             OnChanged="HandleDataChanged"
+                             OnRemove="HandleRemoveData" />
         </div>
 
         <div class="object-entity-editor__add-section">

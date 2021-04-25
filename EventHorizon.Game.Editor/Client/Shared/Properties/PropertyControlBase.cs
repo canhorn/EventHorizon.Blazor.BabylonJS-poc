@@ -1,13 +1,16 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Properties
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Properties
 {
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
     using Microsoft.AspNetCore.Components;
+    using System.Reflection.Metadata;
     using System.Threading.Tasks;
 
     public abstract class PropertyControlBase
         : ComponentBase
     {
+        [Parameter]
+        public string Label { get; set; } = string.Empty;
         [Parameter]
         public string PropertyName { get; set; } = string.Empty;
         [Parameter]
@@ -20,7 +23,7 @@
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
 
-
+        public string LabelText => string.IsNullOrWhiteSpace(Label) ? PropertyName : Label;
         public bool ShowRemove => OnRemove.HasDelegate;
 
         protected async Task HandleChange(
