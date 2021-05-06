@@ -1,16 +1,24 @@
-﻿@page "/sandbox"
+﻿@page "/sandbox/controls"
 @using Microsoft.Extensions.Logging
 @using EventHorizon.Game.Editor.Client.Zone.Components
 @using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer
 
-@*<ZoneSelection />*@
-
-<ZoneStateProvider>
-    <EditorFileExplorer />
-    @*<ZoneStateSandbox />*@
-</ZoneStateProvider>
-
 <button @onclick="HandleOpenWindow">Open Window</button>
+
+<pre>
+    @($@"
+<StandardWindow IsOpen=""{IsWindowOpen}""
+                IsDraggable=""{IsDraggable}""
+                WidthSize=""{WidthSize}""
+                HeightSize=""{HeightSize}"">
+    <Header>
+        <!-- HTML CONTENT -->
+    </Header>
+    <Body>
+        <!-- HTML CONTENT -->
+    </Body>
+</StandardWindow>")
+</pre>
 
 <StandardWindow IsOpen="IsWindowOpen"
                 IsDraggable="IsDraggable"
@@ -18,6 +26,9 @@
                 HeightSize="@HeightSize">
     <Header>Window</Header>
     <Body>
+        <ZoneStateProvider>
+            <EventHorizon.Game.Editor.Client.LiveEditor.Components.LiveEditor />
+        </ZoneStateProvider>
         <h2>Content</h2>
         <div>
             <button @onclick="@(() => WidthSize = "small")">Width Small</button>
@@ -32,8 +43,6 @@
     </Body>
 </StandardWindow>
 
-<button @onclick="@(() => throw new Exception("Manual thrown error"))">Throw Error</button>
-
 @code {
     public bool IsWindowOpen;
     public bool IsDraggable = true;
@@ -45,59 +54,6 @@
     public void HandleOpenWindow()
     {
         IsWindowOpen = true;
-    }
-}
-
-@foreach (var gridCell in TestingGird)
-{
-    <div style="        position: fixed;
-        width: @(gridCell.CellWidth)px;
-        height: @(gridCell.CellHeight)px;
-        top: @(gridCell.Top)px;
-        left: @(gridCell.Left)px;
-        border: 5px solid white;
-        pointer-events: none;
-"></div>
-}
-
-<button @onclick="HandleCreateGrid">Create Grid</button>
-
-@code {
-    public List<(int Left, int Top, int CellWidth, int CellHeight)> TestingGird { get; private set; } = new();
-
-    private void HandleCreateGrid()
-    {
-        var InnerWidth = EventHorizon.Blazor.Interop.EventHorizonBlazorInterop.Get<int>("window", "innerWidth");
-        var InnerHeight = EventHorizon.Blazor.Interop.EventHorizonBlazorInterop.Get<int>("window", "innerHeight");
-
-        var cellWidth = InnerWidth / 3;
-        var cellHeight = InnerHeight / 3;
-
-        var cellTopLeft = (cellWidth * 0, cellHeight * 0, cellWidth, cellHeight);
-        var cellTopCenter = (cellWidth * 1, cellHeight * 0, cellWidth, cellHeight);
-        var cellTopRight = (cellWidth * 2, cellHeight * 0, cellWidth, cellHeight);
-
-        var cellMiddleLeft = (cellWidth * 0, cellHeight * 1, cellWidth, cellHeight);
-        var cellMiddleCenter = (cellWidth * 1, cellHeight * 1, cellWidth, cellHeight);
-        var cellMiddleRight = (cellWidth * 2, cellHeight * 1, cellWidth, cellHeight);
-
-        var cellBottomLeft = (cellWidth * 0, cellHeight * 2, cellWidth, cellHeight);
-        var cellBottomCenter = (cellWidth * 1, cellHeight * 2, cellWidth, cellHeight);
-        var cellBottomRight = (cellWidth * 2, cellHeight * 2, cellWidth, cellHeight);
-
-        TestingGird = new List<(int Left, int Top, int CellWidth, int CellHeight)>() {
-            cellTopLeft,
-            cellTopCenter,
-            cellTopRight,
-
-            cellMiddleLeft,
-            cellMiddleCenter,
-            cellMiddleRight,
-
-            cellBottomLeft,
-            cellBottomCenter,
-            cellBottomRight,
-        };
     }
 }
 

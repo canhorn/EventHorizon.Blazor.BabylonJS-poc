@@ -155,7 +155,7 @@
                 object _
             )
             {
-                return this.TryGetValue(
+                return TryGetValue(
                     key,
                     out var value
                 ) ? value : PropertyType.String;

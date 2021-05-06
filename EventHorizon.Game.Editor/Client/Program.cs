@@ -52,6 +52,9 @@ namespace EventHorizon.Game.Editor.Client
             // Error Boundary
             builder.Services.AddErrorBoundary();
 
+            // Browser Services
+            builder.Services.AddBrowserServices();
+
             // Setup MediatR
             builder.Services.AddMediatR(
                 new Type[]

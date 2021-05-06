@@ -1,0 +1,33 @@
+﻿@inherits StandardWindowModel
+
+@if (IsDragging)
+{
+    <div class="skirt"
+         @onmousemove="HandleElementDrag"
+         @onmouseup="HandleStopDragging"></div>
+}
+
+<div class="standard-window @(IsOpen ? "--open" : "")"
+     style="user-select: @(IsDragging ? "none" : ""); left: @(PositionDetails.PosX + "px"); top: @(PositionDetails.PosY + "px")"
+     @onmousemove="HandleElementDrag">
+    <div class="standard-window__grid @($"--width-{WidthSize}") @($"--height-{HeightSize}") @CollapseClassName">
+        <div class="standard-window__header @(IsDraggable ? "--draggable" : string.Empty)"
+             @onmousedown="HandleDragMouseDown"
+             @onmouseup="HandleStopDragging">
+            <div>
+                @Header
+            </div>
+            <div>
+                <button @onclick="HandleCollapse"
+                        title="@(IsCollapsed ? Localizer["Expand Window"] : Localizer["Collapse Window"])">
+                    <i class="fas fa-@CollapsedIcon"></i>
+                    <span class="--sr-only">@(IsCollapsed ? Localizer["Expand Window"] : Localizer["Collapse Window"])</span>
+                </button>
+            </div>
+        </div>
+        <div class="standard-window__body"
+             @ondblclick="HandleOpenCollapsed">
+            @Body
+        </div>
+    </div>
+</div>
