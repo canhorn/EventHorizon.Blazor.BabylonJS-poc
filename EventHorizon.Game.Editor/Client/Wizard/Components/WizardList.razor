@@ -1,0 +1,81 @@
+﻿@using EventHorizon.Game.Editor.Client.Wizard.Start
+
+<div class="wizard-list">
+    <EditForm Model="this">
+        <div>
+            <InputText @bind-Value="WizardFilter"
+                       placeholder="@Localizer["Search for Wizard"]" />
+            <button class="--sr-only" type="submit">
+                @Localizer["Search for Wizard"]
+            </button>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+        {
+            <div class="error-message">
+                @ErrorMessage
+            </div>
+        }
+        <table class="wizard-list__table --full">
+            <thead>
+                <tr class="wizard-header">
+                    <th class="wizard-header__name">@Localizer["Name"]</th>
+                    <th class="wizard-header__description">@Localizer["Description"]</th>
+                    <th class="wizard-header__actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var wizard in State.WizardList.Where(a => WizardFilter == string.Empty || a.Name.ToLower().Contains(WizardFilter.ToLower())))
+                {
+                    <tr class="wizard-container">
+                        <td class="wizard-container__name">
+                            @Localizer[wizard.Name]
+                        </td>
+                        <td class="wizard-container__description">
+                            @Localizer[wizard.Description]
+                        </td>
+                        <td class="wizard-container__actions">
+                            <button type="button"
+                                    @onclick="() => HandleWizardSelected(wizard)">
+                                @Localizer["Select"]
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </EditForm>
+</div>
+
+@code {
+    [CascadingParameter]
+    public WizardState State { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+    [Inject]
+    public IMediator Mediator { get; set; } = null!;
+
+    public string ErrorMessage { get; set; } = string.Empty;
+    public string WizardFilter { get; set; } = string.Empty;
+
+    public async Task HandleWizardSelected(
+        WizardMetadata wizard
+    )
+    {
+        ErrorMessage = string.Empty;
+        var result = await Mediator.Send(
+            new StartWizardCommand(
+                wizard
+            )
+        );
+        if (result.Success.IsNotTrue())
+        {
+            ErrorMessage = Localizer[
+                "Failed to start Wizard ({0}) received error code of '{1}'",
+                wizard.Id,
+                result.ErrorCode
+            ];
+            return;
+        }
+    }
+}
