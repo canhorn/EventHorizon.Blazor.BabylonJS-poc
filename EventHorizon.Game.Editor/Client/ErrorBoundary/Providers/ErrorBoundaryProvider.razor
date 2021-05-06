@@ -1,0 +1,55 @@
+﻿@using EventHorizon.Game.Editor.Client.ErrorBoundary.Api
+
+@ChildContent
+
+<StandardModal id="blazor-error-ui" IsOpen="true" HideClose="true">
+    <Body>
+        <p>
+            @Localizer["An unhandled error has occurred."]
+            <a href="@NavigationManager.Uri#reload" class="reload">
+                @Localizer["Reload"]
+            </a>
+        </p>
+        <a href="@NavigationManager.Uri#dismiss" class="dismiss">
+            @Localizer["Dismiss"]
+        </a>
+        <hr />
+        <div>
+            @foreach (var ex in ErrorBoundaryService.ExceptionList)
+            {
+                <div>@ex.FormattedException</div>
+                <pre>
+                    @ex.Exception.ToString()
+                </pre>
+            }
+            <pre id="blazor-error-ui__error-details">
+
+            </pre>
+        </div>
+    </Body>
+</StandardModal>
+
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+    [Inject]
+    public ErrorBoundaryService ErrorBoundaryService { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ErrorBoundaryService.OnException += OnHandleException;
+    }
+
+    public Task OnHandleException()
+    {
+        return InvokeAsync(StateHasChanged);
+    }
+}

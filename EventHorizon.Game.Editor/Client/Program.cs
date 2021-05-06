@@ -21,6 +21,7 @@ namespace EventHorizon.Game.Editor.Client
     using EventHorizon.Game.Server;
     using EventHorizon.Observer.Admin.State;
     using EventHorizon.Observer.State;
+    using EventHorizon.Platform.ErrorBoundary;
     using EventHorizon.Platform.LogProvider;
     using EventHorizon.Platform.LogProvider.Model;
     using MediatR;
@@ -47,6 +48,9 @@ namespace EventHorizon.Game.Editor.Client
                     new PlatformLoggerConfiguration()
                 )
             ;
+
+            // Error Boundary
+            builder.Services.AddErrorBoundary();
 
             // Setup MediatR
             builder.Services.AddMediatR(

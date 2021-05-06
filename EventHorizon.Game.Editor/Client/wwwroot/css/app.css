@@ -40,14 +40,16 @@ a, .btn-link {
 
     #blazor-error-ui .dismiss {
         cursor: pointer;
-        position: absolute;
     }
 
 hr {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     width: 100%;
-    border: 1px solid var(--accent-background);
+    border-top: 1px solid var(--accent-background);
+    border-bottom: 1px solid var(--accent-background);
+    border-left: none;
+    border-right: none;
 }
 
 .--font-bold {
@@ -102,6 +104,11 @@ hr {
     color: var(--info);
 }
 
+pre {
+    padding: 0.5rem;
+    overflow: auto;
+}
+
 /* Table Styles */
 /*Generic Styling, for Desktops/Laptops */
 table {
@@ -117,7 +124,7 @@ tr {
 }
 
     tr:nth-of-type(odd) {
-        background: var(--background-dark);  
+        background: var(--background-dark);
     }
 
 th {

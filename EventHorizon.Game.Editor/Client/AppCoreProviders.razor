@@ -1,16 +1,19 @@
 ﻿@using EventHorizon.Game.Editor.Client.Authentication.Components
 @using EventHorizon.Game.Editor.Client.Shared.ClickCapture
 @using EventHorizon.Game.Editor.Client.Wizard.Components.Provider
+@using EventHorizon.Game.Editor.Client.ErrorBoundary.Providers
 
-<ClickCaptureProvider>
-    <EditorAuthenticationProvider>
-        <ZoneSelectionProvider>
-            <WizardStateProvider>
-                @ChildContent
-            </WizardStateProvider>
-        </ZoneSelectionProvider>
-    </EditorAuthenticationProvider>
-</ClickCaptureProvider>
+<ErrorBoundaryProvider>
+    <ClickCaptureProvider>
+        <EditorAuthenticationProvider>
+            <ZoneSelectionProvider>
+                <WizardStateProvider>
+                    @ChildContent
+                </WizardStateProvider>
+            </ZoneSelectionProvider>
+        </EditorAuthenticationProvider>
+    </ClickCaptureProvider>
+</ErrorBoundaryProvider>
 
 @code {
     [Parameter]

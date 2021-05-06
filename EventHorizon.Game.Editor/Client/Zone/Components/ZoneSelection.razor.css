@@ -2,6 +2,5 @@
     overflow: hidden;
     padding: 0 1rem;
     white-space: nowrap;
-    width: 100%;
     text-overflow: ellipsis;
 }
