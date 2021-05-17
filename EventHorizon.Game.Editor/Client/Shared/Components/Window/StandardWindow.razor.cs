@@ -43,6 +43,7 @@
         {
             base.OnInitialized();
 
+            SetupSize();
             SetupLocation();
         }
 
@@ -50,15 +51,58 @@
         {
             base.OnParametersSet();
 
+            SetupSize();
             SetupLocation();
         }
+
+        #region Size
+        private double _widthSizeInPixels = 300;
+        private double _heightSizeInPixels = 300;
+
+        private void SetupSize()
+        {
+            _widthSizeInPixels = SizeInPixels(
+                WidthSize,
+                ViewableArea.InnerWidth
+            );
+            _heightSizeInPixels = SizeInPixels(
+                HeightSize,
+                ViewableArea.InnerHeight
+            );
+        }
+
+        private static double SizeInPixels(
+            string sizeString,
+            double screenSize
+        )
+        {
+            return sizeString switch
+            {
+                "medium" => 500,
+                "large" => 0.9 * screenSize,
+                _ => 300,
+            };
+        }
+        #endregion
 
         #region Location
         public WindowLocationType CurrentLocation = WindowLocationType.None;
         public WindowLocationType InitialLocation = WindowLocationType.None;
         public double Top { get; set; }
         public double Left { get; set; }
-        public (int PosX, int PosY) PositionDetails => CurrentLocation.Resolve(ViewableArea);
+        public (int PosX, int PosY) PositionDetails
+        {
+            get
+            {
+                var val = CurrentLocation.Resolve(
+                    ViewableArea,
+                    (_widthSizeInPixels, _heightSizeInPixels)
+                );
+                Left = val.PosX;
+                Top = val.PosY;
+                return val;
+            }
+        }
 
         private void SetupLocation()
         {

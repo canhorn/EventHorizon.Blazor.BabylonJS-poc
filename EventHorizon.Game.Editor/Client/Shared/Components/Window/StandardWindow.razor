@@ -8,7 +8,10 @@
 }
 
 <div class="standard-window @(IsOpen ? "--open" : "")"
-     style="user-select: @(IsDragging ? "none" : ""); left: @(PositionDetails.PosX + "px"); top: @(PositionDetails.PosY + "px")"
+     style="user-select: @(IsDragging ? "none" : ""); 
+            pointer-events: @(IsDragging ? "none": "");
+            left: @(PositionDetails.PosX + "px"); 
+            top: @(PositionDetails.PosY + "px")"
      @onmousemove="HandleElementDrag">
     <div class="standard-window__grid @($"--width-{WidthSize}") @($"--height-{HeightSize}") @CollapseClassName">
         <div class="standard-window__header @(IsDraggable ? "--draggable" : string.Empty)"

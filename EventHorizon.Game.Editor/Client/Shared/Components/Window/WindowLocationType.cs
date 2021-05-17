@@ -14,7 +14,7 @@
             "TopCenter",
             true,
             (viewableArea) => (viewableArea.InnerWidth / 3 * 1, viewableArea.InnerHeight / 3 * 0)
-            );
+        );
         public static readonly WindowLocationType TopRight = new(
             "TopRight",
             true,
@@ -54,17 +54,64 @@
         public WindowLocationType(
             string location,
             bool gridLocation,
-            Func<ViewableArea, (int PosX, int PosY)> resolve
+            Func<ViewableArea, (int PosX, int PosY)> calculatePosition
         )
         {
             Location = location;
             GridLocation = gridLocation;
-            Resolve = resolve;
+            CalculatePosition = calculatePosition;
         }
 
         public string Location { get; }
         public bool GridLocation { get; }
-        public Func<ViewableArea, (int PosX, int PosY)> Resolve { get; }
+        public Func<ViewableArea, (int PosX, int PosY)> CalculatePosition { get; }
+
+        private static (int PosX, int PosY) CorrectPostionForSize(
+            ViewableArea viewableArea,
+            (double widthSize, double heightSize) size,
+            (int PosX, int PosY) position
+        )
+        {
+            var posX = position.PosX;
+            var posY = position.PosY;
+
+            if (size.widthSize + posX > viewableArea.InnerWidth)
+            {
+                posX = viewableArea.InnerWidth - (int)size.widthSize;
+                Console.WriteLine("We are out side the viewable area");
+            }
+
+            if (size.heightSize + posY > viewableArea.InnerHeight)
+            {
+                posY = viewableArea.InnerHeight - (int)size.heightSize;
+            }
+
+            if (posX < 0)
+            {
+                posX = 0;
+            }
+
+            if (posY < 0)
+            {
+                posY = 0;
+            }
+
+            return (posX, posY);
+        }
+
+        public (int PosX, int PosY) Resolve(
+            ViewableArea viewableArea,
+            (double widthSize, double heightSize) size
+        )
+        {
+            return CorrectPostionForSize(
+                viewableArea,
+                size,
+                CalculatePosition(
+                    viewableArea
+                )
+            );
+        }
 
         public static implicit operator WindowLocationType(
             string location
