@@ -4,8 +4,6 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Shared.Properties;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
@@ -14,6 +12,7 @@
     using EventHorizon.Game.Editor.Client.Zone.Edited;
     using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Model;
     using EventHorizon.Game.Editor.Zone.Editor.Clone;
+    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
     using Microsoft.AspNetCore.Components;
 
     public class ObjectEntityEditorModel
@@ -26,9 +25,6 @@
         public EntityEditorState EditorState { get; set; } = null!;
         [CascadingParameter]
         public IObjectEntityDetails Entity { get; set; } = null!;
-
-        [Inject]
-        public Localizer<SharedResource> Localizer { get; set; } = null!;
 
         public ObjectEntityDetailsModel EditEntity { get; set; } = new ObjectEntityDetailsModel();
         public NewPropertyModel NewPropertyModel { get; set; } = new NewPropertyModel();
@@ -201,7 +197,9 @@
             IsPendingChange = true;
             EditEntity.Data.Add(
                 NewPropertyModel.Name,
-                ZoneState.EditorState.Metadata.GetComplexPropertyValue()
+                ZoneState.EditorState.Metadata.GetDefaultValueForPropertyType(
+                    ZoneEditorPropertyType.PropertyComplex
+                )
             );
             NewPropertyModel.Name = string.Empty;
             await Mediator.Publish(

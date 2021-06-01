@@ -146,15 +146,6 @@ td, th {
 
 
 /* Controls */
-button.--text {
-    background: none;
-    color: inherit;
-    border: solid 1px transparent;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-}
-
 button {
     background: var(--background-dark);
     color: inherit;
@@ -171,6 +162,18 @@ button {
         border: 1px solid var(--contrast-dark-secondary);
     }
 
+    button.--error {
+        background: var(--error-light-secondary);
+        color: inherit;
+        border: 1px solid var(--error-light-disabled);
+    }
+
+        button.--error:hover,
+        button.--error:focus {
+            background: var(--error-light-disabled);
+            border: 1px solid var(--error-light-primary);
+        }
+
     button.--no-border,
     button.--no-border {
         border: 1px solid transparent;
@@ -180,6 +183,23 @@ button {
     button:focus.--no-border {
         border: 1px solid var(--contrast-dark-secondary);
     }
+
+    button.--text {
+        background: none;
+        color: inherit;
+        border: solid 1px transparent;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    button[disabled] {
+        background-color: var(--contrast-light-disabled);
+        border: 1px solid var(--contrast-dark-secondary);
+        color: var(--contrast-dark-secondary);
+        cursor: not-allowed;
+    }
+
 
 input {
     font: inherit;

@@ -3,6 +3,6 @@
     public class PropertyChangedArgs
     {
         public string PropertyName { get; set; } = string.Empty;
-        public object Property { get; set; } = new { };
+        public object Property { get; set; } = string.Empty;
     }
 }

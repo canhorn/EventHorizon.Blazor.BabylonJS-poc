@@ -5,5 +5,6 @@
         None,
         FullScreen,
         Slim,
+        Fit,
     }
 }

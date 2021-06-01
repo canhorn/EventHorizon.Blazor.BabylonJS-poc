@@ -3,8 +3,12 @@
     public interface PropertiesMetadata
     {
         string GetPropertyType(
-           string name,
-           object value
-       );
+            string name,
+            object value
+        );
+
+        object GetDefaultValueForPropertyType(
+            string propertyType
+        );
     }
 }

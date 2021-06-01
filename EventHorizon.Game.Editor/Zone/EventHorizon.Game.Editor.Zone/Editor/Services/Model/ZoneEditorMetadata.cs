@@ -84,9 +84,19 @@
             return string.Empty;
         }
 
-        public object GetComplexPropertyValue()
+        public object GetDefaultValueForPropertyType(
+            string propertyType
+        )
         {
-            return new Dictionary<string, object>();
+            return propertyType switch
+            {
+                ZoneEditorPropertyType.PropertyBoolean => false,
+                ZoneEditorPropertyType.PropertyDecimal => 0.0m,
+                ZoneEditorPropertyType.PropertyLong => 0,
+                ZoneEditorPropertyType.PropertyVector3 => ServerVector3.Zero(),
+                ZoneEditorPropertyType.PropertyComplex => new Dictionary<string, object>(),
+                _ => string.Empty,
+            };
         }
     }
 

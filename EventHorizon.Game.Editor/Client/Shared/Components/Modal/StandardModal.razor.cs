@@ -62,6 +62,7 @@
             {
                 ModalType.FullScreen => "--full",
                 ModalType.Slim => "--slim",
+                ModalType.Fit => "--fit",
                 _ => string.Empty,
             };
         }

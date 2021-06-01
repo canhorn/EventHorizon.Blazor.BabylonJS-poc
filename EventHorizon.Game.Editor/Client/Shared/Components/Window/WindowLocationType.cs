@@ -78,7 +78,6 @@
             if (size.widthSize + posX > viewableArea.InnerWidth)
             {
                 posX = viewableArea.InnerWidth - (int)size.widthSize;
-                Console.WriteLine("We are out side the viewable area");
             }
 
             if (size.heightSize + posY > viewableArea.InnerHeight)

@@ -5,17 +5,12 @@
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.Register;
     using EventHorizon.Observer.Unregister;
-    using MediatR;
-    using Microsoft.AspNetCore.Components;
 
     public abstract class ObservableComponentBase
-        : ComponentBase,
+        : EditorComponentBase,
         ObserverBase,
         IAsyncDisposable
     {
-        [Inject]
-        public IMediator Mediator { get; set; } = null!;
-
         protected bool _isRegistered;
 
         protected override async Task OnInitializedAsync()

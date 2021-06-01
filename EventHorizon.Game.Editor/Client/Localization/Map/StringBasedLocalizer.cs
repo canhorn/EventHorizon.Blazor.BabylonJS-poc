@@ -9,10 +9,10 @@
         private readonly IStringLocalizer<T> _localizer;
 
         public string this[string name]
-            => _localizer[name] ?? name;
+            => _localizer[name]! ?? name;
 
         public string this[string name, params object[] arguments]
-            => _localizer[name, arguments] ?? string.Format(name, arguments);
+            => _localizer[name, arguments]! ?? string.Format(name, arguments);
 
         public StringBasedLocalizer(
             IStringLocalizer<T> localizer

@@ -4,6 +4,14 @@
 
     public static class DictionaryExtensions
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="root"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
         public static IDictionary<TKey, TValue> Merge<TKey, TValue>(
             this IDictionary<TKey, TValue> root,
             params IDictionary<TKey, TValue>[] values

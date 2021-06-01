@@ -69,22 +69,27 @@
         height: 75%;
     }
 
-        .standard-modal__content .--full {
+        .standard-modal__content.--fit {
+            width: fit-content;
+            height: fit-content;
+        }
+
+        .standard-modal__content.--full {
             margin: 0.5em auto;
             width: 98%;
             height: 98%;
         }
 
-        .standard-modal__content .--slim {
+        .standard-modal__content.--slim {
             margin: 0.5em auto;
             height: 50%;
         }
 
-    .standard-modal__header .--slim {
+    .standard-modal__header.--slim {
         height: 18%;
     }
 
-    .standard-modal__footer .--slim {
+    .standard-modal__footer.--slim {
         height: 18%;
     }
 }
@@ -97,22 +102,22 @@
         height: 50%;
     }
 
-        .standard-modal__content .--full {
+        .standard-modal__content.--full {
             margin: 0.5em auto;
             width: 98%;
             height: 98%;
         }
 
-        .standard-modal__content .--slim {
+        .standard-modal__content.--slim {
             margin: 0.5em auto;
             height: 30%;
         }
 
-    .standard-modal__header .--slim {
+    .standard-modal__header.--slim {
         height: 25%;
     }
 
-    .standard-modal__footer .--slim {
+    .standard-modal__footer.--slim {
         height: 25%;
     }
 }
@@ -136,11 +141,11 @@
             height: 30%;
         }
 
-    .standard-modal__header .--slim {
+    .standard-modal__header.--slim {
         height: 25%;
     }
 
-    .standard-modal__footer .--slim {
+    .standard-modal__footer.--slim {
         height: 25%;
     }
 }

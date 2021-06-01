@@ -11,6 +11,13 @@
             PropertyNameCaseInsensitive = true,
         };
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="element"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static T ToObject<T>(
             this JsonElement element,
             JsonSerializerOptions? options = null
@@ -29,6 +36,13 @@
             );
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="document"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static T ToObject<T>(
             this JsonDocument document,
             JsonSerializerOptions? options = null

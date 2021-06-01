@@ -75,6 +75,11 @@ public static class ObjectExtensions
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="objectToCheck"></param>
+    /// <returns></returns>
     public static bool IsNull(
         [NotNullWhen(false)] this object? objectToCheck
     )
@@ -82,6 +87,11 @@ public static class ObjectExtensions
         return objectToCheck == null;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="objectToCheck"></param>
+    /// <returns></returns>
     public static bool IsNotNull(
         [NotNullWhen(true)] this object? objectToCheck
     )

@@ -59,10 +59,10 @@
                 @Localizer["Data Properties ({0})", EditEntity.Data.Count]
             </h3>
 
-            <PropertyDisplay Data="EditEntity.Data"
-                             PropertiesMetadata="ZoneState.EditorState.Metadata"
-                             OnChanged="HandleDataChanged"
-                             OnRemove="HandleRemoveData" />
+            <PropertiesDisplay Data="EditEntity.Data"
+                               PropertiesMetadata="ZoneState.EditorState.Metadata"
+                               OnChanged="HandleDataChanged"
+                               OnRemove="HandleRemoveData" />
         </div>
 
         <div class="object-entity-editor__add-section">

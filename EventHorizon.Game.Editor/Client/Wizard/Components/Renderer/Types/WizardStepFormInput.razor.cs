@@ -160,6 +160,13 @@
                     out var value
                 ) ? value : PropertyType.String;
             }
+
+            public object GetDefaultValueForPropertyType(
+                string propertyType
+            )
+            {
+                return string.Empty;
+            }
         }
     }
 }

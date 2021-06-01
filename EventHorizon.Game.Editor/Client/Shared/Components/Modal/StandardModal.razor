@@ -23,12 +23,15 @@
                      data-selector="header">
                     @Header
                 </div>
-                <hr />
             }
-            <div class="standard-modal__body"
-                 data-selector="body">
-                @Body
-            </div>
+            @if (Body.IsNotNull())
+            {
+                <hr />
+                <div class="standard-modal__body"
+                     data-selector="body">
+                    @Body
+                </div>
+            }
             @if (Footer != null)
             {
                 <hr />

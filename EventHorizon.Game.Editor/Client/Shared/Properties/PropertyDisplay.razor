@@ -1,80 +1,69 @@
 ﻿@inherits PropertyDisplayModel
 @using EventHorizon.Game.Editor.Zone.Editor.Services.Model
 
-<div class="entity-property-display">
-    @foreach (var prop in DisplayProperties.Values)
+<div class="property-display">
+    @switch (Property.Type)
     {
-        @switch (prop.Type)
-        {
-            case ZoneEditorPropertyType.PropertyBoolean:
-                <BooleanPropertyControl PropertyName="@prop.Name"
-                                        Property="prop.Value"
-                                        Label="@prop.Label"
-                                        OnChange="HandlePropertyChanged"
-                                        OnRemove="OnRemove" />
-                break;
+        case ZoneEditorPropertyType.PropertyBoolean:
+            <BooleanPropertyControl PropertyName="@Property.Name"
+                                    Property="Property.Value"
+                                    Label="@Property.Label"
+                                    OnChange="OnChanged"
+                                    OnRemove="OnRemove" />
+            break;
 
-            case ZoneEditorPropertyType.PropertyDecimal:
-                <DecimalPropertyControl PropertyName="@prop.Name"
-                                        Property="prop.Value"
-                                        Label="@prop.Label"
-                                        OnChange="HandlePropertyChanged"
-                                        OnRemove="OnRemove" />
-                break;
+        case ZoneEditorPropertyType.PropertyDecimal:
+            <DecimalPropertyControl PropertyName="@Property.Name"
+                                    Property="Property.Value"
+                                    Label="@Property.Label"
+                                    OnChange="OnChanged"
+                                    OnRemove="OnRemove" />
+            break;
 
-            case ZoneEditorPropertyType.PropertyLong:
-                <LongPropertyControl PropertyName="@prop.Name"
-                                     Property="prop.Value"
-                                     Label="@prop.Label"
-                                     OnChange="HandlePropertyChanged"
-                                     OnRemove="OnRemove" />
-                break;
+        case ZoneEditorPropertyType.PropertyLong:
+            <LongPropertyControl PropertyName="@Property.Name"
+                                 Property="Property.Value"
+                                 Label="@Property.Label"
+                                 OnChange="OnChanged"
+                                 OnRemove="OnRemove" />
+            break;
 
-            case ZoneEditorPropertyType.PropertyString:
-                <StringPropertyControl PropertyName="@prop.Name"
-                                       Property="prop.Value"
-                                       Label="@prop.Label"
-                                       OnChange="HandlePropertyChanged"
-                                       OnRemove="OnRemove" />
-                break;
+        case ZoneEditorPropertyType.PropertyString:
+            <StringPropertyControl PropertyName="@Property.Name"
+                                   Property="Property.Value"
+                                   Label="@Property.Label"
+                                   OnChange="OnChanged"
+                                   OnRemove="OnRemove" />
+            break;
 
-            case ZoneEditorPropertyType.PropertyVector3:
-                <VectorPropertyControl PropertyName="@prop.Name"
-                                       Property="prop.Value"
-                                       Label="@prop.Label"
-                                       OnChange="HandlePropertyChanged"
-                                       OnRemove="OnRemove" />
-                break;
+        case ZoneEditorPropertyType.PropertyVector3:
+            <VectorPropertyControl PropertyName="@Property.Name"
+                                   Property="Property.Value"
+                                   Label="@Property.Label"
+                                   OnChange="OnChanged"
+                                   OnRemove="OnRemove" />
+            break;
 
-            case ZoneEditorPropertyType.PropertyAsset:
-                <AssetPropertyControl PropertyName="@prop.Name"
-                                      Property="prop.Value"
-                                      Label="@prop.Label"
-                                      OnChange="HandlePropertyChanged"
-                                      OnRemove="OnRemove" />
-                break;
+        case ZoneEditorPropertyType.PropertyAsset:
+            <AssetPropertyControl PropertyName="@Property.Name"
+                                  Property="Property.Value"
+                                  Label="@Property.Label"
+                                  OnChange="OnChanged"
+                                  OnRemove="OnRemove" />
+            break;
 
-            case ZoneEditorPropertyType.PropertyComplex:
-                <ComplexPropertyControl PropertyName="@prop.Name"
-                                        Property="prop.Value"
-                                        Label="@prop.Label"
-                                        OnChange="HandlePropertyChanged"
-                                        OnRemove="OnRemove" />
-                break;
+        case ZoneEditorPropertyType.PropertyComplex:
+            <ComplexPropertyControl PropertyName="@Property.Name"
+                                    Property="Property.Value"
+                                    Label="@Property.Label"
+                                    OnChange="OnChanged"
+                                    OnRemove="OnRemove" />
+            break;
 
-            default:
-                <div>
-                    @Localizer["not_supported_property_type"]
-                </div>
-                break;
-        }
-        <hr class="--accent-color" />
+        default:
+            <div>
+                @Localizer["not_supported_property_type"]
+            </div>
+            break;
     }
 </div>
-
-<style>
-    .entity-property-display {
-        display: grid;
-        grid-gap: 0.3rem;
-    }
-</style>
