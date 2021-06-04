@@ -9,6 +9,7 @@
         ZoneAdminAgentApi Agent { get; }
         ZoneAdminClientEntityApi ClientEntity { get; }
         ZoneAdminCommandApi Command { get; }
+        ZoneAdminDataStorageApi DataStorage { get; }
         ZoneAdminWizardApi Wizard { get; }
     }
 }

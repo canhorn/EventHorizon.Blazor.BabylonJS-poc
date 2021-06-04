@@ -1,4 +1,5 @@
-﻿@inherits StandardModalModel
+﻿@using EventHorizon.Game.Editor.Client.Shared.Components.Modal.Triggers
+@inherits StandardModalModel
 
 @if (IsOpen)
 {
@@ -42,4 +43,5 @@
             }
         </div>
     </div>
+    <ModalShownTrigger OnShown="OnShown" />
 }

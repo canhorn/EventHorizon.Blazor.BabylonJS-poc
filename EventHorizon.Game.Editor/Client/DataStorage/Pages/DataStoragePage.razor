@@ -1,0 +1,84 @@
+﻿@page "/data-storage"
+@using EventHorizon.Game.Editor.Client.DataStorage.Components.Modal
+@inherits DataStoragePageModel
+
+<div class="data-storage-page">
+    <h1>
+        @Localizer["Data Storage Management"]
+    </h1>
+    <p class="page__description">
+        @Localizer["This is the Management page for the Data Storage System. Use the below Grid to make changes to your Platform Data Store."]
+    </p>
+
+    <div>
+        <StandardToolbar>
+            <StandardToolbarButton @onclick="HandleNewDataValueClicked">
+                @Localizer["New Data Value"]
+            </StandardToolbarButton>
+        </StandardToolbar>
+    </div>
+
+    <table class="data-storage__table">
+        <thead>
+            <tr>
+                <th>@Localizer["Key"]</th>
+                <th>@Localizer["Value"]</th>
+                <th>@Localizer["Value Type"]</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dataValue in DataValues.Where(FilterDataValues).OrderBy(a => a.Key))
+            {
+                <tr>
+                    <td>
+                        @dataValue.Key
+                    </td>
+                    <td>
+                        @dataValue.Value
+                    </td>
+                    <td>
+                        @DataStoreMetadata.GetPropertyType(dataValue.Key, dataValue.Value)
+                    </td>
+                    <td>
+                        <button @onclick="@(() => HandleEditDataValue(dataValue.Key, dataValue.Value))">
+                            @Localizer["Edit"]
+                        </button>
+                        <button @onclick="@(() => HandleDeleteDataValue(dataValue.Key))">
+                            @Localizer["Delete"]
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <DataValueEditModal IsOpen="IsEditOpen"
+                        DataStoreMetadata="DataStoreMetadata"
+                        Model="EditModalModel"
+                        ContainsName="@(name => DataValues.ContainsKey(name))"
+                        OnClose="@(() => IsEditOpen = false)"
+                        OnSubmit="HandleDataValueEditSubmit" />
+
+    <StandardModal IsOpen="IsDeleteConfirmOpen"
+                   Type="ModalType.Fit"
+                   HideClose="true">
+        <Header>
+            <h2>
+                @Localizer["Confirm Delete of Data Value"]
+            </h2>
+        </Header>
+        <Footer>
+            <div class="confirm-modal__actions">
+                <button class="confirm-modal__button"
+                        @onclick="HandleCloseDeletePrompt">
+                    @Localizer["Close"]
+                </button>
+                <button class="confirm-modal__button --error"
+                        @onclick="HandleYesDelete">
+                    @Localizer["Yes Delete the Data Value"]
+                </button>
+            </div>
+        </Footer>
+    </StandardModal>
+</div>

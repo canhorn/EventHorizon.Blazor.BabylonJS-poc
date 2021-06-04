@@ -26,6 +26,8 @@
         [Parameter]
         public EventCallback OnClose { get; set; }
         [Parameter]
+        public EventCallback OnShown { get; set; }
+        [Parameter]
         [MaybeNull]
         public RenderFragment Header { get; set; }
         [Parameter]

@@ -1,0 +1,17 @@
+﻿.data-storage-page {
+    padding: 0 1rem;
+}
+
+.data-storage__table {
+    width: 100%;
+}
+
+.confirm-modal__button {
+    height: 100%;
+    padding: 0 2rem;
+}
+
+.confirm-modal__actions {
+    height: 3rem;
+    padding: 1rem;
+}

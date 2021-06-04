@@ -1,0 +1,18 @@
+﻿.edit-modal {
+}
+
+.edit-modal__form-item {
+    padding: 0.6rem;
+}
+
+    .edit-modal__form-item.--disabled,
+    .edit-modal__form-item.--disabled > *,
+    .edit-modal__form-item.--disabled ::deep select {
+        cursor: not-allowed;
+    }
+
+
+.edit-modal__button {
+    height: 100%;
+    padding: 0 2rem;
+}

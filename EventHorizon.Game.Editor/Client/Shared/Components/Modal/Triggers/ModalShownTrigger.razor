@@ -1,0 +1,15 @@
+﻿
+@code {
+    [Parameter]
+    public EventCallback OnShown { get; set; }
+
+    protected override async Task OnAfterRenderAsync(
+        bool firstRender
+    )
+    {
+        if (firstRender)
+        {
+            await OnShown.InvokeAsync();
+        }
+    }
+}
