@@ -29,22 +29,11 @@
 
         private readonly IDictionary<string, string> DEFAULT_BLADES = new Dictionary<string, string>
         {
-            {
-                "NAV_MENU",
-                "Nav"
-            },
-            {
-                "ENTITY_LIST",
-                "Entity List"
-            },
-            {
-                "EDITOR_FILE_EXPLORER",
-                "File Explorer"
-            },
-            {
-                "OBJECT_ENTITY_EDITOR",
-                "Entity Editor"
-            },
+            ["NAV_MENU"] = "Nav",
+            ["ENTITY_LIST"] = "Entity List",
+            ["EDITOR_FILE_EXPLORER"] = "File Explorer",
+            ["OBJECT_ENTITY_EDITOR"] = "Entity Editor",
+            ["ASSET_FILE_EXPLORER"] = "Asset File Explorer",
         };
 
         protected StandardSelectOption? SelectedBladeOption { get; private set; }
@@ -59,6 +48,7 @@
         protected override void OnInitialized()
         {
             // TODO: Pull this from a Command
+            // When the dynamic component is available in .NET6 this will be easier to do
             BladeOptions = DEFAULT_BLADES.Select(
                 blade => new StandardSelectOption
                 {

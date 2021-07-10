@@ -8,6 +8,10 @@ html, body {
     margin: 0;
 }
 
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
 a, .btn-link {
     color: var(--primary-light);
 }

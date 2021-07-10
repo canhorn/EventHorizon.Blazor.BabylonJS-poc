@@ -2,13 +2,16 @@
 @using EventHorizon.Game.Editor.Client.Shared.ClickCapture
 @using EventHorizon.Game.Editor.Client.Wizard.Components.Provider
 @using EventHorizon.Game.Editor.Client.ErrorBoundary.Providers
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers
 
 <ErrorBoundaryProvider>
     <ClickCaptureProvider>
         <EditorAuthenticationProvider>
             <ZoneSelectionProvider>
                 <WizardStateProvider>
-                    @ChildContent
+                    <AssetManagementProvider>
+                        @ChildContent
+                    </AssetManagementProvider>
                 </WizardStateProvider>
             </ZoneSelectionProvider>
         </EditorAuthenticationProvider>

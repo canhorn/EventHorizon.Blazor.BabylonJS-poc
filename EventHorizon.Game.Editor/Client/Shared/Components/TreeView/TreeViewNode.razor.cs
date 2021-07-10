@@ -16,7 +16,7 @@
         [Parameter]
         public TreeViewNodeData Node { get; set; } = null!;
         [Parameter]
-        public EventCallback OnChanged { get; set; }
+        public EventCallback<TreeViewNodeData> OnChanged { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; } = null!;
@@ -28,7 +28,19 @@
 
         protected override void OnInitialized()
         {
-            if (Node.ContextMenu != null && Node.ContextMenu.Items.Count > 0)
+            CheckAndSetupContextMenu();
+        }
+
+        protected override void OnParametersSet()
+        {
+            CheckAndSetupContextMenu();
+        }
+
+        private void CheckAndSetupContextMenu()
+        {
+            if (Node.ContextMenu != null 
+                && Node.ContextMenu.Items.Count > 0
+            )
             {
                 ContextMenu.Enabled = true;
                 ClickCapture.OnMouseClick(HandleCloseContextMenu);
@@ -76,13 +88,12 @@
 
         protected async Task HandleClickOfNode()
         {
-            if (Node.IsDisabled
-                || !IsParentNode)
+            if (Node.IsDisabled)
             {
                 return;
             }
             Node.IsExpanded = !Node.IsExpanded;
-            await OnChanged.InvokeAsync();
+            await OnChanged.InvokeAsync(Node);
         }
 
         protected string GetNavLinkClass()

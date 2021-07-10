@@ -1,0 +1,13 @@
+﻿@using EventHorizon.Game.Editor.Client.AssetManagement.Components.DirectoryContent
+@inherits AssetFileWindowModel
+
+<div class="file-window">
+    @foreach (var node in State.FileCollection)
+    {
+        <button class="--text"
+                @onclick="() => HandleDirectoryContentClicked(node)">
+            <FileDirectoryContent File="node"
+                                  OnDelete="HandleDeleteFileDirectoryContent" />
+        </button>
+    }
+</div>

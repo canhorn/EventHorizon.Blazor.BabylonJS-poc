@@ -11,6 +11,7 @@ namespace EventHorizon.Game.Editor.Client
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Systems;
     using EventHorizon.Game.Editor;
+    using EventHorizon.Game.Editor.Client.AssetManagement;
     using EventHorizon.Game.Editor.Client.Authentication.Api;
     using EventHorizon.Game.Editor.Client.Authentication.State;
     using EventHorizon.Game.Editor.Client.Localization.Api;
@@ -92,6 +93,9 @@ namespace EventHorizon.Game.Editor.Client
                 .AddGameClient()
                 .AddGameServerServices()
             ;
+
+            builder.Services
+                .AddAssetManagementServices();
 
             // Core Services
             builder.Services

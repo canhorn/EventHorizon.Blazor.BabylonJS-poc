@@ -1,0 +1,13 @@
+﻿@page "/asset-management"
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components.DirectoryContent
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components
+@inherits AssetManagementPageModel
+
+<div class="asset-management-header">
+    <h3>@Localizer["Asset Management"]</h3>
+    <AssetFileUpload />
+</div>
+
+<div class="file-manager">
+    <AssetFileWindow />
+</div>

@@ -69,7 +69,6 @@
                     "Failed to Find Selected Zone Details: {0}",
                     SelectedZoneId
                 ];
-                //SelectedZoneId = string.Empty;
                 return;
             }
             SelectedZone = zone;
@@ -106,6 +105,11 @@
         {
             try
             {
+                if (args.ZoneId == SelectedZoneId)
+                {
+                    return;
+                }
+
                 ErrorMessage = string.Empty;
                 SelectedZoneId = args.ZoneId;
 

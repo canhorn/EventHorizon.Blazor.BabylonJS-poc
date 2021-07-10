@@ -1,0 +1,51 @@
+﻿.file-directory-content {
+    background-color: rgba(255,255,255, 0.2);
+    height: 200px;
+    width: 160px;
+    font-size: 0.8rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgba(0,0,0, 0.2);
+    transition: all 0.3s;
+}
+
+    .file-directory-content:hover {
+        background-color: rgba(0,0,0, 0.2);
+        border: 1px solid black;
+    }
+
+.content {
+    display: grid;
+    height: 100%;
+    padding: 0.4rem
+}
+
+.preview {
+    font-size: 4rem;
+}
+
+.modified-date {
+    font-size: 0.6rem;
+    opacity: 0.6;
+}
+
+.--text {
+    height: fit-content;
+    width: fit-content;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.actions__action-delete {
+    padding: 0 0.2rem;
+    text-decoration: underline;
+    transition: all 0.3s;
+}
+
+    .actions__action-delete:hover {
+        background-color: rgba(255,255,255, 0.2);
+    }
