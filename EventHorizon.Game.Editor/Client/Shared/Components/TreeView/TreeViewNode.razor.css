@@ -44,12 +44,20 @@
     align-items: center;
     text-decoration: none;
     padding: 0.3rem;
+    border: 1px solid transparent;
 }
 
     ::deep .tree-view__node-link:hover {
         background-color: var(--contrast-dark-hint);
         color: var(--accent-color);
         text-decoration: none;
+    }
+
+    ::deep .tree-view__node-link:focus {
+        background-color: var(--contrast-dark-hint);
+        color: var(--accent-color);
+        text-decoration: none;
+        border: 1px solid var(--accent-light);
     }
 
 .tree-view__context-menu {

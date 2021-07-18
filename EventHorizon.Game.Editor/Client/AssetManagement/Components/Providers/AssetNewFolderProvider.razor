@@ -1,0 +1,28 @@
+﻿@inherits AssetNewFolderProviderModel
+
+<EditForm Model="this"
+          OnValidSubmit="HandleNewFolderSubmit">
+    <StandardModal IsOpen="IsOpen"
+                   OnClose="@(() => IsOpen = false)"
+                   OnShown="HandleModalShown">
+        <Header>
+            <h2>@Localizer["Create New Asset Folder"]</h2>
+        </Header>
+        <Body>
+            <div class="new-folder-modal__form-item">
+                <label class="--font-bold">
+                    @Localizer["Folder Name"]
+                </label>
+                <InputText class="create-new-asset-folder__folder-name"
+                           @bind-Value="@FolderName"
+                           autofocus="true"
+                           placeholder="@Localizer["Folder Name"]" />
+            </div>
+        </Body>
+        <Footer>
+            <button type="submit">
+                @Localizer["Create"]
+            </button>
+        </Footer>
+    </StandardModal>
+</EditForm>

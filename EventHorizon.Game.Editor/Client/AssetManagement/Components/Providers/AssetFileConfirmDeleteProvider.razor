@@ -1,0 +1,27 @@
+﻿@inherits AssetFileConfirmDeleteProviderModel
+
+<StandardModal IsOpen="IsOpen"
+               OnClose="HandleCancel"
+               OnShown="HandleModalShown">
+    <Header>
+        <h2>@Localizer["Asset Management Delete"]</h2>
+    </Header>
+    <Body>
+        @Localizer["Are you sure you want to delete the Directory Content '{0}'?", Name]
+    </Body>
+    <Footer>
+        <div class="asset-file-confim-delete__buttons">
+            <button class="buttons__button"
+                    @ref="YesButton"
+                    @onclick="HandleYesClicked"
+                    type="submit">
+                @Localizer["Yes"]
+            </button>
+            <button class="buttons__button"
+                    @onclick="HandleCancel"
+                    type="button">
+                @Localizer["Cancel"]
+            </button>
+        </div>
+    </Footer>
+</StandardModal>

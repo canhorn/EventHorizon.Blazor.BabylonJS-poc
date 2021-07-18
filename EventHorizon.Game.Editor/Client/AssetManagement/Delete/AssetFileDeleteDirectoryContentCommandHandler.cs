@@ -1,22 +1,19 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Delete
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
     using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Model;
     using MediatR;
 
-    public class AssetFileDeleteTriggeredEventHandler
-        : INotificationHandler<AssetFileDeleteTriggeredEvent>
+    public class AssetFileDeleteDirectoryContentCommandHandler
+        : IRequestHandler<AssetFileDeleteDirectoryContentCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
         private readonly AssetManagementState _assetManagementState;
 
-        public AssetFileDeleteTriggeredEventHandler(
+        public AssetFileDeleteDirectoryContentCommandHandler(
             IMediator mediator,
             AssetManagementState assetManagementState
         )
@@ -25,13 +22,13 @@
             _assetManagementState = assetManagementState;
         }
 
-        public async Task Handle(
-            AssetFileDeleteTriggeredEvent notification,
+        public async Task<StandardCommandResult> Handle(
+            AssetFileDeleteDirectoryContentCommand request,
             CancellationToken cancellationToken
         )
         {
             await _assetManagementState.DeleteDirectoryContent(
-                notification.DirectoryContent,
+                request.DirectoryContent,
                 cancellationToken
             );
 
@@ -39,6 +36,8 @@
                 new AssetManagementStateChangedEvent(),
                 cancellationToken
             );
+
+            return new();
         }
     }
 }

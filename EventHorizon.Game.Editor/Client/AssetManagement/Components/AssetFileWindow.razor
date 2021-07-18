@@ -4,7 +4,7 @@
 <div class="file-window">
     @foreach (var node in State.FileCollection)
     {
-        <button class="--text"
+        <button class="file-directory-content__button --text"
                 @onclick="() => HandleDirectoryContentClicked(node)">
             <FileDirectoryContent File="node"
                                   OnDelete="HandleDeleteFileDirectoryContent" />

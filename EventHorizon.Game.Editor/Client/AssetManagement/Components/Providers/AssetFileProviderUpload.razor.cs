@@ -70,6 +70,7 @@
                 || FileUploadWorkingDirectory is null)
             {
                 await ShowMessage(
+                    Localizer["Asset File Upload"],
                     Localizer["Invalid File Upload"],
                     MessageLevel.Error
                 );
@@ -84,20 +85,6 @@
 
             FileUploadTreeViewNode = null;
             FileUploadWorkingDirectory = null;
-        }
-
-        private async Task ShowMessage(
-            string message,
-            MessageLevel level = MessageLevel.Success
-        )
-        {
-            await Mediator.Publish(
-                new ShowMessageEvent(
-                    Localizer["Asset File Upload"],
-                    message,
-                    level
-                )
-            );
         }
 
         private async Task UploadFrom(
@@ -130,12 +117,14 @@
                     )
                 );
                 await ShowMessage(
+                    Localizer["Asset File Upload"],
                     Localizer["Successfully Uploaded"]
                 );
                 return;
             }
 
             await ShowMessage(
+                Localizer["Asset File Upload"],
                 Localizer[
                     "Failed to Upload: Code = {0} | Message = '{1}'",
                     result.Error?.Code ?? 500,

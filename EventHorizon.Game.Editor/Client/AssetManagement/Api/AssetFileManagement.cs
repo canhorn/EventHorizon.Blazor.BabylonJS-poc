@@ -20,6 +20,13 @@
             CancellationToken cancellationToken
         );
 
+        Task<FileSystemResponse> CreateDirectory(
+            string accessToken,
+            string path,
+            string name,
+            CancellationToken cancellationToken
+        );
+
         Task<FileSystemResponse> Delete(
             string accessToken,
             string path,

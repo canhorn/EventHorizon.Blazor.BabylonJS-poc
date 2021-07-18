@@ -2,23 +2,14 @@
 {
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
+    using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
     using EventHorizon.Game.Editor.Client.Zone.Reload;
     using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Create;
-    using MediatR;
-    using Microsoft.AspNetCore.Components;
 
     public class ClientEntityToolbarModel
-        : ComponentBase
+        : EditorComponentBase
     {
-        [Inject]
-        public Localizer<SharedResource> Localizer { get; set; } = null!;
-        [Inject]
-        public IMediator Mediator { get; set; } = null!;
-
         public async Task HandleNew()
         {
             var newClientEntity = new ObjectEntityDetailsModel();
@@ -31,21 +22,16 @@
 
             if (result.Success.IsNotTrue())
             {
-                await Mediator.Publish(
-                    new ShowMessageEvent(
-                        Localizer["Client Entity"],
-                        Localizer["Create Client Failed: {0}", result.ErrorCode],
-                        MessageLevel.Error
-                    )
+                await ShowMessage(
+                    Localizer["Client Entity"],
+                    Localizer["Create Client Failed: {0}", result.ErrorCode],
+                    MessageLevel.Error
                 );
             }
 
-            await Mediator.Publish(
-                new ShowMessageEvent(
-                    Localizer["Client Entity"],
-                    Localizer["Created Client Entity! {0}", result.Result.Id],
-                    MessageLevel.Success
-                )
+            await ShowMessage(
+                Localizer["Client Entity"],
+                Localizer["Created Client Entity! {0}", result.Result.Id]
             );
             await Mediator.Send(
                 new ReloadActiveZoneStateCommand()

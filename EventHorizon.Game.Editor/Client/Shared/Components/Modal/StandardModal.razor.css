@@ -45,6 +45,14 @@
     height: 10%;
 }
 
+.standard-modal ::deep h2 {
+    margin-top: 0.3rem;
+}
+
+.standard-modal ::deep h3 {
+    margin-top: 0.3rem;
+}
+
 .standard-modal__body {
     overflow: auto;
     height: 200px;

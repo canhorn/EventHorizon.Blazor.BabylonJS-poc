@@ -9,11 +9,6 @@
     transition: all 0.3s;
 }
 
-    .file-directory-content:hover {
-        background-color: rgba(0,0,0, 0.2);
-        border: 1px solid black;
-    }
-
 .content {
     display: grid;
     height: 100%;
@@ -46,6 +41,7 @@
     transition: all 0.3s;
 }
 
-    .actions__action-delete:hover {
+    .actions__action-delete:hover,
+    .actions__action-delete:focus {
         background-color: rgba(255,255,255, 0.2);
     }

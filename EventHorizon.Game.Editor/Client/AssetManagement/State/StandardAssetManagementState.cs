@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.State
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -9,6 +8,7 @@
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
     using EventHorizon.Game.Editor.Client.AssetManagement.Delete;
     using EventHorizon.Game.Editor.Client.AssetManagement.Model;
+    using EventHorizon.Game.Editor.Client.AssetManagement.New;
     using EventHorizon.Game.Editor.Client.AssetManagement.Open;
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
@@ -161,13 +161,9 @@
             CancellationToken cancellationToken
         )
         {
-
             var result = await _assetFileManagement.Delete(
                 _accessToken,
-                FileSystemDirectoryContent.BuildPath(
-                    RootPath,
-                    directoryContent
-                ),
+                directoryContent.FilterPath,
                 directoryContent.Name,
                 cancellationToken
             );
@@ -196,7 +192,8 @@
                     node,
                     directoryContent,
                     cancellationToken,
-                    force: true
+                    force: true,
+                    forceParentSelection: true
                 );
                 return;
             }
@@ -227,7 +224,32 @@
                     TreeViewNodeDataBuildTreeViewNode
                 ).ToList()
             };
+            FileExplorerRoot.ContextMenu = new TreeViewNodeContextMenu
+            {
+                Items = new List<TreeViewNodeContextMenuItem>
+                {
+                    new TreeViewNodeContextMenuItem
+                    {
+                        Text = _localizer["New Folder"],
+                        OnClick = () => TriggerNewFolder(FileExplorerRoot, getFileResult.CWD)
+                    }
+                }
+            };
+
             CurrentTreeViewNode = FileExplorerRoot;
+        }
+
+        private void TriggerNewFolder(
+            TreeViewNodeData node,
+            FileSystemDirectoryContent directoryContent
+        )
+        {
+            _mediator.Publish(
+                new AssetNewFolderTrggeredEvent(
+                    node,
+                    directoryContent
+                )
+            );
         }
 
         private TreeViewNodeData TreeViewNodeDataBuildTreeViewNode(
@@ -286,6 +308,11 @@
                 {
                     new TreeViewNodeContextMenuItem
                     {
+                        Text = _localizer["New Folder"],
+                        OnClick = () => TriggerNewFolder(node, directoryContent)
+                    },
+                    new TreeViewNodeContextMenuItem
+                    {
                         Text = _localizer["Upload"],
                         OnClick = () => TriggerUpload(node, directoryContent)
                     },
@@ -327,17 +354,20 @@
             TreeViewNodeData node,
             FileSystemDirectoryContent directoryContent,
             CancellationToken cancellationToken,
-            bool force = false
+            bool force = false,
+            bool forceParentSelection = false
         )
         {
-            if (directoryContent.IsFile)
+            if (directoryContent.IsFile 
+                || forceParentSelection
+            )
             {
                 var parentNode = GetParentNode(
                     node,
                     FileExplorerRoot
                 );
                 if (parentNode is null
-                    || node.Data is not FileSystemDirectoryContent parenDirectoryContent
+                    || parentNode.Data is not FileSystemDirectoryContent parenDirectoryContent
                 )
                 {
                     return;

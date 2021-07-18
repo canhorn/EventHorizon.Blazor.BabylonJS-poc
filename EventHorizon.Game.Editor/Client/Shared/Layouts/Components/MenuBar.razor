@@ -1,4 +1,4 @@
-﻿@using EventHorizon.Game.Client.Core.Monitoring.Api 
+﻿@using EventHorizon.Game.Client.Core.Monitoring.Api
 @using EventHorizon.ApplicationDetails.Component.Api
 
 <div class="menu-bar">
@@ -27,12 +27,18 @@
         <div class="--spacing">
             @Localizer["Application Version: {0}", ApplicationDetailsState.ApplicationVersion]
         </div>
+        <div class="--spacing">
+            @Localizer["User Token: "]
+            <input value="@AccessToken.AccessToken" />
+        </div>
     </Body>
 </StandardModal>
 
 @code {
     [CascadingParameter]
     public ApplicationDetailsState ApplicationDetailsState { get; set; } = null!;
+    [CascadingParameter]
+    public AccessTokenModel AccessToken { get; set; } = null!;
 
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;

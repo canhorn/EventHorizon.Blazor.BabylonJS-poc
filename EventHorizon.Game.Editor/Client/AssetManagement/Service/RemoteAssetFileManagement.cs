@@ -117,6 +117,53 @@
             }
         }
 
+        public async Task<FileSystemResponse> CreateDirectory(
+            string accessToken,
+            string path,
+            string name,
+            CancellationToken cancellationToken
+        )
+        {
+            try
+            {
+                using var response = await MakeHttpClientRequest(
+                    HttpMethod.Post,
+                    $"{_fileManagementUrl}/CreateDirectory?path={HttpUtility.UrlEncode(path)}&name={HttpUtility.UrlEncode(name)}",
+                    accessToken,
+                    cancellationToken
+                );
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<FileSystemResponse>(
+                        cancellationToken: cancellationToken
+                    ) ?? InvalidFileErrorResponse();
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return CreateNotAuthorizedErrorResponse();
+                }
+
+                return new FileSystemResponse
+                {
+                    Error = await response.Content.ReadFromJsonAsync<ErrorDetails>(
+                        cancellationToken: cancellationToken
+                    ) ?? InvalidResponseError()
+                };
+            }
+            catch (HttpRequestException ex)
+            {
+                return new FileSystemResponse
+                {
+                    Error = InvalidResponseError(
+                        500,
+                        $"HttpRequestException: {ex.Message}"
+                    ),
+                };
+            }
+
+        }
+
         public async Task<FileSystemResponse> Delete(
             string accessToken,
             string path,

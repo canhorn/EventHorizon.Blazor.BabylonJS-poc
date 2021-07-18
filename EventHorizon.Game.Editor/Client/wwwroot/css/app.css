@@ -12,6 +12,10 @@ html, body {
     box-sizing: border-box;
 }
 
+    *:focus-visible {
+        outline: none;
+    }
+
 a, .btn-link {
     color: var(--primary-light);
 }
