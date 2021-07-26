@@ -3,19 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Compile Remove="Core\DI\**" />
-      <Compile Remove="Core\Query\**" />
-      <Compile Remove="Engine\Systems\ClientAction\Model\**" />
-      <EmbeddedResource Remove="Core\DI\**" />
-      <EmbeddedResource Remove="Core\Query\**" />
-      <EmbeddedResource Remove="Engine\Systems\ClientAction\Model\**" />
-      <None Remove="Core\DI\**" />
-      <None Remove="Core\Query\**" />
-      <None Remove="Engine\Systems\ClientAction\Model\**" />
-    </ItemGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
@@ -27,10 +15,6 @@
         <ProjectReference Include="..\EventHorizon.Observer\EventHorizon.Observer.csproj" />
         <ProjectReference Include="..\Shared\_generated\Blazor.BabylonJS.WASM\Blazor.BabylonJS.WASM.csproj" />
         <ProjectReference Include="..\SDK\EventHorizon.Game.Client.Engine.Gui.Api\EventHorizon.Game.Client.Engine.Gui.Api.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Engine\Systems\EntityModule\" />
     </ItemGroup>
 
 </Project>
