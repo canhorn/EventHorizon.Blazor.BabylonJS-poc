@@ -6,7 +6,6 @@
     using EventHorizon.Game.Editor.Zone.Services.Api;
     using EventHorizon.Game.Editor.Zone.Services.Model;
     using Microsoft.AspNetCore.SignalR.Client;
-    using Microsoft.Extensions.Primitives;
 
     public class SignalrZoneAdminDataStorageApi
         : ZoneAdminDataStorageApi
@@ -24,7 +23,7 @@
             CancellationToken cancellationToken
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new ApiResponse<Dictionary<string, object>>()
                 {
@@ -46,7 +45,7 @@
             CancellationToken cancellationToken
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new StandardApiResponse()
                 {
@@ -69,7 +68,7 @@
             CancellationToken cancellationToken
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new StandardApiResponse()
                 {
@@ -92,7 +91,7 @@
             CancellationToken cancellationToken
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new StandardApiResponse()
                 {

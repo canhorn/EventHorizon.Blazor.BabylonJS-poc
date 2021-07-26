@@ -22,7 +22,7 @@
             object data
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new(
                     ZoneAdminErrorCodes.NOT_CONNECTED

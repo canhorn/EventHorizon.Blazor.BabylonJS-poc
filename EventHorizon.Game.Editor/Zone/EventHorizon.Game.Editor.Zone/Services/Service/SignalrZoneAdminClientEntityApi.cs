@@ -23,7 +23,7 @@
             IObjectEntityDetails entity
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new AdminClientEntityResponse
                 {
@@ -41,7 +41,7 @@
             string clientEntityId
         )
         {
-            if (_hubConnection == null)
+            if (_hubConnection.IsNotConnected())
             {
                 return new AdminClientEntityResponse
                 {
@@ -59,7 +59,7 @@
             IObjectEntityDetails entity
         )
         {
-            if (_hubConnection == null)
+            if (_hubConnection.IsNotConnected())
             {
                 return new AdminClientEntityResponse
                 {

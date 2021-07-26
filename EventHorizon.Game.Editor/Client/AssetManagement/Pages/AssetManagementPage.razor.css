@@ -1,3 +1,7 @@
-﻿.asset-management-header{
-    padding: 0 1rem;
+﻿.asset-management__page {
+    padding: 1rem;
+}
+
+.management__link {
+    padding: 1rem;
 }

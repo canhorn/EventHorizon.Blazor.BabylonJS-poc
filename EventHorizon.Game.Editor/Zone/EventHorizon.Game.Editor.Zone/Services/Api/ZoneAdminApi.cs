@@ -7,6 +7,7 @@
     {
         Task<ZoneInfo?> GetZoneInfo();
         ZoneAdminAgentApi Agent { get; }
+        ZoneAdminClientAssetsApi ClientAssets { get; }
         ZoneAdminClientEntityApi ClientEntity { get; }
         ZoneAdminCommandApi Command { get; }
         ZoneAdminDataStorageApi DataStorage { get; }

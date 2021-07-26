@@ -146,6 +146,7 @@
             if (_connection.IsNotNull())
             {
                 _ = _connection.DisposeAsync();
+                _connection = null;
             }
             _initializing = false;
             _initialized = false;
@@ -155,7 +156,7 @@
         {
             if (!_initialized 
                 || _initializing
-                || _connection.IsNull()
+                || _connection.IsNotConnected()
             )
             {
                 return EMPTY_LIST;

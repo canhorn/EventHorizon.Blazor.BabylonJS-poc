@@ -1,0 +1,11 @@
+﻿@page "/asset/management/zone/create"
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components.EditForm
+@inherits CreateZoneGameAssetPageModel
+
+<div class="create-zone-asset__page">
+    <h1>
+        @Localizer["Create Game Asset"]
+    </h1>
+    <EditZoneGameAssetForm Model="Model"
+                           OnSubmit="HandleSave" />
+</div>

@@ -1,12 +1,25 @@
-﻿@page "/asset-management"
-@using EventHorizon.Game.Editor.Client.AssetManagement.Components
+﻿@page "/asset/management"
 @inherits EditorComponentBase
 
-<div class="asset-management-header">
-    <h3>@Localizer["Asset Management"]</h3>
-    <AssetFileUpload />
-</div>
+<div class="asset-management__page">
 
-<div class="file-manager">
-    <AssetFileWindow />
+    <h1>
+        @Localizer["Zone Asset Management"]
+    </h1>
+
+    <p class="page__description">
+        @Localizer["This is the Zone Server Asset Management Page, use this page to create/update/delete Assets on the current Active Zone."]
+    </p>
+
+    <div class="management__link">
+        <a href="/asset/management/server">
+            @Localizer["Asset Server Management"]
+        </a>
+    </div>
+
+    <div class="management__link">
+        <a href="/asset/management/zone">
+            @Localizer["Zone Asset Management"]
+        </a>
+    </div>
 </div>

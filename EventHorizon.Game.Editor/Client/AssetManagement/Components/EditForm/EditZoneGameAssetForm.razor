@@ -1,0 +1,42 @@
+﻿@inherits EditZoneGameAssetFormModel
+
+<EditForm Model="Model"
+          OnValidSubmit="HandleSubmit">
+
+    <StandardToolbar class="form__toolbar">
+        <StandardToolbarButton type="submit">
+            @Localizer["Save"]
+        </StandardToolbarButton>
+    </StandardToolbar>
+
+    <div class="game-asset-form__content">
+        <ContainerStatesComponent State="MessageState">
+            <LoadingFragment>
+                @Localizer["Loading..."]
+            </LoadingFragment>
+            <ErrorFragment>
+                @Message
+            </ErrorFragment>
+        </ContainerStatesComponent>
+
+        <div class="form-item">
+            <label for="create-game-asset__name"
+                   class="--font-bold">
+                @Localizer["Asset Name"]
+            </label>
+            <InputText id="create-game-asset__name"
+                       @bind-Value="@Model.Name"
+                       placeholder="@Localizer["Asset Name"]" />
+        </div>
+        <div class="form-item">
+            <label for="create-game-asset__type"
+                   class="--font-bold">
+                @Localizer["Asset Type"]
+            </label>
+            <StandardSelect Options="AssetTypeOptions"
+                            Value="@AssetTypeOption"
+                            ValueChanged="HandleAssetTypeChanged"></StandardSelect>
+        </div>
+    </div>
+
+</EditForm>

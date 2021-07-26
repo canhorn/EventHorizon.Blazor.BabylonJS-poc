@@ -9,6 +9,7 @@
         string Type { get; }
         string Name { get; }
         IDictionary<string, object> Data { get; }
+
         [MaybeNull]
         ClientAssetConfig Config { get; }
         void SetConfig(

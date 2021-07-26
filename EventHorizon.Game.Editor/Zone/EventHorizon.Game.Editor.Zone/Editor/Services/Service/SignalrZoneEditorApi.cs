@@ -29,7 +29,7 @@
         {
             try
             {
-                if (_hubConnection.IsNull())
+                if (_hubConnection.IsNotConnected())
                 {
                     return new(
                         ZoneEditorErrorCodes.NOT_CONNECTED
@@ -54,17 +54,34 @@
             }
         }
 
-        public Task<EditorFile?> GetEditorFileContent(
+        public async Task<EditorFile?> GetEditorFileContent(
             IList<string> path,
             string fileName
-        ) => LogOnError(
-            () => _hubConnection.InvokeAsync<EditorFile?>(
-                "GetEditorFileContent",
-                path,
-                fileName
-            ),
-            onError: () => null
-        );
+        )
+        {
+            try
+            {
+                if (_hubConnection.IsNotConnected())
+                {
+                    return null;
+                }
+
+                return await _hubConnection.InvokeAsync<EditorFile?>(
+                    "GetEditorFileContent",
+                    path,
+                    fileName
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "Failed Zone Editor API Call: {ActionName}",
+                    nameof(GetEditorFileContent)
+                );
+                return null;
+            }
+        }
 
         public Task<EditorResponse> SaveEditorFileContent(
             IList<string> path,
@@ -148,14 +165,23 @@
             }
         );
 
-        public async Task<T> LogOnError<T>(
-            Func<Task<T>> action,
-            Func<T> onError,
+        public async Task<EditorResponse> LogOnError(
+            Func<Task<EditorResponse>> action,
+            Func<EditorResponse> onError,
             [CallerMemberName] string actionName = ""
         )
         {
             try
             {
+                if (_hubConnection.IsNotConnected())
+                {
+                    return new()
+                    {
+                        Successful = false,
+                        ErrorCode = ZoneEditorErrorCodes.NOT_CONNECTED,
+                    };
+                }
+
                 return await action();
             }
             catch (Exception ex)

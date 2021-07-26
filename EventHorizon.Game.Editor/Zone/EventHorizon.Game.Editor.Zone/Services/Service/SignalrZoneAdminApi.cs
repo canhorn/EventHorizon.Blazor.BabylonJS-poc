@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
 {
-    using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Zone.Services.Api;
     using EventHorizon.Game.Editor.Zone.Services.Model;
@@ -12,6 +11,7 @@
         private readonly HubConnection? _hubConnection;
 
         public ZoneAdminAgentApi Agent { get; }
+        public ZoneAdminClientAssetsApi ClientAssets { get; }
         public ZoneAdminClientEntityApi ClientEntity { get; }
         public ZoneAdminCommandApi Command { get; }
         public ZoneAdminDataStorageApi DataStorage { get; }
@@ -24,6 +24,9 @@
             _hubConnection = hubConnection;
 
             Agent = new SignalrZoneAdminAgentApi(
+                hubConnection
+            );
+            ClientAssets = new SignalrZoneAdminClientAssetsApi(
                 hubConnection
             );
             ClientEntity = new SignalrZoneAdminClientEntityApi(
@@ -42,7 +45,7 @@
 
         public Task<ZoneInfo?> GetZoneInfo()
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return Task.FromResult<ZoneInfo?>(
                     null

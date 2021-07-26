@@ -9,7 +9,7 @@
     public class StandardSelectModel
         : ComponentBase
     {
-        private StandardSelectOption _value = new StandardSelectOption();
+        private StandardSelectOption _value = new();
 
         [Parameter]
         public IList<StandardSelectOption> Options { get; set; } = null!;

@@ -1,0 +1,30 @@
+﻿@inherits ZoneConnectionStatusProviderModel
+
+
+<StandardModal IsOpen="!string.IsNullOrEmpty(ConnectionDisconnectionCode)"
+               HideClose="true">
+    <Header>
+        <h2 class="disconnected__header">
+            @Localizer["Connection Disconnected"]
+        </h2>
+    </Header>
+    <Body>
+        <p class="disconnected__reason">
+            @Localizer["Disconnected Code: {0}", ConnectionDisconnectionCode]
+        </p>
+        <a href="#reload-page" @onclick="HandleReloadPage">
+            @Localizer["Reload Page?"]
+        </a>
+    </Body>
+</StandardModal>
+
+<StandardModal IsOpen="IsReconnecting"
+               HideClose="true">
+    <Header>
+        <div class="reconnecting-modal__content" role="alert">
+            <h3>
+                @Localizer["Reconnecting to Zone Server..."]
+            </h3>
+        </div>
+    </Header>
+</StandardModal>

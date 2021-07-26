@@ -26,7 +26,7 @@
             CancellationToken cancellationToken
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new ApiResponse<List<WizardMetadata>>()
                 {
@@ -49,7 +49,7 @@
             CancellationToken cancellationToken
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new WizardApiResponse()
                 {

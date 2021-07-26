@@ -1,0 +1,75 @@
+﻿@page "/asset/management/zone"
+@inherits AssetZoneManagementPageModel
+
+<div class="asset-zone-management__page">
+    <h1>
+        @Localizer["Zone Asset Management"]
+    </h1>
+    <p class="page__description">
+        @Localizer["This is the Zone Server Asset Management Page, use this page to create/update/delete Assets on the current Active Zone."]
+    </p>
+
+    <div class="page__toolbar">
+        <StandardToolbar>
+            <StandardToolbarButton @onclick="HandleNewAssetClicked">
+                @Localizer["New Asset"]
+            </StandardToolbarButton>
+        </StandardToolbar>
+    </div>
+
+    <table class="asset-zone-management__table --full">
+        <thead>
+            <tr>
+                <th>@Localizer["Name"]</th>
+                <th>@Localizer["Type"]</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var gameAsset in GameAssetList.OrderBy(a => a.Name))
+            {
+                <tr>
+                    <td>
+                        @gameAsset.Name
+                    </td>
+                    <td>
+                        @gameAsset.Type
+                    </td>
+                    <td>
+                        <button @onclick="@(() => HandleEditGameAsset(gameAsset.Id))">
+                            @Localizer["Edit"]
+                        </button>
+                        <button @onclick="@(() => HandleDeleteGameAsset(gameAsset))">
+                            @Localizer["Delete"]
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <StandardModal IsOpen="IsDeleteConfirmOpen"
+                   Type="ModalType.Fit"
+                   HideClose="true">
+        <Header>
+            <h2>
+                @Localizer["Confirm Delete of Game Asset"]
+            </h2>
+            @Localizer["Game Asset of {0} ({1})", DeleteModel.Name, DeleteModel.Id]
+        </Header>
+        <Footer>
+            <div class="confirm-modal__actions">
+                <button class="confirm-modal__button"
+                        @onclick="HandleCloseDeletePrompt">
+                    @Localizer["Close"]
+                </button>
+                <button class="confirm-modal__button --error"
+                        @onclick="HandleYesDelete">
+                    @Localizer["Yes, Delete the Game Asset"]
+                </button>
+            </div>
+        </Footer>
+    </StandardModal>
+</div>
+

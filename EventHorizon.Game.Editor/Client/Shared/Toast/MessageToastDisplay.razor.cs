@@ -18,8 +18,8 @@
         public bool ShowMessage { get; set; } = true;
         public string MessageLevelStyle { get; set; } = string.Empty;
 
-        private readonly Timer _countdown = new Timer(5000);
-        private readonly Timer _removeTimer = new Timer(1000);
+        private readonly Timer _countdown = new(5000);
+        private readonly Timer _removeTimer = new(1000);
 
         protected override void OnInitialized()
         {

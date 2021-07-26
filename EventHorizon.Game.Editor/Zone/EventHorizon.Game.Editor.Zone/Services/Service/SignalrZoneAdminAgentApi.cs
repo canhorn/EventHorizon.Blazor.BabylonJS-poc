@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
 {
-    using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Editor.Zone.Services.Api;
@@ -24,7 +23,7 @@
             IObjectEntityDetails entity
         )
         {
-            if (_hubConnection.IsNull())
+            if (_hubConnection.IsNotConnected())
             {
                 return new AdminAgentEntityResponse
                 {
@@ -42,7 +41,7 @@
             string entityId
         )
         {
-            if (_hubConnection == null)
+            if (_hubConnection.IsNotConnected())
             {
                 return new AdminAgentEntityResponse
                 {
@@ -60,7 +59,7 @@
             IObjectEntityDetails entity
         )
         {
-            if (_hubConnection == null)
+            if (_hubConnection.IsNotConnected())
             {
                 return new AdminAgentEntityResponse
                 {
