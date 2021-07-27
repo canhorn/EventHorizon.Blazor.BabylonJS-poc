@@ -1,12 +1,22 @@
 ﻿@page "/asset/management/server"
 @using EventHorizon.Game.Editor.Client.AssetManagement.Components
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components.Breadcrumb
 @inherits EditorComponentBase
 
-<div class="asset-server-management__header">
-    <h3>@Localizer["Asset Management"]</h3>
-    <AssetFileUpload />
-</div>
+<div class="asset-server-management__page">
+    <div class="asset-server-management__header">
+        <h1>@Localizer["Asset Management"]</h1>
+    </div>
 
-<div class="asset-server-management__file-manager">
-    <AssetFileWindow />
+    <div class="asset-server-management__breadcrumbs">
+        <AssetManagementBreadcrumb />
+    </div>
+
+    <div class="asset-server-management__file-upload">
+        <AssetFileUpload />
+    </div>
+
+    <div class="asset-server-management__file-manager">
+        <AssetFileWindow />
+    </div>
 </div>

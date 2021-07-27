@@ -1,0 +1,9 @@
+﻿.asset-management__breadcrumb {
+    padding: 0.3rem 0.3rem;
+    background-color: black;
+    color: white;
+}
+
+.breadcrumb__item {
+    padding-right: 0.3rem;
+}

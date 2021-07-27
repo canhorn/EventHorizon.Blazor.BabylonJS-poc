@@ -7,13 +7,13 @@
     using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
     using MediatR;
 
-    public class AssetReloadToNodeAndDirectoryContentCommandHandler
-        : IRequestHandler<AssetReloadToNodeAndDirectoryContentCommand, StandardCommandResult>
+    public class LoadAssetServerFilterPathCommandHandler
+        : IRequestHandler<LoadAssetServerFilterPathCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
         private readonly AssetManagementState _state;
 
-        public AssetReloadToNodeAndDirectoryContentCommandHandler(
+        public LoadAssetServerFilterPathCommandHandler(
             IMediator mediator,
             AssetManagementState state
         )
@@ -23,13 +23,12 @@
         }
 
         public async Task<StandardCommandResult> Handle(
-            AssetReloadToNodeAndDirectoryContentCommand request,
+            LoadAssetServerFilterPathCommand request,
             CancellationToken cancellationToken
         )
         {
-            await _state.ReloadToNodeAndDirectoryContent(
-                request.Node,
-                request.DirectoryContent,
+            await _state.LoadFilterPath(
+                request.FilterPath,
                 cancellationToken
             );
 

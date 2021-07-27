@@ -75,6 +75,37 @@
             );
         }
 
+        public async Task LoadFilterPath(
+            string filterPath,
+            CancellationToken cancellationToken
+        )
+        {
+            if (string.IsNullOrWhiteSpace(
+                _accessToken
+            ))
+            {
+                return;
+            }
+            var getFileResult = await _assetFileManagement.GetFiles(
+                _accessToken,
+                filterPath,
+                cancellationToken
+            );
+
+            FileCollection.Clear();
+            foreach (var file in getFileResult.Files)
+            {
+                FileCollection.Add(
+                    file
+                );
+            }
+
+            BuildFileExplorer(
+                getFileResult
+            );
+            CurrentWorkingDirectory = getFileResult.CWD;
+        }
+
         public async Task SetFileNode(
             TreeViewNodeData node,
             CancellationToken cancellationToken

@@ -1,0 +1,13 @@
+﻿@inherits AssetManagementBreadcrumbModel
+
+<div class="asset-management__breadcrumb">
+    @foreach (var breadcrumbItem in BreadcrumbItemList)
+    {
+        <span>@Localizer["/"]</span>
+        <button class="breadcrumb__item --text --font-underline"
+                @onclick="() => HandleNavigateToPath(breadcrumbItem.FilterPath)">
+            @breadcrumbItem.Text
+        </button>
+    }
+    @CurrentLocation
+</div>

@@ -1,3 +1,15 @@
-﻿.asset-management__header{
-    padding: 0 1rem;
+﻿.asset-server-management__page {
+    padding: 1rem;
+}
+
+.asset-server-management__header {
+    padding: 0.3rem 0;
+}
+
+.asset-server-management__file-upload {
+    padding: 0.3rem 0;
+}
+
+.asset-server-management__breadcrumbs {
+    padding: 0.3rem 0;
 }

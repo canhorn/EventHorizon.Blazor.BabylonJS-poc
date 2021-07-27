@@ -5,6 +5,8 @@
 
     public class FileSystemDirectoryContent
     {
+        public const string PATH_SEPARATOR = "/";
+
         public static string BuildPath(
             string rootPath,
             FileSystemDirectoryContent directoryContent
@@ -26,7 +28,7 @@
                 return $"{rootPath}{path}";
             }
             var stringJoin = string.Join(
-                "/",
+                PATH_SEPARATOR,
                 filterPath,
                 path
             );

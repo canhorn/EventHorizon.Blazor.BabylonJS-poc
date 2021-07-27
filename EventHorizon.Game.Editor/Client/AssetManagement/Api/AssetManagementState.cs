@@ -20,6 +20,11 @@
             string accessToken
         );
 
+        Task LoadFilterPath(
+            string filterPath,
+            CancellationToken cancellationToken
+        );
+
         Task SetFileNode(
             TreeViewNodeData node,
             CancellationToken cancellationToken

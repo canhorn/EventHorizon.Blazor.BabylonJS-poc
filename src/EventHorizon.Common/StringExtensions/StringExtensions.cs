@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 public static class StringExtensions
@@ -27,5 +28,27 @@ public static class StringExtensions
         Convert.FromBase64String(
             base64EncodedData
         )
+    );
+
+    /// <summary>
+    /// Checks if the string is null or empty
+    /// </summary>
+    /// <param name="str"></param>
+    /// <returns></returns>
+    public static bool IsNullOrEmpty(
+        [NotNullWhen(false)] this string? str
+    ) => string.IsNullOrEmpty(
+        str
+    );
+
+    /// <summary>
+    /// Checks if the string is NOT null or empty
+    /// </summary>
+    /// <param name="str"></param>
+    /// <returns></returns>
+    public static bool IsNotNullOrEmpty(
+        [NotNullWhen(true)] this string? str
+    ) => !string.IsNullOrEmpty(
+        str
     );
 }
