@@ -2,11 +2,12 @@
     padding: 0 1rem;
 }
 
-.confirm-modal__button {
+.confirm-modal__actions {
     height: 100%;
-    padding: 0 2rem;
+    text-align: end;
 }
 
-.confirm-modal__actions {
-    padding: 1rem;
+.confirm-modal__button {
+    height: 100%;
+    width: 100px;
 }

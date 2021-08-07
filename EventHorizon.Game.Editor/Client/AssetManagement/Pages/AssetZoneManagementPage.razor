@@ -50,23 +50,26 @@
 
 
     <StandardModal IsOpen="IsDeleteConfirmOpen"
-                   Type="ModalType.Fit"
                    HideClose="true">
         <Header>
             <h2>
-                @Localizer["Confirm Delete of Game Asset"]
+                @Localizer["Delete of Game Asset"]
             </h2>
-            @Localizer["Game Asset of {0} ({1})", DeleteModel.Name, DeleteModel.Id]
         </Header>
+        <Body>
+            @Localizer["Are you sure you want to delete the Game Asset of {0} ({1})?", DeleteModel.Name, DeleteModel.Id]
+        </Body>
         <Footer>
             <div class="confirm-modal__actions">
-                <button class="confirm-modal__button"
-                        @onclick="HandleCloseDeletePrompt">
-                    @Localizer["Close"]
-                </button>
                 <button class="confirm-modal__button --error"
+                        type="submit"
                         @onclick="HandleYesDelete">
-                    @Localizer["Yes, Delete the Game Asset"]
+                    @Localizer["Yes"]
+                </button>
+                <button class="confirm-modal__button"
+                        type="button"
+                        @onclick="HandleCloseDeletePrompt">
+                    @Localizer["Cancel"]
                 </button>
             </div>
         </Footer>

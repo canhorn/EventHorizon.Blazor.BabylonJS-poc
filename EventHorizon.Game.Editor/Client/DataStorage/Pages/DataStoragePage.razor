@@ -61,22 +61,26 @@
                         OnSubmit="HandleDataValueEditSubmit" />
 
     <StandardModal IsOpen="IsDeleteConfirmOpen"
-                   Type="ModalType.Fit"
                    HideClose="true">
         <Header>
             <h2>
-                @Localizer["Confirm Delete of Data Value"]
+                @Localizer["Delete of Data Value"]
             </h2>
         </Header>
+        <Body>
+            @Localizer["Are you sure you want to delete this Data Value?"]
+        </Body>
         <Footer>
             <div class="confirm-modal__actions">
-                <button class="confirm-modal__button"
-                        @onclick="HandleCloseDeletePrompt">
-                    @Localizer["Close"]
-                </button>
                 <button class="confirm-modal__button --error"
+                        type="submit"
                         @onclick="HandleYesDelete">
-                    @Localizer["Yes Delete the Data Value"]
+                    @Localizer["Yes"]
+                </button>
+                <button class="confirm-modal__button"
+                        type="button"
+                        @onclick="HandleCloseDeletePrompt">
+                    @Localizer["Cancel"]
                 </button>
             </div>
         </Footer>
