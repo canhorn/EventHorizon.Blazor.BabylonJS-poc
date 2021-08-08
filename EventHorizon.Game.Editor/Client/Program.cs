@@ -11,7 +11,6 @@ namespace EventHorizon.Game.Editor.Client
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Systems;
     using EventHorizon.Game.Editor;
-    using EventHorizon.Game.Editor.Client.AssetManagement;
     using EventHorizon.Game.Editor.Client.Authentication.Api;
     using EventHorizon.Game.Editor.Client.Authentication.State;
     using EventHorizon.Game.Editor.Client.Localization.Api;
@@ -20,6 +19,7 @@ namespace EventHorizon.Game.Editor.Client
     using EventHorizon.Game.Editor.Client.Zone.State;
     using EventHorizon.Game.Editor.Model;
     using EventHorizon.Game.Server;
+    using EventHorizon.Game.Server.Asset;
     using EventHorizon.Observer.Admin.State;
     using EventHorizon.Observer.State;
     using EventHorizon.Platform.ErrorBoundary;
@@ -63,6 +63,9 @@ namespace EventHorizon.Game.Editor.Client
                     typeof(ObserverState),
                     typeof(Program),
                     typeof(EditorSharedExtensions),
+
+                    // Servers
+                    typeof(AssetServerStartupExtensions),
                     typeof(EditorCoreExtensions),
                     typeof(EditorZoneExtensions),
 
@@ -100,6 +103,10 @@ namespace EventHorizon.Game.Editor.Client
             // Core Services
             builder.Services
                 .AddEditorCoreServices();
+
+            // Asset Server Services
+            builder.Services
+                .AddAssetServerAdminServices();
 
             // Editor Services
             builder.Services

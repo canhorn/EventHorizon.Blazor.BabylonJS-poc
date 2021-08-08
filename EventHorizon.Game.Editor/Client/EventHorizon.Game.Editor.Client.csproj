@@ -26,6 +26,8 @@
         <ProjectReference Include="..\..\src\Server\EventHorizon.Game.Server\EventHorizon.Game.Server.csproj" />
         <ProjectReference Include="..\..\src\Shared\EventHorizon.ApplicationDetails.Component\EventHorizon.ApplicationDetails.Component.csproj" />
         <ProjectReference Include="..\Core\EventHorizon.Game.Editor.Core\EventHorizon.Game.Editor.Core.csproj" />
+        <ProjectReference Include="..\Servers\Asset\EventHorizon.Game.Server.Asset.Api\EventHorizon.Game.Server.Asset.Api.csproj" />
+        <ProjectReference Include="..\Servers\Asset\EventHorizon.Game.Server.Asset\EventHorizon.Game.Server.Asset.csproj" />
         <ProjectReference Include="..\Shared\EventHorizon.Game.Editor.Shared.csproj" />
         <ProjectReference Include="..\Zone\EventHorizon.Game.Editor.Zone\EventHorizon.Game.Editor.Zone.csproj" />
         <ProjectReference Include="..\Zone\Systems\EventHorizon.Zone.Systems.Wizard\EventHorizon.Zone.Systems.Wizard.csproj" />

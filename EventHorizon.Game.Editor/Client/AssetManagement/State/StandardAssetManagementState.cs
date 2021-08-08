@@ -15,6 +15,7 @@
     using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
+    using EventHorizon.Game.Server.Asset.Connect;
     using MediatR;
 
     public class StandardAssetManagementState
@@ -22,6 +23,9 @@
     {
         private const string ROOT_PATH = "/";
         private const string LOADING_ID = "loading";
+
+        public bool ConnectedToAdmin { get; private set; }
+        public string ExportReferenceId { get; private set; } = string.Empty;
 
         public string RootPath { get; } = ROOT_PATH;
         public ObservableCollection<FileSystemDirectoryContent> FileCollection { get; private set; } = new();
@@ -73,6 +77,38 @@
             BuildFileExplorer(
                 getFileResult
             );
+
+            var connectionResult = await _mediator.Send(
+                new StartConnectionToAssetServerAdminCommand(
+                    _accessToken
+                )
+            );
+            ConnectedToAdmin = connectionResult.Success;
+            if (!connectionResult)
+            {
+                await _mediator.Publish(
+                    new ShowMessageEvent(
+                        _localizer["Asset Server Connection"],
+                        _localizer[
+                            "Failed to connect with Asset Server Admin: Error Code = {0}",
+                            connectionResult.ErrorCode ?? "GENERAL_ASSET_SERVER_ERROR"
+                        ],
+                        MessageLevel.Error
+                    )
+                );
+            }
+        }
+
+        public void SetExportReferenceId(
+            string referenceId
+        )
+        {
+            if (referenceId.IsNull())
+            {
+                return;
+            }
+
+            ExportReferenceId = referenceId;
         }
 
         public async Task LoadFilterPath(
@@ -389,7 +425,7 @@
             bool forceParentSelection = false
         )
         {
-            if (directoryContent.IsFile 
+            if (directoryContent.IsFile
                 || forceParentSelection
             )
             {
@@ -470,5 +506,6 @@
 
             return null;
         }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿@page "/asset/management/server"
 @using EventHorizon.Game.Editor.Client.AssetManagement.Components
 @using EventHorizon.Game.Editor.Client.AssetManagement.Components.Breadcrumb
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components.Export 
 @inherits EditorComponentBase
 
 <div class="asset-server-management__page">
@@ -12,8 +13,9 @@
         <AssetManagementBreadcrumb />
     </div>
 
-    <div class="asset-server-management__file-upload">
+    <div class="asset-server-management__actions">
         <AssetFileUpload />
+        <AssetServerTriggerExportButton />
     </div>
 
     <div class="asset-server-management__file-manager">

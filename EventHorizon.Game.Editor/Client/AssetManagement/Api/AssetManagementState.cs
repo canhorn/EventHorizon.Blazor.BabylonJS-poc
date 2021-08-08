@@ -8,6 +8,12 @@
 
     public interface AssetManagementState
     {
+        bool ConnectedToAdmin { get; }
+        string ExportReferenceId { get; }
+        void SetExportReferenceId(
+            string referenceId
+        );
+
         string RootPath { get; }
 
         ObservableCollection<FileSystemDirectoryContent> FileCollection { get; }
