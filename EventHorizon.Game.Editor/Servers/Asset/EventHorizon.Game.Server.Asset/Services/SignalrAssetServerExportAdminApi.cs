@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Game.Server.Asset.Services
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.Server.Asset.Api;
@@ -7,7 +8,7 @@
     using Microsoft.AspNetCore.SignalR.Client;
 
     public class SignalrAssetServerExportAdminApi
-            : AssetServerExportAdminApi
+        : AssetServerExportAdminApi
     {
         private readonly HubConnection? _hubConnection;
 
@@ -19,21 +20,21 @@
 
         }
 
-        public async Task<ApiResponse<ExportStatus>> Status(
+        public async Task<ApiResponse<IEnumerable<ExportArtifact>>> ArtifactList(
             CancellationToken cancellationToken
         )
         {
             if (_hubConnection.IsNotConnected())
             {
-                return new ApiResponse<ExportStatus>
+                return new ApiResponse<IEnumerable<ExportArtifact>>
                 {
                     Success = false,
                     ErrorCode = AssetServerAdminErrorCodes.NOT_CONNECTED,
                 };
             }
 
-            return await _hubConnection.InvokeAsync<ApiResponse<ExportStatus>>(
-                "Export_Status",
+            return await _hubConnection.InvokeAsync<ApiResponse<IEnumerable<ExportArtifact>>>(
+                "Export_ArtifactList",
                 cancellationToken: cancellationToken
             );
         }

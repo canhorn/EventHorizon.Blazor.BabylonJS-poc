@@ -59,7 +59,16 @@
             {
                 _initializing = true;
                 _connection = new HubConnectionBuilder()
-                    .WithUrl(
+                    .WithAutomaticReconnect(
+                        new TimeSpan[]
+                        {
+                            TimeSpan.FromSeconds(0),
+                            TimeSpan.FromSeconds(2),
+                            TimeSpan.FromSeconds(5),
+                            TimeSpan.FromSeconds(30),
+                            TimeSpan.FromSeconds(30),
+                        }
+                    ).WithUrl(
                         $"{_settings.AssetServer}/admin",
                         options =>
                         {

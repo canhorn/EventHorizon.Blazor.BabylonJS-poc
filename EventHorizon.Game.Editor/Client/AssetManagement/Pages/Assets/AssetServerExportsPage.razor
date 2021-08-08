@@ -1,0 +1,44 @@
+﻿@page "/asset/management/server/exports"
+@inherits AssetServerExportsPageModel
+
+<div class="asset-server-exports__page">
+    <h1>
+        @Localizer["Asset Server Exports"]
+    </h1>
+
+    <div class="asset-server-exports__toolbar">
+        <StandardToolbar>
+            <StandardToolbarButton @onclick="HandleTriggerExportClicked">
+                @Localizer["Trigger Export"]
+            </StandardToolbarButton>
+        </StandardToolbar>
+    </div>
+   
+    <table class="asset-server-exports__artifact-list --full">
+        <thead>
+            <tr>
+                <th>@Localizer["Reference Id"]</th>
+                <th>@Localizer["Created"]</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var export in ArtifactList)
+            {
+                <tr>
+                    <td>
+                        @export.ReferenceId
+                    </td>
+                    <td>
+                        @export.FormattedCreatedDate
+                    </td>
+                    <td>
+                        <a href="@export.Path" target="_blank">
+                            @Localizer["Download"]
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

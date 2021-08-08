@@ -2,13 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
+    using EventHorizon.Game.Editor.Client.AssetManagement.Trigger;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-    using EventHorizon.Game.Server.Asset.Model;
-    using EventHorizon.Game.Server.Asset.Trigger;
     using Microsoft.AspNetCore.Components;
 
     public class AssetServerTriggerExportButtonModel
@@ -23,7 +20,7 @@
         public async Task HandleTriggerExport()
         {
             var result = await Mediator.Send(
-                new TriggerExportCommand()
+                new TriggerAssetServerExportCommand()
             );
 
             if (!result)
@@ -38,13 +35,6 @@
                 );
                 return;
             }
-
-            State.SetExportReferenceId(
-                result.Result.ReferenceId
-            );
-            await Mediator.Publish(
-                new AssetManagementStateChangedEvent()
-            );
         }
     }
 }
