@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <RootNamespace>EventHorizon.Game.Server.Asset</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="8.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\src\EventHorizon.Observer\EventHorizon.Observer.csproj" />
+        <ProjectReference Include="..\..\..\..\src\SDK\EventHorizon.Game.Client.Core.Api\EventHorizon.Game.Client.Core.Api.csproj" />
+    </ItemGroup>
+
+</Project>
