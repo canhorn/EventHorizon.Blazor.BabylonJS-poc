@@ -235,6 +235,7 @@
                 using var content = new MultipartFormDataContent();
                 using var fileContent = new StreamContent(
                     file.OpenReadStream(
+                        maxFileSize,
                         cancellationToken: cancellationToken
                     )
                 );

@@ -12,6 +12,7 @@
         ) => services
             .AddScoped<AssetManagementState, StandardAssetManagementState>()
             .AddScoped<AssetFileManagement, RemoteAssetFileManagement>()
+            .AddScoped<AssetServerService, RemoteAssetServerService>()
         ;
     }
 }

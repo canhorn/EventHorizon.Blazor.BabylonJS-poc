@@ -1,8 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Open
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using EventHorizon.Game.Editor.Client.AssetManagement.Model;
     using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
     using EventHorizon.Observer.Model;

@@ -3,13 +3,15 @@
     using System.Threading.Tasks;
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
     using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
+    using EventHorizon.Game.Editor.Client.AssetManagement.Reload;
     using EventHorizon.Game.Editor.Client.Authentication.Model;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using Microsoft.AspNetCore.Components;
 
     public class AssetManagementProviderModel
         : ObservableComponentBase,
-        AssetManagementStateChangedEventObserver
+        AssetManagementStateChangedEventObserver,
+        ForceReloadAssetManagementStateEventObserver
     {
         [CascadingParameter]
         public AccessTokenModel AccessToken { get; set; } = null!;
@@ -47,6 +49,19 @@
         )
         {
             await InvokeAsync(StateHasChanged);
+        }
+
+        public async Task Handle(
+            ForceReloadAssetManagementStateEvent args
+        )
+        {
+            if (AccessToken.IsFilled)
+            {
+                await State.Reload(
+                    AccessToken.AccessToken
+                );
+                await InvokeAsync(StateHasChanged);
+            }
         }
     }
 }

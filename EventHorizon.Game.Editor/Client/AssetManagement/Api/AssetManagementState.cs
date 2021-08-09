@@ -25,6 +25,10 @@
         Task Initialized(
             string accessToken
         );
+        
+        Task Reload(
+             string accessToken
+        );
 
         Task LoadFilterPath(
             string filterPath,

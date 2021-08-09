@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Editor.Client.AssetManagement.Open;
     using EventHorizon.Game.Editor.Client.AssetManagement.Trigger;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
@@ -70,6 +71,13 @@
                 );
                 return;
             }
+        }
+
+        public async Task HandleImportClicked()
+        {
+            await Mediator.Publish(
+                new OpenAssetServerImportFileUploaderEvent()
+            );
         }
 
         private async Task Setup()

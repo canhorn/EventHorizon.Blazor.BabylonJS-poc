@@ -9,7 +9,10 @@
     <div class="asset-server-exports__toolbar">
         <StandardToolbar>
             <StandardToolbarButton @onclick="HandleTriggerExportClicked">
-                @Localizer["Trigger Export"]
+                @Localizer["Export"]
+            </StandardToolbarButton>
+            <StandardToolbarButton @onclick="HandleImportClicked">
+                @Localizer["Import"]
             </StandardToolbarButton>
         </StandardToolbar>
     </div>

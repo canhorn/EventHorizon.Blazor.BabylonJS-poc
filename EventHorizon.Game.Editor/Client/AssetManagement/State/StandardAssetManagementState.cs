@@ -64,8 +64,25 @@
                 return;
             }
             _accessToken = accessToken;
+            await Setup();
+        }
+
+        public async Task Reload(
+            string accessToken
+        )
+        {
+            _accessToken = accessToken;
+            await Setup();
+            CurrentWorkingDirectory = new FileSystemDirectoryContent
+            {
+                FilterPath = ROOT_PATH,
+            };
+        }
+
+        private async Task Setup()
+        {
             var getFileResult = await _assetFileManagement.GetFiles(
-                accessToken,
+                _accessToken,
                 RootPath,
                 CancellationToken.None
             );
