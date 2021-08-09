@@ -41,6 +41,9 @@ COPY src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.Applicati
 COPY EventHorizon.Game.Editor/Client/EventHorizon.Game.Editor.Client.csproj ./EventHorizon.Game.Editor/Client/EventHorizon.Game.Editor.Client.csproj
 COPY EventHorizon.Game.Editor/Api/EventHorizon.Game.Editor.Api/EventHorizon.Game.Editor.Api.csproj ./EventHorizon.Game.Editor/Api/EventHorizon.Game.Editor.Api/EventHorizon.Game.Editor.Api.csproj
 
+COPY EventHorizon.Game.Editor/Servers/Asset/EventHorizon.Game.Server.Asset/EventHorizon.Game.Server.Asset.csproj ./EventHorizon.Game.Editor/Servers/Asset/EventHorizon.Game.Server.Asset/EventHorizon.Game.Server.Asset.csproj
+COPY EventHorizon.Game.Editor/Servers/Asset/EventHorizon.Game.Server.Asset.Api/EventHorizon.Game.Server.Asset.Api.csproj ./EventHorizon.Game.Editor/Servers/Asset/EventHorizon.Game.Server.Asset.Api/EventHorizon.Game.Server.Asset.Api.csproj
+
 COPY EventHorizon.Game.Editor/Core/EventHorizon.Game.Editor.Core/EventHorizon.Game.Editor.Core.csproj ./EventHorizon.Game.Editor/Core/EventHorizon.Game.Editor.Core/EventHorizon.Game.Editor.Core.csproj
 COPY EventHorizon.Game.Editor/Core/EventHorizon.Game.Editor.Core.Api/EventHorizon.Game.Editor.Core.Api.csproj ./EventHorizon.Game.Editor/Core/EventHorizon.Game.Editor.Core.Api/EventHorizon.Game.Editor.Core.Api.csproj
 
