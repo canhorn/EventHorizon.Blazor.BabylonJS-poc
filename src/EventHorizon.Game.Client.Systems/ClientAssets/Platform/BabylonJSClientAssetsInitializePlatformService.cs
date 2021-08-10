@@ -34,37 +34,25 @@
         {
             await _mediator.Send(
                 new RegisterClientAssetLoaderCommand(
-                    ClientAssetsLoaderIdBuilder.GetId(
-                        "MESH",
-                        "BOX"
-                    ),
+                    "MESH:BOX",
                     new BabylonJSBoxMeshLoader()
                 )
             );
             await _mediator.Send(
                 new RegisterClientAssetLoaderCommand(
-                    ClientAssetsLoaderIdBuilder.GetId(
-                        "MESH",
-                        "GLTF"
-                    ),
+                    "MESH:GLTF",
                     new BabylonJSGLTFMeshLoader()
                 )
             );
             await _mediator.Send(
                 new RegisterClientAssetLoaderCommand(
-                    ClientAssetsLoaderIdBuilder.GetId(
-                        "SCRIPT",
-                        "JavaScript"
-                    ),
+                    "SCRIPT:JavaScript",
                     new BabylonJSScriptMeshLoader()
                 )
             );
             await _mediator.Send(
                 new RegisterClientAssetLoaderCommand(
-                    ClientAssetsLoaderIdBuilder.GetId(
-                        "MESH",
-                        "SPHERE"
-                    ),
+                    "MESH:SPHERE",
                     new BabylonJSSphereMeshLoader()
                 )
             );
@@ -74,36 +62,32 @@
         {
             await _mediator.Send(
                 new RegisterClientAssetConfigTypeBuilderCommand(
-                    "BOX",
+                    "MESH:BOX",
                     new StandardClientAssetConfigTypeBuilder(
-                        "BOX",
                         (data) => new ClientAssetBoxMeshConfigModel(data)
                     )
                 )
             );
             await _mediator.Send(
                 new RegisterClientAssetConfigTypeBuilderCommand(
-                    "GLTF",
+                    "MESH:GLTF",
                     new StandardClientAssetConfigTypeBuilder(
-                        "GLTF",
                         (data) => new ClientAssetGLTFMeshConfigModel(data)
                     )
                 )
             );
             await _mediator.Send(
                 new RegisterClientAssetConfigTypeBuilderCommand(
-                    "JavaScript",
+                    "SCRIPT:JavaScript",
                     new StandardClientAssetConfigTypeBuilder(
-                        "JavaScript",
                         (data) => new ClientAssetScriptConfigModel(data)
                     )
                 )
             );
             await _mediator.Send(
                 new RegisterClientAssetConfigTypeBuilderCommand(
-                    "SPHERE",
+                    "MESH:SPHERE",
                     new StandardClientAssetConfigTypeBuilder(
-                        "SPHERE",
                         (data) => new ClientAssetSphereMeshConfigModel(data)
                     )
                 )

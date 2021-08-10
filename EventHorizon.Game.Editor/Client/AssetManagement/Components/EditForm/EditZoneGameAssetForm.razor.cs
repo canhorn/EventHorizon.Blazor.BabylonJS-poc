@@ -38,19 +38,40 @@
                     Hidden = true,
                     Disabled = true,
                 },
+
                 new StandardSelectOption
                 {
-                    Value = "SCRIPT",
-                    Text = Localizer["Script"],
+                    Value = "SCRIPT:JavaScript",
+                    Text = Localizer["JavaScript Script (Compiled)"],
                 },
                 new StandardSelectOption
                 {
-                    Value = "MESH",
-                    Text = Localizer["Mesh"],
+                    Value = "MESH:BOX",
+                    Text = Localizer["Mesh Box"],
                 },
                 new StandardSelectOption
                 {
-                    Value = "IMAGE",
+                    Value = "MESH:SPHERE",
+                    Text = Localizer["Mesh Sphere"],
+                },
+                new StandardSelectOption
+                {
+                    Value = "MESH:GLTF",
+                    Text = Localizer["Mesh glTF"],
+                },
+                new StandardSelectOption
+                {
+                    Value = "MESH:MAP",
+                    Text = Localizer["Map Mesh"],
+                },
+                new StandardSelectOption
+                {
+                    Value = "MATERIAL:MAP",
+                    Text = Localizer["Map Material"],
+                },
+                new StandardSelectOption
+                {
+                    Value = "IMAGE:URL",
                     Text = Localizer["Image"],
                 },
                 new StandardSelectOption

@@ -10,14 +10,10 @@
     {
         private readonly Func<IDictionary<string, object>, ClientAssetConfig> _build;
 
-        public string Type { get; }
-
         public StandardClientAssetConfigTypeBuilder(
-            string type,
             Func<IDictionary<string, object>, ClientAssetConfig> build
         )
         {
-            Type = type;
             _build = build;
         }
 

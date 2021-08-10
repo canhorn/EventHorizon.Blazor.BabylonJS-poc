@@ -2,8 +2,6 @@
 {
     public interface ClientAssetConfig
     {
-        string Type { get; }
-
         int GetInt(
             string key
         );

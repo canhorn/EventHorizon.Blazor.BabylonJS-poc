@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model
 {
-    using System;
     using System.Collections.Generic;
     using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 
@@ -9,14 +8,10 @@
     {
         private readonly IDictionary<string, object> _data;
 
-        public string Type { get; }
-
         public ClientAssetConfigBase(
-            string type,
             IDictionary<string, object> data
         )
         {
-            Type = type;
             _data = data;
         }
 

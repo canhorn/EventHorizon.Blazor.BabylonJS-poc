@@ -11,7 +11,7 @@
 
         public ClientAssetBoxMeshConfigModel(
             IDictionary<string, object> data
-        ) : base("BOX", data)
+        ) : base(data)
         {
             Size = GetInt("size");
         }

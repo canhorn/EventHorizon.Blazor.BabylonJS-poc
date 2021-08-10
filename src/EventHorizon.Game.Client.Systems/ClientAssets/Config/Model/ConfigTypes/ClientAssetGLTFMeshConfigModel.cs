@@ -13,7 +13,7 @@
 
         public ClientAssetGLTFMeshConfigModel(
             IDictionary<string, object> data
-        ) : base("GLTF", data)
+        ) : base(data)
         {
             Path = GetString("path");
             File = GetString("file");

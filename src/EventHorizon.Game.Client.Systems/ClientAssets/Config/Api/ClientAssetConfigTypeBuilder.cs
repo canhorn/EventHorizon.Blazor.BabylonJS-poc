@@ -5,7 +5,6 @@
 
     public interface ClientAssetConfigTypeBuilder
     {
-        string Type { get; }
         ClientAssetConfig Build(
             IDictionary<string, object> data
         );

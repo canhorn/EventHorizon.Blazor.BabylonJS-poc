@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Dialog.Platform
 {
-    using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Client.Engine.Lifecycle.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
@@ -28,7 +27,6 @@
                 new RegisterClientAssetConfigTypeBuilderCommand(
                     DialogTreeModel.CLIENT_ASSET_TYPE,
                     new StandardClientAssetConfigTypeBuilder(
-                        DialogTreeModel.CLIENT_ASSET_TYPE,
                         (data) => new DialogTreeModel(data)
                     )
                 )

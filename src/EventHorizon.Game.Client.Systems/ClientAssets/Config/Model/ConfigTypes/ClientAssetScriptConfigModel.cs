@@ -14,7 +14,7 @@
 
         public ClientAssetScriptConfigModel(
             IDictionary<string, object> data
-        ) : base("JavaScript", data)
+        ) : base(data)
         {
             Script = GetString("script");
             //BranchSize = GetInt("branchSize");

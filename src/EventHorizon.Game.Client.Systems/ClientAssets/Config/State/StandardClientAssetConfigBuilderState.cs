@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.State
 {
-    using System;
     using System.Collections.Generic;
     using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
     using EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
@@ -23,8 +22,7 @@
             }
 
             return new StandardClientAssetConfigTypeBuilder(
-                type,
-                (data) => new ClientAssetConfigBase(type, data)
+                (data) => new ClientAssetConfigBase(data)
             );
         }
 

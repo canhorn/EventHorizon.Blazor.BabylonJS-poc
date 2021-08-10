@@ -12,7 +12,7 @@
 
         public ClientAssetSphereMeshConfigModel(
             IDictionary<string, object> data
-        ) : base("SPHERE", data)
+        ) : base(data)
         {
             Segments = GetFloat("segments");
             Diameter = GetFloat("diameter");
