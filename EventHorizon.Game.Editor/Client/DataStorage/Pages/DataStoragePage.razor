@@ -41,10 +41,12 @@
                         @DataStoreMetadata.GetPropertyType(dataValue.Key, dataValue.Value)
                     </td>
                     <td>
-                        <button @onclick="@(() => HandleEditDataValue(dataValue.Key, dataValue.Value))">
+                        <button type="button"
+                                @onclick="@(() => HandleEditDataValue(dataValue.Key, dataValue.Value))">
                             @Localizer["Edit"]
                         </button>
-                        <button @onclick="@(() => HandleDeleteDataValue(dataValue.Key))">
+                        <button type="button"
+                                @onclick="@(() => HandleDeleteDataValue(dataValue.Key))">
                             @Localizer["Delete"]
                         </button>
                     </td>

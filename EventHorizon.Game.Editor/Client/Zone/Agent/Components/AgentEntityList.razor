@@ -5,6 +5,7 @@
     {
         <button title="@entity.Name (@entity.GlobalId)"
                 class="entity-item --text --shaded-background --padding"
+                type="button"
                 @onclick="() => HandleEntityClicked(entity)">
             @entity.Name (@entity.GlobalId)
         </button>

@@ -8,6 +8,7 @@ else if (SelectedZone.IsNull())
 {
     <button class="selected-zone --no-border --disconnected"
             title="@Localizer["No Zone is Selected"]"
+            type="button"
             @onclick="HandleOpenZoneSelection">
         <i class="selected-zone__icon fas fa-server"></i>
     </button>
@@ -18,6 +19,7 @@ else
     {
         <button class="selected-zone --no-border --connected"
                 title="@Localizer["Connected to Zone {0}", SelectedZoneId]"
+                type="button"
                 @onclick="HandleOpenZoneSelection">
             <i class="selected-zone__icon fas fa-server"></i>
         </button>
@@ -28,7 +30,7 @@ else
     }
 }
 
-<StandardModal IsOpen="IsZoneSelectionOpen" 
+<StandardModal IsOpen="IsZoneSelectionOpen"
                OnClose="HandleCloseZoneSelection">
     <Header>
         <h2>@Localizer["Zone Selection"]</h2>
@@ -45,6 +47,7 @@ else
                     <div>Last Ping: @zone.LastPing.ToString("G")</div>
                     <div>Application Version: @zone.Details.ApplicationVersion</div>
                     <button @onclick="() => HandleZoneSelectionChanged(zone.Id)"
+                            type="button"
                             disabled="@(zone.Id == SelectedZoneId)">
                         @(zone.Id == SelectedZoneId ? Localizer["Active"] : Localizer["Select"])
                     </button>

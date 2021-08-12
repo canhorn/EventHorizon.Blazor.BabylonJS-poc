@@ -6,6 +6,7 @@
 <div class="blade">
     <div class="blade__title">
         <button class="title__text expanded-toggler"
+                type="button"
                 @onclick="ToggleNavMenu">
             @if (CollapseContent)
             {
@@ -28,8 +29,9 @@
         <div class="title__text --desktop-only">@LocalizeBlade(CurrentBlade)</div>
         <span>
             <button class="blade__settings__open-button --no-border"
-                    @onclick="HandleOpenSettings"
-                    title="@Localizer["Open Settings for this Blade."]">
+                    type="button"
+                    title="@Localizer["Open Settings for this Blade."]"
+                    @onclick="HandleOpenSettings">
                 <i class="fas fa-cogs"></i>
                 <span class="--sr-only">
                     @Localizer["Open Settings for this Blade."]

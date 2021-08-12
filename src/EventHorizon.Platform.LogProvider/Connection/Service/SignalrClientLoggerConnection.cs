@@ -162,6 +162,7 @@
         {
             if (!_initialized
                 || _initializing
+                || _connection.IsNotConnected()
             )
             {
                 return new(

@@ -1,5 +1,6 @@
 ﻿
 <button class="@($"standard-toolbar-item --remove-button-styles {@class}")"
+        type="@type"
         @attributes="Attributes">
     @ChildContent
 </button>
@@ -7,6 +8,8 @@
 @code {
     [Parameter]
     public string @class { get; set; } = string.Empty;
+    [Parameter]
+    public string type { get; set; } = "button";
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object> Attributes { get; set; } = null!;
     [Parameter]

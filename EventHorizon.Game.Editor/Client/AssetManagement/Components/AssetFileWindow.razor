@@ -5,6 +5,7 @@
     @foreach (var node in State.FileCollection)
     {
         <button class="file-directory-content__button --text"
+                type="button"
                 @onclick="() => HandleDirectoryContentClicked(node)">
             <FileDirectoryContent File="node"
                                   OnDelete="HandleDeleteFileDirectoryContent" />

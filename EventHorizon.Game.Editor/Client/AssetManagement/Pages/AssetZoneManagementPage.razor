@@ -36,10 +36,12 @@
                         @gameAsset.Type
                     </td>
                     <td>
-                        <button @onclick="@(() => HandleEditGameAsset(gameAsset.Id))">
+                        <button @onclick="@(() => HandleEditGameAsset(gameAsset.Id))" 
+                                type="button">
                             @Localizer["Edit"]
                         </button>
-                        <button @onclick="@(() => HandleDeleteGameAsset(gameAsset))">
+                        <button @onclick="@(() => HandleDeleteGameAsset(gameAsset))"
+                                type="button">
                             @Localizer["Delete"]
                         </button>
                     </td>

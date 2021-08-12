@@ -2,10 +2,12 @@
 @implements IDisposable
 
 <div class="dropdown" @onclick:stopPropagation @onclick:preventDefault>
-    <button @onclick="HandleToggle">
+    <button type="button"
+            @onclick="HandleToggle">
         @Display
     </button>
-    <div class="dropdown-content @ContentCss">
+    <div class="dropdown-content @ContentCss"
+         type="button">
         @Content
     </div>
 </div>

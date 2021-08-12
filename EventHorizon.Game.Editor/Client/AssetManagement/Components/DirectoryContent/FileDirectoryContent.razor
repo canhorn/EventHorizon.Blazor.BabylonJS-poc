@@ -2,28 +2,29 @@
 @inherits EditorComponentBase
 
 <div class="file-directory-content">
-	<div class="content">
-		<div class="preview">
-			<i class="--icon oi oi-@(File.IsFile ? "file" : "folder")" />
-		</div>
-		<div class="name">@File.Name</div>
-		<div class="modified-date" title="@Localizer["Last Modified"]">@File.DateModified</div>
+    <div class="content">
+        <div class="preview">
+            <i class="--icon oi oi-@(File.IsFile ? "file" : "folder")" />
+        </div>
+        <div class="name">@File.Name</div>
+        <div class="modified-date" title="@Localizer["Last Modified"]">@File.DateModified</div>
 
-		<div class="actions">
-			<button class="actions__action-delete --text"
-					@onclick:stopPropagation="true"
-					@onclick:preventDefault="true"
-					@onclick="@(() => OnDelete.InvokeAsync(File))">
-				@Localizer["Delete"]
-			</button>
-		</div>
-	</div>
+        <div class="actions">
+            <button class="actions__action-delete --text"
+                    type="button"
+                    @onclick:stopPropagation="true"
+                    @onclick:preventDefault="true"
+                    @onclick="@(() => OnDelete.InvokeAsync(File))">
+                @Localizer["Delete"]
+            </button>
+        </div>
+    </div>
 </div>
 
 @code {
-	[Parameter]
-	public FileSystemDirectoryContent File { get; set; } = null!;
+    [Parameter]
+    public FileSystemDirectoryContent File { get; set; } = null!;
 
-	[Parameter]
-	public EventCallback<FileSystemDirectoryContent> OnDelete { get; set; }
+    [Parameter]
+    public EventCallback<FileSystemDirectoryContent> OnDelete { get; set; }
 }

@@ -10,7 +10,10 @@
     @*<ZoneStateSandbox />*@
 </ZoneStateProvider>
 
-<button @onclick="HandleOpenWindow">Open Window</button>
+<button type="button"
+        @onclick="HandleOpenWindow">
+    Open Window
+</button>
 
 <StandardWindow IsOpen="IsWindowOpen"
                 IsDraggable="IsDraggable"
@@ -20,19 +23,40 @@
     <Body>
         <h2>Content</h2>
         <div>
-            <button @onclick="@(() => WidthSize = "small")">Width Small</button>
-            <button @onclick="@(() => WidthSize = "medium")">Width Medium</button>
-            <button @onclick="@(() => WidthSize = "large")">Width Large</button>
+            <button type="button"
+                    @onclick="@(() => WidthSize = "small")">
+                Width Small
+            </button>
+            <button type="button"
+                    @onclick="@(() => WidthSize = "medium")">
+                Width Medium
+            </button>
+            <button type="button"
+                    @onclick="@(() => WidthSize = "large")">
+                Width Large
+            </button>
         </div>
         <div>
-            <button @onclick="@(() => HeightSize = "small")">Height Small</button>
-            <button @onclick="@(() => HeightSize = "medium")">Height Medium</button>
-            <button @onclick="@(() => HeightSize = "large")">Height Large</button>
+            <button type="button"
+                    @onclick="@(() => HeightSize = "small")">
+                Height Small
+            </button>
+            <button type="button"
+                    @onclick="@(() => HeightSize = "medium")">
+                Height Medium
+            </button>
+            <button type="button"
+                    @onclick="@(() => HeightSize = "large")">
+                Height Large
+            </button>
         </div>
     </Body>
 </StandardWindow>
 
-<button @onclick="@(() => throw new Exception("Manual thrown error"))">Throw Error</button>
+<button type="button"
+        @onclick="@(() => throw new Exception("Manual thrown error"))">
+    Throw Error
+</button>
 
 @code {
     public bool IsWindowOpen;
@@ -60,7 +84,10 @@
 "></div>
 }
 
-<button @onclick="HandleCreateGrid">Create Grid</button>
+<button type="button"
+        @onclick="HandleCreateGrid">
+    Create Grid
+</button>
 
 @code {
     public List<(int Left, int Top, int CellWidth, int CellHeight)> TestingGird { get; private set; } = new();
@@ -115,20 +142,32 @@
     </Body>
     <Footer>
         <div>
-            <button @onclick="HandleCloseModal">Cancel</button>
+            <button type="button"
+                    @onclick="HandleCloseModal">
+                Cancel
+            </button>
         </div>
     </Footer>
 </StandardModal>
 
 
 <div>
-    <button @onclick="SendErrorMessage">Send Error Log Message</button>
+    <button type="button"
+            @onclick="SendErrorMessage">
+        Send Error Log Message
+    </button>
 </div>
 <div>
-    <button @onclick="SendInfoMessage">Send Info Log Message</button>
+    <button type="button"
+            @onclick="SendInfoMessage">
+        Send Info Log Message
+    </button>
 </div>
 <div>
-    <button @onclick="SendArgsMessage">Send Info w/Args Log Message</button>
+    <button type="button"
+            @onclick="SendArgsMessage">
+        Send Info w/Args Log Message
+    </button>
 </div>
 
 @code {

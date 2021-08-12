@@ -5,6 +5,7 @@
     {
         <span>@Localizer["/"]</span>
         <button class="breadcrumb__item --text --font-underline"
+                type="button"
                 @onclick="() => HandleNavigateToPath(breadcrumbItem.FilterPath)">
             @breadcrumbItem.Text
         </button>

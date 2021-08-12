@@ -52,24 +52,28 @@
                               ContainsName="@ContainsName">
             <Override>
                 <button class="edit-modal__button"
+                        type="button"
                         @onclick="() => HandleSubmit(DataValueModalSubmitType.Override)">
                     @Localizer["Override"]
                 </button>
             </Override>
             <Update>
                 <button class="edit-modal__button"
+                        type="button"
                         @onclick="() => HandleSubmit(DataValueModalSubmitType.Update)">
                     @Localizer["Update"]
                 </button>
             </Update>
             <Clone>
                 <button class="edit-modal__button"
+                        type="button"
                         @onclick="() => HandleSubmit(DataValueModalSubmitType.Clone)">
                     @Localizer["Clone"]
                 </button>
             </Clone>
             <Create>
                 <button class="edit-modal__button"
+                        type="button"
                         @onclick="() => HandleSubmit(DataValueModalSubmitType.Create)">
                     @Localizer["Create"]
                 </button>

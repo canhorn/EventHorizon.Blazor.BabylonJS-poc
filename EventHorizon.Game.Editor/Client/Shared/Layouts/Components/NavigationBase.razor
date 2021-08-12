@@ -1,7 +1,9 @@
-﻿@using EventHorizon.Game.Editor.Client.Wizard.Components 
+﻿@using EventHorizon.Game.Editor.Client.Wizard.Components
 
 <div class="top-row navbar navbar-dark">
-    <button class="menu-toggler --no-border" @onclick="ToggleNavMenu">
+    <button class="menu-toggler --no-border"
+            type="button"
+            @onclick="ToggleNavMenu">
         @if (collapseNavMenu)
         {
             <i class="menu-toggler-icon fas fa-chevron-right"></i>
