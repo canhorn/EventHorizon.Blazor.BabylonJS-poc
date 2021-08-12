@@ -26,5 +26,18 @@
             x => x.Key,
             y => y.Last().Value
         );
+
+        /// <summary>
+        /// Take the IDictionary interface and coerce it into a Dictionary<typeparamref name="TKey"/>, <typeparamref name="TValue"/>> implementation.
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public static Dictionary<TKey, TValue> AsDictionary<TKey, TValue>(
+            this IDictionary<TKey, TValue> root
+        ) => new(
+            root
+        );
     }
 }

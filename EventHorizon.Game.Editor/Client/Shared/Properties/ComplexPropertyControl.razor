@@ -1,7 +1,4 @@
-﻿@using System.Text.Json 
-@using EventHorizon.Game.Editor.Client.Zone.Api
-@using BlazorMonaco
-@using BlazorMonaco.Bridge 
+﻿@using BlazorMonaco
 @inherits PropertyControlBase
 
 <div class="complex-property-control">
@@ -10,6 +7,7 @@
         <label class="--font-bold --cursor-pointer"
                title="@Localizer["Remove"]">
             <button class="c-button --text"
+                    type="button"
                     @onclick="HandleRemove">
                 &#10060
             </button>
@@ -23,7 +21,8 @@
         </label>
     }
     <div>
-        <button @onclick="HandleOpenEditor">
+        <button @onclick="HandleOpenEditor"
+                type="button">
             @Localizer["Open Editor"]
         </button>
         <details>
@@ -55,53 +54,3 @@
         </Body>
     </StandardModal>
 </div>
-
-
-@code {
-    [CascadingParameter]
-    public ZoneState ZoneState { get; set; } = null!;
-
-    public MonacoEditor MonacoEditor { get; set; } = null!;
-    protected string PropertyEditorId => $"{PropertyName}-Editor";
-    protected bool IsEditorOpen { get; set; }
-
-    protected override object Parse(object value)
-    {
-        return JsonSerializer.Deserialize<Dictionary<string, object>>(
-            value?.ToString() ?? "{}"
-        ) ?? new Dictionary<string, object>();
-    }
-
-    public async Task HandleOpenEditor()
-    {
-        if (MonacoEditor.IsNotNull())
-        {
-            await MonacoEditor.SetValue(
-                Property.ToString()
-            );
-        }
-        IsEditorOpen = true;
-    }
-
-    public async Task HandleSave()
-    {
-        await HandleChange(
-            new ChangeEventArgs
-            {
-                Value = await MonacoEditor.GetValue()
-            }
-        );
-        IsEditorOpen = false;
-    }
-
-
-    public StandaloneEditorConstructionOptions BuildConstructionOptions(
-        MonacoEditor _
-    ) => new StandaloneEditorConstructionOptions
-    {
-        Theme = "vs-dark",
-        Language = "json",
-        Value = Property.ToString(),
-        AutomaticLayout = true,
-    };
-}

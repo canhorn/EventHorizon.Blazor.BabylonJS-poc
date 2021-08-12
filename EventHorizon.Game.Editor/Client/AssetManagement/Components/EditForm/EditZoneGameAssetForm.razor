@@ -1,23 +1,43 @@
-﻿@inherits EditZoneGameAssetFormModel
+﻿@using EventHorizon.Game.Editor.Client.Shared.Properties
+@inherits EditZoneGameAssetFormModel
 
 <EditForm Model="Model"
-          OnValidSubmit="HandleSubmit">
+          OnSubmit="HandleSubmit">
 
     <StandardToolbar class="form__toolbar">
         <StandardToolbarButton type="submit">
             @Localizer["Save"]
+        </StandardToolbarButton>
+        <StandardToolbarButton @onclick="HandleCancelClicked">
+            @Localizer["Cancel"]
+        </StandardToolbarButton>
+        <StandardToolbarButton @onclick="HandleResetClicked">
+            @Localizer["Reset"]
         </StandardToolbarButton>
     </StandardToolbar>
 
     <div class="game-asset-form__content">
         <ContainerStatesComponent State="MessageState">
             <LoadingFragment>
-                @Localizer["Loading..."]
+                <div class="form-item">
+                    @Localizer["Loading..."]
+                </div>
             </LoadingFragment>
             <ErrorFragment>
-                @Message
+                <div class="form-item">
+                    <span class="--error" role="alert">
+                        @Message
+                    </span>
+                </div>
             </ErrorFragment>
         </ContainerStatesComponent>
+
+        <div class="form-item">
+            <h2 class="form__details-header">
+                @Localizer["Asset Details"]
+            </h2>
+            <hr />
+        </div>
 
         <div class="form-item">
             <label for="create-game-asset__name"
@@ -25,9 +45,10 @@
                 @Localizer["Asset Name"]
             </label>
             <InputText id="create-game-asset__name"
-                       @bind-Value="@Model.Name"
+                       @bind-Value="@AssetName"
                        placeholder="@Localizer["Asset Name"]" />
         </div>
+
         <div class="form-item">
             <label for="create-game-asset__type"
                    class="--font-bold">
@@ -37,6 +58,23 @@
                             Value="@AssetTypeOption"
                             ValueChanged="HandleAssetTypeChanged"></StandardSelect>
         </div>
+
+        <ContainerStatesComponent State="TypeDataState">
+            <ContentFragment>
+                <div class="form-item">
+                    <h2 class="form__config-data-header">
+                        @Localizer["Asset Configuration"]
+                    </h2>
+                    <hr />
+                </div>
+
+                <div class="form-item">
+                    <PropertiesDisplay Data="TypeData"
+                                       PropertiesMetadata="TypePropertiesMetadata"
+                                       OnChanged="HandleTypeDataChanged" />
+                </div>
+            </ContentFragment>
+        </ContainerStatesComponent>
     </div>
 
 </EditForm>

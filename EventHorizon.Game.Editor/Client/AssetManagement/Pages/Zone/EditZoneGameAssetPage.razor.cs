@@ -58,6 +58,13 @@
             );
         }
 
+        protected void HandleCancel()
+        {
+            NavigationManager.NavigateTo(
+                "/asset/management/zone"
+            );
+        }
+
         public async Task Handle(
             ZoneAdminServiceConnectedEvent _
         )

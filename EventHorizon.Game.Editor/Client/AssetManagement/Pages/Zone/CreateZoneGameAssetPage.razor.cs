@@ -40,5 +40,12 @@
                 "/asset/management/zone"
             );
         }
+
+        protected void HandleCancel()
+        {
+            NavigationManager.NavigateTo(
+                "/asset/management/zone"
+            );
+        }
     }
 }
