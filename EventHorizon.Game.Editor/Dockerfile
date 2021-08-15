@@ -60,6 +60,10 @@ COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/Even
 ## Editor - Server
 COPY EventHorizon.Game.Editor/Server/EventHorizon.Game.Editor.Server.csproj ./EventHorizon.Game.Editor/Server/EventHorizon.Game.Editor.Server.csproj
 
+## Editor - Cache Source Generators
+COPY EventHorizon.Game.Editor/Generator/EventHorizon.Cache.Api/EventHorizon.Cache.Api.csproj ./EventHorizon.Game.Editor/Generator/EventHorizon.Cache.Api/EventHorizon.Cache.Api.csproj
+COPY EventHorizon.Game.Editor/Generator/EventHorizon.Cache.Generator/EventHorizon.Cache.Generator.csproj ./EventHorizon.Game.Editor/Generator/EventHorizon.Cache.Generator/EventHorizon.Cache.Generator.csproj
+
 COPY Directory.Build.props ./Directory.Build.props
 
 RUN dotnet restore ./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln
