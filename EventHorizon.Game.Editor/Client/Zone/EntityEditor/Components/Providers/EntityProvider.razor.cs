@@ -3,14 +3,14 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Editor.Client.Authentication.Api;
     using EventHorizon.Game.Editor.Client.Authentication.Set;
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Client.Zone.Interaction;
+
     using Microsoft.AspNetCore.Components;
 
     public class EntityProviderModel
@@ -30,9 +30,6 @@
         public RenderFragment ChildContent { get; set; } = null!;
         [Parameter]
         public bool DisableInteractionEvent { get; set; }
-
-        [Inject]
-        public Localizer<SharedResource> Localizer { get; set; } = null!;
 
         [MaybeNull]
         public IObjectEntityDetails Entity { get; set; }

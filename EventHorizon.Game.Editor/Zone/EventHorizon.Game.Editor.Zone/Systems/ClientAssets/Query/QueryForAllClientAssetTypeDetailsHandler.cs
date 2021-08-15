@@ -3,10 +3,12 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Properties.Model;
     using EventHorizon.Zone.Systems.ClientAssets.Model;
     using EventHorizon.Zone.Systems.ClientAssets.Query;
+
     using MediatR;
 
     public class QueryForAllClientAssetTypeDetailsHandler
@@ -78,7 +80,7 @@
                         {
                             ["path"] = PropertyType.String,
                             ["file"] = PropertyType.String,
-                            ["fileAssetPath"] = PropertyType.String, // PropertyType.AssetServerFile
+                            ["fileAssetPath"] = PropertyType.AssetServerFile,
                             ["heightOffset"] = PropertyType.Decimal,
                         },
                         DefaultValue = () => new Dictionary<string, object>
@@ -96,7 +98,7 @@
                         Metadata = new Dictionary<string, string>
                         {
                             ["heightMapUrl"] = PropertyType.String,
-                            ["heightMapAssetPath"] = PropertyType.String, // PropertyType.AssetServerFile
+                            ["heightMapAssetPath"] = PropertyType.AssetServerFile,
                             ["width"] = PropertyType.Decimal,
                             ["height"] = PropertyType.Decimal,
                             ["subdivisions"] = PropertyType.Decimal,
@@ -124,7 +126,7 @@
                         Name = "Map Material",
                         Metadata = new Dictionary<string, string>
                         {
-                            ["assetPath"] = PropertyType.Decimal, // PropertyType.AssetServerPath
+                            ["assetPath"] = PropertyType.AssetServerPath,
                             ["shaderId"] = PropertyType.Decimal,
                             ["shader"] = PropertyType.Decimal,
                             ["lightName"] = PropertyType.Decimal,
@@ -182,7 +184,7 @@
                         Name = "Image",
                         Metadata = new Dictionary<string, string>
                         {
-                            ["url"] = PropertyType.String, // PropertyType.AssetServerFile
+                            ["url"] = PropertyType.AssetServerFile, 
                         },
                         DefaultValue = () => new Dictionary<string, object>
                         {

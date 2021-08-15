@@ -1,0 +1,26 @@
+﻿@inherits AssetServerFilePropertyControlModel
+
+<div>
+    @if (ShowRemove)
+    {
+        <label class="--font-bold --cursor-pointer"
+               title="@Localizer["Remove"]">
+            <button class="c-button --text"
+                    type="button"
+                    @onclick="HandleRemove">
+                &#10060
+            </button>
+            @LabelText
+        </label>
+    }
+    else
+    {
+        <label class="--font-bold">
+            @LabelText
+        </label>
+    }
+
+    <StandardSelect Options="AssetOptions"
+                    ValueChanged="HandleAssetValueChanged"
+                    Value="SelectedAssetOption"></StandardSelect>
+</div>

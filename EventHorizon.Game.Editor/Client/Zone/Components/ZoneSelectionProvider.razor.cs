@@ -3,9 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Editor.Client.Authentication.Model;
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Zone.Active;
     using EventHorizon.Game.Editor.Client.Zone.Api;
@@ -14,6 +13,7 @@
     using EventHorizon.Game.Editor.Core.Services.Connect;
     using EventHorizon.Game.Editor.Core.Services.Model;
     using EventHorizon.Game.Editor.Core.Services.Query;
+
     using Microsoft.AspNetCore.Components;
 
     public class ZoneSelectionProviderModel
@@ -25,10 +25,6 @@
 
         [Parameter]
         public RenderFragment ChildContent { get; set; } = null!;
-
-        [Inject]
-        public Localizer<SharedResource> Localizer { get; set; } = null!;
-
 
         public string ErrorMessage { get; private set; } = string.Empty;
 

@@ -1,4 +1,5 @@
 ﻿@inherits PropertyDisplayModel
+@using EventHorizon.Game.Editor.Properties.Model 
 @using EventHorizon.Game.Editor.Zone.Editor.Services.Model
 
 <div class="property-display">
@@ -58,6 +59,22 @@
                                     Label="@Property.Label"
                                     OnChange="OnChanged"
                                     OnRemove="OnRemove" />
+            break;
+
+        case PropertyType.AssetServerFile:
+            <AssetServerFilePropertyControl PropertyName="@Property.Name"
+                                            Property="Property.Value"
+                                            Label="@Property.Label"
+                                            OnChange="OnChanged"
+                                            OnRemove="OnRemove" />
+            break;
+
+        case PropertyType.AssetServerPath:
+            <AssetServerPathPropertyControl PropertyName="@Property.Name"
+                                            Property="Property.Value"
+                                            Label="@Property.Label"
+                                            OnChange="OnChanged"
+                                            OnRemove="OnRemove" />
             break;
 
         default:

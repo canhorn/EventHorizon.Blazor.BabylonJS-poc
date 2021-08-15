@@ -1,13 +1,14 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Properties
 {
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
-    using Microsoft.AspNetCore.Components;
     using System.Reflection.Metadata;
     using System.Threading.Tasks;
 
+    using EventHorizon.Game.Editor.Client.Shared.Components;
+
+    using Microsoft.AspNetCore.Components;
+
     public abstract class PropertyControlBase
-        : ComponentBase
+        : EditorComponentBase
     {
         [Parameter]
         public string Label { get; set; } = string.Empty;
@@ -19,9 +20,6 @@
         public EventCallback<PropertyChangedArgs> OnChange { get; set; }
         [Parameter]
         public EventCallback<string> OnRemove { get; set; }
-
-        [Inject]
-        public Localizer<SharedResource> Localizer { get; set; } = null!;
 
         public string LabelText => string.IsNullOrWhiteSpace(Label) ? PropertyName : Label;
         public bool ShowRemove => OnRemove.HasDelegate;
