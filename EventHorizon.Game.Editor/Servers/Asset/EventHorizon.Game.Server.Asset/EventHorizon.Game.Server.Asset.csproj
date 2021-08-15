@@ -2,9 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="EasyCaching.Core" Version="1.3.0" />
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
@@ -14,7 +17,15 @@
         <ProjectReference Include="..\..\..\..\src\EventHorizon.Connection.Shared\EventHorizon.Connection.Shared.csproj" />
         <ProjectReference Include="..\..\..\..\src\SDK\EventHorizon.Game.Client.Core.Api\EventHorizon.Game.Client.Core.Api.csproj" />
         <ProjectReference Include="..\..\..\Api\EventHorizon.Game.Editor.Api\EventHorizon.Game.Editor.Api.csproj" />
+        <ProjectReference Include="..\..\..\Generator\EventHorizon.Cache.Api\EventHorizon.Cache.Api.csproj" />
         <ProjectReference Include="..\EventHorizon.Game.Server.Asset.Api\EventHorizon.Game.Server.Asset.Api.csproj" />
+        
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Generator\EventHorizon.Cache.Generator\EventHorizon.Cache.Generator.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false" />
     </ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Connection.Shared;
     using EventHorizon.Connection.Shared.Unauthorized;
     using EventHorizon.Game.Client.Core.Command.Model;
@@ -11,7 +12,9 @@
     using EventHorizon.Game.Server.Asset.Api;
     using EventHorizon.Game.Server.Asset.Connection;
     using EventHorizon.Game.Server.Asset.Finished;
+
     using MediatR;
+
     using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.Extensions.Logging;
 
@@ -28,6 +31,7 @@
         private HubConnection? _connection;
 
         public AssetServerExportAdminApi ExportApi { get; private set; } = new SignalrAssetServerExportAdminApi(null);
+        public AssetServerFileManagementAdminApi FileManagementApi { get; private set; } = new SignalrAssetServerFileManagementAdminApi(null);
 
         public SignalrAssetServerAdminService(
             ILogger<SignalrAssetServerAdminService> logger,
@@ -88,6 +92,9 @@
                     cancellationToken
                 );
                 ExportApi = new SignalrAssetServerExportAdminApi(
+                    _connection
+                );
+                FileManagementApi = new SignalrAssetServerFileManagementAdminApi(
                     _connection
                 );
 
@@ -166,13 +173,7 @@
                 ex,
                 message
             );
-            if (_connection.IsNotNull())
-            {
-                await _connection.DisposeAsync();
-                _connection = null;
-            }
-            _initializing = false;
-            _initialized = false;
+            await DisposeAsync();
         }
 
         public async ValueTask DisposeAsync()
@@ -180,6 +181,9 @@
             if (_connection.IsNotNull())
             {
                 await _connection.DisposeAsync();
+                ExportApi = new SignalrAssetServerExportAdminApi(null);
+                FileManagementApi = new SignalrAssetServerFileManagementAdminApi(null);
+
                 _connection = null;
             }
             _initializing = false;

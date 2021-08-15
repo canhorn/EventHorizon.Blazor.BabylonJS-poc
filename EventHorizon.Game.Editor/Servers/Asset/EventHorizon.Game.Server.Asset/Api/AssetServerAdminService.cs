@@ -8,6 +8,8 @@
     {
         AssetServerExportAdminApi ExportApi { get; }
 
+        AssetServerFileManagementAdminApi FileManagementApi {get;}
+
         Task<StandardCommandResult> Connect(
             string accessToken,
             CancellationToken cancellationToken

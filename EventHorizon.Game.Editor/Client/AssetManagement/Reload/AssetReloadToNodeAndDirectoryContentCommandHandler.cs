@@ -1,10 +1,12 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Load
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Reload
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
     using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
+
     using MediatR;
 
     public class AssetReloadToNodeAndDirectoryContentCommandHandler

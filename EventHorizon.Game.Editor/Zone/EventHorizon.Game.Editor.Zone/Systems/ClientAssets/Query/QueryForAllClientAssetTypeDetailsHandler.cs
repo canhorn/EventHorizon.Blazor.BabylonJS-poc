@@ -124,7 +124,7 @@
                         Name = "Map Material",
                         Metadata = new Dictionary<string, string>
                         {
-                            ["assetPath"] = PropertyType.Decimal,
+                            ["assetPath"] = PropertyType.Decimal, // PropertyType.AssetServerPath
                             ["shaderId"] = PropertyType.Decimal,
                             ["shader"] = PropertyType.Decimal,
                             ["lightName"] = PropertyType.Decimal,
@@ -182,7 +182,7 @@
                         Name = "Image",
                         Metadata = new Dictionary<string, string>
                         {
-                            ["url"] = PropertyType.String,
+                            ["url"] = PropertyType.String, // PropertyType.AssetServerFile
                         },
                         DefaultValue = () => new Dictionary<string, object>
                         {
@@ -195,7 +195,7 @@
                         Name = "Dialog",
                         Metadata = new Dictionary<string, string>
                         {
-                            ["root"] = PropertyType.Complex, 
+                            ["root"] = PropertyType.Complex,
                         },
                         DefaultValue = () => new Dictionary<string, object>
                         {

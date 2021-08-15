@@ -5,6 +5,35 @@
 
 @*<ZoneSelection />*@
 
+<div>
+    <button type="button"
+            @onclick="@HandleGetFileManagementAssets">
+        Get File Management Assets
+    </button>
+    <DumpToJson Data="FileManagementAssets" />
+</div>
+
+@code {
+    [Inject]
+    public MediatR.IMediator Mediator { get; set; } = null!;
+
+    public EventHorizon.Game.Server.Asset.Model.FileManagementAssets FileManagementAssets { get; set; } = new Server.Asset.Model.FileManagementAssets();
+
+
+    public async Task HandleGetFileManagementAssets()
+    {
+        var result = await Mediator.Send(
+            new EventHorizon.Game.Server.Asset.Query.QueryForFileManagementAssets()
+        );
+        if (result)
+        {
+            FileManagementAssets = result.Result;
+        }
+    }
+
+}
+
+
 <ZoneStateProvider>
     <EditorFileExplorer />
     @*<ZoneStateSandbox />*@

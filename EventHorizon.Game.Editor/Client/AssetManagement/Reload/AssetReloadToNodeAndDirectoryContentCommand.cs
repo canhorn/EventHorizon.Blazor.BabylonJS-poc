@@ -1,8 +1,9 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Load
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Reload
 {
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.AssetManagement.Model;
     using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
+
     using MediatR;
 
     public struct AssetReloadToNodeAndDirectoryContentCommand

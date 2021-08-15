@@ -2,14 +2,16 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Load;
     using EventHorizon.Game.Editor.Client.AssetManagement.Model;
     using EventHorizon.Game.Editor.Client.AssetManagement.Open;
+    using EventHorizon.Game.Editor.Client.AssetManagement.Reload;
     using EventHorizon.Game.Editor.Client.Authentication.Model;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
+
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Forms;
     using Microsoft.JSInterop;

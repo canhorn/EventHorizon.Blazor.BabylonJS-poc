@@ -6,8 +6,11 @@ namespace EventHorizon.Game.Editor.Client
     using System.Globalization;
     using System.Net.Http;
     using System.Threading.Tasks;
+
     using Blazored.LocalStorage;
+
     using BlazorPro.BlazorSize;
+
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Systems;
     using EventHorizon.Game.Editor;
@@ -25,7 +28,9 @@ namespace EventHorizon.Game.Editor.Client
     using EventHorizon.Platform.ErrorBoundary;
     using EventHorizon.Platform.LogProvider;
     using EventHorizon.Platform.LogProvider.Model;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
     using Microsoft.AspNetCore.Localization;
@@ -55,6 +60,18 @@ namespace EventHorizon.Game.Editor.Client
 
             // Browser Services
             builder.Services.AddBrowserServices();
+
+            // Caching Services
+            builder.Services.AddEasyCaching(
+                option =>
+                {
+                    option.UseInMemory(
+                        builder.Configuration,
+                        "DefaultInMemory",
+                        "EasyCaching:InMemory"
+                    );
+                }
+            );
 
             // Setup MediatR
             builder.Services.AddMediatR(
