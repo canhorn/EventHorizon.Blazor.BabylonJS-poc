@@ -99,9 +99,13 @@
                         Data[key], out var longValue
                     ) ? longValue : GetDefaultProperty(keyType);
                 case PropertyType.String:
+                case PropertyType.Asset:
+                case PropertyType.AssetServerPath:
+                case PropertyType.AssetServerFile:
+                case PropertyType.AssetServerFileName:
                     return Data[key];
                 default:
-                    Mediator.Send(
+                    Mediator.Publish(
                         new ShowMessageEvent(
                             Localizer["Wizard Input Form Issue"],
                             Localizer[

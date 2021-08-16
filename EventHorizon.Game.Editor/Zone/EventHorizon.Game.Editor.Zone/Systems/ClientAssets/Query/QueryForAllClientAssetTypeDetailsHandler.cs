@@ -184,7 +184,7 @@
                         Name = "Image",
                         Metadata = new Dictionary<string, string>
                         {
-                            ["url"] = PropertyType.AssetServerFile, 
+                            ["url"] = PropertyType.String, 
                         },
                         DefaultValue = () => new Dictionary<string, object>
                         {

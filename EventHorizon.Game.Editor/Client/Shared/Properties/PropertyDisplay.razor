@@ -77,6 +77,14 @@
                                             OnRemove="OnRemove" />
             break;
 
+        case PropertyType.AssetServerFileName:
+            <AssetServerFileNamePropertyControl PropertyName="@Property.Name"
+                                            Property="Property.Value"
+                                            Label="@Property.Label"
+                                            OnChange="OnChanged"
+                                            OnRemove="OnRemove" />
+            break;
+
         default:
             <div>
                 @Localizer["not_supported_property_type"]

@@ -10,7 +10,8 @@
         public const string Complex = nameof(Complex);
 
         public const string Asset = nameof(Asset);
-        public const string AssetServerFile = nameof(AssetServerFile);
         public const string AssetServerPath = nameof(AssetServerPath);
+        public const string AssetServerFile = nameof(AssetServerFile);
+        public const string AssetServerFileName = nameof(AssetServerFileName);
     }
 }
