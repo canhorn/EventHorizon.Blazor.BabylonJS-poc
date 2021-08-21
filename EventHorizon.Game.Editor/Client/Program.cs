@@ -11,6 +11,7 @@ namespace EventHorizon.Game.Editor.Client
 
     using BlazorPro.BlazorSize;
 
+    using EventHorizon.Activity;
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Client.Systems;
     using EventHorizon.Game.Editor;
@@ -55,6 +56,9 @@ namespace EventHorizon.Game.Editor.Client
                 )
             ;
 
+            // Activity Services
+            builder.Services.AddActivityServices();
+
             // Error Boundary
             builder.Services.AddErrorBoundary();
 
@@ -80,6 +84,7 @@ namespace EventHorizon.Game.Editor.Client
                     typeof(ObserverState),
                     typeof(Program),
                     typeof(EditorSharedExtensions),
+                    typeof(ActivityStartupExtensions),
 
                     // Servers
                     typeof(AssetServerStartupExtensions),

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="8.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\SDK\EventHorizon.Game.Client.Core.Api\EventHorizon.Game.Client.Core.Api.csproj" />
+      <ProjectReference Include="..\EventHorizon.Activity.Api\EventHorizon.Activity.Api.csproj" />
+    </ItemGroup>
+
+</Project>

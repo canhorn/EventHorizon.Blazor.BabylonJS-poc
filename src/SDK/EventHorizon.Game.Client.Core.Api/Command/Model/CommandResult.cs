@@ -1,8 +1,5 @@
 ﻿namespace EventHorizon.Game.Client.Core.Command.Model
-{
-    using System;
-    using System.Runtime.CompilerServices;
-
+{ 
     public class CommandResult<T>
     {
         public bool Success { get; }

@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\Shared\EventHorizon.Activity\EventHorizon.Activity.csproj" />
         <ProjectReference Include="..\Generator\EventHorizon.Cache.Generator\EventHorizon.Cache.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 
