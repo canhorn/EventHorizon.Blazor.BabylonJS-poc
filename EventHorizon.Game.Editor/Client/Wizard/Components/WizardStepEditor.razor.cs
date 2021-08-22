@@ -44,6 +44,7 @@
         {
             return Step.IsProcessing
                 || !Step.HasPrevious
+                || Step.Details["DisablePrevious"] == "true"
                 || Data[$"DisablePrevious:{Step.Id}"] == "true";
         }
 
@@ -66,6 +67,7 @@
         {
             return Step.IsInvalid
                 || Step.IsProcessing
+                || Step.Details["DisableNext"] == "true"
                 || !Step.HasNext;
         }
 

@@ -3,8 +3,9 @@
 <div class="wizard-list">
     <EditForm Model="this">
         <div>
-            <InputText @bind-Value="WizardFilter"
-                       placeholder="@Localizer["Search for Wizard"]" />
+            <input @bind-Value="@WizardFilter"
+                   @bind-Value:event="oninput"
+                   placeholder="@Localizer["Search for Wizard"]" />
             <button class="--sr-only" type="submit">
                 @Localizer["Search for Wizard"]
             </button>
@@ -24,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var wizard in State.WizardList.Where(a => WizardFilter == string.Empty || a.Name.ToLower().Contains(WizardFilter.ToLower())))
+                @foreach (var wizard in State.WizardList.Where(FilterBySearchText).OrderBy(a => a.Name))
                 {
                     <tr class="wizard-container">
                         <td class="wizard-container__name">
@@ -77,5 +78,17 @@
             ];
             return;
         }
+    }
+
+    private bool FilterBySearchText(
+        WizardMetadata wizardMetadata
+    )
+    {
+        return WizardFilter == string.Empty
+            || wizardMetadata.Name.ToLower().Contains(
+                WizardFilter.ToLower()
+            ) || wizardMetadata.Description.ToLower().Contains(
+                WizardFilter.ToLower()
+            );
     }
 }

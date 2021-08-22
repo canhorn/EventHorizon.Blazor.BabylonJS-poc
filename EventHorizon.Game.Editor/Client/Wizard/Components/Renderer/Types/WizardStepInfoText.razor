@@ -1,0 +1,21 @@
+﻿<div class="info-text">
+    <div class="info-text__name --font-bold --header-font-size">
+        @Localizer[Step.Name]
+    </div>
+    <div class="info-text__description">
+        <i class="fas fa-info-circle --info"></i> @Localizer[Step.Description]
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public WizardState State { get; set; } = null!;
+
+    [Parameter]
+    public WizardStep Step { get; set; } = null!;
+    [Parameter]
+    public WizardData Data { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+}

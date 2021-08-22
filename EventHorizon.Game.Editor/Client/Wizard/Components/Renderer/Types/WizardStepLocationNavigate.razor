@@ -1,20 +1,21 @@
-﻿<div class="navigate">
-    <div class="navigate__name --font-bold --header-font-size">
+﻿<div class="location-navigate">
+    <div class="location-navigate__name --font-bold --header-font-size">
         @Localizer[Step.Name]
     </div>
-    <div class="navigate__description">
+    <div class="location-navigate__description">
         <i class="fas fa-info-circle --info"></i> @Localizer[Step.Description]
     </div>
 
     @if (!string.IsNullOrWhiteSpace(ErrorMessage))
     {
-        <div class="navigate__error-message --error">
+        <div class="location-navigate__error-message --error">
             <i class="fas fa-exclamation-triangle"></i> @ErrorMessage
         </div>
     }
 </div>
 
 @code {
+
     [CascadingParameter]
     public WizardState State { get; set; } = null!;
 
@@ -45,29 +46,26 @@
             await Task.Delay(delayAsInt);
         }
 
-        var locationFound = Step.Details.TryGetValue(
-            "Location",
-            out var location
-        );
-        if (!locationFound)
+        if (!Step.Details.TryGetValue(
+            "LocationProperty",
+            out var locationProperty
+        ))
         {
-            ErrorMessage = Localizer["Navigation Location was not found. Check the above description for more details."];
+            ErrorMessage = Localizer["Location Property was not found."];
+            return;
+        }
+
+        if (!Data.TryGetValue(
+            locationProperty,
+            out var location
+        ))
+        {
+            ErrorMessage = Localizer["Location Property was not found."];
             return;
         }
 
         NavigationManager.NavigateTo(
-            location!
+            location
         );
-
-        if (Step.Details.TryGetValue(
-            "AutoNext",
-            out var autoNext
-        ) && autoNext.Equals(
-            "true",
-            StringComparison.InvariantCultureIgnoreCase
-        ))
-        {
-            await State.Next();
-        }
     }
 }

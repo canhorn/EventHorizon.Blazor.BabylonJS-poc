@@ -4,6 +4,9 @@
 
     public struct WindowLocationType
     {
+        private const int StandardWidthPadding = 5; // 2px Boarder (left-right)
+        private const int StandardHeightPadding = 27; // 2px Boarder (top-bottom) + 22px header
+
         public static readonly WindowLocationType None = string.Empty;
         public static readonly WindowLocationType TopLeft = new(
             "TopLeft",
@@ -75,14 +78,14 @@
             var posX = position.PosX;
             var posY = position.PosY;
 
-            if (size.widthSize + posX > viewableArea.InnerWidth)
+            if (size.widthSize + StandardWidthPadding + posX > viewableArea.InnerWidth)
             {
-                posX = viewableArea.InnerWidth - (int)size.widthSize;
+                posX = viewableArea.InnerWidth - (int)size.widthSize - StandardWidthPadding;
             }
 
-            if (size.heightSize + posY > viewableArea.InnerHeight)
+            if (size.heightSize + StandardHeightPadding + posY > viewableArea.InnerHeight)
             {
-                posY = viewableArea.InnerHeight - (int)size.heightSize;
+                posY = viewableArea.InnerHeight - (int)size.heightSize - StandardHeightPadding;
             }
 
             if (posX < 0)

@@ -2,9 +2,14 @@
 {
     public static class WizardStepTypes
     {
+        public const string Null = nameof(Null);
         public const string TextInput = nameof(TextInput);
         public const string ServerProcess = nameof(ServerProcess);
         public const string Navigate = nameof(Navigate);
         public const string FormInput = nameof(FormInput);
+        public const string CaptureCurrentLocation = nameof(CaptureCurrentLocation);
+        public const string WaitForActivityEvent = nameof(WaitForActivityEvent);
+        public const string InfoText = nameof(InfoText);
+        public const string LocationNavigate = nameof(LocationNavigate);
     }
 }

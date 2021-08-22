@@ -60,7 +60,7 @@
         private double _heightSizeInPixels = 300;
 
         private void SetupSize()
-        {
+        { 
             _widthSizeInPixels = SizeInPixels(
                 WidthSize,
                 ViewableArea.InnerWidth

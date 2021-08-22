@@ -8,20 +8,21 @@
 }
 
 <div class="standard-window @(IsOpen ? "--open" : "")"
-     style="user-select: @(IsDragging ? "none" : "");
-            pointer-events: @(IsDragging ? "none": "");
+     style="user-select: @(IsDragging ? "none" : "initial");
+            pointer-events: @(IsDragging ? "none": "initial");
             left: @(PositionDetails.PosX + "px");
             top: @(PositionDetails.PosY + "px")"
      @onmousemove="HandleElementDrag">
     <div class="standard-window__grid @($"--width-{WidthSize}") @($"--height-{HeightSize}") @CollapseClassName">
-        <div class="standard-window__header @(IsDraggable ? "--draggable" : string.Empty)"
-             @onmousedown="HandleDragMouseDown"
-             @onmouseup="HandleStopDragging">
-            <div>
+        <div class="standard-window__header @(IsDraggable ? "--draggable" : string.Empty)">
+            <div @onmousedown="HandleDragMouseDown"
+                 @onmouseup="HandleStopDragging">
                 @Header
             </div>
             <div>
                 <button @onclick="HandleCollapse"
+                        @onclick:preventDefault
+                        @onclick:stopPropagation
                         title="@(IsCollapsed ? Localizer["Expand Window"] : Localizer["Collapse Window"])"
                         type="button">
                     <i class="fas fa-@CollapsedIcon"></i>

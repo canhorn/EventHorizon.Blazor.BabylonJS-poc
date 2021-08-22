@@ -1,0 +1,13 @@
+﻿<div class="wizard-step-null">
+    @Localizer["Invalid Type: {0}", Step.Type]
+</div>
+
+@code {
+    [Parameter]
+    public WizardStep Step { get; set; } = null!;
+    [Parameter]
+    public WizardData Data { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+}

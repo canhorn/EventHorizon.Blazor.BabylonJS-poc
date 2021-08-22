@@ -1,17 +1,18 @@
-﻿<div class="navigate">
-    <div class="navigate__name --font-bold --header-font-size">
+﻿<div class="capture-current-location">
+    <div class="capture-current-location__name --font-bold --header-font-size">
         @Localizer[Step.Name]
     </div>
-    <div class="navigate__description">
+    <div class="capture-current-location__description">
         <i class="fas fa-info-circle --info"></i> @Localizer[Step.Description]
     </div>
 
     @if (!string.IsNullOrWhiteSpace(ErrorMessage))
     {
-        <div class="navigate__error-message --error">
+        <div class="capture-current-location__error-message --error">
             <i class="fas fa-exclamation-triangle"></i> @ErrorMessage
         </div>
     }
+
 </div>
 
 @code {
@@ -45,29 +46,23 @@
             await Task.Delay(delayAsInt);
         }
 
-        var locationFound = Step.Details.TryGetValue(
-            "Location",
-            out var location
-        );
-        if (!locationFound)
-        {
-            ErrorMessage = Localizer["Navigation Location was not found. Check the above description for more details."];
-            return;
-        }
-
-        NavigationManager.NavigateTo(
-            location!
+        var currentLocation = NavigationManager.ToBaseRelativePath(
+            NavigationManager.Uri
         );
 
         if (Step.Details.TryGetValue(
-            "AutoNext",
-            out var autoNext
-        ) && autoNext.Equals(
-            "true",
-            StringComparison.InvariantCultureIgnoreCase
+            "CurrentLocationProperty",
+            out var property
         ))
         {
+            Data[property] = currentLocation;
+
             await State.Next();
+            return;
         }
+
+        Data["CurrentLocation"] = currentLocation;
+
+        await State.Next();
     }
 }

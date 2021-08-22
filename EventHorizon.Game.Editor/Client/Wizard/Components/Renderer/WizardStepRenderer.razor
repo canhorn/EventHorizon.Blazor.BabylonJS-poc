@@ -1,35 +1,3 @@
-﻿@using EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types
+﻿@inherits WizardStepRendererBase
 
-@switch (Step.Type)
-{
-    case WizardStepTypes.TextInput:
-        <WizardStepTextInput Step="Step"
-                             Data="Data" />
-        break;
-    case WizardStepTypes.ServerProcess:
-        <WizardStepServerProcess Step="Step"
-                                 Data="Data" />
-        break;
-    case WizardStepTypes.Navigate:
-        <WizardStepNavigate Step="Step"
-                            Data="Data" />
-        break;
-    case WizardStepTypes.FormInput:
-        <WizardStepFormInput Step="Step"
-                             Data="Data" />
-        break;
-
-    default:
-        <div>@Localizer["Invalid Type: {0}", Step.Type]</div>
-        break;
-}
-
-@code {
-    [Parameter]
-    public WizardStep Step { get; set; } = null!;
-    [Parameter]
-    public WizardData Data { get; set; } = null!;
-
-    [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
-}
+<DynamicComponent Type="ComponentType" Parameters="ComponentParameters" />
