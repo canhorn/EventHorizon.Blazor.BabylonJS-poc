@@ -44,6 +44,8 @@ COPY src/SDK/Server/EventHorizon.Game.Server.ServerModule.Api/EventHorizon.Game.
 COPY src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj ./src/Server/EventHorizon.Game.Server/EventHorizon.Game.Server.csproj
 
 ## Shared
+COPY src/Shared/EventHorizon.Activity/EventHorizon.Activity.csproj ./src/Shared/EventHorizon.Activity/EventHorizon.Activity.csproj
+COPY src/Shared/EventHorizon.Activity.Api/EventHorizon.Activity.Api.csproj ./src/Shared/EventHorizon.Activity.Api/EventHorizon.Activity.Api.csproj
 COPY src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.ApplicationDetails.Component.csproj ./src/Shared/EventHorizon.ApplicationDetails.Component/EventHorizon.ApplicationDetails.Component.csproj
 
 COPY Directory.Build.props ./Directory.Build.props
