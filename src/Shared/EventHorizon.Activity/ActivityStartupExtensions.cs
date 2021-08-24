@@ -11,7 +11,7 @@
         public static IServiceCollection AddActivityServices(
             this IServiceCollection services
         ) => services
-            .AddScoped(typeof(IPipelineBehavior<,>), typeof(PublishActivityEventsBehavior<,>))
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(PublishActivityEventsBehavior<,>))
         ;
     }
 }
