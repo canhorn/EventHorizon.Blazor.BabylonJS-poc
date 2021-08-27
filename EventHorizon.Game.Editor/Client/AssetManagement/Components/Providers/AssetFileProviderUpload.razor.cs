@@ -129,7 +129,7 @@
                 Localizer[
                     "Failed to Upload: Code = {0} | Message = '{1}'",
                     result.Error?.Code ?? 500,
-                    result.Error?.Message ?? Localizer["Server Exception"]
+                    Localizer[result.Error?.Message ?? "Server Exception"]
                 ],
                 MessageLevel.Error
             );

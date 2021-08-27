@@ -6,14 +6,19 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web;
+
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
     using EventHorizon.Game.Editor.Client.AssetManagement.Model;
     using EventHorizon.Game.Editor.Model;
+
     using Microsoft.AspNetCore.Components.Forms;
 
     public class RemoteAssetFileManagement
         : AssetFileManagement
     {
+        private static readonly long MAX_FILE_SIZE_IN_MAGABYTES = 15;
+        private static readonly long MAX_FILE_SIZE_IN_BYTES = 1024 * 1024 * MAX_FILE_SIZE_IN_MAGABYTES;
+
         private readonly string _fileManagementUrl = "/api/FileManagement";
         private readonly HttpClient _httpClient;
 
@@ -219,15 +224,14 @@
         {
             try
             {
-                long maxFileSize = 1024 * 1024 * 15; // 15MB
-                if (file.Size > maxFileSize)
+                if (file.Size > MAX_FILE_SIZE_IN_BYTES)
                 {
                     return new FileSystemUploadResponse
                     {
                         Error = new ErrorDetails
                         {
                             Code = 413,
-                            Message = $"Payload Too Large ({maxFileSize} max)",
+                            Message = $"Payload Too Large ({MAX_FILE_SIZE_IN_MAGABYTES}MB max)",
                         },
                     };
                 }
@@ -235,7 +239,7 @@
                 using var content = new MultipartFormDataContent();
                 using var fileContent = new StreamContent(
                     file.OpenReadStream(
-                        maxFileSize,
+                        MAX_FILE_SIZE_IN_BYTES,
                         cancellationToken: cancellationToken
                     )
                 );

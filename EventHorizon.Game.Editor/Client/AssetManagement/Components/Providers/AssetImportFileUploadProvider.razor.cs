@@ -1,12 +1,15 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers
 {
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
+    using EventHorizon.Game.Editor.Client.AssetManagement.Model;
     using EventHorizon.Game.Editor.Client.AssetManagement.Open;
     using EventHorizon.Game.Editor.Client.AssetManagement.Reload;
     using EventHorizon.Game.Editor.Client.Authentication.Model;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
+
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Forms;
     using Microsoft.JSInterop;
@@ -86,6 +89,18 @@
                 await ShowMessage(
                     Localizer["Asset Server Import"],
                     Localizer["Successfully Import new Assets."]
+                );
+                return;
+            }
+            else if (result.ErrorCode == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOOL_LARGE)
+            {
+                await ShowMessage(
+                    Localizer["Asset Server Import"],
+                    Localizer[
+                        "Failed to Import Assets, file was larger than {0}MB.",
+                        AssetServerConstants.MAX_FILE_SIZE_IN_MEGABYTES
+                    ],
+                    MessageLevel.Error
                 );
                 return;
             }

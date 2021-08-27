@@ -5,20 +5,18 @@
     using System.Net.Http.Json;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.AssetManagement.Api;
     using EventHorizon.Game.Editor.Client.AssetManagement.Model;
     using EventHorizon.Game.Editor.Model;
+
     using Microsoft.AspNetCore.Components.Forms;
     using Microsoft.Extensions.Logging;
 
     public class RemoteAssetServerService
         : AssetServerService
     {
-        // TODO: Move this into a Tier Variable.
-        // A Tier variable is part of an Owners subscription,
-        // when a Platform Owner is part of higher tiers they will get more benefits.
-        private const long MAX_FILE_SIZE = 1024 * 1024 * 15 * 10; // 150MB
 
         private readonly ILogger _logger;
         private readonly string _importApiUrl = "/api/Import";
@@ -43,12 +41,12 @@
         {
             try
             {
-                if (file.Size > MAX_FILE_SIZE)
+                if (file.Size > AssetServerConstants.MAX_FILE_SIZE_IN_BYTES)
                 {
                     _logger.LogError(
-                        "Asset Server Payload Too Large ({FileSize}) | ({MaxFileSize} max)",
+                        "Asset Server Payload Too Large ({FileSize}) | ({MaxFileSizeInBytes} max)",
                         file.Size,
-                        MAX_FILE_SIZE
+                        AssetServerConstants.MAX_FILE_SIZE_IN_BYTES
                     );
                     return new(
                         AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOOL_LARGE
@@ -58,7 +56,7 @@
                 using var content = new MultipartFormDataContent();
                 using var fileContent = new StreamContent(
                     file.OpenReadStream(
-                        MAX_FILE_SIZE,
+                        AssetServerConstants.MAX_FILE_SIZE_IN_BYTES,
                         cancellationToken: cancellationToken
                     )
                 );
