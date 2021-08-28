@@ -121,6 +121,8 @@ RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts
 
 # Stage 3.1 - Publish Client
 FROM dotnet-build-client AS dotnet-publish-client
+ARG Version
+
 WORKDIR /source
 
 ## Single folder publish of whole solution
@@ -129,6 +131,8 @@ RUN dotnet publish --output /app/client/ --configuration Release --no-build --no
 
 # Stage 3.2 - Publish Editor
 FROM dotnet-build-editor AS dotnet-publish-editor
+ARG Version
+
 WORKDIR /source
 
 ## Single folder publish of whole project

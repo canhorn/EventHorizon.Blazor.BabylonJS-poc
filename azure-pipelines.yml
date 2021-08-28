@@ -102,7 +102,7 @@ steps:
     containerRegistry: docker-hub
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-server-client
-    arguments: --target client-runtime
+    arguments: --build-arg Version=$(Build.BuildNumber) --target client-runtime
     tags: |
       latest
       $(Build.BuildNumber)
@@ -114,7 +114,7 @@ steps:
     containerRegistry: docker-hub
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-server-editor
-    arguments: --target editor-runtime
+    arguments: --build-arg Version=$(Build.BuildNumber) --target editor-runtime
     tags: |
       latest
       $(Build.BuildNumber)
