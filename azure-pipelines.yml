@@ -50,16 +50,6 @@ steps:
     repository: canhorn/ehz-platform-server-editor-build
     arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-editor
     tags: $(Build.BuildNumber)
-
-- task: Docker@2
-  displayName: Run Build - EventHorizon.Blazor.BabylonJS Packages 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-client-packages-build
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-artifacts
-    tags: $(Build.BuildNumber)
       
 
 # Run Publish Layers
@@ -83,15 +73,7 @@ steps:
     arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-publish-editor
     tags: $(Build.BuildNumber)
 
-- task: Docker@2
-  displayName: Run Publish - EventHorizon.Blazor.BabylonJS Packages 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-client-packages-publish
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-artifacts
-    tags: $(Build.BuildNumber)
+
 
 
 # Build Runtime Images
@@ -119,6 +101,26 @@ steps:
       latest
       $(Build.BuildNumber)
 
+
+# NuGet Package Tasks
+- task: Docker@2
+  displayName: Run Build - EventHorizon.Blazor.BabylonJS Packages 
+  inputs: 
+    command: build
+    containerRegistry: docker-hub
+    buildContext: $(Build.SourcesDirectory)
+    repository: canhorn/ehz-client-packages-build
+    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-artifacts
+    tags: $(Build.BuildNumber)
+- task: Docker@2
+  displayName: Run Publish - EventHorizon.Blazor.BabylonJS Packages 
+  inputs: 
+    command: build
+    containerRegistry: docker-hub
+    buildContext: $(Build.SourcesDirectory)
+    repository: canhorn/ehz-client-packages-publish
+    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-artifacts
+    tags: $(Build.BuildNumber)
 - task: Docker@2
   displayName: Build Image - EventHorizon.Blazor.BabylonJS Packages 
   inputs: 
