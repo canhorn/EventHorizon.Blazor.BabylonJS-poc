@@ -135,7 +135,7 @@ RUN dotnet publish /p:Version=$Version --output /app/editor/ --configuration Rel
 # Stage 4.1 - Publish to NuGet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
 WORKDIR /app
-COPY --from=dotnet-build-client /app/client .
+COPY --from=dotnet-publish-client /app/client .
 RUN find . -name '*.nupkg' -ls
 ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
 CMD ["--source", "https://api.nuget.org/v3/index.json"]
