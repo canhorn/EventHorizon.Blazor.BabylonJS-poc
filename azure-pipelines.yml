@@ -72,16 +72,7 @@ steps:
     tags: $(Build.BuildNumber)
 
 
-# NuGet Package Tasks
-- task: Docker@2
-  displayName: Run Build - EventHorizon.Blazor.BabylonJS Packages 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-client-packages-build
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-artifacts
-    tags: $(Build.BuildNumber)
+# NuGet Package Task
 - task: Docker@2
   displayName: Run Publish - EventHorizon.Blazor.BabylonJS Packages 
   inputs: 
