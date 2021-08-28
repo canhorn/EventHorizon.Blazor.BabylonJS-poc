@@ -139,36 +139,36 @@ WORKDIR /source
 RUN dotnet publish --output /app/editor/ --configuration Release --no-build --no-restore ./EventHorizon.Game.Editor
 
 
-# Stage 3.3 - Publish to NuGet
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
+# Stage 4.1 - Client Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS client-runtime
+ARG Version=0.0.0
+ENV APPLICATION_VERSION=$Version
+
 WORKDIR /app
-COPY --from=dotnet-build-artifacts /artifacts .
-RUN find . -name '*.nupkg' -ls
-ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
-CMD ["--source", "https://api.nuget.org/v3/index.json"]
+COPY --from=dotnet-publish-client /app/client .
+
+RUN echo "export const APPLICATION_VERSION = () => \"$Version\";" > /app/wwwroot/version.js
+
+ENTRYPOINT ["dotnet", "EventHorizon.Blazor.BabylonJS.Server.dll"]
 
 
-# Stage 4.1 - Editor Runtime
+# Stage 4.2 - Editor Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS editor-runtime
 ARG Version=0.0.0
 ENV APPLICATION_VERSION=$Version
 
 WORKDIR /app
-COPY --from=dotnet-build-editor /app/editor .
+COPY --from=dotnet-publish-editor /app/editor .
 
 RUN echo "export const APPLICATION_VERSION = () => \"$Version\";" > /app/wwwroot/version.js
 
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Editor.Server.dll"]
 
 
-# Stage 4.2 - Client Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS client-runtime
-ARG Version=0.0.0
-ENV APPLICATION_VERSION=$Version
-
+# Stage 4.3 - Publish to NuGet
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
 WORKDIR /app
-COPY --from=dotnet-build-client /app/client .
-
-RUN echo "export const APPLICATION_VERSION = () => \"$Version\";" > /app/wwwroot/version.js
-
-ENTRYPOINT ["dotnet", "EventHorizon.Blazor.BabylonJS.Server.dll"]
+COPY --from=dotnet-build-artifacts /artifacts .
+RUN find . -name '*.nupkg' -ls
+ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
+CMD ["--source", "https://api.nuget.org/v3/index.json"]
