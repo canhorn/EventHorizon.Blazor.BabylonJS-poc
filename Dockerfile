@@ -91,25 +91,23 @@ RUN dotnet restore ./EventHorizon.Blazor.BabylonJS.sln
 RUN dotnet restore ./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln
 
 
-# Stage 2.1 - Build/Publish Client/SDK .NET Project
+# Stage 2.1 - Build Client
 FROM dotnet-restore AS dotnet-build-client
 WORKDIR /source
 
 COPY ./src ./src
 
-## Single folder publish of whole solution
-RUN dotnet publish --output /app/client/ --configuration Release --no-restore
+RUN dotnet build --configuration Release --no-restore
 
 
-# Stage 2.2 - Build/Publish Client/Editor/SDK .NET Project
+# Stage 2.2 - Build Editor
 FROM dotnet-build-client AS dotnet-build-editor
 WORKDIR /source
 
 COPY ./src ./src
 COPY ./EventHorizon.Game.Editor ./EventHorizon.Game.Editor
 
-## Single folder publish of whole project
-RUN dotnet publish --output /app/editor/ --configuration Release --no-restore ./EventHorizon.Game.Editor
+RUN dotnet build --configuration Release --no-restore ./EventHorizon.Game.Editor
 
 
 # Stage 2.3 - Build SDK Artifacts
@@ -124,7 +122,25 @@ COPY ./src ./src
 RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts/
 
 
-# Stage 3 - Publish to NuGet
+# Stage 3.1 - Publish Client
+FROM dotnet-build-client AS dotnet-publish-client
+WORKDIR /source
+
+COPY ./src ./src
+
+## Single folder publish of whole solution
+RUN dotnet publish --output /app/client/ --configuration Release --no-build --no-restore
+
+
+# Stage 3.2 - Publish Editor
+FROM dotnet-build-editor AS dotnet-publish-editor
+WORKDIR /source
+
+## Single folder publish of whole project
+RUN dotnet publish --output /app/editor/ --configuration Release --no-build --no-restore ./EventHorizon.Game.Editor
+
+
+# Stage 3.3 - Publish to NuGet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
 WORKDIR /app
 COPY --from=dotnet-build-artifacts /artifacts .
