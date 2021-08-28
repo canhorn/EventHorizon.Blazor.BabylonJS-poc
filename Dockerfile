@@ -99,10 +99,10 @@ WORKDIR /source
 
 COPY ./src ./src
 
-RUN dotnet build /p:Version=$Version -c Release --no-restore
+RUN dotnet build -c Release --no-restore
 
 ## Single folder publish of whole solution
-RUN dotnet publish /p:Version=$Version --output /app/client/ --configuration Release --no-restore --no-build
+RUN dotnet publish --output /app/client/ --configuration Release --no-restore --no-build
 
 ## Create NuGet Artifacts
 RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts/
