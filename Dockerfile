@@ -109,7 +109,7 @@ ARG Version=0.0.0
 WORKDIR /source
 
 ## Single folder publish of whole solution
-RUN dotnet publish /p:Version=$Version --output /app/client/ --configuration Release --no-build --no-Restore
+RUN dotnet publish /p:Version=$Version --output /app/client/ --configuration Release --no-build --no-restore
 
 
 # Stage 3.1 - Build Editor
