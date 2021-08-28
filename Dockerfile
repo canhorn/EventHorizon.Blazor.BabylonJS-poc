@@ -137,7 +137,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
 WORKDIR /app
 COPY --from=dotnet-publish-client /app/client .
 RUN find . -name '*.nupkg' -ls
-ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
+ENTRYPOINT ["dotnet", "nuget", "push", "/app/client/*.nupkg"]
 CMD ["--source", "https://api.nuget.org/v3/index.json"]
 
 
