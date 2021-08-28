@@ -99,7 +99,7 @@ WORKDIR /source
 
 COPY ./src ./src
 
-RUN dotnet build /p:Version=$Version --configuration Release --no-restore
+RUN dotnet build --output /build/client/  /p:Version=$Version --configuration Release --no-restore
 
 
 # Stage 2.2 - Publish Client
@@ -135,9 +135,9 @@ RUN dotnet publish /p:Version=$Version --output /app/editor/ --configuration Rel
 # Stage 4.1 - Publish to NuGet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
 WORKDIR /app
-COPY --from=dotnet-publish-client /app/client .
+COPY --from=dotnet-build-client /build/client .
 RUN find . -name '*.nupkg' -ls
-ENTRYPOINT ["dotnet", "nuget", "push", "/app/client/*.nupkg"]
+ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
 CMD ["--source", "https://api.nuget.org/v3/index.json"]
 
 
