@@ -109,16 +109,6 @@ COPY ./EventHorizon.Game.Editor ./EventHorizon.Game.Editor
 RUN dotnet build --configuration Release --no-restore ./EventHorizon.Game.Editor
 
 
-# Stage 2.3 - Build SDK Artifacts
-FROM dotnet-build-client AS dotnet-build-artifacts
-ARG Version 
-
-WORKDIR /source
-
-## Create NuGet Artifacts
-RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts/
-
-
 # Stage 3.1 - Publish Client
 FROM dotnet-build-client AS dotnet-publish-client
 ARG Version
@@ -139,7 +129,27 @@ WORKDIR /source
 RUN dotnet publish --output /app/editor/ --configuration Release --no-build --no-restore ./EventHorizon.Game.Editor
 
 
-# Stage 4.1 - Client Runtime
+# Stage 4.1 - Build SDK Artifacts
+FROM dotnet-build-client AS dotnet-build-artifacts
+ARG Version 
+
+WORKDIR /source
+
+## Create NuGet Artifacts
+RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts/
+
+
+# Stage 4.2 - Publish to NuGet
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
+WORKDIR /app
+COPY --from=dotnet-build-artifacts /artifacts .
+RUN find . -name '*.nupkg' -ls
+ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
+CMD ["--source", "https://api.nuget.org/v3/index.json"]
+
+
+
+# Stage 5.1 - Client Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS client-runtime
 ARG Version=0.0.0
 ENV APPLICATION_VERSION=$Version
@@ -152,7 +162,7 @@ RUN echo "export const APPLICATION_VERSION = () => \"$Version\";" > /app/wwwroot
 ENTRYPOINT ["dotnet", "EventHorizon.Blazor.BabylonJS.Server.dll"]
 
 
-# Stage 4.2 - Editor Runtime
+# Stage 5.2 - Editor Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS editor-runtime
 ARG Version=0.0.0
 ENV APPLICATION_VERSION=$Version
@@ -163,12 +173,3 @@ COPY --from=dotnet-publish-editor /app/editor .
 RUN echo "export const APPLICATION_VERSION = () => \"$Version\";" > /app/wwwroot/version.js
 
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Editor.Server.dll"]
-
-
-# Stage 4.3 - Publish to NuGet
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
-WORKDIR /app
-COPY --from=dotnet-build-artifacts /artifacts .
-RUN find . -name '*.nupkg' -ls
-ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
-CMD ["--source", "https://api.nuget.org/v3/index.json"]
