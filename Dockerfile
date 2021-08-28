@@ -93,45 +93,49 @@ RUN dotnet restore ./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln
 
 # Stage 2.1 - Build Client
 FROM dotnet-restore AS dotnet-build-client
+ARG Version=0.0.0
+
 WORKDIR /source
 
 COPY ./src ./src
 
-RUN dotnet build --configuration Release --no-restore
+RUN dotnet build /p:Version=$Version --configuration Release --no-restore
 
 
 # Stage 2.2 - Publish Client
 FROM dotnet-build-client AS dotnet-publish-client
-ARG Version
+ARG Version=0.0.0
 
 WORKDIR /source
 
 ## Single folder publish of whole solution
-RUN dotnet publish --output /app/client/ --configuration Release --no-build --no-restore
+RUN dotnet publish /p:Version=$Version --output /app/client/ --configuration Release --no-build --no-restore
 
 
 # Stage 3.1 - Build Editor
 FROM dotnet-build-client AS dotnet-build-editor
+ARG Version=0.0.0
+
 WORKDIR /source
 
 COPY ./EventHorizon.Game.Editor ./EventHorizon.Game.Editor
 
-RUN dotnet build --configuration Release --no-restore ./EventHorizon.Game.Editor
+RUN dotnet build /p:Version=$Version --configuration Release --no-restore ./EventHorizon.Game.Editor
 
 
 # Stage 3.2 - Publish Editor
 FROM dotnet-build-editor AS dotnet-publish-editor
-ARG Version
+ARG Version=0.0.0
 
 WORKDIR /source
 
 ## Single folder publish of whole project
-RUN dotnet publish --output /app/editor/ --configuration Release --no-build --no-restore ./EventHorizon.Game.Editor
+RUN dotnet publish /p:Version=$Version --output /app/editor/ --configuration Release --no-build --no-restore ./EventHorizon.Game.Editor
 
 
 # Stage 4.1 - Build SDK Artifacts
 FROM dotnet-build-client AS dotnet-build-artifacts
-ARG Version 
+ARG Version=0.0.0
 
 WORKDIR /source
 
