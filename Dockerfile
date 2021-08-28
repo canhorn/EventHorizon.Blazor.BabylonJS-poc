@@ -93,6 +93,8 @@ RUN dotnet restore ./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln
 
 # Stage 2.1 - Build Client
 FROM dotnet-restore AS dotnet-build-client
+ARG Version 
+
 WORKDIR /source
 
 COPY ./src ./src
@@ -102,6 +104,8 @@ RUN dotnet build --configuration Release --no-restore
 
 # Stage 2.2 - Build Editor
 FROM dotnet-build-client AS dotnet-build-editor
+ARG Version 
+
 WORKDIR /source
 
 COPY ./EventHorizon.Game.Editor ./EventHorizon.Game.Editor
