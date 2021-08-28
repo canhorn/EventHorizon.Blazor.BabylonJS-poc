@@ -99,7 +99,7 @@ WORKDIR /source
 
 COPY ./src ./src
 
-RUN dotnet build --output /build/client/  /p:Version=$Version --configuration Release --no-restore
+RUN dotnet build /p:Version=$Version --configuration Release --no-restore
 
 
 # Stage 2.2 - Publish Client
@@ -109,7 +109,7 @@ ARG Version=0.0.0
 WORKDIR /source
 
 ## Single folder publish of whole solution
-RUN dotnet publish /p:Version=$Version --output /app/client/ --configuration Release --no-build --no-restore
+RUN dotnet publish /p:Version=$Version --output /app/client/ --configuration Release --no-build --no-Restore
 
 
 # Stage 3.1 - Build Editor
@@ -132,12 +132,24 @@ WORKDIR /source
 ## Single folder publish of whole project
 RUN dotnet publish /p:Version=$Version --output /app/editor/ --configuration Release --no-build --no-restore ./EventHorizon.Game.Editor
 
-# Stage 4.1 - Publish to NuGet
+
+# Stage 4.1 - Build NuGet
+FROM dotnet-restore AS dotnet-nuget-build
+ARG Version=0.0.0
+
+WORKDIR /source
+
+COPY ./src ./src
+
+RUN dotnet build --output /artifacts /p:Version=$Version --configuration Release --no-restore
+
+
+# Stage 4.2 - Publish to NuGet
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-nuget-push
-WORKDIR /app
-COPY --from=dotnet-build-client /build/client .
+WORKDIR /artifacts
+COPY --from=dotnet-nuget-build /artifacts .
 RUN find . -name '*.nupkg' -ls
-ENTRYPOINT ["dotnet", "nuget", "push", "/app/*.nupkg"]
+ENTRYPOINT ["dotnet", "nuget", "push", "/artifacts/*.nupkg"]
 CMD ["--source", "https://api.nuget.org/v3/index.json"]
 
 
