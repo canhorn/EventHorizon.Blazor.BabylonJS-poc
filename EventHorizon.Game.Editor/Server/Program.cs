@@ -5,7 +5,6 @@
 
     public class Program
     {
-	    // Random change
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
