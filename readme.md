@@ -128,3 +128,31 @@ docker build --build-arg Version=1.2.3 -f ./EventHorizon.Game.Editor/Dockerfile 
 # Build Editor Runtime Stage
 docker build --build-arg Version=0.1.0 -f ./EventHorizon.Game.Editor/Dockerfile -t canhorn/ehz-platform-server-editor:dev .
 ~~~
+
+~~~ bash
+# Debugging Build Runs in Docker
+docker build --progress plain # <-- This will give you a better debugging exp by not collapsing layers
+~~~
+
+## Azure Pipelines Build Steps
+~~~ bash 
+# Restore Repository
+docker build --build-arg Version=0.0.0-dev --target dotnet-restore -f Dockerfile -t canhorn/ehz-platform-client-base:dev .
+
+# Build Client
+docker build --build-arg Version=0.0.0-dev --target client-runtime -f Dockerfile -t canhorn/ehz-platform-server-client:dev .
+# Build Editor
+docker build --build-arg Version=0.0.0-dev --target editor-runtime -t canhorn/ehz-platform-server-editor:dev .
+# Build Packages
+docker build --build-arg Version=0.0.0-dev --target dotnet-nuget-push -t canhorn/ehz-client-packages:dev .
+
+# Push Client
+docker push canhorn/ehz-platform-server-client:dev
+# Push Editor
+docker push canhorn/ehz-platform-server-editor:dev
+# Push Packages
+docker push canhorn/ehz-client-packages:dev
+
+# NuGet Package Push
+docker run --rm --name push-packages canhorn/ehz-client-packages:dev --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+~~~
