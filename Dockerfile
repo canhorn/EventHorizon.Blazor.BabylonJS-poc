@@ -100,16 +100,7 @@ COPY ./src ./src
 RUN dotnet build --configuration Release --no-restore
 
 
-# Stage 2.2 - Build Editor
-FROM dotnet-build-client AS dotnet-build-editor
-WORKDIR /source
-
-COPY ./EventHorizon.Game.Editor ./EventHorizon.Game.Editor
-
-RUN dotnet build --configuration Release --no-restore ./EventHorizon.Game.Editor
-
-
-# Stage 3.1 - Publish Client
+# Stage 2.2 - Publish Client
 FROM dotnet-build-client AS dotnet-publish-client
 ARG Version
 
@@ -117,6 +108,15 @@ WORKDIR /source
 
 ## Single folder publish of whole solution
 RUN dotnet publish --output /app/client/ --configuration Release --no-build --no-restore
+
+
+# Stage 3.1 - Build Editor
+FROM dotnet-build-client AS dotnet-build-editor
+WORKDIR /source
+
+COPY ./EventHorizon.Game.Editor ./EventHorizon.Game.Editor
+
+RUN dotnet build --configuration Release --no-restore ./EventHorizon.Game.Editor
 
 
 # Stage 3.2 - Publish Editor

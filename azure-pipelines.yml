@@ -30,7 +30,7 @@ steps:
     tags: $(Build.BuildNumber)
 
 
-# Run Build Layers
+# Client Layers
 - task: Docker@2
   displayName: Run Build - EventHorizon.Blazor.BabylonJS 
   inputs: 
@@ -40,19 +40,6 @@ steps:
     repository: canhorn/ehz-platform-server-client-build
     arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-client
     tags: $(Build.BuildNumber)
-
-- task: Docker@2
-  displayName: Run Build - EventHorizon.Game.Editor 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-editor-build
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-editor
-    tags: $(Build.BuildNumber)
-      
-
-# Run Publish Layers
 - task: Docker@2
   displayName: Run Publish - EventHorizon.Blazor.BabylonJS 
   inputs: 
@@ -61,6 +48,18 @@ steps:
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-server-client-publish
     arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-publish-client
+    tags: $(Build.BuildNumber)
+
+
+# Editor Layers
+- task: Docker@2
+  displayName: Run Build - EventHorizon.Game.Editor 
+  inputs: 
+    command: build
+    containerRegistry: docker-hub
+    buildContext: $(Build.SourcesDirectory)
+    repository: canhorn/ehz-platform-server-editor-build
+    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-editor
     tags: $(Build.BuildNumber)
 - task: Docker@2
   displayName: Run Publish - EventHorizon.Game.Editor 
