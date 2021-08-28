@@ -104,7 +104,6 @@ RUN dotnet build --configuration Release --no-restore
 FROM dotnet-build-client AS dotnet-build-editor
 WORKDIR /source
 
-COPY ./src ./src
 COPY ./EventHorizon.Game.Editor ./EventHorizon.Game.Editor
 
 RUN dotnet build --configuration Release --no-restore ./EventHorizon.Game.Editor
@@ -116,8 +115,6 @@ ARG Version
 
 WORKDIR /source
 
-COPY ./src ./src
-
 ## Create NuGet Artifacts
 RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts/
 
@@ -125,8 +122,6 @@ RUN dotnet build /p:Version=$Version -c Release --no-restore --output /artifacts
 # Stage 3.1 - Publish Client
 FROM dotnet-build-client AS dotnet-publish-client
 WORKDIR /source
-
-COPY ./src ./src
 
 ## Single folder publish of whole solution
 RUN dotnet publish --output /app/client/ --configuration Release --no-build --no-restore
