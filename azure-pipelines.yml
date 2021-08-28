@@ -26,7 +26,7 @@ steps:
     containerRegistry: docker-hub
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-client-base
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-restore
+    arguments: --target dotnet-restore
     tags: $(Build.BuildNumber)
 
 
@@ -38,7 +38,7 @@ steps:
     containerRegistry: docker-hub
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-server-client-build
-    arguments: --target dotnet-build-client
+    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-client
     tags: $(Build.BuildNumber)
 
 - task: Docker@2
@@ -48,7 +48,7 @@ steps:
     containerRegistry: docker-hub
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-server-editor-build
-    arguments: --target dotnet-build-editor
+    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-editor
     tags: $(Build.BuildNumber)
 
 - task: Docker@2
@@ -70,7 +70,7 @@ steps:
     containerRegistry: docker-hub
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-server-client-publish
-    arguments: --target dotnet-publish-client
+    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-publish-client
     tags: $(Build.BuildNumber)
 
 - task: Docker@2
@@ -80,7 +80,7 @@ steps:
     containerRegistry: docker-hub
     buildContext: $(Build.SourcesDirectory)
     repository: canhorn/ehz-platform-server-editor-publish
-    arguments: --target dotnet-publish-editor
+    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-publish-editor
     tags: $(Build.BuildNumber)
 
 - task: Docker@2
