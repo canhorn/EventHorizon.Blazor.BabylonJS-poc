@@ -2,6 +2,7 @@
 {
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
+
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Web;
 
@@ -60,22 +61,29 @@
         private double _heightSizeInPixels = 300;
 
         private void SetupSize()
-        { 
+        {
             _widthSizeInPixels = SizeInPixels(
                 WidthSize,
                 ViewableArea.InnerWidth
             );
             _heightSizeInPixels = SizeInPixels(
                 HeightSize,
-                ViewableArea.InnerHeight
+                ViewableArea.InnerHeight,
+                IsCollapsed
             );
         }
 
         private static double SizeInPixels(
             string sizeString,
-            double screenSize
+            double screenSize,
+            bool isCollapsed = false
         )
         {
+            if (isCollapsed)
+            {
+                return 0;
+            }
+
             return sizeString switch
             {
                 "medium" => 500,
@@ -131,12 +139,16 @@
                 IsCollapsed = true;
                 CollapseClassName = "--collapse";
                 CollapsedIcon = "expand-arrows-alt";
+
+                SetupSize();
                 return;
             }
 
             IsCollapsed = false;
             CollapseClassName = string.Empty;
             CollapsedIcon = "compress-arrows-alt";
+
+            SetupSize();
         }
 
         public void HandleOpenCollapsed()
