@@ -1,9 +1,12 @@
-﻿@inherits ZoneStateProviderModel
+﻿@using EventHorizon.Game.Editor.Client.Zone.Components.ReloadListener
+@inherits ZoneStateProviderModel
 
 @if (ZoneState != null)
 {
     <CascadingValue Value="@ZoneState">
         @ChildContent
+
+        <ZoneStateReloadListener />
     </CascadingValue>
 }
 else

@@ -1,7 +1,11 @@
 ﻿@inherits FileEditorProviderModel
 
-@if (EditorFile.IsNotNull()
-   && EditorNode.IsNotNull())
+@if (IsLoading)
+{
+    <div>@Localizer["Loading..."]</div>
+}
+else if (EditorFile.IsNotNull()
+  && EditorNode.IsNotNull())
 {
     <CascadingValue Value="EditorNode">
         <CascadingValue Value="EditorFile">

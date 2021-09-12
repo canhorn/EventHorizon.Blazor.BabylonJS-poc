@@ -1,18 +1,17 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileEditor
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Editor.Client.Localization;
     using EventHorizon.Game.Editor.Client.Localization.Api;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
     using EventHorizon.Game.Editor.Client.Zone.Api;
+    using EventHorizon.Game.Editor.Client.Zone.Model;
+    using EventHorizon.Game.Editor.Client.Zone.Query;
     using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
     using EventHorizon.Game.Editor.Zone.Editor.Services.Query;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Components;
 
     public class FileEditorProviderModel
@@ -31,6 +30,7 @@
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
 
+        public bool IsLoading { get; set; } = true;
         public EditorFile? EditorFile { get; set; }
         public EditorNode? EditorNode { get; set; }
 
@@ -38,42 +38,60 @@
 
         protected override async Task OnInitializedAsync()
         {
-            await Setup();
             await base.OnInitializedAsync();
+            await Setup();
         }
 
         protected override async Task OnParametersSetAsync()
         {
-            await Setup();
             await base.OnParametersSetAsync();
+            await Setup();
         }
 
         private async Task Setup()
         {
+            IsLoading = true;
             ErrorMessage = string.Empty;
-            EditorNode = ZoneState.EditorState.GetNode(
-                EncodedFileNodeId.Base64Decode()
+            EditorNode = null;
+            EditorFile = null;
+            var editorNodeResult = await Mediator.Send(
+                new QueryForEditorNodeById(
+                    EncodedFileNodeId.Base64Decode()
+                )
             );
-            if (EditorNode.IsNull())
+            if (!editorNodeResult
+                && (editorNodeResult.ErrorCode != ZoneClientEditorErrorCodes.ZONE_STATE_PENDING_RELOAD
+                    || editorNodeResult.ErrorCode != ZoneClientEditorErrorCodes.ZONE_STATE_IS_LOADING
+                )
+            )
             {
-                ErrorMessage = Localizer["File was not found."];
                 return;
             }
+            else if (!editorNodeResult)
+            {
+                ErrorMessage = Localizer["File was not found."];
+                IsLoading = false;
+                return;
+            }
+
+            EditorNode = editorNodeResult.Result;
             var result = await Mediator.Send(
                 new QueryForEditorFile(
                     EditorNode.Path,
                     EditorNode.Name
                 )
             );
-            if (result.Success.IsNotTrue())
+            if (!result)
             {
                 ErrorMessage = Localizer[
                     "Editor File Content retrieval failed with Error Code: {0}",
                     result.ErrorCode
                 ];
+                IsLoading = false;
                 return;
             }
             EditorFile = result.Result;
+            IsLoading = false;
         }
     }
 }

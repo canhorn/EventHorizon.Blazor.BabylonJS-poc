@@ -1,11 +1,16 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components
 {
     using System.Threading.Tasks;
+
+    using EventHorizon.Game.Client.Core.Factory.Api;
+    using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Client.Zone.Change;
     using EventHorizon.Game.Editor.Client.Zone.Query;
+    using EventHorizon.Game.Editor.Client.Zone.Reload;
     using EventHorizon.Game.Editor.Zone.Services.Connection;
+
     using Microsoft.AspNetCore.Components;
 
     public class ZoneStateProviderModel
@@ -16,12 +21,22 @@
         [Parameter]
         public RenderFragment ChildContent { get; set; } = null!;
 
+        [Inject]
+        public IFactory<IIntervalTimerService> IntervalTimerFactory { get; set; } = null!;
+
         public ZoneState? ZoneState { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
             await Setup();
+
+            IntervalTimerFactory.Create().Setup(
+                250,
+                async () => await Mediator.Send(
+                    new ReloadPendingZoneStateCommand()
+                )
+            ).Start();
         }
 
         public async Task Handle(

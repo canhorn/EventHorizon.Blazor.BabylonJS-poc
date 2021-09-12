@@ -6,6 +6,8 @@
 
     public interface ZoneState
     {
+        bool IsLoading { get; }
+        bool IsPendingReload { get; }
         CoreZoneDetails Zone { get; }
         ZoneInfo ZoneInfo { get; }
         ZoneEditorState EditorState { get; }

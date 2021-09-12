@@ -1,18 +1,23 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
 {
     using System;
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Connection.Shared;
     using EventHorizon.Connection.Shared.Unauthorized;
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.Zone.Services.Command.Response;
     using EventHorizon.Game.Editor.Core.Services.Model;
     using EventHorizon.Game.Editor.Services.Model.Command;
+    using EventHorizon.Game.Editor.Zone.AdminClientAction.Publish;
     using EventHorizon.Game.Editor.Zone.Services.Api;
     using EventHorizon.Game.Editor.Zone.Services.Connection;
+
     using MediatR;
+
     using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.Extensions.Logging;
 
@@ -189,6 +194,30 @@
                         response
                     )
                 )
+            );
+
+            _connection?.On<string, IDictionary<string, object>>(
+                "AdminClientAction",
+                async (actionName, data) =>
+                {
+                    try
+                    {
+                        await _mediator.Send(
+                            new PublishAdminClientActionCommand(
+                                actionName,
+                                data
+                            )
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(
+                            ex,
+                            "Admin Client Action Error: {ClientAction}",
+                            actionName
+                        );
+                    }
+                }
             );
         }
 

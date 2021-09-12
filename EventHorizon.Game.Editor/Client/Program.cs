@@ -13,6 +13,7 @@ namespace EventHorizon.Game.Editor.Client
 
     using EventHorizon.Activity;
     using EventHorizon.Game.Client;
+    using EventHorizon.Game.Client.Core.Builder.Api;
     using EventHorizon.Game.Client.Systems;
     using EventHorizon.Game.Editor;
     using EventHorizon.Game.Editor.Client.Authentication.Api;
@@ -20,6 +21,8 @@ namespace EventHorizon.Game.Editor.Client
     using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Localization.Map;
     using EventHorizon.Game.Editor.Client.Zone.Api;
+    using EventHorizon.Game.Editor.Client.Zone.Builders;
+    using EventHorizon.Game.Editor.Client.Zone.Model;
     using EventHorizon.Game.Editor.Client.Zone.State;
     using EventHorizon.Game.Editor.Model;
     using EventHorizon.Game.Server;
@@ -137,6 +140,7 @@ namespace EventHorizon.Game.Editor.Client
             // Zone Services
             builder.Services
                 .AddSingleton<ZoneStateCache, InMemoryZoneStateCache>()
+                .AddSingleton<IBuilder<ZoneStateModel, ZoneState>, ZoneStateModelFromZoneStateBuilder>()
                 .AddEditorZoneServices();
 
             // I18n Services
