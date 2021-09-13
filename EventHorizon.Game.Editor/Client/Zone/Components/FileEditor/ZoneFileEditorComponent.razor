@@ -12,14 +12,13 @@
         </StandardToolbarButton>
     </StandardToolbar>
     <BlazorMonaco.MonacoEditor @ref="MonacoEditor"
-                  Id="any-id-string"
                   CssClass="editor-container"
                   ConstructionOptions="BuildConstructionOptions" />
 
     <StandardModal IsOpen="IsDetailsModalOpen"
                    OnClose="HandleCloseDeatils">
         <Body>
-            <DumpToJson Data="EditorNode"></DumpToJson>
+            <DumpToJson Data="FileEditorState.EditorNode"></DumpToJson>
         </Body>
     </StandardModal>
 

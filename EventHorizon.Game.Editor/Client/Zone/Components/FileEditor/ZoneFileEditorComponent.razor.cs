@@ -1,25 +1,26 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileEditor
 {
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Components;
+
     using BlazorMonaco;
     using BlazorMonaco.Bridge;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
+
     using EventHorizon.Game.Editor.Client.Localization;
-    using MediatR;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Save;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
+    using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-    using System;
+    using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
+    using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor.Model;
+    using EventHorizon.Game.Editor.Zone.Editor.Services.Save;
+
+    using MediatR;
+
+    using Microsoft.AspNetCore.Components;
 
     public class ZoneFileEditorComponentModel
         : ComponentBase
     {
         [CascadingParameter]
-        public EditorFile EditorFile { get; set; } = null!;
-        [CascadingParameter]
-        public EditorNode EditorNode { get; set; } = null!;
+        public FileEditorState FileEditorState { get; set; } = null!;
 
         [Inject]
         public Localizer<SharedResource> Localizer { get; set; } = null!;
@@ -33,12 +34,13 @@
         protected override async Task OnParametersSetAsync()
         {
             if (MonacoEditor.IsNotNull()
-                && EditorNode.IsNotNull()
-                && EditorFile.IsNotNull()
-                && EditorNode.Id == EditorFile.Id
+                && FileEditorState.EditorNode.IsNotNull()
+                && FileEditorState.EditorFile.IsNotNull()
             )
             {
-                await MonacoEditor.SetValue(EditorFile.Content);
+                await MonacoEditor.SetValue(
+                    FileEditorState.EditorFile.Content
+                );
             }
             await base.OnParametersSetAsync();
         }
@@ -50,8 +52,8 @@
             return new StandaloneEditorConstructionOptions
             {
                 Theme = "vs-dark",
-                Language = EditorNode.Properties.Language,
-                Value = EditorFile.Content,
+                Language = FileEditorState.EditorNode.Properties.Language,
+                Value = FileEditorState.EditorFile.Content,
                 AutomaticLayout = true,
             };
         }
@@ -61,8 +63,8 @@
             var value = await MonacoEditor.GetValue();
             var result = await Mediator.Send(
                 new SaveEditorFileContentCommand(
-                    EditorNode.Path,
-                    EditorNode.Name,
+                    FileEditorState.EditorNode.Path,
+                    FileEditorState.EditorNode.Name,
                     value
                 )
             );

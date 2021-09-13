@@ -1,9 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Get
 {
-    using System;
-    using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.Authentication.Query;
     using EventHorizon.Game.Editor.Client.Zone.Api;
@@ -12,6 +11,7 @@
     using EventHorizon.Game.Editor.Zone.Editor.Services.Query;
     using EventHorizon.Game.Editor.Zone.Services.Connect;
     using EventHorizon.Game.Editor.Zone.Services.Query;
+
     using MediatR;
 
     public class GetZoneStateCommandHandler
@@ -105,6 +105,8 @@
                 );
             }
             zoneState.EditorState = zoneEditorState.Result;
+            zoneState.IsLoading = false;
+            zoneState.IsPendingReload = false;
 
             return new CommandResult<ZoneState>(
                 zoneState

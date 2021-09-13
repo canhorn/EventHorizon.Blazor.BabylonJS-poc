@@ -1,35 +1,31 @@
 ﻿@inherits FileEditorProviderModel
 
-@if (IsLoading)
-{
-    <div>@Localizer["Loading..."]</div>
-}
-else if (EditorFile.IsNotNull()
-  && EditorNode.IsNotNull())
-{
-    <CascadingValue Value="EditorNode">
-        <CascadingValue Value="EditorFile">
+<ContainerStatesComponent State="DisplayState">
+    <LoadingFragment>
+        <Loading ShowLongLoadingIndicator="true" />
+    </LoadingFragment>
+    <ContentFragment>
+        <CascadingValue Value="State">
             @ChildContent
         </CascadingValue>
-    </CascadingValue>
-}
-else
-{
-    <div>
+    </ContentFragment>
+    <ErrorFragment>
         <div>
-            ErrorMessage: @ErrorMessage
-        </div>
+            <div>
+                ErrorMessage: @ErrorMessage
+            </div>
 
-        <div>
-            ZoneState ID: @ZoneState.Zone.Id
-        </div>
+            <div>
+                ZoneState ID: @ZoneState.Zone.Id
+            </div>
 
-        <div>
-            EncodedFileNodeId: @EncodedFileNodeId
-        </div>
+            <div>
+                EncodedFileNodeId: @EncodedFileNodeId
+            </div>
 
-        <div>
-            FileNodeId: @EncodedFileNodeId.Base64Decode()
+            <div>
+                FileNodeId: @EncodedFileNodeId.Base64Decode()
+            </div>
         </div>
-    </div>
-}
+    </ErrorFragment>
+</ContainerStatesComponent>

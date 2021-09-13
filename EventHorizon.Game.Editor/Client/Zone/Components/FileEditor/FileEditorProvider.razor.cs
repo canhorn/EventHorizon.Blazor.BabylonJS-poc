@@ -1,22 +1,30 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileEditor
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
+    using EventHorizon.Game.Editor.Client.Shared.Components;
+    using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
     using EventHorizon.Game.Editor.Client.Zone.Api;
+    using EventHorizon.Game.Editor.Client.Zone.Change;
+    using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor.Model;
     using EventHorizon.Game.Editor.Client.Zone.Model;
     using EventHorizon.Game.Editor.Client.Zone.Query;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
     using EventHorizon.Game.Editor.Zone.Editor.Services.Query;
-
-    using MediatR;
+    using EventHorizon.Game.Editor.Zone.Editor.Services.Save;
 
     using Microsoft.AspNetCore.Components;
 
     public class FileEditorProviderModel
-        : ComponentBase
+        : ObservableComponentBase,
+        ActiveZoneStateChangedEventObserver,
+        SavedEditorFileContentSuccessfulyEventObserver
     {
+        private static bool IsLoadingErrorCode(
+            string errorCode
+        ) => errorCode == ZoneClientEditorErrorCodes.ZONE_STATE_PENDING_RELOAD
+            || errorCode == ZoneClientEditorErrorCodes.ZONE_STATE_IS_LOADING;
+
         [CascadingParameter]
         public ZoneState ZoneState { get; set; } = null!;
 
@@ -25,16 +33,11 @@
         [Parameter]
         public RenderFragment ChildContent { get; set; } = null!;
 
-        [Inject]
-        public IMediator Mediator { get; set; } = null!;
-        [Inject]
-        public Localizer<SharedResource> Localizer { get; set; } = null!;
-
-        public bool IsLoading { get; set; } = true;
-        public EditorFile? EditorFile { get; set; }
-        public EditorNode? EditorNode { get; set; }
-
+        public ComponentState DisplayState { get; set; } = ComponentState.Loading;
         public string ErrorMessage { get; set; } = string.Empty;
+        public FileEditorState State { get; set; } = new FileEditorState();
+
+        public CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         protected override async Task OnInitializedAsync()
         {
@@ -45,23 +48,32 @@
         protected override async Task OnParametersSetAsync()
         {
             await base.OnParametersSetAsync();
+
+            if (!ZoneState.IsPendingReload &&
+                !ZoneState.IsLoading &&
+                EncodedFileNodeId.Base64Decode() == State.EditorFile?.Id
+            )
+            {
+                return;
+            }
+
             await Setup();
         }
 
         private async Task Setup()
         {
-            IsLoading = true;
+            var id = EncodedFileNodeId.Base64Decode();
+            DisplayState = ComponentState.Loading;
             ErrorMessage = string.Empty;
-            EditorNode = null;
-            EditorFile = null;
             var editorNodeResult = await Mediator.Send(
                 new QueryForEditorNodeById(
-                    EncodedFileNodeId.Base64Decode()
-                )
+                    id
+                ),
+                _cancellationTokenSource.Token
             );
             if (!editorNodeResult
-                && (editorNodeResult.ErrorCode != ZoneClientEditorErrorCodes.ZONE_STATE_PENDING_RELOAD
-                    || editorNodeResult.ErrorCode != ZoneClientEditorErrorCodes.ZONE_STATE_IS_LOADING
+                && IsLoadingErrorCode(
+                    editorNodeResult.ErrorCode
                 )
             )
             {
@@ -70,16 +82,17 @@
             else if (!editorNodeResult)
             {
                 ErrorMessage = Localizer["File was not found."];
-                IsLoading = false;
+                DisplayState = ComponentState.Error;
                 return;
             }
 
-            EditorNode = editorNodeResult.Result;
+            var editorNode = editorNodeResult.Result;
             var result = await Mediator.Send(
                 new QueryForEditorFile(
-                    EditorNode.Path,
-                    EditorNode.Name
-                )
+                    editorNode.Path,
+                    editorNode.Name
+                ),
+                _cancellationTokenSource.Token
             );
             if (!result)
             {
@@ -87,11 +100,33 @@
                     "Editor File Content retrieval failed with Error Code: {0}",
                     result.ErrorCode
                 ];
-                IsLoading = false;
+                DisplayState = ComponentState.Error;
                 return;
             }
-            EditorFile = result.Result;
-            IsLoading = false;
+            State = new FileEditorState
+            {
+                EditorFile = result.Result,
+                EditorNode = editorNode,
+            };
+
+            DisplayState = ComponentState.Content;
+            _cancellationTokenSource = new CancellationTokenSource();
+        }
+
+        public async Task Handle(
+            SavedEditorFileContentSuccessfulyEvent _
+        )
+        {
+            await Setup();
+            await InvokeAsync(StateHasChanged);
+        }
+
+        public async Task Handle(
+            ActiveZoneStateChangedEvent args
+        )
+        {
+            await Setup();
+            await InvokeAsync(StateHasChanged);
         }
     }
 }
