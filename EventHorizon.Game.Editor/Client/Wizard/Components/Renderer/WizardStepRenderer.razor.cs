@@ -22,15 +22,16 @@
 
         private readonly IDictionary<string, Type> _stepTypes = new Dictionary<string, Type>
         {
-            [WizardStepTypes.Null] = typeof(WizardStepNull),
-            [WizardStepTypes.TextInput] = typeof(WizardStepTextInput),
-            [WizardStepTypes.ServerProcess] = typeof(WizardStepServerProcess),
-            [WizardStepTypes.Navigate] = typeof(WizardStepNavigate),
-            [WizardStepTypes.FormInput] = typeof(WizardStepFormInput),
             [WizardStepTypes.CaptureCurrentLocation] = typeof(WizardStepCaptureCurrentLocation),
-            [WizardStepTypes.WaitForActivityEvent] = typeof(WizardStepWaitForActivityEvent),
+            [WizardStepTypes.FormInput] = typeof(WizardStepFormInput),
             [WizardStepTypes.InfoText] = typeof(WizardStepInfoText),
             [WizardStepTypes.LocationNavigate] = typeof(WizardStepLocationNavigate),
+            [WizardStepTypes.Navigate] = typeof(WizardStepNavigate),
+            [WizardStepTypes.Null] = typeof(WizardStepNull),
+            [WizardStepTypes.ServerProcess] = typeof(WizardStepServerProcess),
+            [WizardStepTypes.TextInput] = typeof(WizardStepTextInput),
+            [WizardStepTypes.TriggerReloadingStateEvent] = typeof(WizardStepTriggerReloadingStateEvent),
+            [WizardStepTypes.WaitForActivityEvent] = typeof(WizardStepWaitForActivityEvent),
         };
 
         protected override void OnInitialized()

@@ -7,6 +7,7 @@
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Editor.Client.Zone.Active;
     using EventHorizon.Game.Editor.Client.Zone.Api;
+    using EventHorizon.Game.Editor.Client.Zone.Change;
     using EventHorizon.Game.Editor.Client.Zone.Model;
     using EventHorizon.Game.Editor.Client.Zone.Query;
 
@@ -58,6 +59,13 @@
             {
                 return setActiveZoneResult;
             }
+
+            await _mediator.Publish(
+                new ActiveZoneStateChangedEvent(
+                    newState.Zone.Id
+                ),
+                cancellationToken
+            );
 
             return new();
         }

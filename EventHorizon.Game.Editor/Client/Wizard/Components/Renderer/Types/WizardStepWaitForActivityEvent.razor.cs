@@ -3,32 +3,17 @@
     using System.Threading.Tasks;
 
     using EventHorizon.Activity;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
-    using EventHorizon.Game.Editor.Client.Wizard.Api;
-    using EventHorizon.Zone.Systems.Wizard.Model;
-
-    using Microsoft.AspNetCore.Components;
 
     public class WizardStepWaitForActivityEventBase
-        : ObservableComponentBase,
+        : WizardStepCommonBase,
         ActivityEventObserver
     {
-        [CascadingParameter]
-        public WizardState State { get; set; } = null!;
-
-        [Parameter]
-        public WizardStep Step { get; set; } = null!;
-        [Parameter]
-        public WizardData Data { get; set; } = null!;
-
         private string _category = string.Empty;
         private string _action = string.Empty;
         private string _tag = string.Empty;
 
-        protected override void OnInitialized()
+        protected override void OnInitializing()
         {
-            base.OnInitialized();
-
             _category = Step.Details["ActivityEvent:Category"];
             _action = Step.Details["ActivityEvent:Action"];
             _tag = Step.Details["ActivityEvent:Tag"];

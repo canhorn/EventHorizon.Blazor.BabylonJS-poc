@@ -3,42 +3,22 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
-    using EventHorizon.Game.Editor.Client.Wizard.Api;
     using EventHorizon.Game.Editor.Properties.Api;
     using EventHorizon.Game.Editor.Properties.Model;
-    using EventHorizon.Zone.Systems.Wizard.Model;
-    using MediatR;
-    using Microsoft.AspNetCore.Components;
 
-    public class WizardStepFormInputModel
-        : ComponentBase
+    public class WizardStepFormInputBase
+        : WizardStepCommonBase
     {
-        [CascadingParameter]
-        public WizardState State { get; set; } = null!;
-
-        [Parameter]
-        public WizardStep Step { get; set; } = null!;
-        [Parameter]
-        public WizardData Data { get; set; } = null!;
-
-        [Inject]
-        public IMediator Mediator { get; set; } = null!;
-        [Inject]
-        public Localizer<SharedResource> Localizer { get; set; } = null!;
-
         public Dictionary<string, string> PropertyLabelMap { get; private set; } = new();
         public Dictionary<string, object> PropertiesData { get; private set; } = new();
         public PropertiesMetadataModel PropertiesMetadata { get; private set; } = new();
 
-        protected override void OnInitialized()
+        protected override void OnInitializing()
         {
-            base.OnInitialized();
-
             var properties = Step.Details.Where(
                 a => a.Key.StartsWith(
                     "property:"

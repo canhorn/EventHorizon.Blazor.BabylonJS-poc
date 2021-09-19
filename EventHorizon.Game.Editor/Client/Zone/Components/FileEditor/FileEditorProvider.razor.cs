@@ -71,7 +71,13 @@
                 ),
                 _cancellationTokenSource.Token
             );
-            if (!editorNodeResult
+            if (ZoneState.IsLoading
+                || ZoneState.IsPendingReload
+            )
+            {
+                return;
+            }
+            else if (!editorNodeResult
                 && IsLoadingErrorCode(
                     editorNodeResult.ErrorCode
                 )

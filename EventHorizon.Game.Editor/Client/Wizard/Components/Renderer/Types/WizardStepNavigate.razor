@@ -1,4 +1,6 @@
-﻿<div class="navigate">
+﻿@inherits WizardStepNavigateBase
+
+<div class="navigate">
     <div class="navigate__name --font-bold --header-font-size">
         @Localizer[Step.Name]
     </div>
@@ -13,61 +15,3 @@
         </div>
     }
 </div>
-
-@code {
-    [CascadingParameter]
-    public WizardState State { get; set; } = null!;
-
-    [Parameter]
-    public WizardStep Step { get; set; } = null!;
-    [Parameter]
-    public WizardData Data { get; set; } = null!;
-
-    [Inject]
-    public NavigationManager NavigationManager { get; set; } = null!;
-    [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
-
-    public string ErrorMessage { get; set; } = string.Empty;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        if (Step.Details.TryGetValue(
-            "Delay",
-            out var delay
-        ) && int.TryParse(
-            delay,
-            out var delayAsInt
-        ))
-        {
-            await Task.Delay(delayAsInt);
-        }
-
-        var locationFound = Step.Details.TryGetValue(
-            "Location",
-            out var location
-        );
-        if (!locationFound)
-        {
-            ErrorMessage = Localizer["Navigation Location was not found. Check the above description for more details."];
-            return;
-        }
-
-        NavigationManager.NavigateTo(
-            location!
-        );
-
-        if (Step.Details.TryGetValue(
-            "AutoNext",
-            out var autoNext
-        ) && autoNext.Equals(
-            "true",
-            StringComparison.InvariantCultureIgnoreCase
-        ))
-        {
-            await State.Next();
-        }
-    }
-}

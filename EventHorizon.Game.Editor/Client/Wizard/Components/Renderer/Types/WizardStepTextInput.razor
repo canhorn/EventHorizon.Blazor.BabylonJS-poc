@@ -1,4 +1,6 @@
-﻿<div class="text-input">
+﻿@inherits WizardStepTextInputBase
+
+<div class="text-input">
     <div class="text-input__name --font-bold --header-font-size">
         @Localizer[Step.Name]
     </div>
@@ -12,59 +14,3 @@
         <i class="fas fa-info-circle --info"></i> @Localizer[Step.Description]
     </div>
 </div>
-
-@code {
-    [CascadingParameter]
-    public WizardState State { get; set; } = null!;
-
-    [Parameter]
-    public WizardStep Step { get; set; } = null!;
-    [Parameter]
-    public WizardData Data { get; set; } = null!;
-
-    [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
-
-    private ElementReference TextInputElement { get; set; }
-
-    private string TextValue
-    {
-        get
-        {
-            if (Step.Details.TryGetValue(
-                "property",
-                out var property
-            ))
-            {
-                return Data[property];
-            }
-            return string.Empty;
-        }
-        set
-        {
-            if (Step.Details.TryGetValue(
-                "property",
-                out var property
-            ))
-            {
-                Data[property] = value;
-            }
-
-            InvokeAsync(() => State.UpdateData(
-                Data
-            ));
-        }
-    }
-
-    protected override async Task OnAfterRenderAsync(
-        bool firstRender
-    )
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await TextInputElement.FocusAsync();
-        }
-    }
-}

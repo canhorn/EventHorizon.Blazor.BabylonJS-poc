@@ -37,6 +37,25 @@
         )
         {
             var guid = Guid.NewGuid().ToString();
+
+            var activeZoneResult = await _mediator.Send(
+                new QueryForActiveZone(),
+                cancellationToken
+            );
+            if (activeZoneResult.Success.IsNotTrue())
+            {
+                return new(
+                    "NO_ACTIVE_ZONE"
+                );
+            }
+
+            await _mediator.Publish(
+                new ShowMessageEvent(
+                    _localizer["Zone State"],
+                    _localizer["Reloading Active State: {0}", guid]
+                ),
+                cancellationToken
+            );
             await _mediator.Send(
                 new SetReloadOnZoneStateCommand(
                     false
@@ -49,25 +68,6 @@
                 ),
                 cancellationToken
             );
-
-            await _mediator.Publish(
-                new ShowMessageEvent(
-                    _localizer["Zone State"],
-                    _localizer["Reloading Active State: {0}", guid]
-                ),
-                cancellationToken
-            );
-
-            var activeZoneResult = await _mediator.Send(
-                new QueryForActiveZone(),
-                cancellationToken
-            );
-            if (activeZoneResult.Success.IsNotTrue())
-            {
-                return new(
-                    "NO_ACTIVE_ZONE"
-                );
-            }
 
             var zoneStateResult = await _mediator.Send(
                 new GetZoneStateCommand(

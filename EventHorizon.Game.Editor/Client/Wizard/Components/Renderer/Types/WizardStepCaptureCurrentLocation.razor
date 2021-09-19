@@ -1,4 +1,6 @@
-﻿<div class="capture-current-location">
+﻿@inherits WizardStepCaptureCurrentLocationBase
+
+<div class="capture-current-location">
     <div class="capture-current-location__name --font-bold --header-font-size">
         @Localizer[Step.Name]
     </div>
@@ -14,55 +16,3 @@
     }
 
 </div>
-
-@code {
-    [CascadingParameter]
-    public WizardState State { get; set; } = null!;
-
-    [Parameter]
-    public WizardStep Step { get; set; } = null!;
-    [Parameter]
-    public WizardData Data { get; set; } = null!;
-
-    [Inject]
-    public NavigationManager NavigationManager { get; set; } = null!;
-    [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
-
-    public string ErrorMessage { get; set; } = string.Empty;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        if (Step.Details.TryGetValue(
-            "Delay",
-            out var delay
-        ) && int.TryParse(
-            delay,
-            out var delayAsInt
-        ))
-        {
-            await Task.Delay(delayAsInt);
-        }
-
-        var currentLocation = NavigationManager.ToBaseRelativePath(
-            NavigationManager.Uri
-        );
-
-        if (Step.Details.TryGetValue(
-            "CurrentLocationProperty",
-            out var property
-        ))
-        {
-            Data[property] = currentLocation;
-
-            await State.Next();
-            return;
-        }
-
-        Data["CurrentLocation"] = currentLocation;
-
-        await State.Next();
-    }
-}
