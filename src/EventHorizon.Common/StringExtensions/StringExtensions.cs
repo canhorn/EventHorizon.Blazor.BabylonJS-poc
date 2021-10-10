@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Text;
 
 public static class StringExtensions
@@ -51,4 +52,40 @@ public static class StringExtensions
     ) => !string.IsNullOrEmpty(
         str
     );
+
+    /// <summary>
+    /// Make sure the first character is the upper cased version of the text.
+    /// </summary>
+    /// <param name="text">Text to upper case first character of.</param>
+    /// <returns>The text with the first character uppercased.</returns>
+    public static string UppercaseFirstChar(
+        this string text
+    )
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return string.Empty;
+        }
+        char[] a = text.ToCharArray();
+        a[0] = char.ToUpper(a[0], CultureInfo.CurrentCulture);
+        return new string(a);
+    }
+
+    /// <summary>
+    /// Make sure the first character is the lower cased version of the text.
+    /// </summary>
+    /// <param name="text">Text to lower case first character of.</param>
+    /// <returns>The text with the first character lowercased.</returns>
+    public static string LowercaseFirstChar(
+        this string text
+    )
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return string.Empty;
+        }
+        char[] a = text.ToCharArray();
+        a[0] = char.ToLower(a[0], CultureInfo.CurrentCulture);
+        return new string(a);
+    }
 }

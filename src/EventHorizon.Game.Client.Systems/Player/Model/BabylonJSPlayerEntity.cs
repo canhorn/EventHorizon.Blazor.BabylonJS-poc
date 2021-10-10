@@ -1,7 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Model
 {
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
+
     using EventHorizon.Game.Client.Systems.Entity.Model;
     using EventHorizon.Game.Client.Systems.EntityModule.Register;
     using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Api;
@@ -26,10 +26,13 @@
         : StandardServerEntity,
         IPlayerEntity
     {
+        public IPlayerZoneDetails PlayerDetails { get; }
+
         public BabylonJSPlayerEntity(
             IPlayerZoneDetails player
         ) : base(player)
         {
+            PlayerDetails = player;
             Transform.Scaling.Set(1, 1, 1);
         }
 

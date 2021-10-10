@@ -1,18 +1,15 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Camera.Model
 {
-    using System;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Engine.Systems.Camera.Register;
     using EventHorizon.Game.Client.Engine.Systems.Camera.Set;
     using EventHorizon.Game.Client.Engine.Systems.Camera.Unregister;
-    using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set;
     using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.Camera.Api;
-    using EventHorizon.Observer.Register;
-    using EventHorizon.Observer.Unregister;
+
     using MediatR;
 
     public class BabylonJSCameraModule

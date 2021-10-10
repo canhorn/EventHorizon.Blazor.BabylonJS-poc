@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Model
 {
     using System.Collections.Generic;
+
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 
     public class ObjectEntityDetailsModel

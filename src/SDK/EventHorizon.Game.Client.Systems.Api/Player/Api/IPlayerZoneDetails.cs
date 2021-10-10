@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api
+﻿namespace EventHorizon.Game.Client.Systems.Player.Api
 {
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 

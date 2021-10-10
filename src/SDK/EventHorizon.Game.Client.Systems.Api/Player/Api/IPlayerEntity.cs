@@ -7,5 +7,6 @@
         : ILifecycleEntity,
         IObjectEntity
     {
+        IPlayerZoneDetails PlayerDetails { get; }
     }
 }

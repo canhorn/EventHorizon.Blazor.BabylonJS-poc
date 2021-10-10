@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model
 {
     using System.Collections.Generic;
+
     using EventHorizon.Game.Client.Core.I18n.Api;
     using EventHorizon.Game.Client.Core.I18n.Model;
     using EventHorizon.Game.Client.Engine.Gui.Api;
@@ -18,6 +19,7 @@
     using EventHorizon.Game.Client.Systems.EntityModule.Api;
     using EventHorizon.Game.Client.Systems.Map.Api;
     using EventHorizon.Game.Client.Systems.Map.Model;
+    using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.ServerModule;
     using EventHorizon.Game.Client.Systems.ServerModule.Api;
 
