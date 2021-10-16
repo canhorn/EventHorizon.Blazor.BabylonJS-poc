@@ -6,6 +6,7 @@ html, body {
     background-color: var(--background-dark);
     padding: 0;
     margin: 0;
+    overflow: hidden;
 }
 
 *, ::after, ::before {
@@ -24,10 +25,6 @@ a, .btn-link {
     color: var(--accent-color);
     background-color: var(--primary-base);
     border-color: var(--accent-base);
-}
-
-.content {
-    padding-top: 1.1rem;
 }
 
 .valid.modified:not([type=checkbox]) {

@@ -2,7 +2,8 @@
 
 <div class="editor">
     <StandardToolbar>
-        <StandardToolbarButton title="@Localizer["Save File"]"
+        <StandardToolbarButton class="--primary"
+                               title="@Localizer["Save File"]"
                                @onclick="HandleSaveFile">
             @Localizer["Save"]
         </StandardToolbarButton>
@@ -10,15 +11,51 @@
                                @onclick="HandleOpenDetails">
             @Localizer["Details"]
         </StandardToolbarButton>
+        <DisplayContainerComponent State="FileChangesPendingDisplayState">
+            <StandardToolbarButton title="@Localizer["Click to clear your changes."]"
+                                   @onclick="HandleClearFileChanges">
+                @Localizer["Clear Changes"]
+            </StandardToolbarButton>
+        </DisplayContainerComponent>
+        <DisplayContainerComponent State="FileErrorDetailsDisplayState">
+            <StandardToolbarButton class="--error"
+                                   title="@Localizer["Click to view Error Details for this File"]"
+                                   @onclick="HandleOpenErrorDetails">
+                @Localizer["Error Details"]
+            </StandardToolbarButton>
+        </DisplayContainerComponent>
+        <DisplayContainerComponent State="CompilerErrorsDisplayState">
+            <StandardToolbarButton class="--error"
+                                   title="@Localizer["Open Compiler Errors"]"
+                                   @onclick="HandleOpenCompilerErrors">
+                @Localizer[
+                    "Compiler Errors ({0})",
+                    ZoneState.ScriptErrorDetails.ScriptErrorDetailsList.Count
+                ]
+            </StandardToolbarButton>
+        </DisplayContainerComponent>
     </StandardToolbar>
     <BlazorMonaco.MonacoEditor @ref="MonacoEditor"
-                  CssClass="editor-container"
-                  ConstructionOptions="BuildConstructionOptions" />
+                               CssClass="editor-container"
+                               OnDidInit="HandleDidInit"
+                               ConstructionOptions="BuildConstructionOptions" />
 
     <StandardModal IsOpen="IsDetailsModalOpen"
                    OnClose="HandleCloseDeatils">
         <Body>
             <DumpToJson Data="FileEditorState.EditorNode"></DumpToJson>
+        </Body>
+    </StandardModal>
+    <StandardModal IsOpen="IsErrorDetailsModalOpen"
+                   OnClose="HandleCloseErrorDeatils">
+        <Body>
+            <DumpToJson Data="FileEditorState.FileErrorDetails"></DumpToJson>
+        </Body>
+    </StandardModal>
+    <StandardModal IsOpen="IsCompilerErrorsModalOpen"
+                   OnClose="HandleCloseCompilerErrors">
+        <Body>
+            <DumpToJson Data="ZoneState.ScriptErrorDetails"></DumpToJson>
         </Body>
     </StandardModal>
 

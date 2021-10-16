@@ -20,10 +20,10 @@
 
     .message.--warning {
         box-shadow: var(--warning) -2px 2px;
-        border-top: 1px solid var(--warning);
-        border-right: 1px solid var(--warning);
-        border-bottom: 1px solid var(--warning);
-        border-left: 5px solid var(--warning);
+        border-top: 1px solid var(--warn);
+        border-right: 1px solid var(--warn);
+        border-bottom: 1px solid var(--warn);
+        border-left: 5px solid var(--warn);
     }
 
     .message.--error {
@@ -52,7 +52,7 @@
     }
 
     .message__message-level.--warning {
-        color: var(--warning);
+        color: var(--warn);
     }
 
     .message__message-level.--error {

@@ -3,10 +3,12 @@
     using System.Collections.Generic;
     using System.Text.Json;
     using System.Threading.Tasks;
+
     using BlazorMonaco;
-    using BlazorMonaco.Bridge;
+
     using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Properties.Model;
+
     using Microsoft.AspNetCore.Components;
 
     public partial class ComplexPropertyControl

@@ -16,6 +16,7 @@
             Zone = details.Zone,
             ZoneInfo = details.ZoneInfo,
             EditorState = details.EditorState,
+            ScriptErrorDetails = details.ScriptErrorDetails,
         };
     }
 }

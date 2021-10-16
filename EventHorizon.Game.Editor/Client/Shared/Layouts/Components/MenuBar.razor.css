@@ -3,10 +3,21 @@
 }
 
 .menu-bar__content {
-/*    background-color: rgba(0,0,0,0.4);*/
     display: flex;
     border-bottom: solid 2px var(--brand-color);
+    height: 100%;
 }
+
+.menu-bar__item {
+    height: var(--top-bar-height);
+    display: flex;
+    align-items: center;
+}
+
+    .menu-bar__item.--right {
+        flex: auto;
+        justify-content: right;
+    }
 
 .menu-toggler {
     margin: 0.3rem;

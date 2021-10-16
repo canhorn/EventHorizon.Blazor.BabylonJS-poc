@@ -1,0 +1,16 @@
+﻿.transition-container.content {
+    height: 100%;
+    opacity: 0;
+    animation: fade-in-animation ease 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+  
+@keyframes fade-in-animation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+     }
+}

@@ -6,7 +6,6 @@
     .standard-toolbar-item.--remove-button-styles {
         padding: 0.6rem;
         background: var(--background-dark);
-        color: inherit;
         border: 1px solid transparent;
         font: inherit;
         cursor: pointer;
@@ -25,7 +24,39 @@
         transition: 0s
     }
 
-    .standard-toolbar-item:disabled {
+    .standard-toolbar-item.--primary {
+        background: var(--brand-faded-color);
+    }
+
+        .standard-toolbar-item.--primary:hover,
+        .standard-toolbar-item.--primary:focus {
+            background-color: var(--brand-contrast-light-disabled);
+            border: 1px solid var(--contrast-dark-primary);
+        }
+
+        .standard-toolbar-item.--primary:active {
+            box-shadow: 0 0 var(--brand-faded-color);
+            transition: 0s
+        }
+
+    .standard-toolbar-item.--error {
+        background: var(--error-light-secondary);
+    }
+
+        .standard-toolbar-item.--error:hover,
+        .standard-toolbar-item.--error:focus {
+            background-color: var(--error-light-disabled);
+            border: 1px solid var(--error-light-primary);
+        }
+
+        .standard-toolbar-item.--error:active {
+            box-shadow: 0 0 var(--error-light-hint);
+            transition: 0s
+        }
+
+    .standard-toolbar-item:disabled,
+    .standard-toolbar-item.--primary:disabled,
+    .standard-toolbar-item.--error:disabled {
         background: var(--contrast-dark-hint);
         border: 1px solid var(--contrast-dark-hint);
         cursor: not-allowed;

@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileEditor
 {
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@
     using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
     using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Client.Zone.Change;
+    using EventHorizon.Game.Editor.Client.Zone.ClientActions.Reload;
     using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor.Model;
     using EventHorizon.Game.Editor.Client.Zone.Model;
     using EventHorizon.Game.Editor.Client.Zone.Query;
@@ -18,7 +20,9 @@
     public class FileEditorProviderModel
         : ObservableComponentBase,
         ActiveZoneStateChangedEventObserver,
-        SavedEditorFileContentSuccessfulyEventObserver
+        SavedEditorFileContentSuccessfulyEventObserver,
+        ServerScriptsSystemCompilingScriptsClientActionObserver,
+        ServerScriptsSystemFinishedScriptsCompileClientActionObserver
     {
         private static bool IsLoadingErrorCode(
             string errorCode
@@ -34,10 +38,11 @@
         public RenderFragment ChildContent { get; set; } = null!;
 
         public ComponentState DisplayState { get; set; } = ComponentState.Loading;
+        public bool IsCompiling { get; set; }
         public string ErrorMessage { get; set; } = string.Empty;
         public FileEditorState State { get; set; } = new FileEditorState();
 
-        public CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        public CancellationTokenSource _cancellationTokenSource = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -109,13 +114,27 @@
                 DisplayState = ComponentState.Error;
                 return;
             }
+
+            var editorFileErrorDetails = new EditorFileErrorDetails(
+                id
+            ).From(
+                ZoneState.ScriptErrorDetails.ScriptErrorDetailsList?.Where(
+                    a => id.Contains(a.ScriptId)
+                ).FirstOrDefault()
+            );
+
             State = new FileEditorState
             {
                 EditorFile = result.Result,
                 EditorNode = editorNode,
+                FileErrorDetails = editorFileErrorDetails,
             };
 
             DisplayState = ComponentState.Content;
+            if (IsCompiling)
+            {
+                DisplayState = ComponentState.Loading;
+            }
             _cancellationTokenSource = new CancellationTokenSource();
         }
 
@@ -123,7 +142,7 @@
             SavedEditorFileContentSuccessfulyEvent _
         )
         {
-            await Setup();
+            DisplayState = ComponentState.Loading;
             await InvokeAsync(StateHasChanged);
         }
 
@@ -133,6 +152,36 @@
         {
             await Setup();
             await InvokeAsync(StateHasChanged);
+        }
+
+        public async Task Handle(
+            ServerScriptsSystemCompilingScriptsClientAction args
+        )
+        {
+            IsCompiling = true;
+            DisplayState = ComponentState.Loading;
+
+            await InvokeAsync(StateHasChanged);
+        }
+
+        public async Task Handle(
+            ServerScriptsSystemFinishedScriptsCompileClientAction args
+        )
+        {
+            IsCompiling = false;
+            DisplayState = ComponentState.Content;
+
+            await InvokeAsync(StateHasChanged);
+        }
+
+        public string GetLoadingText()
+        {
+            if (IsCompiling)
+            {
+                return Localizer["Compiling..."];
+            }
+
+            return Localizer["Loading..."];
         }
     }
 }

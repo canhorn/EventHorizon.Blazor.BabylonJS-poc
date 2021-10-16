@@ -7,27 +7,29 @@
 else if (SelectedZone.IsNull())
 {
     <button class="selected-zone --no-border --disconnected"
-            title="@Localizer["No Zone is Selected"]"
-            type="button"
-            @onclick="HandleOpenZoneSelection">
+        title="@Localizer["No Zone is Selected"]"
+        type="button"
+        @onclick="HandleOpenZoneSelection">
+        <i class="selected-zone__icon fas fa-server"></i>
+    </button>
+}
+else if (ZoneState.IsNotNull())
+{
+    <button class="selected-zone --no-border --connected"
+        title="@Localizer["Connected to Zone {0}", SelectedZoneId]"
+        type="button"
+        @onclick="HandleOpenZoneSelection">
         <i class="selected-zone__icon fas fa-server"></i>
     </button>
 }
 else
 {
-    if (ZoneState.IsNotNull())
-    {
-        <button class="selected-zone --no-border --connected"
-                title="@Localizer["Connected to Zone {0}", SelectedZoneId]"
-                type="button"
-                @onclick="HandleOpenZoneSelection">
-            <i class="selected-zone__icon fas fa-server"></i>
-        </button>
-    }
-    else
-    {
-        <Loading HideText="true" />
-    }
+    <button class="selected-zone --no-border --loading"
+        title="@Localizer["Loading..."]"
+        type="button"
+        disabled="disabled">
+        <i class="selected-zone__icon fas fa-server"></i>
+    </button>
 }
 
 <StandardModal IsOpen="IsZoneSelectionOpen"
@@ -47,8 +49,8 @@ else
                     <div>Last Ping: @zone.LastPing.ToString("G")</div>
                     <div>Application Version: @zone.Details.ApplicationVersion</div>
                     <button @onclick="() => HandleZoneSelectionChanged(zone.Id)"
-                            type="button"
-                            disabled="@(zone.Id == SelectedZoneId)">
+                        type="button"
+                        disabled="@(zone.Id == SelectedZoneId)">
                         @(zone.Id == SelectedZoneId ? Localizer["Active"] : Localizer["Select"])
                     </button>
                 </div>

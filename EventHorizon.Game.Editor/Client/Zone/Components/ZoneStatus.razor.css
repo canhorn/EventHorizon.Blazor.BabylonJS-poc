@@ -20,6 +20,12 @@
     border-radius: 50%;
 }
 
+.--loading {
+    animation: anim-glow-yellow 2s ease infinite;
+    border-radius: 50%;
+    cursor: auto;
+}
+
 @keyframes anim-glow-green {
     0% {
         box-shadow: 0 0 var(--success);
@@ -34,6 +40,17 @@
 @keyframes anim-glow-red {
     0% {
         box-shadow: 0 0 var(--error);
+    }
+
+    100% {
+        box-shadow: 0 0 10px 8px transparent;
+        border-width: 1px;
+    }
+}
+
+@keyframes anim-glow-yellow {
+    0% {
+        box-shadow: 0 0 var(--warn);
     }
 
     100% {

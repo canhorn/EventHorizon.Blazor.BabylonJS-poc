@@ -3,15 +3,19 @@
 
 <div class="menu-bar">
     <div class="menu-bar__content">
-        <button class="menu-toggler --no-border"
-                title="@Localizer["Global Settings"]"
-                type="button"
-                @onclick="HandleOpenGlobalSettings">
-            <i class="menu-toggler-icon fab fa-elementor"></i>
-        </button>
-        <a class="menu-brand navbar-brand" href="/">@Localizer["Game Editor"]</a>
-        <ZoneStatus />
-        <DisplayLoginStatus />
+        <span class="menu-bar__item">
+            <button class="menu-toggler --no-border"
+                    title="@Localizer["Global Settings"]"
+                    type="button"
+                    @onclick="HandleOpenGlobalSettings">
+                <i class="menu-toggler-icon fab fa-elementor"></i>
+            </button>
+            <a class="menu-brand navbar-brand" href="/">@Localizer["Game Editor"]</a>
+        </span>
+        <span class="menu-bar__item --right">
+            <DisplayLoginStatus />
+            <ZoneStatus />
+        </span>
     </div>
 </div>
 

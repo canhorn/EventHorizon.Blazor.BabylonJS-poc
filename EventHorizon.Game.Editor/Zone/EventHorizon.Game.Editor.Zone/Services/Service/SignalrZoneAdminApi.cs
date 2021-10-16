@@ -1,8 +1,10 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
 {
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Editor.Zone.Services.Api;
     using EventHorizon.Game.Editor.Zone.Services.Model;
+
     using Microsoft.AspNetCore.SignalR.Client;
 
     public sealed class SignalrZoneAdminApi
@@ -15,6 +17,7 @@
         public ZoneAdminClientEntityApi ClientEntity { get; }
         public ZoneAdminCommandApi Command { get; }
         public ZoneAdminDataStorageApi DataStorage { get; }
+        public ZoneAdminServerScriptsApi ServerScripts { get; }
         public ZoneAdminWizardApi Wizard { get; }
 
         internal SignalrZoneAdminApi(
@@ -36,6 +39,9 @@
                 hubConnection
             );
             DataStorage = new SignalrZoneAdminDataStorageApi(
+                hubConnection
+            );
+            ServerScripts = new SignalrZoneAdminServerScriptsApi(
                 hubConnection
             );
             Wizard = new SignalrZoneAdminWizardApi(

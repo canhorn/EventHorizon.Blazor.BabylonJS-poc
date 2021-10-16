@@ -1,48 +1,200 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileEditor
 {
+    using System;
     using System.Threading.Tasks;
 
-    using BlazorMonaco;
-    using BlazorMonaco.Bridge;
+    using Blazored.LocalStorage;
 
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
+    using BlazorMonaco;
+
+    using EventHorizon.Game.Client.Core.Factory.Api;
+    using EventHorizon.Game.Client.Core.Timer.Api;
+    using EventHorizon.Game.Editor.Client.Shared.Components;
+    using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
+    using EventHorizon.Game.Editor.Client.Zone.Api;
     using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor.Model;
     using EventHorizon.Game.Editor.Zone.Editor.Services.Save;
-
-    using MediatR;
 
     using Microsoft.AspNetCore.Components;
 
     public class ZoneFileEditorComponentModel
-        : ComponentBase
+        : EditorComponentBase,
+        IAsyncDisposable
     {
+        private static string ZoneFileEditorPendingValueKey(
+            string id
+        ) => $"ZoneFileEditorComponent:{id}:PendingValue";
+
+        [CascadingParameter]
+        public ZoneState ZoneState { get; set; } = null!;
         [CascadingParameter]
         public FileEditorState FileEditorState { get; set; } = null!;
 
         [Inject]
-        public Localizer<SharedResource> Localizer { get; set; } = null!;
+        public ILocalStorageService LocalStorage { get; set; } = null!;
         [Inject]
-        public IMediator Mediator { get; set; } = null!;
+        public IFactory<IIntervalTimerService> IntervalTimerServiceFactory { get; set; } = null!;
 
-        public MonacoEditor MonacoEditor { get; set; } = null!;
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
 
-        public bool IsDetailsModalOpen { get; set; }
+            _savePendingChangesIntervalTimerService = IntervalTimerServiceFactory.Create().Setup(
+                1000, HandleSavePendingChanges
+            ).Start();
+        }
 
         protected override async Task OnParametersSetAsync()
         {
+            await base.OnParametersSetAsync();
+            CompilerErrorsDisplayState = ComponentState.Loading;
+            FileErrorDetailsDisplayState = ComponentState.Loading;
+
             if (MonacoEditor.IsNotNull()
                 && FileEditorState.EditorNode.IsNotNull()
                 && FileEditorState.EditorFile.IsNotNull()
             )
             {
                 await MonacoEditor.SetValue(
-                    FileEditorState.EditorFile.Content
+                    await GetEditorValue()
                 );
             }
-            await base.OnParametersSetAsync();
+
+            if (ZoneState.ScriptErrorDetails.HasErrors)
+            {
+                CompilerErrorsDisplayState = ComponentState.Content;
+            }
+            if (FileEditorState.FileErrorDetails.HasError)
+            {
+                FileErrorDetailsDisplayState = ComponentState.Content;
+            }
+        }
+
+        public ValueTask DisposeAsync()
+        {
+            _savePendingChangesIntervalTimerService?.Dispose();
+
+            return ValueTask.CompletedTask;
+        }
+
+        public async Task HandleSaveFile()
+        {
+            _savePendingChangesIntervalTimerService?.Pause();
+            var value = await MonacoEditor.GetValue();
+            var result = await Mediator.Send(
+                new SaveEditorFileContentCommand(
+                    FileEditorState.EditorNode.Path,
+                    FileEditorState.EditorNode.Name,
+                    value
+                )
+            );
+            if (result.Successful.IsNotTrue())
+            {
+                await ShowMessage(
+                    Localizer["File Save Status"],
+                    Localizer[
+                        "File failed to save, Error Code of '{0}'",
+                        result.ErrorCode
+                    ],
+                    MessageLevel.Error
+                );
+                return;
+            }
+            _savePendingChangesIntervalTimerService?.Start();
+            await LocalStorage.RemoveItemAsync(
+                ZoneFileEditorPendingValueKey(
+                    FileEditorState.EditorNode.Id
+                )
+            );
+            await ShowMessage(
+                Localizer["File Save Status"],
+                Localizer["File was Successfully Saved"]
+            );
+        }
+
+        #region Pending Changes
+        private IIntervalTimerService? _savePendingChangesIntervalTimerService;
+        private string _pendingSaveValue = string.Empty;
+
+        protected ComponentState FileChangesPendingDisplayState { get; set; } = ComponentState.Loading;
+
+        private async Task HandleSavePendingChanges()
+        {
+            var editorValue = await MonacoEditor.GetValue();
+            if (FileEditorState.EditorFile.Content == editorValue)
+            {
+                return;
+            }
+
+            await LocalStorage.SetItemAsync(
+                ZoneFileEditorPendingValueKey(
+                    FileEditorState.EditorNode.Id
+                ),
+                editorValue
+            );
+            FileChangesPendingDisplayState = ComponentState.Content;
+
+            await InvokeAsync(StateHasChanged);
+        }
+
+        public async Task HandleClearFileChanges()
+        {
+            _pendingSaveValue = FileEditorState.EditorFile.Content;
+            FileChangesPendingDisplayState = ComponentState.Loading;
+            await MonacoEditor.SetValue(
+                FileEditorState.EditorFile.Content
+            );
+            await LocalStorage.RemoveItemAsync(
+                ZoneFileEditorPendingValueKey(
+                    FileEditorState.EditorNode.Id
+                )
+            );
+        }
+        #endregion
+
+        #region Editor
+        public MonacoEditor MonacoEditor { get; set; } = null!;
+
+        public async Task HandleDidInit()
+        {
+            await MonacoEditor.AddCommand(
+                (int)KeyMode.CtrlCmd | (int)KeyMode.Shift | (int)KeyCode.KEY_S,
+                (editor, keyCode) =>
+                {
+                    _ = HandleSaveFile();
+                }
+            );
+            await MonacoEditor.SetValue(
+                await GetEditorValue()
+            );
+        }
+
+        private async Task<string> GetEditorValue()
+        {
+            if (_pendingSaveValue.IsNullOrEmpty())
+            {
+                _pendingSaveValue = await LocalStorage.GetItemAsStringAsync(
+                    ZoneFileEditorPendingValueKey(
+                        FileEditorState.EditorNode.Id
+                    )
+                ) ?? string.Empty;
+            }
+
+            var value = FileEditorState.EditorFile.Content;
+            if (_pendingSaveValue.IsNotNullOrEmpty()
+                && _pendingSaveValue != FileEditorState.EditorFile.Content)
+            {
+                value = _pendingSaveValue;
+                await ShowMessage(
+                    Localizer["Loaded Pending Editor File Changes"],
+                    Localizer[""],
+                    MessageLevel.Warning
+                );
+                FileChangesPendingDisplayState = ComponentState.Content;
+            }
+
+            return value;
         }
 
         public StandaloneEditorConstructionOptions BuildConstructionOptions(
@@ -57,40 +209,10 @@
                 AutomaticLayout = true,
             };
         }
+        #endregion
 
-        public async Task HandleSaveFile()
-        {
-            var value = await MonacoEditor.GetValue();
-            var result = await Mediator.Send(
-                new SaveEditorFileContentCommand(
-                    FileEditorState.EditorNode.Path,
-                    FileEditorState.EditorNode.Name,
-                    value
-                )
-            );
-            if (result.Successful.IsNotTrue())
-            {
-                await Mediator.Publish(
-                    new ShowMessageEvent(
-                        Localizer["File Save Status"],
-                        Localizer[
-                            "File failed to save, Error Code of '{0}'",
-                            result.ErrorCode
-                        ],
-                        MessageLevel.Error
-                    )
-                );
-                return;
-            }
-            await Mediator.Publish(
-                new ShowMessageEvent(
-                    Localizer["File Save Status"],
-                    Localizer["File was Successfully Saved"],
-                    MessageLevel.Success
-                )
-            );
-        }
-
+        #region Details Modal
+        public bool IsDetailsModalOpen { get; set; }
         public void HandleOpenDetails()
         {
             IsDetailsModalOpen = true;
@@ -100,5 +222,36 @@
         {
             IsDetailsModalOpen = false;
         }
+        #endregion
+
+        #region File Error Details
+        public ComponentState FileErrorDetailsDisplayState { get; set; } = ComponentState.Loading;
+        public bool IsErrorDetailsModalOpen { get; set; }
+
+        public void HandleOpenErrorDetails()
+        {
+            IsErrorDetailsModalOpen = true;
+        }
+
+        public void HandleCloseErrorDeatils()
+        {
+            IsErrorDetailsModalOpen = false;
+        }
+        #endregion
+
+        #region Compiler Errors
+        public ComponentState CompilerErrorsDisplayState { get; set; } = ComponentState.Loading;
+        public bool IsCompilerErrorsModalOpen { get; set; }
+
+        public void HandleOpenCompilerErrors()
+        {
+            IsCompilerErrorsModalOpen = true;
+        }
+
+        public void HandleCloseCompilerErrors()
+        {
+            IsCompilerErrorsModalOpen = false;
+        }
+        #endregion
     }
 }

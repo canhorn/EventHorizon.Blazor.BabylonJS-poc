@@ -1,8 +1,8 @@
 ﻿@inherits FileEditorProviderModel
 
-<ContainerStatesComponent State="DisplayState">
+<TransitionContainerComponent State="DisplayState">
     <LoadingFragment>
-        <Loading ShowLongLoadingIndicator="true" />
+        <Loading Text="@GetLoadingText()" ShowLongLoadingIndicator="!IsCompiling" />
     </LoadingFragment>
     <ContentFragment>
         <CascadingValue Value="State">
@@ -28,4 +28,4 @@
             </div>
         </div>
     </ErrorFragment>
-</ContainerStatesComponent>
+</TransitionContainerComponent>

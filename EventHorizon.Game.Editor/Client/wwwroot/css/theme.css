@@ -12,6 +12,7 @@
     --loading-color: purple;
     --loading-filter-color: rebeccapurple;
     --brand-color: rebeccapurple;
+    --brand-faded-color: #800080DD;
     /* Sizes */
     --sidebar-width: 300px;
     --top-row-height: 3.5rem;
@@ -44,16 +45,20 @@
     --contrast-dark-secondary: rgba(255, 255, 255, 0.7);
     --contrast-dark-disabled: rgba(255, 255, 255, 0.5);
     --contrast-dark-hint: rgba(255, 255, 255, 0.12);
+    --brand-contrast-dark-primary: rgb(128,0,128);
+    --brand-contrast-dark-hint: rgba(128, 0, 128, 0.12);
     /* Contrast - Light */
     --contrast-light-primary: rgba(0, 0, 0, 0.87);
     --contrast-light-secondary: rgba(0, 0, 0, 0.54);
     --contrast-light-disabled: rgba(0, 0, 0, 0.38);
     --contrast-light-hint: rgba(0, 0, 0, 0.12);
+    --brand-contrast-light-disabled: rgba(128, 0, 128, 0.38);
     /* Error - Dark */
     --error-dark-primary: rgb(255, 0, 0);
     --error-dark-secondary: rgba(255, 0, 0, 0.7);
     --error-dark-disabled: rgba(255, 0, 0, 0.5);
     --error-dark-hint: rgba(255, 0, 0, 0.12);
+    --brand-error-dark-hint: rgba(128, 0, 128, 0.12);
     /* error - Light */
     --error-light-primary: rgba(255, 0, 0, 0.87);
     --error-light-secondary: rgba(255, 0, 0, 0.54);

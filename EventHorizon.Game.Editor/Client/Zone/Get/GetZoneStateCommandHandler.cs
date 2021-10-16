@@ -11,6 +11,7 @@
     using EventHorizon.Game.Editor.Zone.Editor.Services.Query;
     using EventHorizon.Game.Editor.Zone.Services.Connect;
     using EventHorizon.Game.Editor.Zone.Services.Query;
+    using EventHorizon.Zone.System.Server.Scripts.Query;
 
     using MediatR;
 
@@ -105,6 +106,20 @@
                 );
             }
             zoneState.EditorState = zoneEditorState.Result;
+
+            // Get Zone Script Error Details
+            var scriptErrorDetails = await _mediator.Send(
+                new QueryForServerScriptsErrorDetails(),
+                cancellationToken
+            );
+            if (!scriptErrorDetails.Success)
+            {
+                return new CommandResult<ZoneState>(
+                    scriptErrorDetails.ErrorCode
+                );
+            }
+            zoneState.ScriptErrorDetails = scriptErrorDetails.Result;
+
             zoneState.IsLoading = false;
             zoneState.IsPendingReload = false;
 

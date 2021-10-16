@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.ReloadListener
 {
-    using System;
     using System.Threading.Tasks;
 
     using EventHorizon.Game.Editor.Client.Shared.Components;
@@ -9,10 +8,22 @@
 
     public class ZoneStateReloadListenerBase
         : ObservableComponentBase,
-        EditorSystemReloadedAdminClientActionObserver
+        EditorSystemReloadedAdminClientActionObserver,
+        ServerScriptsSystemReloadedAdminClientActionObserver
     {
         public async Task Handle(
             EditorSystemReloadedAdminClientAction args
+        )
+        {
+            await Mediator.Send(
+                new SetReloadOnZoneStateCommand(
+                    true
+                )
+            );
+        }
+
+        public async Task Handle(
+            ServerScriptsSystemReloadedAdminClientAction args
         )
         {
             await Mediator.Send(

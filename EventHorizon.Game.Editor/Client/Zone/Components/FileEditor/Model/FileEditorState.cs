@@ -6,5 +6,6 @@
     {
         public EditorFile EditorFile { get; set; } = new EditorFile();
         public EditorNode EditorNode { get; set; } = new EditorNode();
+        public EditorFileErrorDetails FileErrorDetails { get; set; } = new EditorFileErrorDetails(string.Empty);
     }
 }
