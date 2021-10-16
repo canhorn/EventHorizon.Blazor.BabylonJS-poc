@@ -74,6 +74,7 @@ COPY EventHorizon.Game.Editor/Zone/EventHorizon.Game.Editor.Zone.Api/EventHorizo
 COPY EventHorizon.Game.Editor/Shared/EventHorizon.Game.Editor.Shared.csproj ./EventHorizon.Game.Editor/Shared/EventHorizon.Game.Editor.Shared.csproj
 
 ## Zone Systems
+COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.System.Server.Scripts/EventHorizon.Zone.System.Server.Scripts.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.System.Server.Scripts/EventHorizon.Zone.System.Server.Scripts.csproj
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ClientAssets/EventHorizon.Zone.Systems.ClientAssets.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ClientAssets/EventHorizon.Zone.Systems.ClientAssets.csproj
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.DataStorage/EventHorizon.Zone.Systems.DataStorage.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.DataStorage/EventHorizon.Zone.Systems.DataStorage.csproj
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/EventHorizon.Zone.Systems.Wizard.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/EventHorizon.Zone.Systems.Wizard.csproj
