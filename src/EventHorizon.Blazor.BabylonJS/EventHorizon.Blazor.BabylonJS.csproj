@@ -31,7 +31,7 @@
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Game.Client.Systems\EventHorizon.Game.Client.Systems.csproj" />
         <ProjectReference Include="..\EventHorizon.Game.Client\EventHorizon.Game.Client.csproj" />
-        <ProjectReference Include="..\EventHorizon.Platform.LogProvider\EventHorizon.Platform.LogProvider.csproj" />
+        <ProjectReference Include="..\Platform\EventHorizon.Platform.LogProvider\EventHorizon.Platform.LogProvider.csproj" />
         <ProjectReference Include="..\Server\EventHorizon.Game.Server\EventHorizon.Game.Server.csproj" />
         <ProjectReference Include="..\Shared\EventHorizon.ApplicationDetails.Component\EventHorizon.ApplicationDetails.Component.csproj" />
     </ItemGroup>

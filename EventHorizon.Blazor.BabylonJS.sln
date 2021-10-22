@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{072FB275-8291-4979-B319-22237D5E7C6E}"
 EndProject
@@ -55,11 +55,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Blazor.BabylonJS.Server", "src\EventHorizon.Blazor.BabylonJS.Server\EventHorizon.Blazor.BabylonJS.Server.csproj", "{99822E0B-DF08-4A5A-B008-EF828A9064FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Platform.LogProvider", "src\EventHorizon.Platform.LogProvider\EventHorizon.Platform.LogProvider.csproj", "{EA81C246-E1B7-4ED1-8B53-8F477F890692}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Connection.Shared", "src\EventHorizon.Connection.Shared\EventHorizon.Connection.Shared.csproj", "{1EDB86C7-A3FD-4534-91C4-F72BCECE2904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.ApplicationDetails.Component", "src\Shared\EventHorizon.ApplicationDetails.Component\EventHorizon.ApplicationDetails.Component.csproj", "{CEDBA85B-7B4F-4340-8CB8-03605C288D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.ApplicationDetails.Component", "src\Shared\EventHorizon.ApplicationDetails.Component\EventHorizon.ApplicationDetails.Component.csproj", "{CEDBA85B-7B4F-4340-8CB8-03605C288D03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{CE5ADA0B-06F9-49AF-8B4F-9F6706FD14FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Platform.Integration", "src\Platform\EventHorizon.Platform.Integration\EventHorizon.Platform.Integration.csproj", "{B950F243-BF3E-41EE-91DA-05D304FED019}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Platform.LogProvider", "src\Platform\EventHorizon.Platform.LogProvider\EventHorizon.Platform.LogProvider.csproj", "{54109F32-D85E-4D52-8DF1-D8A115AEEC30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,10 +135,6 @@ Global
 		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99822E0B-DF08-4A5A-B008-EF828A9064FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA81C246-E1B7-4ED1-8B53-8F477F890692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA81C246-E1B7-4ED1-8B53-8F477F890692}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA81C246-E1B7-4ED1-8B53-8F477F890692}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA81C246-E1B7-4ED1-8B53-8F477F890692}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1EDB86C7-A3FD-4534-91C4-F72BCECE2904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1EDB86C7-A3FD-4534-91C4-F72BCECE2904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EDB86C7-A3FD-4534-91C4-F72BCECE2904}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -143,6 +143,14 @@ Global
 		{CEDBA85B-7B4F-4340-8CB8-03605C288D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEDBA85B-7B4F-4340-8CB8-03605C288D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEDBA85B-7B4F-4340-8CB8-03605C288D03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B950F243-BF3E-41EE-91DA-05D304FED019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B950F243-BF3E-41EE-91DA-05D304FED019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B950F243-BF3E-41EE-91DA-05D304FED019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B950F243-BF3E-41EE-91DA-05D304FED019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54109F32-D85E-4D52-8DF1-D8A115AEEC30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54109F32-D85E-4D52-8DF1-D8A115AEEC30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54109F32-D85E-4D52-8DF1-D8A115AEEC30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54109F32-D85E-4D52-8DF1-D8A115AEEC30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,9 +176,11 @@ Global
 		{F618DF54-0226-45C8-B06D-145C462D9570} = {072FB275-8291-4979-B319-22237D5E7C6E}
 		{4B559D52-FD1B-42B1-8410-473DD8930537} = {F618DF54-0226-45C8-B06D-145C462D9570}
 		{99822E0B-DF08-4A5A-B008-EF828A9064FF} = {072FB275-8291-4979-B319-22237D5E7C6E}
-		{EA81C246-E1B7-4ED1-8B53-8F477F890692} = {072FB275-8291-4979-B319-22237D5E7C6E}
 		{1EDB86C7-A3FD-4534-91C4-F72BCECE2904} = {072FB275-8291-4979-B319-22237D5E7C6E}
 		{CEDBA85B-7B4F-4340-8CB8-03605C288D03} = {83FB871D-A07C-4875-A917-774E055914FE}
+		{CE5ADA0B-06F9-49AF-8B4F-9F6706FD14FA} = {072FB275-8291-4979-B319-22237D5E7C6E}
+		{B950F243-BF3E-41EE-91DA-05D304FED019} = {CE5ADA0B-06F9-49AF-8B4F-9F6706FD14FA}
+		{54109F32-D85E-4D52-8DF1-D8A115AEEC30} = {CE5ADA0B-06F9-49AF-8B4F-9F6706FD14FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9497D11D-7D24-4DE2-A904-0ADE224939B6}

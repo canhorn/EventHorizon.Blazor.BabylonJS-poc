@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Platform\EventHorizon.Platform.Integration\EventHorizon.Platform.Integration.csproj" />
     <ProjectReference Include="..\Client\EventHorizon.Game.Editor.Client.csproj" />
   </ItemGroup>
 

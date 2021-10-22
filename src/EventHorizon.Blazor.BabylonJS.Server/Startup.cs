@@ -1,5 +1,7 @@
 namespace EventHorizon.Blazor.BabylonJS.Server
 {
+    using EventHorizon.Platform;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -44,6 +46,12 @@ namespace EventHorizon.Blazor.BabylonJS.Server
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapPlatformDetails(
+                    options => options.SetVersion(
+                        Configuration["APPLICATION_VERSION"]
+                    )
+                );
+
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");

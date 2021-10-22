@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventHorizon.Blazor.BabylonJS\EventHorizon.Blazor.BabylonJS.csproj" />
+    <ProjectReference Include="..\Platform\EventHorizon.Platform.Integration\EventHorizon.Platform.Integration.csproj" />
   </ItemGroup>
 
 

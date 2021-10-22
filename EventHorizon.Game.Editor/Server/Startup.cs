@@ -1,5 +1,7 @@
 namespace EventHorizon.Game.Editor.Server
 {
+    using EventHorizon.Platform;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -53,6 +55,12 @@ namespace EventHorizon.Game.Editor.Server
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapPlatformDetails(
+                    options => options.SetVersion(
+                        Configuration["APPLICATION_VERSION"]
+                    )
+                );
+
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapFallbackToFile("index.html");
