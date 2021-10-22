@@ -22,145 +22,162 @@ resources:
   - container: client_packages
     image: canhorn/ehz-client-packages:latest
 
-steps:
-- task: DockerInstaller@0
-  displayName: Docker Installer
-  inputs:
-    dockerVersion: 18.03.0-ce
-    releaseType: stable
-
-- task: Docker@2
-  displayName: Build Restore Base Image 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-client-base
-    arguments: --target dotnet-restore
-    tags: $(Build.BuildNumber)
-
-
-# Client Layers
-- task: Docker@2
-  displayName: Run Build - EventHorizon.Blazor.BabylonJS 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-client-build
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-client
-    tags: $(Build.BuildNumber)
-- task: Docker@2
-  displayName: Run Publish - EventHorizon.Blazor.BabylonJS 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-client-publish
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-publish-client
-    tags: $(Build.BuildNumber)
+jobs:
+- job: Build_Base_Image
+  steps:
+  - task: DockerInstaller@0
+    displayName: Docker Installer
+    inputs:
+      dockerVersion: 18.03.0-ce
+      releaseType: stable
+  - task: Docker@2
+    displayName: Build Restore Base Image 
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-client-base
+      arguments: --target dotnet-restore
+      tags: $(Build.BuildNumber)
 
 
-# Editor Layers
-- task: Docker@2
-  displayName: Run Build - EventHorizon.Game.Editor 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-editor-build
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-editor
-    tags: $(Build.BuildNumber)
-- task: Docker@2
-  displayName: Run Publish - EventHorizon.Game.Editor 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-editor-publish
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-publish-editor
-    tags: $(Build.BuildNumber)
+- job: Build_Client
+  dependsOn:
+  - Build_Base_Image
+  steps:
+  - task: DockerInstaller@0
+    displayName: Docker Installer
+    inputs:
+      dockerVersion: 18.03.0-ce
+      releaseType: stable
+  - task: Docker@2
+    displayName: Run Build - EventHorizon.Blazor.BabylonJS 
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-client-build
+      arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-client
+      tags: $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Run Publish - EventHorizon.Blazor.BabylonJS 
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-client-publish
+      arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-publish-client
+      tags: $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Build Image - EventHorizon.Blazor.BabylonJS 
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-client
+      arguments: --build-arg Version=$(Build.BuildNumber) --target client-runtime
+      tags: |
+        latest
+        $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Push Image - EventHorizon.Blazor.BabylonJS 
+    condition: and(succeeded(), eq(variables.IsMain, true))
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-client
+      tags: |
+        latest
+        $(Build.BuildNumber)
 
 
-# Build Runtime Images
-- task: Docker@2
-  displayName: Build Image - EventHorizon.Blazor.BabylonJS Packages 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-client-packages
-    arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-nuget-push
-    tags: |
-      latest
-      $(Build.BuildNumber)
-
-- task: Docker@2
-  displayName: Build Image - EventHorizon.Game.Editor 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-editor
-    arguments: --build-arg Version=$(Build.BuildNumber) --target editor-runtime
-    tags: |
-      latest
-      $(Build.BuildNumber)
-
-- task: Docker@2
-  displayName: Build Image - EventHorizon.Blazor.BabylonJS 
-  inputs: 
-    command: build
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-client
-    arguments: --build-arg Version=$(Build.BuildNumber) --target client-runtime
-    tags: |
-      latest
-      $(Build.BuildNumber)
-
-
-# Push Runtime Images to Docker Hub
-- task: Docker@2
-  displayName: Push Image - EventHorizon.Blazor.BabylonJS 
-  condition: and(succeeded(), eq(variables.IsMain, true))
-  inputs: 
-    command: push
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-client
-    tags: |
-      latest
-      $(Build.BuildNumber)
-      
-- task: Docker@2
-  displayName: Push Image - EventHorizon.Game.Editor 
-  condition: and(succeeded(), eq(variables.IsMain, true))
-  inputs: 
-    command: push
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-platform-server-editor
-    tags: |
-      latest
-      $(Build.BuildNumber)
-      
-- task: Docker@2
-  displayName: Push Image - EventHorizon.Blazor.BabylonJS Packages 
-  condition: and(succeeded(), eq(variables.IsMain, true))
-  inputs: 
-    command: push
-    containerRegistry: docker-hub
-    buildContext: $(Build.SourcesDirectory)
-    repository: canhorn/ehz-client-packages
-    tags: |
-      latest
-      $(Build.BuildNumber)
+- job: Build_Editor
+  dependsOn:
+  - Build_Base_Image
+  steps:
+  - task: DockerInstaller@0
+    displayName: Docker Installer
+    inputs:
+      dockerVersion: 18.03.0-ce
+      releaseType: stable
+  - task: Docker@2
+    displayName: Run Build - EventHorizon.Game.Editor 
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-editor-build
+      arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-build-editor
+      tags: $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Run Publish - EventHorizon.Game.Editor 
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-editor-publish
+      arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-publish-editor
+      tags: $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Build Image - EventHorizon.Game.Editor 
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-editor
+      arguments: --build-arg Version=$(Build.BuildNumber) --target editor-runtime
+      tags: |
+        latest
+        $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Push Image - EventHorizon.Game.Editor 
+    condition: and(succeeded(), eq(variables.IsMain, true))
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-editor
+      tags: |
+        latest
+        $(Build.BuildNumber)
 
 
-# Push NuGet Packages
-- script: docker run --rm --name push-packages canhorn/ehz-client-packages:latest --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
-  displayName: NuGet Package Push - EventHorizon.Blazor.BabylonJS 
-  condition: and(succeeded(), eq(variables.IsMain, true))
-  env:
-    NUGET_API_KEY: $(NUGET_API_KEY)
+- job: Build_Package
+  dependsOn:
+  - Build_Editor
+  - Build_Client
+  steps:
+  - task: DockerInstaller@0
+    displayName: Docker Installer
+    inputs:
+      dockerVersion: 18.03.0-ce
+      releaseType: stable
+  - task: Docker@2
+    displayName: Build Image - EventHorizon.Blazor.BabylonJS Packages 
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-client-packages
+      arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-nuget-push
+      tags: |
+        latest
+        $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Push Image - EventHorizon.Blazor.BabylonJS Packages 
+    condition: and(succeeded(), eq(variables.IsMain, true))
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-client-packages
+      tags: |
+        latest
+        $(Build.BuildNumber)
+  # Push NuGet Packages
+  - script: docker run --rm --name push-packages canhorn/ehz-client-packages:latest --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+    displayName: NuGet Package Push - EventHorizon.Blazor.BabylonJS 
+    condition: and(succeeded(), eq(variables.IsMain, true))
+    env:
+      NUGET_API_KEY: $(NUGET_API_KEY)
