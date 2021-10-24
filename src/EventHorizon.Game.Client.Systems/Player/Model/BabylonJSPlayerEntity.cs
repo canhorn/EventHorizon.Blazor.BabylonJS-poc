@@ -19,8 +19,6 @@
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Model;
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedTracker.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedTracker.Model;
-    using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Api;
-    using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Model;
 
     public class BabylonJSPlayerEntity
         : StandardServerEntity,
@@ -85,14 +83,6 @@
 
             await _mediator.Send(
                 new RegisterAllPlayerModulesOnEntityCommand(
-                    this
-                )
-            );
-
-            // TODO: Put this into a Server Player EntityModule
-            RegisterModule(
-                SkillSelectionModule.MODULE_NAME,
-                new StandardSkillSelectionModule(
                     this
                 )
             );
