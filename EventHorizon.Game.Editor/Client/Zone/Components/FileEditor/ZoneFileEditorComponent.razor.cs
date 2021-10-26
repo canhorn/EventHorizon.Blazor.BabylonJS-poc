@@ -131,7 +131,9 @@
                 ZoneFileEditorPendingValueKey(
                     FileEditorState.EditorNode.Id
                 ),
-                editorValue
+                new EditorFilePendingContent(
+                    editorValue ?? string.Empty
+                )
             );
             FileChangesPendingDisplayState = ComponentState.Content;
 
@@ -174,11 +176,11 @@
         {
             if (_pendingSaveValue.IsNullOrEmpty())
             {
-                _pendingSaveValue = await LocalStorage.GetItemAsStringAsync(
+                _pendingSaveValue = (await LocalStorage.GetItemAsync<EditorFilePendingContent>(
                     ZoneFileEditorPendingValueKey(
                         FileEditorState.EditorNode.Id
                     )
-                ) ?? string.Empty;
+                ))?.Content ?? string.Empty;
             }
 
             var value = FileEditorState.EditorFile.Content;
@@ -187,8 +189,8 @@
             {
                 value = _pendingSaveValue;
                 await ShowMessage(
-                    Localizer["Loaded Pending Editor File Changes"],
-                    Localizer[""],
+                    Localizer["Editor File"],
+                    Localizer["Pending changes for this file were found."],
                     MessageLevel.Warning
                 );
                 FileChangesPendingDisplayState = ComponentState.Content;
