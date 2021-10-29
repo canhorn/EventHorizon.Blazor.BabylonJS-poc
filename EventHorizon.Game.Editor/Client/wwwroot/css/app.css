@@ -109,6 +109,16 @@ hr {
     color: var(--info);
 }
 
+.--animated-display-none {
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .--animated-display-none {
+        opacity: initial;
+    }
+}
+
 pre {
     padding: 0.5rem;
     overflow: auto;
