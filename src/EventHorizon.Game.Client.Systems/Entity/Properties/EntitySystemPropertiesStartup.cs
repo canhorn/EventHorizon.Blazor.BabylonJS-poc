@@ -8,6 +8,8 @@
     using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Model;
     using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Api;
     using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Model;
+    using EventHorizon.Game.Client.Systems.Entity.Properties.Selection.Api;
+    using EventHorizon.Game.Client.Systems.Entity.Properties.Selection.Model;
 
     using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +21,7 @@
             .AddSingleton<IMapper<InteractionState>, StandardMapper<InteractionState, InteractionStateModel>>()
             .AddSingleton<IMapper<IModelState>, StandardMapper<IModelState, ModelStateModel>>()
             .AddSingleton<IMapper<IMovementState>, StandardMapper<IMovementState, MovementStateModel>>()
+            .AddSingleton<IMapper<SelectionState>, StandardMapper<SelectionState, SelectionStateModel>>()
         ;
     }
 }

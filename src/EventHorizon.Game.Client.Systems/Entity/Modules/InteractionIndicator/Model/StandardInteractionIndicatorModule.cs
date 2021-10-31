@@ -47,11 +47,7 @@
             var interactionState = interactionStateOption.Value;
             if (interactionState.ParticleTemplate.IsNullOrEmpty())
             {
-                // TODO: [Owner Logging] - Make this a Platform Extension method.
-                _logger.LogWarning(
-                    "ParticleTemplate missing from Entity.InteractionState. {WarningType} | {ErrorCode} | {EntityType} | {State} | {Property}",
-                    "module_warning",
-                    "state_property_missing",
+                _logger.LogPropertyMissing(
                     nameof(IObjectEntity),
                     nameof(InteractionState),
                     nameof(InteractionState.ParticleTemplate)

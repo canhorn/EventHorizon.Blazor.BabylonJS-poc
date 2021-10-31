@@ -2,12 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+
     using BabylonJS;
+
     using EventHorizon.Blazor.Interop;
     using EventHorizon.Game.Client.Engine.Entity.Model;
     using EventHorizon.Game.Client.Engine.Particle.Api;
     using EventHorizon.Game.Client.Engine.Particle.Model;
     using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
+
     using Microsoft.Extensions.Logging;
 
     public class BabylonJSParticleSettingsIntoParticleSystemMapper
@@ -59,6 +62,15 @@
                 {
                     if (setting.Key == "particleTexture")
                     {
+                        if (setting.Value.IsNull()
+                            || (setting.Value is string textureUrl
+                                && textureUrl.IsNullOrEmpty()
+                            )
+                        )
+                        {
+                            particleSystem.Value.particleTexture = CreateMissingTexture();
+                            continue;
+                        }
                         particleSystem.Value.particleTexture = new Texture(
                             null!,
                             AssetServer.CreateAssetLocationUrl(
@@ -125,6 +137,28 @@
                         "Failed to Map Settings into BabylonJS Particle System."
                     );
             }
+        }
+
+        private static DynamicTexture CreateMissingTexture()
+        {
+            var dynamicTexture = new DynamicTexture(
+                null!,
+                new
+                {
+                    Width = 32,
+                    Height = 32,
+                },
+                true
+            );
+            dynamicTexture.drawText(
+                "X",
+                "24",
+                "white",
+                "red",
+                invertY: true,
+                update: true
+            );
+            return dynamicTexture;
         }
 
         private static void SetPropertyOnParticleSystem(

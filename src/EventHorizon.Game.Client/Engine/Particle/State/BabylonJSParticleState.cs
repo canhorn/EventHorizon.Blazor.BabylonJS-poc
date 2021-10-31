@@ -1,17 +1,19 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Particle.State
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Exceptions;
+
     using EventHorizon.Game.Client.Engine.Particle.Api;
     using EventHorizon.Game.Client.Engine.Particle.Model;
     using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
+
+    using Microsoft.Extensions.Logging;
 
     public class BabylonJSParticleState
         : ParticleState,
         ParticleLifecycleService
     {
+        private readonly ILogger _logger = GamePlatfrom.Logger<ParticleState>();
         private readonly IDictionary<long, EngineParticleSystem> _particleSystemList = new Dictionary<long, EngineParticleSystem>();
         private readonly IDictionary<string, ParticleTemplate> _particleTemplateList = new Dictionary<string, ParticleTemplate>();
 
@@ -53,22 +55,44 @@
         )
         {
             if (!_particleTemplateList.ContainsKey(
-                templateId
-            ))
+                    templateId
+                ) || templateId.Equals(
+                    DefaultParticleSettings.DEFAULT_TEMPLATE_ID
+                )
+            )
             {
-                throw new GameException(
-                    "particle_template_not_found",
-                    $"Particle Template was not Found. templateId: {templateId}"
+                var defaultParticleSystem = new BabylonJSEngineParticleSystem(
+                    id,
+                    ParticleSettingsModel.Merge(
+                        DefaultParticleSettings.Settings,
+                        settings,
+                        GetGeneratedSettings(
+                            settings
+                        )
+                    )
                 );
+                _particleSystemList[defaultParticleSystem.Id] = defaultParticleSystem;
+
+                _logger.LogPlatformWarning(
+                    nameof(ParticleState),
+                    "template_not_found",
+                    $"TemplateId: {templateId}"
+                );
+
+                return Task.CompletedTask;
             }
-            if(_particleSystemList.ContainsKey(
+            
+            if (_particleSystemList.ContainsKey(
                 id
             ))
             {
-                throw new GameException(
+                _logger.LogPlatformWarning(
+                    nameof(ParticleState),
                     "engine_particle_system_already_exists",
-                    $"Engine Particle System already exists. templateId: {templateId}"
+                    $"TemplateId: {templateId}"
                 );
+
+                return Task.CompletedTask;
             }
 
             var template = _particleTemplateList[templateId];

@@ -6,6 +6,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Core.Builder.Api;
     using EventHorizon.Game.Client.Core.Mapper.Api;
     using EventHorizon.Game.Client.Engine.Core.Api;
@@ -15,6 +16,7 @@
     using EventHorizon.Game.Client.Engine.Lifecycle.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Api;
+
     using Microsoft.Extensions.Logging;
 
     public abstract class LifecycleEntityBase

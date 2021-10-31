@@ -1,6 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Particle.Model
 {
-    using System;
+    using EventHorizon.Game.Client.Engine.Particle.State;
 
     public struct ParticleEmitterOptions
     {
@@ -20,6 +20,11 @@
             TemplateId = templateId;
             IgnoreMeshVisibility = ignoreMeshVisibility;
             StartAfterCreated = startAfterCreated;
+
+            if (TemplateId.IsNullOrEmpty())
+            {
+                TemplateId = DefaultParticleSettings.DEFAULT_TEMPLATE_ID;
+            }
         }
     }
 }

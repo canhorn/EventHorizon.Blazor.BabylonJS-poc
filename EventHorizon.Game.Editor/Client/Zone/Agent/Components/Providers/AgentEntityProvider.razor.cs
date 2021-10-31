@@ -44,6 +44,7 @@
             // Copy all Data into Raw data for the Agent
             if (entity is ObjectEntityDetailsModel objectEntity)
             {
+                // TODO: Look into this, it might be removing cross Game Server Data
                 objectEntity.RawData = objectEntity.Data;
             }
             var result = await Mediator.Send(

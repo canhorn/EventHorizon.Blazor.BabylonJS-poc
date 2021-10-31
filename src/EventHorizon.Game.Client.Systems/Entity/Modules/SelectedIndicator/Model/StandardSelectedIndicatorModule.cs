@@ -1,16 +1,17 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Model
 {
-    using System;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Engine.Core.Api;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Api;
+    using EventHorizon.Game.Client.Systems.Entity.Properties.Selection.Api;
     using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
     using EventHorizon.Game.Client.Systems.Particle.Api;
     using EventHorizon.Game.Client.Systems.Particle.Model;
     using EventHorizon.Game.Server.ClientAction.Agent;
+
     using Microsoft.Extensions.Logging;
 
     public class StandardSelectedIndicatorModule
@@ -19,8 +20,6 @@
         PointerHitEntityEventObserver,
         ClearPointerHitEntityEventObserver
     {
-        private static string SELECTED_INDICATOR_TEMPLATE_ID => "Particle_SelectedIndicator";
-
         private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<StandardSelectedIndicatorModule>>();
 
         private readonly IObjectEntity _entity;
@@ -33,12 +32,29 @@
         )
         {
             _entity = entity;
+            var particleTemplateId = string.Empty;
+
+            var selectedStateOption = _entity.GetPropertyAsOption<SelectionState>(
+                SelectionState.NAME
+            );
+            if (selectedStateOption.HasValue)
+            {
+                particleTemplateId = selectedStateOption.Value.SelectedParticleTemplate;
+                if (selectedStateOption.Value.SelectedParticleTemplate.IsNullOrEmpty())
+                {
+                    _logger.LogPropertyMissing(
+                        nameof(IObjectEntity),
+                        nameof(SelectionState),
+                        nameof(SelectionState.SelectedParticleTemplate)
+                    );
+                }
+            }
 
             _activeParticle = new StandardServerParticle(
                 _entity,
                 new ParticleEmitterOptions(
                     GameServiceProvider.GetService<IIndexPool>().NextIndex(),
-                    SELECTED_INDICATOR_TEMPLATE_ID,
+                    particleTemplateId,
                     true,
                     false
                 )
