@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Model
 {
+    using System;
     using System.Collections.Generic;
 
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
@@ -21,6 +22,22 @@
             }
 
             return default(T);
+        }
+
+        public T Get<T>(
+            string key,
+            Func<T> defaultGenerator
+        )
+        {
+            var result = Get<T>(
+                key
+            );
+            if(result.HasValue.IsNotTrue())
+            {
+                return defaultGenerator();
+            }
+
+            return result.Value;
         }
     }
 }

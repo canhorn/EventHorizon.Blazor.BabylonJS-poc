@@ -1,28 +1,31 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Interaction.Model
 {
-    using System;
+    using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Core.Factory.Api;
     using EventHorizon.Game.Client.Core.Timer.Api;
     using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Entity.Modules.Interaction.Api;
+    using EventHorizon.Game.Client.Systems.Entity.Properties.Interaction.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.WithIn;
     using EventHorizon.Game.Client.Systems.Player.Query;
+
     using MediatR;
-    using Microsoft.Extensions.Logging;
 
     public class StandardInteractionModule
         : ModuleEntityBase,
         InteractionModule
     {
-        private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<StandardInteractionModule>>();
         private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
         private readonly IIntervalTimerService _playerCheckInterval = GameServiceProvider.GetService<IFactory<IIntervalTimerService>>().Create();
 
         private readonly IObjectEntity _entity;
 
         private bool _inDistance;
+        private InteractionState? _interactionState;
+        private int _interactionDistanceToPlayer = 10;
 
         public override int Priority => 0;
 
@@ -35,11 +38,33 @@
 
         public override Task Initialize()
         {
+            var interactionStateOption = _entity.GetPropertyAsOption<InteractionState>(
+                InteractionState.NAME
+            );
+            if (!interactionStateOption.HasValue
+                || !interactionStateOption.Value.Active
+            )
+            {
+                return Task.CompletedTask;
+            }
+            _interactionState = interactionStateOption.Value;
+
+            var entityConfiguration = _entity.GetEntityConfiguration();
+            var interactionConfig = entityConfiguration.Get(
+                InteractionConfiguration.KEY,
+                () => new InteractionConfiguration()
+            );
+
             _playerCheckInterval.Setup(
-                100, // TODO: [PlatformSetting] - This is a configuration point
+                interactionConfig.CheckInterval,
                 CheckForPlayerInDistance
             );
             _playerCheckInterval.Start();
+
+            _interactionDistanceToPlayer = _interactionState.List?
+                .Select(a => a.DistanceToPlayer)
+                .Max() ?? _interactionState.DistanceToPlayer;
+
 
             return Task.CompletedTask;
         }
@@ -62,6 +87,7 @@
             );
             if (!playerResult.Success
                 || _entity.EntityId == playerResult.Result.EntityId
+                || _interactionState.IsNull()
             )
             {
                 return;
@@ -73,8 +99,7 @@
             var toPlayer = playerPosition.Subtract(currentPosition);
             var distanceToPlayer = toPlayer.Length();
 
-            // TODO: Move to Entity Property State, so it can be customized
-            if (distanceToPlayer <= 10)
+            if (distanceToPlayer <= _interactionDistanceToPlayer)
             {
                 await _mediator.Publish(
                     new EntityWithinInteractionDistanceEvent(

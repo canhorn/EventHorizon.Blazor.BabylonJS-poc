@@ -1,7 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.MoveSelected.Model
 {
-    using System;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Engine.Entity.Api;
     using EventHorizon.Game.Client.Engine.Systems.Module.Model;
     using EventHorizon.Game.Client.Systems.Map.Hit;
@@ -10,6 +10,7 @@
     using EventHorizon.Game.Client.Systems.Player.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.MoveSelected.Api;
     using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Api;
+
     using MediatR;
 
     public class StandardMoveSelectedModule
@@ -58,11 +59,12 @@
                 SelectedCompanionTrackerModule.MODULE_NAME
             );
 
-            if (selectedCompanionTrackerModule.IsNotNull() 
+            if (selectedCompanionTrackerModule.IsNotNull()
                 && selectedCompanionTrackerModule.HasSelectedEntity
             )
             {
-                // TODO: [Combat] - Move into Player Property
+                // TODO: AB#372 - [Combat] - Move into Player Property
+                // The skillId from ObjectEntityConfiguration["moveSelectedConfig"]
                 await _mediator.Publish(
                     new InvokePlayerActionEvent(
                         "Player.RUN_SKILL",

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Core.Exceptions;
     using EventHorizon.Game.Client.Engine.Core.Api;
     using EventHorizon.Game.Client.Engine.Entity.Api;
@@ -18,6 +19,7 @@
     using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
     using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Api;
+
     using MediatR;
 
     // TODO: Create StateBase on new IState
