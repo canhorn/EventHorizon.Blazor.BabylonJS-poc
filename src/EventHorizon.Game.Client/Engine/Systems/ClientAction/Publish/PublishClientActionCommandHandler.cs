@@ -1,16 +1,16 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish
 {
-    using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Core.Command.Model;
     using EventHorizon.Game.Client.Core.Mapper.Api;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Execptions;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class PublishClientActionCommandHandler
@@ -54,6 +54,8 @@
             );
         }
     }
+
+    // TODO: [SDK] - Move into SDK
     public class ClientActionDataResolver
         : IClientActionDataResolver
     {
