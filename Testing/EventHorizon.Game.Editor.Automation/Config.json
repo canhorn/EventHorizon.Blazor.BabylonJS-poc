@@ -1,0 +1,26 @@
+{
+    "identityServer": {
+        "url": "https://identity.platform.ehzgames.studio",
+        "emailDomain": "ehzgames.studio",
+        "userPassword": "Password1!",
+        "defaultAdminUser": {
+            "email": "user@test.ehz",
+            "password": "Password1!"
+        }
+    },
+    "webHost": {
+        "baseUrl": "https://localhost:5001/",
+        "culture": "en-US",
+        "driver": {
+            "type": "edge-chromium",
+            "options": {
+                "arguments": [
+                    "headless",
+                    "disable-gpu",
+                    "window-size=1920,1080",
+                    "start-maximized"
+                ]
+            }
+        }
+    }
+}

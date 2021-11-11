@@ -87,12 +87,14 @@ namespace EventHorizon.Game.Editor.Client
             builder.Services.AddSingleton(
                 new GamePlatformServiceSettings()
                 {
-                    CoreServer = builder.Configuration[
-                        "Game:CoreServer"
-                    ],
-                    AssetServer = builder.Configuration[
-                        "Game:AssetServer"
-                    ],
+                    CoreServer =
+                        builder.Configuration[
+                            "Game:CoreServer"
+                        ] ?? string.Empty,
+                    AssetServer =
+                        builder.Configuration[
+                            "Game:AssetServer"
+                        ] ?? string.Empty,
                 }
             );
 
@@ -177,9 +179,9 @@ namespace EventHorizon.Game.Editor.Client
                         "Auth",
                         options.ProviderOptions
                     );
-                    var authScopes = builder.Configuration[
+                    var authScopes = (builder.Configuration[
                         "Auth:Scope"
-                    ].Split(" ");
+                    ] ?? string.Empty).Split(" ");
                     foreach (var authScope in authScopes)
                     {
                         options.ProviderOptions.DefaultScopes.Add(

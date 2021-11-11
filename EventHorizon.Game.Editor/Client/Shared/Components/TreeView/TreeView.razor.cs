@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.TreeView
 {
     using System.Collections.Generic;
+
     using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
+
     using Microsoft.AspNetCore.Components;
 
     public class TreeViewModel : ComponentBase

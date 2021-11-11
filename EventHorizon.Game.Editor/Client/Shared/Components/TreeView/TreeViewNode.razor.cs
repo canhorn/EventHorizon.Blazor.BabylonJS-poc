@@ -1,12 +1,12 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.TreeView
 {
+    using System;
+    using System.Threading.Tasks;
+
     using EventHorizon.Game.Editor.Client.Shared.ClickCapture;
     using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
 
     using Microsoft.AspNetCore.Components;
-
-    using System;
-    using System.Threading.Tasks;
 
     public class TreeViewNodeModel
         : ComponentBase,
