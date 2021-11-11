@@ -1,4 +1,29 @@
 ﻿@page "/wizard-editor"
+@using EventHorizon.Game.Editor.Client.Wizard.Api
 @using EventHorizon.Game.Editor.Client.Wizard.Components
 
-<WizardEditor />
+<h1>@Localizer["Wizards"]</h1>
+
+<div class="wizard-editor">
+    @if (State.CurrentStep)
+    {
+        <div data-test-selector="wizard-editor-page__step-editor">
+            <WizardStepEditor Step="State.CurrentStep.Result"
+                          Data="State.CurrentData" />
+        </div>
+    }
+    else
+    {
+        <div data-test-selector="wizard-editor-page__list">
+            <WizardList />
+        </div>
+    }
+</div>
+
+@code {
+    [CascadingParameter]
+    public WizardState State { get; set; } = null!;
+
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+}

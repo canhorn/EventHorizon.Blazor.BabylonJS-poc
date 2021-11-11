@@ -11,7 +11,7 @@
     /// <summary>
     /// Pulled from .NET6
     /// </summary>
-    public class DynamicComponent : IComponent
+    public class _DynamicComponent : IComponent
     {
         private RenderHandle _renderHandle;
         private readonly RenderFragment _cachedRenderFragment;
@@ -19,7 +19,7 @@
         /// <summary>
         /// Constructs an instance of <see cref="DynamicComponent"/>.
         /// </summary>
-        public DynamicComponent()
+        public _DynamicComponent()
         {
             _cachedRenderFragment = Render;
         }
@@ -29,7 +29,9 @@
         /// implement <see cref="IComponent"/>.
         /// </summary>
         [Parameter]
-        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+        [DynamicallyAccessedMembers(
+            DynamicallyAccessedMemberTypes.All
+        )]
         public Type Type { get; set; } = default!;
 
         /// <summary>
@@ -45,7 +47,10 @@
         //     because they would shadow any coincidentally same-named ones on the target
         //     component. This could lead to application bugs.
         [Parameter]
-        public IDictionary<string, object>? Parameters { get; set; }
+        public IDictionary<
+            string,
+            object
+        >? Parameters { get; set; }
 
         /// <inheritdoc />
         public void Attach(RenderHandle renderHandle)
@@ -54,30 +59,49 @@
         }
 
         /// <inheritdoc />
-        public Task SetParametersAsync(ParameterView parameters)
+        public Task SetParametersAsync(
+            ParameterView parameters
+        )
         {
             // This manual parameter assignment logic will be marginally faster than calling
             // ComponentProperties.SetProperties.
             foreach (var entry in parameters)
             {
-                if (entry.Name.Equals(nameof(Type), StringComparison.OrdinalIgnoreCase))
+                if (
+                    entry.Name.Equals(
+                        nameof(Type),
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
                 {
                     Type = (Type)entry.Value;
                 }
-                else if (entry.Name.Equals(nameof(Parameters), StringComparison.OrdinalIgnoreCase))
+                else if (
+                    entry.Name.Equals(
+                        nameof(Parameters),
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                )
                 {
-                    Parameters = (IDictionary<string, object>)entry.Value;
+                    Parameters =
+                        (IDictionary<
+                            string,
+                            object
+                        >)entry.Value;
                 }
                 else
                 {
                     throw new InvalidOperationException(
-                        $"{nameof(DynamicComponent)} does not accept a parameter with the name '{entry.Name}'. To pass parameters to the dynamically-rendered component, use the '{nameof(Parameters)}' parameter.");
+                        $"{nameof(DynamicComponent)} does not accept a parameter with the name '{entry.Name}'. To pass parameters to the dynamically-rendered component, use the '{nameof(Parameters)}' parameter."
+                    );
                 }
             }
 
             if (Type is null)
             {
-                throw new InvalidOperationException($"{nameof(DynamicComponent)} requires a non-null value for the parameter {nameof(Type)}.");
+                throw new InvalidOperationException(
+                    $"{nameof(DynamicComponent)} requires a non-null value for the parameter {nameof(Type)}."
+                );
             }
 
             _renderHandle.Render(_cachedRenderFragment);
@@ -92,7 +116,11 @@
             {
                 foreach (var entry in Parameters)
                 {
-                    builder.AddAttribute(1, entry.Key, entry.Value);
+                    builder.AddAttribute(
+                        1,
+                        entry.Key,
+                        entry.Value
+                    );
                 }
             }
 

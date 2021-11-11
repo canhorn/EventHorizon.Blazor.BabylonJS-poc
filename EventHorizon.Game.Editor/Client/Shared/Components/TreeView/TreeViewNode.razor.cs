@@ -2,16 +2,19 @@
 {
     using EventHorizon.Game.Editor.Client.Shared.ClickCapture;
     using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
+
     using Microsoft.AspNetCore.Components;
+
     using System;
     using System.Threading.Tasks;
 
     public class TreeViewNodeModel
         : ComponentBase,
-        IDisposable
+          IDisposable
     {
         [CascadingParameter]
-        public ClickCaptureProvider ClickCapture { get; set; } = null!;
+        public ClickCaptureProvider ClickCapture { get; set; } =
+            null!;
 
         [Parameter]
         public TreeViewNodeData Node { get; set; } = null!;
@@ -19,12 +22,14 @@
         public EventCallback<TreeViewNodeData> OnChanged { get; set; }
 
         [Inject]
-        public NavigationManager NavigationManager { get; set; } = null!;
+        public NavigationManager NavigationManager { get; set; } =
+            null!;
 
-        public ContextMenuState ContextMenu { get; set; } = new ContextMenuState();
+        public ContextMenuState ContextMenu { get; set; } =
+            new ContextMenuState();
 
-        protected bool IsParentNode => Node.Children?.Count > 0;
-
+        protected bool IsParentNode =>
+            Node.Children?.Count > 0;
 
         protected override void OnInitialized()
         {
@@ -38,13 +43,18 @@
 
         private void CheckAndSetupContextMenu()
         {
-            if (Node.ContextMenu != null 
+            if (
+                Node.ContextMenu != null
                 && Node.ContextMenu.Items.Count > 0
             )
             {
                 ContextMenu.Enabled = true;
-                ClickCapture.OnMouseClick(HandleCloseContextMenu);
-                ClickCapture.OnContextMenu(HandleCloseContextMenu);
+                ClickCapture.OnMouseClick(
+                    HandleCloseContextMenu
+                );
+                ClickCapture.OnContextMenu(
+                    HandleCloseContextMenu
+                );
             }
         }
 
@@ -62,9 +72,9 @@
 
         protected string GetNodeHref()
         {
-            return !string.IsNullOrWhiteSpace(
-                Node.Href
-            ) ? Node.Href : "javascript:;";
+            return !string.IsNullOrWhiteSpace(Node.Href)
+              ? Node.Href
+              : "javascript:;";
         }
 
         protected string GetIconClass()
@@ -96,7 +106,7 @@
             await OnChanged.InvokeAsync(Node);
         }
 
-        protected string GetNavLinkClass()
+        protected static string GetNavLinkClass()
         {
             return $"tree-view__node-link --clickable";
         }
@@ -112,8 +122,12 @@
                 {
                     if (ContextMenu.Enabled)
                     {
-                        ClickCapture.OffMouseClick(ContextMenu.HandleCloseContextMenu);
-                        ClickCapture.OffContextMenu(ContextMenu.HandleCloseContextMenu);
+                        ClickCapture.OffMouseClick(
+                            ContextMenu.HandleCloseContextMenu
+                        );
+                        ClickCapture.OffContextMenu(
+                            ContextMenu.HandleCloseContextMenu
+                        );
                     }
                 }
 

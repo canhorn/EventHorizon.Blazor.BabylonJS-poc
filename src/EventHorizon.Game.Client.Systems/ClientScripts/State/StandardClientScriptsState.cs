@@ -16,14 +16,22 @@
     public class StandardClientScriptsState
         : ClientScriptsState
     {
-        private static readonly IList<Assembly> ASSEMBLIES = GameClientSDKRoot.ASSEMBLIES;
+        private static readonly IList<Assembly> ASSEMBLIES =
+            GameClientSDKRoot.ASSEMBLIES;
 
         private readonly ILogger _logger;
-        private readonly IDictionary<string, IClientScript> _scripts = new Dictionary<string, IClientScript>();
+        private readonly IDictionary<
+            string,
+            IClientScript
+        > _scripts = new Dictionary<
+            string,
+            IClientScript
+        >();
 
         private Assembly? _scriptAssembly;
 
-        public string Hash { get; private set; } = string.Empty;
+        public string Hash { get; private set; } =
+            string.Empty;
 
         public StandardClientScriptsState(
             ILogger<StandardClientScriptsState> logger
@@ -50,38 +58,29 @@
             _scripts.Clear();
         }
 
-        public Option<IClientScript> GetScript(
-            string id
-        )
+        public Option<IClientScript> GetScript(string id)
         {
-            id = NormailzeIdForAssemblyScriptLookup(
-                id
-            );
-            if (_scripts.TryGetValue(
-                id,
-                out var script
-            ))
+            id = NormailzeIdForAssemblyScriptLookup(id);
+            if (_scripts.TryGetValue(id, out var script))
             {
                 return script.ToOption();
             }
             if (_scriptAssembly == null)
             {
-                return new Option<IClientScript>(
-                    null
-                );
+                return new Option<IClientScript>(null);
             }
 
             // Get script from Assembly
             try
             {
-                if (_scriptAssembly.CreateObject(
-                    $"css_root+{id}"
-                ) is IClientScript assemblyScript)
+                if (
+                    _scriptAssembly.CreateInstance(
+                        $"css_root+{id}"
+                    )
+                    is IClientScript assemblyScript
+                )
                 {
-                    _scripts.Add(
-                        id,
-                        assemblyScript
-                    );
+                    _scripts.Add(id, assemblyScript);
                     return assemblyScript.ToOption();
                 }
             }
@@ -94,9 +93,7 @@
                 );
                 LogOutSupported();
             }
-            return new Option<IClientScript>(
-                null
-            );
+            return new Option<IClientScript>(null);
         }
 
         private void LogOutSupported()
@@ -107,14 +104,20 @@
             }
             var scriptNames = string.Join(
                 $"{Environment.NewLine}\t",
-                _scriptAssembly.GetTypes()
+                _scriptAssembly
+                    .GetTypes()
                     .Where(
-                        a => a.FullName?.StartsWith("css_root+") ?? false
-                    ).Select(
-                        a => a.FullName?.Replace(
-                            "css_root+",
-                            string.Empty
-                        ) ?? string.Empty
+                        a =>
+                            a.FullName?.StartsWith(
+                                "css_root+"
+                            ) ?? false
+                    )
+                    .Select(
+                        a =>
+                            a.FullName?.Replace(
+                                "css_root+",
+                                string.Empty
+                            ) ?? string.Empty
                     )
             );
             _logger.LogInformation(
@@ -133,10 +136,7 @@
             string id
         )
         {
-            return id.Replace(
-                ".js",
-                string.Empty
-            );
+            return id.Replace(".js", string.Empty);
         }
     }
 }

@@ -2,6 +2,13 @@
 @using EventHorizon.Game.Editor.Client.LiveEditor.Components
 @layout ThreeSplitLayout
 
+<h1>@Localizer["Live Editor"]</h1>
+
 <ZoneStateProvider>
     <LiveEditor />
 </ZoneStateProvider>
+
+@code {
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+}
