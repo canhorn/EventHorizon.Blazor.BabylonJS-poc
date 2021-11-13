@@ -20,19 +20,19 @@
             @if (IsParentNode)
             {
                 <span class="tree-view__node-icon --clickable @GetExpandedIconClass()"
-                      aria-hidden="true"></span>
+                  aria-hidden="true"></span>
             }
 
             @if (!IsParentNode)
             {
                 <span class="tree-view__node-icon --transparent oi oi-media-stop"
-                      aria-hidden="true"></span>
+                  aria-hidden="true"></span>
             }
 
             @if (Node.IconCssClass != null)
             {
                 <span class="tree-view__node-icon --clickable @GetIconClass()"
-                      aria-hidden="true"></span>
+                  aria-hidden="true"></span>
             }
 
             @if (Node.IconCssClass == null)
@@ -51,7 +51,7 @@
         @if (ContextMenu.Show)
         {
             <div class="tree-view__context-menu"
-                 data-selector="tree-node-context-menu">
+             data-selector="tree-node-context-menu">
                 @foreach (var contextItem in Node.ContextMenu.Items)
                 {
                     <div class="tree-view__context-menu__item"
@@ -63,15 +63,15 @@
             </div>
         }
 
-    </li>
-
-    @if (IsParentNode && Node.IsExpanded)
-    {
-        @foreach (var child in Node.Children)
+        @if (IsParentNode && Node.IsExpanded)
         {
-            <TreeViewNode Node="@child"
-                          OnChanged="OnChanged" />
+            @foreach (var child in Node.Children)
+            {
+                <TreeViewNode Node="@child"
+                              OnChanged="OnChanged" />
+            }
         }
-    }
+
+    </li>
 
 </ul>

@@ -2,13 +2,15 @@
     <Authorized>
         <a class="nav-link"
            href="authentication/logout"
-           @onclick="BeginSignOut">
+           @onclick="BeginSignOut"
+           data-test-selector="logout-link">
             @(LogoutDisplayText ?? Localizer["Logout"])
         </a>
     </Authorized>
     <NotAuthorized>
         <a class="nav-link"
-           href="authentication/login">
+           href="authentication/login"
+           data-test-selector="login-link">
             @(LoginDisplayText ?? Localizer["Login"])
         </a>
     </NotAuthorized>

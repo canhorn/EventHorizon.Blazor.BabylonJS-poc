@@ -2,7 +2,13 @@
 @layout MainLayout
 @using EventHorizon.Game.Editor.Client.Zone.Components.Commands
 
+<h1>@Localizer["Zone Command Console"]</h1>
 <ZoneStateProvider>
     <ZoneQuickCommands />
     <ZoneCommandResponseList />
 </ZoneStateProvider>
+
+@code {
+    [Inject]
+    public Localizer<SharedResource> Localizer { get; set; } = null!;
+}

@@ -17,10 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Zone", "Zone", "{A5D1ADDA-D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{B6E43740-6A89-4BDD-BE79-D37EF1AA5294}"
 	ProjectSection(SolutionItems) = preProject
+		..\.csharpierrc = ..\.csharpierrc
 		..\.dockerignore = ..\.dockerignore
 		..\.editorconfig = ..\.editorconfig
+		..\.onsaveconfig = ..\.onsaveconfig
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
-		Directory.Build.props = Directory.Build.props
+		..\Directory.Build.props = ..\Directory.Build.props
 		..\Dockerfile = ..\Dockerfile
 		..\readme.md = ..\readme.md
 	EndProjectSection

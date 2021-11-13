@@ -1,8 +1,9 @@
 ﻿@page "/zone/entity"
-@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components 
+@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components
 @layout MainLayout
 @inherits ZoneEntityListPageModel
 
 <ZoneStateProvider>
+    <h1>@Localizer["Entity Editor"]</h1>
     <EntityList />
 </ZoneStateProvider>

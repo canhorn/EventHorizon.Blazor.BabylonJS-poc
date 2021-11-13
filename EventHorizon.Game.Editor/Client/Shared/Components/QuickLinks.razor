@@ -2,7 +2,9 @@
 @using EventHorizon.Game.Editor.Client.Authentication.Set
 @using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
 
-<TreeView Root="@QuickLinkData" OnChanged="HandleTreeViewChanged" />
+<TreeView Root="@QuickLinkData"
+          OnChanged="HandleTreeViewChanged"
+          data-test-selector="quick-links-tree-view" />
 
 @code {
     [CascadingParameter]
@@ -22,13 +24,15 @@
 
         QuickLinkData = new TreeViewNodeData
         {
+            Id = "quick-link-pages",
             Name = "pages",
             Text = Localizer["Quick Links"],
             IsExpanded = (SessionValues.Get("quickLinks_IsExpanded", string.Empty) == "true"),
             Children = new List<TreeViewNodeData>
-{
+            {
                 new TreeViewNodeData
                 {
+                    Id = "quick-link__zone-entity",
                     Name = "zone-entity",
                     Text = Localizer["Entity Editor"],
                     Href = "/zone/entity",
@@ -36,6 +40,7 @@
                 },
                 new TreeViewNodeData
                 {
+                    Id = "quick-link__live-editor",
                     Name = "live-editor",
                     Text = Localizer["Live Editor"],
                     Href = "/live-editor",
@@ -43,6 +48,7 @@
                 },
                 new TreeViewNodeData
                 {
+                    Id = "quick-link__zone-commands",
                     Name = "zone-commands",
                     Text = Localizer["Zone Commands"],
                     Href = "/zone/commands",
@@ -50,6 +56,7 @@
                 },
                 new TreeViewNodeData
                 {
+                    Id = "quick-link__wizard-editor",
                     Name = "wizard-editor",
                     Text = Localizer["Wizard"],
                     Href = "/wizard-editor",
@@ -57,6 +64,7 @@
                 },
                 new TreeViewNodeData
                 {
+                    Id = "quick-link__data-storage",
                     Name = "data-storage",
                     Text = Localizer["Data Storage"],
                     Href = "/data-storage",
@@ -64,12 +72,12 @@
                 },
                 new TreeViewNodeData
                 {
+                    Id = "quick-link__asset-management",
                     Name = "asset-management",
                     Text = Localizer["Asset Management"],
                     Href = "/asset/management",
                     IconCssClass = "--icon oi oi-list-rich"
                 },
-
             }
         };
     }

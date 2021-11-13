@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Agent.Components.Toolbars
 {
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
@@ -12,22 +13,24 @@
     {
         public async Task HandleNew()
         {
-            var newAgentEntity = new ObjectEntityDetailsModel
-            {
-                Name = "New Agent Entity",
-            };
+            var newAgentEntity =
+                new ObjectEntityDetailsModel
+                {
+                    Name = "New Agent Entity",
+                };
 
             var result = await Mediator.Send(
-                new CreateAgentEntityCommand(
-                    newAgentEntity
-                )
+                new CreateAgentEntityCommand(newAgentEntity)
             );
 
             if (result.Success.IsNotTrue())
             {
                 await ShowMessage(
                     Localizer["Agent Entity"],
-                    Localizer["Create Agent Failed: {0}", result.ErrorCode],
+                    Localizer[
+                        "Create Agent Failed: {0}",
+                        result.ErrorCode
+                    ],
                     MessageLevel.Error
                 );
                 return;
@@ -35,7 +38,10 @@
 
             await ShowMessage(
                 Localizer["Agent Entity"],
-                Localizer["Created Agent Entity! {0}", result.Result.Id],
+                Localizer[
+                    "Created Agent Entity! {0}",
+                    result.Result.Id
+                ],
                 MessageLevel.Success
             );
             await Mediator.Send(

@@ -2,11 +2,12 @@
 
 <div class="wizard-list">
     <EditForm Model="this">
-        <div>
-            <input @bind-Value="@WizardFilter"
+        <div class="wizard-filter">
+            <input class="wizard-filter__input"
+                   @bind-Value="@WizardFilter"
                    @bind-Value:event="oninput"
                    placeholder="@Localizer["Search for Wizard"]" />
-            <button class="--sr-only" type="submit">
+            <button class="wizard-filter__submit --sr-only" type="submit">
                 @Localizer["Search for Wizard"]
             </button>
         </div>
@@ -16,9 +17,9 @@
                 @ErrorMessage
             </div>
         }
-        <table class="wizard-list__table --full">
+        <table class="wizard-table --full">
             <thead>
-                <tr class="wizard-header">
+                <tr class="wizard-table__header">
                     <th class="wizard-header__name">@Localizer["Name"]</th>
                     <th class="wizard-header__description">@Localizer["Description"]</th>
                     <th class="wizard-header__actions"></th>
@@ -27,7 +28,8 @@
             <tbody>
                 @foreach (var wizard in State.WizardList.Where(FilterBySearchText).OrderBy(a => a.Name))
                 {
-                    <tr class="wizard-container">
+                    <tr class="wizard-table__wizard-container"
+                    data-selector="@wizard.Id">
                         <td class="wizard-container__name">
                             @Localizer[wizard.Name]
                         </td>
@@ -35,8 +37,9 @@
                             @Localizer[wizard.Description]
                         </td>
                         <td class="wizard-container__actions">
-                            <button type="button"
-                                    @onclick="() => HandleWizardSelected(wizard)">
+                            <button class="wizard-container__select-button"
+                                type="button"
+                                @onclick="() => HandleWizardSelected(wizard)">
                                 @Localizer["Select"]
                             </button>
                         </td>
@@ -85,7 +88,9 @@
     )
     {
         return WizardFilter == string.Empty
-            || wizardMetadata.Name.ToLower().Contains(
+            || wizardMetadata.Id.ToLower().Contains(
+                WizardFilter.ToLower()
+            ) || wizardMetadata.Name.ToLower().Contains(
                 WizardFilter.ToLower()
             ) || wizardMetadata.Description.ToLower().Contains(
                 WizardFilter.ToLower()

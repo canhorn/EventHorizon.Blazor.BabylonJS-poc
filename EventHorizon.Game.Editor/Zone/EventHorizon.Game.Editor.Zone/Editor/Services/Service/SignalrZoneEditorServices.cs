@@ -50,7 +50,8 @@
             CancellationToken cancellationToken
         )
         {
-            if (_initialized
+            if (
+                _initialized
                 && zoneDetails.Id == _currentZoneId
             )
             {
@@ -75,29 +76,36 @@
                             TimeSpan.FromSeconds(30),
                             TimeSpan.FromSeconds(30),
                         }
-                    ).WithUrl(
+                    )
+                    .WithUrl(
                         $"{zoneDetails.ServerAddress}/systemEditor",
                         options =>
                         {
                             // options..LogLevel = SignalRLogLevel.Error;
-                            options.AccessTokenProvider = () => Task.FromResult(
-                                accessToken
-                            );
-
+                            options.AccessTokenProvider =
+                                () =>
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+                                    accessToken.FromResult();
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
                             // TODO: [BUG] - Look at this on a later date.
                             // Their is an issue with the sending of messages larger
                             //  than some arbitrary limit.
                             // This then causes the JSON to be broken up a weird spots
                             //  leading to a bad message being sent.
                             // To get around this LongPolling will not break up the message.
-                            options.Transports = HttpTransportType.LongPolling;
+                            //options.Transports = HttpTransportType.LongPolling;
                         }
-                    ).Build();
+                    )
+                    .Build();
 
-                _connection.Closed += HandleConnectionClosed;
-                await _connection.StartAsync(cancellationToken);
+                _connection.Closed +=
+                    HandleConnectionClosed;
+                await _connection.StartAsync(
+                    cancellationToken
+                );
                 _logger.LogInformation(
-                    "Connection State: " + _connection.State);
+                    "Connection State: " + _connection.State
+                );
                 Api = new SignalrZoneEditorApi(
                     _loggerFactory.CreateLogger<SignalrZoneEditorApi>(),
                     _connection
@@ -116,7 +124,11 @@
                     ex,
                     "Failed to start connection to Zone Editor."
                 );
-                if (ex.Message.Contains("401 (Unauthorized)"))
+                if (
+                    ex.Message.Contains(
+                        "401 (Unauthorized)"
+                    )
+                )
                 {
                     await _mediator.Publish(
                         new ConnectionUnauthorizedEvent(
@@ -128,9 +140,7 @@
                         ConnectionErrorTypes.Unauthorized
                     );
                 }
-                return new(
-                    ConnectionErrorTypes.Unknown
-                );
+                return new(ConnectionErrorTypes.Unknown);
             }
             catch (InvalidOperationException ex)
             {
@@ -148,20 +158,13 @@
                     ex,
                     "Generic Exception starting connection to Zone Editor Service."
                 );
-                return new(
-                    ConnectionErrorTypes.Unknown
-                );
+                return new(ConnectionErrorTypes.Unknown);
             }
         }
 
-        private Task HandleConnectionClosed(
-            Exception ex
-        )
+        private Task HandleConnectionClosed(Exception ex)
         {
-            _logger.LogInformation(
-                ex,
-                "Connection Lost"
-            );
+            _logger.LogInformation(ex, "Connection Lost");
             _connection = null;
             _initialized = false;
             _currentZoneId = string.Empty;
@@ -180,7 +183,7 @@
                 await _connection.DisposeAsync();
                 _connection = null;
                 Api = new SignalrZoneEditorApi(
-                    _loggerFactory.CreateLogger<SignalrZoneEditorApi>(), 
+                    _loggerFactory.CreateLogger<SignalrZoneEditorApi>(),
                     null
                 );
             }
@@ -195,10 +198,7 @@
             string message
         )
         {
-            _logger.LogWarning(
-                ex,
-                message
-            );
+            _logger.LogWarning(ex, message);
             if (_connection != null)
             {
                 await _connection.DisposeAsync();

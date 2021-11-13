@@ -1,7 +1,8 @@
 ﻿@inherits AgentEntityToolbarModel
 
-<StandardToolbar>
-    <StandardToolbarButton @onclick="HandleNew">
+<StandardToolbar data-test-selector="agent-entity__toolbar">
+    <StandardToolbarButton @onclick="HandleNew"
+                           data-selector="new-button">
         @Localizer["New"]
     </StandardToolbarButton>
 </StandardToolbar>

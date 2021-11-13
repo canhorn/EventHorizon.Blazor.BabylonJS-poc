@@ -1,10 +1,12 @@
 ﻿@inherits WizardStepServerProcessBase
 
 <div class="server-process">
-    <div class="server-process__name --font-bold --header-font-size">
+    <div class="server-process__name --font-bold --header-font-size"
+         data-test-selector="step-name">
         @Localizer[Step.Name]
     </div>
-    <div class="server-process__description">
+    <div class="server-process__description"
+         data-test-selector="step-description">
         <i class="fas fa-info-circle --info"></i> @Localizer[Step.Description]
     </div>
 

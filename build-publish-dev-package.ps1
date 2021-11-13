@@ -14,5 +14,8 @@ $version = [int]::Parse($file_data) + 1
 Set-Content -Path .dev.version -Value $version
 dotnet build --configuration Release /p:PackageIdPostfix=-Dev -p:PackageVersion="0.0.$($version)" -o Published;
 
-Get-ChildItem "Published/EventHorizon.*-Dev*$($version)*.nupkg" -Recurse | Select-Object FullName | ForEach-Object { dotnet nuget push $($_.FullName) -k $($env:NUGET_ORG_KEY) --source $nuget_source_feed }
+Get-ChildItem "Published/EventHorizon.*-Dev*$($version)*.nupkg" -Recurse | Select-Object FullName | ForEach-Object { 
+    echo "dotnet nuget push $($_.FullName) --source $nuget_source_feed"
+    dotnet nuget push $($_.FullName) --source $nuget_source_feed 
+}
 Get-ChildItem "Published/EventHorizon.*-Dev*$($version)*.nupkg" -Recurse | Select-Object FullName

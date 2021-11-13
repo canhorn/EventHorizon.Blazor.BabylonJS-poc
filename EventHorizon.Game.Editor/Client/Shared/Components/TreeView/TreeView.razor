@@ -1,6 +1,6 @@
 ﻿@inherits TreeViewModel
 
-<nav class="tree-view">
+<nav class="tree-view" @attributes="Attributes">
     <TreeViewNode Node="Root"
                   OnChanged="OnChanged" />
 </nav>
