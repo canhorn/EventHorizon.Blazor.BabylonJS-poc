@@ -1,17 +1,17 @@
-﻿@page "/asset/management/server/exports"
+﻿@page "/asset/management/server/backups"
 @using EventHorizon.Game.Editor.Client.AssetManagement.Components.Toolbars
-@inherits AssetServerExportsPageBase
+@inherits AssetServerBackupsPageBase
 
-<div class="asset-server-exports__page">
+<div class="asset-server-backups__page">
     <h1>
-        @Localizer["Asset Server Exports"]
+        @Localizer["Asset Server Backups"]
     </h1>
 
-    <div class="asset-server-exports__toolbar">
+    <div class="asset-server-backups__toolbar">
         <AssetServerToolbar />
     </div>
    
-    <table class="asset-server-exports__artifact-list --full">
+    <table class="asset-server-backups__artifact-list --full">
         <thead>
             <tr>
                 <th>@Localizer["Service"]</th>
@@ -21,20 +21,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var export in ArtifactList)
+            @foreach (var backup in ArtifactList)
             {
                 <tr>
                     <td>
-                        @export.Service
+                        @backup.Service
                     </td>
                     <td>
-                        @export.ReferenceId
+                        @backup.ReferenceId
                     </td>
                     <td>
-                        @export.CreatedDate
+                        @backup.CreatedDate
                     </td>
                     <td>
-                        <a href="@export.Path" target="_blank">
+                        <a href="@backup.Path" target="_blank">
                             @Localizer["Download"]
                         </a>
                     </td>

@@ -8,12 +8,12 @@ using EventHorizon.Game.Server.Asset.Model;
 
 using Microsoft.AspNetCore.SignalR.Client;
 
-public class SignalrAssetServerExportAdminApi
-    : AssetServerExportAdminApi
+public class SignalrAssetServerCommonAdminApi
+    : AssetServerCommonAdminApi
 {
     private readonly HubConnection? _hubConnection;
 
-    internal SignalrAssetServerExportAdminApi(
+    internal SignalrAssetServerCommonAdminApi(
         HubConnection? hubConnection
     )
     {
@@ -21,12 +21,12 @@ public class SignalrAssetServerExportAdminApi
     }
 
     public async Task<
-        ApiResponse<ExportTriggerResult>
-    > Trigger(CancellationToken cancellationToken)
+        ApiResponse<ArtifactListResult>
+    > ArtifactList(CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
-            return new ApiResponse<ExportTriggerResult>
+            return new ApiResponse<ArtifactListResult>
             {
                 Success = false,
                 ErrorCode =
@@ -35,9 +35,9 @@ public class SignalrAssetServerExportAdminApi
         }
 
         return await _hubConnection.InvokeAsync<
-            ApiResponse<ExportTriggerResult>
+            ApiResponse<ArtifactListResult>
         >(
-            "Asset_Export_Trigger",
+            "ArtifactList",
             cancellationToken: cancellationToken
         );
     }

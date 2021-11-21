@@ -10,13 +10,16 @@ using EventHorizon.Game.Server.Asset.Trigger;
 
 using MediatR;
 
-public class TriggerAssetServerExportCommandHandler
-    : IRequestHandler<TriggerAssetServerExportCommand, StandardCommandResult>
+public class TriggerAssetServerBackupCommandHandler
+    : IRequestHandler<
+          TriggerAssetServerBackupCommand,
+          StandardCommandResult
+      >
 {
     private readonly IMediator _mediator;
     private readonly AssetManagementState _state;
 
-    public TriggerAssetServerExportCommandHandler(
+    public TriggerAssetServerBackupCommandHandler(
         IMediator mediator,
         AssetManagementState state
     )
@@ -26,12 +29,12 @@ public class TriggerAssetServerExportCommandHandler
     }
 
     public async Task<StandardCommandResult> Handle(
-        TriggerAssetServerExportCommand request,
+        TriggerAssetServerBackupCommand request,
         CancellationToken cancellationToken
     )
     {
         var result = await _mediator.Send(
-            new TriggerAssetServerAssetsExportCommand(),
+            new TriggerAssetServerAssetsBackupCommand(),
             cancellationToken
         );
 
@@ -40,9 +43,7 @@ public class TriggerAssetServerExportCommandHandler
             return new(result.ErrorCode);
         }
 
-        _state.SetExportReferenceId(
-            result.Result.ReferenceId
-        );
+        _state.SetBackupReferenceId(result.Result.ReferenceId);
         await _mediator.Publish(
             new AssetManagementStateChangedEvent(),
             cancellationToken

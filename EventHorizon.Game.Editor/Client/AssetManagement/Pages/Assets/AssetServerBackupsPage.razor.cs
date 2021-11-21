@@ -14,11 +14,11 @@ using EventHorizon.Game.Server.Asset.Query;
 
 using Microsoft.AspNetCore.Components;
 
-public class AssetServerExportsPageBase
+public class AssetServerBackupsPageBase
     : ObservableComponentBase,
       ConnectedToAssetServerAdminObserver,
-      AssetServerExportFinishedEventObserver,
-      AssetServerExportUploadedEventObserver
+      AssetServerBackupFinishedEventObserver,
+      AssetServerBackupUploadedEventObserver
 {
     [Inject]
     public GamePlatformServiceSettings Settings { get; set; } = null!;
@@ -44,13 +44,13 @@ public class AssetServerExportsPageBase
         await InvokeAsync(StateHasChanged);
     }
 
-    public async Task Handle(AssetServerExportFinishedEvent args)
+    public async Task Handle(AssetServerBackupFinishedEvent args)
     {
         await Setup();
         await InvokeAsync(StateHasChanged);
     }
 
-    public async Task Handle(AssetServerExportUploadedEvent args)
+    public async Task Handle(AssetServerBackupUploadedEvent args)
     {
         await Setup();
         await InvokeAsync(StateHasChanged);
@@ -67,17 +67,17 @@ public class AssetServerExportsPageBase
             return;
         }
 
-        ArtifactList = result.Result.ExportList
-            .OrderBy(export => export.Path)
+        ArtifactList = result.Result.BackupList
+            .OrderBy(backup => backup.Path)
             .Reverse()
             .Select(
-                export =>
+                backup =>
                     new AssetServerArtifactViewModel
                     {
-                        Service = export.Service,
-                        ReferenceId = export.ReferenceId,
-                        CreatedDate = export.Created,
-                        Path = $"{Settings.AssetServer}{export.Path}",
+                        Service = backup.Service,
+                        ReferenceId = backup.ReferenceId,
+                        CreatedDate = backup.Created,
+                        Path = $"{Settings.AssetServer}{backup.Path}",
                     }
             );
     }

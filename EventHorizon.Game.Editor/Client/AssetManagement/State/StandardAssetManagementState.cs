@@ -1,394 +1,389 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.State
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.State;
+
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.AssetManagement.Api;
+using EventHorizon.Game.Editor.Client.AssetManagement.Delete;
+using EventHorizon.Game.Editor.Client.AssetManagement.Model;
+using EventHorizon.Game.Editor.Client.AssetManagement.New;
+using EventHorizon.Game.Editor.Client.AssetManagement.Open;
+using EventHorizon.Game.Editor.Client.Localization;
+using EventHorizon.Game.Editor.Client.Localization.Api;
+using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
+using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
+using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
+using EventHorizon.Game.Server.Asset.Connect;
+
+using MediatR;
+
+public class StandardAssetManagementState : AssetManagementState
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Api;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Delete;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Model;
-    using EventHorizon.Game.Editor.Client.AssetManagement.New;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Open;
-    using EventHorizon.Game.Editor.Client.Localization;
-    using EventHorizon.Game.Editor.Client.Localization.Api;
-    using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
-    using EventHorizon.Game.Server.Asset.Connect;
-    using MediatR;
+    private const string ROOT_PATH = "/";
+    private const string LOADING_ID = "loading";
 
-    public class StandardAssetManagementState
-        : AssetManagementState
+    public bool ConnectedToAdmin { get; private set; }
+    public string ExportReferenceId { get; private set; } = string.Empty;
+    public string BackupReferenceId { get; private set; } = string.Empty;
+
+    public string RootPath { get; } = ROOT_PATH;
+    public ObservableCollection<FileSystemDirectoryContent> FileCollection
     {
-        private const string ROOT_PATH = "/";
-        private const string LOADING_ID = "loading";
+        get;
+        private set;
+    } = new();
+    public FileSystemDirectoryContent CurrentWorkingDirectory
+    {
+        get;
+        private set;
+    } = new FileSystemDirectoryContent { FilterPath = ROOT_PATH, };
+    public TreeViewNodeData FileExplorerRoot { get; private set; } =
+        new TreeViewNodeData();
+    public TreeViewNodeData CurrentTreeViewNode { get; private set; } =
+        new TreeViewNodeData();
 
-        public bool ConnectedToAdmin { get; private set; }
-        public string ExportReferenceId { get; private set; } = string.Empty;
+    private readonly IMediator _mediator;
+    private readonly Localizer<SharedResource> _localizer;
+    private readonly AssetFileManagement _assetFileManagement;
 
-        public string RootPath { get; } = ROOT_PATH;
-        public ObservableCollection<FileSystemDirectoryContent> FileCollection { get; private set; } = new();
-        public FileSystemDirectoryContent CurrentWorkingDirectory { get; private set; } = new FileSystemDirectoryContent
+    private string _accessToken = string.Empty;
+
+    public StandardAssetManagementState(
+        IMediator mediator,
+        Localizer<SharedResource> localizer,
+        AssetFileManagement assetFileManagement
+    )
+    {
+        _mediator = mediator;
+        _localizer = localizer;
+        _assetFileManagement = assetFileManagement;
+    }
+
+    public async Task Initialized(string accessToken)
+    {
+        if (!string.IsNullOrWhiteSpace(_accessToken))
+        {
+            return;
+        }
+        _accessToken = accessToken;
+        await Setup();
+    }
+
+    public async Task Reload(string accessToken)
+    {
+        _accessToken = accessToken;
+        await Setup();
+        CurrentWorkingDirectory = new FileSystemDirectoryContent
         {
             FilterPath = ROOT_PATH,
         };
-        public TreeViewNodeData FileExplorerRoot { get; private set; } = new TreeViewNodeData();
-        public TreeViewNodeData CurrentTreeViewNode { get; private set; } = new TreeViewNodeData();
+    }
 
-        private readonly IMediator _mediator;
-        private readonly Localizer<SharedResource> _localizer;
-        private readonly AssetFileManagement _assetFileManagement;
+    private async Task Setup()
+    {
+        var getFileResult = await _assetFileManagement.GetFiles(
+            _accessToken,
+            RootPath,
+            CancellationToken.None
+        );
 
-        private string _accessToken = string.Empty;
-
-        public StandardAssetManagementState(
-            IMediator mediator,
-            Localizer<SharedResource> localizer,
-            AssetFileManagement assetFileManagement
-        )
-        {
-            _mediator = mediator;
-            _localizer = localizer;
-            _assetFileManagement = assetFileManagement;
-        }
-
-        public async Task Initialized(
-            string accessToken
-        )
-        {
-            if (!string.IsNullOrWhiteSpace(
-                _accessToken
-            ))
-            {
-                return;
-            }
-            _accessToken = accessToken;
-            await Setup();
-        }
-
-        public async Task Reload(
-            string accessToken
-        )
-        {
-            _accessToken = accessToken;
-            await Setup();
-            CurrentWorkingDirectory = new FileSystemDirectoryContent
-            {
-                FilterPath = ROOT_PATH,
-            };
-        }
-
-        private async Task Setup()
-        {
-            var getFileResult = await _assetFileManagement.GetFiles(
-                _accessToken,
-                RootPath,
-                CancellationToken.None
-            );
-
-            FileCollection = new ObservableCollection<FileSystemDirectoryContent>(
+        FileCollection =
+            new ObservableCollection<FileSystemDirectoryContent>(
                 getFileResult.Files
             );
 
-            BuildFileExplorer(
-                getFileResult
-            );
+        BuildFileExplorer(getFileResult);
 
-            var connectionResult = await _mediator.Send(
-                new StartConnectionToAssetServerAdminCommand(
-                    _accessToken
-                )
-            );
-            ConnectedToAdmin = connectionResult.Success;
-            if (!connectionResult)
-            {
-                await _mediator.Publish(
-                    new ShowMessageEvent(
-                        _localizer["Asset Server Connection"],
-                        _localizer[
-                            "Failed to connect with Asset Server Admin: Error Code = {0}",
-                            connectionResult.ErrorCode ?? "GENERAL_ASSET_SERVER_ERROR"
-                        ],
-                        MessageLevel.Error
-                    )
-                );
-            }
-        }
-
-        public void SetExportReferenceId(
-            string referenceId
-        )
-        {
-            if (referenceId.IsNull())
-            {
-                return;
-            }
-
-            ExportReferenceId = referenceId;
-        }
-
-        public async Task LoadFilterPath(
-            string filterPath,
-            CancellationToken cancellationToken
-        )
-        {
-            if (string.IsNullOrWhiteSpace(
-                _accessToken
-            ))
-            {
-                return;
-            }
-            var getFileResult = await _assetFileManagement.GetFiles(
-                _accessToken,
-                filterPath,
-                cancellationToken
-            );
-
-            FileCollection.Clear();
-            foreach (var file in getFileResult.Files)
-            {
-                FileCollection.Add(
-                    file
-                );
-            }
-
-            BuildFileExplorer(
-                getFileResult
-            );
-            CurrentWorkingDirectory = getFileResult.CWD;
-        }
-
-        public async Task SetFileNode(
-            TreeViewNodeData node,
-            CancellationToken cancellationToken
-        )
-        {
-            if (node.Data is FileSystemDirectoryContent directoryContent)
-            {
-                CurrentTreeViewNode = node;
-                CurrentWorkingDirectory = directoryContent;
-                CurrentTreeViewNode.IsExpanded = true;
-                await LoadCurrentNodeData(
-                    node,
-                    directoryContent,
-                    cancellationToken
-                );
-            }
-        }
-
-        public async Task SetFileDirectoryContent(
-            FileSystemDirectoryContent directoryContent,
-            CancellationToken cancellationToken
-        )
-        {
-            var treeNode = GetTreeViewNodeByDirectoryContentAndExpandParent(
-                FileExplorerRoot,
-                directoryContent
-            );
-            if (treeNode is null)
-            {
-                await ShowMessage(
-                    _localizer["Invalid Asset File Node Selected"],
-                    cancellationToken
-                );
-                return;
-            }
-
-            CurrentWorkingDirectory = directoryContent;
-            CurrentTreeViewNode = treeNode;
-
-            await LoadCurrentNodeData(
-                CurrentTreeViewNode,
-                CurrentWorkingDirectory,
-                cancellationToken
-            );
-
-            treeNode.IsExpanded = true;
-        }
-
-        private async Task ShowMessage(
-            string message,
-            CancellationToken cancellationToken,
-            MessageLevel level = MessageLevel.Success
-        )
+        var connectionResult = await _mediator.Send(
+            new StartConnectionToAssetServerAdminCommand(_accessToken)
+        );
+        ConnectedToAdmin = connectionResult.Success;
+        if (!connectionResult)
         {
             await _mediator.Publish(
                 new ShowMessageEvent(
-                    _localizer["Asset Management"],
-                    message,
-                    level
-                ),
-                cancellationToken
+                    _localizer["Asset Server Connection"],
+                    _localizer[
+                        "Failed to connect with Asset Server Admin: Error Code = {0}",
+                        connectionResult.ErrorCode
+                            ?? "GENERAL_ASSET_SERVER_ERROR"
+                    ],
+                    MessageLevel.Error
+                )
             );
         }
+    }
 
-        public async Task ReloadToNodeAndDirectoryContent(
-            TreeViewNodeData node,
-            FileSystemDirectoryContent directoryContent,
-            CancellationToken cancellationToken
-        )
+    public void SetExportReferenceId(string referenceId)
+    {
+        if (referenceId.IsNull())
+        {
+            return;
+        }
+
+        ExportReferenceId = referenceId;
+    }
+
+    public void SetBackupReferenceId(string referenceId)
+    {
+        if (referenceId.IsNull())
+        {
+            return;
+        }
+
+        BackupReferenceId = referenceId;
+    }
+
+    public async Task LoadFilterPath(
+        string filterPath,
+        CancellationToken cancellationToken
+    )
+    {
+        if (string.IsNullOrWhiteSpace(_accessToken))
+        {
+            return;
+        }
+        var getFileResult = await _assetFileManagement.GetFiles(
+            _accessToken,
+            filterPath,
+            cancellationToken
+        );
+
+        FileCollection.Clear();
+        foreach (var file in getFileResult.Files)
+        {
+            FileCollection.Add(file);
+        }
+
+        BuildFileExplorer(getFileResult);
+        CurrentWorkingDirectory = getFileResult.CWD;
+    }
+
+    public async Task SetFileNode(
+        TreeViewNodeData node,
+        CancellationToken cancellationToken
+    )
+    {
+        if (node.Data is FileSystemDirectoryContent directoryContent)
         {
             CurrentTreeViewNode = node;
             CurrentWorkingDirectory = directoryContent;
-
+            CurrentTreeViewNode.IsExpanded = true;
             await LoadCurrentNodeData(
-                CurrentTreeViewNode,
-                CurrentWorkingDirectory,
-                cancellationToken,
-                force: true
-            );
-        }
-
-        public async Task DeleteDirectoryContent(
-            FileSystemDirectoryContent directoryContent,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _assetFileManagement.Delete(
-                _accessToken,
-                directoryContent.FilterPath,
-                directoryContent.Name,
+                node,
+                directoryContent,
                 cancellationToken
             );
+        }
+    }
 
-            if (result.Error is null)
+    public async Task SetFileDirectoryContent(
+        FileSystemDirectoryContent directoryContent,
+        CancellationToken cancellationToken
+    )
+    {
+        var treeNode = GetTreeViewNodeByDirectoryContentAndExpandParent(
+            FileExplorerRoot,
+            directoryContent
+        );
+        if (treeNode is null)
+        {
+            await ShowMessage(
+                _localizer["Invalid Asset File Node Selected"],
+                cancellationToken
+            );
+            return;
+        }
+
+        CurrentWorkingDirectory = directoryContent;
+        CurrentTreeViewNode = treeNode;
+
+        await LoadCurrentNodeData(
+            CurrentTreeViewNode,
+            CurrentWorkingDirectory,
+            cancellationToken
+        );
+
+        treeNode.IsExpanded = true;
+    }
+
+    private async Task ShowMessage(
+        string message,
+        CancellationToken cancellationToken,
+        MessageLevel level = MessageLevel.Success
+    )
+    {
+        await _mediator.Publish(
+            new ShowMessageEvent(
+                _localizer["Asset Management"],
+                message,
+                level
+            ),
+            cancellationToken
+        );
+    }
+
+    public async Task ReloadToNodeAndDirectoryContent(
+        TreeViewNodeData node,
+        FileSystemDirectoryContent directoryContent,
+        CancellationToken cancellationToken
+    )
+    {
+        CurrentTreeViewNode = node;
+        CurrentWorkingDirectory = directoryContent;
+
+        await LoadCurrentNodeData(
+            CurrentTreeViewNode,
+            CurrentWorkingDirectory,
+            cancellationToken,
+            force: true
+        );
+    }
+
+    public async Task DeleteDirectoryContent(
+        FileSystemDirectoryContent directoryContent,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _assetFileManagement.Delete(
+            _accessToken,
+            directoryContent.FilterPath,
+            directoryContent.Name,
+            cancellationToken
+        );
+
+        if (result.Error is null)
+        {
+            var node = GetTreeViewNodeByDirectoryContentAndExpandParent(
+                FileExplorerRoot,
+                directoryContent
+            );
+            if (node is null)
             {
-                var node = GetTreeViewNodeByDirectoryContentAndExpandParent(
-                    FileExplorerRoot,
-                    directoryContent
-                );
-                if (node is null)
-                {
-                    await ShowMessage(
-                        _localizer["Failed to Reload Data"],
-                        cancellationToken,
-                        MessageLevel.Warning
-                    );
-                    return;
-                }
-
                 await ShowMessage(
-                    _localizer["Successfully Deleted Content"],
-                    cancellationToken
-                );
-                await LoadCurrentNodeData(
-                    node,
-                    directoryContent,
+                    _localizer["Failed to Reload Data"],
                     cancellationToken,
-                    force: true,
-                    forceParentSelection: true
+                    MessageLevel.Warning
                 );
                 return;
             }
 
             await ShowMessage(
-                _localizer[
-                    "Failed to Delete Directory Content: Code = {0} | Message = {1}",
-                    result.Error?.Code ?? 500,
-                    result.Error?.Message ?? _localizer["Server Error"]
-                ],
-                cancellationToken,
-                MessageLevel.Error
+                _localizer["Successfully Deleted Content"],
+                cancellationToken
             );
+            await LoadCurrentNodeData(
+                node,
+                directoryContent,
+                cancellationToken,
+                force: true,
+                forceParentSelection: true
+            );
+            return;
         }
 
-        private void BuildFileExplorer(
-            FileSystemResponse getFileResult
-        )
-        {
-            FileExplorerRoot = new TreeViewNodeData
-            {
-                Name = "server-root",
-                Text = _localizer["Server Root"],
-                Data = getFileResult.CWD,
-                IsExpanded = true,
+        await ShowMessage(
+            _localizer[
+                "Failed to Delete Directory Content: Code = {0} | Message = {1}",
+                result.Error?.Code ?? 500,
+                result.Error?.Message ?? _localizer["Server Error"]
+            ],
+            cancellationToken,
+            MessageLevel.Error
+        );
+    }
 
-                Children = getFileResult.Files.Select(
-                    TreeViewNodeDataBuildTreeViewNode
-                ).ToList()
-            };
-            FileExplorerRoot.ContextMenu = new TreeViewNodeContextMenu
-            {
-                Items = new List<TreeViewNodeContextMenuItem>
+    private void BuildFileExplorer(FileSystemResponse getFileResult)
+    {
+        FileExplorerRoot = new TreeViewNodeData
+        {
+            Name = "server-root",
+            Text = _localizer["Server Root"],
+            Data = getFileResult.CWD,
+            IsExpanded = true,
+            Children = getFileResult.Files
+                .Select(TreeViewNodeDataBuildTreeViewNode)
+                .ToList()
+        };
+        FileExplorerRoot.ContextMenu = new TreeViewNodeContextMenu
+        {
+            Items = new List<TreeViewNodeContextMenuItem>
                 {
                     new TreeViewNodeContextMenuItem
                     {
                         Text = _localizer["New Folder"],
-                        OnClick = () => TriggerNewFolder(FileExplorerRoot, getFileResult.CWD)
+                        OnClick = () =>
+                            TriggerNewFolder(
+                                FileExplorerRoot,
+                                getFileResult.CWD
+                            )
                     }
                 }
-            };
+        };
 
-            CurrentTreeViewNode = FileExplorerRoot;
-        }
+        CurrentTreeViewNode = FileExplorerRoot;
+    }
 
-        private void TriggerNewFolder(
+    private void TriggerNewFolder(
+        TreeViewNodeData node,
+        FileSystemDirectoryContent directoryContent
+    )
+    {
+        _mediator.Publish(
+            new AssetNewFolderTrggeredEvent(node, directoryContent)
+        );
+    }
+
+    private TreeViewNodeData TreeViewNodeDataBuildTreeViewNode(
+        FileSystemDirectoryContent directoryContent
+    )
+    {
+        var node = new TreeViewNodeData()
+        {
+            Name = $"{directoryContent.FilterPath}/{directoryContent.Name}",
+            Text = directoryContent.Name,
+            IconCssClass =
+                "--icon oi oi-"
+                + (directoryContent.IsFile ? "file" : "folder"),
+            Children = !directoryContent.IsFile
+                ? new List<TreeViewNodeData>
+                  {
+                          new TreeViewNodeData
+                          {
+                              Id = LOADING_ID,
+                              Text = _localizer["Loading"]
+                          }
+                  }
+                : new List<TreeViewNodeData>(),
+            Data = directoryContent,
+        };
+
+        void TriggerUpload(
             TreeViewNodeData node,
             FileSystemDirectoryContent directoryContent
         )
         {
             _mediator.Publish(
-                new AssetNewFolderTrggeredEvent(
-                    node,
-                    directoryContent
-                )
+                new AssetOpenFileUploadTrggeredEvent(node, directoryContent)
             );
         }
 
-        private TreeViewNodeData TreeViewNodeDataBuildTreeViewNode(
+        void TriggerDelete(
+            TreeViewNodeData node,
             FileSystemDirectoryContent directoryContent
         )
         {
-            var node = new TreeViewNodeData()
-            {
-                Name = $"{directoryContent.FilterPath}/{directoryContent.Name}",
-                Text = directoryContent.Name,
+            _mediator.Publish(
+                new AssetFileDeleteTriggeredEvent(directoryContent)
+            );
+        }
 
-                IconCssClass = "--icon oi oi-" + (directoryContent.IsFile ? "file" : "folder"),
-
-                Children = !directoryContent.IsFile
-                    ? new List<TreeViewNodeData>
-                    {
-                        new TreeViewNodeData
-                        {
-                            Id = LOADING_ID,
-                            Text = _localizer["Loading"]
-                        }
-                    }
-                    : new List<TreeViewNodeData>(),
-                Data = directoryContent,
-
-            };
-
-            void TriggerUpload(
-                TreeViewNodeData node,
-                FileSystemDirectoryContent directoryContent
-            )
-            {
-                _mediator.Publish(
-                    new AssetOpenFileUploadTrggeredEvent(
-                        node,
-                        directoryContent
-                    )
-                );
-            }
-
-            void TriggerDelete(
-                TreeViewNodeData node,
-                FileSystemDirectoryContent directoryContent
-            )
-            {
-                _mediator.Publish(
-                    new AssetFileDeleteTriggeredEvent(
-                        directoryContent
-                    )
-                );
-            }
-
-            node.ContextMenu = new TreeViewNodeContextMenu
-            {
-                Items = new List<TreeViewNodeContextMenuItem>
+        node.ContextMenu = new TreeViewNodeContextMenu
+        {
+            Items = new List<TreeViewNodeContextMenuItem>
                 {
                     new TreeViewNodeContextMenuItem
                     {
@@ -406,123 +401,127 @@
                         OnClick = () => TriggerDelete(node, directoryContent)
                     }
                 }
-            };
+        };
 
+        return node;
+    }
+
+    private TreeViewNodeData? GetTreeViewNodeByDirectoryContentAndExpandParent(
+        TreeViewNodeData node,
+        FileSystemDirectoryContent directoryContent
+    )
+    {
+        if (node.Data?.Equals(directoryContent) ?? false)
+        {
             return node;
         }
 
-        private TreeViewNodeData? GetTreeViewNodeByDirectoryContentAndExpandParent(
-            TreeViewNodeData node,
-            FileSystemDirectoryContent directoryContent
-        )
+        foreach (var child in node.Children)
         {
-            if (node.Data?.Equals(directoryContent) ?? false)
+            var childNode =
+                GetTreeViewNodeByDirectoryContentAndExpandParent(
+                    child,
+                    directoryContent
+                );
+            if (childNode is not null)
+            {
+                node.IsExpanded = true;
+                return childNode;
+            }
+        }
+
+        return null;
+    }
+
+    private async Task LoadCurrentNodeData(
+        TreeViewNodeData node,
+        FileSystemDirectoryContent directoryContent,
+        CancellationToken cancellationToken,
+        bool force = false,
+        bool forceParentSelection = false
+    )
+    {
+        if (directoryContent.IsFile || forceParentSelection)
+        {
+            var parentNode = GetParentNode(node, FileExplorerRoot);
+            if (
+                parentNode is null
+                || parentNode.Data
+                    is not FileSystemDirectoryContent parenDirectoryContent
+            )
+            {
+                return;
+            }
+            node = parentNode;
+            directoryContent = parenDirectoryContent;
+        }
+
+        var getFileResult = await _assetFileManagement.GetFiles(
+            _accessToken,
+            FileSystemDirectoryContent.BuildPath(
+                RootPath,
+                directoryContent
+            ),
+            cancellationToken
+        );
+        if (getFileResult.Error is not null)
+        {
+            await ShowMessage(
+                _localizer[
+                    "Failed to Delete Directory Content: Code = {0} | Message = {1}",
+                    getFileResult.Error?.Code ?? 500,
+                    getFileResult.Error?.Message
+                        ?? _localizer["Server Error"]
+                ],
+                cancellationToken,
+                MessageLevel.Error
+            );
+            return;
+        }
+
+        FileCollection.Clear();
+        foreach (var file in getFileResult.Files)
+        {
+            FileCollection.Add(file);
+        }
+
+        var loadInTreeNodeDirectoryContentChildren =
+            force
+            || (
+                node.Children.Any(a => a.Id == LOADING_ID)
+                && !directoryContent.IsFile
+            );
+        if (loadInTreeNodeDirectoryContentChildren)
+        {
+            node.Children = getFileResult.Files
+                .Select(TreeViewNodeDataBuildTreeViewNode)
+                .ToList();
+        }
+    }
+
+    private TreeViewNodeData? GetParentNode(
+        TreeViewNodeData toFindParentFor,
+        TreeViewNodeData node
+    )
+    {
+        foreach (var child in node.Children)
+        {
+            if (child.Equals(toFindParentFor))
             {
                 return node;
             }
-
-            foreach (var child in node.Children)
+            var parent = GetParentNode(toFindParentFor, child);
+            if (parent is not null)
             {
-                var childNode = GetTreeViewNodeByDirectoryContentAndExpandParent(child, directoryContent);
-                if (childNode is not null)
-                {
-                    node.IsExpanded = true;
-                    return childNode;
-                }
+                return parent;
             }
-
-            return null;
         }
 
-        private async Task LoadCurrentNodeData(
-            TreeViewNodeData node,
-            FileSystemDirectoryContent directoryContent,
-            CancellationToken cancellationToken,
-            bool force = false,
-            bool forceParentSelection = false
-        )
+        if (toFindParentFor == FileExplorerRoot)
         {
-            if (directoryContent.IsFile
-                || forceParentSelection
-            )
-            {
-                var parentNode = GetParentNode(
-                    node,
-                    FileExplorerRoot
-                );
-                if (parentNode is null
-                    || parentNode.Data is not FileSystemDirectoryContent parenDirectoryContent
-                )
-                {
-                    return;
-                }
-                node = parentNode;
-                directoryContent = parenDirectoryContent;
-            }
-
-            var getFileResult = await _assetFileManagement.GetFiles(
-                _accessToken,
-                FileSystemDirectoryContent.BuildPath(
-                    RootPath,
-                    directoryContent
-                ),
-                cancellationToken
-            );
-            if (getFileResult.Error is not null)
-            {
-                await ShowMessage(
-                    _localizer[
-                        "Failed to Delete Directory Content: Code = {0} | Message = {1}",
-                        getFileResult.Error?.Code ?? 500,
-                        getFileResult.Error?.Message ?? _localizer["Server Error"]
-                    ],
-                    cancellationToken,
-                    MessageLevel.Error
-                );
-                return;
-            }
-
-            FileCollection.Clear();
-            foreach (var file in getFileResult.Files)
-            {
-                FileCollection.Add(file);
-            }
-
-            var loadInTreeNodeDirectoryContentChildren = force || (node.Children.Any(
-                a => a.Id == LOADING_ID
-            ) && !directoryContent.IsFile);
-            if (loadInTreeNodeDirectoryContentChildren)
-
-            {
-                node.Children = getFileResult.Files.Select(TreeViewNodeDataBuildTreeViewNode).ToList();
-            }
+            return FileExplorerRoot;
         }
 
-        private TreeViewNodeData? GetParentNode(
-            TreeViewNodeData toFindParentFor,
-            TreeViewNodeData node
-        )
-        {
-            foreach (var child in node.Children)
-            {
-                if (child.Equals(toFindParentFor))
-                {
-                    return node;
-                }
-                var parent = GetParentNode(toFindParentFor, child);
-                if (parent is not null)
-                {
-                    return parent;
-                }
-            }
-
-            if (toFindParentFor == FileExplorerRoot)
-            {
-                return FileExplorerRoot;
-            }
-
-            return null;
-        }
-
+        return null;
     }
 }

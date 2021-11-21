@@ -1,18 +1,22 @@
-﻿namespace EventHorizon.Game.Server.Asset.Api
+﻿namespace EventHorizon.Game.Server.Asset.Api;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+public interface AssetServerAdminService
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
+    AssetServerCommonAdminApi CommonApi { get; }
 
-    public interface AssetServerAdminService
-    {
-        AssetServerExportAdminApi ExportApi { get; }
+    AssetServerBackupAdminApi BackupApi { get; }
 
-        AssetServerFileManagementAdminApi FileManagementApi {get;}
+    AssetServerExportAdminApi ExportApi { get; }
 
-        Task<StandardCommandResult> Connect(
-            string accessToken,
-            CancellationToken cancellationToken
-        );
-    }
+    AssetServerFileManagementAdminApi FileManagementApi { get; }
+
+    Task<StandardCommandResult> Connect(
+        string accessToken,
+        CancellationToken cancellationToken
+    );
 }

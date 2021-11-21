@@ -14,11 +14,10 @@ using EventHorizon.Game.Server.Asset.Query;
 
 using Microsoft.AspNetCore.Components;
 
-public class AssetServerExportsPageBase
+public class AssetServerImportsPageBase
     : ObservableComponentBase,
       ConnectedToAssetServerAdminObserver,
-      AssetServerExportFinishedEventObserver,
-      AssetServerExportUploadedEventObserver
+      AssetServerImportUploadedEventObserver
 {
     [Inject]
     public GamePlatformServiceSettings Settings { get; set; } = null!;
@@ -44,13 +43,7 @@ public class AssetServerExportsPageBase
         await InvokeAsync(StateHasChanged);
     }
 
-    public async Task Handle(AssetServerExportFinishedEvent args)
-    {
-        await Setup();
-        await InvokeAsync(StateHasChanged);
-    }
-
-    public async Task Handle(AssetServerExportUploadedEvent args)
+    public async Task Handle(AssetServerImportUploadedEvent args)
     {
         await Setup();
         await InvokeAsync(StateHasChanged);
@@ -67,17 +60,17 @@ public class AssetServerExportsPageBase
             return;
         }
 
-        ArtifactList = result.Result.ExportList
-            .OrderBy(export => export.Path)
+        ArtifactList = result.Result.ImportList
+            .OrderBy(import => import.Path)
             .Reverse()
             .Select(
-                export =>
+                import =>
                     new AssetServerArtifactViewModel
                     {
-                        Service = export.Service,
-                        ReferenceId = export.ReferenceId,
-                        CreatedDate = export.Created,
-                        Path = $"{Settings.AssetServer}{export.Path}",
+                        Service = import.Service,
+                        ReferenceId = import.ReferenceId,
+                        CreatedDate = import.Created,
+                        Path = $"{Settings.AssetServer}{import.Path}",
                     }
             );
     }

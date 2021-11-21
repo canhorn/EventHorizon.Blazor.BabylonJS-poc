@@ -89,7 +89,7 @@ dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
 dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:silent
 
 # Modifier preferences
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
+dotnet_style_require_accessibility_modifiers = always
 
 # Expression-level preferences
 dotnet_style_coalesce_expression = true:suggestion
@@ -159,7 +159,9 @@ csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
 # 'using' directive preferences
+csharp_style_namespace_declarations = file_scoped
 csharp_using_directive_placement = inside_namespace:warning
+dotnet_diagnostic.IDE0161.severity = warning
 
 #### C# Formatting Rules ####
 

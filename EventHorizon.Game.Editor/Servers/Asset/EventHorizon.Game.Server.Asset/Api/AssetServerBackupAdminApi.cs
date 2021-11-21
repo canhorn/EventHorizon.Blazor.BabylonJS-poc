@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 using EventHorizon.Game.Server.Asset.Model;
 
-public interface AssetServerExportAdminApi
+public interface AssetServerBackupAdminApi
 {
-    Task<ApiResponse<ExportTriggerResult>> Trigger(
+    Task<ApiResponse<BackupTriggerResult>> Trigger(
         CancellationToken cancellationToken
     );
 }
