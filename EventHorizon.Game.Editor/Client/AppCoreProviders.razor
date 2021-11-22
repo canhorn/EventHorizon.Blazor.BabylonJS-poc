@@ -1,4 +1,5 @@
-﻿@using EventHorizon.Game.Editor.Client.Authentication.Components
+﻿@using EventHorizon.Game.Editor.Client.ArtifactManagement.Components.Providers
+@using EventHorizon.Game.Editor.Client.Authentication.Components
 @using EventHorizon.Game.Editor.Client.Shared.ClickCapture
 @using EventHorizon.Game.Editor.Client.Wizard.Components.Provider
 @using EventHorizon.Game.Editor.Client.ErrorBoundary.Providers
@@ -10,9 +11,11 @@
             <ZoneSelectionProvider>
                 <WizardStateProvider>
                     <AssetManagementProvider>
-                        @ChildContent
+                        <ArtifactManagementProvider>
+                            @ChildContent
+                            <ZoneConnectionStatusProvider />
+                        </ArtifactManagementProvider>
 
-                        <ZoneConnectionStatusProvider />
                     </AssetManagementProvider>
                 </WizardStateProvider>
             </ZoneSelectionProvider>

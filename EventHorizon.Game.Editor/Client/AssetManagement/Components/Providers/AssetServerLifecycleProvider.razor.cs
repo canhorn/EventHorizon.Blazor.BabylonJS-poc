@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
+using EventHorizon.Game.Editor.Client.AssetManagement.Pages.Asset;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Editor.Model;
@@ -14,10 +15,7 @@ using Microsoft.AspNetCore.Components;
 public class AssetServerLifecycleProviderBase
     : ObservableComponentBase,
       AssetServerBackupFinishedEventObserver,
-      AssetServerBackupUploadedEventObserver,
-      AssetServerExportFinishedEventObserver,
-      AssetServerExportUploadedEventObserver,
-      AssetServerImportUploadedEventObserver
+      AssetServerExportFinishedEventObserver
 {
     [CascadingParameter]
     public AssetManagementState State { get; set; } = null!;
@@ -64,48 +62,14 @@ public class AssetServerLifecycleProviderBase
 
         if (args.ReferenceId == State.BackupReferenceId)
         {
-            NavigationManager.NavigateTo(
-                "/asset/management/server/backups"
-            );
+            if (!NavigationManager.Uri.ToLowerInvariant().EndsWith(
+                AssetServerBackupArtifactsPage.Route
+            ))
+            {
+                NavigationManager.NavigateTo(
+                    AssetServerBackupArtifactsPage.Route
+                );
+            }
         }
-    }
-
-    public async Task Handle(AssetServerBackupUploadedEvent args)
-    {
-        await Mediator.Publish(
-            new ShowMessageEvent(
-                Localizer["Asset Server Backup Uploaded"],
-                Localizer[
-                    "Successfully Uploaded Backup file for '{0}' service.",
-                    args.Service
-                ]
-            )
-        );
-    }
-
-    public async Task Handle(AssetServerExportUploadedEvent args)
-    {
-        await Mediator.Publish(
-            new ShowMessageEvent(
-                Localizer["Asset Server Export Uploaded"],
-                Localizer[
-                    "Successfully Uploaded Export file for '{0}' service.",
-                    args.Service
-                ]
-            )
-        );
-    }
-
-    public async Task Handle(AssetServerImportUploadedEvent args)
-    {
-        await Mediator.Publish(
-            new ShowMessageEvent(
-                Localizer["Asset Server Import Uploaded"],
-                Localizer[
-                    "Successfully Uploaded Import file for '{0}' service.",
-                    args.Service
-                ]
-            )
-        );
     }
 }

@@ -1,6 +1,8 @@
 ﻿@using EventHorizon.Game.Editor.Client.Authentication.Api
 @using EventHorizon.Game.Editor.Client.Authentication.Set
 @using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
+@using EventHorizon.Game.Editor.Client.ArtifactManagement.Pages
+@using EventHorizon.Game.Editor.Client.AssetManagement.Pages
 
 <TreeView Root="@QuickLinkData"
           OnChanged="HandleTreeViewChanged"
@@ -23,12 +25,12 @@
         base.OnInitialized();
 
         QuickLinkData = new TreeViewNodeData
-        {
-            Id = "quick-link-pages",
-            Name = "pages",
-            Text = Localizer["Quick Links"],
-            IsExpanded = (SessionValues.Get("quickLinks_IsExpanded", string.Empty) == "true"),
-            Children = new List<TreeViewNodeData>
+            {
+                Id = "quick-link-pages",
+                Name = "pages",
+                Text = Localizer["Quick Links"],
+                IsExpanded = (SessionValues.Get("quickLinks_IsExpanded", string.Empty) == "true"),
+                Children = new List<TreeViewNodeData>
             {
                 new TreeViewNodeData
                 {
@@ -75,11 +77,19 @@
                     Id = "quick-link__asset-management",
                     Name = "asset-management",
                     Text = Localizer["Asset Management"],
-                    Href = "/asset/management",
+                    Href = AssetManagementPage.Route,
+                    IconCssClass = "--icon oi oi-list-rich"
+                },
+                new TreeViewNodeData
+                {
+                    Id = "quick-link__artifact-management",
+                    Name = "artifact-management",
+                    Text = Localizer["Artifact Management"],
+                    Href = ArtifactManagementPage.Route,
                     IconCssClass = "--icon oi oi-list-rich"
                 },
             }
-        };
+            };
     }
 
     protected override void OnParametersSet()

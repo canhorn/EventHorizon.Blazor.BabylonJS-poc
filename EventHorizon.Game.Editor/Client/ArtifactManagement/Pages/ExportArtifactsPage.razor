@@ -1,0 +1,16 @@
+﻿@page "/artifact/management/exports"
+@code
+{
+    public const string Route = "/artifact/management/exports";
+}
+
+@using EventHorizon.Game.Editor.Client.ArtifactManagement.Components
+@inherits EditorComponentBase
+
+<div class="export-artifacts__page">
+    <h1>
+        @Localizer["Export Artifacts"]
+    </h1>
+
+    <ArtifactExportsTable />
+</div>

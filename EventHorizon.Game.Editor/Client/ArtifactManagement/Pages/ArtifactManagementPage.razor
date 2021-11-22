@@ -1,0 +1,36 @@
+﻿@page "/artifact/management"
+@code
+{
+    public const string Route = "/artifact/management";
+}
+
+@inherits EditorComponentBase
+
+<div class="artifact-management__page">
+
+    <h1>
+        @Localizer["Artifact Management"]
+    </h1>
+
+    <p class="page__description">
+        @Localizer["Artifact Management is central location to manage all the Exports/Import/Backups of your whole platform. With Artifact Management you are able to trigger Export and Backup creation for your platform services, making it easy to move content between Zone Servers. In Artifact Management you are able to Import into the services of your platform, with feedback on the state of the import."]
+    </p>
+
+    <div class="management__link">
+        <a href="@BackupArtifactsPage.Route">
+            @Localizer["Backup Artifacts"]
+        </a>
+    </div>
+
+    <div class="management__link">
+        <a href="@ExportArtifactsPage.Route">
+            @Localizer["Export Artifacts"]
+        </a>
+    </div>
+
+    <div class="management__link">
+        <a href="@ImportArtifactsPage.Route">
+            @Localizer["Import Artifacts"]
+        </a>
+    </div>
+</div>

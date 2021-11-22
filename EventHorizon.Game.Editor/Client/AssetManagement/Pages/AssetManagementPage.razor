@@ -1,15 +1,26 @@
 ﻿@page "/asset/management"
+@code
+{
+    public const string Route = "/asset/management";
+}
+
 @inherits EditorComponentBase
 
 <div class="asset-management__page">
 
     <h1>
-        @Localizer["Zone Asset Management"]
+        @Localizer["Asset Management"]
     </h1>
 
     <p class="page__description">
-        @Localizer["This is the Zone Server Asset Management Page, use this page to create/update/delete Assets on the current Active Zone."]
+        @Localizer["This is the Asset Management Page, use this page to create/update/delete Assets on the current Active Zone and the Asset Server."]
     </p>
+
+    <div class="management__link">
+        <a href="/asset/management/zone">
+            @Localizer["Zone Asset Management"]
+        </a>
+    </div>
 
     <div class="management__link">
         <a href="/asset/management/server">
@@ -18,26 +29,9 @@
     </div>
 
     <div class="management__link">
-        <a href="/asset/management/server/backups">
-            @Localizer["Asset Server Backups"]
+        <a href="@AssetServerArtifactPage.Route">
+            @Localizer["Asset Server Artifacts"]
         </a>
     </div>
 
-    <div class="management__link">
-        <a href="/asset/management/server/exports">
-            @Localizer["Asset Server Exports"]
-        </a>
-    </div>
-
-    <div class="management__link">
-        <a href="/asset/management/server/imports">
-            @Localizer["Asset Server Imports"]
-        </a>
-    </div>
-
-    <div class="management__link">
-        <a href="/asset/management/zone">
-            @Localizer["Zone Asset Management"]
-        </a>
-    </div>
 </div>

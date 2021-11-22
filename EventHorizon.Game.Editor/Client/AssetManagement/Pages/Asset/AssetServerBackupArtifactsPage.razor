@@ -1,0 +1,21 @@
+﻿@page "/asset/artifacts/backup"
+@code
+{
+    public const string Route = "/asset/artifacts/backup";
+}
+
+@using EventHorizon.Game.Editor.Client.ArtifactManagement.Components
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components.Toolbars
+@inherits EditorComponentBase
+
+<div class="asset-backup-artifacts__page">
+    <h1>
+        @Localizer["Asset Server Backup Artifacts"]
+    </h1>
+
+    <div class="asset-backup-artifacts__toolbar">
+        <AssetServerToolbar />
+    </div>
+
+    <ArtifactBackupsTable ServiceFilter="asset" />
+</div>

@@ -1,17 +1,7 @@
-﻿@page "/asset/management/server/backups"
-@using EventHorizon.Game.Editor.Client.AssetManagement.Components.Toolbars
-@inherits AssetServerBackupsPageBase
+﻿@inherits ArtifactImportsTableBase
 
-<div class="asset-server-backups__page">
-    <h1>
-        @Localizer["Asset Server Backups"]
-    </h1>
-
-    <div class="asset-server-backups__toolbar">
-        <AssetServerToolbar />
-    </div>
-   
-    <table class="asset-server-backups__artifact-list --full">
+<ContainerComponent State="DisplayState">
+    <table class="import-artifacts__table --full">
         <thead>
             <tr>
                 <th>@Localizer["Service"]</th>
@@ -42,4 +32,6 @@
             }
         </tbody>
     </table>
-</div>
+</ContainerComponent>
+
+
