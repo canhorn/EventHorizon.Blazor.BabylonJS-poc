@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Game.Editor.Automation.Core.Browser.Api
-{
-    using System.Collections.Generic;
+﻿namespace EventHorizon.Game.Editor.Automation.Core.Browser.Api;
 
-    public interface WebHostDriverOptions
-    {
-        IEnumerable<string> Arguments { get; }
-    }
+using System.Collections.Generic;
+
+public interface WebHostDriverOptions
+{
+    IEnumerable<string> Arguments { get; }
 }

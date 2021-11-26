@@ -1,0 +1,21 @@
+﻿@page "/asset/artifacts/import"
+@code
+{
+    public const string Route = "/asset/artifacts/import";
+}
+
+@using EventHorizon.Game.Editor.Client.ArtifactManagement.Components
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components.Toolbars
+@inherits EditorComponentBase
+
+<div class="asset-import-artifacts__page">
+    <h1>
+        @Localizer["Asset Server Import Artifacts"]
+    </h1>
+
+    <div class="asset-import-artifacts__toolbar">
+        <AssetServerToolbar />
+    </div>
+
+    <ArtifactImportsTable ServiceFilter="asset" />
+</div>

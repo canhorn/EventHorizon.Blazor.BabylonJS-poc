@@ -1,93 +1,84 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Toast
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Toast;
+
+using System;
+using System.Threading.Tasks;
+using System.Timers;
+
+using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
+
+using Microsoft.AspNetCore.Components;
+
+public class MessageToastDisplayModel : ComponentBase, IAsyncDisposable
 {
-    using System;
-    using System.Threading.Tasks;
-    using System.Timers;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-    using Microsoft.AspNetCore.Components;
+    [Parameter]
+    public MessageModel Message { get; set; }
+    [Parameter]
+    public EventCallback<string> OnRemove { get; set; }
 
-    public class MessageToastDisplayModel
-        : ComponentBase,
-        IAsyncDisposable
+    public bool ShowMessage { get; set; } = true;
+    public string MessageLevelStyle { get; set; } = string.Empty;
+
+    private readonly Timer _countdown = new(5000);
+    private readonly Timer _removeTimer = new(1000);
+
+    protected override void OnInitialized()
     {
-        [Parameter]
-        public MessageModel Message { get; set; }
-        [Parameter]
-        public EventCallback<string> OnRemove { get; set; }
+        SetupMessageState();
 
-        public bool ShowMessage { get; set; } = true;
-        public string MessageLevelStyle { get; set; } = string.Empty;
+        _countdown.Elapsed += HideMessageCallback;
+        _countdown.AutoReset = false;
+        _removeTimer.Elapsed += HandleRemoveCallback;
 
-        private readonly Timer _countdown = new(5000);
-        private readonly Timer _removeTimer = new(1000);
+        _countdown.Stop();
+        _countdown.Start();
+    }
 
-        protected override void OnInitialized()
+    public ValueTask DisposeAsync()
+    {
+        _countdown.Dispose();
+        _removeTimer.Dispose();
+
+        return ValueTask.CompletedTask;
+    }
+
+    public void SetupMessageState()
+    {
+        ShowMessage = true;
+        MessageLevelStyle = string.Empty;
+        if (Message.Level == MessageLevel.Success)
         {
-            SetupMessageState();
-
-            _countdown.Elapsed += HideMessageCallback;
-            _countdown.AutoReset = false;
-            _removeTimer.Elapsed += HandleRemoveCallback;
-
-            _countdown.Stop();
-            _countdown.Start();
+            MessageLevelStyle = "--success";
         }
-
-        public ValueTask DisposeAsync()
+        else if (Message.Level == MessageLevel.Warning)
         {
-            _countdown.Dispose();
-            _removeTimer.Dispose();
-
-            return ValueTask.CompletedTask;
+            MessageLevelStyle = "--warning";
         }
-
-        public void SetupMessageState()
+        else if (Message.Level == MessageLevel.Error)
         {
-            ShowMessage = true;
-            MessageLevelStyle = string.Empty;
-            if (Message.Level == MessageLevel.Success)
+            MessageLevelStyle = "--error";
+        }
+    }
+
+    public void HandleHide()
+    {
+        ShowMessage = false;
+        _removeTimer.Stop();
+        _removeTimer.Start();
+    }
+
+    private void HideMessageCallback(object? _, ElapsedEventArgs args)
+    {
+        HandleHide();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleRemoveCallback(object? _, ElapsedEventArgs args)
+    {
+        InvokeAsync(
+            async () =>
             {
-                MessageLevelStyle = "--success";
+                await OnRemove.InvokeAsync(Message.Id);
             }
-            else if (Message.Level == MessageLevel.Warning)
-            {
-                MessageLevelStyle = "--warning";
-            }
-            else if (Message.Level == MessageLevel.Error)
-            {
-                MessageLevelStyle = "--error";
-            }
-        }
-
-        public void HandleHide()
-        {
-            ShowMessage = false;
-            _removeTimer.Stop();
-            _removeTimer.Start();
-        }
-
-        private void HideMessageCallback(
-            object _,
-            ElapsedEventArgs __
-        )
-        {
-            HandleHide();
-            InvokeAsync(StateHasChanged);
-        }
-
-        private void HandleRemoveCallback(
-            object _,
-            ElapsedEventArgs __
-        )
-        {
-            InvokeAsync(
-                async () =>
-                {
-                    await OnRemove.InvokeAsync(
-                        Message.Id
-                    );
-                }
-            );
-        }
+        );
     }
 }

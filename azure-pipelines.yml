@@ -80,7 +80,16 @@ jobs:
         latest
         $(Build.BuildNumber)
   - task: Docker@2
-    displayName: Push Image - EventHorizon.Blazor.BabylonJS 
+    displayName: Push Build Image - EventHorizon.Blazor.BabylonJS 
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-client
+      tags: |
+        $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Push Latest Image - EventHorizon.Blazor.BabylonJS 
     condition: and(succeeded(), eq(variables.IsMain, true))
     inputs: 
       command: push
@@ -89,7 +98,6 @@ jobs:
       repository: canhorn/ehz-platform-server-client
       tags: |
         latest
-        $(Build.BuildNumber)
 
 
 - job: Build_Editor
@@ -131,7 +139,16 @@ jobs:
         latest
         $(Build.BuildNumber)
   - task: Docker@2
-    displayName: Push Image - EventHorizon.Game.Editor 
+    displayName: Push Build Image - EventHorizon.Game.Editor 
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-platform-server-editor
+      tags: |
+        $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Push Latest Image - EventHorizon.Game.Editor 
     condition: and(succeeded(), eq(variables.IsMain, true))
     inputs: 
       command: push
@@ -140,7 +157,6 @@ jobs:
       repository: canhorn/ehz-platform-server-editor
       tags: |
         latest
-        $(Build.BuildNumber)
 
 
 - job: Build_Package
@@ -165,7 +181,16 @@ jobs:
         latest
         $(Build.BuildNumber)
   - task: Docker@2
-    displayName: Push Image - EventHorizon.Blazor.BabylonJS Packages 
+    displayName: Push Build Image - EventHorizon.Blazor.BabylonJS Packages 
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)
+      repository: canhorn/ehz-client-packages
+      tags: |
+        $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Push Latest Image - EventHorizon.Blazor.BabylonJS Packages 
     condition: and(succeeded(), eq(variables.IsMain, true))
     inputs: 
       command: push
@@ -174,10 +199,9 @@ jobs:
       repository: canhorn/ehz-client-packages
       tags: |
         latest
-        $(Build.BuildNumber)
   # Push NuGet Packages
-  - script: docker run --rm --name push-packages canhorn/ehz-client-packages:latest --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
+  - script: docker run --rm --name push-packages canhorn/ehz-client-packages:$BUILD_NUMBER --source https://api.nuget.org/v3/index.json --api-key $NUGET_API_KEY
     displayName: NuGet Package Push - EventHorizon.Blazor.BabylonJS 
-    condition: and(succeeded(), eq(variables.IsMain, true))
     env:
       NUGET_API_KEY: $(NUGET_API_KEY)
+      BUILD_NUMBER: $(Build.BuildNumber)

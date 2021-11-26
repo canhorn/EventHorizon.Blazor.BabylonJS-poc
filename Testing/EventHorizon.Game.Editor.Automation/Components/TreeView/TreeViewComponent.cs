@@ -1,37 +1,37 @@
-﻿namespace EventHorizon.Game.Editor.Automation.Components.TreeView
+﻿namespace EventHorizon.Game.Editor.Automation.Components.TreeView;
+
+using Atata;
+
+public class TreeViewComponent<TOwner> : Control<TOwner>
+    where TOwner : PageObject<TOwner>
 {
-    using Atata;
+    [TestSelector("tree-node")]
+    public TreeNode Tree { get; set; }
 
-    public class TreeViewComponent<TOwner> : Control<TOwner>
-        where TOwner : PageObject<TOwner>
+    public class TreeNode : Control<TOwner>
     {
-        [TestSelector("tree-node")]
-        public TreeNode Tree { get; set; }
+        [Selector("tree-node-link")]
+        public Link<TOwner> Link { get; private set; }
+        [Selector("tree-node-text")]
+        public Text<TOwner> Text { get; private set; }
 
-        public class TreeNode : Control<TOwner>
+        public ControlList<
+            TreeNodeItem,
+            TOwner
+        > Children
+        { get; private set; }
+
+        public TreeNode Open()
         {
-            [Selector("tree-node-link")]
-            public Link<TOwner> Link { get; private set; }
-            [Selector("tree-node-text")]
-            public Text<TOwner> Text { get; private set; }
+            Link.Click();
+            Link.Click();
 
-            public ControlList<
-                TreeNodeItem,
-                TOwner
-            > Children { get; private set; }
-
-            public TreeNode Open()
-            {
-                Link.Click();
-                Link.Click();
-
-                return this;
-            }
+            return this;
         }
+    }
 
-        [ControlDefinition("li/ul")]
-        public class TreeNodeItem : TreeNode
-        {
-        }
+    [ControlDefinition("li/ul")]
+    public class TreeNodeItem : TreeNode
+    {
     }
 }

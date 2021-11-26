@@ -1,6 +1,12 @@
 ﻿@using EventHorizon.Game.Editor.Client.Authentication.Api
 @using EventHorizon.Game.Editor.Client.Authentication.Set
+@using EventHorizon.Game.Editor.Client.DataStorage.Pages
+@using EventHorizon.Game.Editor.Client.LiveEditor.Pages
 @using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
+@using EventHorizon.Game.Editor.Client.ArtifactManagement.Pages
+@using EventHorizon.Game.Editor.Client.AssetManagement.Pages
+@using EventHorizon.Game.Editor.Client.Wizard.Pages
+@using EventHorizon.Game.Editor.Client.Zone.Pages
 
 <TreeView Root="@QuickLinkData"
           OnChanged="HandleTreeViewChanged"
@@ -23,19 +29,19 @@
         base.OnInitialized();
 
         QuickLinkData = new TreeViewNodeData
-        {
-            Id = "quick-link-pages",
-            Name = "pages",
-            Text = Localizer["Quick Links"],
-            IsExpanded = (SessionValues.Get("quickLinks_IsExpanded", string.Empty) == "true"),
-            Children = new List<TreeViewNodeData>
+            {
+                Id = "quick-link-pages",
+                Name = "pages",
+                Text = Localizer["Quick Links"],
+                IsExpanded = (SessionValues.Get("quickLinks_IsExpanded", string.Empty) == "true"),
+                Children = new List<TreeViewNodeData>
             {
                 new TreeViewNodeData
                 {
                     Id = "quick-link__zone-entity",
                     Name = "zone-entity",
                     Text = Localizer["Entity Editor"],
-                    Href = "/zone/entity",
+                    Href = ZoneEntityListPage.Route,
                     IconCssClass = "--icon oi oi-list-rich"
                 },
                 new TreeViewNodeData
@@ -43,7 +49,7 @@
                     Id = "quick-link__live-editor",
                     Name = "live-editor",
                     Text = Localizer["Live Editor"],
-                    Href = "/live-editor",
+                    Href = LiveEditorPage.Route,
                     IconCssClass = "--icon oi oi-list-rich"
                 },
                 new TreeViewNodeData
@@ -51,7 +57,7 @@
                     Id = "quick-link__zone-commands",
                     Name = "zone-commands",
                     Text = Localizer["Zone Commands"],
-                    Href = "/zone/commands",
+                    Href = ZoneCommandsPage.Route,
                     IconCssClass = "--icon oi oi-list-rich"
                 },
                 new TreeViewNodeData
@@ -59,7 +65,7 @@
                     Id = "quick-link__wizard-editor",
                     Name = "wizard-editor",
                     Text = Localizer["Wizard"],
-                    Href = "/wizard-editor",
+                    Href = WizardEditorPage.Route,
                     IconCssClass = "--icon oi oi-list-rich"
                 },
                 new TreeViewNodeData
@@ -67,7 +73,7 @@
                     Id = "quick-link__data-storage",
                     Name = "data-storage",
                     Text = Localizer["Data Storage"],
-                    Href = "/data-storage",
+                    Href = DataStoragePage.Route,
                     IconCssClass = "--icon oi oi-list-rich"
                 },
                 new TreeViewNodeData
@@ -75,11 +81,19 @@
                     Id = "quick-link__asset-management",
                     Name = "asset-management",
                     Text = Localizer["Asset Management"],
-                    Href = "/asset/management",
+                    Href = AssetManagementPage.Route,
+                    IconCssClass = "--icon oi oi-list-rich"
+                },
+                new TreeViewNodeData
+                {
+                    Id = "quick-link__artifact-management",
+                    Name = "artifact-management",
+                    Text = Localizer["Artifact Management"],
+                    Href = ArtifactManagementPage.Route,
                     IconCssClass = "--icon oi oi-list-rich"
                 },
             }
-        };
+            };
     }
 
     protected override void OnParametersSet()

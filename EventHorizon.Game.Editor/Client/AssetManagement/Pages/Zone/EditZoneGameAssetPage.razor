@@ -1,4 +1,9 @@
 ﻿@page "/asset/management/zone/edit/{id}"
+@code
+{
+    public static string Route(string id) => $"/asset/management/zone/edit/{id}";
+}
+
 @using EventHorizon.Game.Editor.Client.AssetManagement.Components.EditForm
 @inherits EditZoneGameAssetPageModel
 

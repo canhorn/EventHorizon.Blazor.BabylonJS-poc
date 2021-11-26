@@ -1,40 +1,40 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Pages
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Pages;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.Shared.Components;
+using EventHorizon.Game.Editor.Client.Zone.Agent.Selected;
+using EventHorizon.Game.Editor.Client.Zone.Selected;
+
+using Microsoft.AspNetCore.Components;
+
+public class ZoneEntityListPageModel
+    : ObservableComponentBase,
+    ClientEntitySelectedEventObserver,
+    AgentEntitySelectedEventObserver
 {
-    using System;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
-    using EventHorizon.Game.Editor.Client.Zone.Agent.Selected;
-    using EventHorizon.Game.Editor.Client.Zone.Selected;
-    using Microsoft.AspNetCore.Components;
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
 
-    public class ZoneEntityListPageModel
-        : ObservableComponentBase,
-        ClientEntitySelectedEventObserver,
-        AgentEntitySelectedEventObserver
+    public Task Handle(
+       ClientEntitySelectedEvent args
+    )
     {
-        [Inject]
-        public NavigationManager NavigationManager { get; set; } = null!;
+        NavigationManager.NavigateTo(
+            ZoneEntityEditorPage.Route(args.Entity.GlobalId)
+        );
 
-        public Task Handle(
-           ClientEntitySelectedEvent args
-        )
-        {
-            NavigationManager.NavigateTo(
-                $"zone/entity/{args.Entity.GlobalId}"
-            );
+        return Task.CompletedTask;
+    }
 
-            return Task.CompletedTask;
-        }
+    public Task Handle(
+        AgentEntitySelectedEvent args
+    )
+    {
+        NavigationManager.NavigateTo(
+            ZoneEntityEditorPage.Route(args.Entity.GlobalId)
+        );
 
-        public Task Handle(
-            AgentEntitySelectedEvent args
-        )
-        {
-            NavigationManager.NavigateTo(
-                $"zone/entity/{args.Entity.GlobalId}"
-            );
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

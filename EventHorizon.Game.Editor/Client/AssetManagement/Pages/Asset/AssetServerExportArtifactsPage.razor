@@ -1,0 +1,21 @@
+﻿@page "/asset/artifacts/export"
+@code
+{
+    public const string Route = "/asset/artifacts/export";
+}
+
+@using EventHorizon.Game.Editor.Client.ArtifactManagement.Components
+@using EventHorizon.Game.Editor.Client.AssetManagement.Components.Toolbars
+@inherits EditorComponentBase
+
+<div class="asset-export-artifacts__page">
+    <h1>
+        @Localizer["Asset Server Export Artifacts"]
+    </h1>
+
+    <div class="asset-export-artifacts__toolbar">
+        <AssetServerToolbar />
+    </div>
+   
+    <ArtifactExportsTable ServiceFilter="asset" />
+</div>

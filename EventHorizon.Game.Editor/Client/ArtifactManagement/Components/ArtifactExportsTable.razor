@@ -1,0 +1,37 @@
+﻿@inherits ArtifactExportsTableBase
+
+<ContainerComponent State="DisplayState">
+    <table class="export-artifacts__table --full">
+        <thead>
+            <tr>
+                <th>@Localizer["Service"]</th>
+                <th>@Localizer["Reference Id"]</th>
+                <th>@Localizer["Created"]</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var backup in ArtifactList)
+            {
+                <tr>
+                    <td>
+                        @backup.Service
+                    </td>
+                    <td>
+                        @backup.ReferenceId
+                    </td>
+                    <td>
+                        @backup.CreatedDate
+                    </td>
+                    <td>
+                        <a href="@backup.Path" target="_blank">
+                            @Localizer["Download"]
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</ContainerComponent>
+
+

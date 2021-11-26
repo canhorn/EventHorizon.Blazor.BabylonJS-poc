@@ -1,0 +1,38 @@
+﻿@page "/asset/artifacts"
+@code
+{
+    public const string Route = "/asset/artifacts";
+}
+
+@using EventHorizon.Game.Editor.Client.AssetManagement.Pages.Asset
+@inherits EditorComponentBase
+
+<div class="asset-artifact__page">
+
+    <h1>
+        @Localizer["Asset Server Artifacts"]
+    </h1>
+
+    <p class="page__description">
+        @Localizer["This is the Asset Server Artifacts Management Page, from here you can navigate to the Backup/Export/Import Artifacts for the Asset Server."]
+    </p>
+
+    <div class="--padding">
+        <a href="@AssetServerBackupArtifactsPage.Route">
+            @Localizer["Asset Server Backup Artifacts"]
+        </a>
+    </div>
+
+    <div class="--padding">
+        <a href="@AssetServerExportArtifactsPage.Route">
+            @Localizer["Asset Server Export Artifacts"]
+        </a>
+    </div>
+
+    <div class="--padding">
+        <a href="@AssetServerImportArtifactsPage.Route">
+            @Localizer["Asset Server Import Artifacts"]
+        </a>
+    </div>
+
+</div>

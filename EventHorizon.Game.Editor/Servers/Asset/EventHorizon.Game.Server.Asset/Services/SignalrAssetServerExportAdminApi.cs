@@ -1,61 +1,44 @@
-﻿namespace EventHorizon.Game.Server.Asset.Services
+﻿namespace EventHorizon.Game.Server.Asset.Services;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Server.Asset.Api;
+using EventHorizon.Game.Server.Asset.Model;
+
+using Microsoft.AspNetCore.SignalR.Client;
+
+public class SignalrAssetServerExportAdminApi
+    : AssetServerExportAdminApi
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Server.Asset.Api;
-    using EventHorizon.Game.Server.Asset.Model;
-    using Microsoft.AspNetCore.SignalR.Client;
+    private readonly HubConnection? _hubConnection;
 
-    public class SignalrAssetServerExportAdminApi
-        : AssetServerExportAdminApi
+    internal SignalrAssetServerExportAdminApi(
+        HubConnection? hubConnection
+    )
     {
-        private readonly HubConnection? _hubConnection;
+        _hubConnection = hubConnection;
+    }
 
-        internal SignalrAssetServerExportAdminApi(
-            HubConnection? hubConnection
-        )
+    public async Task<
+        ApiResponse<ExportTriggerResult>
+    > Trigger(CancellationToken cancellationToken)
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            _hubConnection = hubConnection;
-
-        }
-
-        public async Task<ApiResponse<IEnumerable<ExportArtifact>>> ArtifactList(
-            CancellationToken cancellationToken
-        )
-        {
-            if (_hubConnection.IsNotConnected())
+            return new ApiResponse<ExportTriggerResult>
             {
-                return new ApiResponse<IEnumerable<ExportArtifact>>
-                {
-                    Success = false,
-                    ErrorCode = AssetServerAdminErrorCodes.NOT_CONNECTED,
-                };
-            }
-
-            return await _hubConnection.InvokeAsync<ApiResponse<IEnumerable<ExportArtifact>>>(
-                "Export_ArtifactList",
-                cancellationToken: cancellationToken
-            );
+                Success = false,
+                ErrorCode =
+                    AssetServerAdminErrorCodes.NOT_CONNECTED,
+            };
         }
 
-        public async Task<ApiResponse<ExportTriggerResult>> Trigger(
-            CancellationToken cancellationToken
-        )
-        {
-            if (_hubConnection.IsNotConnected())
-            {
-                return new ApiResponse<ExportTriggerResult>
-                {
-                    Success = false,
-                    ErrorCode = AssetServerAdminErrorCodes.NOT_CONNECTED,
-                };
-            }
-
-            return await _hubConnection.InvokeAsync<ApiResponse<ExportTriggerResult>>(
-                "Export_Trigger",
-                cancellationToken: cancellationToken
-            );
-        }
+        return await _hubConnection.InvokeAsync<
+            ApiResponse<ExportTriggerResult>
+        >(
+            "Asset_Export_Trigger",
+            cancellationToken: cancellationToken
+        );
     }
 }
