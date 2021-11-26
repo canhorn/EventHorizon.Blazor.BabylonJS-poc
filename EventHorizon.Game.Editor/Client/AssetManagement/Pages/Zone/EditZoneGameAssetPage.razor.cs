@@ -1,110 +1,103 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Pages.Zone
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Pages.Zone;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.Shared.Components;
+using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
+using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
+using EventHorizon.Game.Editor.Zone.Services.Connection;
+using EventHorizon.Zone.Systems.ClientAssets.Model;
+using EventHorizon.Zone.Systems.ClientAssets.Query;
+using EventHorizon.Zone.Systems.ClientAssets.Update;
+
+using Microsoft.AspNetCore.Components;
+
+public class EditZoneGameAssetPageModel
+    : ObservableComponentBase,
+      ZoneAdminServiceConnectedEventObserver
 {
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
-    using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Connection;
-    using EventHorizon.Zone.Systems.ClientAssets.Model;
-    using EventHorizon.Zone.Systems.ClientAssets.Query;
-    using EventHorizon.Zone.Systems.ClientAssets.Update;
-    using Microsoft.AspNetCore.Components;
+    [Parameter]
+    public string Id { get; set; } = string.Empty;
 
-    public class EditZoneGameAssetPageModel
-        : ObservableComponentBase,
-        ZoneAdminServiceConnectedEventObserver
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+
+    protected ClientAsset Model { get; private set; } = new ClientAsset();
+
+    protected ComponentState ModelState { get; private set; } = ComponentState.Loading;
+    protected string Message { get; private set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
     {
-        [Parameter]
-        public string Id { get; set; } = string.Empty;
+        await base.OnInitializedAsync();
+        await Setup();
+    }
 
-        [Inject]
-        public NavigationManager NavigationManager { get; set; } = null!;
-
-        protected ClientAsset Model { get; private set; } = new ClientAsset();
-
-        protected ComponentState ModelState { get; private set; } = ComponentState.Loading;
-        protected string Message { get; private set; } = string.Empty;
-
-        protected override async Task OnInitializedAsync()
+    protected async Task HandleSave()
+    {
+        ModelState = ComponentState.Loading;
+        var result = await Mediator.Send(
+            new UpdateClientAssetCommand(Model)
+        );
+        if (!result)
         {
-            await base.OnInitializedAsync();
-            await Setup();
+            Message = Localizer[
+                "Failed to Update Asset: {0}",
+                result.ErrorCode ?? "ERROR"
+            ];
+            ModelState = ComponentState.Error;
+            return;
         }
 
-        protected async Task HandleSave()
+        await ShowMessage(
+            Localizer["Game Asset Edit"],
+            Localizer[
+                "Successfully update Game Asset, navigating back to Asset List Page."
+            ]
+        );
+        NavigationManager.NavigateTo(AssetZoneManagementPage.Route);
+    }
+
+    protected void HandleCancel()
+    {
+        NavigationManager.NavigateTo(AssetZoneManagementPage.Route);
+    }
+
+    public async Task Handle(ZoneAdminServiceConnectedEvent _)
+    {
+        await Setup();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task Setup()
+    {
+        var gameAssetResult = await Mediator.Send(
+            new QueryForClientAssetById(Id)
+        );
+
+        if (!gameAssetResult)
         {
-            ModelState = ComponentState.Loading;
-            var result = await Mediator.Send(
-                new UpdateClientAssetCommand(
-                    Model
-                )
-            );
-            if (!result)
+            if (gameAssetResult.ErrorCode == "CLIENT_ASSET_NOT_FOUND")
             {
-                Message = Localizer[
-                    "Failed to Update Asset: {0}",
-                    result.ErrorCode ?? "ERROR"
-                ];
-                ModelState = ComponentState.Error;
+                await ShowMessage(
+                    Localizer["Game Asset Edit"],
+                    Localizer[
+                        "Game Asset was not found, redirecting to Management page..."
+                    ],
+                    MessageLevel.Warning
+                );
+                NavigationManager.NavigateTo(AssetZoneManagementPage.Route);
                 return;
             }
-
-            await ShowMessage(
-                Localizer["Game Asset Edit"],
-                Localizer["Successfully update Game Asset, navigating back to Asset List Page."]
-            );
-            NavigationManager.NavigateTo(
-                "/asset/management/zone"
-            );
+            Message = Localizer[
+                "Failed to find Game Asset: {0}",
+                gameAssetResult.ErrorCode
+            ];
+            ModelState = ComponentState.Error;
+            return;
         }
 
-        protected void HandleCancel()
-        {
-            NavigationManager.NavigateTo(
-                "/asset/management/zone"
-            );
-        }
-
-        public async Task Handle(
-            ZoneAdminServiceConnectedEvent _
-        )
-        {
-            await Setup();
-            await InvokeAsync(StateHasChanged);
-        }
-
-        private async Task Setup()
-        {
-            var gameAssetResult = await Mediator.Send(
-                new QueryForClientAssetById(
-                    Id
-                )
-            );
-
-            if (!gameAssetResult)
-            {
-                if (gameAssetResult.ErrorCode == "CLIENT_ASSET_NOT_FOUND")
-                {
-                    await ShowMessage(
-                        Localizer["Game Asset Edit"],
-                        Localizer["Game Asset was not found, redirecting to Management page..."],
-                        MessageLevel.Warning
-                    );
-                    NavigationManager.NavigateTo(
-                        "/asset/management/zone"
-                    );
-                    return;
-                }
-                Message = Localizer[
-                    "Failed to find Game Asset: {0}",
-                    gameAssetResult.ErrorCode
-                ];
-                ModelState = ComponentState.Error;
-                return;
-            }
-
-            Model = gameAssetResult.Result;
-            ModelState = ComponentState.Content;
-        }
+        Model = gameAssetResult.Result;
+        ModelState = ComponentState.Content;
     }
 }

@@ -1,4 +1,8 @@
 ﻿@page "/authentication/{action}"
+@code {
+    public static string Route(string action) => $"/authentication/{action}";
+}
+
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @layout AuthenticationLayout
 

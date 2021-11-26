@@ -1,4 +1,8 @@
 ﻿@page "/zone/entity/{entityId}"
+@code {
+    public static string Route(string entityId) => $"/zone/entity/{entityId}";
+}
+
 @using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components
 @using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Providers
 @layout MainLayout
