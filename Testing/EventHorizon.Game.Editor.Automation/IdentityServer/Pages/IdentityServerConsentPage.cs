@@ -1,14 +1,14 @@
-﻿namespace EventHorizon.Game.Editor.Automation.IdentityServer.Pages
+﻿namespace EventHorizon.Game.Editor.Automation.IdentityServer.Pages;
+
+using Atata;
+
+using _ = IdentityServerConsentPage;
+
+public class IdentityServerConsentPage
+    : Page<_>
 {
-    using Atata;
-    using _ = IdentityServerConsentPage;
+    public static string Url => $"/consent";
 
-    public class IdentityServerConsentPage
-        : Page<_>
-    {
-        public static string Url => $"/consent";
-
-        [FindById]
-        public Button<_> Yes { get; private set; }
-    }
+    [FindById]
+    public Button<_> Yes { get; private set; }
 }
