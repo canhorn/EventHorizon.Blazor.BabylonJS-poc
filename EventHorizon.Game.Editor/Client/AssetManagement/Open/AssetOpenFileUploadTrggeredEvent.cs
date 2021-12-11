@@ -1,28 +1,28 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Open
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Open;
+
+using EventHorizon.Game.Editor.Client.AssetManagement.Model;
+using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct AssetOpenFileUploadTrggeredEvent
+    : INotification
 {
-    using EventHorizon.Game.Editor.Client.AssetManagement.Model;
-    using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
-    using EventHorizon.Observer.Model;
-    using MediatR;
+    public TreeViewNodeData Node { get; }
+    public FileSystemDirectoryContent DirectoryContent { get; }
 
-    public struct AssetOpenFileUploadTrggeredEvent
-        : INotification
+    public AssetOpenFileUploadTrggeredEvent(
+        TreeViewNodeData node,
+        FileSystemDirectoryContent directoryContent
+    )
     {
-        public TreeViewNodeData Node { get; }
-        public FileSystemDirectoryContent DirectoryContent { get; }
-
-        public AssetOpenFileUploadTrggeredEvent(
-            TreeViewNodeData node, 
-            FileSystemDirectoryContent directoryContent
-        )
-        {
-            Node = node;
-            DirectoryContent = directoryContent;
-        }
+        Node = node;
+        DirectoryContent = directoryContent;
     }
+}
 
-    public interface AssetOpenFileUploadTrggeredEventObserver
-        : ArgumentObserver<AssetOpenFileUploadTrggeredEvent>
-    {
-    }
+public interface AssetOpenFileUploadTrggeredEventObserver
+    : ArgumentObserver<AssetOpenFileUploadTrggeredEvent>
+{
 }

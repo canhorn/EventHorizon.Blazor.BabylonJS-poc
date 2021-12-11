@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="9.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\src\EventHorizon.Observer\EventHorizon.Observer.csproj" />
+      <ProjectReference Include="..\..\..\..\src\SDK\EventHorizon.Game.Client.Core.Api\EventHorizon.Game.Client.Core.Api.csproj" />
+      <ProjectReference Include="..\..\EventHorizon.Game.Editor.Zone.Api\EventHorizon.Game.Editor.Zone.Api.csproj" />
+    </ItemGroup>
+
+</Project>        

@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model
 {
     using System;
     using System.Collections.Generic;

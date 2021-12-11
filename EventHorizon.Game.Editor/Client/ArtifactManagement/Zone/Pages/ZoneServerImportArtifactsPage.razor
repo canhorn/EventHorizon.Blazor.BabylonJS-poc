@@ -1,0 +1,21 @@
+﻿@page "/artifacts/zone/imports"
+@code
+{
+    public const string Route = "/artifacts/zone/imports";
+}
+
+@using EventHorizon.Game.Editor.Client.ArtifactManagement.Components
+@using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Components.Toolbars
+@inherits EditorComponentBase
+
+<div class="zone-export-artifacts__page --padding">
+    <h1>
+        @Localizer["Zone Server Import Artifacts"]
+    </h1>
+
+    <div class="zone-export-artifacts__toolbar">
+        <ZoneServerToolbar />
+    </div>
+
+    <ArtifactImportsTable ServiceFilter="zone" />
+</div>

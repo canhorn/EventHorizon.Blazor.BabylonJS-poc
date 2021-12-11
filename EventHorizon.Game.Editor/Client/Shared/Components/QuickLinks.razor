@@ -1,4 +1,5 @@
-﻿@using EventHorizon.Game.Editor.Client.Authentication.Api
+﻿@using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Pages
+@using EventHorizon.Game.Editor.Client.Authentication.Api
 @using EventHorizon.Game.Editor.Client.Authentication.Set
 @using EventHorizon.Game.Editor.Client.DataStorage.Pages
 @using EventHorizon.Game.Editor.Client.LiveEditor.Pages
@@ -92,8 +93,16 @@
                     Href = ArtifactManagementPage.Route,
                     IconCssClass = "--icon oi oi-list-rich"
                 },
+                new TreeViewNodeData
+                {
+                    Id = "quick-link__artifact-management",
+                    Name = "artifact-management",
+                    Text = Localizer["Zone Artifacts Management"],
+                    Href = ZoneArtifactsManagementPage.Route,
+                    IconCssClass = "--icon oi oi-list-rich"
+                },
             }
-            };
+        };
     }
 
     protected override void OnParametersSet()

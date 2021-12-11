@@ -13,7 +13,7 @@ using EventHorizon.Game.Editor.Client.AssetManagement.New;
 using EventHorizon.Game.Editor.Client.AssetManagement.Open;
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
-using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
+using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Server.Asset.Connect;

@@ -1,0 +1,9 @@
+﻿@inherits ZoneServerUploadImportFileProviderBase
+
+<div class="zone-server-upload-import-file-provider">
+    <InputFile @ref="UploadInputFile"
+               id="@UploadFileId"
+               style="position: fixed; top: -1000px; left: -1000px;"
+               tabindex="-1"
+               OnChange="HandleInputFileChange" />
+</div>

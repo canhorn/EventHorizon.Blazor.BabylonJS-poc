@@ -1,124 +1,126 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.AssetManagement.Api;
+using EventHorizon.Game.Editor.Client.AssetManagement.Model;
+using EventHorizon.Game.Editor.Client.AssetManagement.Open;
+using EventHorizon.Game.Editor.Client.AssetManagement.Reload;
+using EventHorizon.Game.Editor.Client.Authentication.Model;
+using EventHorizon.Game.Editor.Client.Shared.Components;
+using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
+
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
+
+public class AssetImportFileUploadProviderModel
+    : ObservableComponentBase,
+      OpenAssetServerImportFileUploaderEventObserver
 {
-    using System.Threading.Tasks;
+    [CascadingParameter]
+    public AccessTokenModel AccessToken { get; set; } = null!;
 
-    using EventHorizon.Game.Editor.Client.AssetManagement.Api;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Model;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Open;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Reload;
-    using EventHorizon.Game.Editor.Client.Authentication.Model;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
-    using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; } = null!;
+    [Inject]
+    public AssetServerService AssetServerService { get; set; } = null!;
 
-    using Microsoft.AspNetCore.Components;
-    using Microsoft.AspNetCore.Components.Forms;
-    using Microsoft.JSInterop;
-
-    public class AssetImportFileUploadProviderModel
-        : ObservableComponentBase,
-        OpenAssetServerImportFileUploaderEventObserver
+    public string UploadFileId { get; } = "asset-server-import-upload-input-file";
+    public IJSObjectReference FileUploadClickModule
     {
-        [CascadingParameter]
-        public AccessTokenModel AccessToken { get; set; } = null!;
+        get;
+        private set;
+    } = null!;
+    public InputFile UploadInputFile { get; set; } = null!;
 
-        [Inject]
-        public IJSRuntime JSRuntime { get; set; } = null!;
-        [Inject]
-        public AssetServerService AssetServerService { get; set; } = null!;
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
 
+        FileUploadClickModule = await JSRuntime.InvokeAsync<IJSObjectReference>(
+            "import",
+            "./js/FileUploadClick.js"
+        );
+    }
 
-        public string UploadFileId { get; } = "asset-server-import-upload-input-file";
-        public IJSObjectReference FileUploadClickModule { get; private set; } = null!;
-        public InputFile UploadInputFile { get; set; } = null!;
+    public async Task TriggerOpenForFileUpload()
+    {
+        await FileUploadClickModule.InvokeVoidAsync(
+            "openInputElement",
+            UploadFileId
+        );
+    }
 
-        protected override async Task OnInitializedAsync()
+    public async Task Handle(
+        OpenAssetServerImportFileUploaderEvent _
+    )
+    {
+        await TriggerOpenForFileUpload();
+    }
+
+    protected async Task HandleInputFileChange(
+        InputFileChangeEventArgs args
+    )
+    {
+        await UploadFrom(args.File);
+    }
+
+    private async Task UploadFrom(IBrowserFile file)
+    {
+        if (AccessToken.IsFilled.IsNotTrue())
         {
-            await base.OnInitializedAsync();
-
-            FileUploadClickModule = await JSRuntime.InvokeAsync<IJSObjectReference>(
-                "import",
-                "./js/FileUploadClick.js"
-            );
+            return;
         }
 
-        public async Task TriggerOpenForFileUpload()
+        var result = await AssetServerService.Upload(
+            AccessToken.AccessToken,
+            file,
+            System.Threading.CancellationToken.None
+        );
+
+        if (result.Success)
         {
-            await FileUploadClickModule.InvokeVoidAsync(
-                "openInputElement",
-                UploadFileId
+            await Mediator.Publish(
+                new ForceReloadAssetManagementStateEvent()
             );
-        }
-
-        public async Task Handle(
-            OpenAssetServerImportFileUploaderEvent _
-        )
-        {
-            await TriggerOpenForFileUpload();
-        }
-
-        protected async Task HandleInputFileChange(
-            InputFileChangeEventArgs args
-        )
-        {
-            await UploadFrom(
-                args.File
-            );
-        }
-
-        private async Task UploadFrom(
-            IBrowserFile file
-        )
-        {
-            if (AccessToken.IsFilled.IsNotTrue())
-            {
-                return;
-            }
-
-            var result = await AssetServerService.Upload(
-                AccessToken.AccessToken,
-                file,
-                System.Threading.CancellationToken.None
-            );
-
-            if (result.Success)
-            {
-                await Mediator.Publish(
-                    new ForceReloadAssetManagementStateEvent()
-                );
-
-                await ShowMessage(
-                    Localizer["Asset Server Import"],
-                    Localizer["Successfully Import new Assets."]
-                );
-                return;
-            }
-            else if (result.ErrorCode == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOOL_LARGE)
-            {
-                await ShowMessage(
-                    Localizer["Asset Server Import"],
-                    Localizer[
-                        "Failed to Import Assets, file was larger than {0}MB.",
-                        AssetServerConstants.MAX_FILE_SIZE_IN_MEGABYTES
-                    ],
-                    MessageLevel.Error
-                );
-                return;
-            }
 
             await ShowMessage(
                 Localizer["Asset Server Import"],
                 Localizer[
-                    "Failed to Import Assets: ErrorCode = {0}",
-                    result.ErrorCode
+                    "Successfully Import new Assets."
+                ]
+            );
+            return;
+        }
+        else if (
+            result.ErrorCode == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE
+        )
+        {
+            await ShowMessage(
+                Localizer["Asset Server Import"],
+                Localizer[
+                    "Failed to Import Assets, file was larger than {0}MB.",
+                    AssetServerConstants.MAX_FILE_SIZE_IN_MEGABYTES
                 ],
                 MessageLevel.Error
             );
+            return;
         }
 
-        public override async ValueTask DisposeAsync()
-        {
-            await base.DisposeAsync();
-            await FileUploadClickModule.DisposeAsync();
-        }
+        await ShowMessage(
+            Localizer["Asset Server Import"],
+            Localizer[
+                "Failed to Import Assets: ErrorCode = {0}",
+                result.ErrorCode
+            ],
+            MessageLevel.Error
+        );
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        await base.DisposeAsync();
+        await FileUploadClickModule.DisposeAsync();
     }
 }
