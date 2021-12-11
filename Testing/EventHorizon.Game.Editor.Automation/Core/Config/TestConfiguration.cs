@@ -1,17 +1,16 @@
-﻿namespace EventHorizon.Game.Editor.Automation.Core.Config
+﻿namespace EventHorizon.Game.Editor.Automation.Core.Config;
+
+using Microsoft.Extensions.Configuration;
+
+public class TestConfiguration
 {
-    using Microsoft.Extensions.Configuration;
+    public static IConfiguration Configuration { get; }
 
-    public class TestConfiguration
+    static TestConfiguration()
     {
-        public static IConfiguration Configuration { get; }
-
-        static TestConfiguration()
-        {
-            Configuration = new ConfigurationBuilder()
-                .AddJsonFile("Config.json")
-                .AddJsonFile("Config.Override.json", true)
-                .Build();
-        }
+        Configuration = new ConfigurationBuilder()
+            .AddJsonFile("Config.json")
+            .AddJsonFile("Config.Override.json", true)
+            .Build();
     }
 }

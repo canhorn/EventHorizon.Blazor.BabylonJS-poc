@@ -1,14 +1,13 @@
-﻿namespace EventHorizon.Game.Editor.Automation.ZoneCommands.Pages
+﻿namespace EventHorizon.Game.Editor.Automation.ZoneCommands.Pages;
+
+using Atata;
+
+using EventHorizon.Game.Editor.Automation.Layout;
+
+using _ = ZoneCommandsPage;
+
+[Url("/zone/commands")]
+public class ZoneCommandsPage : MainLayoutPage<_>
 {
-    using Atata;
-
-    using EventHorizon.Game.Editor.Automation.Layout;
-
-    using _ = ZoneCommandsPage;
-
-    [Url("/zone/commands")]
-    public class ZoneCommandsPage : MainLayoutPage<_>
-    {
-        public H1<_> Header { get; private set; }
-    }
+    public H1<_> Header { get; private set; }
 }

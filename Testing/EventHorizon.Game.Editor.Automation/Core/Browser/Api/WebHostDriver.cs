@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Game.Editor.Automation.Core.Browser.Api
+﻿namespace EventHorizon.Game.Editor.Automation.Core.Browser.Api;
+
+public interface WebHostDriver
 {
-    public interface WebHostDriver
-    {
-        string Type { get; }
-        WebHostDriverOptions Options { get; }
-    }
+    string Type { get; }
+    WebHostDriverOptions Options { get; }
 }

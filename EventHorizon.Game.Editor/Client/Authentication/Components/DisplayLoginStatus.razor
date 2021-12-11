@@ -1,7 +1,9 @@
-﻿<AuthorizeView>
+﻿@using EventHorizon.Game.Editor.Client.Pages
+
+<AuthorizeView>
     <Authorized>
         <a class="nav-link"
-           href="authentication/logout"
+           href="@AuthenticationPage.Route("logout")"
            @onclick="BeginSignOut"
            data-test-selector="logout-link">
             @(LogoutDisplayText ?? Localizer["Logout"])
@@ -9,7 +11,7 @@
     </Authorized>
     <NotAuthorized>
         <a class="nav-link"
-           href="authentication/login"
+           href="@AuthenticationPage.Route("login")"
            data-test-selector="login-link">
             @(LoginDisplayText ?? Localizer["Login"])
         </a>
@@ -34,6 +36,6 @@
     private async Task BeginSignOut(MouseEventArgs args)
     {
         await SignOutManager.SetSignOutState();
-        Navigation.NavigateTo("authentication/logout");
+        Navigation.NavigateTo(AuthenticationPage.Route("logout"));
     }
 }

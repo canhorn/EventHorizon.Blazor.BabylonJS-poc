@@ -1,4 +1,8 @@
 ﻿@page "/edit/file/{encodedFileNodeId}"
+@code {
+    public static string Route(string encodedFileNodeId) => $"/edit/file/{encodedFileNodeId}";
+}
+
 @layout ViewHeightLayout
 @using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor
 

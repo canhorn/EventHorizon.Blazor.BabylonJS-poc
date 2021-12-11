@@ -1,5 +1,5 @@
 ﻿@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Providers
-@inherits ObjectEntityEditorBladeModel
+@inherits ObjectEntityEditorBladeBase
 
 <ZoneStateProvider>
     @if (string.IsNullOrWhiteSpace(EntityId))
@@ -8,6 +8,11 @@
     }
     else
     {
+        <div class="back-to-entity-list">
+            <button @onclick="HandleBackToEntityList">
+                @Localizer["Back to Entity List"]
+            </button>
+        </div>
         <EntityProvider EntityId="@EntityId">
             <ObjectEntityEditor />
         </EntityProvider>

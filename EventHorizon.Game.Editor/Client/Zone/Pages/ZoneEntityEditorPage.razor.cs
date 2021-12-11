@@ -1,42 +1,43 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Pages
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Pages;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.Shared.Components;
+using EventHorizon.Game.Editor.Client.Zone.Agent.Selected;
+using EventHorizon.Game.Editor.Client.Zone.Selected;
+
+using Microsoft.AspNetCore.Components;
+
+public class ZoneEntityEditorPageModel
+    : ObservableComponentBase,
+    ClientEntitySelectedEventObserver,
+    AgentEntitySelectedEventObserver
 {
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
-    using EventHorizon.Game.Editor.Client.Zone.Agent.Selected;
-    using EventHorizon.Game.Editor.Client.Zone.Selected;
-    using Microsoft.AspNetCore.Components;
+    [Parameter]
+    public string EntityId { get; set; } = string.Empty;
 
-    public class ZoneEntityEditorPageModel
-        : ObservableComponentBase,
-        ClientEntitySelectedEventObserver,
-        AgentEntitySelectedEventObserver
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+
+    public Task Handle(
+        ClientEntitySelectedEvent args
+    )
     {
-        [Parameter]
-        public string EntityId { get; set; } = string.Empty;
+        NavigationManager.NavigateTo(
+            ZoneEntityEditorPage.Route(args.Entity.GlobalId)
+        );
 
-        [Inject]
-        public NavigationManager NavigationManager { get; set; } = null!;
+        return Task.CompletedTask;
+    }
 
-        public Task Handle(
-            ClientEntitySelectedEvent args
-        )
-        {
-            NavigationManager.NavigateTo(
-                $"zone/entity/{args.Entity.GlobalId}"
-            );
+    public Task Handle(
+        AgentEntitySelectedEvent args
+    )
+    {
+        NavigationManager.NavigateTo(
+            ZoneEntityEditorPage.Route(args.Entity.GlobalId)
+        );
 
-            return Task.CompletedTask;
-        }
-
-        public Task Handle(
-            AgentEntitySelectedEvent args
-        )
-        {
-            NavigationManager.NavigateTo(
-                $"zone/entity/{args.Entity.GlobalId}"
-            );
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

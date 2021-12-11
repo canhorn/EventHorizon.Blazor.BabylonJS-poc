@@ -1,41 +1,40 @@
-﻿namespace Xunit
+﻿namespace Xunit;
+
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+
+public class PrettyFactAttribute : FactAttribute
 {
-    using System.Runtime.CompilerServices;
-    using System.Text.RegularExpressions;
-
-    public class PrettyFactAttribute : FactAttribute
+    public PrettyFactAttribute(string testName = "")
     {
-        public PrettyFactAttribute(string testName = "")
+        if (!string.IsNullOrEmpty(testName))
         {
-            if (!string.IsNullOrEmpty(testName))
-            {
-                base.DisplayName = SplitCamelCase(testName);
-            }
-        }
-
-        public static string SplitCamelCase(
-            string camelCaseString
-        )
-        {
-            return Regex
-                .Replace(
-                    camelCaseString,
-                    "([A-Z])",
-                    " $1",
-                    RegexOptions.Compiled
-                )
-                .Trim();
+            base.DisplayName = SplitCamelCase(testName);
         }
     }
 
-    [Sdk.XunitTestCaseDiscoverer(
-        "Xunit.Sdk.TheoryDiscoverer",
-        "xunit.execution.{Platform}"
-    )]
-    public class PrettyTheoryAttribute : PrettyFactAttribute
+    public static string SplitCamelCase(
+        string camelCaseString
+    )
     {
-        public PrettyTheoryAttribute(
-            [CallerMemberName] string testMethodName = ""
-        ) : base(testMethodName) { }
+        return Regex
+            .Replace(
+                camelCaseString,
+                "([A-Z])",
+                " $1",
+                RegexOptions.Compiled
+            )
+            .Trim();
     }
+}
+
+[Sdk.XunitTestCaseDiscoverer(
+    "Xunit.Sdk.TheoryDiscoverer",
+    "xunit.execution.{Platform}"
+)]
+public class PrettyTheoryAttribute : PrettyFactAttribute
+{
+    public PrettyTheoryAttribute(
+        [CallerMemberName] string testMethodName = ""
+    ) : base(testMethodName) { }
 }
