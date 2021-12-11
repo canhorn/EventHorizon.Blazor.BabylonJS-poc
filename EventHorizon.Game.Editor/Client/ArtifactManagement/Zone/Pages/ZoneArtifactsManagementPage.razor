@@ -1,0 +1,36 @@
+﻿@page "/artifacts/zone"
+@code
+{
+    public const string Route = "/artifacts/zone";
+}
+
+@inherits EditorComponentBase
+
+<div class="zone-artifacts-management__page --padding">
+
+    <h1>
+        @Localizer["Zone Artifacts Management"]
+    </h1>
+
+    <p class="page__description">
+        @Localizer["Here you can manage your Exports/Import/Backups for the currently active Zone Server."]
+    </p>
+
+    <div class="management__link --padding">
+        <a href="@ZoneServerBackupArtifactsPage.Route">
+            @Localizer["Zone Backup Artifacts"]
+        </a>
+    </div>
+
+    <div class="management__link --padding">
+        <a href="@ZoneServerExportArtifactsPage.Route">
+            @Localizer["Zone Export Artifacts"]
+        </a>
+    </div>
+
+    <div class="management__link --padding">
+        <a href="@ZoneServerImportArtifactsPage.Route">
+            @Localizer["Zone Import Artifacts"]
+        </a>
+    </div>
+</div>
