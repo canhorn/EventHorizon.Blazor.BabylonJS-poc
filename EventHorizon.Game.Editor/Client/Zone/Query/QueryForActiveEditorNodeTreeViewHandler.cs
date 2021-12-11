@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
-using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
+using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
 using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer.Model;
 using EventHorizon.Game.Editor.Client.Zone.Pages;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;

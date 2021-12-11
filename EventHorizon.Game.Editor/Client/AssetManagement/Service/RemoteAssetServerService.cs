@@ -14,11 +14,10 @@ using EventHorizon.Game.Editor.Model;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
 
-public class RemoteAssetServerService
-    : AssetServerService
+public class RemoteAssetServerService : AssetServerService
 {
     private readonly ILogger _logger;
-    private readonly string _importApiUrl;
+    private readonly string _baseApiUrl;
     private readonly HttpClient _httpClient;
 
     public RemoteAssetServerService(
@@ -29,8 +28,7 @@ public class RemoteAssetServerService
     {
         _logger = logger;
         _httpClient = httpClient;
-        _importApiUrl =
-            $"{settings.AssetServer}/api/Asset/Import";
+        _baseApiUrl = settings.AssetServer;
     }
 
     public async Task<StandardCommandResult> Upload(
@@ -39,20 +37,62 @@ public class RemoteAssetServerService
         CancellationToken cancellationToken
     )
     {
+        var service = "Asset";
+        var url = $"{_baseApiUrl}/api/Asset/Import/Upload";
+        var result = await UploadFileToAssetServer(
+            accessToken,
+            file,
+            service,
+            url,
+            cancellationToken
+        );
+        if (!result)
+        {
+            return result.ErrorCode;
+        }
+
+        return new();
+    }
+
+    public async Task<CommandResult<UploadImportFileResult>> UploadImportFile(
+        string accessToken,
+        string service,
+        IBrowserFile file,
+        CancellationToken cancellationToken
+    )
+    {
+        var url = $"{_baseApiUrl}/api/Import/{service}/Upload";
+        return await UploadFileToAssetServer(
+            accessToken,
+            file,
+            service,
+            url,
+            cancellationToken
+        );
+    }
+
+    private async Task<CommandResult<UploadImportFileResult>> UploadFileToAssetServer(
+        string accessToken,
+        IBrowserFile file,
+        string service,
+        string url,
+        CancellationToken cancellationToken
+    )
+    {
         try
         {
             if (
-                file.Size
-                > AssetServerConstants.MAX_FILE_SIZE_IN_BYTES
+                file.Size > AssetServerConstants.MAX_FILE_SIZE_IN_BYTES
             )
             {
                 _logger.LogError(
-                    "Asset Server Payload Too Large ({FileSize}) | ({MaxFileSizeInBytes} max)",
+                    "Asset Server Payload Too Large ({FileSize}) | ({MaxFileSizeInBytes} max) | Service: {UploadService}",
                     file.Size,
-                    AssetServerConstants.MAX_FILE_SIZE_IN_BYTES
+                    AssetServerConstants.MAX_FILE_SIZE_IN_BYTES,
+                    service
                 );
                 return new(
-                    AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOOL_LARGE
+                    AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE
                 );
             }
 
@@ -74,7 +114,7 @@ public class RemoteAssetServerService
             using var httpMessage =
                 new HttpRequestMessage(
                     HttpMethod.Post,
-                    $"{_importApiUrl}/Upload"
+                    url
                 )
                 {
                     Content = content,
@@ -92,37 +132,42 @@ public class RemoteAssetServerService
 
             if (response.IsSuccessStatusCode)
             {
-                return new();
-            }
-            else if (
-                response.StatusCode
-                == System.Net.HttpStatusCode.Unauthorized
-            )
-            {
-                return new(
-                    AssetServerErrorCodes.ASSET_SERVER_NOT_AUTHORIZED
-                );
-            }
-
-            var errorResult =
-                await response.Content.ReadFromJsonAsync<ErrorDetails>(
+                var successResult = await response.Content.ReadFromJsonAsync<UploadImportFileModel>(
                     cancellationToken: cancellationToken
                 );
-            return new(
-                errorResult?.ErrorCode
-                    ?? AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR
+                if (successResult.IsNull())
+                {
+                    return AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR;
+                }
+
+                return new(
+                    new UploadImportFileResult(
+                        successResult.Service,
+                        $"{_baseApiUrl}{successResult.Path}"
+                    )
+                );
+            }
+            else if (
+                response.StatusCode == System.Net.HttpStatusCode.Unauthorized
+            )
+            {
+                return AssetServerErrorCodes.ASSET_SERVER_NOT_AUTHORIZED;
+            }
+
+            var errorResult = await response.Content.ReadFromJsonAsync<ErrorDetails>(
+                cancellationToken: cancellationToken
             );
+            return errorResult?.ErrorCode ?? AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR;
         }
         catch (HttpRequestException ex)
         {
             _logger.LogError(
                 ex,
-                "Failed with HTTP Request Exception."
+                "Failed with HTTP Request Exception. Service: {UploadService}",
+                service
             );
 
-            return new(
-                AssetServerErrorCodes.ASSET_SERVER_BAD_API_REQUEST
-            );
+            return AssetServerErrorCodes.ASSET_SERVER_BAD_API_REQUEST;
         }
     }
 

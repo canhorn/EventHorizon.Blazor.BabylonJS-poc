@@ -5,12 +5,12 @@
                HideClose="true">
     <Header>
         <h2 class="disconnected__header">
-            @Localizer["Connection Disconnected"]
+            @Localizer["Connection Lost"]
         </h2>
     </Header>
     <Body>
         <p class="disconnected__reason">
-            @Localizer["Disconnected Code: {0}", ConnectionDisconnectionCode]
+            @Localizer["Disconnection Code:[{0}]", ConnectionDisconnectionCode]
         </p>
         <a href="#reload-page" @onclick="HandleReloadPage">
             @Localizer["Reload Page?"]

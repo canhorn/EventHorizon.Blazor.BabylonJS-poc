@@ -1,24 +1,23 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Clicked
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Clicked;
+
+using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct AssetFileNodeClickedEvent : INotification
 {
-    using EventHorizon.Game.Editor.Client.Shared.Components.TreeView.Model;
-    using EventHorizon.Observer.Model;
-    using MediatR;
+    public TreeViewNodeData Node { get; }
 
-    public struct AssetFileNodeClickedEvent
-        : INotification
+    public AssetFileNodeClickedEvent(
+        TreeViewNodeData node
+    )
     {
-        public TreeViewNodeData Node { get; }
-
-        public AssetFileNodeClickedEvent(
-            TreeViewNodeData node
-        )
-        {
-            Node = node;
-        }
+        Node = node;
     }
+}
 
-    public interface AssetFileNodeClickedEventObserver
-        : ArgumentObserver<AssetFileNodeClickedEvent>
-    {
-    }
+public interface AssetFileNodeClickedEventObserver
+    : ArgumentObserver<AssetFileNodeClickedEvent>
+{
 }
