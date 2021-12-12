@@ -78,6 +78,7 @@ COPY EventHorizon.Game.Editor/Shared/*.csproj ./EventHorizon.Game.Editor/Shared/
 
 ## Zone Systems
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.System.Server.Scripts/*.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.System.Server.Scripts/
+COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ArtifactManagement/*.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ArtifactManagement/
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ClientAssets/*.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ClientAssets/
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.DataStorage/*.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.DataStorage/
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/*izard.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/

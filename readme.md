@@ -88,7 +88,7 @@ docker run -it --rm --entrypoint /bin/bash canhorn/ehz-platform-server-client-do
 
 ~~~
 # Build Runtime Docker Image
-docker build --build-arg Version=0.1.0 -f Dockerfile -t ehz/game/client:0.1.0 .
+docker build --build-arg Version=0.1.0 --target client-runtime -t ehz/game/client:0.1.0 .
 
 # Build NuGet Push Docker Image
 docker build --target dotnet-nuget-push --build-arg Version=0.1.0 -f Dockerfile -t ehz/game/client/packages:0.1.0 .
@@ -113,13 +113,13 @@ docker build --build-arg Version=0.1.0 --target dotnet-build -f Dockerfile -t ca
 
 ~~~
 # Build Restore Stage
-docker build --build-arg Version=0.1.0 --target dotnet-restore -f ./EventHorizon.Game.Editor/Dockerfile -t canhorn/ehz-platform-server-engine_dotnet-restore:dev .
+docker build --build-arg Version=0.1.0 --target dotnet-restore -t canhorn/ehz-platform-server-engine_dotnet-restore:dev .
 
 # Build Build Stage
-docker build --build-arg Version=0.1.0 --target dotnet-build -f ./EventHorizon.Game.Editor/Dockerfile -t canhorn/ehz-platform-server-engine_dotnet-build:dev .
+docker build --build-arg Version=0.1.0 --target dotnet-build-editor -t canhorn/ehz-platform-server-engine_dotnet-build:dev .
 
 # Build Runtime Stage
-docker build --build-arg Version=1.2.3 -f ./EventHorizon.Game.Editor/Dockerfile -t canhorn/ehz-platform-server-editor:dev .
+docker build --build-arg Version=1.2.3 --target editor-runtime -t canhorn/ehz-platform-server-editor:dev .
 ~~~
 
 ## Editor - Docker Build 
