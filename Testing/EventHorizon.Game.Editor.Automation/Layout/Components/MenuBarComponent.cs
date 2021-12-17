@@ -6,7 +6,7 @@ public class MenuBarComponent<TNavigateTo>
     : Control<TNavigateTo>
     where TNavigateTo : PageObject<TNavigateTo>
 {
-    [TestSelector("login-link")]
+    [TestSelector("login-link", Timeout = 30)]
     public Link<TNavigateTo> LoginLink
     {
         get;

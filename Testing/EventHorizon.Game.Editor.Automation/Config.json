@@ -12,7 +12,9 @@
         "baseUrl": "https://localhost:5001/",
         "culture": "en-US",
         "driver": {
-            "type": "edge-chromium",
+            "isRemote": true,
+            "url": "http://localhost:4445",
+            "type": "edge",
             "options": {
                 "arguments": [
                     "headless",
