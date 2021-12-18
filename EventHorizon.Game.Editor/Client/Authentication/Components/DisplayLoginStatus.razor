@@ -11,7 +11,7 @@
     </Authorized>
     <NotAuthorized>
         <a class="nav-link"
-           href="@AuthenticationPage.Route("login")"
+           href="@AuthenticationPage.Route("login", Navigation.Uri)"
            data-test-selector="login-link">
             @(LoginDisplayText ?? Localizer["Login"])
         </a>

@@ -47,11 +47,9 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        Activity.DefaultIdFormat =
-            ActivityIdFormat.Hierarchical;
+        Activity.DefaultIdFormat = ActivityIdFormat.Hierarchical;
 
-        var builder =
-            WebAssemblyHostBuilder.CreateDefault(args);
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
         builder.RootComponents.Add<App>("#app");
 
         // Setup Logging
@@ -87,14 +85,12 @@ public class Program
         builder.Services.AddSingleton(
             new GamePlatformServiceSettings()
             {
-                CoreServer =
-                    builder.Configuration[
-                        "Game:CoreServer"
-                    ] ?? string.Empty,
-                AssetServer =
-                    builder.Configuration[
-                        "Game:AssetServer"
-                    ] ?? string.Empty,
+                CoreServer = builder.Configuration[
+                    "Game:CoreServer"
+                ] ?? string.Empty,
+                AssetServer = builder.Configuration[
+                    "Game:AssetServer"
+                ] ?? string.Empty,
             }
         );
 
@@ -146,20 +142,16 @@ public class Program
             .Configure<RequestLocalizationOptions>(
                 opts =>
                 {
-                    var supportedCultures =
-                        new List<CultureInfo>
-                        {
-                                new CultureInfo("en-US"),
-                        };
+                    var supportedCultures = new List<CultureInfo>
+                    {
+                            new CultureInfo("en-US"),
+                    };
 
-                    opts.DefaultRequestCulture =
-                        new RequestCulture("en-US");
-                        // Formatting numbers, dates, etc.
-                        opts.SupportedCultures =
-                        supportedCultures;
-                        // UI strings that we have localized.
-                        opts.SupportedUICultures =
-                        supportedCultures;
+                    opts.DefaultRequestCulture = new RequestCulture("en-US");
+                    // Formatting numbers, dates, etc.
+                    opts.SupportedCultures = supportedCultures;
+                    // UI strings that we have localized.
+                    opts.SupportedUICultures = supportedCultures;
                 }
             );
 
@@ -185,55 +177,47 @@ public class Program
                     "Auth",
                     options.ProviderOptions
                 );
-                var authScopes = (
-                    builder.Configuration["Auth:Scope"]
-                    ?? string.Empty
-                ).Split(" ");
+                var authScopes = (builder.Configuration["Auth:Scope"] ?? string.Empty)
+                    .Split(" ");
                 foreach (var authScope in authScopes)
                 {
                     options.ProviderOptions.DefaultScopes.Add(
                         authScope
                     );
                 }
-                    //options.AuthenticationPaths.LogOutSucceededPath = "/sandbox";
-                }
+            }
         );
-        builder.Services.AddSingleton<
-            EditorAuthenticationState,
-            StandardEditorAuthenticationState
-        >();
+        builder.Services
+            .AddSingleton<EditorAuthenticationState, StandardEditorAuthenticationState>();
 
         // Observer State Manager
         builder.Services
             .AddSingleton<GenericObserverState>()
             .AddSingleton<ObserverState>(
-                services =>
-                    services.GetRequiredService<GenericObserverState>()
+                services => services.GetRequiredService<GenericObserverState>()
             )
             .AddSingleton<AdminObserverState>(
-                services =>
-                    services.GetRequiredService<GenericObserverState>()
+                services => services.GetRequiredService<GenericObserverState>()
             );
 
         // Setup MediatR
         builder.Services.AddMediatR(
-            (configuration) =>
-                configuration.AsSingleton(),
+            (configuration) => configuration.AsSingleton(),
             new Type[]
             {
-                    typeof(ObserverState),
-                    typeof(Program),
-                    typeof(EditorSharedExtensions),
-                    typeof(ActivityStartupExtensions),
-                    // Servers
-                    typeof(AssetServerStartupExtensions),
-                    typeof(EditorCoreExtensions),
-                    typeof(EditorZoneExtensions),
-                    // Platform Services
-                    typeof(PlatformLoggerExtensions),
-                    // Game Service Registration
-                    typeof(ClientExtensions),
-                    typeof(GameServerStartup),
+                typeof(ObserverState),
+                typeof(Program),
+                typeof(EditorSharedExtensions),
+                typeof(ActivityStartupExtensions),
+                // Servers
+                typeof(AssetServerStartupExtensions),
+                typeof(EditorCoreExtensions),
+                typeof(EditorZoneExtensions),
+                // Platform Services
+                typeof(PlatformLoggerExtensions),
+                // Game Service Registration
+                typeof(ClientExtensions),
+                typeof(GameServerStartup),
             }
         );
 

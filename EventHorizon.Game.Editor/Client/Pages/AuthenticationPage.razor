@@ -1,6 +1,7 @@
 ﻿@page "/authentication/{action}"
 @code {
     public static string Route(string action) => $"/authentication/{action}";
+    public static string Route(string action, string returnUrl) => $"{Route(action)}?returnUrl={Uri.EscapeDataString(returnUrl)}";
 }
 
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
