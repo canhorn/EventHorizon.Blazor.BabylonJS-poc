@@ -2,22 +2,17 @@
 
 using Atata;
 
-using EventHorizon.Game.Editor.Automation.Core;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.EntityEditor.Pages;
 
-using Xunit;
+using NUnit.Framework;
 
 public class DisplayHeadingsForDistanctAreasWhenLandingOnPage
     : WebHost
 {
-    [Trait("Category", "Entity Editor Page")]
-    [PrettyFact(
-        nameof(
-            DisplayHeadingsForDistanctAreasWhenLandingOnPage
-        )
-    )]
-    public void Test()
+    [Test]
+    [Category("Entity Editor Page")]
+    public void Display_Headings_For_Distanct_Areas_When_Landing_On_Page()
     {
         this.Login<EntityEditorPage>()
             .ClientEntityListHeader.Should.Be(

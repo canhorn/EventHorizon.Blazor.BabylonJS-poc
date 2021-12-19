@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 
 using Atata;
+using Atata.WebDriverSetup;
 
 using EventHorizon.Game.Editor.Automation.Core.Browser.Api;
 using EventHorizon.Game.Editor.Automation.Core.Browser.Model;
@@ -12,24 +13,38 @@ using EventHorizon.Game.Editor.Automation.Core.Config;
 using Microsoft.Edge.SeleniumTools;
 using Microsoft.Extensions.Configuration;
 
+using NUnit.Framework;
+using NUnit.Framework.Internal;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 
-using Xunit;
+//[SetUpFixture]
+//public class WebHostSetUpFixture
+//{
+//}
 
+[TestFixture]
+[Parallelizable(ParallelScope.Self)]
 public class WebHost
-    : IClassFixture<AutomationWebHostFixture>
 {
-}
+    [SetUp]
+    public void SetUp()
+    {
+        AtataContext.Configure().Build();
+    }
 
-public class AutomationWebHostFixture : IDisposable
-{
-    private static readonly WebHostSettings Settings =
-        new WebHostSettingsModel();
+    [TearDown]
+    public void TearDown()
+    {
+        AtataContext.Current?.CleanUp();
+    }
 
-    static AutomationWebHostFixture()
+    private static readonly WebHostSettings Settings = new WebHostSettingsModel();
+
+    static WebHost()
     {
         TestConfiguration.Configuration.Bind(
             "webHost",
@@ -37,12 +52,13 @@ public class AutomationWebHostFixture : IDisposable
         );
     }
 
-    public AutomationWebHostFixture()
+    [OneTimeSetUp]
+    public void GlobalSetUp()
     {
-        AtataContext
-            .Configure()
+        AtataContext.GlobalConfiguration
             .UseBaseUrl(Settings.BaseUrl)
             .UseCulture(Settings.Culture)
+            .UseAllNUnitFeatures()
             .UseDriver(
                 () =>
                 {
@@ -50,7 +66,7 @@ public class AutomationWebHostFixture : IDisposable
                     {
                         return new RemoteWebDriver(
                             new Uri(
-                                "http://localhost:4445"
+                                Settings.Driver.Url
                             ),
                             GetDriverOptions()
                         );
@@ -58,34 +74,31 @@ public class AutomationWebHostFixture : IDisposable
                     else if (Settings.Driver.Type == "edge")
                     {
                         return new EdgeDriver(
-                            AppDomain.CurrentDomain.BaseDirectory,
                             BuildEdgeOptions()
                         );
                     }
                     else if (Settings.Driver.Type == "chrome")
                     {
                         return new ChromeDriver(
-                            AppDomain.CurrentDomain.BaseDirectory,
                             BuildChromeOptions()
                         );
                     }
                     else if (Settings.Driver.Type == "firefox")
                     {
                         return new FirefoxDriver(
-                            AppDomain.CurrentDomain.BaseDirectory,
                             BuildFirefoxOptions()
                         );
                     }
 
                     throw new ArgumentException("Driver Type was not Valid");
                 }
-            )
-            .Build();
-    }
+            );
 
-    public void Dispose()
-    {
-        AtataContext.Current?.CleanUp();
+
+        if (!Settings.Driver.IsRemote)
+        {
+            DriverSetup.AutoSetUp(Settings.Driver.Type.ToUpperFirstLetter());
+        }
     }
 
     private static DriverOptions GetDriverOptions()
@@ -94,6 +107,7 @@ public class AutomationWebHostFixture : IDisposable
         {
             "edge" => BuildEdgeOptions(),
             "chrome" => BuildChromeOptions(),
+            "firefox" => BuildFirefoxOptions(),
             _ => default(DriverOptions),
         };
 

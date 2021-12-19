@@ -5,5 +5,6 @@ public static class AssetBackupArtifactsPageTranslations
     public static class EN_US
     {
         public const string Header = "Asset Server Backup Artifacts";
+        public const string ToolbarBackupButton = "Assets Backup";
     }
 }

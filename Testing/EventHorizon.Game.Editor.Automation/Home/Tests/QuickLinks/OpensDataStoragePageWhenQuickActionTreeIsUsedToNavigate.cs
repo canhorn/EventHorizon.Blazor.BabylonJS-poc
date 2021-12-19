@@ -4,23 +4,18 @@ using System.Linq;
 
 using Atata;
 
-using EventHorizon.Game.Editor.Automation.Core;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.DataStorage.Pages;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
 
-using Xunit;
+using NUnit.Framework;
 
 public class OpensDataStoragePageWhenQuickActionTreeIsUsedToNavigate
     : WebHost
 {
-    [Trait("Category", "Quick Links")]
-    [PrettyFact(
-        nameof(
-            OpensDataStoragePageWhenQuickActionTreeIsUsedToNavigate
-        )
-    )]
-    public void Test()
+    [Test]
+    [Category("Quick Links")]
+    public void Opens_Data_Storage_Page_When_Quick_Action_Tree_Is_Used_To_Navigate()
     {
         this.Login<HomePage>()
             .SideBar.QuickLinks.Tree.Open()

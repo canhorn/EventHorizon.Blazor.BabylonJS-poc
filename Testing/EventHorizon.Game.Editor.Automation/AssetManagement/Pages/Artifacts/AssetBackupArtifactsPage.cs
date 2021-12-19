@@ -6,8 +6,6 @@ using EventHorizon.Game.Editor.Automation.ArtifactManagement.Components;
 using EventHorizon.Game.Editor.Automation.Components.Toolbar;
 using EventHorizon.Game.Editor.Automation.Layout;
 
-using FluentAssertions;
-
 using _ = AssetBackupArtifactsPage;
 
 [Url("/asset/artifacts/backup")]
@@ -15,8 +13,6 @@ using _ = AssetBackupArtifactsPage;
 public class AssetBackupArtifactsPage
     : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
-
     public StandardToolbarComponent<_, StandardToolbarButtonComponent<_>> Toolbar { get; private set; }
 
     [FindByClass("backup-artifacts__table")]

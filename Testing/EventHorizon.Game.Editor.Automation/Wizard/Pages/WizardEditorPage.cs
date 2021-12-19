@@ -10,8 +10,6 @@ using _ = WizardEditorPage;
 [Url("/wizard-editor")]
 public class WizardEditorPage : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
-
     [TestSelector("wizard-editor-page__list")]
     public WizardListComponent<_> WizardList
     {

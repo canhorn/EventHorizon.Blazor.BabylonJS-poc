@@ -1,20 +1,22 @@
 ﻿version: "3"
 services:
-    chrome:
-        image: selenium/standalone-chrome:latest
-        container_name: chrome
-        ports:
-            - "4444:4444"
-            - 7900:7900
     edge:
         image: selenium/standalone-edge:latest
         container_name: edge
         ports:
             - "4445:4444"
             - 7901:7900
+
+    chrome:
+        image: selenium/standalone-chrome:latest
+        container_name: chrome
+        ports:
+            - "4446:4444"
+            - 7900:7900
+
     firefox:
         image: selenium/standalone-firefox:latest
         container_name: firefox
         ports:
-            - "4446:4444"
+            - "4447:4444"
             - 7902:7900

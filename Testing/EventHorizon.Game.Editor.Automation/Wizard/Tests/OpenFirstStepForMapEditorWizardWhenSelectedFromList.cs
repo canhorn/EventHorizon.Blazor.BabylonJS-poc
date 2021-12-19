@@ -5,23 +5,18 @@ using System.Linq;
 using Atata;
 
 using EventHorizon.Game.Editor.Automation.Core.Browser;
-using EventHorizon.Game.Editor.Automation.Home.Tests;
 using EventHorizon.Game.Editor.Automation.IdentityServer.Data;
 using EventHorizon.Game.Editor.Automation.Wizard.Data;
 using EventHorizon.Game.Editor.Automation.Wizard.Pages;
 
-using Xunit;
+using NUnit.Framework;
 
 public class OpenFirstStepForMapEditorWizardWhenSelectedFromList
     : WebHost
 {
-    [Trait("Category", "Wizard Editor Page")]
-    [PrettyFact(
-        nameof(
-            OpenFirstStepForMapEditorWizardWhenSelectedFromList
-        )
-    )]
-    public void Test()
+    [Test]
+    [Category("Wizard Editor Page")]
+    public void Open_First_Step_For_Map_Editor_Wizard_When_Selected_From_List()
     {
         this.Login<WizardEditorPage>(
             IdentityServerData.DefaultAdminUser

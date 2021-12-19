@@ -2,23 +2,18 @@ namespace EventHorizon.Game.Editor.Automation.Home.Tests;
 
 using Atata;
 
-using EventHorizon.Game.Editor.Automation.Core;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
 using EventHorizon.Game.Editor.Automation.IdentityServer.Data;
 
-using Xunit;
+using NUnit.Framework;
 
 public class DisplaysExpectedHomePageWhenLoginWasSuccessful
     : WebHost
 {
-    [Trait("Category", "Home Page")]
-    [PrettyFact(
-        nameof(
-            DisplaysExpectedHomePageWhenLoginWasSuccessful
-        )
-    )]
-    public void Test()
+    [Test]
+    [Category("Home Page")]
+    public void Displays_Expected_Home_Page_When_Login_Was_Successful()
     {
         this.Login<HomePage>(
             IdentityServerData.DefaultAdminUser

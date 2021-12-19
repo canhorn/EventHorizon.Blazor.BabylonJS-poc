@@ -11,8 +11,6 @@ using _ = AssetExportArtifactsPage;
 public class AssetExportArtifactsPage
     : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
-
     [FindByClass("export-artifacts__table")]
     public Table<ArtifactTableRow<_>, _> ArtifactTable
     {
