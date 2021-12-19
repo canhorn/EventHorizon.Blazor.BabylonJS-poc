@@ -1,6 +1,6 @@
 {
     "identityServer": {
-        "url": "https://identity.platform.ehzgames.studio",
+        "url": "https://identity.dev-server.ehzgames.studio",
         "emailDomain": "ehzgames.studio",
         "userPassword": "Password1!",
         "defaultAdminUser": {

@@ -2,16 +2,10 @@
 
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 
-using Xunit;
-
 public class Template : WebHost
 {
-    //[Trait("Category", "Entity Editor Page")]
-    //[PrettyFact(
-    //    nameof(
-    //        Template
-    //    )
-    //)]
+    //[Test]
+    //[Category("Entity Editor Page")]
     public void Test()
     {
         throw new System.NotImplementedException(

@@ -11,8 +11,6 @@ using _ = EntityEditorPage;
 [Url("/zone/entity")]
 public class EntityEditorPage : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
-
     [TestSelector("client-entity-list__header")]
     public H2<_> ClientEntityListHeader
     {

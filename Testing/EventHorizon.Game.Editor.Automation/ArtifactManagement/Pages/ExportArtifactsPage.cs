@@ -1,7 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.ArtifactManagement.Pages;
 
-using System;
-
 using Atata;
 
 using EventHorizon.Game.Editor.Automation.ArtifactManagement.Components;
@@ -13,8 +11,6 @@ using _ = ExportArtifactsPage;
 public class ExportArtifactsPage
     : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
-
     [FindByClass("export-artifacts__table")]
     public Table<ArtifactTableRow<_>, _> ArtifactTable
     {

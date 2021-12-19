@@ -1,25 +1,18 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.EntityEditor.Tests;
 
-using System.Linq;
-
 using Atata;
 
-using EventHorizon.Game.Editor.Automation.Core;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.EntityEditor.Pages;
 
-using Xunit;
+using NUnit.Framework;
 
 public class DisplayClientEntityToolbarWhenPageIsLoaded
     : WebHost
 {
-    [Trait("Category", "Entity Editor Page")]
-    [PrettyFact(
-        nameof(
-            DisplayClientEntityToolbarWhenPageIsLoaded
-        )
-    )]
-    public void Test()
+    [Test]
+    [Category("Entity Editor Page")]
+    public void Display_Client_Entity_Toolbar_When_Page_Is_Loaded()
     {
         this.Login<EntityEditorPage>()
             .ClientEntityToolbar.Children.Count.Should.Be(
