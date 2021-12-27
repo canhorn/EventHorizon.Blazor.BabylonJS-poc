@@ -1,4 +1,4 @@
-﻿# Stage 1 - Restore .NET Project
+﻿# Simple .NET Test Runner
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS dotnet-restore
 WORKDIR /source
 
