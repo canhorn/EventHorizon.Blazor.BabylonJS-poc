@@ -10,8 +10,6 @@ using _ = ArtifactManagementPage;
 public class ArtifactManagementPage
     : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
-
     [FindByClass("page__description")]
     public Text<_> Description { get; private set; }
 

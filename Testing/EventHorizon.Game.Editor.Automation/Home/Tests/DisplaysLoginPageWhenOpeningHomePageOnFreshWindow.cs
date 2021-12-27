@@ -5,18 +5,14 @@ using Atata;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
 
-using Xunit;
+using NUnit.Framework;
 
 public class DisplaysLoginPageWhenOpeningHomePageOnFreshWindow
     : WebHost
 {
-    [Trait("Category", "Home Page")]
-    [PrettyFact(
-        nameof(
-            DisplaysLoginPageWhenOpeningHomePageOnFreshWindow
-        )
-    )]
-    public void Test()
+    [Test]
+    [Category("Home Page")]
+    public void Displays_Login_Page_When_Opening_Home_Page_On_Fresh_Window()
     {
         Go.To<HomePage>()
             .Header.Should.Equal(

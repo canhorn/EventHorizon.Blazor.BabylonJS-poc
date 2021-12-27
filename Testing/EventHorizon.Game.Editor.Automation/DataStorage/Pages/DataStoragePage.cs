@@ -9,5 +9,4 @@ using _ = DataStoragePage;
 [Url("/data-storage")]
 public class DataStoragePage : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
 }

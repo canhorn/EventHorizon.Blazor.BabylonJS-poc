@@ -11,8 +11,6 @@ using _ = AssetImportArtifactsPage;
 public class AssetImportArtifactsPage
     : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
-
     [FindByClass("import-artifacts__table")]
     public Table<ArtifactTableRow<_>, _> ArtifactTable
     {

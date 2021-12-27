@@ -2,24 +2,21 @@
 
 using Atata;
 
-using EventHorizon.Game.Editor.Automation.ArtifactManagement.Tests;
 using EventHorizon.Game.Editor.Automation.AssetManagement.Pages.Artifacts;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 
-using Xunit;
+using NUnit.Framework;
 
 using Translations = Localization.Artifacts.AssetBackupArtifactsPageTranslations;
 
 public class DisplaysNewRowInArtifactsTableWhenAssetBackupButtonIsClicked
     : WebHost
 {
-    [Trait("Category", "Asset Backup Artifacts Page")]
-    [PrettyFact(
-        nameof(
-            DisplaysNewRowInArtifactsTableWhenAssetBackupButtonIsClicked
-        )
-    )]
-    public void Test()
+    private const int Seconds_To_Wait_For_Backup_Creation = 30;
+
+    [Test]
+    [Category("Asset Backup Artifacts Page")]
+    public void Displays_New_Row_In_Artifacts_Table_When_Asset_Backup_Button_Is_Clicked()
     {
         this.Login<AssetBackupArtifactsPage>()
             .Header.Should.Equal(
@@ -29,11 +26,13 @@ public class DisplaysNewRowInArtifactsTableWhenAssetBackupButtonIsClicked
                 out var referenceId
             )
             .Toolbar.Children[
-                a => a.Content == "Assets Backup"
+                a => a.Content == Translations.EN_US.ToolbarBackupButton
             ].Click()
             .ArtifactTable
             .Rows[0]
-                .ReferenceId.Should.Not.Equal(
+                .ReferenceId.Should.Within(
+                    Seconds_To_Wait_For_Backup_Creation
+                ).Not.Equal(
                     referenceId
                 );
     }

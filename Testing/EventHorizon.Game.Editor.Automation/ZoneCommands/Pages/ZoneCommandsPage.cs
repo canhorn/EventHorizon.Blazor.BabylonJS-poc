@@ -9,5 +9,4 @@ using _ = ZoneCommandsPage;
 [Url("/zone/commands")]
 public class ZoneCommandsPage : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
 }

@@ -2,7 +2,6 @@
 
 using Atata;
 
-using EventHorizon.Game.Editor.Automation.Components.Toolbar;
 using EventHorizon.Game.Editor.Automation.Layout;
 
 using _ = AssetManagementPage;
@@ -11,5 +10,4 @@ using _ = AssetManagementPage;
 public class AssetManagementPage
     : MainLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
 }

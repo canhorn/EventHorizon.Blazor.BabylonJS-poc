@@ -2,28 +2,23 @@ namespace EventHorizon.Game.Editor.Automation.Home.Tests.QuickLinks;
 
 using Atata;
 
-using EventHorizon.Game.Editor.Automation.Core;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
 
-using Xunit;
+using NUnit.Framework;
 
 public class QuickLinksNavigationContainsExpectedLinkCountWhenOpened
     : WebHost
 {
-    [Trait("Category", "Quick Links")]
-    [PrettyFact(
-        nameof(
-            QuickLinksNavigationContainsExpectedLinkCountWhenOpened
-        )
-    )]
-    public void Test()
+    [Test]
+    [Category("Quick Links")]
+    public void Quick_Links_Navigation_Contains_Expected_Link_Count_When_Opened()
     {
         this.Login<HomePage>()
             .SideBar.QuickLinks.Tree.Text.Should.Be(
                 "Quick Links"
             )
             .SideBar.QuickLinks.Tree.Open()
-            .Children.Count.Should.Be(7);
+            .Children.Count.Should.Be(8);
     }
 }

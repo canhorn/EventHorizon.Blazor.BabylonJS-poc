@@ -10,5 +10,4 @@ using _ = LiveEditorPage;
 public class LiveEditorPage
     : ThreeSplitLayoutPage<_>
 {
-    public H1<_> Header { get; private set; }
 }

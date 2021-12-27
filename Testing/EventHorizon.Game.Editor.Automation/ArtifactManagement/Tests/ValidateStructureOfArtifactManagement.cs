@@ -4,25 +4,19 @@ using Atata;
 
 using EventHorizon.Game.Editor.Automation.ArtifactManagement.Localization;
 using EventHorizon.Game.Editor.Automation.ArtifactManagement.Pages;
-using EventHorizon.Game.Editor.Automation.AssetManagement.Pages.Artifacts;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
-using EventHorizon.Game.Editor.Automation.Wizard.Tests;
 
-using Xunit;
+using NUnit.Framework;
 
 using Translations = Localization.ArtifactManagementPageTranslations;
 
 public class ValidateStructureOfArtifactManagement
     : WebHost
 {
-    [Trait("TestType", "Smoke")]
-    [Trait("Category", "Artifact Management Page")]
-    [PrettyFact(
-        nameof(
-            ValidateStructureOfArtifactManagement
-        )
-    )]
-    public void Test()
+    [Test]
+    [Category("Artifact Management Page")]
+    [Property("TestType", "Smoke")]
+    public void Validate_Structure_Of_Artifact_Management()
     {
         this.Login<ArtifactManagementPage>()
             .Header.Should.Equal(
