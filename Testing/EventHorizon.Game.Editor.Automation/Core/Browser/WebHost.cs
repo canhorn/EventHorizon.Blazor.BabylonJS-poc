@@ -21,11 +21,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 
-//[SetUpFixture]
-//public class WebHostSetUpFixture
-//{
-//}
-
 [TestFixture]
 [Parallelizable(ParallelScope.Self)]
 public class WebHost
