@@ -205,3 +205,48 @@ jobs:
     env:
       NUGET_API_KEY: $(NUGET_API_KEY)
       BUILD_NUMBER: $(Build.BuildNumber)
+
+      
+- job: Automation
+  dependsOn:
+  - Build_Editor
+  - Build_Client
+  steps:
+  - task: DockerInstaller@0
+    displayName: Docker Installer
+    inputs:
+      dockerVersion: 18.03.0-ce
+      releaseType: stable
+  - task: Docker@2
+    displayName: Build Image - EventHorizon.Game.Editor.Automation
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)/Testing/EventHorizon.Game.Editor.Automation
+      Dockerfile: $(Build.SourcesDirectory)/Testing/EventHorizon.Game.Editor.Automation/Dockerfile
+      repository: canhorn/ehz-editor-automation
+      arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-nuget-push
+      tags: |
+        latest
+        $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Push Build Image - EventHorizon.Game.Editor.Automation 
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)/Testing/EventHorizon.Game.Editor.Automation
+      Dockerfile: $(Build.SourcesDirectory)/Testing/EventHorizon.Game.Editor.Automation/Dockerfile
+      repository: canhorn/ehz-editor-automation
+      tags: |
+        $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Push Latest Image - EventHorizon.Game.Editor.Automation 
+    condition: and(succeeded(), eq(variables.IsMain, true))
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      buildContext: $(Build.SourcesDirectory)/Testing/EventHorizon.Game.Editor.Automation
+      Dockerfile: $(Build.SourcesDirectory)/Testing/EventHorizon.Game.Editor.Automation/Dockerfile
+      repository: canhorn/ehz-editor-automation
+      tags: |
+        latest
