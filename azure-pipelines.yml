@@ -198,7 +198,7 @@ steps:
 - task: Docker@2  displayName: Push Latest Image - EventHorizon.Blazor.BabylonJS Packages 
   condition: and(succeeded(), eq(variables.IsMain, true))
   inputs: 
-  command: push
+    command: push
     containerRegistry: docker-hub    buildContext: $(Build.SourcesDirectory)    repository: canhorn/ehz-client-packages    tags: |      latest
 - task: Docker@2  displayName: Push Latest Image - EventHorizon.Game.Editor.Automation 
   condition: and(succeeded(), eq(variables.IsMain, true))
