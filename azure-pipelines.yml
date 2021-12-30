@@ -102,7 +102,7 @@ jobs:
 
 - job: Build_Editor
   dependsOn:
-  - Build_Base_Image
+  - Build_Client
   steps:
   - task: DockerInstaller@0
     displayName: Docker Installer
@@ -225,7 +225,6 @@ jobs:
       buildContext: $(Build.SourcesDirectory)/Testing/EventHorizon.Game.Editor.Automation
       Dockerfile: $(Build.SourcesDirectory)/Testing/EventHorizon.Game.Editor.Automation/Dockerfile
       repository: canhorn/ehz-editor-automation
-      arguments: --build-arg Version=$(Build.BuildNumber) --target dotnet-nuget-push
       tags: |
         latest
         $(Build.BuildNumber)
