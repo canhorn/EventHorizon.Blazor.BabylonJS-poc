@@ -195,7 +195,7 @@ steps:
     repository: canhorn/ehz-platform-server-editor
     tags: |
       latest
- - task: Docker@2  displayName: Push Latest Image - EventHorizon.Blazor.BabylonJS Packages 
+- task: Docker@2  displayName: Push Latest Image - EventHorizon.Blazor.BabylonJS Packages 
   condition: and(succeeded(), eq(variables.IsMain, true))
   inputs: 
   command: push
