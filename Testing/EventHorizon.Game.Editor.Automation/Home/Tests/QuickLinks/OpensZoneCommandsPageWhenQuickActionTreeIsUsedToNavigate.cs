@@ -6,9 +6,12 @@ using Atata;
 
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
+using EventHorizon.Game.Editor.Automation.ZoneCommands.Localization;
 using EventHorizon.Game.Editor.Automation.ZoneCommands.Pages;
 
 using NUnit.Framework;
+
+using Translations = Localization.SideBarQuickLinksTranslations;
 
 public class OpensZoneCommandsPageWhenQuickActionTreeIsUsedToNavigate
     : WebHost
@@ -20,12 +23,14 @@ public class OpensZoneCommandsPageWhenQuickActionTreeIsUsedToNavigate
         this.Login<HomePage>()
             .SideBar.QuickLinks.Tree.Open()
             .Children.Should.Contain(
-                a => a.Text == "Zone Commands"
+                a => a.Text == Translations.EN_US.ZoneCommandsText
             )
             .SideBar.QuickLinks.Tree.Children.First(
-                a => a.Text == "Zone Commands"
+                a => a.Text == Translations.EN_US.ZoneCommandsText
             )
             .Link.ClickAndGo<ZoneCommandsPage>()
-            .Header.Should.Be("Zone Command Console");
+            .Header.Should.Be(
+                ZoneCommandsPageTranslations.EN_US.Header
+            );
     }
 }

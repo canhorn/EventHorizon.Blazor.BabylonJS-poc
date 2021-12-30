@@ -6,9 +6,12 @@ using Atata;
 
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
+using EventHorizon.Game.Editor.Automation.LiveEditor.Localization;
 using EventHorizon.Game.Editor.Automation.LiveEditor.Pages;
 
 using NUnit.Framework;
+
+using Translations = Localization.SideBarQuickLinksTranslations;
 
 public class OpensLiveEditorPageWhenQuickActionTreeIsUsedToNavigate
     : WebHost
@@ -20,12 +23,14 @@ public class OpensLiveEditorPageWhenQuickActionTreeIsUsedToNavigate
         this.Login<HomePage>()
             .SideBar.QuickLinks.Tree.Open()
             .Children.Should.Contain(
-                a => a.Text == "Live Editor"
+                a => a.Text == Translations.EN_US.LiveEditorText
             )
             .SideBar.QuickLinks.Tree.Children.First(
-                a => a.Text == "Live Editor"
+                a => a.Text == Translations.EN_US.LiveEditorText
             )
             .Link.ClickAndGo<LiveEditorPage>()
-            .Header.Should.Be("Live Editor");
+            .Header.Should.Be(
+                LiveEditorPageTranslations.EN_US.Header
+            );
     }
 }

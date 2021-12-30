@@ -8,6 +8,8 @@ using EventHorizon.Game.Editor.Automation.Wizard.Pages;
 
 using NUnit.Framework;
 
+using Translations = Localization.WizardEditorPageTranslations;
+
 public class FilterEditorTableToSpecificSystemWizardWhenUsingFilterInput
     : WebHost
 {
@@ -16,11 +18,17 @@ public class FilterEditorTableToSpecificSystemWizardWhenUsingFilterInput
     public void Filter_Editor_Table_To_Specific_System_Wizard_When_Using_Filter_Input()
     {
         this.Login<WizardEditorPage>()
-            .Header.Should.Equal("Wizards")
+            .Header.Should.Equal(
+                Translations.EN_US.Header
+            )
             .WizardList.FilterArea.Filter.Set(
                 WizardData.MapEditor.Name
             )
-            .WizardList.GetRow(WizardData.MapEditor.Id)
-            .Name.Should.Be(WizardData.MapEditor.Name);
+            .WizardList.GetRow(
+                WizardData.MapEditor.Id
+            )
+            .Name.Should.Be(
+                WizardData.MapEditor.Name
+            );
     }
 }

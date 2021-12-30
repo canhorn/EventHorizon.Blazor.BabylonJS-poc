@@ -1,6 +1,6 @@
 ﻿version: "3"
 services:
-    chrome-node:
+    edge-node-01:
         image: selenium/node-edge:4.1.1
         container_name: edge-node-01
         shm_size: 2g
@@ -11,7 +11,7 @@ services:
             - SE_EVENT_BUS_PUBLISH_PORT=4442
             - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
-    edge-node:
+    edge-node-02:
         image: selenium/node-edge:4.1.1
         container_name: edge-node-02
         shm_size: 2g
@@ -22,7 +22,7 @@ services:
             - SE_EVENT_BUS_PUBLISH_PORT=4442
             - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
-    firefox-node:
+    edge-node-03:
         image: selenium/node-edge:4.1.1
         container_name: edge-node-03
         shm_size: 2g

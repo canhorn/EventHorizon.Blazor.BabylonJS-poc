@@ -7,6 +7,8 @@ using EventHorizon.Game.Editor.Automation.Home.Pages;
 
 using NUnit.Framework;
 
+using Translations = Localization.SideBarQuickLinksTranslations;
+
 public class QuickLinksNavigationContainsExpectedLinkCountWhenOpened
     : WebHost
 {
@@ -16,7 +18,7 @@ public class QuickLinksNavigationContainsExpectedLinkCountWhenOpened
     {
         this.Login<HomePage>()
             .SideBar.QuickLinks.Tree.Text.Should.Be(
-                "Quick Links"
+                Translations.EN_US.QuickLinksText
             )
             .SideBar.QuickLinks.Tree.Open()
             .Children.Count.Should.Be(8);

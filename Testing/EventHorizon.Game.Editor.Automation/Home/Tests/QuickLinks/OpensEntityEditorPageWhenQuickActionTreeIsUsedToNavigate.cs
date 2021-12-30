@@ -5,10 +5,13 @@ using System.Linq;
 using Atata;
 
 using EventHorizon.Game.Editor.Automation.Core.Browser;
+using EventHorizon.Game.Editor.Automation.EntityEditor.Localization;
 using EventHorizon.Game.Editor.Automation.EntityEditor.Pages;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
 
 using NUnit.Framework;
+
+using Translations = Localization.SideBarQuickLinksTranslations;
 
 public class OpensEntityEditorPageWhenQuickActionTreeIsUsedToNavigate
     : WebHost
@@ -20,12 +23,14 @@ public class OpensEntityEditorPageWhenQuickActionTreeIsUsedToNavigate
         this.Login<HomePage>()
             .SideBar.QuickLinks.Tree.Open()
             .Children.Should.Contain(
-                a => a.Text == "Entity Editor"
+                a => a.Text == Translations.EN_US.EntityEditorText
             )
             .SideBar.QuickLinks.Tree.Children.First(
-                a => a.Text == "Entity Editor"
+                a => a.Text == Translations.EN_US.EntityEditorText
             )
             .Link.ClickAndGo<EntityEditorPage>()
-            .Header.Should.Be("Entity Editor");
+            .Header.Should.Be(
+                EntityEditorPageTranslations.EN_US.Header
+            );
     }
 }

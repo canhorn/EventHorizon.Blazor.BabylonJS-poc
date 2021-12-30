@@ -7,6 +7,8 @@ using EventHorizon.Game.Editor.Automation.EntityEditor.Pages;
 
 using NUnit.Framework;
 
+using Translations = Localization.EntityEditorPageTranslations;
+
 public class DisplayHeadingsForDistanctAreasWhenLandingOnPage
     : WebHost
 {
@@ -15,11 +17,14 @@ public class DisplayHeadingsForDistanctAreasWhenLandingOnPage
     public void Display_Headings_For_Distanct_Areas_When_Landing_On_Page()
     {
         this.Login<EntityEditorPage>()
+            .Header.Should.Be(
+                Translations.EN_US.Header
+            )
             .ClientEntityListHeader.Should.Be(
-                "Client Entity List"
+                Translations.EN_US.ClientEntityHeader
             )
             .AgentEntityListHeader.Should.Be(
-                "Agent Entity List"
+                Translations.EN_US.AgentEntityHeader
             );
     }
 }

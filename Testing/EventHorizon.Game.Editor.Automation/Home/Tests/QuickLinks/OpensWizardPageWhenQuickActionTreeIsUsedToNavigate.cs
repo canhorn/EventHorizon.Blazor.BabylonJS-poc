@@ -6,9 +6,12 @@ using Atata;
 
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
+using EventHorizon.Game.Editor.Automation.Wizard.Localization;
 using EventHorizon.Game.Editor.Automation.Wizard.Pages;
 
 using NUnit.Framework;
+
+using Translations = Localization.SideBarQuickLinksTranslations;
 
 public class OpensWizardPageWhenQuickActionTreeIsUsedToNavigate
     : WebHost
@@ -20,12 +23,14 @@ public class OpensWizardPageWhenQuickActionTreeIsUsedToNavigate
         this.Login<HomePage>()
             .SideBar.QuickLinks.Tree.Open()
             .Children.Should.Contain(
-                a => a.Text == "Wizard"
+                a => a.Text == Translations.EN_US.WizardText
             )
             .SideBar.QuickLinks.Tree.Children.First(
-                a => a.Text == "Wizard"
+                a => a.Text == Translations.EN_US.WizardText
             )
             .Link.ClickAndGo<WizardEditorPage>()
-            .Header.Should.Be("Wizards");
+            .Header.Should.Be(
+                WizardEditorPageTranslations.EN_US.Header
+            );
     }
 }

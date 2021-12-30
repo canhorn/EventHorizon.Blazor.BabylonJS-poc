@@ -11,6 +11,8 @@ using EventHorizon.Game.Editor.Automation.Wizard.Pages;
 
 using NUnit.Framework;
 
+using Translations = Localization.WizardEditorPageTranslations;
+
 public class OpenFirstStepForMapEditorWizardWhenSelectedFromList
     : WebHost
 {
@@ -21,8 +23,12 @@ public class OpenFirstStepForMapEditorWizardWhenSelectedFromList
         this.Login<WizardEditorPage>(
             IdentityServerData.DefaultAdminUser
         )
-            .Header.Should.Equal("Wizards")
-            .WizardList.Select(WizardData.MapEditor.Id)
+            .Header.Should.Equal(
+                Translations.EN_US.Header
+            )
+            .WizardList.Select(
+                WizardData.MapEditor.Id
+            )
             .WizardStepEditor.Name.Should.Be(
                 WizardData.MapEditor.Steps.First().Name
             )
