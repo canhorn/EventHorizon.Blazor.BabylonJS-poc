@@ -11,6 +11,7 @@ public class TestConfiguration
         Configuration = new ConfigurationBuilder()
             .AddJsonFile("Config.json")
             .AddJsonFile("Config.Override.json", true)
+            .AddEnvironmentVariables()
             .Build();
     }
 }
