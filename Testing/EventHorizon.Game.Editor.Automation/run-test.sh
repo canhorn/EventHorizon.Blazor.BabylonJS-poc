@@ -4,6 +4,6 @@ set -e
 
 dotnet test --configuration $BUILD_CONFIGURATION \
     --no-restore --no-build \
-    --filter Name~Displays_Login_Page_When_Opening_Home_Page_On_Fresh_Window \
+    --filter TestType~Smoke \
     --logger:"trx;LogFilePrefix=TestResult" --results-directory /TestResults/Reports \
     /nodeReuse:false /maxCpuCount:6

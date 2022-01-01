@@ -16,7 +16,7 @@ public class ValidateStructureOfZoneArtifactsManagement
     [Test]
     [Category("Zone Artifact Management Page")]
     [Property("TestType", "Smoke")]
-    public void Validate_Structure_Of_Artifact_Management()
+    public void Validate_Structure_Of_Zone_Artifacts_Management()
     {
         this.Login<ZoneArtifactsManagementPage>()
             .Header.Should.Equal(
