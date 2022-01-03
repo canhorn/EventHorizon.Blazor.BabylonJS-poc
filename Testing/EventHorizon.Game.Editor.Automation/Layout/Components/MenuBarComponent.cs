@@ -13,7 +13,7 @@ public class MenuBarComponent<TNavigateTo>
         private set;
     }
 
-    [TestSelector("logout-link")]
+    [TestSelector("logout-link", Timeout = 30)]
     public Link<TNavigateTo> LogoutLink
     {
         get;
