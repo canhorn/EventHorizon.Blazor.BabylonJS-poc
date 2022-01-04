@@ -69,7 +69,7 @@ public static class IdentityServerTestingExtensions
 
                     // Validate LogoutLink IsVisible
                     return Go.To<TOwner>(navigate: false)
-                        .TopBar.LogoutLink.IsVisible.Should.BeTrue();
+                        .TopBar.LogoutLink.Should.Within(30).BeVisible();
                 }
             );
     }
