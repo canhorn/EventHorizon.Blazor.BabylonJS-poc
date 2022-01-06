@@ -9,7 +9,7 @@ public struct ZoneServerBackupFinishedEvent
     : IAdminClientAction
 {
     public string ReferenceId { get; }
-    public string BackupPath { get; }
+    public string BackupUrl { get; }
 
     public ZoneServerBackupFinishedEvent(
         IAdminClientActionDataResolver resolver
@@ -18,8 +18,8 @@ public struct ZoneServerBackupFinishedEvent
         ReferenceId = resolver.Resolve<string>(
             "referenceId"
         );
-        BackupPath = resolver.Resolve<string>(
-            "backupPath"
+        BackupUrl = resolver.Resolve<string>(
+            "backupUrl"
         );
     }
 }

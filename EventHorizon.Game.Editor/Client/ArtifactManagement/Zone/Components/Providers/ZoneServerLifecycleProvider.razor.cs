@@ -44,7 +44,7 @@ public class ZoneServerLifecycleProviderBase
             await EventHorizonBlazorInterop.RunScript(
                 "OpenInNewTab",
                 "window.open($args.url, '_blank');",
-                new { url = $"{Settings.AssetServer}{args.ExportPath}" }
+                new { url = args.ExportUrl }
             );
         }
     }

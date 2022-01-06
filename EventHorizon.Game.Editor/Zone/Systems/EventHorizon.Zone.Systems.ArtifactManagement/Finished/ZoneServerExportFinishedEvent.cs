@@ -9,7 +9,7 @@ public struct ZoneServerExportFinishedEvent
     : IAdminClientAction
 {
     public string ReferenceId { get; }
-    public string ExportPath { get; }
+    public string ExportUrl { get; }
 
     public ZoneServerExportFinishedEvent(
         IAdminClientActionDataResolver resolver
@@ -18,8 +18,8 @@ public struct ZoneServerExportFinishedEvent
         ReferenceId = resolver.Resolve<string>(
             "referenceId"
         );
-        ExportPath = resolver.Resolve<string>(
-            "exportPath"
+        ExportUrl = resolver.Resolve<string>(
+            "exportUrl"
         );
     }
 }
