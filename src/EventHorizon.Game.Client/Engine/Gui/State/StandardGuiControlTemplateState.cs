@@ -1,51 +1,38 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.State
+﻿namespace EventHorizon.Game.Client.Engine.Gui.State;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Core.Exceptions;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+public class StandardGuiControlTemplateState
+    : IGuiControlTemplateState
 {
-    using System;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
+    private readonly Dictionary<string, IGuiControlTemplate> _map = new();
 
-    public class StandardGuiControlTemplateState
-        : IGuiControlTemplateState
+    public Option<IGuiControlTemplate> Get(string id)
     {
-        private readonly IDictionary<string, IGuiControlTemplate> _map = new Dictionary<string, IGuiControlTemplate>();
-
-        public Option<IGuiControlTemplate> Get(
-            string id
-        )
+        if (_map.TryGetValue(id, out var layout))
         {
-            if (_map.TryGetValue(
-                id,
-                out var layout
-            ))
-            {
-                return layout
-                    .ToOption();
-            }
-            return new Option<IGuiControlTemplate>();
+            return layout.ToOption();
         }
+        return new Option<IGuiControlTemplate>();
+    }
 
-        public bool Has(
-            string id
-        )
+    public bool Has(string id)
+    {
+        return _map.ContainsKey(id);
+    }
+
+    public void Set(IGuiControlTemplate template)
+    {
+        if (template == null)
         {
-            return _map.ContainsKey(
-                id
+            throw new GameException(
+                "gui_control_template_null",
+                "Cannot set Null GUI Control Template into State"
             );
         }
-
-        public void Set(
-            IGuiControlTemplate template
-        )
-        {
-            if (template == null)
-            {
-                throw new GameException(
-                    "gui_control_template_null",
-                    "Cannot set Null GUI Control Template into State"
-                );
-            }
-            _map[template.Id] = template;
-        }
+        _map[template.Id] = template;
     }
 }

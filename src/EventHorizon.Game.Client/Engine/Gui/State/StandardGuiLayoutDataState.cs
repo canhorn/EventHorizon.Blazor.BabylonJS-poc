@@ -1,41 +1,46 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.State
+﻿namespace EventHorizon.Game.Client.Engine.Gui.State;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Core.Exceptions;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+public class StandardGuiLayoutDataState
+    : IGuiLayoutDataState
 {
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
+    private readonly IDictionary<string, IGuiLayoutData> _map = new Dictionary<string, IGuiLayoutData>();
 
-    public class StandardGuiLayoutDataState
-        : IGuiLayoutDataState
+    public void Clear()
     {
-        private readonly IDictionary<string, IGuiLayoutData> _map = new Dictionary<string, IGuiLayoutData>();
+        _map.Clear();
+    }
 
-        public Option<IGuiLayoutData> Get(
-            string id
-        )
+    public Option<IGuiLayoutData> Get(
+        string id
+    )
+    {
+        if (_map.TryGetValue(
+            id,
+            out var layout
+        ))
         {
-            if (_map.TryGetValue(
-                id,
-                out var layout
-            ))
-            {
-                return layout
-                    .ToOption();
-            }
-            return new Option<IGuiLayoutData>();
+            return layout
+                .ToOption();
         }
+        return new Option<IGuiLayoutData>();
+    }
 
-        public void Set(
-            IGuiLayoutData layout
-        )
+    public void Set(
+        IGuiLayoutData layout
+    )
+    {
+        if (layout == null)
         {
-            if (layout == null)
-            {
-                throw new GameException(
-                    "gui_layout_null",
-                    "Cannot set Null GUI Layout into State"
-                );
-            }
-            _map[layout.Id] = layout;
+            throw new GameException(
+                "gui_layout_null",
+                "Cannot set Null GUI Layout into State"
+            );
         }
+        _map[layout.Id] = layout;
     }
 }

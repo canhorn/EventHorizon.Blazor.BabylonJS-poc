@@ -1,15 +1,14 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Api
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Api;
+
+public interface IGuiLayoutDataState
 {
-    using System;
+    Option<IGuiLayoutData> Get(
+        string id
+    );
 
-    public interface IGuiLayoutDataState
-    {
-        Option<IGuiLayoutData> Get(
-            string id
-        );
+    void Set(
+        IGuiLayoutData layout
+    );
 
-        void Set(
-            IGuiLayoutData layout
-        );
-    }
+    void Clear();
 }

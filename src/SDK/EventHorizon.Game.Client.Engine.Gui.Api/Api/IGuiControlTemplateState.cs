@@ -4,14 +4,8 @@
 
     public interface IGuiControlTemplateState
     {
-        void Set(
-            IGuiControlTemplate template
-        );
-        Option<IGuiControlTemplate> Get(
-            string id
-        );
-        bool Has(
-            string id
-        );
+        void Set(IGuiControlTemplate template);
+        Option<IGuiControlTemplate> Get(string id);
+        bool Has(string id);
     }
 }

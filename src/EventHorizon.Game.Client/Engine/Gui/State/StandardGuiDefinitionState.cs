@@ -1,60 +1,45 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.State
+﻿namespace EventHorizon.Game.Client.Engine.Gui.State;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Core.Exceptions;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+public class StandardGuiDefinitionState
+    : IGuiDefinitionState
 {
-    using System;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
+    private readonly Dictionary<string, IGuiDefinition> _map = new();
 
-    public class StandardGuiDefinitionState
-        : IGuiDefinitionState
+    public IEnumerable<IGuiDefinition> All => _map.Values;
+
+    public Option<IGuiDefinition> Get(string id)
     {
-        private readonly IDictionary<string, IGuiDefinition> _map = new Dictionary<string, IGuiDefinition>();
-
-        public Option<IGuiDefinition> Get(
-            string id
-        )
+        if (_map.TryGetValue(id, out var definition))
         {
-            if (_map.TryGetValue(
-                id,
-                out var definition
-            ))
-            {
-                return definition
-                    .ToOption();
-            }
-            return new();
+            return definition.ToOption();
         }
+        return new();
+    }
 
-        public Option<IGuiDefinition> Remove(
-            string id
-        )
+    public Option<IGuiDefinition> Remove(string id)
+    {
+        if (_map.TryGetValue(id, out var definition))
         {
-            if (_map.TryGetValue(
-                id,
-                out var definition
-            ))
-            {
-                _map.Remove(
-                    id
-                );
-                return definition
-                    .ToOption();
-            }
-            return new();
+            _map.Remove(id);
+            return definition.ToOption();
         }
+        return new();
+    }
 
-        public void Set(
-            IGuiDefinition gui
-        )
+    public void Set(IGuiDefinition gui)
+    {
+        if (gui == null)
         {
-            if (gui == null)
-            {
-                throw new GameException(
-                    "gui_definition_null",
-                    "Cannot set NULL GUI Definition into State"
-                );
-            }
-            _map[gui.GuiId] = gui;
+            throw new GameException(
+                "gui_definition_null",
+                "Cannot set NULL GUI Definition into State"
+            );
         }
+        _map[gui.GuiId] = gui;
     }
 }

@@ -1,19 +1,14 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Api
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Api;
+
+using System.Collections.Generic;
+
+public interface IGuiDefinitionState
 {
-    using System;
+    IEnumerable<IGuiDefinition> All { get; }
 
-    public interface IGuiDefinitionState
-    {
-        Option<IGuiDefinition> Get(
-            string id
-        );
+    Option<IGuiDefinition> Get(string id);
 
-        void Set(
-            IGuiDefinition gui
-        );
+    void Set(IGuiDefinition gui);
 
-        Option<IGuiDefinition> Remove(
-            string id
-        );
-    }
+    Option<IGuiDefinition> Remove(string id);
 }

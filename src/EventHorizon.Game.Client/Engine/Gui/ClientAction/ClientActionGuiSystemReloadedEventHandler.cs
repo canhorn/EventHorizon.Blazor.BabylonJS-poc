@@ -1,43 +1,49 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.ClientAction
+﻿namespace EventHorizon.Game.Client.Engine.Gui.ClientAction;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Gui.Clear;
+using EventHorizon.Game.Client.Engine.Gui.Register;
+using EventHorizon.Game.Client.Engine.Gui.Reload;
+
+using MediatR;
+
+public class ClientActionGuiSystemReloadedEventHandler
+    : INotificationHandler<ClientActionGuiSystemReloadedEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Gui.Register;
-    using EventHorizon.Game.Client.Engine.Gui.Reload;
-    using MediatR;
+    private readonly IMediator _mediator;
 
-    public class ClientActionGuiSystemReloadedEventHandler
-        : INotificationHandler<ClientActionGuiSystemReloadedEvent>
+    public ClientActionGuiSystemReloadedEventHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ClientActionGuiSystemReloadedEventHandler(
-            IMediator mediator
-        )
+    public async Task Handle(
+        ClientActionGuiSystemReloadedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new ClearGuiSystemDataCommand(),
+            cancellationToken
+        );
+
+        foreach (var guiLayout in notification.GuiLayoutList)
         {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            ClientActionGuiSystemReloadedEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            foreach (var guiLayout in notification.GuiLayoutList)
-            {
-                await _mediator.Send(
-                    new RegisterGuiLayoutDataCommand(
-                        guiLayout
-                    ),
-                    cancellationToken
-                );
-            }
-
-            await _mediator.Publish(
-                new GuiSystemFinishedReloadingEvent(),
+            await _mediator.Send(
+                new RegisterGuiLayoutDataCommand(
+                    guiLayout
+                ),
                 cancellationToken
             );
         }
+
+        await _mediator.Publish(
+            new GuiSystemFinishedReloadingEvent(),
+            cancellationToken
+        );
     }
 }
