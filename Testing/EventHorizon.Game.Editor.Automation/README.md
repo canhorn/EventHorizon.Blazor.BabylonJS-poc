@@ -1,4 +1,15 @@
-## Build
+
+# Development
+
+## Configuration 
+
+- WebHost:SlowMo 
+    - Add a delay to each action during a test, helps with debugging by slowing down the tests.
+- WebHost:SlowMoDelay
+    - The seconds to delay before each action.
+- (Checkout Config.json for defaults and more values)
+
+# Build
 
 ~~~ bash
 docker build -t ehz/editor/automation:dev .

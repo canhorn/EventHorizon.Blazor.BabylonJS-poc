@@ -11,6 +11,8 @@
     "webHost": {
         "baseUrl": "https://localhost:5001/",
         "culture": "en-US",
+        "slowMo": false,
+        "slowMoDelay": 1.0,
         "driver": {
             "isRemote": true,
             "url": "http://localhost:4444",

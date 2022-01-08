@@ -5,4 +5,6 @@ public interface WebHostSettings
     string BaseUrl { get; }
     string Culture { get; }
     WebHostDriver Driver { get; }
+    bool SlowMo { get; }
+    double SlowMoDelay { get; }
 }

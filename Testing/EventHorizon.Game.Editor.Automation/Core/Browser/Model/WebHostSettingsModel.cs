@@ -8,5 +8,8 @@ public class WebHostSettingsModel
     public string BaseUrl { get; set; }
     public string Culture { get; set; }
     public WebHostDriverModel Driver { get; set; } = new WebHostDriverModel();
+    public bool SlowMo { get; set; }
+    public double SlowMoDelay { get; set; } = 1;
+
     WebHostDriver WebHostSettings.Driver => Driver;
 }

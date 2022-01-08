@@ -94,6 +94,17 @@ public class WebHost
         {
             DriverSetup.AutoSetUp(Settings.Driver.Type.ToUpperFirstLetter());
         }
+
+        if (Settings.SlowMo)
+        {
+            AtataContext.GlobalConfiguration
+                .Attributes.Global.Add(
+                   new WaitAttribute(Settings.SlowMoDelay)
+                   {
+                       On = TriggerEvents.BeforeAccess,
+                   }
+               );
+        }
     }
 
     private static DriverOptions GetDriverOptions()
