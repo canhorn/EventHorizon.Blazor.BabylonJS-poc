@@ -1,36 +1,36 @@
-﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Platform
+﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Platform;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
+using EventHorizon.Game.Client.Systems.EntityModule.Api;
+
+using MediatR;
+
+public class ResetEntityModuleOnDisposeOfEngineEventHandler
+    : INotificationHandler<DisposeOfEngineEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
-    using EventHorizon.Game.Client.Systems.EntityModule.Api;
-    using MediatR;
+    private readonly EntityBaseScriptModuleState _baseScriptModuleState;
+    private readonly EntityPlayerScriptModuleState _playerScriptModuleState;
 
-    public class ResetEntityModuleOnDisposeOfEngineEventHandler
-        : INotificationHandler<DisposeOfEngineEvent>
+    public ResetEntityModuleOnDisposeOfEngineEventHandler(
+        EntityBaseScriptModuleState baseScriptModuleState,
+        EntityPlayerScriptModuleState playerScriptModuleState
+    )
     {
-        private readonly EntityBaseScriptModuleState _baseScriptModuleState;
-        private readonly EntityPlayerScriptModuleState _playerScriptModuleState;
+        _baseScriptModuleState = baseScriptModuleState;
+        _playerScriptModuleState = playerScriptModuleState;
+    }
 
-        public ResetEntityModuleOnDisposeOfEngineEventHandler(
-            EntityBaseScriptModuleState baseScriptModuleState,
-            EntityPlayerScriptModuleState playerScriptModuleState
-        )
-        {
-            _baseScriptModuleState = baseScriptModuleState;
-            _playerScriptModuleState = playerScriptModuleState;
-        }
+    public Task Handle(
+        DisposeOfEngineEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        _baseScriptModuleState.Reset();
+        _playerScriptModuleState.Reset();
 
-        public Task Handle(
-            DisposeOfEngineEvent notification, 
-            CancellationToken cancellationToken
-        )
-        {
-            _baseScriptModuleState.Reset();
-            _playerScriptModuleState.Reset();
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

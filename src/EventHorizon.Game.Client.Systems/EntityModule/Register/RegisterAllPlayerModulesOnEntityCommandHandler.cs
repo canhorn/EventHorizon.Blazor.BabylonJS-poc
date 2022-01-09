@@ -1,43 +1,50 @@
-﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Register
+﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Register;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.EntityModule.Api;
+using EventHorizon.Game.Client.Systems.EntityModule.Model;
+
+using MediatR;
+
+public class RegisterAllPlayerModulesOnEntityCommandHandler
+    : IRequestHandler<RegisterAllPlayerModulesOnEntityCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.EntityModule.Api;
-    using EventHorizon.Game.Client.Systems.EntityModule.Model;
-    using MediatR;
+    private readonly EntityPlayerScriptModuleState _state;
 
-    public class RegisterAllPlayerModulesOnEntityCommandHandler
-        : IRequestHandler<RegisterAllPlayerModulesOnEntityCommand, StandardCommandResult>
+    public RegisterAllPlayerModulesOnEntityCommandHandler(
+        EntityPlayerScriptModuleState state
+    )
     {
-        private readonly EntityPlayerScriptModuleState _state;
+        _state = state;
+    }
 
-        public RegisterAllPlayerModulesOnEntityCommandHandler(
-            EntityPlayerScriptModuleState state
-        )
+    public Task<StandardCommandResult> Handle(
+        RegisterAllPlayerModulesOnEntityCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        request.Entity.RegisterModule(
+            EntityPlayerModuleManagementModule.MODULE_NAME,
+            new StandardEntityPlayerModuleManagementModule(
+                request.Entity
+            )
+        );
+
+        foreach (var scriptModule in _state.All())
         {
-            _state = state;
+            request.Entity.RegisterModule(
+                scriptModule.Name,
+                new StandardEntityModule(
+                    request.Entity,
+                    scriptModule
+                )
+            );
         }
 
-        public Task<StandardCommandResult> Handle(
-            RegisterAllPlayerModulesOnEntityCommand request, 
-            CancellationToken cancellationToken
-        )
-        {
-            foreach (var scriptModule in _state.All())
-            {
-                request.Entity.RegisterModule(
-                    scriptModule.Name,
-                    new StandardEntityModule(
-                        request.Entity,
-                        scriptModule
-                    )
-                );
-            }
-
-            return new StandardCommandResult()
-                .FromResult();
-        }
+        return new StandardCommandResult()
+            .FromResult();
     }
 }
