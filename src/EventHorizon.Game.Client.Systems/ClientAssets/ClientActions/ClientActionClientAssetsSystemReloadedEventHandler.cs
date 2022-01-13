@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaded;
+using EventHorizon.Game.Client.Systems.ClientAssets.Reload;
 
 using MediatR;
 
 public class ClientActionClientAssetsSystemReloadedEventHandler
     : INotificationHandler<ClientActionClientAssetsSystemReloadedEvent>
 {
-    private readonly IMediator _mediator;
+    private readonly IPublisher _publisher;
     private readonly ClientAssetState _clientAssetState;
     private readonly ClientAssetConfigBuilderState _builderState;
 
     public ClientActionClientAssetsSystemReloadedEventHandler(
-        IMediator mediator,
+        IPublisher publisher,
         ClientAssetState clientAssetState,
         ClientAssetConfigBuilderState builderState
     )
     {
-        _mediator = mediator;
+        _publisher = publisher;
         _clientAssetState = clientAssetState;
         _builderState = builderState;
     }
@@ -32,6 +33,11 @@ public class ClientActionClientAssetsSystemReloadedEventHandler
         CancellationToken cancellationToken
     )
     {
+        await _publisher.Publish(
+            new ReloadingClientAssetsEvent(),
+            cancellationToken
+        );
+
         _clientAssetState.Reset();
 
         foreach (
@@ -46,7 +52,7 @@ public class ClientActionClientAssetsSystemReloadedEventHandler
             _clientAssetState.Set(clientAsset);
         }
 
-        await _mediator.Publish(
+        await _publisher.Publish(
             new ClientAssetsLoadedEvent(),
             cancellationToken
         );
