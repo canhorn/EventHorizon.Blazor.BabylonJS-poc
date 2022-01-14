@@ -1,0 +1,23 @@
+﻿@code
+{
+    [Fact]
+    public void DisplaysExpectedHeader()
+    {
+        // Given
+        using var ctx = new TestContext();
+        ctx.Services.AddEditorComponentBase(
+            out var editorComponentBaseMocks
+        ).AddZoneStateProviderMockedServices(
+            editorComponentBaseMocks,
+            out _
+        );
+
+        // When
+        var cut = ctx.RenderComponent<ZoneParticlesPage>();
+
+        // Then
+        cut.MarkupMatches(
+    @<h1>Zone Particle Management</h1>);
+    }
+
+}

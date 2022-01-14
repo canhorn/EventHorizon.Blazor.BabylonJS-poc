@@ -1,0 +1,37 @@
+﻿@using Microsoft.Extensions.Configuration
+
+@code
+{
+    [Fact]
+    public void AlphaBannerDisplaysTextAndLink()
+    {
+        // Given
+        using var ctx = new TestContext();
+        ctx.Services.AddSingleton<Localizer<SharedResource>>(
+            new StringLocalizerMock<SharedResource>()
+        );
+        ctx.Services.AddConfigurationValues(
+            new Dictionary<string, string>
+                {
+                    ["DeploymentDetails:PlatformId"] = "platform-id",
+                    ["DeploymentDetails:PlatformDomain"] = "platform-domain",
+                }
+        );
+
+        // When
+        var cut = ctx.RenderComponent<AlphaBanner>();
+
+        // Then
+        cut.MarkupMatches(@<div class="alpha-banner --dark-theme">
+        <p class="--remove-spacing">
+            We are currently in
+            <span class="--font-bold">Early Alpha Access</span>
+            and so the
+            <span class="--font-bold">Platform</span>
+            is not complete and may change in the future.
+            <a class="--font-bold" href="https://cloud.platform-domain/feedback/game_platform/platform-id?client=editor" target="_blank">Please Submit Any Feedback Here</a>
+        </p>
+    </div>);
+    }
+
+}

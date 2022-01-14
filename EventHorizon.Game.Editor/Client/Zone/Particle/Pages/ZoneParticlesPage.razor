@@ -1,0 +1,10 @@
+﻿@page "/zone/particle"
+@code {
+    public static string Route => $"/zone/particle";
+}
+@layout MainLayout
+@inherits EditorComponentBase
+
+<ZoneStateProvider>
+    <h1>@Localizer["Zone Particle Management"]</h1>
+</ZoneStateProvider>

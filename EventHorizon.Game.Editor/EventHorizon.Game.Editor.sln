@@ -20,7 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solutio
 		..\.csharpierrc = ..\.csharpierrc
 		..\.dockerignore = ..\.dockerignore
 		..\.editorconfig = ..\.editorconfig
-		..\.onsaveconfig = ..\.onsaveconfig
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
 		..\Directory.Build.props = ..\Directory.Build.props
 		..\Dockerfile = ..\Dockerfile
@@ -110,6 +109,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Platform.Integration", "..\src\Platform\EventHorizon.Platform.Integration\EventHorizon.Platform.Integration.csproj", "{BD509CEE-674E-420C-BA78-03C80CCAC166}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Systems.ArtifactManagement", "Zone\Systems\EventHorizon.Zone.Systems.ArtifactManagement\EventHorizon.Zone.Systems.ArtifactManagement.csproj", "{6163A0C0-E160-4C99-B59B-C6211DCDA97E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests", "_Tests", "{5087F5FF-0FED-4DDF-8C86-2C69E79DBE87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Editor.Component.Tests", "..\Testing\EventHorizon.Game.Editor.Component.Tests\EventHorizon.Game.Editor.Component.Tests.csproj", "{0A890180-97EB-418D-8825-B10C8A096F89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -553,6 +556,18 @@ Global
 		{6163A0C0-E160-4C99-B59B-C6211DCDA97E}.Release|x64.Build.0 = Release|Any CPU
 		{6163A0C0-E160-4C99-B59B-C6211DCDA97E}.Release|x86.ActiveCfg = Release|Any CPU
 		{6163A0C0-E160-4C99-B59B-C6211DCDA97E}.Release|x86.Build.0 = Release|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Debug|x64.Build.0 = Debug|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Debug|x86.Build.0 = Debug|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Release|x64.ActiveCfg = Release|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Release|x64.Build.0 = Release|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Release|x86.ActiveCfg = Release|Any CPU
+		{0A890180-97EB-418D-8825-B10C8A096F89}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -599,6 +614,7 @@ Global
 		{BFDC3CFE-22EC-42C0-BE25-FBFB3688497D} = {701666E8-657A-4CFC-9353-96D3D7402179}
 		{BD509CEE-674E-420C-BA78-03C80CCAC166} = {701666E8-657A-4CFC-9353-96D3D7402179}
 		{6163A0C0-E160-4C99-B59B-C6211DCDA97E} = {38D10542-679B-4943-BDE8-95D0C7217153}
+		{0A890180-97EB-418D-8825-B10C8A096F89} = {5087F5FF-0FED-4DDF-8C86-2C69E79DBE87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEEA7938-9CF0-43F2-9770-2590B4818F6A}

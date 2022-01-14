@@ -1,0 +1,41 @@
+﻿@using EventHorizon.Game.Editor.Client.Authentication.Api
+@using EventHorizon.Game.Editor.Client.Authentication.Model
+@using MediatR
+@using Microsoft.Extensions.Configuration
+
+@code
+{
+    [Fact]
+    public void AlphaBannerDisplaysTextAndLink()
+    {
+        // Given
+        using var ctx = new TestContext();
+        SessionValues sessionValues = new SessionValuesModel();
+        ctx.Services.AddSingleton<Localizer<SharedResource>>(
+            new StringLocalizerMock<SharedResource>()
+        ).AddSingleton<IMediator>(
+            new Mock<IMediator>().Object
+        );
+
+        // When
+        var cut = ctx.RenderComponent<QuickLinks>(
+            parameters => parameters.Add(
+                p => p.SessionValues,
+                sessionValues
+            )
+        );
+
+        // Then
+        cut.MarkupMatches(@<nav class="tree-view" data-test-selector="quick-links-tree-view" >
+  <ul class="tree-view__node" data-test-selector="tree-node" data-test-id="quick-link-pages" >
+    <li class="tree-view__node-item" role="presentation"    data-selector="quick-link-pages" >
+      <a href="javascript:;" aria-expanded="false"  data-selector="tree-node-link" class="tree-view__node-link --clickable">
+        <span class="tree-view__node-icon --clickable oi oi-plus" aria-hidden="true" ></span>
+        <span class="tree-view__node-icon --clickable " aria-hidden="true" ></span>
+        <span class="tree-view__node-text" data-selector="tree-node-text" title="Quick Links" >Quick Links</span>
+      </a>
+    </li>
+  </ul>
+</nav>);
+    }
+}
