@@ -126,7 +126,7 @@ docker build --build-arg Version=1.2.3 --target editor-runtime -t canhorn/ehz-pl
 
 ~~~ bash
 # Build Editor Runtime Stage
-docker build --build-arg Version=0.1.0 -f ./EventHorizon.Game.Editor/Dockerfile -t canhorn/ehz-platform-server-editor:dev .
+docker build --build-arg Version=0.1.0 -t canhorn/ehz-platform-server-editor:dev .
 ~~~
 
 ~~~ bash

@@ -93,6 +93,7 @@ COPY EventHorizon.Game.Editor/Generator/EventHorizon.Cache.Generator/*.csproj ./
 
 # Testing
 COPY Testing/EventHorizon.Game.Editor.Automation/*.csproj ./Testing/EventHorizon.Game.Editor.Automation/
+COPY Testing/EventHorizon.Game.Editor.Component.Tests/*.csproj ./Testing/EventHorizon.Game.Editor.Component.Tests/
 # END Testing
 
 RUN dotnet restore ./EventHorizon.Blazor.BabylonJS.sln
