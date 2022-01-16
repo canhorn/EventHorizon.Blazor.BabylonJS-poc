@@ -1,128 +1,86 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Mesh.Model
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
+
+using System.Collections.Generic;
+
+using BabylonJS;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Game.Client.Engine.Entity.Api;
+using EventHorizon.Game.Client.Engine.Entity.Model;
+using EventHorizon.Game.Client.Engine.Systems.Mesh.Api;
+
+public class BabylonJSEngineMesh : IEngineMesh
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using BabylonJS;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Game.Client.Engine.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Entity.Model;
-    using EventHorizon.Game.Client.Engine.Systems.Mesh.Api;
+    public static readonly string OWNER_ENTITY_ID_NAME = "ownerEntityId";
 
-    public class BabylonJSEngineMesh
-        : IEngineMesh
+    private long _ownerEntityId;
+
+    public Mesh Mesh { get; }
+
+    public IVector3 Position { get; }
+    public IVector3 Rotation { get; }
+    public IVector3 Scaling { get; }
+    public decimal ScalingDeterminant
     {
-        public static readonly string OWNER_ENTITY_ID_NAME = "ownerEntityId";
+        get { return Mesh.scalingDeterminant; }
+        set { Mesh.scalingDeterminant = value; }
+    }
+    public MeshSystemType SystemType { get; set; }
+    public long OwnerEntityId
+    {
+        get => _ownerEntityId;
+        set { SetOwnerEntityId(value); }
+    }
+    public IDictionary<string, object> MetaData { get; }
 
-        private long _ownerEntityId;
+    public BabylonJSEngineMesh(
+        Mesh mesh,
+        MeshSystemType meshSystemType,
+        long ownerEntityId
+    )
+    {
+        Mesh = mesh;
+        Position = new BabylonJSVector3(Mesh.position);
+        Rotation = new BabylonJSVector3(Mesh.rotation);
+        Scaling = new BabylonJSVector3(Mesh.scaling);
+        SystemType = meshSystemType;
+        MetaData = new Dictionary<string, object>();
 
-        public Mesh Mesh { get; }
+        SetOwnerEntityId(ownerEntityId);
+    }
 
-        public IVector3 Position { get; }
-        public IVector3 Rotation { get; }
-        public IVector3 Scaling { get; }
-        public decimal ScalingDeterminant
+    public BabylonJSEngineMesh(Mesh mesh) : this(mesh, MeshSystemType.NONE, -1)
+    { }
+
+    public void Dispose() => Mesh.dispose();
+
+    public void SetEnabled(bool value)
+    {
+        Mesh.setEnabled(value);
+        var children = Mesh.getChildMeshes();
+        foreach (var child in children)
         {
-            get
-            {
-                return Mesh.scalingDeterminant;
-            }
-            set
-            {
-                Mesh.scalingDeterminant = value;
-            }
+            child.setEnabled(value);
         }
-        public MeshSystemType SystemType { get; set; }
-        public long OwnerEntityId
-        {
-            get => _ownerEntityId;
-            set
-            {
-                SetOwnerEntityId(
-                    value
-                );
-            }
-        }
-        public IDictionary<string, object> MetaData { get; }
+    }
 
-        public BabylonJSEngineMesh(
-            Mesh mesh,
-            MeshSystemType meshSystemType,
-            long ownerEntityId
-        )
-        {
-            Mesh = mesh;
-            Position = new BabylonJSVector3(
-                Mesh.position
-            );
-            Rotation = new BabylonJSVector3(
-                Mesh.rotation
-            );
-            Scaling = new BabylonJSVector3(
-                Mesh.scaling
-            );
-            SystemType = meshSystemType;
-            MetaData = new Dictionary<string, object>();
+    public void SetVisible(bool visible) => Mesh.isVisible = visible;
 
-            SetOwnerEntityId(
-                ownerEntityId
-            );
-        }
+    public IEngineMesh Clone(string identifier) =>
+        new BabylonJSEngineMesh(Mesh.clone(identifier));
 
-        public BabylonJSEngineMesh(
-            Mesh mesh
-        ) : this(
-            mesh,
-            MeshSystemType.NONE,
-            -1
-        )
-        {
-        }
+    public IVector3 GetDirection(IVector3 localAxis)
+    {
+        return Mesh.getDirection(localAxis.ToBabylonJS()).ToStandardVector3();
+    }
 
-        public void Dispose() => Mesh.dispose();
-
-        public void SetEnabled(
-            bool value
-        )
-        {
-            Mesh.setEnabled(value);
-            var children = Mesh.getChildMeshes();
-            foreach (var child in children)
-            {
-                child.setEnabled(value);
-            }
-        }
-
-        public void SetVisible(
-            bool visible
-        ) => Mesh.isVisible = visible;
-
-        public IEngineMesh Clone(
-            string identifier
-        ) => new BabylonJSEngineMesh(
-            Mesh.clone(
-                identifier
-            )
+    private void SetOwnerEntityId(long entityId)
+    {
+        EventHorizonBlazorInterop.Set(
+            Mesh.___guid,
+            OWNER_ENTITY_ID_NAME,
+            entityId
         );
-
-        public IVector3 GetDirection(
-            IVector3 localAxis
-        )
-        {
-            return Mesh.getDirection(
-                localAxis.ToBabylonJS()
-            ).ToStandardVector3();
-        }
-
-        private void SetOwnerEntityId(
-            long entityId
-        )
-        {
-            EventHorizonBlazorInterop.Set(
-                Mesh.___guid,
-                OWNER_ENTITY_ID_NAME,
-                entityId
-            );
-            _ownerEntityId = entityId;
-        }
+        _ownerEntityId = entityId;
     }
 }

@@ -25,10 +25,7 @@ public class MeshModuleOptions
     public bool SetRotation { get; }
     public bool SetScaling { get; }
 
-    public MeshModuleOptions(
-        bool setRotation,
-        bool setScale
-    )
+    public MeshModuleOptions(bool setRotation, bool setScale)
     {
         SetRotation = setRotation;
         SetScaling = setScale;
@@ -54,13 +51,9 @@ public class MeshModule
 
     public IEngineMesh Mesh { get; private set; }
 
-    public MeshModule(
-        IObjectEntity entity,
-        MeshModuleOptions options
-    )
+    public MeshModule(IObjectEntity entity, MeshModuleOptions options)
     {
-        _mediator =
-            GameServiceProvider.GetService<IMediator>();
+        _mediator = GameServiceProvider.GetService<IMediator>();
 
         _entity = entity;
         _options = options;
@@ -81,9 +74,7 @@ public class MeshModule
                 millisecondInterval: 100,
                 onElapsed: () =>
                 {
-                    _entity.Transform.Position.Set(
-                        Mesh.Position
-                    );
+                    _entity.Transform.Position.Set(Mesh.Position);
                     return Task.CompletedTask;
                 }
             )
@@ -115,18 +106,12 @@ public class MeshModule
     {
         Mesh.Position.Set(_entity.Transform.Position);
 
-        if (
-            _options.SetRotation
-            && _entity.Transform.Rotation != null
-        )
+        if (_options.SetRotation && _entity.Transform.Rotation != null)
         {
             Mesh.Rotation.Set(_entity.Transform.Rotation);
         }
 
-        if (
-            _options.SetScaling
-            && _entity.Transform.Scaling != null
-        )
+        if (_options.SetScaling && _entity.Transform.Scaling != null)
         {
             Mesh.Scaling.Set(_entity.Transform.Scaling);
         }
@@ -138,17 +123,12 @@ public class MeshModule
         }
         else
         {
-            var modelState =
-                _entity.GetProperty<IModelState>(
-                    IModelState.NAME
-                );
+            var modelState = _entity.GetProperty<IModelState>(IModelState.NAME);
             if (
-                modelState.IsNotNull()
-                && modelState.ScalingDeterminant.HasValue
+                modelState.IsNotNull() && modelState.ScalingDeterminant.HasValue
             )
             {
-                Mesh.ScalingDeterminant =
-                    modelState.ScalingDeterminant.Value;
+                Mesh.ScalingDeterminant = modelState.ScalingDeterminant.Value;
             }
         }
     }
@@ -187,9 +167,7 @@ public class MeshModule
         PositionMesh();
         Mesh.SetEnabled(true);
 
-        await _mediator.Publish(
-            new MeshSetEvent(_entity.ClientId)
-        );
+        await _mediator.Publish(new MeshSetEvent(_entity.ClientId));
         meshToDispose?.Dispose();
     }
 
@@ -213,15 +191,12 @@ public class MeshModule
         return Task.CompletedTask;
     }
 
-    public async Task Handle(
-        ReloadingClientAssetsEvent args
-    )
+    public async Task Handle(ReloadingClientAssetsEvent args)
     {
-        Mesh.Dispose();
+        var disposeMesh = Mesh;
         Mesh = BuildMesh();
         PositionMesh();
-        await _mediator.Publish(
-            new MeshSetEvent(_entity.ClientId)
-        );
+        await _mediator.Publish(new MeshSetEvent(_entity.ClientId));
+        disposeMesh?.Dispose();
     }
 }
