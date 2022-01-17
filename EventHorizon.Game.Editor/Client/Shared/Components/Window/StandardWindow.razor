@@ -3,8 +3,8 @@
 @if (IsDragging)
 {
     <div class="skirt"
-         @onmousemove="HandleElementDrag"
-         @onmouseup="HandleStopDragging"></div>
+     @onmousemove="HandleElementDrag"
+     @onmouseup="HandleStopDragging"></div>
 }
 
 <div class="standard-window @(IsOpen ? "--open" : "")"
@@ -20,7 +20,8 @@
                 @Header
             </div>
             <div>
-                <button @onclick="HandleCollapse"
+                <button class="--transparent"
+                        @onclick="HandleCollapse"
                         @onclick:preventDefault
                         @onclick:stopPropagation
                         title="@(IsCollapsed ? Localizer["Expand Window"] : Localizer["Collapse Window"])"
@@ -28,6 +29,18 @@
                     <i class="fas fa-@CollapsedIcon"></i>
                     <span class="--sr-only">@(IsCollapsed ? Localizer["Expand Window"] : Localizer["Collapse Window"])</span>
                 </button>
+                @if (OnCloseTriggered.HasDelegate)
+                {
+                    <button class="--transparent"
+                        @onclick="HandleTriggerCloseEvent"
+                        @onclick:preventDefault
+                        @onclick:stopPropagation
+                        title="@Localizer["Close Window"]"
+                        type="button">
+                        <i class="far fa-window-close"></i>
+                        <span class="--sr-only">@Localizer["Close Window"]</span>
+                    </button>
+                }
             </div>
         </div>
         <div class="standard-window__body"

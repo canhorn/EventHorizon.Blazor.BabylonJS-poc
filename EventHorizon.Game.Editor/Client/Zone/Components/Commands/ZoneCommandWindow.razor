@@ -1,0 +1,37 @@
+﻿@inherits EditorComponentBase
+
+<button type="button"
+        @onclick="HandleOpenWindow">
+    @Localizer["Command Window"]
+</button>
+
+<StandardWindow IsOpen="IsWindowOpen"
+                IsDraggable="true"
+                WidthSize="medium"
+                HeightSize="medium"
+                Location="WindowLocationType.MiddleCenter"
+                OnCloseTriggered="HandleCloseTriggered">
+    <Header>
+        @Localizer["Zone Command Window"]
+    </Header>
+    <Body>
+        <ZoneStateProvider>
+            <ZoneQuickCommands />
+            <ZoneCommandResponseList />
+        </ZoneStateProvider>
+    </Body>
+</StandardWindow>
+
+@code {
+    protected bool IsWindowOpen { get; set; }
+
+    protected void HandleOpenWindow()
+    {
+        IsWindowOpen = !IsWindowOpen;
+    }
+
+    protected void HandleCloseTriggered()
+    {
+        IsWindowOpen = false;
+    }
+}

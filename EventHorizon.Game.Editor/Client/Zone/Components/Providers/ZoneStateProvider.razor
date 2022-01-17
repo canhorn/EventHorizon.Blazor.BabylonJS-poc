@@ -1,0 +1,13 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Components.ReloadListener
+@inherits ZoneStateProviderModel
+
+<ContainerStatesComponent State="DisplayZoneState">
+    <ContentFragment>
+        <CascadingValue Value="@ZoneState">
+            @ChildContent
+        </CascadingValue>
+    </ContentFragment>
+    <LoadingFragment>
+        <Loading />
+    </LoadingFragment>
+</ContainerStatesComponent>

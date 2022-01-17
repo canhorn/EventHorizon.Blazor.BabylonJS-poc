@@ -1,4 +1,5 @@
 ﻿@using EventHorizon.Game.Editor.Client.Wizard.Components
+@using EventHorizon.Game.Editor.Client.Zone.Components.Commands
 
 <div class="top-row navbar navbar-dark">
     <button class="menu-toggler --no-border"
@@ -21,6 +22,7 @@
     {
         <QuickLinks />
         <WizardSelection />
+        <ZoneCommandWindow />
         <div data-test-selector="nav-blade-selection">
             <EditorBladeSelection />
         </div>

@@ -177,6 +177,10 @@ button {
         border: 1px solid var(--contrast-dark-secondary);
     }
 
+    button.--transparent {
+        background-color: transparent;
+    }
+
     button.--error {
         background: var(--error-light-secondary);
         color: inherit;

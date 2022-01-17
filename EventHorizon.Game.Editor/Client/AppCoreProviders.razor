@@ -4,20 +4,20 @@
 @using EventHorizon.Game.Editor.Client.Wizard.Components.Provider
 @using EventHorizon.Game.Editor.Client.ErrorBoundary.Providers
 @using EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers
+@using EventHorizon.Game.Editor.Client.Zone.Components.Providers
 
 <ErrorBoundaryProvider>
     <ClickCaptureProvider>
         <EditorAuthenticationProvider>
-            <ZoneSelectionProvider>
+            <ZoneProvider>
                 <WizardStateProvider>
                     <AssetManagementProvider>
                         <ArtifactManagementProvider>
                             @ChildContent
-                            <ZoneConnectionStatusProvider />
                         </ArtifactManagementProvider>
                     </AssetManagementProvider>
                 </WizardStateProvider>
-            </ZoneSelectionProvider>
+            </ZoneProvider>
         </EditorAuthenticationProvider>
     </ClickCaptureProvider>
 </ErrorBoundaryProvider>

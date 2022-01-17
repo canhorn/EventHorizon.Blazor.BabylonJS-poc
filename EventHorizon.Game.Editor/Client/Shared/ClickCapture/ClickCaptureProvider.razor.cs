@@ -1,63 +1,55 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.ClickCapture
+﻿namespace EventHorizon.Game.Editor.Client.Shared.ClickCapture;
+
+using Microsoft.AspNetCore.Components;
+
+using System;
+
+public class ClickCaptureProviderModel : ComponentBase
 {
-    using Microsoft.AspNetCore.Components;
-    using System;
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
 
-    public class ClickCaptureProviderModel : ComponentBase
+    #region OnMouseClick
+    private Action? _onMouseClickEvents;
+
+    public void OnMouseClick(Action action)
     {
-        [Parameter]
-        public RenderFragment ChildContent { get; set; } = null!;
+        _onMouseClickEvents += action;
+    }
 
-        #region OnMouseClick
-        private Action? _onMouseClickEvents;
+    public void OffMouseClick(Action action)
+    {
+        _onMouseClickEvents -= action;
+    }
 
-        public void OnMouseClick(
-            Action action
-        )
-        {
-            _onMouseClickEvents += action;
-        }
+    protected void HandleOnClick()
+    {
+        _onMouseClickEvents?.Invoke();
+    }
+    #endregion
 
-        public void OffMouseClick(
-            Action action
-        )
-        {
-            _onMouseClickEvents -= action;
-        }
+    #region OnContextMenu
+    private Action? _onContextMenuEvents;
 
-        protected void HandleOnClick()
-        {
-            _onMouseClickEvents?.Invoke();
-        }
-        #endregion
+    public void OnContextMenu(Action action)
+    {
+        _onContextMenuEvents += action;
+    }
 
-        #region OnContextMenu
-        private Action? _onContextMenuEvents;
+    public void OffContextMenu(Action action)
+    {
+        _onContextMenuEvents -= action;
+    }
 
-        public void OnContextMenu(
-            Action action
-        )
-        {
-            _onContextMenuEvents += action;
-        }
+    protected void HandleOnContextMenu()
+    {
+        _onContextMenuEvents?.Invoke();
+    }
+    #endregion
 
-        public void OffContextMenu(
-            Action action
-        )
-        {
-            _onContextMenuEvents -= action;
-        }
-
-        protected void HandleOnContextMenu()
-        {
-            _onContextMenuEvents?.Invoke();
-        }
-        #endregion
-
-        public void TriggerEvents()
-        {
-            HandleOnClick();
-            HandleOnContextMenu();
-        }
+    public void TriggerEvents()
+    {
+        HandleOnClick();
+        HandleOnContextMenu();
     }
 }

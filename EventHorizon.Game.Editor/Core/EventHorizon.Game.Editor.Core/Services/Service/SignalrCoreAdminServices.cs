@@ -1,169 +1,150 @@
-﻿namespace EventHorizon.Game.Editor.Core.Services.Service
+﻿namespace EventHorizon.Game.Editor.Core.Services.Service;
+
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Connection.Shared;
+using EventHorizon.Connection.Shared.Unauthorized;
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Core.Services.Api;
+using EventHorizon.Game.Editor.Core.Services.Connection;
+using EventHorizon.Game.Editor.Core.Services.Model;
+using EventHorizon.Game.Editor.Model;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
+
+public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Connection.Shared;
-    using EventHorizon.Connection.Shared.Unauthorized;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Core.Services.Api;
-    using EventHorizon.Game.Editor.Core.Services.Connection;
-    using EventHorizon.Game.Editor.Core.Services.Model;
-    using EventHorizon.Game.Editor.Model;
-    using MediatR;
-    using Microsoft.AspNetCore.SignalR.Client;
-    using Microsoft.Extensions.Logging;
+    private static IList<CoreZoneDetails> EMPTY_LIST { get; } =
+        new List<CoreZoneDetails>().AsReadOnly();
 
-    public class SignalrCoreAdminServices
-        : CoreAdminServices, IDisposable
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
+    private readonly GamePlatformServiceSettings _settings;
+
+    private bool _initializing = false;
+    private bool _initialized = false;
+    private HubConnection? _connection;
+
+    public SignalrCoreAdminServices(
+        ILogger<SignalrCoreAdminServices> logger,
+        IMediator mediator,
+        GamePlatformServiceSettings settings
+    )
     {
-        private static IList<CoreZoneDetails> EMPTY_LIST { get; } = new List<CoreZoneDetails>().AsReadOnly();
+        _logger = logger;
+        _mediator = mediator;
+        _settings = settings;
+    }
 
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
-        private readonly GamePlatformServiceSettings _settings;
-
-        private bool _initializing = false;
-        private bool _initialized = false;
-        private HubConnection? _connection;
-
-        public SignalrCoreAdminServices(
-            ILogger<SignalrCoreAdminServices> logger,
-            IMediator mediator,
-            GamePlatformServiceSettings settings
-        )
+    public async Task<StandardCommandResult> Connect(
+        string accessToken,
+        CancellationToken cancellationToken
+    )
+    {
+        if (_initializing)
         {
-            _logger = logger;
-            _mediator = mediator;
-            _settings = settings;
+            return new(ConnectionErrorTypes.NotInitialized);
         }
-
-        public async Task<StandardCommandResult> Connect(
-            string accessToken,
-            CancellationToken cancellationToken
-        )
+        else if (_initialized)
         {
-            if (_initializing)
-            {
-                return new(
-                    ConnectionErrorTypes.NotInitialized
-                );
-            }
-            else if (_initialized)
-            {
-                return new();
-            }
-            try
-            {
-                _initializing = true;
-                _connection = new HubConnectionBuilder()
-                    .WithUrl(
-                        $"{_settings.CoreServer}/admin",
-                        options =>
-                        {
-                            // options..LogLevel = SignalRLogLevel.Error;
-                            options.AccessTokenProvider = () => Task.FromResult(
-                                accessToken
-                            );
-                        }
-                    ).Build();
+            return new();
+        }
+        try
+        {
+            _initializing = true;
+            _connection = new HubConnectionBuilder()
+                .WithUrl(
+                    $"{_settings.CoreServer}/admin",
+                    options =>
+                    {
+                        // options..LogLevel = SignalRLogLevel.Error;
+                        options.AccessTokenProvider = () =>
+                            accessToken.FromResult<string?>();
+                    }
+                )
+                .Build();
 
-                await _connection.StartAsync(cancellationToken);
+            await _connection.StartAsync(cancellationToken);
+            _initializing = false;
+            _initialized = true;
+            await _mediator.Publish(
+                new CoreAdminServiceConnected(),
+                cancellationToken
+            );
+            return new();
+        }
+        catch (HttpRequestException ex)
+        {
+            await LogAndDispose(
+                ex,
+                "Failed to start connection to Core Admin Service."
+            );
+            if (ex.Message.Contains("401 (Unauthorized)"))
+            {
                 await _mediator.Publish(
-                    new CoreAdminServiceConnected(),
+                    new ConnectionUnauthorizedEvent("core-admin"),
                     cancellationToken
                 );
-                _initializing = false;
-                _initialized = true;
-                return new();
+                return new(ConnectionErrorTypes.Unauthorized);
             }
-            catch (HttpRequestException ex)
-            {
-                await LogAndDispose(
-                    ex,
-                    "Failed to start connection to Core Admin Service."
-                );
-                if (ex.Message.Contains("401 (Unauthorized)"))
-                {
-                    await _mediator.Publish(
-                        new ConnectionUnauthorizedEvent(
-                            "core-admin"
-                        ),
-                        cancellationToken
-                    );
-                    return new(
-                        ConnectionErrorTypes.Unauthorized
-                    );
-                }
-                return new(
-                    ConnectionErrorTypes.Unknown
-                );
-            }
-            catch (InvalidOperationException ex)
-            {
-                await LogAndDispose(
-                    ex,
-                    "Operation Exception starting connection to Core Admin Service."
-                );
-                return new(
-                    ConnectionErrorTypes.Operational
-                );
-            }
-            catch (Exception ex)
-            {
-                await LogAndDispose(
-                    ex,
-                    "Generic Exception starting connection to Core Admin Service."
-                );
-                return new(
-                    ConnectionErrorTypes.Unknown
-                );
-            }
+            return new(ConnectionErrorTypes.Unknown);
         }
-
-        private async Task LogAndDispose(
-            Exception ex,
-            string message
-        )
+        catch (InvalidOperationException ex)
         {
-            _logger.LogWarning(
+            await LogAndDispose(
                 ex,
-                message
+                "Operation Exception starting connection to Core Admin Service."
             );
-            if (_connection.IsNotNull())
-            {
-                await _connection.DisposeAsync();
-                _connection = null;
-            }
-            _initializing = false;
-            _initialized = false;
+            return new(ConnectionErrorTypes.Operational);
         }
-
-        public void Dispose()
+        catch (Exception ex)
         {
-            if (_connection.IsNotNull())
-            {
-                _ = _connection.DisposeAsync();
-                _connection = null;
-            }
-            _initializing = false;
-            _initialized = false;
-        }
-
-        public async Task<IList<CoreZoneDetails>> GetAllZones()
-        {
-            if (!_initialized 
-                || _initializing
-                || _connection.IsNotConnected()
-            )
-            {
-                return EMPTY_LIST;
-            }
-            return await _connection.InvokeAsync<IList<CoreZoneDetails>>(
-                "GetAllZones"
+            await LogAndDispose(
+                ex,
+                "Generic Exception starting connection to Core Admin Service."
             );
+            return new(ConnectionErrorTypes.Unknown);
         }
+    }
+
+    private async Task LogAndDispose(Exception ex, string message)
+    {
+        _logger.LogWarning(ex, message);
+        if (_connection.IsNotNull())
+        {
+            await _connection.DisposeAsync();
+            _connection = null;
+        }
+        _initializing = false;
+        _initialized = false;
+    }
+
+    public void Dispose()
+    {
+        if (_connection.IsNotNull())
+        {
+            _ = _connection.DisposeAsync();
+            _connection = null;
+        }
+        _initializing = false;
+        _initialized = false;
+    }
+
+    public async Task<IList<CoreZoneDetails>> GetAllZones()
+    {
+        if (!_initialized || _initializing || _connection.IsNotConnected())
+        {
+            return EMPTY_LIST;
+        }
+        return await _connection.InvokeAsync<IList<CoreZoneDetails>>(
+            "GetAllZones"
+        );
     }
 }
