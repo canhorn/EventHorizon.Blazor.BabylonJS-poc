@@ -141,7 +141,7 @@ public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
 
     private async Task LogAndDispose(Exception ex, string message)
     {
-        _logger.LogWarning(ex, message)
+        _logger.LogWarning(ex, message);
         if (_connection.IsNotNull())
         {
             await _connection.DisposeAsync();
