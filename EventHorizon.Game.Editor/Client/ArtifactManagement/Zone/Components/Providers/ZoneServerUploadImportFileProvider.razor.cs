@@ -23,11 +23,13 @@ public class ZoneServerUploadImportFileProviderBase
 
     [Inject]
     public IJSRuntime JSRuntime { get; set; } = null!;
+
     [Inject]
     public AssetServerService AssetServerService { get; set; } = null!;
 
-    public string UploadFileId { get; } = "zone-server-upload-import-input-file";
-    public IJSObjectReference FileUploadClickModule { get; private set; } = null!;
+    public string UploadFileId { get; } =
+        "zone-server-upload-import-input-file";
+    public IJSObjectReference? FileUploadClickModule { get; private set; }
     public InputFile UploadInputFile { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
@@ -40,31 +42,37 @@ public class ZoneServerUploadImportFileProviderBase
         );
     }
 
-    public async Task TriggerOpenForFileUpload()
+    public override async ValueTask DisposeAsync()
     {
-        await FileUploadClickModule.InvokeVoidAsync(
-            "openInputElement",
-            UploadFileId
-        );
+        await base.DisposeAsync();
+        if (FileUploadClickModule.IsNotNull())
+        {
+            await FileUploadClickModule.DisposeAsync();
+        }
     }
 
-    public async Task Handle(
-        OpenZoneServerImportFileUploaderEvent _
-    )
+    public async Task TriggerOpenForFileUpload()
+    {
+        if (FileUploadClickModule.IsNotNull())
+        {
+            await FileUploadClickModule.InvokeVoidAsync(
+                "openInputElement",
+                UploadFileId
+            );
+        }
+    }
+
+    public async Task Handle(OpenZoneServerImportFileUploaderEvent _)
     {
         await TriggerOpenForFileUpload();
     }
 
-    protected async Task HandleInputFileChange(
-        InputFileChangeEventArgs args
-    )
+    protected async Task HandleInputFileChange(InputFileChangeEventArgs args)
     {
         await UploadFrom(args.File);
     }
 
-    private async Task UploadFrom(
-        IBrowserFile file
-    )
+    private async Task UploadFrom(IBrowserFile file)
     {
         if (AccessToken.IsFilled.IsNotTrue())
         {
@@ -72,24 +80,20 @@ public class ZoneServerUploadImportFileProviderBase
         }
 
         var result = await Sender.Send(
-            new UploadZoneServerImportFileCommand(
-                AccessToken.AccessToken,
-                file
-            )
+            new UploadZoneServerImportFileCommand(AccessToken.AccessToken, file)
         );
 
         if (result)
         {
             await ShowMessage(
                 Localizer["Zone Server Import"],
-                Localizer[
-                    "Successfully uploaded Import File."
-                ]
+                Localizer["Successfully uploaded Import File."]
             );
             return;
         }
         else if (
-            result.ErrorCode == ZoneServerUploadErrorCodes.ZONE_SERVER_UPLOAD_PAYLOAD_TOO_LARGE
+            result.ErrorCode
+            == ZoneServerUploadErrorCodes.ZONE_SERVER_UPLOAD_PAYLOAD_TOO_LARGE
         )
         {
             await ShowMessage(
@@ -111,11 +115,5 @@ public class ZoneServerUploadImportFileProviderBase
             ],
             MessageLevel.Error
         );
-    }
-
-    public override async ValueTask DisposeAsync()
-    {
-        await base.DisposeAsync();
-        await FileUploadClickModule.DisposeAsync();
     }
 }

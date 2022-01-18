@@ -1,4 +1,5 @@
-﻿@inherits ZoneStatusModel
+﻿@using EventHorizon.Game.Editor.Client.Zone.Components.Selection
+@inherits ZoneStatusModel
 
 @if (!AccessToken.IsFilled)
 {
@@ -32,29 +33,9 @@ else
     </button>
 }
 
-<StandardModal IsOpen="IsZoneSelectionOpen"
-               OnClose="HandleCloseZoneSelection">
-    <Header>
-        <h2>@Localizer["Zone Selection"]</h2>
-    </Header>
-    <Body>
-        <div class="zone-selection__container">
-            @foreach (var zone in Zones)
-            {
-                <div class="zone-details">
-                    @* Tile Selection Display *@
-                    <div>Id: @zone.Id</div>
-                    <div>Server Address: @zone.ServerAddress</div>
-                    <div>Tag: @zone.Tag</div>
-                    <div>Last Ping: @zone.LastPing.ToString("G")</div>
-                    <div>Application Version: @zone.Details.ApplicationVersion</div>
-                    <button @onclick="() => HandleZoneSelectionChanged(zone.Id)"
-                        type="button"
-                        disabled="@(zone.Id == SelectedZoneId)">
-                        @(zone.Id == SelectedZoneId ? Localizer["Active"] : Localizer["Select"])
-                    </button>
-                </div>
-            }
-        </div>
-    </Body>
-</StandardModal>
+<ZoneSelectionModal IsOpen="IsZoneSelectionOpen"
+                    Zones="Zones"
+                    OnClose="HandleCloseZoneSelection"
+                    ForceSelection="false"
+                    OnZoneSelectionChanged="HandleZoneSelectionChanged"
+                    SelectedZoneId="@SelectedZoneId" />

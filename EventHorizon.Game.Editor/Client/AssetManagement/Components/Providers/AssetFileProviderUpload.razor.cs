@@ -18,23 +18,29 @@ using Microsoft.JSInterop;
 
 public class AssetFileProviderUploadModel
     : ObservableComponentBase,
-    AssetOpenFileUploadTrggeredEventObserver
+      AssetOpenFileUploadTrggeredEventObserver
 {
     [CascadingParameter]
     public AssetManagementState State { get; set; } = null!;
+
     [CascadingParameter]
     public AccessTokenModel AccessToken { get; set; } = null!;
 
     [Inject]
     public IJSRuntime JSRuntime { get; set; } = null!;
+
     [Inject]
     public AssetFileManagement AssetFileManagement { get; set; } = null!;
 
     public string UploadFileId { get; } = "upload-input-file";
-    public IJSObjectReference FileUploadClickModule { get; private set; } = null!;
+    public IJSObjectReference? FileUploadClickModule { get; private set; }
     public InputFile UploadInputFile { get; set; } = null!;
     public TreeViewNodeData? FileUploadTreeViewNode { get; private set; }
-    public FileSystemDirectoryContent? FileUploadWorkingDirectory { get; private set; }
+    public FileSystemDirectoryContent? FileUploadWorkingDirectory
+    {
+        get;
+        private set;
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -46,29 +52,38 @@ public class AssetFileProviderUploadModel
         );
     }
 
-    public async Task TriggerOpenForFileUpload()
+    public override async ValueTask DisposeAsync()
     {
-        await FileUploadClickModule.InvokeVoidAsync(
-            "openInputElement",
-            UploadFileId
-        );
+        await base.DisposeAsync();
+        if (FileUploadClickModule.IsNotNull())
+        {
+            await FileUploadClickModule.DisposeAsync();
+        }
     }
 
-    public async Task Handle(
-        AssetOpenFileUploadTrggeredEvent args
-    )
+    public async Task TriggerOpenForFileUpload()
+    {
+        if (FileUploadClickModule.IsNotNull())
+        {
+            await FileUploadClickModule.InvokeVoidAsync(
+                "openInputElement",
+                UploadFileId
+            );
+        }
+    }
+
+    public async Task Handle(AssetOpenFileUploadTrggeredEvent args)
     {
         FileUploadTreeViewNode = args.Node;
         FileUploadWorkingDirectory = args.DirectoryContent;
         await TriggerOpenForFileUpload();
     }
 
-    protected async Task HandleInputFileChange(
-        InputFileChangeEventArgs args
-    )
+    protected async Task HandleInputFileChange(InputFileChangeEventArgs args)
     {
-        if (FileUploadTreeViewNode is null
-            || FileUploadWorkingDirectory is null)
+        if (
+            FileUploadTreeViewNode is null || FileUploadWorkingDirectory is null
+        )
         {
             await ShowMessage(
                 Localizer["Asset File Upload"],
@@ -133,11 +148,5 @@ public class AssetFileProviderUploadModel
             ],
             MessageLevel.Error
         );
-    }
-
-    public override async ValueTask DisposeAsync()
-    {
-        await base.DisposeAsync();
-        await FileUploadClickModule.DisposeAsync();
     }
 }

@@ -23,15 +23,13 @@ public class AssetImportFileUploadProviderModel
 
     [Inject]
     public IJSRuntime JSRuntime { get; set; } = null!;
+
     [Inject]
     public AssetServerService AssetServerService { get; set; } = null!;
 
-    public string UploadFileId { get; } = "asset-server-import-upload-input-file";
-    public IJSObjectReference FileUploadClickModule
-    {
-        get;
-        private set;
-    } = null!;
+    public string UploadFileId { get; } =
+        "asset-server-import-upload-input-file";
+    public IJSObjectReference? FileUploadClickModule { get; private set; }
     public InputFile UploadInputFile { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
@@ -44,24 +42,32 @@ public class AssetImportFileUploadProviderModel
         );
     }
 
-    public async Task TriggerOpenForFileUpload()
+    public override async ValueTask DisposeAsync()
     {
-        await FileUploadClickModule.InvokeVoidAsync(
-            "openInputElement",
-            UploadFileId
-        );
+        await base.DisposeAsync();
+        if (FileUploadClickModule.IsNotNull())
+        {
+            await FileUploadClickModule.DisposeAsync();
+        }
     }
 
-    public async Task Handle(
-        OpenAssetServerImportFileUploaderEvent _
-    )
+    public async Task TriggerOpenForFileUpload()
+    {
+        if (FileUploadClickModule.IsNotNull())
+        {
+            await FileUploadClickModule.InvokeVoidAsync(
+                "openInputElement",
+                UploadFileId
+            );
+        }
+    }
+
+    public async Task Handle(OpenAssetServerImportFileUploaderEvent _)
     {
         await TriggerOpenForFileUpload();
     }
 
-    protected async Task HandleInputFileChange(
-        InputFileChangeEventArgs args
-    )
+    protected async Task HandleInputFileChange(InputFileChangeEventArgs args)
     {
         await UploadFrom(args.File);
     }
@@ -81,20 +87,17 @@ public class AssetImportFileUploadProviderModel
 
         if (result.Success)
         {
-            await Mediator.Publish(
-                new ForceReloadAssetManagementStateEvent()
-            );
+            await Mediator.Publish(new ForceReloadAssetManagementStateEvent());
 
             await ShowMessage(
                 Localizer["Asset Server Import"],
-                Localizer[
-                    "Successfully Import new Assets."
-                ]
+                Localizer["Successfully Import new Assets."]
             );
             return;
         }
         else if (
-            result.ErrorCode == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE
+            result.ErrorCode
+            == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE
         )
         {
             await ShowMessage(
@@ -116,11 +119,5 @@ public class AssetImportFileUploadProviderModel
             ],
             MessageLevel.Error
         );
-    }
-
-    public override async ValueTask DisposeAsync()
-    {
-        await base.DisposeAsync();
-        await FileUploadClickModule.DisposeAsync();
     }
 }

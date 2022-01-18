@@ -12,6 +12,7 @@ using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Core.Services.Api;
 using EventHorizon.Game.Editor.Core.Services.Connection;
 using EventHorizon.Game.Editor.Core.Services.Model;
+using EventHorizon.Game.Editor.Core.Services.Registered;
 using EventHorizon.Game.Editor.Model;
 
 using MediatR;
@@ -72,6 +73,8 @@ public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
                 .Build();
 
             await _connection.StartAsync(cancellationToken);
+            SetupEventListeners(_connection);
+
             _initializing = false;
             _initialized = true;
             await _mediator.Publish(
@@ -114,9 +117,31 @@ public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
         }
     }
 
+    private void SetupEventListeners(HubConnection connection)
+    {
+        connection.On(
+            "ZoneRegistered",
+            async (CoreZoneDetails zoneDetails) =>
+            {
+                await _mediator.Publish(
+                    new ZoneRegisteredOnCoreServer(zoneDetails)
+                );
+            }
+        );
+        connection.On(
+            "ZoneUnregistered",
+            async (string zoneId) =>
+            {
+                await _mediator.Publish(
+                    new ZoneUnregisteredOnCoreServer(zoneId)
+                );
+            }
+        );
+    }
+
     private async Task LogAndDispose(Exception ex, string message)
     {
-        _logger.LogWarning(ex, message);
+        _logger.LogWarning(ex, message)
         if (_connection.IsNotNull())
         {
             await _connection.DisposeAsync();

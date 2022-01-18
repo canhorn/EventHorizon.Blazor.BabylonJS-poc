@@ -1,0 +1,29 @@
+﻿@inherits ZoneSelectionModalBase
+
+<StandardModal IsOpen="IsOpen"
+               OnClose="HandleCloseModal"
+               HideClose="ForceSelection">
+    <Header>
+        <h2>@Localizer["Zone Selection"]</h2>
+    </Header>
+    <Body>
+        <div class="zone-selection__container">
+            @foreach (var zone in Zones)
+            {
+                <div class="zone-details">
+                    @* Tile Selection Display *@
+                    <div>Id: @zone.Id</div>
+                    <div>Server Address: @zone.ServerAddress</div>
+                    <div>Tag: @zone.Tag</div>
+                    <div>Last Ping: @zone.LastPing.ToString("G")</div>
+                    <div>Application Version: @zone.Details.ApplicationVersion</div>
+                    <button @onclick="() => HandleZoneSelectionChanged(zone.Id)"
+                        type="button"
+                        disabled="@(zone.Id == SelectedZoneId)">
+                        @(zone.Id == SelectedZoneId ? Localizer["Active"] : Localizer["Select"])
+                    </button>
+                </div>
+            }
+        </div>
+    </Body>
+</StandardModal>

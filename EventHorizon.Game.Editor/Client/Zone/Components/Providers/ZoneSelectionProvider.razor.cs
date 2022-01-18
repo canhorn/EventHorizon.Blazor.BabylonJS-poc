@@ -14,12 +14,17 @@ using EventHorizon.Game.Editor.Core.Services.Connect;
 using EventHorizon.Game.Editor.Core.Services.Connection;
 using EventHorizon.Game.Editor.Core.Services.Model;
 using EventHorizon.Game.Editor.Core.Services.Query;
+using EventHorizon.Game.Editor.Core.Services.Registered;
+using EventHorizon.Game.Editor.Zone.Services.Connection;
 
 using Microsoft.AspNetCore.Components;
 
 public class ZoneSelectionProviderModel
     : ObservableComponentBase,
       CoreAdminServiceConnectedObserver,
+      ZoneRegisteredOnCoreServerObserver,
+      ZoneUnregisteredOnCoreServerObserver,
+      ZoneAdminServiceReconnectedEventObserver,
       ActiveZoneStateChangedEventObserver
 {
     [CascadingParameter]
@@ -45,13 +50,37 @@ public class ZoneSelectionProviderModel
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        System.Console.WriteLine("Check");
         await CheckConnectionState();
     }
 
     public async Task Handle(CoreAdminServiceConnected args)
     {
         await CheckState();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task Handle(ZoneRegisteredOnCoreServer args)
+    {
+        await CheckState();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task Handle(ZoneUnregisteredOnCoreServer args)
+    {
+        if (args.ZoneId == SelectedZoneId)
+        {
+            SelectedZone = null;
+            ZoneState = null;
+            SelectedZoneId = string.Empty;
+        }
+        await CheckState();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task Handle(ZoneAdminServiceReconnectedEvent args)
+    {
+        await CheckState();
+        await SetSelectedZone(args.ZoneId);
         await InvokeAsync(StateHasChanged);
     }
 
@@ -176,6 +205,7 @@ public class ZoneSelectionProviderModel
 
     private async Task CheckState()
     {
+        IsZoneSelectionOpen = false;
         var zonesResult = await Mediator.Send(new QueryForAllZoneDetails());
         if (!zonesResult.Success)
         {
@@ -192,5 +222,24 @@ public class ZoneSelectionProviderModel
             // We will just select the first by default
             await ChangeZone(Zones.First().Id);
         }
+
+        if (SelectedZoneId.IsNullOrEmpty())
+        {
+            IsZoneSelectionOpen = true;
+        }
     }
+
+    #region Zone Selection
+    protected bool IsZoneSelectionOpen { get; private set; }
+
+    protected async Task HandleZoneSelectionChanged(string zoneId)
+    {
+        IsZoneSelectionOpen = false;
+        await ChangeZone(zoneId);
+        if (SelectedZoneId.IsNullOrEmpty())
+        {
+            IsZoneSelectionOpen = true;
+        }
+    }
+    #endregion
 }
