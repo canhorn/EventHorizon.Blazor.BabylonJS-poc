@@ -207,6 +207,7 @@ public class SignalrZoneAdminServices : ZoneAdminServices
         string disposeReason
     )
     {
+        var currentZoneId = _currentZoneId;
         _logger.LogWarning(ex, message);
         if (_connection != null)
         {
@@ -215,10 +216,16 @@ public class SignalrZoneAdminServices : ZoneAdminServices
             Api = new SignalrZoneAdminApi(null);
         }
         _initialized = false;
-        _currentZoneId = string.Empty;
-        // If _connection is not null, then it was closed by the connection
-        await _mediator.Publish(
-            new ZoneAdminServiceDisconnectedEvent(_currentZoneId, disposeReason)
-        );
+        _currentZoneId = String.Empty;
+        if (currentZoneId.IsNotNullOrEmpty())
+        {
+            // If _connection is not null, then it was closed by the connection
+            await _mediator.Publish(
+                new ZoneAdminServiceDisconnectedEvent(
+                    currentZoneId,
+                    disposeReason
+                )
+            );
+        }
     }
 }

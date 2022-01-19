@@ -8,6 +8,14 @@
     </Header>
     <Body>
         <div class="zone-selection__container">
+            @if (Zones.IsNotNull() && Zones.Any().IsNotTrue())
+            {
+                <div class="--center">
+                    <h3>
+                        @Localizer["No Zones Currently Connected"]
+                    </h3>
+                </div>
+            }
             @foreach (var zone in Zones)
             {
                 <div class="zone-details">

@@ -37,6 +37,7 @@ public class ZoneStateProviderModel
     public async Task Handle(ZoneAdminServiceDisconnectedEvent args)
     {
         ZoneState = default;
+        DisplayZoneState = ComponentState.Loading;
         await InvokeAsync(StateHasChanged);
     }
 

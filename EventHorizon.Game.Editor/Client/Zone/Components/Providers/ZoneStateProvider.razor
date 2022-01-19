@@ -1,4 +1,5 @@
 ﻿@using EventHorizon.Game.Editor.Client.Zone.Components.ReloadListener
+@using EventHorizon.Game.Editor.Client.Zone.Components.Selection
 @inherits ZoneStateProviderModel
 
 <ContainerStatesComponent State="DisplayZoneState">
@@ -8,6 +9,8 @@
         </CascadingValue>
     </ContentFragment>
     <LoadingFragment>
-        <Loading />
+        <Loading Text="@Localizer["Connect to a Zone"]" >
+            <ZoneSelectionButton />
+        </Loading>
     </LoadingFragment>
 </ContainerStatesComponent>

@@ -1,62 +1,52 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.State
+﻿namespace EventHorizon.Game.Editor.Client.Zone.State;
+
+using System;
+using System.Collections.Generic;
+
+using EventHorizon.Game.Editor.Client.Zone.Api;
+
+public class InMemoryZoneStateCache : ZoneStateCache
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using EventHorizon.Game.Editor.Client.Zone.Api;
+    private readonly IDictionary<string, ZoneState> _map = new Dictionary<
+        string,
+        ZoneState
+    >();
 
-    public class InMemoryZoneStateCache
-        : ZoneStateCache
+    public ZoneState? Active { get; private set; }
+
+    public bool Exists(string zoneId)
     {
-        private readonly IDictionary<string, ZoneState> _map = new Dictionary<string, ZoneState>();
+        return _map.ContainsKey(zoneId);
+    }
 
-        [MaybeNull]
-        public ZoneState Active { get; private set; }
+    public void Remove(string zoneId)
+    {
+        _map.Remove(zoneId);
 
-        public bool Exists(
-            string zoneId
-        )
+        if (Active.IsNotNull() && Active.Zone.Id == zoneId)
         {
-            return _map.ContainsKey(
-                zoneId
-            );
+            Active = null;
+        }
+    }
+
+    public void Set(string zoneId, ZoneState zone)
+    {
+        _map[zoneId] = zone;
+    }
+
+    public void SetActive(string zoneId, Func<ZoneState> notFoundBuilder)
+    {
+        if (!Exists(zoneId))
+        {
+            Set(zoneId, notFoundBuilder());
         }
 
-        public void Set(
-            string zoneId,
-            ZoneState zone
-        )
+        if (_map.TryGetValue(zoneId, out var zone))
         {
-            _map[zoneId] = zone;
+            Active = zone;
+            return;
         }
 
-        public void SetActive(
-            string zoneId,
-            Func<ZoneState> notFoundBuilder
-        )
-        {
-            if (!Exists(
-                zoneId
-            ))
-            {
-                Set(
-                    zoneId,
-                    notFoundBuilder()
-                );
-            }
-
-            if (_map.TryGetValue(
-                zoneId,
-                out var zone
-            ))
-            {
-                Active = zone;
-                return;
-            }
-
-            throw new InvalidOperationException(
-                "Failed to set Active Zone State."
-            );
-        }
+        throw new InvalidOperationException("Failed to set Active Zone State.");
     }
 }

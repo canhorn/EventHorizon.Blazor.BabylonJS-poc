@@ -1,0 +1,17 @@
+﻿@using EventHorizon.Game.Editor.Client.Zone.Components.Selection
+@inherits ZoneSelectionButtonBase
+
+<div class="selected-zone-button__container --center">
+    <button class="selected-zone-button"
+            type="button"
+            @onclick="HandleOpenZoneSelection">
+        @Localizer["Open Zone Selection"]
+    </button>
+</div>
+
+<ZoneSelectionModal IsOpen="IsZoneSelectionOpen"
+                    Zones="Zones"
+                    ForceSelection="false"
+                    OnClose="HandleCloseZoneSelection"
+                    OnZoneSelectionChanged="HandleZoneSelectionChanged"
+                    SelectedZoneId="@SelectedZoneId" />

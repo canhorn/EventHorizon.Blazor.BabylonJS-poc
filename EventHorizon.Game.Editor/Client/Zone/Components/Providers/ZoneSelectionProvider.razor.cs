@@ -205,7 +205,6 @@ public class ZoneSelectionProviderModel
 
     private async Task CheckState()
     {
-        IsZoneSelectionOpen = false;
         var zonesResult = await Mediator.Send(new QueryForAllZoneDetails());
         if (!zonesResult.Success)
         {
@@ -222,24 +221,5 @@ public class ZoneSelectionProviderModel
             // We will just select the first by default
             await ChangeZone(Zones.First().Id);
         }
-
-        if (SelectedZoneId.IsNullOrEmpty())
-        {
-            IsZoneSelectionOpen = true;
-        }
     }
-
-    #region Zone Selection
-    protected bool IsZoneSelectionOpen { get; private set; }
-
-    protected async Task HandleZoneSelectionChanged(string zoneId)
-    {
-        IsZoneSelectionOpen = false;
-        await ChangeZone(zoneId);
-        if (SelectedZoneId.IsNullOrEmpty())
-        {
-            IsZoneSelectionOpen = true;
-        }
-    }
-    #endregion
 }

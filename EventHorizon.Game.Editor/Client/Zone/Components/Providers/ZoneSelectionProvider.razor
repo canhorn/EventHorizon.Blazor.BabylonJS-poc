@@ -1,10 +1,5 @@
-﻿@using EventHorizon.Game.Editor.Client.Zone.Components.Selection
-@inherits ZoneSelectionProviderModel
+﻿@inherits ZoneSelectionProviderModel
 
 <CascadingValue Value="this">
-    <ZoneSelectionModal IsOpen="IsZoneSelectionOpen"
-                        Zones="Zones"
-                        OnZoneSelectionChanged="HandleZoneSelectionChanged"
-                        SelectedZoneId="@SelectedZoneId" />
     @ChildContent
 </CascadingValue>

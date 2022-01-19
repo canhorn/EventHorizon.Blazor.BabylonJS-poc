@@ -39,7 +39,8 @@ public class SignalrAssetServerAdminService
         get;
         private set;
     } = new SignalrAssetServerFileManagementAdminApi(null);
-    public AssetServerBackupAdminApi BackupApi { get; private set; } = new SignalrAssetServerBackupAdminApi(null);
+    public AssetServerBackupAdminApi BackupApi { get; private set; } =
+        new SignalrAssetServerBackupAdminApi(null);
 
     public SignalrAssetServerAdminService(
         ILogger<SignalrAssetServerAdminService> logger,
@@ -72,19 +73,19 @@ public class SignalrAssetServerAdminService
                 .WithAutomaticReconnect(
                     new TimeSpan[]
                     {
-                            TimeSpan.FromSeconds(0),
-                            TimeSpan.FromSeconds(2),
-                            TimeSpan.FromSeconds(5),
-                            TimeSpan.FromSeconds(30),
-                            TimeSpan.FromSeconds(30),
+                        TimeSpan.FromSeconds(0),
+                        TimeSpan.FromSeconds(2),
+                        TimeSpan.FromSeconds(5),
+                        TimeSpan.FromSeconds(30),
+                        TimeSpan.FromSeconds(30),
                     }
                 )
                 .WithUrl(
                     $"{_settings.AssetServer}/admin",
                     options =>
                     {
-                            // options.LogLevel = SignalRLogLevel.Error;
-                            options.AccessTokenProvider = () =>
+                        // options.LogLevel = SignalRLogLevel.Error;
+                        options.AccessTokenProvider = () =>
                             Task.FromResult<string?>(accessToken);
                     }
                 )
@@ -237,8 +238,9 @@ public class SignalrAssetServerAdminService
             CommonApi = new SignalrAssetServerCommonAdminApi(null);
             BackupApi = new SignalrAssetServerBackupAdminApi(null);
             ExportApi = new SignalrAssetServerExportAdminApi(null);
-            FileManagementApi =
-                new SignalrAssetServerFileManagementAdminApi(null);
+            FileManagementApi = new SignalrAssetServerFileManagementAdminApi(
+                null
+            );
 
             _connection = null;
         }

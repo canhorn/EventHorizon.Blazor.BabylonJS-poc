@@ -12,20 +12,22 @@
         <div></div>
         <div></div>
     </div>
-    <span class="@(HideText ? "--sr-only" : string.Empty)">
-        @(Text.IsNotNull() ? Text : Localizer["Loading..."])
-    </span>
-    @if (ShowLongLoadingIndicator && DisplayLongLoadingIndicator)
-    {
-        <div class="loader__reload-page">
-            <hr class="loader__reload-page__divider" />
-            @Localizer["Loading is taking longer than usual."]
-            <div class="loader__reload-page__link">
-                <a href="@NavigationManager.Uri"
-                   @onclick="HandleReloadPage">
-                   @Localizer["Reload?"]
-               </a>
+    <div class="--center">
+        <span class="@(HideText ? "--sr-only" : string.Empty)">
+            @(Text.IsNotNull() ? Text : Localizer["Loading..."])
+        </span>
+        @if (ShowLongLoadingIndicator && DisplayLongLoadingIndicator)
+        {
+            <div class="loader__reload-page">
+                <hr class="loader__reload-page__divider" />
+                @Localizer["Loading is taking longer than usual."]
+                <div class="loader__reload-page__link">
+                    <a href="@NavigationManager.Uri" @onclick="HandleReloadPage">
+                        @Localizer["Reload?"]
+                    </a>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+    @ChildContent
 </div>

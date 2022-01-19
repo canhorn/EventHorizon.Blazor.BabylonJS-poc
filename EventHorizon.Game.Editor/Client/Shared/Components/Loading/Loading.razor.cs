@@ -7,19 +7,23 @@
 
     using Microsoft.AspNetCore.Components;
 
-    public class LoadingBase
-        : EditorComponentBase,
-        IDisposable
+    public class LoadingBase : EditorComponentBase, IDisposable
     {
         [Parameter]
         public string? Text { get; set; }
+
         [Parameter]
         public bool HideText { get; set; }
+
         [Parameter]
         public bool ShowLongLoadingIndicator { get; set; }
 
+        [Parameter]
+        public RenderFragment ChildContent { get; set; }
+
         [Inject]
         public IFactory<ITimerService> TimerFactory { get; set; } = null!;
+
         [Inject]
         public NavigationManager NavigationManager { get; set; } = null!;
 
@@ -45,10 +49,7 @@
 
         protected void HandleReloadPage()
         {
-            NavigationManager.NavigateTo(
-                NavigationManager.Uri,
-                true
-            );
+            NavigationManager.NavigateTo(NavigationManager.Uri, true);
         }
 
         public void Dispose()
