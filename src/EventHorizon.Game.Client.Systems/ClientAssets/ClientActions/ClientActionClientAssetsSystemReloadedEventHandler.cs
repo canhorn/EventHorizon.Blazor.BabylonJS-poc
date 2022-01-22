@@ -13,16 +13,19 @@ using MediatR;
 public class ClientActionClientAssetsSystemReloadedEventHandler
     : INotificationHandler<ClientActionClientAssetsSystemReloadedEvent>
 {
+    private readonly ISender _sender;
     private readonly IPublisher _publisher;
     private readonly ClientAssetState _clientAssetState;
     private readonly ClientAssetConfigBuilderState _builderState;
 
     public ClientActionClientAssetsSystemReloadedEventHandler(
+        ISender sender,
         IPublisher publisher,
         ClientAssetState clientAssetState,
         ClientAssetConfigBuilderState builderState
     )
     {
+        _sender = sender;
         _publisher = publisher;
         _clientAssetState = clientAssetState;
         _builderState = builderState;
@@ -40,14 +43,10 @@ public class ClientActionClientAssetsSystemReloadedEventHandler
 
         _clientAssetState.Reset();
 
-        foreach (
-            var clientAsset in notification.ClientAssetList
-        )
+        foreach (var clientAsset in notification.ClientAssetList)
         {
             clientAsset.SetConfig(
-                _builderState
-                    .Get(clientAsset.Type)
-                    .Build(clientAsset.Data)
+                _builderState.Get(clientAsset.Type).Build(clientAsset.Data)
             );
             _clientAssetState.Set(clientAsset);
         }
