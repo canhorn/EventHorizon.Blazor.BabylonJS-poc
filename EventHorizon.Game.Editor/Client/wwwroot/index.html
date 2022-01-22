@@ -70,11 +70,11 @@
 
     <script src="_framework/blazor.webassembly.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/ammo.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/ammo.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/cannon.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/Oimo.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/libktx.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/earcut.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/earcut.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/babylon.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/materialsLibrary/babylonjs.materials.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
@@ -122,6 +122,105 @@
                 }
             }
         })();
+
+        var scripts = [{
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/ammo.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/cannon.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/Oimo.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/libktx.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/earcut.min.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/babylon.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/materialsLibrary/babylonjs.materials.min.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/postProcessesLibrary/babylonjs.postProcess.min.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/loaders/babylonjs.loaders.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/serializers/babylonjs.serializers.min.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/gui/babylon.gui.min.js"
+        }, {
+            "type": "url",
+            "url": "https://cdn.jsdelivr.net/gh/BabylonJS/Babylon.js@4.1.0/dist/inspector/babylon.inspector.bundle.js"
+        }, {
+            "type": "url",
+            "url": "babylonjs/MapMeshMaterial.js"
+        }, {
+            "type": "url",
+            "url": "_content/BlazorMonaco/lib/monaco-editor/min/vs/loader.js"
+        }, {
+            "type": "content",
+            "content": "require.config({ paths: { 'vs': '_content/BlazorMonaco/lib/monaco-editor/min/vs' } });"
+        }, {
+            "type": "url",
+            "url": "_content/BlazorMonaco/lib/monaco-editor/min/vs/editor/editor.main.js"
+        }, {
+            "type": "url",
+            "url": "_content/BlazorMonaco/jsInterop.js"
+        }, {
+            "type": "url",
+            "url": "js/monaco/monaco-language-support.js"
+        }];
+
+        const loadScript = src => {
+            return new Promise((resolve, reject) => {
+                console.log("Loading: " + src);
+                const script = document.createElement('script')
+                script.type = 'text/javascript'
+                script.onload = resolve
+                script.onerror = reject
+                script.src = src
+                document.head.append(script)
+            })
+        };
+        const loadScriptAsText = content => {
+            return new Promise((resolve, _) => {
+                var newScript = document.createElement("script");
+                var inlineScript = document.createTextNode(content);
+                newScript.appendChild(inlineScript);
+                document.body.appendChild(newScript);
+                resolve();
+            })
+        };
+
+        window["loadScripts"] = async function loadScripts() {
+            for (var script of scripts) {
+                if (script.type === "url") {
+                    var url = script.url;
+                    await loadScript(url);
+                    //var newScript = document.createElement("script");
+                    //newScript.src = script.url;
+                    //document.body.appendChild(newScript);
+                } else if (script.type === "content") {
+                    var content = script.content;
+                    await loadScriptAsText(content);
+                    //var newScript = document.createElement("script");
+                    //var inlineScript = document.createTextNode(script.content);
+                    //newScript.appendChild(inlineScript);
+                    //document.body.appendChild(newScript);
+                }
+            }
+        }
     </script>
 </body>
 
