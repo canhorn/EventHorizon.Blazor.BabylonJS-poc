@@ -104,7 +104,9 @@
                         console.log({ state: worker.state });
                         if (worker.state === "activated") {
                             activated = true;
-                            checkUpdate();
+                            // checkUpdate();
+                            console.log("Application was updated refreshing the page...");
+                            window.location.reload();
                         }
                     });
                 });
