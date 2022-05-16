@@ -20,6 +20,9 @@
             <StandardToolbarButton @onclick="HandleNewDataValueClicked">
                 @Localizer["New Data Value"]
             </StandardToolbarButton>
+            <StandardToolbarButton @onclick="HandleRefreshClicked">
+                @Localizer["Refresh"]
+            </StandardToolbarButton>
         </StandardToolbar>
     </div>
 
@@ -47,11 +50,11 @@
                     </td>
                     <td>
                         <button type="button"
-                                @onclick="@(() => HandleEditDataValue(dataValue.Key, dataValue.Value))">
+                            @onclick="@(() => HandleEditDataValue(dataValue.Key, dataValue.Value))">
                             @Localizer["Edit"]
                         </button>
                         <button type="button"
-                                @onclick="@(() => HandleDeleteDataValue(dataValue.Key))">
+                            @onclick="@(() => HandleDeleteDataValue(dataValue.Key))">
                             @Localizer["Delete"]
                         </button>
                     </td>

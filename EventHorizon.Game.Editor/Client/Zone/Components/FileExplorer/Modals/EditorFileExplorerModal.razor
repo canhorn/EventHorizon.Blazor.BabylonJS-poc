@@ -2,7 +2,7 @@
 @inherits EditorFileExplorerModalModel
 
 <EditForm Model="@ModalState" OnValidSubmit="@OnSubmit">
-    <StandardModal IsOpen="@ModalState.IsOpen" OnClose="@ModalState.HandleModalClosed">
+    <StandardModal IsOpen="@ModalState.IsOpen" OnClose="HandleModalClosed">
         <Header>
             <h2>@ModalState.ModalName(Localizer)</h2>
         </Header>

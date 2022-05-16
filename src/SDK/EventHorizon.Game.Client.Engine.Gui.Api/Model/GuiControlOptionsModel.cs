@@ -1,33 +1,31 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Model
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Model;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+public class GuiControlOptionsModel
+    : Dictionary<string, object>,
+      IGuiControlOptions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-
-    public class GuiControlOptionsModel
-        : Dictionary<string, object>,
-        IGuiControlOptions
+    public class GuiControlMetadataOptionModel
     {
-        public class GuiControlMetadataOptionModel
-        {
-            public static readonly string OPTION_NAME = "__metadata";
+        public static readonly string OPTION_NAME = "__metadata";
 
-            public List<string> ModelOptions { get; set; } = new List<string>();
-        }
+        public List<string> ModelOptions { get; set; } = new List<string>();
+    }
 
-        public static GuiControlOptionsModel MergeControlOptions(
-            params IGuiControlOptions[] options
-        )
-        {
-            var value = options.SelectMany(
-                x => x
-            ).GroupBy(
-                d => d.Key
-            ).Where(
-                a => a.Key != GuiControlMetadataOptionModel.OPTION_NAME
-            ).ToDictionary(
+    public static GuiControlOptionsModel MergeControlOptions(
+        params IGuiControlOptions[] options
+    )
+    {
+        var value = options
+            .SelectMany(x => x)
+            .GroupBy(d => d.Key)
+            .Where(a => a.Key != GuiControlMetadataOptionModel.OPTION_NAME)
+            .ToDictionary(
                 x => x.Key,
                 y =>
                 {
@@ -37,74 +35,50 @@
                     {
                         // For IGuiControlOptions, merge these into a single option
                         value = MergeControlOptions(
-                            y.Select(
-                                guiKeyValue => guiKeyValue.Value
-                            ).Select(
-                                a => new GuiControlOptionsModel(a as IGuiControlOptions)
-                            ).ToArray()
+                            y.Select(guiKeyValue => guiKeyValue.Value)
+                                .Select(
+                                    a =>
+                                        new GuiControlOptionsModel(
+                                            a as IGuiControlOptions
+                                        )
+                                )
+                                .ToArray()
                         );
                     }
                     return value;
                 }
             );
-            return new GuiControlOptionsModel(
-                value
-            );
-        }
+        return new GuiControlOptionsModel(value);
+    }
 
-        public GuiControlOptionsModel()
-        {
-        }
+    public GuiControlOptionsModel() { }
 
-        public GuiControlOptionsModel(
-            IDictionary<string, object>? dictionary
-        ) : base(dictionary ?? new Dictionary<string, object>())
-        {
-        }
+    public GuiControlOptionsModel(IDictionary<string, object>? dictionary)
+        : base(dictionary ?? new Dictionary<string, object>()) { }
 
-        public Option<T> GetValue<T>(string key)
+    public Option<T> GetValue<T>(string key)
+    {
+        if (TryGetValue(key, out var value))
         {
-            if (TryGetValue(
-                key,
-                out var value
-            ))
-            {
-                return new Option<T>(
-                    value.To<T>()
-                );
-            }
-            return new Option<T>();
+            return new Option<T>(value.To<T>());
         }
+        return new Option<T>();
+    }
 
-        public T GetValue<T>(
-            string key,
-            Func<T> defaultValue
-        )
+    public T GetValue<T>(string key, Func<T> defaultValue)
+    {
+        if (TryGetValue(key, out var value))
         {
-            if (TryGetValue(
-                key,
-                out var value
-            ))
-            {
-                return value.To<T>() ?? defaultValue();
-            }
-            return defaultValue();
+            return value.To<T>() ?? defaultValue();
         }
+        return defaultValue();
+    }
 
-        public void HasValueCallback<T>(
-            string key,
-            Action<T> callback
-        )
+    public void HasValueCallback<T>(string key, Action<T> callback)
+    {
+        if (TryGetValue(key, out var value))
         {
-            if (TryGetValue(
-                key,
-                out var value
-            ))
-            {
-                callback(
-                    value.To<T>()!
-                );
-            }
+            callback(value.To<T>()!);
         }
     }
 }

@@ -3,39 +3,44 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Editor.Client.DataStorage.Components.Modal;
     using EventHorizon.Game.Editor.Client.DataStorage.Model;
     using EventHorizon.Game.Editor.Client.Shared.Components;
     using EventHorizon.Game.Editor.Client.Shared.Components.Select;
-    using EventHorizon.Game.Editor.Client.Shared.Properties;
     using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
-    using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer.Modals;
     using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
     using EventHorizon.Game.Editor.Zone.Services.Connection;
     using EventHorizon.Zone.Systems.DataStorage.Create;
     using EventHorizon.Zone.Systems.DataStorage.Delete;
     using EventHorizon.Zone.Systems.DataStorage.Query;
     using EventHorizon.Zone.Systems.DataStorage.Update;
+
     using Microsoft.AspNetCore.Components;
     using Microsoft.Extensions.Logging;
 
     public class DataStoragePageModel
         : ObservableComponentBase,
-        ZoneAdminServiceConnectedEventObserver
+          ZoneAdminServiceConnectedEventObserver
     {
         [Inject]
         public ILogger<DataStoragePageModel> Logger { get; set; } = null!;
 
-
-        public IDictionary<string, object> DataValues { get; private set; } = new Dictionary<string, object>();
-        public DataStorePropertiesMetadata DataStoreMetadata { get; private set; } = new DataStorePropertiesMetadata();
+        public IDictionary<string, object> DataValues { get; private set; } =
+            new Dictionary<string, object>();
+        public DataStorePropertiesMetadata DataStoreMetadata
+        {
+            get;
+            private set;
+        } = new DataStorePropertiesMetadata();
 
         public bool IsEditOpen { get; set; }
-        public DataValueEditModalModel EditModalModel { get; private set; } = new(
+        public DataValueEditModalModel EditModalModel { get; private set; } =
+            new(
                 string.Empty,
                 string.Empty,
                 ZoneEditorPropertyType.PropertyString
-        );
+            );
 
         protected override async Task OnInitializedAsync()
         {
@@ -69,9 +74,9 @@
                     Value = ZoneEditorPropertyType.PropertyComplex,
                 },
             };
-            propertyTypeOptions = propertyTypeOptions.OrderBy(
-                option => option.Text
-            ).ToList();
+            propertyTypeOptions = propertyTypeOptions
+                .OrderBy(option => option.Text)
+                .ToList();
             propertyTypeOptions.Insert(
                 0,
                 new StandardSelectOption
@@ -97,9 +102,7 @@
             await Setup();
         }
 
-        public async Task Handle(
-            ZoneAdminServiceConnectedEvent _
-        )
+        public async Task Handle(ZoneAdminServiceConnectedEvent _)
         {
             await Setup();
 
@@ -127,16 +130,16 @@
 
             DataValues = dataValuesResult.Result;
 
-            if (DataValues.TryGetValue(
-                DataStorePropertiesMetadata.DATA_STORE_SCHEMA_KEY,
-                out var metadataObj
-            ))
+            if (
+                DataValues.TryGetValue(
+                    DataStorePropertiesMetadata.DATA_STORE_SCHEMA_KEY,
+                    out var metadataObj
+                )
+            )
             {
                 var metadata = metadataObj.To<Dictionary<string, string>>();
 
-                DataStoreMetadata = new DataStorePropertiesMetadata(
-                    metadata
-                );
+                DataStoreMetadata = new DataStorePropertiesMetadata(metadata);
             }
         }
 
@@ -155,19 +158,18 @@
             IsEditOpen = true;
         }
 
-        public void HandleEditDataValue(
-            string name,
-            object value
-        )
+        public async Task HandleRefreshClicked()
+        {
+            await Setup();
+        }
+
+        public void HandleEditDataValue(string name, object value)
         {
             EditModalModel = EditModalModel.Reset(
                 isNew: false,
                 name,
                 value,
-                DataStoreMetadata.GetPropertyType(
-                    name,
-                    value
-                )
+                DataStoreMetadata.GetPropertyType(name, value)
             );
             IsEditOpen = true;
         }
@@ -224,9 +226,7 @@
         public bool IsDeleteConfirmOpen { get; private set; } = false;
         private string _dataValueKeyToDelete = string.Empty;
 
-        public void HandleDeleteDataValue(
-            string dataValueKey
-        )
+        public void HandleDeleteDataValue(string dataValueKey)
         {
             _dataValueKeyToDelete = dataValueKey;
             IsDeleteConfirmOpen = true;
@@ -240,9 +240,7 @@
         public async Task HandleYesDelete()
         {
             var deleteResult = await Mediator.Send(
-                new DeleteDataStoreValueCommand(
-                    _dataValueKeyToDelete
-                )
+                new DeleteDataStoreValueCommand(_dataValueKeyToDelete)
             );
 
             if (!deleteResult.Success)

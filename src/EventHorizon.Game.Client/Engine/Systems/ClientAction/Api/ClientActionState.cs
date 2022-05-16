@@ -1,13 +1,19 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Api
-{
-    using System;
-    using System.Collections.Generic;
+﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 
-    public interface ClientActionState
-    {
-        Option<IClientAction> Get(
-            string actionName,
-            IDictionary<string, object> data
-        );
-    }
+using System.Collections.Generic;
+using System.Reflection;
+
+using static EventHorizon.Game.Client.Engine.Systems.ClientAction.State.StandardClientActionState;
+
+public interface ClientActionState
+{
+    Option<IClientAction> Get(
+        string actionName,
+        IDictionary<string, object> data
+    );
+    Option<ExternalClientAction> GetExternal(
+        string actionName,
+        IDictionary<string, object> data
+    );
+    void LoadExternalClientActions(Assembly assembly);
 }

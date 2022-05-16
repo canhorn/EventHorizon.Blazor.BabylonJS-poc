@@ -8,6 +8,7 @@
     using EventHorizon.Game.Client.Core.Mapper.Api;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
     using EventHorizon.Game.Client.Engine.Systems.ClientAction.Execptions;
+    using EventHorizon.Observer.State;
 
     using MediatR;
 
@@ -18,16 +19,19 @@
     {
         private readonly ILogger<PublishClientActionCommandHandler> _logger;
         private readonly IMediator _mediator;
+        private readonly ObserverState _observerState;
         private readonly ClientActionState _state;
 
         public PublishClientActionCommandHandler(
             ILogger<PublishClientActionCommandHandler> logger,
             IMediator mediator,
+            ObserverState observerState,
             ClientActionState state
         )
         {
             _logger = logger;
             _mediator = mediator;
+            _observerState = observerState;
             _state = state;
         }
 
@@ -37,52 +41,54 @@
         )
         {
             _logger.LogDebug("ActionName: {ActionName}", request.ActionName);
-            var clientAction = _state.Get(
+            var clientAction = _state.Get(request.ActionName, request.Data);
+            if (clientAction.HasValue)
+            {
+                await _mediator.Publish(clientAction.Value, cancellationToken);
+                return new StandardCommandResult();
+            }
+
+            // Send Script Client Action
+            var externalActionOption = _state.GetExternal(
                 request.ActionName,
                 request.Data
             );
-            if (clientAction.HasValue)
+            if (externalActionOption.HasValue)
             {
-                await _mediator.Publish(
-                    clientAction.Value,
+                var externalAction = externalActionOption.Value;
+                await _observerState.Trigger(
+                    externalAction.ObserverType,
+                    externalAction.ActionType,
+                    externalAction.Action,
                     cancellationToken
                 );
                 return new StandardCommandResult();
             }
-            return new StandardCommandResult(
-                "not_found"
-            );
+
+            return new StandardCommandResult("not_found");
         }
     }
 
     // TODO: [SDK] - Move into SDK
-    public class ClientActionDataResolver
-        : IClientActionDataResolver
+    public class ClientActionDataResolver : IClientActionDataResolver
     {
         private readonly IDictionary<string, object> _data;
 
-        public ClientActionDataResolver(
-            IDictionary<string, object> data
-        )
+        public ClientActionDataResolver(IDictionary<string, object> data)
         {
             _data = data;
         }
 
-        public T? ResolveNullable<T>(
-            string argumentName
-        )
+        public T? ResolveNullable<T>(string argumentName)
         {
-            if (_data.TryGetValue(
-                argumentName,
-                out var argument
-            ))
+            if (_data.TryGetValue(argumentName, out var argument))
             {
-                var mapper = GameServiceProvider.GetService__UNSAFE<IMapper<T>>();
+                var mapper = GameServiceProvider.GetService__UNSAFE<
+                    IMapper<T>
+                >();
                 if (mapper.IsNotNull())
                 {
-                    return mapper.Map(
-                        argument
-                    );
+                    return mapper.Map(argument);
                 }
                 var value = argument.To<T>();
                 if (value.IsNotNull())
@@ -94,13 +100,11 @@
             return default;
         }
 
-        public T Resolve<T>(
-            string argumentName
-        ) => ResolveNullable<T>(
-            argumentName
-        ) ?? throw new InvalidClientActionArgument(
-            argumentName,
-            $"Could not resolve '{argumentName}'"
-        );
+        public T Resolve<T>(string argumentName) =>
+            ResolveNullable<T>(argumentName)
+            ?? throw new InvalidClientActionArgument(
+                argumentName,
+                $"Could not resolve '{argumentName}'"
+            );
     }
 }
