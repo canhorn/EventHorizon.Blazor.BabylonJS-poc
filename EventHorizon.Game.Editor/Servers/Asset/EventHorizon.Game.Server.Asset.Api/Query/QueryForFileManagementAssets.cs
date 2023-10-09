@@ -11,7 +11,7 @@ public struct QueryForFileManagementAssets
     : IRequest<CommandResult<FileManagementAssets>>,
         CacheKey
 {
-    public string CacheKeyPrefix => "asset-server";
-    public string CacheKey =>
+    public readonly string CacheKeyPrefix => "asset-server";
+    public readonly string CacheKey =>
         $"{CacheKeyPrefix}:{nameof(QueryForFileManagementAssets)}";
 }

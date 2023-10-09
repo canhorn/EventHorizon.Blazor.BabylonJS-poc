@@ -2,28 +2,34 @@ param(
     [string]
     [ValidateSet(
         "setup",
-        "clean",
-        "restore",
-        "build",
         "format",
+        "client:clean",
+        "client:restore",
+        "client:build",
         "client:run",
         "client:watch",
         "client:test",
         "client:test:automation",
         "client:publish",
+        "editor:clean",
+        "editor:restore",
+        "editor:build",
         "editor:run",
         "editor:watch",
         "editor:test",
         "editor:test:automation",
         "editor:publish",
         "pre",
+        "fix:formatting",
         "generate:babylonjs"
     )]
     $Command,
     [string] $Configuration = "Release"
 )
 
+$clientSolution = "./EventHorizon.Blazor.BabylonJS.sln"
 $clientProject = "./src/EventHorizon.Blazor.BabylonJS/EventHorizon.Blazor.BabylonJS.csproj"
+$editorSolution = "./EventHorizon.Game.Editor/EventHorizon.Game.Editor.sln"
 $editorProject = "./EventHorizon.Game.Editor/Client/EventHorizon.Game.Editor.Client.csproj"
 $editorTestingAutomationProject = "./Testing/EventHorizon.Game.Editor.Automation/EventHorizon.Game.Editor.Automation.csproj"
 
@@ -31,17 +37,17 @@ switch ($Command) {
     "setup" {
         dotnet tool update --global csharpier
     }
-    "clean" {
-        dotnet clean
-    }
-    "restore" {
-        dotnet restore --no-cache
-    }
-    "build" {
-        dotnet build
-    }
     "format" { 
         dotnet csharpier .
+    }
+    "client:clean" {
+        dotnet clean $clientSolution
+    }
+    "client:restore" {
+        dotnet restore --no-cache $clientSolution
+    }
+    "client:build" {
+        dotnet build $clientSolution
     }
     "client:run" {
         $Env:ASPNETCORE_ENVIRONMENT = "$Configuration"
@@ -65,6 +71,15 @@ switch ($Command) {
         Write-Ouput "Publishing Client"
         # TODO: Add client publish command
         # dotnet publish -c $Configuration -o ./published $clientProject
+    }
+    "editor:clean" {
+        dotnet clean $editorSolution
+    }
+    "editor:restore" {
+        dotnet restore --no-cache $editorSolution
+    }
+    "editor:build" {
+        dotnet build $editorSolution
     }
     "editor:run" {
         $Env:ASPNETCORE_ENVIRONMENT = "$Configuration"
@@ -115,6 +130,13 @@ switch ($Command) {
             -c BoundingBoxGizmo `
             -c ArcFollowCamera `
             -c ScrollViewer
+    }
+    "fix:formatting" {
+        # Get-ChildItem -Path $PWD -Filter *.csproj | ForEach-Object { dotnet format $_.DirectoryName }
+        # Get-ChildItem -Recurse -Path $PWD -Filter *.csproj | ForEach-Object { Write-Output $_.FullName }
+        Get-ChildItem -Recurse -Path $PWD -Filter *.csproj | ForEach-Object { 
+            Write-Output $_.FullName
+            dotnet format $_.FullName }
     }
     Default {
         Write-Output "Invalid Command"

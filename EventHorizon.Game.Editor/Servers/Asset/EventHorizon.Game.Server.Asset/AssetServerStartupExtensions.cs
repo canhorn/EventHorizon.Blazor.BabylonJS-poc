@@ -19,12 +19,13 @@ public static class AssetServerStartupExtensions
             .AddSingleton<
                 AssetServerAdminService,
                 SignalrAssetServerAdminService
-            >()
-            .AddScoped<
-                IPipelineBehavior<
-                    QueryForFileManagementAssets,
-                    CommandResult<FileManagementAssets>
-                >,
-                QueryForFileManagementAssetsGeneratedCachedBehavior
             >();
+            // TODO: Look at updating the generated code.
+            // .AddScoped<
+            //     IPipelineBehavior<
+            //         QueryForFileManagementAssets,
+            //         CommandResult<FileManagementAssets>
+            //     >,
+            //     QueryForFileManagementAssetsGeneratedCachedBehavior
+            // >();
 }

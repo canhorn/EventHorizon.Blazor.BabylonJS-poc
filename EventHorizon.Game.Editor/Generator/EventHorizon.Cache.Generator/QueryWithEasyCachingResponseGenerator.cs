@@ -11,6 +11,9 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
+/// <summary>
+/// TODO: Not currently working, needs to be updated to the IIncrementalGenerator
+/// </summary>
 [Generator]
 public class QueryWithEasyCachingResponseGenerator : ISourceGenerator
 {
