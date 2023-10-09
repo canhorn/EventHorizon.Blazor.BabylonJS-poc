@@ -1,59 +1,58 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Layouts.Components
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Layouts.Components;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Factory.Api;
+using EventHorizon.Game.Client.Core.Timer.Api;
+using EventHorizon.Game.Editor.Client.Shared.Components;
+
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+
+public class AnimateOnLocationChangedBase : EditorComponentBase, IDisposable
 {
-    using System;
+    private ITimerService? _timerService;
 
-    using EventHorizon.Game.Client.Core.Factory.Api;
-    using EventHorizon.Game.Client.Core.Timer.Api;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
 
-    using Microsoft.AspNetCore.Components;
-    using Microsoft.AspNetCore.Components.Routing;
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
 
-    public class AnimateOnLocationChangedBase
-        : EditorComponentBase,
-        IDisposable
+    [Inject]
+    public IFactory<ITimerService> TimerServiceFactory { get; set; } = null!;
+
+    protected string AnimationCSS { get; private set; } =
+        "animate__animated animate__fadeIn";
+
+    protected override void OnInitialized()
     {
-        private ITimerService? _timerService;
+        base.OnInitialized();
+        NavigationManager.LocationChanged += HandleNavigationLocationChanged;
 
-        [Parameter]
-        public RenderFragment ChildContent { get; set; } = null!;
+        _timerService = TimerServiceFactory.Create();
+    }
 
-        [Inject]
-        public NavigationManager NavigationManager { get; set; } = null!;
-        [Inject]
-        public IFactory<ITimerService> TimerServiceFactory { get; set; } = null!;
+    private void HandleTimerTriggered()
+    {
+        AnimationCSS = "animate__animated animate__fadeIn";
+        InvokeAsync(StateHasChanged);
+    }
 
-        protected string AnimationCSS { get; private set; } = "animate__animated animate__fadeIn";
+    private void HandleNavigationLocationChanged(
+        object? sender,
+        LocationChangedEventArgs e
+    )
+    {
+        AnimationCSS = "--animated-display-none";
+        InvokeAsync(StateHasChanged);
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            NavigationManager.LocationChanged += HandleNavigationLocationChanged;
+        _timerService?.SetTimer(100, HandleTimerTriggered);
+    }
 
-            _timerService = TimerServiceFactory.Create();
-        }
-
-        private void HandleTimerTriggered()
-        {
-            AnimationCSS = "animate__animated animate__fadeIn";
-            InvokeAsync(StateHasChanged);
-        }
-
-        private void HandleNavigationLocationChanged(
-            object? sender,
-            LocationChangedEventArgs e
-        )
-        {
-            AnimationCSS = "--animated-display-none";
-            InvokeAsync(StateHasChanged);
-
-            _timerService?.SetTimer(100, HandleTimerTriggered);
-        }
-
-        public void Dispose()
-        {
-            _timerService?.Clear();
-            NavigationManager.LocationChanged -= HandleNavigationLocationChanged;
-        }
+    public void Dispose()
+    {
+        _timerService?.Clear();
+        NavigationManager.LocationChanged -= HandleNavigationLocationChanged;
     }
 }

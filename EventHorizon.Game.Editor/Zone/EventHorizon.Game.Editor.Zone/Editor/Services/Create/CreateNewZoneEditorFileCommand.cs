@@ -1,22 +1,19 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Create
+﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Create;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
+
+using MediatR;
+
+public struct CreateNewZoneEditorFileCommand : IRequest<EditorResponse>
 {
-    using System.Collections.Generic;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-    using MediatR;
+    public string FileName { get; }
+    public IList<string> Path { get; }
 
-    public struct CreateNewZoneEditorFileCommand
-        : IRequest<EditorResponse>
+    public CreateNewZoneEditorFileCommand(string fileName, IList<string> path)
     {
-        public string FileName { get; }
-        public IList<string> Path { get; }
-
-        public CreateNewZoneEditorFileCommand(
-            string fileName,
-            IList<string> path
-        )
-        {
-            FileName = fileName;
-            Path = path;
-        }
+        FileName = fileName;
+        Path = path;
     }
 }

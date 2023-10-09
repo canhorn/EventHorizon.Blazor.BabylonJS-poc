@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Hide
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Hide;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct HideGuiCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Id { get; }
 
-    public struct HideGuiCommand
-        : IRequest<StandardCommandResult>
+    public HideGuiCommand(string id)
     {
-        public string Id { get; }
-
-        public HideGuiCommand(
-            string id
-        )
-        {
-            Id = id;
-        }
+        Id = id;
     }
 }

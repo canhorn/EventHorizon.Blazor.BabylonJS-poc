@@ -4,8 +4,7 @@
     using MediatR;
 
     // TODO: [Game] - Finished Game Implementation
-    public struct SetGameStateCommand
-        : IRequest<StandardCommandResult>
+    public struct SetGameStateCommand : IRequest<StandardCommandResult>
     {
         //public GameState GameState { get; }
     }

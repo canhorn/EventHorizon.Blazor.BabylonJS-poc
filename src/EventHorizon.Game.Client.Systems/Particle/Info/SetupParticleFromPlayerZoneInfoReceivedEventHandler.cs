@@ -1,41 +1,44 @@
-﻿namespace EventHorizon.Game.Client.Systems.Particle.Info
+﻿namespace EventHorizon.Game.Client.Systems.Particle.Info;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Entity.Model;
+using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
+using EventHorizon.Game.Client.Engine.Particle.Add;
+using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
+using EventHorizon.Game.Client.Systems.Particle.Model;
+
+using MediatR;
+
+public class SetupParticleFromPlayerZoneInfoReceivedEventHandler
+    : INotificationHandler<PlayerZoneInfoReceivedEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Entity.Model;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
-    using EventHorizon.Game.Client.Engine.Particle.Add;
-    using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
-    using EventHorizon.Game.Client.Systems.Particle.Model;
-    using MediatR;
+    private readonly IMediator _mediator;
 
-    public class SetupParticleFromPlayerZoneInfoReceivedEventHandler
-        : INotificationHandler<PlayerZoneInfoReceivedEvent>
+    public SetupParticleFromPlayerZoneInfoReceivedEventHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public SetupParticleFromPlayerZoneInfoReceivedEventHandler(
-            IMediator mediator
+    public async Task Handle(
+        PlayerZoneInfoReceivedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        foreach (
+            var particleTemplate in notification
+                .PlayerZoneInfo
+                .ParticleTemplateList
         )
         {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            PlayerZoneInfoReceivedEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            foreach (var particleTemplate in notification.PlayerZoneInfo.ParticleTemplateList)
-            {
-                await _mediator.Send(
-                    new AddParticleTemplateCommand(
-                        particleTemplate
-                    ),
-                    cancellationToken
-                );
-            }
+            await _mediator.Send(
+                new AddParticleTemplateCommand(particleTemplate),
+                cancellationToken
+            );
         }
     }
 }

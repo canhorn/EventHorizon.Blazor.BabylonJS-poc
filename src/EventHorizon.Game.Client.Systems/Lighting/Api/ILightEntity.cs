@@ -1,9 +1,5 @@
-﻿namespace EventHorizon.Game.Client.Systems.Lighting.Api
-{
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+﻿namespace EventHorizon.Game.Client.Systems.Lighting.Api;
 
-    public interface ILightEntity
-        : ILifecycleEntity
-    {
-    }
-}
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+
+public interface ILightEntity : ILifecycleEntity { }

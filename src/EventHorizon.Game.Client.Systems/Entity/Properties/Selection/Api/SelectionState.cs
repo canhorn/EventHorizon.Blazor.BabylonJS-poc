@@ -1,10 +1,9 @@
-﻿namespace EventHorizon.Game.Client.Systems.Entity.Properties.Selection.Api
-{
-    public interface SelectionState
-    {
-        public static readonly string NAME = "selectionState";
+﻿namespace EventHorizon.Game.Client.Systems.Entity.Properties.Selection.Api;
 
-        string SelectedCompanionParticleTemplate { get; }
-        string SelectedParticleTemplate { get; }
-    }
+public interface SelectionState
+{
+    public static readonly string NAME = "selectionState";
+
+    string SelectedCompanionParticleTemplate { get; }
+    string SelectedParticleTemplate { get; }
 }

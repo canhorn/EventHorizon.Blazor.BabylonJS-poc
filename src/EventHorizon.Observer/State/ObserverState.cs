@@ -18,7 +18,8 @@ public interface ObserverState
     Task Trigger<TInstance, TArgs>(
         TArgs args,
         CancellationToken cancellationToken = default
-    ) where TInstance : ArgumentObserver<TArgs>;
+    )
+        where TInstance : ArgumentObserver<TArgs>;
 
     Task Trigger(
         Type instanceType,

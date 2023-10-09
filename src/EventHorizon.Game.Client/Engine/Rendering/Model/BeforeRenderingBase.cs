@@ -1,31 +1,26 @@
-﻿namespace EventHorizon.Game.Client.Engine.Rendering.Model
+﻿namespace EventHorizon.Game.Client.Engine.Rendering.Model;
+
+using System;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Rendering.Api;
+
+public class BeforeRenderingBase : IBeforeRendering
 {
-    using System;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Rendering.Api;
+    private readonly IRenderingScene _renderingScene;
 
-    public class BeforeRenderingBase
-        : IBeforeRendering
+    public BeforeRenderingBase(IRenderingScene renderingScene)
     {
-        private readonly IRenderingScene _renderingScene;
+        _renderingScene = renderingScene;
+    }
 
-        public BeforeRenderingBase(
-            IRenderingScene renderingScene
-        )
-        {
-            _renderingScene = renderingScene;
-        }
+    public string Register(Func<Task> action)
+    {
+        return _renderingScene.RegisterAfterRender(action);
+    }
 
-        public string Register(
-            Func<Task> action
-        )
-        {
-            return _renderingScene.RegisterAfterRender(action);
-        }
-
-        public Task UnRegister(string handle)
-        {
-            throw new NotImplementedException();
-        }
+    public Task UnRegister(string handle)
+    {
+        throw new NotImplementedException();
     }
 }

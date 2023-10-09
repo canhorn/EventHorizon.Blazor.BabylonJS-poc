@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Model
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Model;
+
+public class FileSystemUploadResponse
 {
-    public class FileSystemUploadResponse
-    {
-        public bool Success { get; set; }
-        public ErrorDetails? Error { get; set; }
-    }
+    public bool Success { get; set; }
+    public ErrorDetails? Error { get; set; }
 }

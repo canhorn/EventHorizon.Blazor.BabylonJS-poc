@@ -1,79 +1,49 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.State
+﻿namespace EventHorizon.Game.Client.Engine.Gui.State;
+
+using System;
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Core.Exceptions;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+public class StandardGuiControlState : IGuiControlState
 {
-    using System;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
+    private readonly IDictionary<string, IGuiControl> _map =
+        new Dictionary<string, IGuiControl>();
 
-    public class StandardGuiControlState
-        : IGuiControlState
+    public string GenerateId(string guiId, string controlId)
     {
-        private readonly IDictionary<string, IGuiControl> _map = new Dictionary<string, IGuiControl>();
+        return $"{controlId}_{guiId}";
+    }
 
-        public string GenerateId(
-            string guiId,
-            string controlId
-        )
+    public Option<IGuiControl> Get(string guiId, string controlId)
+    {
+        return Get(GenerateId(guiId, controlId));
+    }
+
+    public Option<IGuiControl> Get(string id)
+    {
+        if (_map.TryGetValue(id, out var control))
         {
-            return $"{controlId}_{guiId}";
+            return control.ToOption();
         }
+        return new Option<IGuiControl>(null);
+    }
 
-        public Option<IGuiControl> Get(
-            string guiId,
-            string controlId
-        )
+    public void Remove(string guiId, string controlId)
+    {
+        _map.Remove(GenerateId(guiId, controlId));
+    }
+
+    public void Set(string guiId, IGuiControl control)
+    {
+        if (control == null)
         {
-            return Get(
-                GenerateId(
-                    guiId,
-                    controlId
-                )
+            throw new GameException(
+                "gui_control_null",
+                "Cannot set NULL GUI Control into State"
             );
         }
-
-        public Option<IGuiControl> Get(
-            string id
-        )
-        {
-            if (_map.TryGetValue(
-                id,
-                out var control
-            ))
-            {
-                return control
-                    .ToOption();
-            }
-            return new Option<IGuiControl>(
-                null
-            );
-        }
-
-        public void Remove(
-            string guiId, 
-            string controlId
-        )
-        {
-            _map.Remove(
-                GenerateId(
-                    guiId,
-                    controlId
-                )
-            );
-        }
-
-        public void Set(
-            string guiId, 
-            IGuiControl control
-        )
-        {
-            if (control == null)
-            {
-                throw new GameException(
-                    "gui_control_null",
-                    "Cannot set NULL GUI Control into State"
-                );
-            }
-            _map[GenerateId(guiId, control.Id)] = control;
-        }
+        _map[GenerateId(guiId, control.Id)] = control;
     }
 }

@@ -1,31 +1,28 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Invalidate
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Invalidate;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Wizard.Api;
+
+using MediatR;
+
+public class SetWizardToInvalidCommandHandler
+    : IRequestHandler<SetWizardToInvalidCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Wizard.Api;
-    using MediatR;
+    private readonly WizardState _state;
 
-    public class SetWizardToInvalidCommandHandler
-        : IRequestHandler<SetWizardToInvalidCommand, StandardCommandResult>
+    public SetWizardToInvalidCommandHandler(WizardState state)
     {
-        private readonly WizardState _state;
+        _state = state;
+    }
 
-        public SetWizardToInvalidCommandHandler(
-            WizardState state
-        )
-        {
-            _state = state;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            SetWizardToInvalidCommand request, 
-            CancellationToken cancellationToken
-        )
-        {
-            return await _state.SetToInvalid(
-                request.ErrorCode
-            );
-        }
+    public async Task<StandardCommandResult> Handle(
+        SetWizardToInvalidCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return await _state.SetToInvalid(request.ErrorCode);
     }
 }

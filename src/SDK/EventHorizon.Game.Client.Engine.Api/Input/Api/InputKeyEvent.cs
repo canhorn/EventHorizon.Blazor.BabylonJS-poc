@@ -1,14 +1,11 @@
-﻿namespace EventHorizon.Game.Client.Engine.Input.Api
-{
-    public struct InputKeyEvent
-    {
-        public string Key { get; }
+﻿namespace EventHorizon.Game.Client.Engine.Input.Api;
 
-        public InputKeyEvent(
-            string key
-        )
-        {
-            Key = key;
-        }
+public struct InputKeyEvent
+{
+    public string Key { get; }
+
+    public InputKeyEvent(string key)
+    {
+        Key = key;
     }
 }

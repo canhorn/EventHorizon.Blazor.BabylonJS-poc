@@ -19,7 +19,8 @@ public class MediatorMock : IMediator
     public Task Publish<TNotification>(
         TNotification notification,
         CancellationToken cancellationToken = default
-    ) where TNotification : INotification
+    )
+        where TNotification : INotification
     {
         return Task.CompletedTask;
     }

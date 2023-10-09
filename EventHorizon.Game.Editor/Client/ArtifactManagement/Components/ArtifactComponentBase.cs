@@ -8,12 +8,12 @@ using EventHorizon.Game.Server.Asset.Finished;
 
 public abstract class ArtifactComponentBase
     : ObservableComponentBase,
-      ConnectedToAssetServerAdminObserver,
-      AssetServerBackupFinishedEventObserver,
-      AssetServerBackupUploadedEventObserver,
-      AssetServerExportFinishedEventObserver,
-      AssetServerExportUploadedEventObserver,
-      AssetServerImportUploadedEventObserver
+        ConnectedToAssetServerAdminObserver,
+        AssetServerBackupFinishedEventObserver,
+        AssetServerBackupUploadedEventObserver,
+        AssetServerExportFinishedEventObserver,
+        AssetServerExportUploadedEventObserver,
+        AssetServerImportUploadedEventObserver
 {
     protected abstract ArtifactType ArtifactType { get; }
     protected abstract Task HandleChange();

@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 
-public class StandardGuiDefinitionState
-    : IGuiDefinitionState
+public class StandardGuiDefinitionState : IGuiDefinitionState
 {
     private readonly Dictionary<string, IGuiDefinition> _map = new();
 

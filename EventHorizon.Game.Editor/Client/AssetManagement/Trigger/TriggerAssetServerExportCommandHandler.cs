@@ -40,9 +40,7 @@ public class TriggerAssetServerExportCommandHandler
             return new(result.ErrorCode);
         }
 
-        _state.SetExportReferenceId(
-            result.Result.ReferenceId
-        );
+        _state.SetExportReferenceId(result.Result.ReferenceId);
         await _mediator.Publish(
             new AssetManagementStateChangedEvent(),
             cancellationToken

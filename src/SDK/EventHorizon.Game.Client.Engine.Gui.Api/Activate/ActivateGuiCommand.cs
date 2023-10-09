@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Activate
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Activate;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct ActivateGuiCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string GuiId { get; }
 
-    public struct ActivateGuiCommand
-        : IRequest<StandardCommandResult>
+    public ActivateGuiCommand(string guiId)
     {
-        public string GuiId { get; }
-
-        public ActivateGuiCommand(
-            string guiId
-        )
-        {
-            GuiId = guiId;
-        }
+        GuiId = guiId;
     }
 }

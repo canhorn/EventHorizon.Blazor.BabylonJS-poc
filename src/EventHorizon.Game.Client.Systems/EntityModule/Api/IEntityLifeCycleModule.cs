@@ -1,16 +1,15 @@
-﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Api
-{
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Api;
 
-    public interface IEntityLifeCycleModule
-        : IInitializableEntity,
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+
+public interface IEntityLifeCycleModule
+    : IInitializableEntity,
         IDisposableEntity,
         IUpdatableEntity
-    {
-        string Name { get; }
+{
+    string Name { get; }
 
-        bool IsInitializable { get; }
-        bool IsDisposable { get; }
-        bool IsUpdatable { get; }
-    }
+    bool IsInitializable { get; }
+    bool IsDisposable { get; }
+    bool IsUpdatable { get; }
 }

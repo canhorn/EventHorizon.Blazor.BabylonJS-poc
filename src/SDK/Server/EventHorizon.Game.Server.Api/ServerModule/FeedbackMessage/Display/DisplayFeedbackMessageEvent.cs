@@ -1,24 +1,20 @@
-﻿namespace EventHorizon.Game.Server.ServerModule.FeedbackMessage.Display
+﻿namespace EventHorizon.Game.Server.ServerModule.FeedbackMessage.Display;
+
+using System;
+
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct DisplayFeedbackMessageEvent : INotification
 {
-    using System;
-    using EventHorizon.Observer.Model;
-    using MediatR;
+    public string Message { get; }
 
-    public struct DisplayFeedbackMessageEvent
-        : INotification
+    public DisplayFeedbackMessageEvent(string message)
     {
-        public string Message { get; }
-
-        public DisplayFeedbackMessageEvent(
-            string message
-        )
-        {
-            Message = message;
-        }
-    }
-
-    public interface DisplayFeedbackMessageEventObserver
-        : ArgumentObserver<DisplayFeedbackMessageEvent>
-    {
+        Message = message;
     }
 }
+
+public interface DisplayFeedbackMessageEventObserver
+    : ArgumentObserver<DisplayFeedbackMessageEvent> { }

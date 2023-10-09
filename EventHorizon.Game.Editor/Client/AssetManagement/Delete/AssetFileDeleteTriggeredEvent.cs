@@ -1,24 +1,21 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Delete
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Delete;
+
+using EventHorizon.Game.Editor.Client.AssetManagement.Model;
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct AssetFileDeleteTriggeredEvent : INotification
 {
-    using EventHorizon.Game.Editor.Client.AssetManagement.Model;
-    using EventHorizon.Observer.Model;
-    using MediatR;
+    public FileSystemDirectoryContent DirectoryContent { get; }
 
-    public struct AssetFileDeleteTriggeredEvent
-        : INotification
+    public AssetFileDeleteTriggeredEvent(
+        FileSystemDirectoryContent directoryContent
+    )
     {
-        public FileSystemDirectoryContent DirectoryContent { get; }
-
-        public AssetFileDeleteTriggeredEvent(
-            FileSystemDirectoryContent directoryContent
-        )
-        {
-            DirectoryContent = directoryContent;
-        }
-    }
-
-    public interface AssetFileDeleteTriggeredEventObserver
-        : ArgumentObserver<AssetFileDeleteTriggeredEvent>
-    {
+        DirectoryContent = directoryContent;
     }
 }
+
+public interface AssetFileDeleteTriggeredEventObserver
+    : ArgumentObserver<AssetFileDeleteTriggeredEvent> { }

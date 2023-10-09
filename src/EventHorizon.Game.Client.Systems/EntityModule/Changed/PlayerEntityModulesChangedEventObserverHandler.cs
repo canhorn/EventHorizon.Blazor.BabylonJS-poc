@@ -22,8 +22,9 @@ public class PlayerEntityModulesChangedEventObserverHandler
     public Task Handle(
         PlayerEntityModulesChangedEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<PlayerEntityModulesChangedEventObserver, PlayerEntityModulesChangedEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            PlayerEntityModulesChangedEventObserver,
+            PlayerEntityModulesChangedEvent
+        >(notification, cancellationToken);
 }

@@ -10,7 +10,7 @@ using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
 
 public class StandardClientAssetMeshInstance
     : ClientLifecycleEntityBase,
-      ClientAssetMeshInstance
+        ClientAssetMeshInstance
 {
     public string AssetInstanceId { get; }
     public IEngineMesh Mesh { get; }

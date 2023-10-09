@@ -8,8 +8,6 @@ public class Template : WebHost
     //[Category("Entity Editor Page")]
     public void Test()
     {
-        throw new System.NotImplementedException(
-            "Missing Tests"
-        );
+        throw new System.NotImplementedException("Missing Tests");
     }
 }

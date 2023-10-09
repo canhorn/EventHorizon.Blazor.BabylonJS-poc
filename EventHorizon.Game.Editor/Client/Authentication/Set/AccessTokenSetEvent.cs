@@ -1,17 +1,13 @@
-﻿namespace EventHorizon.Game.Editor.Client.Authentication.Set
+﻿namespace EventHorizon.Game.Editor.Client.Authentication.Set;
+
+using MediatR;
+
+public struct AccessTokenSetEvent : INotification
 {
-    using MediatR;
+    public string AccessToken { get; }
 
-    public struct AccessTokenSetEvent
-        : INotification
+    public AccessTokenSetEvent(string accessToken)
     {
-        public string AccessToken { get; }
-
-        public AccessTokenSetEvent(
-            string accessToken
-        )
-        {
-            AccessToken = accessToken;
-        }
+        AccessToken = accessToken;
     }
 }

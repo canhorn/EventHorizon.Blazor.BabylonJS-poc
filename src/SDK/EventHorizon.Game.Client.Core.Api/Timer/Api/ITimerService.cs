@@ -1,13 +1,9 @@
-﻿namespace EventHorizon.Game.Client.Core.Timer.Api
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Core.Timer.Api;
 
-    public interface ITimerService
-    {
-        void SetTimer(
-            double millisecondInterval,
-            Action onElapsed
-        );
-        void Clear();
-    }
+using System;
+
+public interface ITimerService
+{
+    void SetTimer(double millisecondInterval, Action onElapsed);
+    void Clear();
 }

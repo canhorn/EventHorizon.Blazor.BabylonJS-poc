@@ -1,24 +1,19 @@
-﻿namespace EventHorizon.Zone.Systems.DataStorage.Create
+﻿namespace EventHorizon.Zone.Systems.DataStorage.Create;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct CreateDataStoreValueCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Key { get; }
+    public string Type { get; }
+    public object Value { get; }
 
-    public struct CreateDataStoreValueCommand
-        : IRequest<StandardCommandResult>
+    public CreateDataStoreValueCommand(string key, string type, object value)
     {
-        public string Key { get; }
-        public string Type { get; }
-        public object Value { get; }
-
-        public CreateDataStoreValueCommand(
-            string key,
-            string type,
-            object value
-        )
-        {
-            Key = key;
-            Type = type;
-            Value = value;
-        }
+        Key = key;
+        Type = type;
+        Value = value;
     }
 }

@@ -1,18 +1,14 @@
-﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Attributes
+﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Attributes;
+
+using System;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
+public class AdminClientActionAttribute : Attribute
 {
-    using System;
+    public string Name { get; }
 
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public class AdminClientActionAttribute
-        : Attribute
+    public AdminClientActionAttribute(string name)
     {
-        public string Name { get; }
-
-        public AdminClientActionAttribute(
-            string name
-        )
-        {
-            Name = name;
-        }
+        Name = name;
     }
 }

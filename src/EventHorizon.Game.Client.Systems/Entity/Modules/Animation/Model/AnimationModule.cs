@@ -1,25 +1,27 @@
-﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Model
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Factory.Api;
-    using EventHorizon.Game.Client.Core.Timer.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Loaded;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Play;
-    using EventHorizon.Game.Client.Systems.Entity.Moving;
-    using EventHorizon.Game.Client.Systems.Entity.Stopping;
-    using EventHorizon.Game.Client.Systems.Local.InView.Entering;
-    using EventHorizon.Game.Client.Systems.Local.InView.Exiting;
-    using EventHorizon.Observer.Register;
-    using EventHorizon.Observer.Unregister;
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Model;
 
-    public class AnimationModule
-        : ModuleEntityBase,
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Factory.Api;
+using EventHorizon.Game.Client.Core.Timer.Api;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+using EventHorizon.Game.Client.Engine.Systems.Module.Model;
+using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
+using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Loaded;
+using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Play;
+using EventHorizon.Game.Client.Systems.Entity.Moving;
+using EventHorizon.Game.Client.Systems.Entity.Stopping;
+using EventHorizon.Game.Client.Systems.Local.InView.Entering;
+using EventHorizon.Game.Client.Systems.Local.InView.Exiting;
+using EventHorizon.Observer.Register;
+using EventHorizon.Observer.Unregister;
+
+using MediatR;
+
+public class AnimationModule
+    : ModuleEntityBase,
         IAnimationModule,
         PlayAnimationEventObserver,
         AnimationListLoadedEventObserver,
@@ -27,189 +29,172 @@
         EntityExitingViewEventObserver,
         EntityMovingEventObserver,
         EntityStoppingEventObserver
+{
+    private bool _enabled = true;
+    private string _currentAnimation = "__invalid__";
+    private string _setMovementAnimation = AnimationConstants.DEFAULT_ANIMATION;
+
+    private readonly IDictionary<string, IAnimationGroup> _animationList =
+        new Dictionary<string, IAnimationGroup>();
+    private readonly IMediator _mediator;
+    private readonly IIntervalTimerService _intervalTimer;
+    private readonly IObjectEntity _entity;
+
+    public override int Priority => 0;
+
+    public AnimationModule(IObjectEntity entity)
     {
-        private bool _enabled = true;
-        private string _currentAnimation = "__invalid__";
-        private string _setMovementAnimation = AnimationConstants.DEFAULT_ANIMATION;
+        _mediator = GameServiceProvider.GetService<IMediator>();
+        _intervalTimer = GameServiceProvider
+            .GetService<IFactory<IIntervalTimerService>>()
+            .Create();
+        _entity = entity;
+    }
 
-        private readonly IDictionary<string, IAnimationGroup> _animationList = new Dictionary<string, IAnimationGroup>();
-        private readonly IMediator _mediator;
-        private readonly IIntervalTimerService _intervalTimer;
-        private readonly IObjectEntity _entity;
+    public override Task Initialize()
+    {
+        _intervalTimer.Setup(100, HandleOnCheckMovement);
+        _intervalTimer.Start();
 
-        public override int Priority => 0;
+        GamePlatfrom.RegisterObserver(this);
 
-        public AnimationModule(
-            IObjectEntity entity
+        return Task.CompletedTask;
+    }
+
+    public override Task Dispose()
+    {
+        _intervalTimer.Dispose();
+        GamePlatfrom.UnRegisterObserver(this);
+
+        return Task.CompletedTask;
+    }
+
+    public override Task Update()
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task Handle(AnimationListLoadedEvent args)
+    {
+        if (_entity.ClientId != args.ClientId)
+        {
+            return Task.CompletedTask;
+        }
+        _animationList.Clear();
+        foreach (var animation in args.AnimationList)
+        {
+            _animationList.Add(animation.Name, animation);
+            animation.Pause();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    public Task Handle(PlayAnimationEvent args)
+    {
+        if (
+            _entity.ClientId != args.ClientId
+            || _currentAnimation == args.Animation
         )
         {
-            _mediator = GameServiceProvider.GetService<IMediator>();
-            _intervalTimer = GameServiceProvider.GetService<IFactory<IIntervalTimerService>>().Create();
-            _entity = entity;
-        }
-
-        public override Task Initialize()
-        {
-            _intervalTimer.Setup(
-                100,
-                HandleOnCheckMovement
-            );
-            _intervalTimer.Start();
-
-            GamePlatfrom.RegisterObserver(this);
-
             return Task.CompletedTask;
         }
-
-        public override Task Dispose()
-        {
-            _intervalTimer.Dispose();
-            GamePlatfrom.UnRegisterObserver(this);
-
-            return Task.CompletedTask;
-        }
-
-        public override Task Update()
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task Handle(
-            AnimationListLoadedEvent args
-        )
-        {
-            if (_entity.ClientId != args.ClientId)
-            {
-                return Task.CompletedTask;
-            }
-            _animationList.Clear();
-            foreach (var animation in args.AnimationList)
-            {
-                _animationList.Add(
-                    animation.Name,
-                    animation
-                );
-                animation.Pause();
-            }
-
-            return Task.CompletedTask;
-        }
-
-        public Task Handle(
-            PlayAnimationEvent args
-        )
-        {
-            if (
-                _entity.ClientId != args.ClientId ||
-                _currentAnimation == args.Animation
+        if (
+            _animationList.TryGetValue(
+                _currentAnimation,
+                out var currentAnimation
             )
+        )
+        {
+            currentAnimation.Pause();
+        }
+        if (_animationList.TryGetValue(args.Animation, out var nextAnimation))
+        {
+            if (_enabled)
             {
-                return Task.CompletedTask;
+                nextAnimation.Play(true);
             }
-            if (_animationList.TryGetValue(
+            _currentAnimation = args.Animation;
+        }
+        return Task.CompletedTask;
+    }
+
+    public Task Handle(EntityExitingViewEvent args)
+    {
+        if (_entity.ClientId != args.ClientId || !_enabled)
+        {
+            return Task.CompletedTask;
+        }
+
+        if (
+            _animationList.TryGetValue(
                 _currentAnimation,
                 out var currentAnimation
-            ))
-            {
-                currentAnimation.Pause();
-            }
-            if (_animationList.TryGetValue(
-                args.Animation,
-                out var nextAnimation
-            ))
-            {
-                if (_enabled)
-                {
-                    nextAnimation.Play(true);
-                }
-                _currentAnimation = args.Animation;
-            }
+            )
+        )
+        {
+            currentAnimation.Pause();
+        }
+        _enabled = false;
+
+        return Task.CompletedTask;
+    }
+
+    public Task Handle(EntityEnteringViewEvent args)
+    {
+        if (_entity.ClientId != args.ClientId || _enabled)
+        {
             return Task.CompletedTask;
         }
 
-        public Task Handle(
-            EntityExitingViewEvent args
-        )
-        {
-            if (_entity.ClientId != args.ClientId
-                || !_enabled)
-            {
-                return Task.CompletedTask;
-            }
-
-            if (_animationList.TryGetValue(
+        if (
+            _animationList.TryGetValue(
                 _currentAnimation,
                 out var currentAnimation
-            ))
-            {
-                currentAnimation.Pause();
-            }
-            _enabled = false;
-
-            return Task.CompletedTask;
-        }
-
-        public Task Handle(
-            EntityEnteringViewEvent args
+            )
         )
         {
-            if (_entity.ClientId != args.ClientId
-                || _enabled)
-            {
-                return Task.CompletedTask;
-            }
+            currentAnimation.Play(true);
+        }
+        _enabled = true;
 
-            if (_animationList.TryGetValue(
-                _currentAnimation,
-                out var currentAnimation
-            ))
-            {
-                currentAnimation.Play(true);
-            }
-            _enabled = true;
+        return Task.CompletedTask;
+    }
 
+    public Task Handle(EntityMovingEvent args)
+    {
+        if (_entity.ClientId != args.ClientId)
+        {
             return Task.CompletedTask;
         }
 
-        public Task Handle(
-            EntityMovingEvent args
-        )
-        {
-            if (_entity.ClientId != args.ClientId)
-            {
-                return Task.CompletedTask;
-            }
+        _setMovementAnimation = AnimationConstants.RUNNING_ANIMATION;
+        return Task.CompletedTask;
+    }
 
-            _setMovementAnimation = AnimationConstants.RUNNING_ANIMATION;
+    private async Task HandleOnCheckMovement()
+    {
+        if (_setMovementAnimation == _currentAnimation)
+        {
+            return;
+        }
+        await Handle(
+            new PlayAnimationEvent(
+                _entity.ClientId,
+                animation: _setMovementAnimation
+            )
+        );
+    }
+
+    public Task Handle(EntityStoppingEvent args)
+    {
+        if (_entity.ClientId != args.ClientId)
+        {
             return Task.CompletedTask;
         }
 
-        private async Task HandleOnCheckMovement()
-        {
-            if (_setMovementAnimation == _currentAnimation)
-            {
-                return;
-            }
-            await Handle(
-                new PlayAnimationEvent(
-                    _entity.ClientId,
-                    animation: _setMovementAnimation
-                )
-            );
-        }
+        _setMovementAnimation = AnimationConstants.DEFAULT_ANIMATION;
 
-        public Task Handle(
-            EntityStoppingEvent args
-        )
-        {
-            if (_entity.ClientId != args.ClientId)
-            {
-                return Task.CompletedTask;
-            }
-
-            _setMovementAnimation = AnimationConstants.DEFAULT_ANIMATION;
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

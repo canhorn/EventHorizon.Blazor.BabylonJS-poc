@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Engine.Particle.Start
+﻿namespace EventHorizon.Game.Client.Engine.Particle.Start;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct StartParticleSystemCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public long Id { get; }
 
-    public struct StartParticleSystemCommand
-        : IRequest<StandardCommandResult>
+    public StartParticleSystemCommand(long id)
     {
-        public long Id { get; }
-
-        public StartParticleSystemCommand(
-            long id
-        )
-        {
-            Id = id;
-        }
+        Id = id;
     }
 }

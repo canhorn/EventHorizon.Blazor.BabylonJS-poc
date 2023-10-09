@@ -1,38 +1,31 @@
-﻿namespace EventHorizon.Game.Editor.Client.Authentication.State
+﻿namespace EventHorizon.Game.Editor.Client.Authentication.State;
+
+using EventHorizon.Game.Editor.Client.Authentication.Api;
+using EventHorizon.Game.Editor.Client.Authentication.Model;
+
+public class StandardEditorAuthenticationState : EditorAuthenticationState
 {
-    using EventHorizon.Game.Editor.Client.Authentication.Api;
-    using EventHorizon.Game.Editor.Client.Authentication.Model;
+    public string AccessToken { get; private set; } = string.Empty;
 
-    public class StandardEditorAuthenticationState
-        : EditorAuthenticationState
+    public SessionValues Session { get; private set; } =
+        new SessionValuesModel();
+
+    public void SetAccessToken(string accessToken)
     {
-        public string AccessToken { get; private set; } = string.Empty;
-
-        public SessionValues Session { get; private set; } = new SessionValuesModel();
-
-        public void SetAccessToken(
-            string accessToken
-        )
+        if (string.IsNullOrWhiteSpace(accessToken))
         {
-            if (string.IsNullOrWhiteSpace(
-                accessToken
-            ))
-            {
-                return;
-            }
-
-            AccessToken = accessToken;
+            return;
         }
 
-        public void SetSessionValues(
-            SessionValues sessionValues
-        )
+        AccessToken = accessToken;
+    }
+
+    public void SetSessionValues(SessionValues sessionValues)
+    {
+        if (sessionValues.IsNull())
         {
-            if (sessionValues.IsNull())
-            {
-                return;
-            }
-            Session = sessionValues;
+            return;
         }
+        Session = sessionValues;
     }
 }

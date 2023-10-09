@@ -1,10 +1,7 @@
-﻿namespace EventHorizon.Game.Server.ServerModule.BackToMenu.Reload
-{
-    using System;
-    using MediatR;
+﻿namespace EventHorizon.Game.Server.ServerModule.BackToMenu.Reload;
 
-    public struct TriggerPageReloadCommand
-        : IRequest
-    {
-    }
-}
+using System;
+
+using MediatR;
+
+public struct TriggerPageReloadCommand : IRequest { }

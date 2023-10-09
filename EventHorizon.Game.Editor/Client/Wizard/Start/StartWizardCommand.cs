@@ -1,20 +1,16 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Start
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Start;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Zone.Systems.Wizard.Model;
+
+using MediatR;
+
+public struct StartWizardCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Zone.Systems.Wizard.Model;
-    using MediatR;
+    public WizardMetadata Wizard { get; }
 
-    public struct StartWizardCommand
-        : IRequest<StandardCommandResult>
+    public StartWizardCommand(WizardMetadata wizard)
     {
-        public WizardMetadata Wizard { get; }
-
-        public StartWizardCommand(
-            WizardMetadata wizard
-        )
-        {
-            Wizard = wizard;
-        }
+        Wizard = wizard;
     }
 }
-

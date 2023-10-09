@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.Track
+﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.Track;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Model;
+
+using MediatR;
+
+public struct TrackServerEntityCommand : IRequest
 {
-    using EventHorizon.Game.Client.Engine.Lifecycle.Model;
-    using MediatR;
+    public ServerLifecycleEntityBase Entity { get; }
 
-    public struct TrackServerEntityCommand
-        : IRequest
+    public TrackServerEntityCommand(ServerLifecycleEntityBase entity)
     {
-        public ServerLifecycleEntityBase Entity { get; }
-
-        public TrackServerEntityCommand(
-            ServerLifecycleEntityBase entity
-        )
-        {
-            Entity = entity;
-        }
+        Entity = entity;
     }
 }

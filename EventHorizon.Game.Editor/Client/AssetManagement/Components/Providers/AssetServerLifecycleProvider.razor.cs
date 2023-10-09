@@ -14,8 +14,8 @@ using Microsoft.AspNetCore.Components;
 
 public class AssetServerLifecycleProviderBase
     : ObservableComponentBase,
-      AssetServerBackupFinishedEventObserver,
-      AssetServerExportFinishedEventObserver
+        AssetServerBackupFinishedEventObserver,
+        AssetServerExportFinishedEventObserver
 {
     [CascadingParameter]
     public AssetManagementState State { get; set; } = null!;
@@ -62,9 +62,11 @@ public class AssetServerLifecycleProviderBase
 
         if (args.ReferenceId == State.BackupReferenceId)
         {
-            if (!NavigationManager.Uri.ToLowerInvariant().EndsWith(
-                AssetServerBackupArtifactsPage.Route
-            ))
+            if (
+                !NavigationManager.Uri
+                    .ToLowerInvariant()
+                    .EndsWith(AssetServerBackupArtifactsPage.Route)
+            )
             {
                 NavigationManager.NavigateTo(
                     AssetServerBackupArtifactsPage.Route

@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Server.Asset.Connection
-{
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Server.Asset.Connection;
 
-    public struct ConnectedToAssetServerAdmin
-        : INotification
-    {
+using EventHorizon.Observer.Model;
 
-    }
+using MediatR;
 
-    public interface ConnectedToAssetServerAdminObserver
-        : ArgumentObserver<ConnectedToAssetServerAdmin>
-    {
-    }
-}
+public struct ConnectedToAssetServerAdmin : INotification { }
+
+public interface ConnectedToAssetServerAdminObserver
+    : ArgumentObserver<ConnectedToAssetServerAdmin> { }

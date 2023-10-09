@@ -13,7 +13,10 @@ using EventHorizon.Game.Server.Asset.Query;
 using MediatR;
 
 public class QueryForAllArtifactExportsHandler
-    : IRequestHandler<QueryForAllArtifactExports, CommandResult<IEnumerable<ArtifactViewModel>>>
+    : IRequestHandler<
+        QueryForAllArtifactExports,
+        CommandResult<IEnumerable<ArtifactViewModel>>
+    >
 {
     private readonly ISender _sender;
     private readonly GamePlatformServiceSettings _settings;
@@ -56,6 +59,6 @@ public class QueryForAllArtifactExportsHandler
                             Path = $"{_settings.AssetServer}{export.Path}",
                         }
                 )
-            );
+        );
     }
 }

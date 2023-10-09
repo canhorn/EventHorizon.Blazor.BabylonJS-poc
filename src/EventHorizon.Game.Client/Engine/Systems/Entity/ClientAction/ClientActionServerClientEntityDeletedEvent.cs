@@ -1,50 +1,49 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.ClientAction
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.ClientAction;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
+using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
+using EventHorizon.Observer.Model;
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+[ClientAction("SERVER_CLIENT_ENTITY_DELETED_CLIENT_ACTION_EVENT")]
+public struct ClientActionServerClientEntityDeletedEvent : IClientAction
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
-    using EventHorizon.Observer.Model;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    public string GlobalId { get; }
 
-    [ClientAction("SERVER_CLIENT_ENTITY_DELETED_CLIENT_ACTION_EVENT")]
-    public struct ClientActionServerClientEntityDeletedEvent
-        : IClientAction
+    public ClientActionServerClientEntityDeletedEvent(
+        IClientActionDataResolver resolver
+    )
     {
-        public string GlobalId { get; }
+        GlobalId = resolver.Resolve<string>("globalId");
+    }
+}
 
-        public ClientActionServerClientEntityDeletedEvent(
-            IClientActionDataResolver resolver
-        )
-        {
-            GlobalId = resolver.Resolve<string>("globalId");
-        }
+public interface ClientActionServerClientEntityDeletedEventObserver
+    : ArgumentObserver<ClientActionServerClientEntityDeletedEvent> { }
+
+public class ClientActionServerClientEntityDeletedEventObserverHandler
+    : INotificationHandler<ClientActionServerClientEntityDeletedEvent>
+{
+    private readonly ObserverState _observer;
+
+    public ClientActionServerClientEntityDeletedEventObserverHandler(
+        ObserverState observer
+    )
+    {
+        _observer = observer;
     }
 
-    public interface ClientActionServerClientEntityDeletedEventObserver
-        : ArgumentObserver<ClientActionServerClientEntityDeletedEvent>
-    {
-    }
-
-    public class ClientActionServerClientEntityDeletedEventObserverHandler
-        : INotificationHandler<ClientActionServerClientEntityDeletedEvent>
-    {
-        private readonly ObserverState _observer;
-
-        public ClientActionServerClientEntityDeletedEventObserverHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            ClientActionServerClientEntityDeletedEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<ClientActionServerClientEntityDeletedEventObserver, ClientActionServerClientEntityDeletedEvent>(
-            notification,
-            cancellationToken
-        );
-    }
+    public Task Handle(
+        ClientActionServerClientEntityDeletedEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<
+            ClientActionServerClientEntityDeletedEventObserver,
+            ClientActionServerClientEntityDeletedEvent
+        >(notification, cancellationToken);
 }

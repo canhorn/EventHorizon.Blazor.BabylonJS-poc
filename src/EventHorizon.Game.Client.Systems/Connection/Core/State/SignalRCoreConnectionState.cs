@@ -59,14 +59,12 @@ public class SignalRCoreConnectionState : CoreConnectionState
                             accessToken.FromResult<string?>();
                     }
                 )
-                .ConfigureLogging(
-                    builder =>
-                    {
-                        builder.AddProvider(
-                            GameServiceProvider.GetService<ILoggerProvider>()
-                        );
-                    }
-                )
+                .ConfigureLogging(builder =>
+                {
+                    builder.AddProvider(
+                        GameServiceProvider.GetService<ILoggerProvider>()
+                    );
+                })
                 .Build();
 
             _connection.On<AccountInfoModel>(

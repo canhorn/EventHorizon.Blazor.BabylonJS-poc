@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Camera.Set
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Camera.Set;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public class SetActiveCameraCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Name { get; }
 
-    public class SetActiveCameraCommand
-        : IRequest<StandardCommandResult>
+    public SetActiveCameraCommand(string name)
     {
-        public string Name { get; }
-
-        public SetActiveCameraCommand(
-            string name
-        )
-        {
-            Name = name;
-        }
+        Name = name;
     }
 }

@@ -12,9 +12,7 @@ public class AssetServerBackupFinishedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public AssetServerBackupFinishedEventObserverHandler(
-        ObserverState observer
-    )
+    public AssetServerBackupFinishedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

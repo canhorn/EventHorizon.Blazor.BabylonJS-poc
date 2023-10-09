@@ -1,39 +1,28 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Service;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+
+using Microsoft.AspNetCore.SignalR.Client;
+
+public class SignalrZoneAdminCommandApi : ZoneAdminCommandApi
 {
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using Microsoft.AspNetCore.SignalR.Client;
+    private readonly HubConnection? _hubConnection;
 
-    public class SignalrZoneAdminCommandApi
-        : ZoneAdminCommandApi
+    internal SignalrZoneAdminCommandApi(HubConnection? hubConnection)
     {
-        private readonly HubConnection? _hubConnection;
+        _hubConnection = hubConnection;
+    }
 
-        internal SignalrZoneAdminCommandApi(
-            HubConnection? hubConnection
-        )
+    public async Task<StandardCommandResult> Send(string command, object data)
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            _hubConnection = hubConnection;
+            return new(ZoneAdminErrorCodes.NOT_CONNECTED);
         }
-
-        public async Task<StandardCommandResult> Send(
-            string command,
-            object data
-        )
-        {
-            if (_hubConnection.IsNotConnected())
-            {
-                return new(
-                    ZoneAdminErrorCodes.NOT_CONNECTED
-                );
-            }
-            await _hubConnection.InvokeAsync(
-                "Command",
-                command,
-                data
-            );
-            return new();
-        }
+        await _hubConnection.InvokeAsync("Command", command, data);
+        return new();
     }
 }

@@ -18,9 +18,9 @@ using MediatR;
 
 public class StandardParticleEmitterModule
     : ModuleEntityBase,
-      ParticleEmitterModule,
-      MeshSetEventObserver,
-      ParticleTemplatesChangedEventObserver
+        ParticleEmitterModule,
+        MeshSetEventObserver,
+        ParticleTemplatesChangedEventObserver
 {
     private readonly IMediator _mediator =
         GameServiceProvider.GetService<IMediator>();
@@ -64,9 +64,7 @@ public class StandardParticleEmitterModule
         await CreateParticle();
     }
 
-    public async Task Handle(
-        ParticleTemplatesChangedEvent args
-    )
+    public async Task Handle(ParticleTemplatesChangedEvent args)
     {
         await CreateParticle();
     }
@@ -83,9 +81,7 @@ public class StandardParticleEmitterModule
 
         // Dispose of any existing particles by _options.ParticleId
         await _mediator.Send(
-            new DisposeOfParticleSystemCommand(
-                _options.ParticleId
-            )
+            new DisposeOfParticleSystemCommand(_options.ParticleId)
         );
 
         if (!_options.IgnoreMeshVisibility)
@@ -106,9 +102,7 @@ public class StandardParticleEmitterModule
         if (_options.StartAfterCreated)
         {
             await _mediator.Send(
-                new StartParticleSystemCommand(
-                    _options.ParticleId
-                )
+                new StartParticleSystemCommand(_options.ParticleId)
             );
         }
     }

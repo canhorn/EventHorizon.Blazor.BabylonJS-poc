@@ -6,11 +6,7 @@ using Atata;
 
 public class ClientEntityListComponent<TOwner>
     : ControlList<ClientEntityListItem<TOwner>, TOwner>
-    where TOwner : PageObject<TOwner>
-{
-}
+    where TOwner : PageObject<TOwner> { }
 
-public class ClientEntityListItem<TOwner>
-    : Button<TOwner> where TOwner : PageObject<TOwner>
-{
-}
+public class ClientEntityListItem<TOwner> : Button<TOwner>
+    where TOwner : PageObject<TOwner> { }

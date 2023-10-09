@@ -2,5 +2,4 @@
 
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 
-public class ClientActionParticleSystemReloadedEvent
-    : IClientAction { }
+public class ClientActionParticleSystemReloadedEvent : IClientAction { }

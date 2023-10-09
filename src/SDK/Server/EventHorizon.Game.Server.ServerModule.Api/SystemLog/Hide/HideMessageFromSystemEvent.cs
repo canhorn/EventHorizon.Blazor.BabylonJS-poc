@@ -7,16 +7,10 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public struct HideMessageFromSystemEvent
-        : INotification
-    {
-
-    }
+    public struct HideMessageFromSystemEvent : INotification { }
 
     public interface HideMessageFromSystemEventObserver
-        : ArgumentObserver<HideMessageFromSystemEvent>
-    {
-    }
+        : ArgumentObserver<HideMessageFromSystemEvent> { }
 
     // TODO: Move this into an Implementation Project, Remove from the SDK
     public class HideMessageFromSystemEventHandler
@@ -24,9 +18,7 @@
     {
         private readonly ObserverState _observer;
 
-        public HideMessageFromSystemEventHandler(
-            ObserverState observer
-        )
+        public HideMessageFromSystemEventHandler(ObserverState observer)
         {
             _observer = observer;
         }
@@ -34,9 +26,10 @@
         public Task Handle(
             HideMessageFromSystemEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<HideMessageFromSystemEventObserver, HideMessageFromSystemEvent>(
-            notification,
-            cancellationToken
-        );
+        ) =>
+            _observer.Trigger<
+                HideMessageFromSystemEventObserver,
+                HideMessageFromSystemEvent
+            >(notification, cancellationToken);
     }
 }

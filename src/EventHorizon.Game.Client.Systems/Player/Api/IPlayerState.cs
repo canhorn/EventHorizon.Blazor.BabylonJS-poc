@@ -1,14 +1,11 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Api
+﻿namespace EventHorizon.Game.Client.Systems.Player.Api;
+
+using System;
+
+public interface IPlayerState
 {
-    using System;
+    Option<IPlayerEntity> Player { get; }
 
-    public interface IPlayerState
-    {
-        Option<IPlayerEntity> Player { get; }
-
-        void Reset();
-        public void Set(
-            IPlayerEntity player
-        );
-    }
+    void Reset();
+    public void Set(IPlayerEntity player);
 }

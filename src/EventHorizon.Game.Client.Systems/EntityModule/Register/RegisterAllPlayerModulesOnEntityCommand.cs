@@ -1,20 +1,19 @@
-﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Register
+﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Register;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.Player.Api;
+
+using MediatR;
+
+public class RegisterAllPlayerModulesOnEntityCommand
+    : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.Player.Api;
-    using MediatR;
+    public IPlayerEntity Entity { get; }
 
-    public class RegisterAllPlayerModulesOnEntityCommand
-        : IRequest<StandardCommandResult>
+    public RegisterAllPlayerModulesOnEntityCommand(IPlayerEntity entity)
     {
-        public IPlayerEntity Entity { get; }
-
-        public RegisterAllPlayerModulesOnEntityCommand(
-            IPlayerEntity entity
-        )
-        {
-            Entity = entity;
-        }
+        Entity = entity;
     }
 }

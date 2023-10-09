@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Api
+﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Api;
+
+public interface IClientScriptsAssemblyDetails
 {
-    public interface IClientScriptsAssemblyDetails
-    {
-        public string Hash { get; }
-    }
+    public string Hash { get; }
 }

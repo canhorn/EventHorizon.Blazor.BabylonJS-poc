@@ -1,23 +1,21 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.State
+﻿namespace EventHorizon.Game.Client.Systems.Player.State;
+
+using System;
+
+using EventHorizon.Game.Client.Systems.Player.Api;
+
+public class StandardPlayerState : IPlayerState
 {
-    using System;
-    using EventHorizon.Game.Client.Systems.Player.Api;
+    public Option<IPlayerEntity> Player { get; private set; } =
+        new Option<IPlayerEntity>(null);
 
-    public class StandardPlayerState
-        : IPlayerState
+    public void Reset()
     {
-        public Option<IPlayerEntity> Player { get; private set; } = new Option<IPlayerEntity>(null);
+        Player = new Option<IPlayerEntity>(null);
+    }
 
-        public void Reset()
-        {
-            Player = new Option<IPlayerEntity>(null);
-        }
-
-        public void Set(
-            IPlayerEntity player
-        )
-        {
-            Player = new Option<IPlayerEntity>(player);
-        }
+    public void Set(IPlayerEntity player)
+    {
+        Player = new Option<IPlayerEntity>(player);
     }
 }

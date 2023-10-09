@@ -1,9 +1,5 @@
-﻿namespace EventHorizon.Game.Client.Systems.Account.Setup
-{
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Systems.Account.Setup;
 
-    public struct SetupAccountCommand
-        : IRequest
-    {
-    }
-}
+using MediatR;
+
+public struct SetupAccountCommand : IRequest { }

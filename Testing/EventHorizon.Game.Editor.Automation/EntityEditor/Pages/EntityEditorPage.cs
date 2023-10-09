@@ -12,30 +12,23 @@ using _ = EntityEditorPage;
 public class EntityEditorPage : MainLayoutPage<_>
 {
     [TestSelector("client-entity-list__header")]
-    public H2<_> ClientEntityListHeader
-    {
-        get;
-        private set;
-    }
+    public H2<_> ClientEntityListHeader { get; private set; }
+
     [TestSelector("client-entity__toolbar")]
     public StandardToolbarComponent<
         _,
         StandardToolbarButtonComponent<_>
-    > ClientEntityToolbar
-    { get; private set; }
+    > ClientEntityToolbar { get; private set; }
+
     [TestSelector("client-entity__list")]
     public ClientEntityListComponent<_> ClientEntityList { get; private set; }
 
     [TestSelector("agent-entity-list__header")]
-    public H2<_> AgentEntityListHeader
-    {
-        get;
-        private set;
-    }
+    public H2<_> AgentEntityListHeader { get; private set; }
+
     [TestSelector("agent-entity__toolbar")]
     public StandardToolbarComponent<
         _,
         StandardToolbarButtonComponent<_>
-    > AgentEntityToolbar
-    { get; private set; }
+    > AgentEntityToolbar { get; private set; }
 }

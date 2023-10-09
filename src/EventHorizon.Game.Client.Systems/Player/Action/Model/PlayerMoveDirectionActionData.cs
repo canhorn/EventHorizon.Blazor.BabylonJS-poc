@@ -1,19 +1,16 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Action.Model
+﻿namespace EventHorizon.Game.Client.Systems.Player.Action.Model;
+
+using System;
+
+using EventHorizon.Game.Client.Systems.Player.Action.Api;
+using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
+
+public struct PlayerMoveDirectionActionData : IPlayerActionData
 {
-    using System;
-    using EventHorizon.Game.Client.Systems.Player.Action.Api;
-    using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
+    public MoveDirection MoveDirection { get; }
 
-    public struct PlayerMoveDirectionActionData
-        : IPlayerActionData
+    public PlayerMoveDirectionActionData(MoveDirection moveDirection)
     {
-        public MoveDirection MoveDirection { get; }
-
-        public PlayerMoveDirectionActionData(
-            MoveDirection moveDirection
-        )
-        {
-            MoveDirection = moveDirection;
-        }
+        MoveDirection = moveDirection;
     }
 }

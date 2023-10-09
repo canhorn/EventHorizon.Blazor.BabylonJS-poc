@@ -21,17 +21,12 @@ public static class MockZoneProviderStateExtensions
         out ZoneProviderStateMocks zoneProviderStateMocks
     )
     {
-        zoneProviderStateMocks =
-            new ZoneProviderStateMocks();
+        zoneProviderStateMocks = new ZoneProviderStateMocks();
 
         services.AddSingleton<IFactory<ITimerService>>(
-            new StandardFactory<ITimerService>(
-                () => new TimerService()
-            )
+            new StandardFactory<ITimerService>(() => new TimerService())
         );
-        services.AddSingleton<
-            IFactory<IIntervalTimerService>
-        >(
+        services.AddSingleton<IFactory<IIntervalTimerService>>(
             new StandardFactory<IIntervalTimerService>(
                 () => new IntervalTimerService()
             )
@@ -39,9 +34,7 @@ public static class MockZoneProviderStateExtensions
 
         editorComponentBaseMocks.Mediator.Stub(
             new QueryForActiveZone(),
-            new CommandResult<ZoneState>(
-                new Mock<ZoneState>().Object
-            )
+            new CommandResult<ZoneState>(new Mock<ZoneState>().Object)
         );
 
         return services;

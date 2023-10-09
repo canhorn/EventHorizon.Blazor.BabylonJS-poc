@@ -13,9 +13,7 @@ public class ZoneServerBackupFinishedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ZoneServerBackupFinishedEventObserverHandler(
-        ObserverState observer
-    )
+    public ZoneServerBackupFinishedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -23,8 +21,9 @@ public class ZoneServerBackupFinishedEventObserverHandler
     public Task Handle(
         ZoneServerBackupFinishedEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<ZoneServerBackupFinishedEventObserver, ZoneServerBackupFinishedEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            ZoneServerBackupFinishedEventObserver,
+            ZoneServerBackupFinishedEvent
+        >(notification, cancellationToken);
 }

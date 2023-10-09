@@ -6,8 +6,7 @@ using EventHorizon.Observer.Model;
 
 using MediatR;
 
-public struct AssetNewFolderTrggeredEvent
-    : INotification
+public struct AssetNewFolderTrggeredEvent : INotification
 {
     public TreeViewNodeData Node { get; }
     public FileSystemDirectoryContent DirectoryContent { get; }
@@ -23,6 +22,4 @@ public struct AssetNewFolderTrggeredEvent
 }
 
 public interface AssetNewFolderTrggeredEventObserver
-    : ArgumentObserver<AssetNewFolderTrggeredEvent>
-{
-}
+    : ArgumentObserver<AssetNewFolderTrggeredEvent> { }

@@ -1,28 +1,30 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Reload
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Reload;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public class ForceReloadAssetManagementStateEventObserverHandler
+    : INotificationHandler<ForceReloadAssetManagementStateEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    private readonly ObserverState _observer;
 
-    public class ForceReloadAssetManagementStateEventObserverHandler
-        : INotificationHandler<ForceReloadAssetManagementStateEvent>
+    public ForceReloadAssetManagementStateEventObserverHandler(
+        ObserverState observer
+    )
     {
-        private readonly ObserverState _observer;
-
-        public ForceReloadAssetManagementStateEventObserverHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            ForceReloadAssetManagementStateEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<ForceReloadAssetManagementStateEventObserver, ForceReloadAssetManagementStateEvent>(
-            notification,
-            cancellationToken
-        );
+        _observer = observer;
     }
+
+    public Task Handle(
+        ForceReloadAssetManagementStateEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<
+            ForceReloadAssetManagementStateEventObserver,
+            ForceReloadAssetManagementStateEvent
+        >(notification, cancellationToken);
 }

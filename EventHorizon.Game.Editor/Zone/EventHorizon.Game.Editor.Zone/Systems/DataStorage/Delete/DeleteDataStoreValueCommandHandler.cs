@@ -1,41 +1,41 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Systems.DataStorage.Delete
+﻿namespace EventHorizon.Game.Editor.Zone.Systems.DataStorage.Delete;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Zone.Systems.DataStorage.Delete;
+
+using MediatR;
+
+public class DeleteDataStoreValueCommandHandler
+    : IRequestHandler<DeleteDataStoreValueCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Zone.Systems.DataStorage.Delete;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class DeleteDataStoreValueCommandHandler
-        : IRequestHandler<DeleteDataStoreValueCommand, StandardCommandResult>
+    public DeleteDataStoreValueCommandHandler(
+        ZoneAdminServices zoneAdminServices
+    )
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public DeleteDataStoreValueCommandHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<StandardCommandResult> Handle(
+        DeleteDataStoreValueCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.DataStorage.Delete(
+            request.Key,
+            cancellationToken
+        );
+        if (result.Success.IsNotTrue())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
-        public async Task<StandardCommandResult> Handle(
-            DeleteDataStoreValueCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.DataStorage.Delete(
-                request.Key,
-                cancellationToken
-            );
-            if (result.Success.IsNotTrue())
-            {
-                return result.ErrorCode
-                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
-            }
-
-            return new();
-        }
+        return new();
     }
 }

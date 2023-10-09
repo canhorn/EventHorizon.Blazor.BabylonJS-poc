@@ -11,9 +11,9 @@ using MediatR;
 
 public class TriggerAssetServerAssetsBackupCommandHandler
     : IRequestHandler<
-          TriggerAssetServerAssetsBackupCommand,
-          CommandResult<BackupTriggerResult>
-      >
+        TriggerAssetServerAssetsBackupCommand,
+        CommandResult<BackupTriggerResult>
+    >
 {
     private readonly AssetServerAdminService _service;
 

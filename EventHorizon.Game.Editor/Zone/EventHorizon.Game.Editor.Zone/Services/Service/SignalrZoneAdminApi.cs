@@ -20,40 +20,20 @@ public sealed class SignalrZoneAdminApi : ZoneAdminApi
     public ZoneAdminServerScriptsApi ServerScripts { get; }
     public ZoneAdminWizardApi Wizard { get; }
 
-    internal SignalrZoneAdminApi(
-        HubConnection? hubConnection
-    )
+    internal SignalrZoneAdminApi(HubConnection? hubConnection)
     {
         _hubConnection = hubConnection;
 
-        Agent = new SignalrZoneAdminAgentApi(
-            hubConnection
-        );
+        Agent = new SignalrZoneAdminAgentApi(hubConnection);
         ArtifactManagement = new SignalrZoneAdminArtifactManagementApi(
             hubConnection
         );
-        ClientAssets =
-            new SignalrZoneAdminClientAssetsApi(
-                hubConnection
-            );
-        ClientEntity =
-            new SignalrZoneAdminClientEntityApi(
-                hubConnection
-            );
-        Command = new SignalrZoneAdminCommandApi(
-            hubConnection
-        );
-        DataStorage =
-            new SignalrZoneAdminDataStorageApi(
-                hubConnection
-            );
-        ServerScripts =
-            new SignalrZoneAdminServerScriptsApi(
-                hubConnection
-            );
-        Wizard = new SignalrZoneAdminWizardApi(
-            hubConnection
-        );
+        ClientAssets = new SignalrZoneAdminClientAssetsApi(hubConnection);
+        ClientEntity = new SignalrZoneAdminClientEntityApi(hubConnection);
+        Command = new SignalrZoneAdminCommandApi(hubConnection);
+        DataStorage = new SignalrZoneAdminDataStorageApi(hubConnection);
+        ServerScripts = new SignalrZoneAdminServerScriptsApi(hubConnection);
+        Wizard = new SignalrZoneAdminWizardApi(hubConnection);
     }
 
     public Task<ZoneInfo?> GetZoneInfo()
@@ -62,8 +42,6 @@ public sealed class SignalrZoneAdminApi : ZoneAdminApi
         {
             return Task.FromResult<ZoneInfo?>(null);
         }
-        return _hubConnection.InvokeAsync<ZoneInfo?>(
-            "ZoneInfo"
-        );
+        return _hubConnection.InvokeAsync<ZoneInfo?>("ZoneInfo");
     }
 }

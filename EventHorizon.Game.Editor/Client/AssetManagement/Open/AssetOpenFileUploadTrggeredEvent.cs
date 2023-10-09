@@ -6,8 +6,7 @@ using EventHorizon.Observer.Model;
 
 using MediatR;
 
-public struct AssetOpenFileUploadTrggeredEvent
-    : INotification
+public struct AssetOpenFileUploadTrggeredEvent : INotification
 {
     public TreeViewNodeData Node { get; }
     public FileSystemDirectoryContent DirectoryContent { get; }
@@ -23,6 +22,4 @@ public struct AssetOpenFileUploadTrggeredEvent
 }
 
 public interface AssetOpenFileUploadTrggeredEventObserver
-    : ArgumentObserver<AssetOpenFileUploadTrggeredEvent>
-{
-}
+    : ArgumentObserver<AssetOpenFileUploadTrggeredEvent> { }

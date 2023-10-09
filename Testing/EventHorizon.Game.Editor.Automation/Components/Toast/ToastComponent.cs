@@ -4,15 +4,15 @@ using Atata;
 
 using EventHorizon.Game.Editor.Automation.Core.Exceptions;
 
-public class ToastComponent<TNavigateTo>
-    : Control<TNavigateTo>
-        where TNavigateTo : PageObject<TNavigateTo>
+public class ToastComponent<TNavigateTo> : Control<TNavigateTo>
+    where TNavigateTo : PageObject<TNavigateTo>
 {
-    private ControlList<ToastMessageDisplayItem, TNavigateTo> Messages { get; set; }
+    private ControlList<
+        ToastMessageDisplayItem,
+        TNavigateTo
+    > Messages { get; set; }
 
-    public TNavigateTo WaitForMessage(
-        string message
-    )
+    public TNavigateTo WaitForMessage(string message)
     {
         for (int i = 0; i < 10; i++)
         {
@@ -24,9 +24,7 @@ public class ToastComponent<TNavigateTo>
                 control.Should.Exist();
                 return Owner;
             }
-            catch
-            {
-            }
+            catch { }
             Go.To<TNavigateTo>(navigate: false).Wait(0.2);
         }
 
@@ -36,8 +34,7 @@ public class ToastComponent<TNavigateTo>
     }
 
     [ControlDefinition("div", ContainingClass = "toast")]
-    public class ToastMessageDisplayItem
-        : Control<TNavigateTo>
+    public class ToastMessageDisplayItem : Control<TNavigateTo>
     {
         [TestSelector("toast-header")]
         [WaitFor(AbsenceTimeout = 0.2, PresenceTimeout = 0.2)]

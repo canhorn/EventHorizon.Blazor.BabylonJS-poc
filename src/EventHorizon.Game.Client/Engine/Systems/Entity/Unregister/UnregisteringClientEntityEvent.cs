@@ -1,17 +1,13 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Unregister
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Unregister;
+
+using MediatR;
+
+public struct UnregisteringClientEntityEvent : INotification
 {
-    using MediatR;
+    public string GlobalId { get; }
 
-    public struct UnregisteringClientEntityEvent
-        : INotification
+    public UnregisteringClientEntityEvent(string globalId)
     {
-        public string GlobalId { get; }
-
-        public UnregisteringClientEntityEvent(
-            string globalId
-        )
-        {
-            GlobalId = globalId;
-        }
+        GlobalId = globalId;
     }
 }

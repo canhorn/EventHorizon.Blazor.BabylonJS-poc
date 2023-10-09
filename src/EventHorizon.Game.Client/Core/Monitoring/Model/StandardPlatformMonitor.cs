@@ -1,26 +1,20 @@
-﻿namespace EventHorizon.Game.Client.Core.Monitoring.Model
+﻿namespace EventHorizon.Game.Client.Core.Monitoring.Model;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Monitoring.Api;
+
+public class StandardPlatformMonitor : IPlatformMonitor
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Monitoring.Api;
+    public string InterfaceId { get; } = Guid.NewGuid().ToString();
 
-    public class StandardPlatformMonitor
-        : IPlatformMonitor
+    public void TrackEvent(string name)
     {
-        public string InterfaceId { get; } = Guid.NewGuid().ToString();
+        // TODO: [PlatformMonitor] : Track Event
+    }
 
-        public void TrackEvent(
-            string name
-        )
-        {
-            // TODO: [PlatformMonitor] : Track Event
-        }
-
-        public void TrackMetric(
-            string name,
-            long average
-        )
-        {
-            // TODO: [PlatformMonitor] : Track Metric
-        }
+    public void TrackMetric(string name, long average)
+    {
+        // TODO: [PlatformMonitor] : Track Metric
     }
 }

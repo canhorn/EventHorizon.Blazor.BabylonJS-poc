@@ -1,29 +1,28 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Cancel
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Cancel;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Wizard.Api;
+
+using MediatR;
+
+public class CancelWizardCommandHandler
+    : IRequestHandler<CancelWizardCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Wizard.Api;
-    using MediatR;
+    private readonly WizardState _state;
 
-    public class CancelWizardCommandHandler
-        : IRequestHandler<CancelWizardCommand, StandardCommandResult>
+    public CancelWizardCommandHandler(WizardState state)
     {
-        private readonly WizardState _state;
+        _state = state;
+    }
 
-        public CancelWizardCommandHandler(
-            WizardState state
-        )
-        {
-            _state = state;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            CancelWizardCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            return await _state.Cancel();
-        }
+    public async Task<StandardCommandResult> Handle(
+        CancelWizardCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return await _state.Cancel();
     }
 }

@@ -13,8 +13,7 @@ using NUnit.Framework;
 
 using Translations = Localization.SideBarQuickLinksTranslations;
 
-public class OpensZoneCommandsPageWhenQuickActionTreeIsUsedToNavigate
-    : WebHost
+public class OpensZoneCommandsPageWhenQuickActionTreeIsUsedToNavigate : WebHost
 {
     [Test]
     [Category("Quick Links")]
@@ -29,8 +28,6 @@ public class OpensZoneCommandsPageWhenQuickActionTreeIsUsedToNavigate
                 a => a.Text == Translations.EN_US.ZoneCommandsText
             )
             .Link.ClickAndGo<ZoneCommandsPage>()
-            .Header.Should.Be(
-                ZoneCommandsPageTranslations.EN_US.Header
-            );
+            .Header.Should.Be(ZoneCommandsPageTranslations.EN_US.Header);
     }
 }

@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Components;
 
 public class AssetZoneManagementPageModel
     : ObservableComponentBase,
-      ZoneAdminServiceConnectedEventObserver
+        ZoneAdminServiceConnectedEventObserver
 {
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
@@ -49,6 +49,7 @@ public class AssetZoneManagementPageModel
     #region Delete Prompt
     protected bool IsDeleteConfirmOpen { get; private set; }
     protected ClientAsset DeleteModel { get; private set; } = new();
+
     protected void HandleDeleteGameAsset(ClientAsset clientAsset)
     {
         DeleteModel = clientAsset;

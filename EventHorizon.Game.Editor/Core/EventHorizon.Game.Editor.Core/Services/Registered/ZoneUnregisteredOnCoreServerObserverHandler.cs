@@ -1,4 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Core.Services.Registered;
+
 using System.Threading;
 using System.Threading.Tasks;
 

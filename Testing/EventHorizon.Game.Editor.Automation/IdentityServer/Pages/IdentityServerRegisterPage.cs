@@ -6,8 +6,7 @@ using EventHorizon.Game.Editor.Automation.IdentityServer.Components;
 
 using _ = IdentityServerRegisterPage;
 
-public class IdentityServerRegisterPage
-    : Page<_>
+public class IdentityServerRegisterPage : Page<_>
 {
     public static string Url => "/Register";
 
@@ -17,6 +16,7 @@ public class IdentityServerRegisterPage
 
     [FindById("UserRegistration_Password")]
     public PasswordInput<_> Password { get; private set; }
+
     [FindById("UserRegistration_ConfirmPassword")]
     public PasswordInput<_> ConfirmPassword { get; private set; }
 

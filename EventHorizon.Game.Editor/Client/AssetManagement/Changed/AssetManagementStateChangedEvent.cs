@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Changed
-{
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Changed;
 
-    public struct AssetManagementStateChangedEvent
-        : INotification
-    {
+using EventHorizon.Observer.Model;
 
-    }
+using MediatR;
 
-    public interface AssetManagementStateChangedEventObserver
-        : ArgumentObserver<AssetManagementStateChangedEvent>
-    {
-    }
-}
+public struct AssetManagementStateChangedEvent : INotification { }
+
+public interface AssetManagementStateChangedEventObserver
+    : ArgumentObserver<AssetManagementStateChangedEvent> { }

@@ -4,19 +4,19 @@ using System;
 using System.Runtime.Serialization;
 
 [Serializable]
-public class WaitForMessageException
-    : Exception
+public class WaitForMessageException : Exception
 {
     public WaitForMessageException() { }
-    public WaitForMessageException(
-        string message
-    ) : base(message) { }
-    public WaitForMessageException(
-        string message,
-        Exception inner
-    ) : base(message, inner) { }
+
+    public WaitForMessageException(string message)
+        : base(message) { }
+
+    public WaitForMessageException(string message, Exception inner)
+        : base(message, inner) { }
+
     protected WaitForMessageException(
-      SerializationInfo info,
-      StreamingContext context
-    ) : base(info, context) { }
+        SerializationInfo info,
+        StreamingContext context
+    )
+        : base(info, context) { }
 }

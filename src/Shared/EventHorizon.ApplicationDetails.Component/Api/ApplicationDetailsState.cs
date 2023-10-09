@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.ApplicationDetails.Component.Api
+﻿namespace EventHorizon.ApplicationDetails.Component.Api;
+
+public interface ApplicationDetailsState
 {
-    public interface ApplicationDetailsState
-    {
-        string ApplicationVersion { get; }
-    }
+    string ApplicationVersion { get; }
 }

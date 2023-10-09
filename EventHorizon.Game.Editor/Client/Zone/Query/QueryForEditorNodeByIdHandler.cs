@@ -1,65 +1,60 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Query
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Query;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Zone.Model;
+using EventHorizon.Game.Editor.Client.Zone.Reload;
+using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
+
+using MediatR;
+
+public class QueryForEditorNodeByIdHandler
+    : IRequestHandler<QueryForEditorNodeById, CommandResult<EditorNode>>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Zone.Model;
-    using EventHorizon.Game.Editor.Client.Zone.Reload;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
-    using MediatR;
-
-    public class QueryForEditorNodeByIdHandler
-        : IRequestHandler<QueryForEditorNodeById, CommandResult<EditorNode>>
+    public QueryForEditorNodeByIdHandler(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public QueryForEditorNodeByIdHandler(
-            IMediator mediator
-        )
+    public async Task<CommandResult<EditorNode>> Handle(
+        QueryForEditorNodeById request,
+        CancellationToken cancellationToken
+    )
+    {
+        var zoneStateResult = await _mediator.Send(
+            new QueryForActiveZone(),
+            cancellationToken
+        );
+        if (!zoneStateResult)
         {
-            _mediator = mediator;
+            return zoneStateResult.ErrorCode;
         }
 
-        public async Task<CommandResult<EditorNode>> Handle(
-            QueryForEditorNodeById request,
-            CancellationToken cancellationToken
-        )
+        var zoneState = zoneStateResult.Result;
+        if (zoneState.IsPendingReload)
         {
-            var zoneStateResult = await _mediator.Send(
-                new QueryForActiveZone(),
+            return ZoneClientEditorErrorCodes.ZONE_STATE_PENDING_RELOAD;
+        }
+        else if (zoneState.IsLoading)
+        {
+            return ZoneClientEditorErrorCodes.ZONE_STATE_IS_LOADING;
+        }
+
+        var editorNode = zoneState.EditorState.GetNode(request.Id);
+        if (editorNode.IsNull())
+        {
+            await _mediator.Send(
+                new ReloadPendingZoneStateCommand(),
                 cancellationToken
             );
-            if (!zoneStateResult)
-            {
-                return zoneStateResult.ErrorCode;
-            }
 
-            var zoneState = zoneStateResult.Result;
-            if (zoneState.IsPendingReload)
-            {
-                return ZoneClientEditorErrorCodes.ZONE_STATE_PENDING_RELOAD;
-            }
-            else if (zoneState.IsLoading)
-            {
-                return ZoneClientEditorErrorCodes.ZONE_STATE_IS_LOADING;
-            }
-
-            var editorNode = zoneState.EditorState.GetNode(
-                request.Id
-            );
-            if (editorNode.IsNull())
-            {
-                await _mediator.Send(
-                    new ReloadPendingZoneStateCommand(),
-                    cancellationToken
-                );
-
-                return ZoneClientEditorErrorCodes.EDITOR_NODE_NOT_FOUND;
-            }
-
-            return editorNode;
+            return ZoneClientEditorErrorCodes.EDITOR_NODE_NOT_FOUND;
         }
+
+        return editorNode;
     }
 }

@@ -1,10 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Api
-{
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+﻿namespace EventHorizon.Game.Client.Systems.Player.Api;
 
-    public interface IPlayerZoneDetails
-        : IObjectEntityDetails
-    {
-        string PlayerId { get; }
-    }
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+public interface IPlayerZoneDetails : IObjectEntityDetails
+{
+    string PlayerId { get; }
 }

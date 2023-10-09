@@ -1,34 +1,31 @@
-﻿namespace EventHorizon.Game.Client.Engine.Particle.Stop
+﻿namespace EventHorizon.Game.Client.Engine.Particle.Stop;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Particle.Api;
+
+using MediatR;
+
+public class StopParticleSystemCommandHandler
+    : IRequestHandler<StopParticleSystemCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Particle.Api;
-    using MediatR;
+    private readonly ParticleLifecycleService _service;
 
-    public class StopParticleSystemCommandHandler
-        : IRequestHandler<StopParticleSystemCommand, StandardCommandResult>
+    public StopParticleSystemCommandHandler(ParticleLifecycleService service)
     {
-        private readonly ParticleLifecycleService _service;
+        _service = service;
+    }
 
-        public StopParticleSystemCommandHandler(
-            ParticleLifecycleService service
-        )
-        {
-            _service = service;
-        }
+    public async Task<StandardCommandResult> Handle(
+        StopParticleSystemCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _service.StopSystem(request.Id);
 
-        public async Task<StandardCommandResult> Handle(
-            StopParticleSystemCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _service.StopSystem(
-                request.Id
-            );
-
-            return new StandardCommandResult();
-        }
+        return new StandardCommandResult();
     }
 }

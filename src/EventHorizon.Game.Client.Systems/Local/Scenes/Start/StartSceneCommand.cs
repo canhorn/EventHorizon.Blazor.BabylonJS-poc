@@ -1,17 +1,13 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Scenes.Start
+﻿namespace EventHorizon.Game.Client.Systems.Local.Scenes.Start;
+
+using MediatR;
+
+public struct StartSceneCommand : IRequest<bool>
 {
-    using MediatR;
+    public string SceneId { get; }
 
-    public struct StartSceneCommand
-        : IRequest<bool>
+    public StartSceneCommand(string sceneId)
     {
-        public string SceneId { get; }
-
-        public StartSceneCommand(
-            string sceneId
-        )
-        {
-            SceneId = sceneId;
-        }
+        SceneId = sceneId;
     }
 }

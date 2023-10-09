@@ -1,31 +1,28 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Processing
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Processing;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Wizard.Api;
+
+using MediatR;
+
+public class SetProcessingOnWizardCommandHandler
+    : IRequestHandler<SetProcessingOnWizardCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Wizard.Api;
-    using MediatR;
+    private readonly WizardState _state;
 
-    public class SetProcessingOnWizardCommandHandler
-        : IRequestHandler<SetProcessingOnWizardCommand, StandardCommandResult>
+    public SetProcessingOnWizardCommandHandler(WizardState state)
     {
-        private readonly WizardState _state;
+        _state = state;
+    }
 
-        public SetProcessingOnWizardCommandHandler(
-            WizardState state
-        )
-        {
-            _state = state;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            SetProcessingOnWizardCommand request, 
-            CancellationToken cancellationToken
-        )
-        {
-            return await _state.IsProcessing(
-                request.IsProcessing
-            );
-        }
+    public async Task<StandardCommandResult> Handle(
+        SetProcessingOnWizardCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return await _state.IsProcessing(request.IsProcessing);
     }
 }

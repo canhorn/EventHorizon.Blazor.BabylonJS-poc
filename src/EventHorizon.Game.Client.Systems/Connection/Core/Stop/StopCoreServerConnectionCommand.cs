@@ -1,10 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Systems.Connection.Core.Stop
-{
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Systems.Connection.Core.Stop;
 
-    public class StopCoreServerConnectionCommand
-        : IRequest<StandardCommandResult>
-    {
-    }
-}
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public class StopCoreServerConnectionCommand
+    : IRequest<StandardCommandResult> { }

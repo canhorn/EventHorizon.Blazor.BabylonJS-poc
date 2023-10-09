@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Game.Editor.Client.Authentication.Model
+﻿namespace EventHorizon.Game.Editor.Client.Authentication.Model;
+
+public class PlatformUserModel
 {
-    public class PlatformUserModel
-    {
-        public bool IsAuthenticated { get; set; }
-        public bool IsAdmin { get; set; }
-    }
+    public bool IsAuthenticated { get; set; }
+    public bool IsAdmin { get; set; }
 }

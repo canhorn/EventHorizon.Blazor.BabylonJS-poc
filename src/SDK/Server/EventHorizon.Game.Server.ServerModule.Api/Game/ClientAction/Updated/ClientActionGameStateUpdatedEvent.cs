@@ -13,20 +13,15 @@
     //[ClientAction("CLIENT_ACTION_GAME_STATE_UPDATED")]
     public struct ClientActionGameStateUpdatedEvent
         : INotification,
-        IClientAction
+            IClientAction
     {
         // public GameState GameState { get; }
-        public ClientActionGameStateUpdatedEvent(
-            IClientActionDataResolver _
-        )
-        {
-        }
+        public ClientActionGameStateUpdatedEvent(IClientActionDataResolver _)
+        { }
     }
 
     public interface ClientActionGameStateUpdatedEventObserver
-        : ArgumentObserver<ClientActionGameStateUpdatedEvent>
-    {
-    }
+        : ArgumentObserver<ClientActionGameStateUpdatedEvent> { }
 
     // TODO: Move this into an Implementation Project, Remove from the SDK
     public class ClientActionGameStateUpdatedEventHandler
@@ -34,9 +29,7 @@
     {
         private readonly ObserverState _observer;
 
-        public ClientActionGameStateUpdatedEventHandler(
-            ObserverState observer
-        )
+        public ClientActionGameStateUpdatedEventHandler(ObserverState observer)
         {
             _observer = observer;
         }
@@ -44,9 +37,10 @@
         public Task Handle(
             ClientActionGameStateUpdatedEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<ClientActionGameStateUpdatedEventObserver, ClientActionGameStateUpdatedEvent>(
-            notification,
-            cancellationToken
-        );
+        ) =>
+            _observer.Trigger<
+                ClientActionGameStateUpdatedEventObserver,
+                ClientActionGameStateUpdatedEvent
+            >(notification, cancellationToken);
     }
 }

@@ -1,37 +1,32 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.State
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.State;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
+using EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
+
+public class StandardClientAssetConfigBuilderState
+    : ClientAssetConfigBuilderState
 {
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
+    private readonly IDictionary<
+        string,
+        ClientAssetConfigTypeBuilder
+    > _buildTypes = new Dictionary<string, ClientAssetConfigTypeBuilder>();
 
-    public class StandardClientAssetConfigBuilderState
-        : ClientAssetConfigBuilderState
+    public ClientAssetConfigTypeBuilder Get(string type)
     {
-        private readonly IDictionary<string, ClientAssetConfigTypeBuilder> _buildTypes = new Dictionary<string, ClientAssetConfigTypeBuilder>();
-
-        public ClientAssetConfigTypeBuilder Get(
-            string type
-        )
+        if (_buildTypes.TryGetValue(type, out var value))
         {
-            if (_buildTypes.TryGetValue(
-                type,
-                out var value
-            ))
-            {
-                return value;
-            }
-
-            return new StandardClientAssetConfigTypeBuilder(
-                (data) => new ClientAssetConfigBase(data)
-            );
+            return value;
         }
 
-        public void Set(
-            string type,
-            ClientAssetConfigTypeBuilder builder
-        )
-        {
-            _buildTypes[type] = builder;
-        }
+        return new StandardClientAssetConfigTypeBuilder(
+            (data) => new ClientAssetConfigBase(data)
+        );
+    }
+
+    public void Set(string type, ClientAssetConfigTypeBuilder builder)
+    {
+        _buildTypes[type] = builder;
     }
 }

@@ -37,7 +37,10 @@ public class UploadZoneServerImportFileCommandHandler
             cancellationToken
         );
 
-        if (result.ErrorCode == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE)
+        if (
+            result.ErrorCode
+            == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE
+        )
         {
             return ZoneServerUploadErrorCodes.ZONE_SERVER_UPLOAD_PAYLOAD_TOO_LARGE;
         }

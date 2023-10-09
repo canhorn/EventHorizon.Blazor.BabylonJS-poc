@@ -1,36 +1,29 @@
-﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Model
+﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Model;
+
+using System;
+
+using BabylonJS;
+
+using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
+
+public class BabylonJSAnimationGroup : IAnimationGroup
 {
-    using System;
-    using BabylonJS;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
+    private readonly AnimationGroup _animationGroup;
 
-    public class BabylonJSAnimationGroup
-        : IAnimationGroup
+    public string Name => _animationGroup.name;
+
+    public BabylonJSAnimationGroup(AnimationGroup animationGroup)
     {
-        private readonly AnimationGroup _animationGroup;
+        _animationGroup = animationGroup;
+    }
 
-        public string Name => _animationGroup.name;
+    public void Pause()
+    {
+        _animationGroup.pause();
+    }
 
-        public BabylonJSAnimationGroup(
-            AnimationGroup animationGroup
-        )
-        {
-            _animationGroup = animationGroup;
-        }
-
-
-        public void Pause()
-        {
-            _animationGroup.pause();
-        }
-
-        public void Play(
-            bool? loop = false
-        )
-        {
-            _animationGroup.play(
-                loop
-            );
-        }
+    public void Play(bool? loop = false)
+    {
+        _animationGroup.play(loop);
     }
 }

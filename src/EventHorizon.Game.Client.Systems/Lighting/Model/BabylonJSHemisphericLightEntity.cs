@@ -1,31 +1,32 @@
-﻿namespace EventHorizon.Game.Client.Systems.Lighting.Model
-{
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using BabylonJS;
-    using EventHorizon.Game.Client.Engine.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Entity.Tag;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Model;
-    using EventHorizon.Game.Client.Engine.Rendering.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-    using EventHorizon.Game.Client.Systems.Lighting.Api;
-    using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Api;
-    using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Model;
+﻿namespace EventHorizon.Game.Client.Systems.Lighting.Model;
 
-    public class BabylonJSHemisphericLightEntity
-        : ServerLifecycleEntityBase, 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Threading.Tasks;
+
+using BabylonJS;
+
+using EventHorizon.Game.Client.Engine.Entity.Api;
+using EventHorizon.Game.Client.Engine.Entity.Tag;
+using EventHorizon.Game.Client.Engine.Lifecycle.Model;
+using EventHorizon.Game.Client.Engine.Rendering.Api;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+using EventHorizon.Game.Client.Systems.Lighting.Api;
+using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Api;
+using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Model;
+
+public class BabylonJSHemisphericLightEntity
+    : ServerLifecycleEntityBase,
         ILightEntity
-    {
-        private readonly LightDetailsModel _lightDetails;
+{
+    private readonly LightDetailsModel _lightDetails;
 
-        [MaybeNull]
-        public HemisphericLight Light { get; private set; }
+    [MaybeNull]
+    public HemisphericLight Light { get; private set; }
 
-        public BabylonJSHemisphericLightEntity(
-            LightDetailsModel details
-        ) : base(
+    public BabylonJSHemisphericLightEntity(LightDetailsModel details)
+        : base(
             new ObjectEntityDetailsModel
             {
                 //Id = details.Id,
@@ -42,64 +43,68 @@
                     },
                 },
                 Type = $"LIGHT_{details.Type}",
-                TagList = details.Tags.Concat(
-                    new List<string>
-                    {
-                        TagBuilder.CreateTypeTag("light"),
-                        TagBuilder.CreateNameTag(details.Name),
-                    }
-                ).ToList(),
-            }
-        )
-        {
-            _lightDetails = details;
-        }
-
-        public override Task Initialize()
-        {
-            var scene = GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene;
-            Light = new HemisphericLight(
-                Name,
-                Transform.Position.ToBabylonJS(),
-                scene
-            );
-            if (_lightDetails.EnableDayNightCycle)
-            {
-                RegisterModule(
-                    SunlightModule.MODULE_NAME,
-                    new StandardSunlightModule(
-                        this,
-                        false,
-                        (direction, intensity) =>
+                TagList = details.Tags
+                    .Concat(
+                        new List<string>
                         {
-                            Transform.Position.Set(direction);
-                            Light.intensity = intensity;
+                            TagBuilder.CreateTypeTag("light"),
+                            TagBuilder.CreateNameTag(details.Name),
                         }
                     )
-                );
+                    .ToList(),
             }
-            return Task.CompletedTask;
-        }
+        )
+    {
+        _lightDetails = details;
+    }
 
-        public override Task PostInitialize()
+    public override Task Initialize()
+    {
+        var scene = GameServiceProvider
+            .GetService<IRenderingScene>()
+            .GetBabylonJSScene()
+            .Scene;
+        Light = new HemisphericLight(
+            Name,
+            Transform.Position.ToBabylonJS(),
+            scene
+        );
+        if (_lightDetails.EnableDayNightCycle)
         {
-            return base.PostInitialize();
+            RegisterModule(
+                SunlightModule.MODULE_NAME,
+                new StandardSunlightModule(
+                    this,
+                    false,
+                    (direction, intensity) =>
+                    {
+                        Transform.Position.Set(direction);
+                        Light.intensity = intensity;
+                    }
+                )
+            );
         }
+        return Task.CompletedTask;
+    }
 
-        public override Task Dispose()
-        {
-            Light?.dispose();
-            return base.Dispose();
-        }
+    public override Task PostInitialize()
+    {
+        return base.PostInitialize();
+    }
 
-        public override Task Draw()
-        {
-            return Task.CompletedTask;
-        }
+    public override Task Dispose()
+    {
+        Light?.dispose();
+        return base.Dispose();
+    }
 
-        public override Task Update()
-        {
-            return base.Update();
-        }
+    public override Task Draw()
+    {
+        return Task.CompletedTask;
+    }
+
+    public override Task Update()
+    {
+        return base.Update();
     }
 }

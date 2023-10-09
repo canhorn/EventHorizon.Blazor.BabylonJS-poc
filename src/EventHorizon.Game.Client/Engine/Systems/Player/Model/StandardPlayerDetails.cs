@@ -1,21 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Player.Model
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Player.Model;
+
+using System;
+
+using EventHorizon.Game.Client.Engine.Systems.Player.Api;
+
+public class StandardPlayerDetails : IPlayerDetails
 {
-    using System;
-    using EventHorizon.Game.Client.Engine.Systems.Player.Api;
+    public string PlayerId { get; }
+    public string AccessToken { get; }
 
-    public class StandardPlayerDetails
-        : IPlayerDetails
+    public StandardPlayerDetails(string playerId, string accessToken)
     {
-        public string PlayerId { get; }
-        public string AccessToken { get; }
-
-        public StandardPlayerDetails(
-            string playerId,
-            string accessToken
-        )
-        {
-            PlayerId = playerId;
-            AccessToken = accessToken;
-        }
+        PlayerId = playerId;
+        AccessToken = accessToken;
     }
 }

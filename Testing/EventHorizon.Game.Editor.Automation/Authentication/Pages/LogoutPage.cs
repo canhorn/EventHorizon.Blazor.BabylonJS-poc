@@ -3,8 +3,4 @@
 using Atata;
 
 [Url("/authentication/logout")]
-public class LogoutPage
-    : Page<LogoutPage>
-{
-
-}
+public class LogoutPage : Page<LogoutPage> { }

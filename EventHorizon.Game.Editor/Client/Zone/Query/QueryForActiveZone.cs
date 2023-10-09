@@ -5,5 +5,4 @@ using EventHorizon.Game.Editor.Client.Zone.Api;
 
 using MediatR;
 
-public record QueryForActiveZone
-    : IRequest<CommandResult<ZoneState>> { }
+public record QueryForActiveZone : IRequest<CommandResult<ZoneState>> { }

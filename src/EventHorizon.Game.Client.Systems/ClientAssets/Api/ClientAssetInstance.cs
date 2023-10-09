@@ -1,10 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Api
-{
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Api;
 
-    public interface ClientAssetInstance
-        : IDisposableEntity
-    {
-        string AssetInstanceId { get; }
-    }
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+
+public interface ClientAssetInstance : IDisposableEntity
+{
+    string AssetInstanceId { get; }
 }

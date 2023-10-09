@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Processing
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Processing;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct SetProcessingOnWizardCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public bool IsProcessing { get; }
 
-    public struct SetProcessingOnWizardCommand
-        : IRequest<StandardCommandResult>
+    public SetProcessingOnWizardCommand(bool isProcessing)
     {
-        public bool IsProcessing { get; }
-
-        public SetProcessingOnWizardCommand(
-            bool isProcessing
-        )
-        {
-            IsProcessing = isProcessing;
-        }
+        IsProcessing = isProcessing;
     }
 }

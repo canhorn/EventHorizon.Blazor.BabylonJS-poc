@@ -1,6 +1,3 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Model
-{
-    public class FileDetails
-    {
-    }
-}
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Model;
+
+public class FileDetails { }

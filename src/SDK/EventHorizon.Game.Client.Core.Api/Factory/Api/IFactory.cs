@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Core.Factory.Api
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Core.Factory.Api;
 
-    public interface IFactory<T>
-    {
-        T Create();
-    }
+using System;
+
+public interface IFactory<T>
+{
+    T Create();
 }

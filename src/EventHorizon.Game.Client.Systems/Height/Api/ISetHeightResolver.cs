@@ -1,9 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Systems.Height.Api
+﻿namespace EventHorizon.Game.Client.Systems.Height.Api;
+
+public interface ISetHeightResolver
 {
-    public interface ISetHeightResolver
-    {
-        void setCoordinates(
-            IHeightCoordinates coordinates
-        );
-    }
+    void setCoordinates(IHeightCoordinates coordinates);
 }

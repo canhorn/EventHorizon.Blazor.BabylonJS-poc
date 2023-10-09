@@ -1,10 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Systems.Height.Api
+﻿namespace EventHorizon.Game.Client.Systems.Height.Api;
+
+public interface IHeightCoordinates
 {
-    public interface IHeightCoordinates
-    {
-        decimal getHeightAtCoordinates(
-            decimal x,
-            decimal z
-        );
-    }
+    decimal getHeightAtCoordinates(decimal x, decimal z);
 }

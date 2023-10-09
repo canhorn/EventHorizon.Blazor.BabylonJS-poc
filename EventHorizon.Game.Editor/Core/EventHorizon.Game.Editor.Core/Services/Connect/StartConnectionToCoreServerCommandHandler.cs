@@ -1,33 +1,34 @@
-﻿namespace EventHorizon.Game.Editor.Core.Services.Connect
+﻿namespace EventHorizon.Game.Editor.Core.Services.Connect;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Core.Services.Api;
+
+using MediatR;
+
+public class StartConnectionToCoreServerCommandHandler
+    : IRequestHandler<StartConnectionToCoreServerCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Core.Services.Api;
-    using MediatR;
+    private readonly CoreAdminServices _coreAdminServices;
 
-    public class StartConnectionToCoreServerCommandHandler
-        : IRequestHandler<StartConnectionToCoreServerCommand, StandardCommandResult>
+    public StartConnectionToCoreServerCommandHandler(
+        CoreAdminServices coreAdminServices
+    )
     {
-        private readonly CoreAdminServices _coreAdminServices;
+        _coreAdminServices = coreAdminServices;
+    }
 
-        public StartConnectionToCoreServerCommandHandler(
-            CoreAdminServices coreAdminServices
-        )
-        {
-            _coreAdminServices = coreAdminServices;
-        }
-
-        public Task<StandardCommandResult> Handle(
-            StartConnectionToCoreServerCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            return _coreAdminServices.Connect(
-                request.AccessToken,
-                cancellationToken
-            );
-        }
+    public Task<StandardCommandResult> Handle(
+        StartConnectionToCoreServerCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return _coreAdminServices.Connect(
+            request.AccessToken,
+            cancellationToken
+        );
     }
 }

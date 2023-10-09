@@ -1,54 +1,51 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Delete
+﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Delete;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
+using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class DeleteZoneEditorFileCommandHandler
+    : IRequestHandler<DeleteZoneEditorFileCommand, EditorResponse>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
+    private readonly ILogger _logger;
+    private readonly ZoneEditorServices _zoneEditorServices;
 
-    public class DeleteZoneEditorFileCommandHandler
-        : IRequestHandler<DeleteZoneEditorFileCommand, EditorResponse>
+    public DeleteZoneEditorFileCommandHandler(
+        ILogger<DeleteZoneEditorFileCommandHandler> logger,
+        ZoneEditorServices zoneEditorServices
+    )
     {
-        private readonly ILogger _logger;
-        private readonly ZoneEditorServices _zoneEditorServices;
+        _logger = logger;
+        _zoneEditorServices = zoneEditorServices;
+    }
 
-        public DeleteZoneEditorFileCommandHandler(
-            ILogger<DeleteZoneEditorFileCommandHandler> logger,
-            ZoneEditorServices zoneEditorServices
-        )
+    public Task<EditorResponse> Handle(
+        DeleteZoneEditorFileCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        try
         {
-            _logger = logger;
-            _zoneEditorServices = zoneEditorServices;
+            return _zoneEditorServices.Api.DeleteEditorFile(
+                request.Path,
+                request.FileName
+            );
         }
-
-
-        public Task<EditorResponse> Handle(
-            DeleteZoneEditorFileCommand request,
-            CancellationToken cancellationToken
-        )
+        catch (Exception ex)
         {
-            try
-            {
-                return _zoneEditorServices.Api.DeleteEditorFile(
-                    request.Path,
-                    request.FileName
-                );
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(
-                    ex,
-                    "Failed to Delete Zone Editor File",
-                    request
-                );
-            }
-            return new EditorResponse
-            {
-                Successful = false,
-                ErrorCode = ZoneEditorErrorCodes.FAILED_DELETE_ZONE_EDITOR_FILE,
-            }.FromResult();
+            _logger.LogError(ex, "Failed to Delete Zone Editor File", request);
         }
+        return new EditorResponse
+        {
+            Successful = false,
+            ErrorCode = ZoneEditorErrorCodes.FAILED_DELETE_ZONE_EDITOR_FILE,
+        }.FromResult();
     }
 }

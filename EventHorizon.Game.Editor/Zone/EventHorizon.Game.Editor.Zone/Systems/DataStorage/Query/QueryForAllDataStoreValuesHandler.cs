@@ -1,42 +1,43 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Systems.DataStorage.Query
+﻿namespace EventHorizon.Game.Editor.Zone.Systems.DataStorage.Query;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Zone.Systems.DataStorage.Query;
+
+using MediatR;
+
+public class QueryForAllDataStoreValuesHandler
+    : IRequestHandler<
+        QueryForAllDataStoreValues,
+        CommandResult<IDictionary<string, object>>
+    >
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Zone.Systems.DataStorage.Query;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class QueryForAllDataStoreValuesHandler
-        : IRequestHandler<QueryForAllDataStoreValues, CommandResult<IDictionary<string, object>>>
+    public QueryForAllDataStoreValuesHandler(
+        ZoneAdminServices zoneAdminServices
+    )
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public QueryForAllDataStoreValuesHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<CommandResult<IDictionary<string, object>>> Handle(
+        QueryForAllDataStoreValues request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.DataStorage.All(
+            cancellationToken
+        );
+        if (result.Success.IsNotTrue() || result.Result.IsNull())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
-        public async Task<CommandResult<IDictionary<string, object>>> Handle(
-            QueryForAllDataStoreValues request, 
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.DataStorage.All(
-                cancellationToken
-            );
-            if (result.Success.IsNotTrue()
-                || result.Result.IsNull()
-            )
-            {
-                return result.ErrorCode
-                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
-            }
-
-            return result.Result;
-        }
+        return result.Result;
     }
 }

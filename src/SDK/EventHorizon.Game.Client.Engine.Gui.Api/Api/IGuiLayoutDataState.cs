@@ -2,13 +2,9 @@
 
 public interface IGuiLayoutDataState
 {
-    Option<IGuiLayoutData> Get(
-        string id
-    );
+    Option<IGuiLayoutData> Get(string id);
 
-    void Set(
-        IGuiLayoutData layout
-    );
+    void Set(IGuiLayoutData layout);
 
     void Clear();
 }

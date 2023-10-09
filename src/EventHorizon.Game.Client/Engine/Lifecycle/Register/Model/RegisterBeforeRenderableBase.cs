@@ -1,20 +1,21 @@
-﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Model
+﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Model;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
+
+public class RegisterBeforeRenderableBase
+    : RegisterBase<IBeforeRenderableEntity>,
+        IRegisterBeforeRenderable
 {
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
-
-    public class RegisterBeforeRenderableBase
-        : RegisterBase<IBeforeRenderableEntity>, IRegisterBeforeRenderable
+    public override Task Run()
     {
-        public override Task Run()
+        foreach (var entity in _entityList)
         {
-            foreach (var entity in _entityList)
-            {
-                entity.BeforeRender();
-            }
-
-            return Task.CompletedTask;
+            entity.BeforeRender();
         }
+
+        return Task.CompletedTask;
     }
 }

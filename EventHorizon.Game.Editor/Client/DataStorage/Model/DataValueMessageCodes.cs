@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.Game.Editor.Client.DataStorage.Model
+﻿namespace EventHorizon.Game.Editor.Client.DataStorage.Model;
+
+public static class DataValueMessageCodes
 {
-    public static class DataValueMessageCodes
-    {
-        public const string Loading = nameof(Loading);
-    }
+    public const string Loading = nameof(Loading);
 }

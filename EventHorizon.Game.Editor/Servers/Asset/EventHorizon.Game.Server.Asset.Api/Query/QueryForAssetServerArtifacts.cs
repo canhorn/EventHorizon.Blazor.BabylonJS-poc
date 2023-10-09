@@ -6,6 +6,4 @@ using EventHorizon.Game.Server.Asset.Model;
 using MediatR;
 
 public struct QueryForAssetServerArtifacts
-    : IRequest<CommandResult<AssetServerArtifacts>>
-{
-}
+    : IRequest<CommandResult<AssetServerArtifacts>> { }

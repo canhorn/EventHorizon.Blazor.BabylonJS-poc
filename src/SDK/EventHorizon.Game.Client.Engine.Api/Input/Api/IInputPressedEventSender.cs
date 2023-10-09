@@ -1,12 +1,11 @@
-﻿using System;
+﻿namespace EventHorizon.Game.Client.Engine.Input.Api;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventHorizon.Game.Client.Engine.Input.Api
+public interface IInputPressedEventSender
 {
-    public interface IInputPressedEventSender
-    {
-        Task SendEvent(IKeyEvent keyEvent);
-    }
+    Task SendEvent(IKeyEvent keyEvent);
 }

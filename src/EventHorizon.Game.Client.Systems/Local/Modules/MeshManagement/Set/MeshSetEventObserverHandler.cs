@@ -1,28 +1,27 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set
+﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public class MeshSetEventObserverHandler : INotificationHandler<MeshSetEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    private readonly ObserverState _observer;
 
-    public class MeshSetEventObserverHandler
-        : INotificationHandler<MeshSetEvent>
+    public MeshSetEventObserverHandler(ObserverState observer)
     {
-        private readonly ObserverState _observer;
+        _observer = observer;
+    }
 
-        public MeshSetEventObserverHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            MeshSetEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<MeshSetEventObserver, MeshSetEvent>(
+    public Task Handle(
+        MeshSetEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<MeshSetEventObserver, MeshSetEvent>(
             notification,
             cancellationToken
         );
-    }
 }

@@ -5,8 +5,7 @@ using EventHorizon.Game.Editor.Zone.AdminClientAction.Attributes;
 using EventHorizon.Observer.Model;
 
 [AdminClientAction("ZONE_SERVER_BACKUP_FINISHED_ADMIN_CLIENT_ACTION")]
-public struct ZoneServerBackupFinishedEvent
-    : IAdminClientAction
+public struct ZoneServerBackupFinishedEvent : IAdminClientAction
 {
     public string ReferenceId { get; }
     public string BackupUrl { get; }
@@ -15,16 +14,10 @@ public struct ZoneServerBackupFinishedEvent
         IAdminClientActionDataResolver resolver
     )
     {
-        ReferenceId = resolver.Resolve<string>(
-            "referenceId"
-        );
-        BackupUrl = resolver.Resolve<string>(
-            "backupUrl"
-        );
+        ReferenceId = resolver.Resolve<string>("referenceId");
+        BackupUrl = resolver.Resolve<string>("backupUrl");
     }
 }
 
 public interface ZoneServerBackupFinishedEventObserver
-    : ArgumentObserver<ZoneServerBackupFinishedEvent>
-{
-}
+    : ArgumentObserver<ZoneServerBackupFinishedEvent> { }

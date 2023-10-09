@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 
-public class StandardGuiControlTemplateState
-    : IGuiControlTemplateState
+public class StandardGuiControlTemplateState : IGuiControlTemplateState
 {
     private readonly Dictionary<string, IGuiControlTemplate> _map = new();
 

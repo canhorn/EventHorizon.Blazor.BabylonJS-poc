@@ -15,10 +15,13 @@ public abstract class EditorComponentBase : ComponentBase
 {
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;
+
     [Inject]
     public IMediator Mediator { get; set; } = null!;
+
     [Inject]
     public ISender Sender { get; set; } = null!;
+
     [Inject]
     public IPublisher Publisher { get; set; } = null!;
 
@@ -26,6 +29,5 @@ public abstract class EditorComponentBase : ComponentBase
         string title,
         string message,
         MessageLevel level = MessageLevel.Success
-    ) =>
-        await Mediator.Publish(new ShowMessageEvent(title, message, level));
+    ) => await Mediator.Publish(new ShowMessageEvent(title, message, level));
 }

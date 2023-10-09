@@ -1,23 +1,20 @@
-﻿namespace EventHorizon.Game.Client.Systems.Entity.Changed
+﻿namespace EventHorizon.Game.Client.Systems.Entity.Changed;
+
+using System;
+
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct EntityChangedSuccessfullyEvent : INotification
 {
-    using System;
-    using EventHorizon.Observer.Model;
-    using MediatR;
+    public long EntityId { get; }
 
-    public struct EntityChangedSuccessfullyEvent : INotification
+    public EntityChangedSuccessfullyEvent(long entityId)
     {
-        public long EntityId { get; }
-
-        public EntityChangedSuccessfullyEvent(
-            long entityId
-        )
-        {
-            EntityId = entityId;
-        }
-    }
-
-    public interface EntityChangedSuccessfullyEventObserver
-        : ArgumentObserver<EntityChangedSuccessfullyEvent>
-    {
+        EntityId = entityId;
     }
 }
+
+public interface EntityChangedSuccessfullyEventObserver
+    : ArgumentObserver<EntityChangedSuccessfullyEvent> { }

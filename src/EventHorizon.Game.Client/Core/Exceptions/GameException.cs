@@ -1,17 +1,14 @@
-﻿namespace EventHorizon.Game.Client.Core.Exceptions
+﻿namespace EventHorizon.Game.Client.Core.Exceptions;
+
+using System;
+
+public class GameException : Exception
 {
-    using System;
+    public string ErrorCode { get; private set; }
 
-    public class GameException : Exception
+    public GameException(string errorCode, string message)
+        : base(message)
     {
-        public string ErrorCode { get; private set; }
-
-        public GameException(
-            string errorCode,
-            string message
-        ) : base(message)
-        {
-            ErrorCode = errorCode;
-        }
+        ErrorCode = errorCode;
     }
 }

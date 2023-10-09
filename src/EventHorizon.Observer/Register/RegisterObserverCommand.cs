@@ -1,17 +1,15 @@
-﻿using EventHorizon.Observer.Model;
+﻿namespace EventHorizon.Observer.Register;
+
+using EventHorizon.Observer.Model;
+
 using MediatR;
 
-namespace EventHorizon.Observer.Register
+public class RegisterObserverCommand : IRequest
 {
-    public class RegisterObserverCommand : IRequest
-    {
-        public ObserverBase Observer { get; }
+    public ObserverBase Observer { get; }
 
-        public RegisterObserverCommand(
-            ObserverBase observer
-        )
-        {
-            Observer = observer;
-        }
+    public RegisterObserverCommand(ObserverBase observer)
+    {
+        Observer = observer;
     }
 }

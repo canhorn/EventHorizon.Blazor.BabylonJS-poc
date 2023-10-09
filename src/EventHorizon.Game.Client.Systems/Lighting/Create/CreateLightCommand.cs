@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Client.Systems.Lighting.Create
+﻿namespace EventHorizon.Game.Client.Systems.Lighting.Create;
+
+using EventHorizon.Game.Client.Systems.Lighting.Model;
+
+using MediatR;
+
+public class CreateLightCommand : IRequest
 {
-    using EventHorizon.Game.Client.Systems.Lighting.Model;
-    using MediatR;
+    public LightDetailsModel LightDetailsModel { get; }
 
-    public class CreateLightCommand
-        : IRequest
+    public CreateLightCommand(LightDetailsModel lightDetailsModel)
     {
-        public LightDetailsModel LightDetailsModel { get; }
-
-        public CreateLightCommand(
-            LightDetailsModel lightDetailsModel
-        )
-        {
-            LightDetailsModel = lightDetailsModel;
-        }
+        LightDetailsModel = lightDetailsModel;
     }
 }

@@ -1,25 +1,19 @@
-﻿namespace EventHorizon.Zone.Systems.DataStorage.Update
+﻿namespace EventHorizon.Zone.Systems.DataStorage.Update;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct UpdateDataStoreValueCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Key { get; }
+    public string Type { get; }
+    public object Value { get; }
 
-    public struct UpdateDataStoreValueCommand
-        : IRequest<StandardCommandResult>
+    public UpdateDataStoreValueCommand(string key, string type, object value)
     {
-        public string Key { get; }
-        public string Type { get; }
-        public object Value { get; }
-
-        public UpdateDataStoreValueCommand(
-            string key,
-            string type,
-            object value
-        )
-        {
-            Key = key;
-            Type = type;
-            Value = value;
-        }
-
+        Key = key;
+        Type = type;
+        Value = value;
     }
 }

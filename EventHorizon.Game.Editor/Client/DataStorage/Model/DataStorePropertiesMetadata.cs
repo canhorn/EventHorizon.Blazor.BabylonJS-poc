@@ -1,87 +1,81 @@
-﻿namespace EventHorizon.Game.Editor.Client.DataStorage.Model
+﻿namespace EventHorizon.Game.Editor.Client.DataStorage.Model;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+
+using EventHorizon.Game.Editor.Properties.Api;
+using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
+
+using Newtonsoft.Json.Linq;
+
+public class DataStorePropertiesMetadata : PropertiesMetadata
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text.Json;
-    using EventHorizon.Game.Editor.Properties.Api;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-    using Newtonsoft.Json.Linq;
+    public const string DATA_STORE_SCHEMA_KEY = "dataStore:Schema";
 
-    public class DataStorePropertiesMetadata
-        : PropertiesMetadata
+    private readonly Dictionary<string, string>? _metadata = new();
+
+    public DataStorePropertiesMetadata(
+        Dictionary<string, string>? metadata = null
+    )
     {
-        public const string DATA_STORE_SCHEMA_KEY = "dataStore:Schema";
+        if (metadata is not null)
+        {
+            _metadata = metadata;
+        }
+    }
 
-        private readonly Dictionary<string, string>? _metadata = new();
+    public string GetPropertyType(string name, object value)
+    {
+        var type =
+            _metadata?.FirstOrDefault(prop => name == prop.Key).Value
+            ?? ZoneEditorPropertyType.PropertyString;
 
-        public DataStorePropertiesMetadata(
-            Dictionary<string, string>? metadata = null
+        if (
+            type == ZoneEditorPropertyType.PropertyString
+            && IsComplexPropertyType(value)
         )
         {
-            if (metadata is not null)
-            {
-                _metadata = metadata;
-            }
+            type = ZoneEditorPropertyType.PropertyComplex;
         }
 
-        public string GetPropertyType(
-            string name,
-            object value
+        return type;
+    }
+
+    public object GetDefaultValueForPropertyType(string propertyType)
+    {
+        return propertyType switch
+        {
+            ZoneEditorPropertyType.PropertyBoolean => false,
+            ZoneEditorPropertyType.PropertyDecimal => 0.0m,
+            ZoneEditorPropertyType.PropertyLong => 0,
+            ZoneEditorPropertyType.PropertyString => string.Empty,
+            ZoneEditorPropertyType.PropertyComplex => new { },
+            _ => string.Empty,
+        };
+    }
+
+    private static bool IsComplexPropertyType(object propertyValue)
+    {
+        if (
+            propertyValue is JsonElement jsonElement
+            && jsonElement.ValueKind == JsonValueKind.Object
         )
         {
-            var type = _metadata?.FirstOrDefault(
-                prop => name == prop.Key
-            ).Value ?? ZoneEditorPropertyType.PropertyString;
-
-            if (type == ZoneEditorPropertyType.PropertyString
-                && IsComplexPropertyType(
-                    value
-                )
-            )
-            {
-                type = ZoneEditorPropertyType.PropertyComplex;
-            }
-
-            return type;
+            return true;
         }
-
-        public object GetDefaultValueForPropertyType(
-            string propertyType
+        else if (
+            propertyValue is JObject jObject
+            && jObject.Type == JTokenType.Object
         )
         {
-            return propertyType switch
-            {
-                ZoneEditorPropertyType.PropertyBoolean => false,
-                ZoneEditorPropertyType.PropertyDecimal => 0.0m,
-                ZoneEditorPropertyType.PropertyLong => 0,
-                ZoneEditorPropertyType.PropertyString => string.Empty,
-                ZoneEditorPropertyType.PropertyComplex => new { },
-                _ => string.Empty,
-            };
+            return true;
         }
-
-        private static bool IsComplexPropertyType(
-            object propertyValue
-        )
+        else if (propertyValue is Dictionary<string, object>)
         {
-            if (propertyValue is JsonElement jsonElement
-                && jsonElement.ValueKind == JsonValueKind.Object
-            )
-            {
-                return true;
-            }
-            else if (propertyValue is JObject jObject
-                && jObject.Type == JTokenType.Object
-            )
-            {
-                return true;
-            }
-            else if (propertyValue is Dictionary<string, object>)
-            {
-                return true;
-            }
-
-            return false;
+            return true;
         }
+
+        return false;
     }
 }

@@ -1,14 +1,14 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Api
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Api;
+
+using System;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+public interface EntityEditorState
 {
-    using System;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+    public Func<IObjectEntityDetails, Task> OnSave { get; }
 
-    public interface EntityEditorState
-    {
-        public Func<IObjectEntityDetails, Task> OnSave { get; }
-
-        public bool ShowDelete { get; }
-        public Func<IObjectEntityDetails, Task> OnDelete { get; }
-    }
+    public bool ShowDelete { get; }
+    public Func<IObjectEntityDetails, Task> OnDelete { get; }
 }

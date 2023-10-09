@@ -15,7 +15,12 @@ public class QueryForActiveEditorNodeTreeView
 {
     public TreeViewNodeData ExistingTreeView { get; }
     public IEnumerable<string> ExpandedList { get; }
-    public Action<EditorNode, EditorFileModalType, bool, bool> OnContextMenuClick { get; }
+    public Action<
+        EditorNode,
+        EditorFileModalType,
+        bool,
+        bool
+    > OnContextMenuClick { get; }
 
     public QueryForActiveEditorNodeTreeView(
         TreeViewNodeData existingTreeView,

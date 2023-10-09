@@ -1,37 +1,37 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types;
+
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Components;
+
+public class WizardStepCaptureCurrentLocationBase : WizardStepCommonBase
 {
-    using System.Threading.Tasks;
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
 
-    using Microsoft.AspNetCore.Components;
+    public string ErrorMessage { get; set; } = string.Empty;
 
-    public class WizardStepCaptureCurrentLocationBase
-        : WizardStepCommonBase
+    protected override async Task OnInitializingAsync()
     {
-        [Inject]
-        public NavigationManager NavigationManager { get; set; } = null!;
+        var currentLocation = NavigationManager.ToBaseRelativePath(
+            NavigationManager.Uri
+        );
 
-        public string ErrorMessage { get; set; } = string.Empty;
-
-        protected override async Task OnInitializingAsync()
-        {
-            var currentLocation = NavigationManager.ToBaseRelativePath(
-                NavigationManager.Uri
-            );
-
-            if (Step.Details.TryGetValue(
+        if (
+            Step.Details.TryGetValue(
                 "CurrentLocationProperty",
                 out var property
-            ))
-            {
-                Data[property] = currentLocation;
-
-                await State.Next();
-                return;
-            }
-
-            Data["CurrentLocation"] = currentLocation;
+            )
+        )
+        {
+            Data[property] = currentLocation;
 
             await State.Next();
+            return;
         }
+
+        Data["CurrentLocation"] = currentLocation;
+
+        await State.Next();
     }
 }

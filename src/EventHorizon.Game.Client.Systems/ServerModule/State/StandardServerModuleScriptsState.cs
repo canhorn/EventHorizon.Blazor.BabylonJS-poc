@@ -1,28 +1,26 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule.State
+﻿namespace EventHorizon.Game.Client.Systems.ServerModule.State;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Systems.ServerModule.Api;
+
+public class StandardServerModuleScriptsState : ServerModuleScriptsState
 {
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.ServerModule.Api;
+    private readonly IDictionary<string, IServerModuleScripts> _serverModules =
+        new Dictionary<string, IServerModuleScripts>();
 
-    public class StandardServerModuleScriptsState
-        : ServerModuleScriptsState
+    public IEnumerable<IServerModuleScripts> All()
     {
-        private readonly IDictionary<string, IServerModuleScripts> _serverModules = new Dictionary<string, IServerModuleScripts>();
+        return _serverModules.Values;
+    }
 
-        public IEnumerable<IServerModuleScripts> All()
-        {
-            return _serverModules.Values;
-        }
+    public void Clear()
+    {
+        _serverModules.Clear();
+    }
 
-        public void Clear()
-        {
-            _serverModules.Clear();
-        }
-
-        public void Set(
-            IServerModuleScripts serverModuleScript
-        )
-        {
-            _serverModules[serverModuleScript.Name] = serverModuleScript;
-        }
+    public void Set(IServerModuleScripts serverModuleScript)
+    {
+        _serverModules[serverModuleScript.Name] = serverModuleScript;
     }
 }

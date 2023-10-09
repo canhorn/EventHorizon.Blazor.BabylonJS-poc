@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Engine.Window.Api
+﻿namespace EventHorizon.Game.Client.Engine.Window.Api;
+
+public interface ISystemWindow
 {
-    public interface ISystemWindow
-    {
-        void NavigateTo(string url);
-    }
+    void NavigateTo(string url);
 }

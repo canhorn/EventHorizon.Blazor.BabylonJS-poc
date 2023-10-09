@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Load
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Load;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct LoadAssetServerFilterPathCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string FilterPath { get; }
 
-    public struct LoadAssetServerFilterPathCommand
-        : IRequest<StandardCommandResult>
+    public LoadAssetServerFilterPathCommand(string filterPath)
     {
-        public string FilterPath { get; }
-
-        public LoadAssetServerFilterPathCommand(
-            string filterPath
-        )
-        {
-            FilterPath = filterPath;
-        }
+        FilterPath = filterPath;
     }
 }

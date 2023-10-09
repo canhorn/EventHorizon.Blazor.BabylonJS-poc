@@ -1,20 +1,18 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Editor.Clone
+﻿namespace EventHorizon.Game.Editor.Zone.Editor.Clone;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+
+using MediatR;
+
+public struct CloneObjectEntityDetailsCommand
+    : IRequest<CommandResult<ObjectEntityDetailsModel>>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-    using MediatR;
+    public IObjectEntityDetails EntityDetails { get; }
 
-    public struct CloneObjectEntityDetailsCommand
-        : IRequest<CommandResult<ObjectEntityDetailsModel>>
+    public CloneObjectEntityDetailsCommand(IObjectEntityDetails entityDetails)
     {
-        public IObjectEntityDetails EntityDetails { get; }
-
-        public CloneObjectEntityDetailsCommand(
-            IObjectEntityDetails entityDetails
-        )
-        {
-            EntityDetails = entityDetails;
-        }
+        EntityDetails = entityDetails;
     }
 }

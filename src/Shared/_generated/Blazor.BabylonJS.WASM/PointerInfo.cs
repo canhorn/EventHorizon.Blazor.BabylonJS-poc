@@ -1,42 +1,42 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<PointerInfo>))]
+public class PointerInfo : PointerInfoBase
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<PointerInfo>))]
-    public class PointerInfo : PointerInfoBase
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    #endregion
+
+    #region Properties
+    private PickingInfo __pickInfo;
+    public PickingInfo pickInfo
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-
-        #endregion
-
-        #region Properties
-        private PickingInfo __pickInfo;
-        public PickingInfo pickInfo
+        get
         {
-            get
-            {
-            if(__pickInfo == null)
+            if (__pickInfo == null)
             {
                 __pickInfo = EventHorizonBlazorInterop.GetClass<PickingInfo>(
                     this.___guid,
@@ -48,42 +48,36 @@ namespace BabylonJS
                 );
             }
             return __pickInfo;
-            }
-            set
-            {
-__pickInfo = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "pickInfo",
-                    value
-                );
-            }
         }
-        #endregion
-        
-        #region Constructor
-        public PointerInfo() : base() { }
-
-        public PointerInfo(
-            ICachedEntity entity
-        ) : base(entity)
+        set
         {
+            __pickInfo = null;
+            EventHorizonBlazorInterop.Set(this.___guid, "pickInfo", value);
         }
-
-        public PointerInfo(
-            decimal type, PointerEvent @event, PickingInfo pickInfo
-        ) : base()
-        {
-            var entity = EventHorizonBlazorInterop.New(
-                new string[] { "BABYLON", "PointerInfo" },
-                type, @event, pickInfo
-            );
-            ___guid = entity.___guid;
-        }
-        #endregion
-
-        #region Methods
-
-        #endregion
     }
+    #endregion
+
+    #region Constructor
+    public PointerInfo()
+        : base() { }
+
+    public PointerInfo(ICachedEntity entity)
+        : base(entity) { }
+
+    public PointerInfo(decimal type, PointerEvent @event, PickingInfo pickInfo)
+        : base()
+    {
+        var entity = EventHorizonBlazorInterop.New(
+            new string[] { "BABYLON", "PointerInfo" },
+            type,
+            @event,
+            pickInfo
+        );
+        ___guid = entity.___guid;
+    }
+    #endregion
+
+    #region Methods
+
+    #endregion
 }

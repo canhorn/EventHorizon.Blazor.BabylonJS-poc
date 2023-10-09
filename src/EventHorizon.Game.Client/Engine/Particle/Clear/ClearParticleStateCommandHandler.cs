@@ -9,16 +9,11 @@ using EventHorizon.Game.Client.Engine.Particle.Api;
 using MediatR;
 
 public class ClearParticleStateCommandHandler
-    : IRequestHandler<
-          ClearParticleStateCommand,
-          StandardCommandResult
-      >
+    : IRequestHandler<ClearParticleStateCommand, StandardCommandResult>
 {
     private readonly ParticleState _state;
 
-    public ClearParticleStateCommandHandler(
-        ParticleState state
-    )
+    public ClearParticleStateCommandHandler(ParticleState state)
     {
         _state = state;
     }

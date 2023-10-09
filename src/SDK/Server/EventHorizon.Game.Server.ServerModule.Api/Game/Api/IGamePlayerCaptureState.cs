@@ -13,5 +13,4 @@
         bool ShownTenSecondMessage { get; }
         bool ShownFiveSecondMessage { get; }
     }
-
 }

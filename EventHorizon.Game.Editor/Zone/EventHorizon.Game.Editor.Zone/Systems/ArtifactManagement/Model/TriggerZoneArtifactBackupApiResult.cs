@@ -8,8 +8,6 @@ public class TriggerZoneArtifactBackupApiResult
 
     internal TriggerZoneArtifactBackupResult ToResult()
     {
-        return new TriggerZoneArtifactBackupResult(
-            ReferenceId
-        );
+        return new TriggerZoneArtifactBackupResult(ReferenceId);
     }
 }

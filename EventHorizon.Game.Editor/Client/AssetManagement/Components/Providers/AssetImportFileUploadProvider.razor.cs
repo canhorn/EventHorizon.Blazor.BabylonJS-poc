@@ -16,7 +16,7 @@ using Microsoft.JSInterop;
 
 public class AssetImportFileUploadProviderModel
     : ObservableComponentBase,
-      OpenAssetServerImportFileUploaderEventObserver
+        OpenAssetServerImportFileUploaderEventObserver
 {
     [CascadingParameter]
     public AccessTokenModel AccessToken { get; set; } = null!;

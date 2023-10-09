@@ -1,26 +1,21 @@
-﻿using System;
+﻿namespace EventHorizon.Game.Client.Core.Configuration;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EventHorizon.Game.Client.Core.Configuration
+public static class Configuration
 {
-    public static class Configuration
+    public static IDictionary<string, object> VALUES =
+        new Dictionary<string, object>();
+
+    public static void SetConfig(string key, object value)
     {
-        public static IDictionary<string, object> VALUES = new Dictionary<string, object>();
+        VALUES[key] = value;
+    }
 
-        public static void SetConfig(
-            string key,
-            object value
-        )
-        {
-            VALUES[key] = value;
-        }
-
-        public static T GetConfig<T>(
-            string key
-        )
-        {
-            return (T)VALUES[key];
-        }
+    public static T GetConfig<T>(string key)
+    {
+        return (T)VALUES[key];
     }
 }

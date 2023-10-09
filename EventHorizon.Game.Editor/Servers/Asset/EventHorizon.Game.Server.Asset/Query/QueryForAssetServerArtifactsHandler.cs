@@ -10,13 +10,14 @@ using EventHorizon.Game.Server.Asset.Model;
 using MediatR;
 
 public class QueryForAssetServerArtifactsHandler
-    : IRequestHandler<QueryForAssetServerArtifacts, CommandResult<AssetServerArtifacts>>
+    : IRequestHandler<
+        QueryForAssetServerArtifacts,
+        CommandResult<AssetServerArtifacts>
+    >
 {
     private readonly AssetServerAdminService _service;
 
-    public QueryForAssetServerArtifactsHandler(
-        AssetServerAdminService service
-    )
+    public QueryForAssetServerArtifactsHandler(AssetServerAdminService service)
     {
         _service = service;
     }
@@ -26,12 +27,8 @@ public class QueryForAssetServerArtifactsHandler
         CancellationToken cancellationToken
     )
     {
-        var result = await _service.CommonApi.ArtifactList(
-            cancellationToken
-        );
-        if (!result.Success
-            || result.Result.IsNull()
-        )
+        var result = await _service.CommonApi.ArtifactList(cancellationToken);
+        if (!result.Success || result.Result.IsNull())
         {
             return new CommandResult<AssetServerArtifacts>(
                 result.ErrorCode ?? AssetServerAdminErrorCodes.BAD_API_REQUEST
@@ -39,16 +36,10 @@ public class QueryForAssetServerArtifactsHandler
         }
 
         return new CommandResult<AssetServerArtifacts>(
-            MapResult(
-                result.Result
-            )
+            MapResult(result.Result)
         );
     }
-    private static AssetServerArtifacts MapResult(
-        ArtifactListResult result
-    ) => new(
-        result.ExportList,
-        result.ImportList,
-        result.BackupList
-    );
+
+    private static AssetServerArtifacts MapResult(ArtifactListResult result) =>
+        new(result.ExportList, result.ImportList, result.BackupList);
 }

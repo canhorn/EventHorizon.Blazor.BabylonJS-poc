@@ -12,20 +12,15 @@
     //[ClientAction("Server.SHOW_TEN_SECOND_CAPTURE_MESSAGE")]
     public struct ClientActionShowTenSecondCaptureMessageEvent
         : INotification,
-        IClientAction
+            IClientAction
     {
         public ClientActionShowTenSecondCaptureMessageEvent(
             IClientActionDataResolver _
-        )
-        {
-        }
-
+        ) { }
     }
 
     public interface ClientActionShowTenSecondCaptureMessageEventObserver
-        : ArgumentObserver<ClientActionShowTenSecondCaptureMessageEvent>
-    {
-    }
+        : ArgumentObserver<ClientActionShowTenSecondCaptureMessageEvent> { }
 
     // TODO: Move this into an Implementation Project, Remove from the SDK
     public class ClientActionShowTenSecondCaptureMessageEventHandler
@@ -43,9 +38,10 @@
         public Task Handle(
             ClientActionShowTenSecondCaptureMessageEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<ClientActionShowTenSecondCaptureMessageEventObserver, ClientActionShowTenSecondCaptureMessageEvent>(
-            notification,
-            cancellationToken
-        );
+        ) =>
+            _observer.Trigger<
+                ClientActionShowTenSecondCaptureMessageEventObserver,
+                ClientActionShowTenSecondCaptureMessageEvent
+            >(notification, cancellationToken);
     }
 }

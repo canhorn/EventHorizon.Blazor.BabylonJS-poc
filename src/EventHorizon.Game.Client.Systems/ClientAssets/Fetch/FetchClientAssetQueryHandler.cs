@@ -1,42 +1,35 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Fetch
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Fetch;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Query.Model;
+using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+
+using MediatR;
+
+public class FetchClientAssetQueryHandler
+    : IRequestHandler<FetchClientAssetQuery, QueryResult<ClientAsset>>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Query.Model;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-    using MediatR;
+    private readonly ClientAssetState _clientAssetStore;
 
-    public class FetchClientAssetQueryHandler
-        : IRequestHandler<FetchClientAssetQuery, QueryResult<ClientAsset>>
+    public FetchClientAssetQueryHandler(ClientAssetState clientAssetStore)
     {
-        private readonly ClientAssetState _clientAssetStore;
+        _clientAssetStore = clientAssetStore;
+    }
 
-        public FetchClientAssetQueryHandler(
-            ClientAssetState clientAssetStore
-        )
+    public Task<QueryResult<ClientAsset>> Handle(
+        FetchClientAssetQuery request,
+        CancellationToken cancellationToken
+    )
+    {
+        var clientAsset = _clientAssetStore.Get(request.AssetId);
+
+        if (clientAsset.HasValue)
         {
-            _clientAssetStore = clientAssetStore;
+            return new QueryResult<ClientAsset>(clientAsset.Value).FromResult();
         }
 
-        public Task<QueryResult<ClientAsset>> Handle(
-            FetchClientAssetQuery request,
-            CancellationToken cancellationToken
-        )
-        {
-            var clientAsset = _clientAssetStore.Get(
-                request.AssetId
-            );
-            
-            if (clientAsset.HasValue)
-            {
-                return new QueryResult<ClientAsset>(
-                    clientAsset.Value
-                ).FromResult();
-            }
-
-            return new QueryResult<ClientAsset>(
-                "not_found"
-            ).FromResult();
-        }
+        return new QueryResult<ClientAsset>("not_found").FromResult();
     }
 }

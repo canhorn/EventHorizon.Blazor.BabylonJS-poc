@@ -37,7 +37,8 @@ public class EntityListBladeBase : EditorComponentBase, IDisposable
         InvokeAsync(StateHasChanged);
     }
 
-    protected bool CheckIsNotOnEditorPage() => !NavigationManager.Uri
-        .Replace(NavigationManager.BaseUri, string.Empty)
-        .StartsWith(ZoneEntityListPage.Route[1..]);
+    protected bool CheckIsNotOnEditorPage() =>
+        !NavigationManager.Uri
+            .Replace(NavigationManager.BaseUri, string.Empty)
+            .StartsWith(ZoneEntityListPage.Route[1..]);
 }

@@ -49,7 +49,8 @@ public class GenericObserverState : ObserverState, AdminObserverState
     public async Task Trigger<TInstance, TArgs>(
         TArgs args,
         CancellationToken cancellationToken = default
-    ) where TInstance : ArgumentObserver<TArgs>
+    )
+        where TInstance : ArgumentObserver<TArgs>
     {
         var typeOf = typeof(TInstance);
         var list = List.Where(a => typeOf.IsAssignableFrom(a.GetType()))

@@ -1,29 +1,27 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
+
+using System;
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
+
+public class StandardClientAssetConfigTypeBuilder : ClientAssetConfigTypeBuilder
 {
-    using System;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
+    private readonly Func<
+        IDictionary<string, object>,
+        ClientAssetConfig
+    > _build;
 
-    public class StandardClientAssetConfigTypeBuilder
-        : ClientAssetConfigTypeBuilder
+    public StandardClientAssetConfigTypeBuilder(
+        Func<IDictionary<string, object>, ClientAssetConfig> build
+    )
     {
-        private readonly Func<IDictionary<string, object>, ClientAssetConfig> _build;
+        _build = build;
+    }
 
-        public StandardClientAssetConfigTypeBuilder(
-            Func<IDictionary<string, object>, ClientAssetConfig> build
-        )
-        {
-            _build = build;
-        }
-
-        public ClientAssetConfig Build(
-            IDictionary<string, object> data
-        )
-        {
-            return _build(
-                data
-            );
-        }
+    public ClientAssetConfig Build(IDictionary<string, object> data)
+    {
+        return _build(data);
     }
 }

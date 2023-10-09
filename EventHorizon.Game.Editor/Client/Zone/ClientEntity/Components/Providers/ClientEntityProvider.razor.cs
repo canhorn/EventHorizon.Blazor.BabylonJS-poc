@@ -41,9 +41,7 @@ public class ClientEntityProviderModel : EditorComponentBase
             Localizer["Client Entity"],
             Localizer["Saving Client Entity..."]
         );
-        var result = await Mediator.Send(
-            new SaveClientEntityCommand(entity)
-        );
+        var result = await Mediator.Send(new SaveClientEntityCommand(entity));
         if (result.Success.IsNotTrue())
         {
             await ShowMessage(

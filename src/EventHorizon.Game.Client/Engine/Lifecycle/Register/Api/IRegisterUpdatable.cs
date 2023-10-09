@@ -1,9 +1,5 @@
-﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Api
-{
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
 
-    public interface IRegisterUpdatable
-        : IRegisterBase<IUpdatableEntity>
-    {
-    }
-}
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+
+public interface IRegisterUpdatable : IRegisterBase<IUpdatableEntity> { }

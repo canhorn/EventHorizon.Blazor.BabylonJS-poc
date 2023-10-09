@@ -4,10 +4,7 @@ using EventHorizon.Observer.Model;
 
 using MediatR;
 
-public record BaseEntityModulesChangedEvent
-    : INotification;
+public record BaseEntityModulesChangedEvent : INotification;
 
 public interface BaseEntityModulesChangedEventObserver
-    : ArgumentObserver<BaseEntityModulesChangedEvent>
-{
-}
+    : ArgumentObserver<BaseEntityModulesChangedEvent> { }

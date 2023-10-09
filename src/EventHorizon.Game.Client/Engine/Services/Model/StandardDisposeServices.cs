@@ -1,34 +1,29 @@
-﻿namespace EventHorizon.Game.Client.Engine.Services.Model
+﻿namespace EventHorizon.Game.Client.Engine.Services.Model;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+using EventHorizon.Game.Client.Engine.Services.Api;
+
+public class StandardDisposeServices : IDisposeServices
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
-    using EventHorizon.Game.Client.Engine.Services.Api;
+    private readonly IEnumerable<IServiceEntity> _serviceEntities;
 
-    public class StandardDisposeServices
-        : IDisposeServices
+    public StandardDisposeServices(IEnumerable<IServiceEntity> serviceEntities)
     {
-        private readonly IEnumerable<IServiceEntity> _serviceEntities;
+        _serviceEntities = serviceEntities;
+    }
 
-        public StandardDisposeServices(
-            IEnumerable<IServiceEntity> serviceEntities
-        )
+    public async Task DisposeServices()
+    {
+        var orderedServiceEntities = _serviceEntities.OrderBy(a => a.Priority);
+
+        foreach (var serviceEntity in orderedServiceEntities)
         {
-            _serviceEntities = serviceEntities;
-        }
-
-        public async Task DisposeServices()
-        {
-            var orderedServiceEntities = _serviceEntities.OrderBy(
-                a => a.Priority
-            );
-
-            foreach (var serviceEntity in orderedServiceEntities)
-            {
-                await serviceEntity.Dispose();
-            }
+            await serviceEntity.Dispose();
         }
     }
 }

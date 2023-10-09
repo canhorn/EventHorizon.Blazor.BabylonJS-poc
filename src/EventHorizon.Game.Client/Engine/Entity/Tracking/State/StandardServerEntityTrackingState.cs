@@ -1,80 +1,59 @@
-﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.State
+﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.State;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+using EventHorizon.Game.Client.Engine.Lifecycle.Model;
+using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+using MediatR;
+
+public class StandardServerEntityTrackingState : IServerEntityTrackingState
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Model;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using MediatR;
+    private IDictionary<long, ServerLifecycleEntityBase> _entityMap =
+        new Dictionary<long, ServerLifecycleEntityBase>();
 
-    public class StandardServerEntityTrackingState
-        : IServerEntityTrackingState
+    public async Task DisposeOfTracked()
     {
-        private IDictionary<long, ServerLifecycleEntityBase> _entityMap = new Dictionary<long, ServerLifecycleEntityBase>();
+        var mediator = GameServiceProvider.GetService<IMediator>();
+        foreach (var entity in _entityMap.Values)
+        {
+            await mediator.Send(new DisposeOfEntityCommand(entity));
+        }
+    }
 
-        public async Task DisposeOfTracked()
+    public async Task DisposeOfTrackedEntity(long clientId)
+    {
+        if (_entityMap.TryGetValue(clientId, out var entity))
         {
             var mediator = GameServiceProvider.GetService<IMediator>();
-            foreach (var entity in _entityMap.Values)
-            {
-                await mediator.Send(
-                    new DisposeOfEntityCommand(
-                        entity
-                    )
-                );
-            }
+            await mediator.Send(new DisposeOfEntityCommand(entity));
         }
+    }
 
-        public async Task DisposeOfTrackedEntity(
-            long clientId
-        )
-        {
-            if (_entityMap.TryGetValue(clientId, out var entity))
-            {
-                var mediator = GameServiceProvider.GetService<IMediator>();
-                await mediator.Send(
-                    new DisposeOfEntityCommand(
-                        entity
-                    )
-                );
-            }
-        }
+    public IEnumerable<T> QueryByNotTag<T>(string tag)
+        where T : ILifecycleEntity
+    {
+        return _entityMap.Values.Where(a => !a.Tags.Contains(tag)).Cast<T>();
+    }
 
-        public IEnumerable<T> QueryByNotTag<T>(
-            string tag
-        ) where T : ILifecycleEntity
-        {
-            return _entityMap.Values.Where(
-                a => !a.Tags.Contains(tag)
-            ).Cast<T>();
-        }
+    public IEnumerable<T> QueryByTag<T>(string tag)
+        where T : ILifecycleEntity
+    {
+        return _entityMap.Values.Where(a => a.Tags.Contains(tag)).Cast<T>();
+    }
 
-        public IEnumerable<T> QueryByTag<T>(
-            string tag
-        ) where T : ILifecycleEntity
-        {
-            return _entityMap.Values.Where(
-                a => a.Tags.Contains(tag)
-            ).Cast<T>();
-        }
+    public void Track(ServerLifecycleEntityBase entity)
+    {
+        _entityMap[entity.ClientId] = entity;
+    }
 
-        public void Track(
-            ServerLifecycleEntityBase entity
-        )
-        {
-            _entityMap[entity.ClientId] = entity;
-        }
-
-        public void Untrack(
-            long clientId
-        )
-        {
-            _entityMap.Remove(
-                clientId
-            );
-        }
+    public void Untrack(long clientId)
+    {
+        _entityMap.Remove(clientId);
     }
 }

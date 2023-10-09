@@ -1,603 +1,520 @@
 /// Generated - Do Not Edit
-namespace BabylonJS.GUI
+namespace BabylonJS.GUI;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<Image>))]
+public class Image : Control
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<Image>))]
-    public class Image : Control
+    #endregion
+
+    #region Static Properties
+
+    public static decimal STRETCH_NONE
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-        
-        public static decimal STRETCH_NONE
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    "BABYLON",
-                    "GUI.Image.STRETCH_NONE"
-                );
-            }
+                "BABYLON",
+                "GUI.Image.STRETCH_NONE"
+            );
         }
+    }
 
-        
-        public static decimal STRETCH_FILL
+    public static decimal STRETCH_FILL
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    "BABYLON",
-                    "GUI.Image.STRETCH_FILL"
-                );
-            }
+                "BABYLON",
+                "GUI.Image.STRETCH_FILL"
+            );
         }
+    }
 
-        
-        public static decimal STRETCH_UNIFORM
+    public static decimal STRETCH_UNIFORM
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    "BABYLON",
-                    "GUI.Image.STRETCH_UNIFORM"
-                );
-            }
+                "BABYLON",
+                "GUI.Image.STRETCH_UNIFORM"
+            );
         }
+    }
 
-        
-        public static decimal STRETCH_EXTEND
+    public static decimal STRETCH_EXTEND
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    "BABYLON",
-                    "GUI.Image.STRETCH_EXTEND"
-                );
-            }
+                "BABYLON",
+                "GUI.Image.STRETCH_EXTEND"
+            );
         }
+    }
 
-        
-        public static decimal STRETCH_NINE_PATCH
+    public static decimal STRETCH_NINE_PATCH
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    "BABYLON",
-                    "GUI.Image.STRETCH_NINE_PATCH"
-                );
-            }
+                "BABYLON",
+                "GUI.Image.STRETCH_NINE_PATCH"
+            );
         }
-        #endregion
+    }
+    #endregion
 
-        #region Static Methods
+    #region Static Methods
 
-        #endregion
+    #endregion
 
-        #region Accessors
-        
-        public bool isLoaded
+    #region Accessors
+
+    public bool isLoaded
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "isLoaded"
-                );
-            }
+                this.___guid,
+                "isLoaded"
+            );
         }
+    }
 
-        
-        public bool populateNinePatchSlicesFromImage
+    public bool populateNinePatchSlicesFromImage
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "populateNinePatchSlicesFromImage"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "populateNinePatchSlicesFromImage",
-                    value
-                );
-            }
+                this.___guid,
+                "populateNinePatchSlicesFromImage"
+            );
         }
-
-        
-        public bool detectPointerOnOpaqueOnly
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "populateNinePatchSlicesFromImage",
+                value
+            );
+        }
+    }
+
+    public bool detectPointerOnOpaqueOnly
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "detectPointerOnOpaqueOnly"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "detectPointerOnOpaqueOnly",
-                    value
-                );
-            }
+                this.___guid,
+                "detectPointerOnOpaqueOnly"
+            );
         }
-
-        
-        public decimal sliceLeft
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "detectPointerOnOpaqueOnly",
+                value
+            );
+        }
+    }
+
+    public decimal sliceLeft
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "sliceLeft"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "sliceLeft",
-                    value
-                );
-            }
+                this.___guid,
+                "sliceLeft"
+            );
         }
-
-        
-        public decimal sliceRight
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "sliceLeft", value);
+        }
+    }
+
+    public decimal sliceRight
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "sliceRight"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "sliceRight",
-                    value
-                );
-            }
+                this.___guid,
+                "sliceRight"
+            );
         }
-
-        
-        public decimal sliceTop
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "sliceRight", value);
+        }
+    }
+
+    public decimal sliceTop
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "sliceTop"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "sliceTop",
-                    value
-                );
-            }
+                this.___guid,
+                "sliceTop"
+            );
         }
-
-        
-        public decimal sliceBottom
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "sliceTop", value);
+        }
+    }
+
+    public decimal sliceBottom
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "sliceBottom"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "sliceBottom",
-                    value
-                );
-            }
+                this.___guid,
+                "sliceBottom"
+            );
         }
-
-        
-        public decimal sourceLeft
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "sliceBottom", value);
+        }
+    }
+
+    public decimal sourceLeft
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "sourceLeft"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "sourceLeft",
-                    value
-                );
-            }
+                this.___guid,
+                "sourceLeft"
+            );
         }
-
-        
-        public decimal sourceTop
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "sourceLeft", value);
+        }
+    }
+
+    public decimal sourceTop
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "sourceTop"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "sourceTop",
-                    value
-                );
-            }
+                this.___guid,
+                "sourceTop"
+            );
         }
-
-        
-        public decimal sourceWidth
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "sourceTop", value);
+        }
+    }
+
+    public decimal sourceWidth
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "sourceWidth"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "sourceWidth",
-                    value
-                );
-            }
+                this.___guid,
+                "sourceWidth"
+            );
         }
-
-        
-        public decimal sourceHeight
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "sourceWidth", value);
+        }
+    }
+
+    public decimal sourceHeight
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "sourceHeight"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "sourceHeight",
-                    value
-                );
-            }
+                this.___guid,
+                "sourceHeight"
+            );
         }
-
-        
-        public bool isSVG
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "sourceHeight", value);
+        }
+    }
+
+    public bool isSVG
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isSVG");
+        }
+    }
+
+    public bool svgAttributesComputationCompleted
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "isSVG"
-                );
-            }
+                this.___guid,
+                "svgAttributesComputationCompleted"
+            );
         }
+    }
 
-        
-        public bool svgAttributesComputationCompleted
+    public bool autoScale
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "svgAttributesComputationCompleted"
-                );
-            }
+                this.___guid,
+                "autoScale"
+            );
         }
-
-        
-        public bool autoScale
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "autoScale"
-                );
-            }
-            set
-            {
 
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "autoScale",
-                    value
-                );
-            }
+            EventHorizonBlazorInterop.Set(this.___guid, "autoScale", value);
         }
+    }
 
-        
-        public decimal stretch
+    public decimal stretch
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "stretch"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "stretch",
-                    value
-                );
-            }
+                this.___guid,
+                "stretch"
+            );
         }
-
-        private HTMLImageElement __domImage;
-        public HTMLImageElement domImage
+        set
         {
-            get
+
+            EventHorizonBlazorInterop.Set(this.___guid, "stretch", value);
+        }
+    }
+
+    private HTMLImageElement __domImage;
+    public HTMLImageElement domImage
+    {
+        get
+        {
+            if (__domImage == null)
             {
-            if(__domImage == null)
-            {
-                __domImage = EventHorizonBlazorInterop.GetClass<HTMLImageElement>(
-                    this.___guid,
-                    "domImage",
-                    (entity) =>
-                    {
-                        return new HTMLImageElement() { ___guid = entity.___guid };
-                    }
-                );
+                __domImage =
+                    EventHorizonBlazorInterop.GetClass<HTMLImageElement>(
+                        this.___guid,
+                        "domImage",
+                        (entity) =>
+                        {
+                            return new HTMLImageElement()
+                            {
+                                ___guid = entity.___guid
+                            };
+                        }
+                    );
             }
             return __domImage;
-            }
-            set
-            {
-__domImage = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "domImage",
-                    value
-                );
-            }
         }
-
-        
-        public decimal cellWidth
+        set
         {
-            get
-            {
+            __domImage = null;
+            EventHorizonBlazorInterop.Set(this.___guid, "domImage", value);
+        }
+    }
+
+    public decimal cellWidth
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "cellWidth"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "cellWidth",
-                    value
-                );
-            }
+                this.___guid,
+                "cellWidth"
+            );
         }
-
-        
-        public decimal cellHeight
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "cellWidth", value);
+        }
+    }
+
+    public decimal cellHeight
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "cellHeight"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "cellHeight",
-                    value
-                );
-            }
+                this.___guid,
+                "cellHeight"
+            );
         }
-
-        
-        public decimal cellId
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "cellHeight", value);
+        }
+    }
+
+    public decimal cellId
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "cellId"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "cellId",
-                    value
-                );
-            }
+                this.___guid,
+                "cellId"
+            );
         }
-        #endregion
-
-        #region Properties
-        
-        public string name
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<string>(
-                    this.___guid,
-                    "name"
-                );
-            }
-            set
-            {
 
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "name",
-                    value
-                );
-            }
+            EventHorizonBlazorInterop.Set(this.___guid, "cellId", value);
         }
+    }
+    #endregion
 
-        private Observable<Image> __onImageLoadedObservable;
-        public Observable<Image> onImageLoadedObservable
+    #region Properties
+
+    public string name
+    {
+        get
         {
-            get
+            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "name", value);
+        }
+    }
+
+    private Observable<Image> __onImageLoadedObservable;
+    public Observable<Image> onImageLoadedObservable
+    {
+        get
+        {
+            if (__onImageLoadedObservable == null)
             {
-            if(__onImageLoadedObservable == null)
-            {
-                __onImageLoadedObservable = EventHorizonBlazorInterop.GetClass<Observable<Image>>(
+                __onImageLoadedObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Image>
+                >(
                     this.___guid,
                     "onImageLoadedObservable",
                     (entity) =>
                     {
-                        return new Observable<Image>() { ___guid = entity.___guid };
+                        return new Observable<Image>()
+                        {
+                            ___guid = entity.___guid
+                        };
                     }
                 );
             }
             return __onImageLoadedObservable;
-            }
-            set
-            {
-__onImageLoadedObservable = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "onImageLoadedObservable",
-                    value
-                );
-            }
         }
-
-        private Observable<Image> __onSVGAttributesComputedObservable;
-        public Observable<Image> onSVGAttributesComputedObservable
+        set
         {
-            get
+            __onImageLoadedObservable = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "onImageLoadedObservable",
+                value
+            );
+        }
+    }
+
+    private Observable<Image> __onSVGAttributesComputedObservable;
+    public Observable<Image> onSVGAttributesComputedObservable
+    {
+        get
+        {
+            if (__onSVGAttributesComputedObservable == null)
             {
-            if(__onSVGAttributesComputedObservable == null)
-            {
-                __onSVGAttributesComputedObservable = EventHorizonBlazorInterop.GetClass<Observable<Image>>(
-                    this.___guid,
-                    "onSVGAttributesComputedObservable",
-                    (entity) =>
-                    {
-                        return new Observable<Image>() { ___guid = entity.___guid };
-                    }
-                );
+                __onSVGAttributesComputedObservable =
+                    EventHorizonBlazorInterop.GetClass<Observable<Image>>(
+                        this.___guid,
+                        "onSVGAttributesComputedObservable",
+                        (entity) =>
+                        {
+                            return new Observable<Image>()
+                            {
+                                ___guid = entity.___guid
+                            };
+                        }
+                    );
             }
             return __onSVGAttributesComputedObservable;
-            }
-            set
-            {
-__onSVGAttributesComputedObservable = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "onSVGAttributesComputedObservable",
-                    value
-                );
-            }
         }
-        #endregion
-        
-        #region Constructor
-        public Image() : base() { }
-
-        public Image(
-            ICachedEntity entity
-        ) : base(entity)
+        set
         {
-        }
-
-        public Image(
-            string name = null, string url = null
-        ) : base()
-        {
-            var entity = EventHorizonBlazorInterop.New(
-                new string[] { "BABYLON", "GUI", "Image" },
-                name, url
-            );
-            ___guid = entity.___guid;
-        }
-        #endregion
-
-        #region Methods
-        public bool contains(decimal x, decimal y)
-        {
-            return EventHorizonBlazorInterop.Func<bool>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "contains" }, x, y
-                }
+            __onSVGAttributesComputedObservable = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "onSVGAttributesComputedObservable",
+                value
             );
         }
-
-        public void synchronizeSizeWithContent()
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "synchronizeSizeWithContent" }
-                }
-            );
-        }
-
-        public void dispose()
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "dispose" }
-                }
-            );
-        }
-        #endregion
     }
+    #endregion
+
+    #region Constructor
+    public Image()
+        : base() { }
+
+    public Image(ICachedEntity entity)
+        : base(entity) { }
+
+    public Image(string name = null, string url = null)
+        : base()
+    {
+        var entity = EventHorizonBlazorInterop.New(
+            new string[] { "BABYLON", "GUI", "Image" },
+            name,
+            url
+        );
+        ___guid = entity.___guid;
+    }
+    #endregion
+
+    #region Methods
+    public bool contains(decimal x, decimal y)
+    {
+        return EventHorizonBlazorInterop.Func<bool>(
+            new object[] { new string[] { this.___guid, "contains" }, x, y }
+        );
+    }
+
+    public void synchronizeSizeWithContent()
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[]
+            {
+                new string[] { this.___guid, "synchronizeSizeWithContent" }
+            }
+        );
+    }
+
+    public void dispose()
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[] { new string[] { this.___guid, "dispose" } }
+        );
+    }
+    #endregion
 }

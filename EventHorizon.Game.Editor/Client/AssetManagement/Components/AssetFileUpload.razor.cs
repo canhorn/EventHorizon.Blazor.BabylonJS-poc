@@ -1,25 +1,25 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.AssetManagement.Api;
+using EventHorizon.Game.Editor.Client.AssetManagement.Open;
+using EventHorizon.Game.Editor.Client.Shared.Components;
+
+using Microsoft.AspNetCore.Components;
+
+public class AssetFileUploadModel : EditorComponentBase
 {
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Api;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Open;
-    using EventHorizon.Game.Editor.Client.Shared.Components;
-    using Microsoft.AspNetCore.Components;
+    [CascadingParameter]
+    public AssetManagementState State { get; set; } = null!;
 
-    public class AssetFileUploadModel
-        : EditorComponentBase
+    public async Task TriggerOpenForFileUpload()
     {
-        [CascadingParameter]
-        public AssetManagementState State { get; set; } = null!;
-
-        public async Task TriggerOpenForFileUpload()
-        {
-            await Mediator.Publish(
-                new AssetOpenFileUploadTrggeredEvent(
-                    State.CurrentTreeViewNode,
-                    State.CurrentWorkingDirectory
-                )
-            );
-        }
+        await Mediator.Publish(
+            new AssetOpenFileUploadTrggeredEvent(
+                State.CurrentTreeViewNode,
+                State.CurrentWorkingDirectory
+            )
+        );
     }
 }

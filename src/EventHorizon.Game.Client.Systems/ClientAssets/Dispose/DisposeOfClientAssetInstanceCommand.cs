@@ -1,18 +1,16 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Dispose
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Dispose;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public class DisposeOfClientAssetInstanceCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string AssetInstanceId { get; }
 
-    public class DisposeOfClientAssetInstanceCommand
-        : IRequest<StandardCommandResult>
+    public DisposeOfClientAssetInstanceCommand(string assetInstanceId)
     {
-        public string AssetInstanceId { get; }
-
-        public DisposeOfClientAssetInstanceCommand(
-            string assetInstanceId
-        )
-        {
-            AssetInstanceId = assetInstanceId;
-        }
+        AssetInstanceId = assetInstanceId;
     }
 }

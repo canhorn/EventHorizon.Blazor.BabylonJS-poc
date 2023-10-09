@@ -1,210 +1,172 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Model
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
 
-    using EventHorizon.Game.Client.Core.Factory.Api;
-    using EventHorizon.Game.Client.Core.Timer.Api;
-    using EventHorizon.Game.Client.Engine.Input.Api;
-    using EventHorizon.Game.Client.Engine.Input.Register;
-    using EventHorizon.Game.Client.Engine.Input.Unregister;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.Player.Action.Model;
-    using EventHorizon.Game.Client.Systems.Player.Action.Model.Send;
-    using EventHorizon.Game.Client.Systems.Player.Api;
-    using EventHorizon.Game.Client.Systems.Player.ClientAction;
-    using EventHorizon.Game.Client.Systems.Player.Modules.Input.Api;
-    using EventHorizon.Game.Client.Systems.Player.Modules.Input.Move;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-    using MediatR;
+using EventHorizon.Game.Client.Core.Factory.Api;
+using EventHorizon.Game.Client.Core.Timer.Api;
+using EventHorizon.Game.Client.Engine.Input.Api;
+using EventHorizon.Game.Client.Engine.Input.Register;
+using EventHorizon.Game.Client.Engine.Input.Unregister;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+using EventHorizon.Game.Client.Engine.Systems.Module.Model;
+using EventHorizon.Game.Client.Systems.Player.Action.Model;
+using EventHorizon.Game.Client.Systems.Player.Action.Model.Send;
+using EventHorizon.Game.Client.Systems.Player.Api;
+using EventHorizon.Game.Client.Systems.Player.ClientAction;
+using EventHorizon.Game.Client.Systems.Player.Modules.Input.Api;
+using EventHorizon.Game.Client.Systems.Player.Modules.Input.Move;
 
-    using Microsoft.Extensions.Logging;
+using MediatR;
 
-    public class StandardInputModule
-        : ModuleEntityBase,
+using Microsoft.Extensions.Logging;
+
+public class StandardInputModule
+    : ModuleEntityBase,
         InputModule,
         ClientActionPlayerSystemReloadedEventObserver,
         MovePlayerInDirectionEventObserver
+{
+    private readonly ILogger _logger = GameServiceProvider.GetService<
+        ILogger<StandardInputModule>
+    >();
+    private readonly IMediator _mediator =
+        GameServiceProvider.GetService<IMediator>();
+    private readonly IIntervalTimerService _movePlayerIntervalTimer =
+        GameServiceProvider
+            .GetService<IFactory<IIntervalTimerService>>()
+            .Create();
+    private readonly PlayerInputSetup _playerInputSetup =
+        GameServiceProvider.GetService<PlayerInputSetup>();
+    private readonly IList<string> _registeredInput = new List<string>();
+    private readonly IPlayerEntity _entity;
+
+    private PlayerInputConfig _inputConfig = new();
+    private MoveDirection _moveDirection;
+
+    public override int Priority => 0;
+
+    public StandardInputModule(IPlayerEntity playerEntity)
     {
-        private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<StandardInputModule>>();
-        private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
-        private readonly IIntervalTimerService _movePlayerIntervalTimer = GameServiceProvider.GetService<IFactory<IIntervalTimerService>>().Create();
-        private readonly PlayerInputSetup _playerInputSetup = GameServiceProvider.GetService<PlayerInputSetup>();
-        private readonly IList<string> _registeredInput = new List<string>();
-        private readonly IPlayerEntity _entity;
+        _entity = playerEntity;
+        _moveDirection = MoveDirection.Stationary;
 
-        private PlayerInputConfig _inputConfig = new();
-        private MoveDirection _moveDirection;
-
-        public override int Priority => 0;
-
-        public StandardInputModule(
-            IPlayerEntity playerEntity
-        )
-        {
-            _entity = playerEntity;
-            _moveDirection = MoveDirection.Stationary;
-
-            var playerConfiguration = _entity.GetPropertyAsOption<ObjectEntityConfiguration>(
+        var playerConfiguration =
+            _entity.GetPropertyAsOption<ObjectEntityConfiguration>(
                 "playerConfiguration"
             );
-            if (playerConfiguration.HasValue.IsNotTrue())
-            {
-                _logger.LogDebug(
-                    "Player Configuration not Found."
-                );
-                return;
-            }
-            SetupPlayerInputConfig(
-                playerConfiguration.Value
-            );
-        }
-
-        public override async Task Initialize()
+        if (playerConfiguration.HasValue.IsNotTrue())
         {
-            await _playerInputSetup.Setup(
-                this,
-                _inputConfig
-            );
-            _movePlayerIntervalTimer.Setup(
-                _inputConfig.MovementDelay,
-                HandleMovePlayer
-            );
-            _movePlayerIntervalTimer.Start();
-
-            GamePlatfrom.RegisterObserver(
-                this
-            );
+            _logger.LogDebug("Player Configuration not Found.");
+            return;
         }
+        SetupPlayerInputConfig(playerConfiguration.Value);
+    }
 
-        public override async Task Dispose()
+    public override async Task Initialize()
+    {
+        await _playerInputSetup.Setup(this, _inputConfig);
+        _movePlayerIntervalTimer.Setup(
+            _inputConfig.MovementDelay,
+            HandleMovePlayer
+        );
+        _movePlayerIntervalTimer.Start();
+
+        GamePlatfrom.RegisterObserver(this);
+    }
+
+    public override async Task Dispose()
+    {
+        GamePlatfrom.UnRegisterObserver(this);
+
+        _movePlayerIntervalTimer.Dispose();
+        foreach (var registeredInput in _registeredInput)
         {
-            GamePlatfrom.UnRegisterObserver(
-                this
-            );
-
-            _movePlayerIntervalTimer.Dispose();
-            foreach (var registeredInput in _registeredInput)
-            {
-                await UnRegisterInput(
-                    registeredInput
-                );
-            }
+            await UnRegisterInput(registeredInput);
         }
+    }
 
-        public override Task Update()
+    public override Task Update()
+    {
+        return Task.CompletedTask;
+    }
+
+    public async Task<Option<string>> RegisterInput(InputOptions options)
+    {
+        var result = await _mediator.Send(new RegisterInputCommand(options));
+        if (result.Success)
         {
-            return Task.CompletedTask;
+            _registeredInput.Add(result.Result);
+            return result.Result.ToOption();
         }
+        return new Option<string>(null);
+    }
 
-        public async Task<Option<string>> RegisterInput(
-            InputOptions options
-        )
+    public async Task UnRegisterInput(string inputHandler)
+    {
+        await _mediator.Send(new UnregisterInputCommand(inputHandler));
+    }
+
+    public async Task ResetToDefaultLayout()
+    {
+        await Dispose();
+        await Initialize();
+    }
+
+    public async Task Handle(ClientActionPlayerSystemReloadedEvent args)
+    {
+        if (SetupPlayerInputConfig(args.PlayerConfiguration))
         {
-            var result = await _mediator.Send(
-                new RegisterInputCommand(
-                    options
-                )
-            );
-            if (result.Success)
-            {
-                _registeredInput.Add(
-                    result.Result
-                );
-                return result.Result.ToOption();
-            }
-            return new Option<string>(
-                null
-            );
+            await ResetToDefaultLayout();
         }
+    }
 
-        public async Task UnRegisterInput(
-            string inputHandler
-        )
+    public Task Handle(MovePlayerInDirectionEvent args)
+    {
+        _moveDirection = args.Direction;
+
+        return Task.CompletedTask;
+    }
+
+    private bool SetupPlayerInputConfig(ObjectEntityConfiguration config)
+    {
+        var inputConfig = config.Get<PlayerInputConfig>(
+            PlayerInputConfig.PROPERTY_NAME
+        );
+
+        if (inputConfig.HasValue.IsNotTrue())
         {
-            await _mediator.Send(
-                new UnregisterInputCommand(
-                    inputHandler
-                )
-            );
+            _logger.LogDebug("Failed to Load Player Input Configuration.");
+            return false;
         }
+        _inputConfig = inputConfig.Value;
 
-        public async Task ResetToDefaultLayout()
+        return true;
+    }
+
+    private async Task HandleMovePlayer()
+    {
+        if (_moveDirection == MoveDirection.Stationary)
         {
-            await Dispose();
-            await Initialize();
+            return;
         }
-
-        public async Task Handle(
-            ClientActionPlayerSystemReloadedEvent args
-        )
+        else if (_moveDirection == MoveDirection.Stop)
         {
-            if (SetupPlayerInputConfig(
-                args.PlayerConfiguration
-            ))
-            {
-                await ResetToDefaultLayout();
-            }
-        }
-
-        public Task Handle(
-            MovePlayerInDirectionEvent args
-        )
-        {
-            _moveDirection = args.Direction;
-
-            return Task.CompletedTask;
-        }
-
-        private bool SetupPlayerInputConfig(
-            ObjectEntityConfiguration config
-        )
-        {
-            var inputConfig = config.Get<PlayerInputConfig>(
-                PlayerInputConfig.PROPERTY_NAME
-            );
-
-            if (inputConfig.HasValue.IsNotTrue())
-            {
-                _logger.LogDebug(
-                    "Failed to Load Player Input Configuration."
-                );
-                return false;
-            }
-            _inputConfig = inputConfig.Value;
-
-            return true;
-        }
-
-        private async Task HandleMovePlayer()
-        {
-            if (_moveDirection == MoveDirection.Stationary)
-            {
-                return;
-            }
-            else if (_moveDirection == MoveDirection.Stop)
-            {
-                await _mediator.Publish(
-                    new InvokePlayerActionEvent(
-                        PlayerActions.STOP
-                    )
-                );
-                return;
-            }
-
             await _mediator.Publish(
-                new InvokePlayerActionEvent(
-                    PlayerActions.MOVE,
-                    new PlayerMoveDirectionActionData(
-                        _moveDirection
-                    )
-                )
+                new InvokePlayerActionEvent(PlayerActions.STOP)
             );
-            if (_inputConfig.StopMovementOnTick)
-            {
-                _moveDirection = MoveDirection.Stop;
-            }
+            return;
+        }
+
+        await _mediator.Publish(
+            new InvokePlayerActionEvent(
+                PlayerActions.MOVE,
+                new PlayerMoveDirectionActionData(_moveDirection)
+            )
+        );
+        if (_inputConfig.StopMovementOnTick)
+        {
+            _moveDirection = MoveDirection.Stop;
         }
     }
 }

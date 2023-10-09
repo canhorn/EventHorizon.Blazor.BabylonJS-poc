@@ -19,7 +19,8 @@ public class BabylonJSRenderingScene : IRenderingScene
         _renderingEngine = renderingEngine;
     }
 
-    public T GetScene<T>() where T : class, ISceneImplementation
+    public T GetScene<T>()
+        where T : class, ISceneImplementation
     {
         if (_scene is T typedScene)
         {

@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Engine.Rendering.Api
+﻿namespace EventHorizon.Game.Client.Engine.Rendering.Api;
+
+public interface IRenderingTime
 {
-    public interface IRenderingTime
-    {
-        long DeltaTime { get; }
-    }
+    long DeltaTime { get; }
 }

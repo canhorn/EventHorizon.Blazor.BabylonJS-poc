@@ -1,29 +1,29 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Create
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Create;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+using MediatR;
+
+public struct CreateGuiCommand : IRequest<StandardCommandResult>
 {
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using MediatR;
+    public string GuiId { get; }
+    public string LayoutId { get; }
+    public IEnumerable<IGuiControlData>? ControlDataList { get; }
+    public string? ParentControlId { get; }
 
-    public struct CreateGuiCommand
-        : IRequest<StandardCommandResult>
+    public CreateGuiCommand(
+        string guiId,
+        string layoutId,
+        IEnumerable<IGuiControlData>? controlDataList = null,
+        string? parentControlId = null
+    )
     {
-        public string GuiId { get; }
-        public string LayoutId { get; }
-        public IEnumerable<IGuiControlData>? ControlDataList { get; }
-        public string? ParentControlId { get; }
-
-        public CreateGuiCommand(
-            string guiId,
-            string layoutId,
-            IEnumerable<IGuiControlData>? controlDataList = null,
-            string? parentControlId = null
-        )
-        {
-            GuiId = guiId;
-            LayoutId = layoutId;
-            ControlDataList = controlDataList;
-            ParentControlId = parentControlId;
-        }
+        GuiId = guiId;
+        LayoutId = layoutId;
+        ControlDataList = controlDataList;
+        ParentControlId = parentControlId;
     }
 }

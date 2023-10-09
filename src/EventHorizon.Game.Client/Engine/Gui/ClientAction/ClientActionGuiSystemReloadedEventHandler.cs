@@ -14,9 +14,7 @@ public class ClientActionGuiSystemReloadedEventHandler
 {
     private readonly IMediator _mediator;
 
-    public ClientActionGuiSystemReloadedEventHandler(
-        IMediator mediator
-    )
+    public ClientActionGuiSystemReloadedEventHandler(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -34,9 +32,7 @@ public class ClientActionGuiSystemReloadedEventHandler
         foreach (var guiLayout in notification.GuiLayoutList)
         {
             await _mediator.Send(
-                new RegisterGuiLayoutDataCommand(
-                    guiLayout
-                ),
+                new RegisterGuiLayoutDataCommand(guiLayout),
                 cancellationToken
             );
         }

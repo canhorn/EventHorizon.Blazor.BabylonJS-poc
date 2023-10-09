@@ -1,29 +1,22 @@
-﻿namespace EventHorizon.Game.Client.Engine.Window.Model
+﻿namespace EventHorizon.Game.Client.Engine.Window.Model;
+
+using System;
+
+using EventHorizon.Game.Client.Engine.Window.Api;
+
+using Microsoft.AspNetCore.Components;
+
+public class BrowserSystemWindow : ISystemWindow
 {
-    using System;
-    using EventHorizon.Game.Client.Engine.Window.Api;
-    using Microsoft.AspNetCore.Components;
+    private readonly NavigationManager _navigationManager;
 
-    public class BrowserSystemWindow
-        : ISystemWindow
+    public BrowserSystemWindow(NavigationManager navigationManager)
     {
-        private readonly NavigationManager _navigationManager;
+        _navigationManager = navigationManager;
+    }
 
-        public BrowserSystemWindow(
-            NavigationManager navigationManager
-        )
-        {
-            _navigationManager = navigationManager;
-        }
-
-        public void NavigateTo(
-            string url
-        )
-        {
-            _navigationManager.NavigateTo(
-                url,
-                true
-            );
-        }
+    public void NavigateTo(string url)
+    {
+        _navigationManager.NavigateTo(url, true);
     }
 }

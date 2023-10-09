@@ -2,13 +2,10 @@
 
 using Atata;
 
-public class ArtifactTable<TOwner>
-    : Table<ArtifactTableRow<TOwner>, TOwner>
+public class ArtifactTable<TOwner> : Table<ArtifactTableRow<TOwner>, TOwner>
     where TOwner : PageObject<TOwner>
 {
-    public TOwner GetFirstRowReferenceId(
-        out string referenceId
-    )
+    public TOwner GetFirstRowReferenceId(out string referenceId)
     {
         referenceId = string.Empty;
         if (Rows.Count == 0)
@@ -22,8 +19,7 @@ public class ArtifactTable<TOwner>
     }
 }
 
-public class ArtifactTableRow<TOwner>
-    : TableRow<TOwner>
+public class ArtifactTableRow<TOwner> : TableRow<TOwner>
     where TOwner : PageObject<TOwner>
 {
     public Text<TOwner> Service { get; private set; }

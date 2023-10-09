@@ -12,17 +12,9 @@ public class IdentityServerLoginPage : Page<_>
 
     public EmailInput<_> Email { get; private set; }
 
-    public PasswordInput<_> Password
-    {
-        get;
-        private set;
-    }
+    public PasswordInput<_> Password { get; private set; }
 
-    public CookieBannerComponent<_> CookieBanner
-    {
-        get;
-        private set;
-    }
+    public CookieBannerComponent<_> CookieBanner { get; private set; }
 
     [FindById("login-button")]
     public Button<_> Login { get; private set; }

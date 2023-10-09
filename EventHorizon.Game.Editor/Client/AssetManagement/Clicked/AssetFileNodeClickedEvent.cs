@@ -9,15 +9,11 @@ public struct AssetFileNodeClickedEvent : INotification
 {
     public TreeViewNodeData Node { get; }
 
-    public AssetFileNodeClickedEvent(
-        TreeViewNodeData node
-    )
+    public AssetFileNodeClickedEvent(TreeViewNodeData node)
     {
         Node = node;
     }
 }
 
 public interface AssetFileNodeClickedEventObserver
-    : ArgumentObserver<AssetFileNodeClickedEvent>
-{
-}
+    : ArgumentObserver<AssetFileNodeClickedEvent> { }

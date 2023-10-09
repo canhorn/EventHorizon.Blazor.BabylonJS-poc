@@ -1,19 +1,14 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Execptions
+﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Execptions;
+
+using System;
+
+public class InvalidClientActionArgument : Exception
 {
-    using System;
+    public string Param { get; }
 
-
-    public class InvalidClientActionArgument
-        : Exception
+    public InvalidClientActionArgument(string param, string message)
+        : base(message)
     {
-        public string Param { get; }
-
-        public InvalidClientActionArgument(
-            string param, 
-            string message
-        ) : base(message)
-        {
-            Param = param;
-        }
+        Param = param;
     }
 }

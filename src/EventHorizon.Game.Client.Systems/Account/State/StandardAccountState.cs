@@ -1,36 +1,29 @@
-﻿namespace EventHorizon.Game.Client.Systems.Account.State
+﻿namespace EventHorizon.Game.Client.Systems.Account.State;
+
+using EventHorizon.Game.Client.Systems.Account.Api;
+using EventHorizon.Game.Client.Systems.Connection.Core.Model;
+
+public class StandardAccountState : IAccountState
 {
-    using EventHorizon.Game.Client.Systems.Account.Api;
-    using EventHorizon.Game.Client.Systems.Connection.Core.Model;
+    public string? AccessToken { get; private set; }
+    public string? AccountLoginUrl { get; private set; }
+    public IAccountInfo? User { get; private set; }
 
-    public class StandardAccountState
-        : IAccountState
+    public void Reset()
     {
-        public string? AccessToken { get; private set; }
-        public string? AccountLoginUrl { get; private set; }
-        public IAccountInfo? User { get; private set; }
+        AccessToken = null;
+        AccountLoginUrl = null;
+        User = null;
+    }
 
-        public void Reset()
-        {
-            AccessToken = null;
-            AccountLoginUrl = null;
-            User = null;
-        }
+    public void SetAccountUser(IAccountInfo user)
+    {
+        User = user;
+    }
 
-        public void SetAccountUser(
-            IAccountInfo user
-        )
-        {
-            User = user;
-        }
-
-        public void Setup(
-            string accessToken, 
-            string accountLoginUrl
-        )
-        {
-            AccessToken = accessToken;
-            AccountLoginUrl = accountLoginUrl;
-        }
+    public void Setup(string accessToken, string accountLoginUrl)
+    {
+        AccessToken = accessToken;
+        AccountLoginUrl = accountLoginUrl;
     }
 }

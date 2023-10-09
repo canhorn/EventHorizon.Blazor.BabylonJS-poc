@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose
+﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+
+using MediatR;
+
+public class DisposeOfEntityCommand : IRequest
 {
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
-    using MediatR;
+    public IDisposableEntity Entity { get; }
 
-    public class DisposeOfEntityCommand
-        : IRequest
+    public DisposeOfEntityCommand(IDisposableEntity entity)
     {
-        public IDisposableEntity Entity { get; }
-
-        public DisposeOfEntityCommand(
-            IDisposableEntity entity
-        )
-        {
-            Entity = entity;
-        }
+        Entity = entity;
     }
 }

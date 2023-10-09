@@ -1,47 +1,42 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Changed
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Changed;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Observer.Model;
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public struct GuiLayoutDataChangedEvent : INotification
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Observer.Model;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    public string Id { get; }
 
-    public struct GuiLayoutDataChangedEvent
-        : INotification
+    public GuiLayoutDataChangedEvent(string id)
     {
-        public string Id { get; }
+        Id = id;
+    }
+}
 
-        public GuiLayoutDataChangedEvent(
-            string id
-        )
-        {
-            Id = id;
-        }
+public interface GuiLayoutDataChangedEventObserver
+    : ArgumentObserver<GuiLayoutDataChangedEvent> { }
+
+public class GuiLayoutDataChangedEventHandler
+    : INotificationHandler<GuiLayoutDataChangedEvent>
+{
+    private readonly ObserverState _observer;
+
+    public GuiLayoutDataChangedEventHandler(ObserverState observer)
+    {
+        _observer = observer;
     }
 
-    public interface GuiLayoutDataChangedEventObserver
-        : ArgumentObserver<GuiLayoutDataChangedEvent>
-    {
-    }
-
-    public class GuiLayoutDataChangedEventHandler
-        : INotificationHandler<GuiLayoutDataChangedEvent>
-    {
-        private readonly ObserverState _observer;
-
-        public GuiLayoutDataChangedEventHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            GuiLayoutDataChangedEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<GuiLayoutDataChangedEventObserver, GuiLayoutDataChangedEvent>(
-            notification,
-            cancellationToken
-        );
-    }
+    public Task Handle(
+        GuiLayoutDataChangedEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<
+            GuiLayoutDataChangedEventObserver,
+            GuiLayoutDataChangedEvent
+        >(notification, cancellationToken);
 }

@@ -8,14 +8,8 @@ using EventHorizon.Game.Editor.Automation.Layout;
 using _ = BackupArtifactsPage;
 
 [Url("/artifact/management/backups")]
-
-public class BackupArtifactsPage
-    : MainLayoutPage<_>
+public class BackupArtifactsPage : MainLayoutPage<_>
 {
     [FindByClass("backup-artifacts__table")]
-    public Table<ArtifactTableRow<_>, _> ArtifactTable
-    {
-        get;
-        private set;
-    }
+    public Table<ArtifactTableRow<_>, _> ArtifactTable { get; private set; }
 }

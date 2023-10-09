@@ -1,40 +1,38 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Systems.ClientAssets.Update
+﻿namespace EventHorizon.Game.Editor.Zone.Systems.ClientAssets.Update;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Zone.Systems.ClientAssets.Update;
+
+using MediatR;
+
+public class UpdateClientAssetCommandHandler
+    : IRequestHandler<UpdateClientAssetCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Zone.Systems.ClientAssets.Update;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class UpdateClientAssetCommandHandler
-        : IRequestHandler<UpdateClientAssetCommand, StandardCommandResult>
+    public UpdateClientAssetCommandHandler(ZoneAdminServices zoneAdminServices)
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public UpdateClientAssetCommandHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<StandardCommandResult> Handle(
+        UpdateClientAssetCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.ClientAssets.Update(
+            request.ClientAsset,
+            cancellationToken
+        );
+        if (result.Success.IsNotTrue())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
-        public async Task<StandardCommandResult> Handle(
-            UpdateClientAssetCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.ClientAssets.Update(
-                request.ClientAsset,
-                cancellationToken
-            );
-            if (result.Success.IsNotTrue())
-            {
-                return result.ErrorCode
-                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
-            }
-
-            return new();
-        }
+        return new();
     }
 }

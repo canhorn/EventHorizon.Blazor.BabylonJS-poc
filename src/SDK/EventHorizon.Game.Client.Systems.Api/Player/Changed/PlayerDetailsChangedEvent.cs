@@ -1,17 +1,12 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Changed
-{
-    using System;
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Systems.Player.Changed;
 
-    public struct PlayerDetailsChangedEvent 
-        : INotification
-    {
+using System;
 
-    }
+using EventHorizon.Observer.Model;
 
-    public interface PlayerDetailsChangedEventObserver
-        : ArgumentObserver<PlayerDetailsChangedEvent>
-    {
-    }
-}
+using MediatR;
+
+public struct PlayerDetailsChangedEvent : INotification { }
+
+public interface PlayerDetailsChangedEventObserver
+    : ArgumentObserver<PlayerDetailsChangedEvent> { }

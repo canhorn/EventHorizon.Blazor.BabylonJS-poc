@@ -1,136 +1,104 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Factory.Controls
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Factory.Controls;
+
+using System;
+using System.Collections.Generic;
+
+using BabylonJS.GUI;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Game.Client.Core.Exceptions;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+using EventHorizon.Game.Client.Engine.Gui.Model;
+using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
+
+public class BabylonJSGuiBar : IBabylonJSGuiControl
 {
-    using System;
-    using System.Collections.Generic;
-    using BabylonJS.GUI;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using EventHorizon.Game.Client.Engine.Gui.Model;
-    using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
+    private readonly Rectangle _control;
+    private readonly TextBlock _textControl;
+    private readonly Rectangle _percentageBarControl;
 
-    public class BabylonJSGuiBar
-        : IBabylonJSGuiControl
+    public string Id { get; }
+    public GuiControlType Type => GuiControlType.BAR;
+    private bool _isVisiable = true;
+    public bool IsVisible
     {
-        private readonly Rectangle _control;
-        private readonly TextBlock _textControl;
-        private readonly Rectangle _percentageBarControl;
-
-        public string Id { get; }
-        public GuiControlType Type => GuiControlType.BAR;
-        private bool _isVisiable = true;
-        public bool IsVisible
+        get { return _isVisiable; }
+        set
         {
-            get
-            {
-                return _isVisiable;
-            }
-            set
-            {
-                _isVisiable = value;
-                Control.isVisible = _isVisiable;
-            }
+            _isVisiable = value;
+            Control.isVisible = _isVisiable;
         }
-        public int Layer { get; set; }
-        public IGuiControlOptions Options { get; private set; }
-        public string? ParentId { get; }
-        public IGuiGridLocation? GridLocation { get; }
+    }
+    public int Layer { get; set; }
+    public IGuiControlOptions Options { get; private set; }
+    public string? ParentId { get; }
+    public IGuiGridLocation? GridLocation { get; }
 
-        public Control Control => _control;
+    public Control Control => _control;
 
-        public BabylonJSGuiBar(
-            string id,
-            IGuiControlOptions options,
-            IGuiGridLocation? gridLocation
-        )
+    public BabylonJSGuiBar(
+        string id,
+        IGuiControlOptions options,
+        IGuiGridLocation? gridLocation
+    )
+    {
+        Id = id;
+        Options = options;
+        GridLocation = gridLocation;
+
+        (_control, _textControl, _percentageBarControl) = CreateControl(
+            id,
+            options
+        );
+    }
+
+    public void AddControl(IGuiControl guiControl)
+    {
+        throw new GameException(
+            "gui_add_control_not_supported",
+            "GuiBar does not support adding Controls"
+        );
+    }
+
+    public void Dispose()
+    {
+        Control.dispose();
+    }
+
+    public void LinkWith(object obj)
+    {
+        if (obj is BabylonJSEngineMesh mesh)
         {
-            Id = id;
-            Options = options;
-            GridLocation = gridLocation;
-
-            (_control, _textControl, _percentageBarControl) = CreateControl(
-                id,
-                options
-            );
+            Control.linkWithMesh(mesh.Mesh);
         }
+    }
 
-        public void AddControl(
-            IGuiControl guiControl
-        )
-        {
-            throw new GameException(
-                "gui_add_control_not_supported",
-                "GuiBar does not support adding Controls"
-            );
-        }
+    public void Update(IGuiControlOptions options)
+    {
+        Update(options, _control, _textControl, _percentageBarControl);
 
-        public void Dispose()
-        {
-            Control.dispose();
-        }
+        Options = GuiControlOptionsModel.MergeControlOptions(Options, options);
+    }
 
-        public void LinkWith(
-            object obj
-        )
-        {
-            if (obj is BabylonJSEngineMesh mesh)
-            {
-                Control.linkWithMesh(
-                    mesh.Mesh
-                );
-            }
-        }
+    private (Rectangle, TextBlock, Rectangle) CreateControl(
+        string id,
+        IGuiControlOptions options
+    )
+    {
+        var backgroundControl = new Rectangle($"{id}_background");
+        var textControl = new TextBlock($"{id}_text");
+        var percentageBarControl = new Rectangle($"{id}_percent-bar");
 
-        public void Update(
-            IGuiControlOptions options
-        )
-        {
-            Update(
-                options,
-                _control,
-                _textControl,
-                _percentageBarControl
-            );
+        Update(options, backgroundControl, textControl, percentageBarControl);
 
-            Options = GuiControlOptionsModel.MergeControlOptions(
-                Options,
-                options
-            );
-        }
+        backgroundControl.addControl(percentageBarControl);
+        backgroundControl.addControl(textControl);
 
-        private (Rectangle, TextBlock, Rectangle) CreateControl(
-            string id,
-            IGuiControlOptions options
-        )
-        {
-            var backgroundControl = new Rectangle(
-                $"{id}_background"
-            );
-            var textControl = new TextBlock(
-                $"{id}_text"
-            );
-            var percentageBarControl = new Rectangle(
-                $"{id}_percent-bar"
-            );
+        return (backgroundControl, textControl, percentageBarControl);
+    }
 
-            Update(
-                options,
-                backgroundControl,
-                textControl,
-                percentageBarControl
-            );
-
-            backgroundControl.addControl(
-                percentageBarControl
-            );
-            backgroundControl.addControl(
-                textControl
-            );
-
-            return (backgroundControl, textControl, percentageBarControl);
-        }
-
-        private static readonly IList<string> IGNORE_PROPERTY_LIST = new List<string>
+    private static readonly IList<string> IGNORE_PROPERTY_LIST =
+        new List<string>
         {
             "animation",
             "barDirection",
@@ -139,103 +107,96 @@
             "barOptions",
         };
 
-        private void Update(
-            IGuiControlOptions options,
-            Rectangle backgroundControl,
-            TextBlock textControl,
-            Rectangle barControl
-        )
+    private void Update(
+        IGuiControlOptions options,
+        Rectangle backgroundControl,
+        TextBlock textControl,
+        Rectangle barControl
+    )
+    {
+        foreach (var option in options)
         {
-            foreach (var option in options)
+            if (!IGNORE_PROPERTY_LIST.Contains(option.Key))
             {
-                if (!IGNORE_PROPERTY_LIST.Contains(
-                    option.Key
-                ))
+                SetPropertyOnControl(
+                    backgroundControl,
+                    option.Key,
+                    option.Value
+                );
+            }
+            else if (option.Key == "textOptions")
+            {
+                var textOptions = option.Value.To(
+                    () => new GuiControlOptionsModel()
+                );
+                foreach (var textOption in textOptions)
                 {
                     SetPropertyOnControl(
-                        backgroundControl,
-                        option.Key,
-                        option.Value
+                        textControl,
+                        textOption.Key,
+                        textOption.Value
                     );
                 }
-                else if (option.Key == "textOptions")
-                {
-                    var textOptions = option.Value.To(() => new GuiControlOptionsModel());
-                    foreach (var textOption in textOptions)
-                    {
-                        SetPropertyOnControl(
-                            textControl,
-                            textOption.Key,
-                            textOption.Value
-                        );
-                    }
-                }
-                else if (option.Key == "barOptions")
-                {
-                    var barOptions = option.Value.To(() => new GuiControlOptionsModel());
-                    foreach (var barOption in barOptions)
-                    {
-                        SetPropertyOnControl(
-                            barControl,
-                            barOption.Key,
-                            barOption.Value
-                        );
-                    }
-                }
             }
-
-            // Create Bar based on Direction and Percentage
-            var barDirectionOption = Options.GetValue<string>(
-                "barDirection"
-            );
-            options.HasValueCallback<string>(
-                "barDirection",
-                value =>
-                {
-                    barDirectionOption = value.ToOption();
-                }
-            );
-            var barDirection = "paddingLeft";
-            if (barDirectionOption.HasValue)
+            else if (option.Key == "barOptions")
             {
-                barDirection = barDirectionOption.Value;
-            }
-
-            var percentOption = Options.GetValue<int>(
-                "percent"
-            );
-            options.HasValueCallback<int>(
-                "percent",
-                value =>
+                var barOptions = option.Value.To(
+                    () => new GuiControlOptionsModel()
+                );
+                foreach (var barOption in barOptions)
                 {
-                    percentOption = value.ToOption();
-                }
-            );
-
-            if (percentOption.HasValue)
-            {
-                if (barDirection == "paddingLeft")
-                {
-                    barControl.paddingLeft = $"{percentOption.Value}%";
-                }
-                else if (barDirection == "paddingRight")
-                {
-                    barControl.paddingRight = $"{percentOption.Value}%";
+                    SetPropertyOnControl(
+                        barControl,
+                        barOption.Key,
+                        barOption.Value
+                    );
                 }
             }
         }
 
-        private static void SetPropertyOnControl(
-            Control control,
-            string property,
-            object value
-        )
+        // Create Bar based on Direction and Percentage
+        var barDirectionOption = Options.GetValue<string>("barDirection");
+        options.HasValueCallback<string>(
+            "barDirection",
+            value =>
+            {
+                barDirectionOption = value.ToOption();
+            }
+        );
+        var barDirection = "paddingLeft";
+        if (barDirectionOption.HasValue)
         {
-            EventHorizonBlazorInterop.Set(
-                control.___guid,
-                property,
-                value
-            );
+            barDirection = barDirectionOption.Value;
         }
+
+        var percentOption = Options.GetValue<int>("percent");
+        options.HasValueCallback<int>(
+            "percent",
+            value =>
+            {
+                percentOption = value.ToOption();
+            }
+        );
+
+        if (percentOption.HasValue)
+        {
+            if (barDirection == "paddingLeft")
+            {
+                barControl.paddingLeft = $"{percentOption.Value}%";
+            }
+            else if (barDirection == "paddingRight")
+            {
+                barControl.paddingRight = $"{percentOption.Value}%";
+            }
+        }
+    }
+
+    private static void SetPropertyOnControl(
+        Control control,
+        string property,
+        object value
+    )
+    {
+        EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }
 }

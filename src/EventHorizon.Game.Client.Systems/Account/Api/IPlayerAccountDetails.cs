@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Game.Client.Systems.Account.Api
+﻿namespace EventHorizon.Game.Client.Systems.Account.Api;
+
+public interface IPlayerAccountDetails
 {
-    public interface IPlayerAccountDetails
-    {
-        string Username { get; }
-        string Locale { get; }
-    }
+    string Username { get; }
+    string Locale { get; }
 }

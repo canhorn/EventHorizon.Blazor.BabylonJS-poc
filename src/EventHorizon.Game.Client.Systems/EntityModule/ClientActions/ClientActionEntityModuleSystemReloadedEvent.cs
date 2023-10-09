@@ -13,8 +13,7 @@ using EventHorizon.Observer.State;
 using MediatR;
 
 [ClientAction("ENTITY_MODULE_SYSTEM_RELOADED_CLIENT_ACTION_EVENT")]
-public record ClientActionEntityModuleSystemReloadedEvent
-    : IClientAction
+public record ClientActionEntityModuleSystemReloadedEvent : IClientAction
 {
     public IEnumerable<EntityModuleScripts> BaseEntityScriptModuleList { get; }
     public IEnumerable<EntityModuleScripts> PlayerEntityScriptModuleList { get; }
@@ -23,19 +22,17 @@ public record ClientActionEntityModuleSystemReloadedEvent
         IClientActionDataResolver resolver
     )
     {
-        BaseEntityScriptModuleList = resolver.Resolve<List<EntityModuleScriptsModel>>(
-            "baseEntityScriptModuleList"
-        );
-        PlayerEntityScriptModuleList = resolver.Resolve<List<EntityModuleScriptsModel>>(
-            "playerEntityScriptModuleList"
-        );
+        BaseEntityScriptModuleList = resolver.Resolve<
+            List<EntityModuleScriptsModel>
+        >("baseEntityScriptModuleList");
+        PlayerEntityScriptModuleList = resolver.Resolve<
+            List<EntityModuleScriptsModel>
+        >("playerEntityScriptModuleList");
     }
 }
 
 public interface ClientActionEntityModuleSystemReloadedEventObserver
-    : ArgumentObserver<ClientActionEntityModuleSystemReloadedEvent>
-{
-}
+    : ArgumentObserver<ClientActionEntityModuleSystemReloadedEvent> { }
 
 public class ClientActionEntityModuleSystemReloadedEventObserverHandler
     : INotificationHandler<ClientActionEntityModuleSystemReloadedEvent>
@@ -52,8 +49,9 @@ public class ClientActionEntityModuleSystemReloadedEventObserverHandler
     public Task Handle(
         ClientActionEntityModuleSystemReloadedEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<ClientActionEntityModuleSystemReloadedEventObserver, ClientActionEntityModuleSystemReloadedEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            ClientActionEntityModuleSystemReloadedEventObserver,
+            ClientActionEntityModuleSystemReloadedEvent
+        >(notification, cancellationToken);
 }

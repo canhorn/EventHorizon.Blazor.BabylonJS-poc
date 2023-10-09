@@ -5,6 +5,5 @@ using EventHorizon.Zone.Systems.ArtifactManagement.Model;
 
 using MediatR;
 
-public record TriggerZoneArtifactImportCommand(
-    string ImportArtifactUrl
-) : IRequest<CommandResult<TriggerZoneArtifactImportResult>>;
+public record TriggerZoneArtifactImportCommand(string ImportArtifactUrl)
+    : IRequest<CommandResult<TriggerZoneArtifactImportResult>>;

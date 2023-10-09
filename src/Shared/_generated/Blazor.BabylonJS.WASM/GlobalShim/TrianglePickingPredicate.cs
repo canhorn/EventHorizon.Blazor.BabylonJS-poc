@@ -6,13 +6,9 @@ using EventHorizon.Blazor.Interop;
 
 public class TrianglePickingPredicate : CachedEntity
 {
-    public TrianglePickingPredicate()
-    {
-    }
+    public TrianglePickingPredicate() { }
 
-    public TrianglePickingPredicate(
-        ICachedEntity entity
-    )
+    public TrianglePickingPredicate(ICachedEntity entity)
     {
         this.___guid = entity.___guid;
     }

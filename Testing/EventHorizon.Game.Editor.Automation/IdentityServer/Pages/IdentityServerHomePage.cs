@@ -4,8 +4,7 @@ using Atata;
 
 using _ = IdentityServerHomePage;
 
-public class IdentityServerHomePage
-    : Page<_>
+public class IdentityServerHomePage : Page<_>
 {
     public static string Url => $"/";
 

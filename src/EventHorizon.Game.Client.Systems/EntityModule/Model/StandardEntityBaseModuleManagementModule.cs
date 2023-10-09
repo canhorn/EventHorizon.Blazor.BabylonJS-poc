@@ -9,17 +9,17 @@ using EventHorizon.Game.Client.Systems.EntityModule.Register;
 
 public class StandardEntityBaseModuleManagementModule
     : ModuleEntityBase,
-    EntityBaseModuleManagementModule,
-    BaseEntityModulesChangedEventObserver
+        EntityBaseModuleManagementModule,
+        BaseEntityModulesChangedEventObserver
 {
-    private readonly EntityBaseScriptModuleState _state = GameServiceProvider.GetService<EntityBaseScriptModuleState>();
+    private readonly EntityBaseScriptModuleState _state =
+        GameServiceProvider.GetService<EntityBaseScriptModuleState>();
 
     private readonly IObjectEntity _entity;
 
     public override int Priority { get; } = 0;
-    public StandardEntityBaseModuleManagementModule(
-        IObjectEntity entity
-    )
+
+    public StandardEntityBaseModuleManagementModule(IObjectEntity entity)
     {
         _entity = entity;
     }
@@ -38,22 +38,14 @@ public class StandardEntityBaseModuleManagementModule
 
     public override Task Update() => Task.CompletedTask;
 
-    public async Task Handle(
-        BaseEntityModulesChangedEvent args
-    )
+    public async Task Handle(BaseEntityModulesChangedEvent args)
     {
         foreach (var scriptModule in _state.All())
         {
-            var module = new StandardEntityModule(
-                _entity,
-                scriptModule
-            );
+            var module = new StandardEntityModule(_entity, scriptModule);
             _entity.RegisterModule(
                 scriptModule.Name,
-                new StandardEntityModule(
-                    _entity,
-                    scriptModule
-                )
+                new StandardEntityModule(_entity, scriptModule)
             );
             await module.Initialize();
         }

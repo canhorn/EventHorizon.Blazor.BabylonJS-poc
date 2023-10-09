@@ -1,19 +1,16 @@
-﻿namespace EventHorizon.Zone.Systems.ClientAssets.Query
+﻿namespace EventHorizon.Zone.Systems.ClientAssets.Query;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Zone.Systems.ClientAssets.Model;
+
+using MediatR;
+
+public struct QueryForClientAssetById : IRequest<CommandResult<ClientAsset>>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Zone.Systems.ClientAssets.Model;
-    using MediatR;
+    public string Id { get; }
 
-    public struct QueryForClientAssetById
-        : IRequest<CommandResult<ClientAsset>>
+    public QueryForClientAssetById(string id)
     {
-        public string Id { get; }
-
-        public QueryForClientAssetById(
-            string id
-        )
-        {
-            Id = id;
-        }
+        Id = id;
     }
 }

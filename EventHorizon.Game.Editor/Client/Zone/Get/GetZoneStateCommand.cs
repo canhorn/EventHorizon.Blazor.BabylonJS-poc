@@ -1,20 +1,17 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Get
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Get;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Zone.Api;
+using EventHorizon.Game.Editor.Core.Services.Model;
+
+using MediatR;
+
+public struct GetZoneStateCommand : IRequest<CommandResult<ZoneState>>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Zone.Api;
-    using EventHorizon.Game.Editor.Core.Services.Model;
-    using MediatR;
+    public CoreZoneDetails ZoneDetails { get; }
 
-    public struct GetZoneStateCommand
-        : IRequest<CommandResult<ZoneState>>
+    public GetZoneStateCommand(CoreZoneDetails zoneDetails)
     {
-        public CoreZoneDetails ZoneDetails { get; }
-
-        public GetZoneStateCommand(
-            CoreZoneDetails zoneDetails
-        )
-        {
-            ZoneDetails = zoneDetails;
-        }
+        ZoneDetails = zoneDetails;
     }
 }

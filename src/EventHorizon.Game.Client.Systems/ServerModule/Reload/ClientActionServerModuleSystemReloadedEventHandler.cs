@@ -1,77 +1,78 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Reload
+﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Reload;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Systems.ServerModule.Api;
+using EventHorizon.Game.Client.Systems.ServerModule.ClientAction;
+using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
+using EventHorizon.Game.Client.Systems.ServerModule.Register;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class ClientActionServerModuleSystemReloadedEventHandler
+    : INotificationHandler<ClientActionServerModuleSystemReloadedEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Systems.ServerModule.Register;
-    using EventHorizon.Game.Client.Systems.ServerModule.Api;
-    using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
-    using EventHorizon.Game.Client.Systems.ServerModule.ClientAction;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
+    private readonly ServerModuleState _state;
+    private readonly ServerModuleScriptsState _scriptsState;
 
-    public class ClientActionServerModuleSystemReloadedEventHandler
-        : INotificationHandler<ClientActionServerModuleSystemReloadedEvent>
+    public ClientActionServerModuleSystemReloadedEventHandler(
+        ILogger<ClientActionServerModuleSystemReloadedEventHandler> logger,
+        IMediator mediator,
+        ServerModuleState state,
+        ServerModuleScriptsState scriptsState
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
-        private readonly ServerModuleState _state;
-        private readonly ServerModuleScriptsState _scriptsState;
+        _logger = logger;
+        _mediator = mediator;
+        _state = state;
+        _scriptsState = scriptsState;
+    }
 
-        public ClientActionServerModuleSystemReloadedEventHandler(
-            ILogger<ClientActionServerModuleSystemReloadedEventHandler> logger,
-            IMediator mediator,
-            ServerModuleState state,
-            ServerModuleScriptsState scriptsState
-        )
+    public async Task Handle(
+        ClientActionServerModuleSystemReloadedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        // Dispose of existing
+        foreach (var serverModule in _state.All())
         {
-            _logger = logger;
-            _mediator = mediator;
-            _state = state;
-            _scriptsState = scriptsState;
+            await _mediator.Send(
+                new DisposeOfServerModuleCommand(serverModule.Name),
+                cancellationToken
+            );
         }
 
-        public async Task Handle(
-            ClientActionServerModuleSystemReloadedEvent notification,
-            CancellationToken cancellationToken
+        // Clear current state
+        _state.Clear();
+
+        // Clear out any existing Scripts
+        _scriptsState.Clear();
+
+        // Register new ServerModule
+        foreach (
+            var newServerModuleScripts in notification.ServerModuleScriptsList
         )
         {
-            // Dispose of existing
-            foreach (var serverModule in _state.All())
+            var result = await _mediator.Send(
+                new RegisterNewServerModuleFromScriptCommand(
+                    newServerModuleScripts
+                ),
+                cancellationToken
+            );
+            if (!result.Success)
             {
-                await _mediator.Send(
-                    new DisposeOfServerModuleCommand(
-                        serverModule.Name
-                    ),
-                    cancellationToken
+                _logger.LogWarning(
+                    "Failed to Register ServerModule from Scripts: {ScriptsName} | {ErrorCode}",
+                    newServerModuleScripts.Name,
+                    result.ErrorCode
                 );
             }
-
-            // Clear current state
-            _state.Clear();
-
-            // Clear out any existing Scripts
-            _scriptsState.Clear();
-
-            // Register new ServerModule
-            foreach (var newServerModuleScripts in notification.ServerModuleScriptsList)
-            {
-                var result = await _mediator.Send(
-                    new RegisterNewServerModuleFromScriptCommand(
-                        newServerModuleScripts
-                    ),
-                    cancellationToken
-                );
-                if (!result.Success)
-                {
-                    _logger.LogWarning(
-                        "Failed to Register ServerModule from Scripts: {ScriptsName} | {ErrorCode}",
-                        newServerModuleScripts.Name,
-                        result.ErrorCode
-                    );
-                }
-            }
-
         }
     }
 }

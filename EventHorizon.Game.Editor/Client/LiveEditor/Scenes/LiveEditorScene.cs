@@ -1,91 +1,80 @@
-﻿namespace EventHorizon.Game.Editor.Client.LiveEditor.Scenes
+﻿namespace EventHorizon.Game.Editor.Client.LiveEditor.Scenes;
+
+using System;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client;
+using EventHorizon.Game.Client.Systems.Account.Api;
+using EventHorizon.Game.Client.Systems.Account.Changed;
+using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
+using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Stop;
+using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
+
+using Microsoft.Extensions.Logging;
+
+public class LiveEditorScene : GameSceneBase, AccountChangedEventObserver
 {
-    using System;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client;
-    using EventHorizon.Game.Client.Systems.Account.Api;
-    using EventHorizon.Game.Client.Systems.Account.Changed;
-    using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
-    using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Stop;
-    using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
-    using Microsoft.Extensions.Logging;
+    private readonly ILogger _logger = GameServiceProvider.GetService<
+        ILogger<LiveEditorScene>
+    >();
+    private readonly IAccountState _accountState =
+        GameServiceProvider.GetService<IAccountState>();
 
-    public class LiveEditorScene
-         : GameSceneBase,
-        AccountChangedEventObserver
+    private string _serverAddress = string.Empty;
+
+    public LiveEditorScene()
+        : base("live-editor") { }
+
+    public override async Task Initialize()
     {
-        private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<LiveEditorScene>>();
-        private readonly IAccountState _accountState = GameServiceProvider.GetService<IAccountState>();
+        GamePlatfrom.RegisterObserver(this);
+        await StartZoneConnection();
+    }
 
-        private string _serverAddress = string.Empty;
-
-        public LiveEditorScene()
-            : base("live-editor")
+    public override async Task Dispose()
+    {
+        GamePlatfrom.UnRegisterObserver(this);
+        if (!string.IsNullOrEmpty(_serverAddress))
         {
-        }
-
-        public override async Task Initialize()
-        {
-            GamePlatfrom.RegisterObserver(
-                this
+            await _mediator.Send(
+                new StopPlayerZoneConnectionCommand(_serverAddress)
             );
-            await StartZoneConnection();
         }
+        await base.Dispose();
+    }
 
-        public override async Task Dispose()
-        {
-            GamePlatfrom.UnRegisterObserver(
-                this
-            );
-            if (!string.IsNullOrEmpty(_serverAddress))
-            {
-                await _mediator.Send(
-                    new StopPlayerZoneConnectionCommand(
-                        _serverAddress
-                    )
-                );
-            }
-            await base.Dispose();
-        }
+    public override Task PostInitialize()
+    {
+        return base.PostInitialize();
+    }
 
-        public override Task PostInitialize()
-        {
-            return base.PostInitialize();
-        }
+    public override Task Update()
+    {
+        return base.Update();
+    }
 
-        public override Task Update()
-        {
-            return base.Update();
-        }
+    public override Task Draw()
+    {
+        return Task.CompletedTask;
+    }
 
-        public override Task Draw()
-        {
-            return Task.CompletedTask;
-        }
+    public Task Handle(AccountChangedEvent args)
+    {
+        return StartZoneConnection();
+    }
 
-        public Task Handle(
-            AccountChangedEvent args
+    private async Task StartZoneConnection()
+    {
+        if (
+            _accountState.User.IsNotNull()
+            && !string.IsNullOrEmpty(_accountState.User.Zone.ServerAddress)
         )
         {
-            return StartZoneConnection();
-        }
-
-        private async Task StartZoneConnection()
-        {
-            if (_accountState.User.IsNotNull()
-                && !string.IsNullOrEmpty(
-                    _accountState.User.Zone.ServerAddress
-                )
-            )
-            {
-                _serverAddress = _accountState.User.Zone.ServerAddress;
-                _logger.LogDebug($"Started Player Connection {DateTime.UtcNow}");
-                await _mediator.Send(
-                    new StartPlayerZoneConnectionCommand(
-                        _serverAddress
-                    )
-                );
-            }
+            _serverAddress = _accountState.User.Zone.ServerAddress;
+            _logger.LogDebug($"Started Player Connection {DateTime.UtcNow}");
+            await _mediator.Send(
+                new StartPlayerZoneConnectionCommand(_serverAddress)
+            );
         }
     }
 }

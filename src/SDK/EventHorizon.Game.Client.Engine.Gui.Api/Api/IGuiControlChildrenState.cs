@@ -1,21 +1,13 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Api
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Api;
+
+using System;
+using System.Collections.Generic;
+
+public interface IGuiControlChildrenState
 {
-    using System;
-    using System.Collections.Generic;
+    void AddChildGuiToControl(string controlId, string childGuiId);
 
-    public interface IGuiControlChildrenState
-    {
-        void AddChildGuiToControl(
-            string controlId,
-            string childGuiId
-        );
+    IEnumerable<string> GetChildren(string controlId);
 
-        IEnumerable<string> GetChildren(
-            string controlId
-        );
-
-        IEnumerable<string> RemoveTrackingOfControl(
-            string controlId
-        );
-    }
+    IEnumerable<string> RemoveTrackingOfControl(string controlId);
 }

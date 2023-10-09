@@ -1,50 +1,51 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.ClientAction
+﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.ClientAction;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Systems.ClientScripts.Api;
+using EventHorizon.Game.Client.Systems.ClientScripts.Fetch;
+using EventHorizon.Game.Client.Systems.ClientScripts.Scripting.ClientAction;
+using EventHorizon.Game.Client.Systems.ClientScripts.Set;
+
+using MediatR;
+
+public class ClientActionClientScriptsAssemblyChangedEventHandler
+    : INotificationHandler<ClientActionClientScriptsAssemblyChangedEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Systems.ClientScripts.Api;
-    using EventHorizon.Game.Client.Systems.ClientScripts.Fetch;
-    using EventHorizon.Game.Client.Systems.ClientScripts.Scripting.ClientAction;
-    using EventHorizon.Game.Client.Systems.ClientScripts.Set;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly ClientScriptsState _state;
 
-    public class ClientActionClientScriptsAssemblyChangedEventHandler
-        : INotificationHandler<ClientActionClientScriptsAssemblyChangedEvent>
+    public ClientActionClientScriptsAssemblyChangedEventHandler(
+        IMediator mediator,
+        ClientScriptsState state
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly ClientScriptsState _state;
+        _mediator = mediator;
+        _state = state;
+    }
 
-        public ClientActionClientScriptsAssemblyChangedEventHandler(
-            IMediator mediator,
-            ClientScriptsState state
-        )
+    public async Task Handle(
+        ClientActionClientScriptsAssemblyChangedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Hash != _state.Hash)
         {
-            _mediator = mediator;
-            _state = state;
-        }
-
-        public async Task Handle(
-            ClientActionClientScriptsAssemblyChangedEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (notification.Hash != _state.Hash)
+            var result = await _mediator.Send(
+                new FetchClientScriptsAssembly(),
+                cancellationToken
+            );
+            if (result.Success)
             {
-                var result = await _mediator.Send(
-                    new FetchClientScriptsAssembly(),
+                await _mediator.Send(
+                    new SetClientScriptsAssemblyCommand(
+                        notification.Hash,
+                        result.Result.ScriptAssembly
+                    ),
                     cancellationToken
                 );
-                if (result.Success)
-                {
-                    await _mediator.Send(
-                        new SetClientScriptsAssemblyCommand(
-                            notification.Hash,
-                            result.Result.ScriptAssembly
-                        ),
-                        cancellationToken
-                    );
-                }
             }
         }
     }

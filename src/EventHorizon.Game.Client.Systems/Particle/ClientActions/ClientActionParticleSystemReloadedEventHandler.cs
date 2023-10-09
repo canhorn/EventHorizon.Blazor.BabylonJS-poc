@@ -29,19 +29,12 @@ public class ClientActionParticleSystemReloadedEventHandler
         CancellationToken cancellationToken
     )
     {
-        await _sender.Send(
-            new ClearParticleStateCommand(),
-            cancellationToken
-        );
+        await _sender.Send(new ClearParticleStateCommand(), cancellationToken);
 
-        foreach (
-            var particleTemplate in notification.ParticleTemplateList
-        )
+        foreach (var particleTemplate in notification.ParticleTemplateList)
         {
             await _sender.Send(
-                new AddParticleTemplateCommand(
-                    particleTemplate
-                ),
+                new AddParticleTemplateCommand(particleTemplate),
                 cancellationToken
             );
         }

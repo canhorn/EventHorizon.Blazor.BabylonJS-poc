@@ -11,13 +11,13 @@ using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 
 using Microsoft.AspNetCore.Components;
 
-public class ArtifactExportsTableBase
-    : ArtifactComponentBase
+public class ArtifactExportsTableBase : ArtifactComponentBase
 {
     [Parameter]
     public string ServiceFilter { get; set; } = string.Empty;
 
-    protected ComponentState DisplayState { get; set; } = ComponentState.Loading;
+    protected ComponentState DisplayState { get; set; } =
+        ComponentState.Loading;
     protected IEnumerable<ArtifactViewModel> ArtifactList { get; set; } =
         new List<ArtifactViewModel>();
 
@@ -30,9 +30,7 @@ public class ArtifactExportsTableBase
             DisplayState = ComponentState.Loading;
         }
 
-        var result = await Sender.Send(
-            new QueryForAllArtifactExports()
-        );
+        var result = await Sender.Send(new QueryForAllArtifactExports());
 
         if (!result)
         {
@@ -46,11 +44,9 @@ public class ArtifactExportsTableBase
         }
 
         ArtifactList = result.Result;
-        if(ServiceFilter.IsNotNullOrEmpty())
+        if (ServiceFilter.IsNotNullOrEmpty())
         {
-            ArtifactList = ArtifactList.Where(
-                a => a.Service == ServiceFilter
-            );
+            ArtifactList = ArtifactList.Where(a => a.Service == ServiceFilter);
         }
 
         DisplayState = ComponentState.Content;

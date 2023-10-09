@@ -1,10 +1,7 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Api
-{
-    using System;
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 
-    public interface IClientAction
-        : INotification
-    {
-    }
-}
+using System;
+
+using MediatR;
+
+public interface IClientAction : INotification { }

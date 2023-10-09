@@ -56,15 +56,11 @@ public class ClientActionEntityModuleSystemReloadedEventHandler
 
         foreach (var baseModule in notification.BaseEntityScriptModuleList)
         {
-            _baseScriptModuleState.Set(
-                baseModule
-            );
+            _baseScriptModuleState.Set(baseModule);
         }
         foreach (var playerModule in notification.PlayerEntityScriptModuleList)
         {
-            _playerScriptModuleState.Set(
-                playerModule
-            );
+            _playerScriptModuleState.Set(playerModule);
         }
 
         await _publisher.Publish(

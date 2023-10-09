@@ -1,9 +1,5 @@
-﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Api
-{
-    using MediatR;
+﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
 
-    public interface IAdminClientAction
-        : INotification
-    {
-    }
-}
+using MediatR;
+
+public interface IAdminClientAction : INotification { }

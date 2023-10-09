@@ -8,7 +8,7 @@ using EventHorizon.Game.Client.Engine.Gui.Api;
 
 public class GuiControlOptionsModel
     : Dictionary<string, object>,
-      IGuiControlOptions
+        IGuiControlOptions
 {
     public class GuiControlMetadataOptionModel
     {

@@ -1,11 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Engine.Settings.Api
-{
-    public interface IGameSettings
-    {
-        string CanvasTagId { get; }
+﻿namespace EventHorizon.Game.Client.Engine.Settings.Api;
 
-        string GetProperty(
-            string key
-        );
-    }
+public interface IGameSettings
+{
+    string CanvasTagId { get; }
+
+    string GetProperty(string key);
 }

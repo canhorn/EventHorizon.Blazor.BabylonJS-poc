@@ -1,37 +1,34 @@
-﻿namespace EventHorizon.Game.Client.Systems.Entity.ClientAction
+﻿namespace EventHorizon.Game.Client.Systems.Entity.ClientAction;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
+using EventHorizon.Game.Client.Engine.Systems.Entity.ClientAction;
+using EventHorizon.Game.Client.Systems.Entity.Model;
+
+using MediatR;
+
+public class ClientActionEntityRegisteredEventHandler
+    : INotificationHandler<ClientActionEntityRegisteredEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.ClientAction;
-    using EventHorizon.Game.Client.Systems.Entity.Model;
-    using MediatR;
+    private readonly IMediator _mediator;
 
-    public class ClientActionEntityRegisteredEventHandler
-        : INotificationHandler<ClientActionEntityRegisteredEvent>
+    public ClientActionEntityRegisteredEventHandler(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ClientActionEntityRegisteredEventHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            ClientActionEntityRegisteredEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Publish(
-                new RegisterEntityEvent(
-                    new StandardServerEntity(
-                        notification.Entity
-                    )
-                )
-            );
-        }
+    public async Task Handle(
+        ClientActionEntityRegisteredEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Publish(
+            new RegisterEntityEvent(
+                new StandardServerEntity(notification.Entity)
+            )
+        );
     }
 }

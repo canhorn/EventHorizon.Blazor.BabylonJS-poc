@@ -1,29 +1,28 @@
-﻿namespace EventHorizon.Game.Client.Systems.EntityModule.State
+﻿namespace EventHorizon.Game.Client.Systems.EntityModule.State;
+
+using System;
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Systems.EntityModule.Api;
+
+public class StandardEntityPlayerScriptModuleState
+    : EntityPlayerScriptModuleState
 {
-    using System;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.EntityModule.Api;
+    private readonly IDictionary<string, EntityModuleScripts> _map =
+        new Dictionary<string, EntityModuleScripts>();
 
-    public class StandardEntityPlayerScriptModuleState
-        : EntityPlayerScriptModuleState
+    public IEnumerable<EntityModuleScripts> All()
     {
-        private readonly IDictionary<string, EntityModuleScripts> _map = new Dictionary<string, EntityModuleScripts>();
+        return _map.Values;
+    }
 
-        public IEnumerable<EntityModuleScripts> All()
-        {
-            return _map.Values;
-        }
+    public void Reset()
+    {
+        _map.Clear();
+    }
 
-        public void Reset()
-        {
-            _map.Clear();
-        }
-
-        public void Set(
-            EntityModuleScripts baseModule
-        )
-        {
-            _map[baseModule.Name] = baseModule;
-        }
+    public void Set(EntityModuleScripts baseModule)
+    {
+        _map[baseModule.Name] = baseModule;
     }
 }

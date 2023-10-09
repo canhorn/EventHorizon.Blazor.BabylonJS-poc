@@ -1,14 +1,12 @@
-﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Api
+﻿namespace EventHorizon.Game.Client.Systems.EntityModule.Api;
+
+using EventHorizon.Game.Client.Engine.Systems.Module.Api;
+
+public interface IEntityModule : IModule
 {
-    using EventHorizon.Game.Client.Engine.Systems.Module.Api;
+    string Name { get; }
 
-    public interface IEntityModule
-        : IModule
-    {
-        string Name { get; }
-
-        bool IsInitializable { get; }
-        bool IsDisposable { get; }
-        bool IsUpdatable { get; }
-    }
+    bool IsInitializable { get; }
+    bool IsDisposable { get; }
+    bool IsUpdatable { get; }
 }

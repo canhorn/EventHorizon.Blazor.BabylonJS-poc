@@ -1,66 +1,55 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+
+public class ClientAssetConfigBase : ClientAssetConfig
 {
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+    private readonly IDictionary<string, object> _data;
 
-    public class ClientAssetConfigBase
-        : ClientAssetConfig
+    public ClientAssetConfigBase(IDictionary<string, object> data)
     {
-        private readonly IDictionary<string, object> _data;
+        _data = data;
+    }
 
-        public ClientAssetConfigBase(
-            IDictionary<string, object> data
-        )
+    public int GetInt(string key)
+    {
+        var value = default(int);
+        if (_data.ContainsKey(key))
         {
-            _data = data;
+            return _data[key].To<int>();
         }
+        return value;
+    }
 
-        public int GetInt(
-            string key
-        )
+    public decimal GetDecimal(string key)
+    {
+        var value = default(decimal);
+        if (_data.ContainsKey(key))
         {
-            var value = default(int);
-            if (_data.ContainsKey(key))
-            {
-                return _data[key].To<int>();
-            }
-            return value;
+            value = _data[key].To<decimal>();
         }
+        return value;
+    }
 
-        public decimal GetDecimal(
-            string key
-        )
+    public float GetFloat(string key)
+    {
+        var value = default(float);
+        if (_data.ContainsKey(key))
         {
-            var value = default(decimal);
-            if (_data.ContainsKey(key))
-            {
-                value = _data[key].To<decimal>();
-            }
-            return value;
+            value = _data[key].To<float>();
         }
+        return value;
+    }
 
-        public float GetFloat(
-            string key
-        )
+    public string GetString(string key)
+    {
+        var value = string.Empty;
+        if (_data.ContainsKey(key))
         {
-            var value = default(float);
-            if (_data.ContainsKey(key))
-            {
-                value = _data[key].To<float>();
-            }
-            return value;
+            value = _data[key].To<string>() ?? string.Empty;
         }
-
-        public string GetString(
-            string key
-        )
-        {
-            var value = string.Empty;
-            if (_data.ContainsKey(key))
-            {
-                value = _data[key].To<string>() ?? string.Empty;
-            }
-            return value;
-        }
+        return value;
     }
 }

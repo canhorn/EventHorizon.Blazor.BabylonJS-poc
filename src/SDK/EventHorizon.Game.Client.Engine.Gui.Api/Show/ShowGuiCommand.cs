@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Show
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Show;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct ShowGuiCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Id { get; }
 
-    public struct ShowGuiCommand
-        : IRequest<StandardCommandResult>
+    public ShowGuiCommand(string id)
     {
-        public string Id { get; }
-
-        public ShowGuiCommand(
-            string id
-        )
-        {
-            Id = id;
-        }
+        Id = id;
     }
 }

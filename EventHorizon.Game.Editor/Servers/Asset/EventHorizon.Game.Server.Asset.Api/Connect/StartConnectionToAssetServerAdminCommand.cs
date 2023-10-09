@@ -1,18 +1,16 @@
-﻿namespace EventHorizon.Game.Server.Asset.Connect
+﻿namespace EventHorizon.Game.Server.Asset.Connect;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct StartConnectionToAssetServerAdminCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string AccessToken { get; }
 
-    public struct StartConnectionToAssetServerAdminCommand
-        : IRequest<StandardCommandResult>
+    public StartConnectionToAssetServerAdminCommand(string accessToken)
     {
-        public string AccessToken { get; }
-
-        public StartConnectionToAssetServerAdminCommand(
-            string accessToken
-        )
-        {
-            AccessToken = accessToken;
-        }
+        AccessToken = accessToken;
     }
 }

@@ -1,24 +1,22 @@
-﻿namespace EventHorizon.Game.Client.Engine.Scripting.Services
+﻿namespace EventHorizon.Game.Client.Engine.Scripting.Services;
+
+using EventHorizon.Game.Client.Core.I18n.Api;
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public interface ScriptServices
 {
-    using EventHorizon.Game.Client.Core.I18n.Api;
-    using EventHorizon.Observer.Model;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
+    IMediator Mediator { get; }
+    ILocalizer Localizer { get; }
 
-    public interface ScriptServices
-    {
-        IMediator Mediator { get; }
-        ILocalizer Localizer { get; }
+    ILogger Logger<T>();
 
-        ILogger Logger<T>();
+    T GetService<T>()
+        where T : notnull;
 
-        T GetService<T>() where T : notnull;
-
-        void RegisterObserver(
-            ObserverBase observer
-        );
-        void UnRegisterObserver(
-            ObserverBase observer
-        );
-    }
+    void RegisterObserver(ObserverBase observer);
+    void UnRegisterObserver(ObserverBase observer);
 }

@@ -34,12 +34,12 @@ public class MeshModuleOptions
 
 public class MeshModule
     : ModuleEntityBase,
-      IMeshModule,
-      MapMeshReadyEventObserver,
-      MeshLoadedEventObserver,
-      EntityEnteringViewEventObserver,
-      EntityExitingViewEventObserver,
-      ReloadingClientAssetsEventObserver
+        IMeshModule,
+        MapMeshReadyEventObserver,
+        MeshLoadedEventObserver,
+        EntityEnteringViewEventObserver,
+        EntityExitingViewEventObserver,
+        ReloadingClientAssetsEventObserver
 {
     private readonly IMediator _mediator;
     private readonly IObjectEntity _entity;
@@ -118,8 +118,10 @@ public class MeshModule
 
         if (_entity.Transform.ScalingDeterminant.HasValue)
         {
-            Mesh.ScalingDeterminant =
-                _entity.Transform.ScalingDeterminant.Value;
+            Mesh.ScalingDeterminant = _entity
+                .Transform
+                .ScalingDeterminant
+                .Value;
         }
         else
         {
@@ -135,10 +137,10 @@ public class MeshModule
 
     private IEngineMesh BuildMesh()
     {
-        var scene =
-            GameServiceProvider
-                .GetService<IRenderingScene>()
-                .GetBabylonJSScene().Scene;
+        var scene = GameServiceProvider
+            .GetService<IRenderingScene>()
+            .GetBabylonJSScene()
+            .Scene;
         return new BabylonJSEngineMesh(
             BabylonJS.Mesh.CreateSphere(
                 $"testing_sphere_{_entity.ClientId}",

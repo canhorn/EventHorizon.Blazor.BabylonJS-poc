@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Components;
 
 public class ZoneArtifactManagementProviderBase
     : ObservableComponentBase,
-    ZoneArtifactManagementStateChangedEventObserver
+        ZoneArtifactManagementStateChangedEventObserver
 {
     [Parameter]
     public RenderFragment ChildContent { get; set; } = null!;
@@ -18,9 +18,7 @@ public class ZoneArtifactManagementProviderBase
     [Inject]
     public ZoneArtifactManagementState State { get; set; } = null!;
 
-    public async Task Handle(
-        ZoneArtifactManagementStateChangedEvent args
-    )
+    public async Task Handle(ZoneArtifactManagementStateChangedEvent args)
     {
         await InvokeAsync(StateHasChanged);
     }

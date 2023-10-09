@@ -11,10 +11,7 @@ using EventHorizon.Game.Server.Asset.Trigger;
 using MediatR;
 
 public class TriggerAssetServerBackupCommandHandler
-    : IRequestHandler<
-          TriggerAssetServerBackupCommand,
-          StandardCommandResult
-      >
+    : IRequestHandler<TriggerAssetServerBackupCommand, StandardCommandResult>
 {
     private readonly IMediator _mediator;
     private readonly AssetManagementState _state;

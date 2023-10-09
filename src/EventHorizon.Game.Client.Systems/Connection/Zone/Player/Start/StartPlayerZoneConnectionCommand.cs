@@ -1,17 +1,13 @@
-﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start
+﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
+
+using MediatR;
+
+public class StartPlayerZoneConnectionCommand : IRequest<bool>
 {
-    using MediatR;
+    public string ServerUrl { get; }
 
-    public class StartPlayerZoneConnectionCommand
-        : IRequest<bool>
+    public StartPlayerZoneConnectionCommand(string serverUrl)
     {
-        public string ServerUrl { get; }
-
-        public StartPlayerZoneConnectionCommand(
-            string serverUrl
-        )
-        {
-            ServerUrl = serverUrl;
-        }
+        ServerUrl = serverUrl;
     }
 }

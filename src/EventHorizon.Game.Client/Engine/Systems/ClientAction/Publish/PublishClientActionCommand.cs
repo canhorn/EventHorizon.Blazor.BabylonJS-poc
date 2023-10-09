@@ -1,23 +1,23 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish
+﻿namespace EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
+
+using System;
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct PublishClientActionCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string ActionName { get; }
+    public IDictionary<string, object> Data { get; }
 
-    public struct PublishClientActionCommand
-        : IRequest<StandardCommandResult>
+    public PublishClientActionCommand(
+        string actionName,
+        IDictionary<string, object> data
+    )
     {
-        public string ActionName { get; }
-        public IDictionary<string, object> Data { get; }
-
-        public PublishClientActionCommand(
-            string actionName,
-            IDictionary<string, object> data
-        )
-        {
-            ActionName = actionName;
-            Data = data;
-        }
+        ActionName = actionName;
+        Data = data;
     }
 }

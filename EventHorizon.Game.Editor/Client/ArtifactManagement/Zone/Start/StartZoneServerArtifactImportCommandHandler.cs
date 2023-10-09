@@ -9,13 +9,14 @@ using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Open;
 using MediatR;
 
 public class StartZoneServerArtifactImportCommandHandler
-    : IRequestHandler<StartZoneServerArtifactImportCommand, StandardCommandResult>
+    : IRequestHandler<
+        StartZoneServerArtifactImportCommand,
+        StandardCommandResult
+    >
 {
     private readonly IPublisher _publisher;
 
-    public StartZoneServerArtifactImportCommandHandler(
-        IPublisher publisher
-    )
+    public StartZoneServerArtifactImportCommandHandler(IPublisher publisher)
     {
         _publisher = publisher;
     }

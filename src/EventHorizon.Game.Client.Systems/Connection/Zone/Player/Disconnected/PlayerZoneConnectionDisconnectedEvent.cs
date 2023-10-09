@@ -1,23 +1,23 @@
-﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Disconnected
+﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Disconnected;
+
+using System;
+using System.Diagnostics.CodeAnalysis;
+
+using MediatR;
+
+public class PlayerZoneConnectionDisconnectedEvent : INotification
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using MediatR;
+    public string Code { get; }
 
-    public class PlayerZoneConnectionDisconnectedEvent
-        : INotification
+    [MaybeNull]
+    public Exception? Error { get; }
+
+    public PlayerZoneConnectionDisconnectedEvent(
+        string code,
+        [MaybeNull] Exception? error
+    )
     {
-        public string Code { get; }
-        [MaybeNull]
-        public Exception? Error { get; }
-
-        public PlayerZoneConnectionDisconnectedEvent(
-            string code,
-            [MaybeNull] Exception? error
-        )
-        {
-            Code = code;
-            Error = error;
-        }
+        Code = code;
+        Error = error;
     }
 }

@@ -21,11 +21,11 @@ using Microsoft.AspNetCore.Components;
 
 public class ZoneSelectionProviderModel
     : ObservableComponentBase,
-      CoreAdminServiceConnectedObserver,
-      ZoneRegisteredOnCoreServerObserver,
-      ZoneUnregisteredOnCoreServerObserver,
-      ZoneAdminServiceReconnectedEventObserver,
-      ActiveZoneStateChangedEventObserver
+        CoreAdminServiceConnectedObserver,
+        ZoneRegisteredOnCoreServerObserver,
+        ZoneUnregisteredOnCoreServerObserver,
+        ZoneAdminServiceReconnectedEventObserver,
+        ActiveZoneStateChangedEventObserver
 {
     [CascadingParameter]
     public AccessTokenModel AccessToken { get; set; } = null!;

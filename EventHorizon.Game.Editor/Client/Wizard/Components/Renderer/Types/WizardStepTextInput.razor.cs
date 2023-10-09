@@ -1,53 +1,41 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types;
+
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Components;
+
+public class WizardStepTextInputBase : WizardStepCommonBase
 {
-    using System.Threading.Tasks;
+    protected ElementReference TextInputElement { get; set; }
 
-    using Microsoft.AspNetCore.Components;
-
-    public class WizardStepTextInputBase
-        : WizardStepCommonBase
+    protected string TextValue
     {
-        protected ElementReference TextInputElement { get; set; }
-
-        protected string TextValue
+        get
         {
-            get
+            if (Step.Details.TryGetValue("property", out var property))
             {
-                if (Step.Details.TryGetValue(
-                    "property",
-                    out var property
-                ))
-                {
-                    return Data[property];
-                }
-                return string.Empty;
+                return Data[property];
             }
-            set
-            {
-                if (Step.Details.TryGetValue(
-                    "property",
-                    out var property
-                ))
-                {
-                    Data[property] = value;
-                }
-
-                InvokeAsync(() => State.UpdateData(
-                    Data
-                ));
-            }
+            return string.Empty;
         }
-
-        protected override async Task OnAfterRenderAsync(
-            bool firstRender
-        )
+        set
         {
-            await base.OnAfterRenderAsync(firstRender);
-
-            if (firstRender)
+            if (Step.Details.TryGetValue("property", out var property))
             {
-                await TextInputElement.FocusAsync();
+                Data[property] = value;
             }
+
+            InvokeAsync(() => State.UpdateData(Data));
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await TextInputElement.FocusAsync();
         }
     }
 }

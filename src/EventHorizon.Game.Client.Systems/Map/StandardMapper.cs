@@ -1,6 +1,3 @@
-﻿namespace EventHorizon.Game.Client.Systems.Map
-{
-    internal class StandardMapper<T>
-    {
-    }
-}
+﻿namespace EventHorizon.Game.Client.Systems.Map;
+
+internal class StandardMapper<T> { }

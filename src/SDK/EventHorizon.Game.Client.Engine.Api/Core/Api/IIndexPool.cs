@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Engine.Core.Api
+﻿namespace EventHorizon.Game.Client.Engine.Core.Api;
+
+public interface IIndexPool
 {
-    public interface IIndexPool
-    {
-        long NextIndex();
-    }
+    long NextIndex();
 }

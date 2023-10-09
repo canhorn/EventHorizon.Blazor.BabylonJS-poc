@@ -6,7 +6,8 @@ public static class HomePageTranslations
     {
         public const string Header = "EventHorizon Game Editor";
 
-        public const string TwitterLinkText = "EventHorizon Twitter (Cody Anhorn)";
+        public const string TwitterLinkText =
+            "EventHorizon Twitter (Cody Anhorn)";
 
         public const string LoginHeader = "Login to Access the Editor";
     }

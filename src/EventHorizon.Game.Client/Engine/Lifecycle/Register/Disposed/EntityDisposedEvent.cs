@@ -1,47 +1,43 @@
-﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Disposed
+﻿namespace EventHorizon.Game.Client.Engine.Lifecycle.Register.Disposed;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+using EventHorizon.Observer.Model;
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public struct EntityDisposedEvent : INotification
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
-    using EventHorizon.Observer.Model;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    public IDisposableEntity Entity { get; }
 
-    public struct EntityDisposedEvent : INotification
+    public EntityDisposedEvent(IDisposableEntity entity)
     {
-        public IDisposableEntity Entity { get; }
+        Entity = entity;
+    }
+}
 
-        public EntityDisposedEvent(
-            IDisposableEntity entity
-        )
-        {
-            Entity = entity;
-        }
+public interface EntityDisposedEventObserver
+    : ArgumentObserver<EntityDisposedEvent> { }
+
+public class EntityDisposedEventHandler
+    : INotificationHandler<EntityDisposedEvent>
+{
+    private readonly ObserverState _observer;
+
+    public EntityDisposedEventHandler(ObserverState observer)
+    {
+        _observer = observer;
     }
 
-    public interface EntityDisposedEventObserver
-        : ArgumentObserver<EntityDisposedEvent>
-    {
-    }
-
-    public class EntityDisposedEventHandler
-        : INotificationHandler<EntityDisposedEvent>
-    {
-        private readonly ObserverState _observer;
-
-        public EntityDisposedEventHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            EntityDisposedEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<EntityDisposedEventObserver, EntityDisposedEvent>(
+    public Task Handle(
+        EntityDisposedEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<EntityDisposedEventObserver, EntityDisposedEvent>(
             notification,
             cancellationToken
         );
-    }
 }

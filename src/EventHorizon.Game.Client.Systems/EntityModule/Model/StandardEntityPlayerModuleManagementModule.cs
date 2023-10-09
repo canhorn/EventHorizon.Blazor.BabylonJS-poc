@@ -9,17 +9,17 @@ using EventHorizon.Game.Client.Systems.Player.Api;
 
 public class StandardEntityPlayerModuleManagementModule
     : ModuleEntityBase,
-    EntityBaseModuleManagementModule,
-    PlayerEntityModulesChangedEventObserver
+        EntityBaseModuleManagementModule,
+        PlayerEntityModulesChangedEventObserver
 {
-    private readonly EntityPlayerScriptModuleState _state = GameServiceProvider.GetService<EntityPlayerScriptModuleState>();
+    private readonly EntityPlayerScriptModuleState _state =
+        GameServiceProvider.GetService<EntityPlayerScriptModuleState>();
 
     private readonly IPlayerEntity _entity;
 
     public override int Priority { get; } = 0;
-    public StandardEntityPlayerModuleManagementModule(
-        IPlayerEntity entity
-    )
+
+    public StandardEntityPlayerModuleManagementModule(IPlayerEntity entity)
     {
         _entity = entity;
     }
@@ -38,20 +38,12 @@ public class StandardEntityPlayerModuleManagementModule
 
     public override Task Update() => Task.CompletedTask;
 
-    public async Task Handle(
-        PlayerEntityModulesChangedEvent args
-    )
+    public async Task Handle(PlayerEntityModulesChangedEvent args)
     {
         foreach (var scriptModule in _state.All())
         {
-            var module = new StandardEntityModule(
-                _entity,
-                scriptModule
-            );
-            _entity.RegisterModule(
-                scriptModule.Name,
-                module
-            );
+            var module = new StandardEntityModule(_entity, scriptModule);
+            _entity.RegisterModule(scriptModule.Name, module);
             await module.Initialize();
         }
     }

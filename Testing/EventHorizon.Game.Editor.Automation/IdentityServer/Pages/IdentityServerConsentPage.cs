@@ -4,8 +4,7 @@ using Atata;
 
 using _ = IdentityServerConsentPage;
 
-public class IdentityServerConsentPage
-    : Page<_>
+public class IdentityServerConsentPage : Page<_>
 {
     public static string Url => $"/consent";
 

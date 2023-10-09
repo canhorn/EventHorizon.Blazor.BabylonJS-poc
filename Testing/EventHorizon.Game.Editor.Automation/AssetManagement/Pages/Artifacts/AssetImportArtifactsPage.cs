@@ -8,13 +8,8 @@ using EventHorizon.Game.Editor.Automation.Layout;
 using _ = AssetImportArtifactsPage;
 
 [Url("/asset/artifacts/import")]
-public class AssetImportArtifactsPage
-    : MainLayoutPage<_>
+public class AssetImportArtifactsPage : MainLayoutPage<_>
 {
     [FindByClass("import-artifacts__table")]
-    public Table<ArtifactTableRow<_>, _> ArtifactTable
-    {
-        get;
-        private set;
-    }
+    public Table<ArtifactTableRow<_>, _> ArtifactTable { get; private set; }
 }

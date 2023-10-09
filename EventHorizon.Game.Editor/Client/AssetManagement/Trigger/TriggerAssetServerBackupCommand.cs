@@ -5,6 +5,4 @@ using EventHorizon.Game.Client.Core.Command.Model;
 using MediatR;
 
 public struct TriggerAssetServerBackupCommand
-    : IRequest<StandardCommandResult>
-{
-}
+    : IRequest<StandardCommandResult> { }

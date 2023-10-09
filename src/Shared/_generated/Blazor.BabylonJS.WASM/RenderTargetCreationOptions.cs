@@ -1,178 +1,156 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<RenderTargetCreationOptions>))]
+public class RenderTargetCreationOptions : CachedEntityObject
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<RenderTargetCreationOptions>))]
-    public class RenderTargetCreationOptions : CachedEntityObject
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    #endregion
+
+    #region Properties
+
+    public bool generateMipMaps
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-
-        #endregion
-
-        #region Properties
-        
-        public bool generateMipMaps
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "generateMipMaps"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "generateMipMaps",
-                    value
-                );
-            }
+                this.___guid,
+                "generateMipMaps"
+            );
         }
-
-        
-        public bool generateDepthBuffer
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "generateDepthBuffer"
-                );
-            }
-            set
-            {
 
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "generateDepthBuffer",
-                    value
-                );
-            }
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "generateMipMaps",
+                value
+            );
         }
-
-        
-        public bool generateStencilBuffer
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "generateStencilBuffer"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "generateStencilBuffer",
-                    value
-                );
-            }
-        }
-
-        
-        public decimal type
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "type"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "type",
-                    value
-                );
-            }
-        }
-
-        
-        public decimal samplingMode
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "samplingMode"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "samplingMode",
-                    value
-                );
-            }
-        }
-
-        
-        public decimal format
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "format"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "format",
-                    value
-                );
-            }
-        }
-        #endregion
-        
-        #region Constructor
-        public RenderTargetCreationOptions() : base() { } 
-
-        public RenderTargetCreationOptions(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-            ___guid = entity.___guid;
-        }
-
-
-        #endregion
-
-        #region Methods
-
-        #endregion
     }
+
+    public bool generateDepthBuffer
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<bool>(
+                this.___guid,
+                "generateDepthBuffer"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "generateDepthBuffer",
+                value
+            );
+        }
+    }
+
+    public bool generateStencilBuffer
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<bool>(
+                this.___guid,
+                "generateStencilBuffer"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "generateStencilBuffer",
+                value
+            );
+        }
+    }
+
+    public decimal type
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type");
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "type", value);
+        }
+    }
+
+    public decimal samplingMode
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<decimal>(
+                this.___guid,
+                "samplingMode"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "samplingMode", value);
+        }
+    }
+
+    public decimal format
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<decimal>(
+                this.___guid,
+                "format"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "format", value);
+        }
+    }
+    #endregion
+
+    #region Constructor
+    public RenderTargetCreationOptions()
+        : base() { }
+
+    public RenderTargetCreationOptions(ICachedEntity entity)
+        : base(entity)
+    {
+        ___guid = entity.___guid;
+    }
+
+    #endregion
+
+    #region Methods
+
+    #endregion
 }

@@ -1,9 +1,5 @@
-﻿namespace EventHorizon.Game.Editor.Properties.Model
-{
-    using System.Collections.Generic;
+﻿namespace EventHorizon.Game.Editor.Properties.Model;
 
-    public class ComplexProperty
-        : Dictionary<string, object>
-    {
-    }
-}
+using System.Collections.Generic;
+
+public class ComplexProperty : Dictionary<string, object> { }

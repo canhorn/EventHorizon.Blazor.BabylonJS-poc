@@ -49,8 +49,8 @@ public class BabylonJSEngineMesh : IEngineMesh
         SetOwnerEntityId(ownerEntityId);
     }
 
-    public BabylonJSEngineMesh(Mesh mesh) : this(mesh, MeshSystemType.NONE, -1)
-    { }
+    public BabylonJSEngineMesh(Mesh mesh)
+        : this(mesh, MeshSystemType.NONE, -1) { }
 
     public void Dispose() => Mesh.dispose();
 

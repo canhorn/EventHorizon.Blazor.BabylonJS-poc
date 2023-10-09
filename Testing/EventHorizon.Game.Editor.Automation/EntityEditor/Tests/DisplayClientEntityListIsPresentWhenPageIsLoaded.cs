@@ -7,8 +7,7 @@ using EventHorizon.Game.Editor.Automation.EntityEditor.Pages;
 
 using NUnit.Framework;
 
-public class DisplayClientEntityListIsPresentWhenPageIsLoaded
-    : WebHost
+public class DisplayClientEntityListIsPresentWhenPageIsLoaded : WebHost
 {
     [Test]
     [Category("Entity Editor Page")]

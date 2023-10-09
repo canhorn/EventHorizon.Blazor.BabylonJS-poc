@@ -1,31 +1,28 @@
-﻿namespace EventHorizon.Game.Editor.Client.Authentication.Query
+﻿namespace EventHorizon.Game.Editor.Client.Authentication.Query;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Authentication.Api;
+
+using MediatR;
+
+public class QueryForSessionValuesHandler
+    : IRequestHandler<QueryForSessionValues, CommandResult<SessionValues>>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Authentication.Api;
-    using MediatR;
+    private readonly EditorAuthenticationState _state;
 
-    public class QueryForSessionValuesHandler
-        : IRequestHandler<QueryForSessionValues, CommandResult<SessionValues>>
+    public QueryForSessionValuesHandler(EditorAuthenticationState state)
     {
-        private readonly EditorAuthenticationState _state;
+        _state = state;
+    }
 
-        public QueryForSessionValuesHandler(
-            EditorAuthenticationState state
-        )
-        {
-            _state = state;
-        }
-
-        public Task<CommandResult<SessionValues>> Handle(
-            QueryForSessionValues request,
-            CancellationToken cancellationToken
-        )
-        {
-            return new CommandResult<SessionValues>(
-                _state.Session
-            ).FromResult();
-        }
+    public Task<CommandResult<SessionValues>> Handle(
+        QueryForSessionValues request,
+        CancellationToken cancellationToken
+    )
+    {
+        return new CommandResult<SessionValues>(_state.Session).FromResult();
     }
 }

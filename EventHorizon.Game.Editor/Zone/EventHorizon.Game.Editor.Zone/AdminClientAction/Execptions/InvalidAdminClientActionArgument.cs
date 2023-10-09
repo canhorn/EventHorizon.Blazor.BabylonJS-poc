@@ -1,18 +1,14 @@
-﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Execptions
+﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Execptions;
+
+using System;
+
+public class InvalidAdminClientActionArgument : Exception
 {
-    using System;
+    public string Param { get; }
 
-    public class InvalidAdminClientActionArgument
-        : Exception
+    public InvalidAdminClientActionArgument(string param, string message)
+        : base(message)
     {
-        public string Param { get; }
-
-        public InvalidAdminClientActionArgument(
-            string param, 
-            string message
-        ) : base(message)
-        {
-            Param = param;
-        }
+        Param = param;
     }
 }

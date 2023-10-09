@@ -16,7 +16,7 @@ using Microsoft.JSInterop;
 
 public class ZoneServerUploadImportFileProviderBase
     : ObservableComponentBase,
-      OpenZoneServerImportFileUploaderEventObserver
+        OpenZoneServerImportFileUploaderEventObserver
 {
     [CascadingParameter]
     public AccessTokenModel AccessToken { get; set; } = null!;

@@ -1,105 +1,88 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<ArcFollowCamera>))]
+public class ArcFollowCamera : TargetCamera
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<ArcFollowCamera>))]
-    public class ArcFollowCamera : TargetCamera
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    #endregion
+
+    #region Properties
+
+    public decimal alpha
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-
-        #endregion
-
-        #region Properties
-        
-        public decimal alpha
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "alpha"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "alpha",
-                    value
-                );
-            }
+                this.___guid,
+                "alpha"
+            );
         }
-
-        
-        public decimal beta
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "alpha", value);
+        }
+    }
+
+    public decimal beta
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "beta");
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "beta", value);
+        }
+    }
+
+    public decimal radius
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "beta"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "beta",
-                    value
-                );
-            }
+                this.___guid,
+                "radius"
+            );
         }
-
-        
-        public decimal radius
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "radius"
-                );
-            }
-            set
-            {
 
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "radius",
-                    value
-                );
-            }
+            EventHorizonBlazorInterop.Set(this.___guid, "radius", value);
         }
+    }
 
-        private AbstractMesh __target;
-        public AbstractMesh target
+    private AbstractMesh __target;
+    public AbstractMesh target
+    {
+        get
         {
-            get
-            {
-            if(__target == null)
+            if (__target == null)
             {
                 __target = EventHorizonBlazorInterop.GetClass<AbstractMesh>(
                     this.___guid,
@@ -111,50 +94,51 @@ namespace BabylonJS
                 );
             }
             return __target;
-            }
-            set
-            {
-__target = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "target",
-                    value
-                );
-            }
         }
-        #endregion
-        
-        #region Constructor
-        public ArcFollowCamera() : base() { }
-
-        public ArcFollowCamera(
-            ICachedEntity entity
-        ) : base(entity)
+        set
         {
+            __target = null;
+            EventHorizonBlazorInterop.Set(this.___guid, "target", value);
         }
-
-        public ArcFollowCamera(
-            string name, decimal alpha, decimal beta, decimal radius, AbstractMesh target, Scene scene
-        ) : base()
-        {
-            var entity = EventHorizonBlazorInterop.New(
-                new string[] { "BABYLON", "ArcFollowCamera" },
-                name, alpha, beta, radius, target, scene
-            );
-            ___guid = entity.___guid;
-        }
-        #endregion
-
-        #region Methods
-        public string getClassName()
-        {
-            return EventHorizonBlazorInterop.Func<string>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "getClassName" }
-                }
-            );
-        }
-        #endregion
     }
+    #endregion
+
+    #region Constructor
+    public ArcFollowCamera()
+        : base() { }
+
+    public ArcFollowCamera(ICachedEntity entity)
+        : base(entity) { }
+
+    public ArcFollowCamera(
+        string name,
+        decimal alpha,
+        decimal beta,
+        decimal radius,
+        AbstractMesh target,
+        Scene scene
+    )
+        : base()
+    {
+        var entity = EventHorizonBlazorInterop.New(
+            new string[] { "BABYLON", "ArcFollowCamera" },
+            name,
+            alpha,
+            beta,
+            radius,
+            target,
+            scene
+        );
+        ___guid = entity.___guid;
+    }
+    #endregion
+
+    #region Methods
+    public string getClassName()
+    {
+        return EventHorizonBlazorInterop.Func<string>(
+            new object[] { new string[] { this.___guid, "getClassName" } }
+        );
+    }
+    #endregion
 }

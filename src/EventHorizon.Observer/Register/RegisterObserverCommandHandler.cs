@@ -1,31 +1,29 @@
-﻿using EventHorizon.Observer.State;
-using MediatR;
+﻿namespace EventHorizon.Observer.Register;
+
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EventHorizon.Observer.Register
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public class RegisterObserverCommandHandler
+    : IRequestHandler<RegisterObserverCommand>
 {
-    public class RegisterObserverCommandHandler : IRequestHandler<RegisterObserverCommand>
+    private readonly ObserverState _state;
+
+    public RegisterObserverCommandHandler(ObserverState state)
     {
-        private readonly ObserverState _state;
+        _state = state;
+    }
 
-        public RegisterObserverCommandHandler(
-            ObserverState state
-        )
-        {
-            _state = state;
-        }
-
-        public Task<Unit> Handle(
-            RegisterObserverCommand request, 
-            CancellationToken cancellationToken
-        )
-        {
-            request.NullCheck(nameof(request));
-            _state.Register(
-                request.Observer
-            );
-            return Unit.Task;
-        }
+    public Task<Unit> Handle(
+        RegisterObserverCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        request.NullCheck(nameof(request));
+        _state.Register(request.Observer);
+        return Unit.Task;
     }
 }

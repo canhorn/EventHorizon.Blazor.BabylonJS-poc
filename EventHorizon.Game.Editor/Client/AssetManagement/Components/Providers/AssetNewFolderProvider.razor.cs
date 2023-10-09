@@ -17,15 +17,17 @@ using Microsoft.JSInterop;
 
 public class AssetNewFolderProviderModel
     : ObservableComponentBase,
-    AssetNewFolderTrggeredEventObserver
+        AssetNewFolderTrggeredEventObserver
 {
     [CascadingParameter]
     public AccessTokenModel AccessToken { get; set; } = null!;
+
     [CascadingParameter]
     public AssetManagementState State { get; set; } = null!;
 
     [Inject]
     public IJSRuntime JSRuntime { get; set; } = null!;
+
     [Inject]
     public AssetFileManagement AssetFileManagement { get; set; } = null!;
 
@@ -56,7 +58,6 @@ public class AssetNewFolderProviderModel
 
     protected async Task HandleNewFolderSubmit()
     {
-
         if (AccessToken.IsFilled.IsNotTrue())
         {
             await ShowMessage(
@@ -134,9 +135,7 @@ public class AssetNewFolderProviderModel
         );
     }
 
-    public async Task Handle(
-        AssetNewFolderTrggeredEvent args
-    )
+    public async Task Handle(AssetNewFolderTrggeredEvent args)
     {
         IsOpen = true;
         FolderName = string.Empty;

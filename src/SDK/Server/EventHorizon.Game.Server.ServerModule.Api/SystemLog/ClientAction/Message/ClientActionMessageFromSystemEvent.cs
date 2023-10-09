@@ -15,19 +15,21 @@
     //[ClientAction("MessageFromSystem")]
     public struct ClientActionMessageFromSystemEvent
         : INotification,
-        IClientAction
+            IClientAction
     {
         public string Message { get; }
         public IGuiControlOptions SenderControlOptions { get; }
         public IGuiControlOptions MessageControlOptions { get; }
 
-        public ClientActionMessageFromSystemEvent(
-            IClientActionDataResolver _
-        )
+        public ClientActionMessageFromSystemEvent(IClientActionDataResolver _)
         {
             Message = _.Resolve<string>("message");
-            SenderControlOptions = _.Resolve<GuiControlOptionsModel>("senderControlOptions");
-            MessageControlOptions = _.Resolve<GuiControlOptionsModel>("messageControlOptions");
+            SenderControlOptions = _.Resolve<GuiControlOptionsModel>(
+                "senderControlOptions"
+            );
+            MessageControlOptions = _.Resolve<GuiControlOptionsModel>(
+                "messageControlOptions"
+            );
         }
 
         // TODO: Check to make sure this can be triggered
@@ -44,9 +46,7 @@
     }
 
     public interface ClientActionMessageFromSystemEventObserver
-        : ArgumentObserver<ClientActionMessageFromSystemEvent>
-    {
-    }
+        : ArgumentObserver<ClientActionMessageFromSystemEvent> { }
 
     // TODO: Move this into an Implementation Project, Remove from the SDK
     public class ClientActionMessageFromSystemEventHandler
@@ -54,9 +54,7 @@
     {
         private readonly ObserverState _observer;
 
-        public ClientActionMessageFromSystemEventHandler(
-            ObserverState observer
-        )
+        public ClientActionMessageFromSystemEventHandler(ObserverState observer)
         {
             _observer = observer;
         }
@@ -64,9 +62,10 @@
         public Task Handle(
             ClientActionMessageFromSystemEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<ClientActionMessageFromSystemEventObserver, ClientActionMessageFromSystemEvent>(
-            notification,
-            cancellationToken
-        );
+        ) =>
+            _observer.Trigger<
+                ClientActionMessageFromSystemEventObserver,
+                ClientActionMessageFromSystemEvent
+            >(notification, cancellationToken);
     }
 }

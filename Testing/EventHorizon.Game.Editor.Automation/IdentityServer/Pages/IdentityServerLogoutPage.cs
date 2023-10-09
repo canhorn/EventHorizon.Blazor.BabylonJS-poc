@@ -4,8 +4,7 @@ using Atata;
 
 using _ = IdentityServerLogoutPage;
 
-public class IdentityServerLogoutPage
-    : Page<_>
+public class IdentityServerLogoutPage : Page<_>
 {
     public static string Url => "/Account/Logout";
 

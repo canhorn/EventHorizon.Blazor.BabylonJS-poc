@@ -13,8 +13,8 @@ using Microsoft.AspNetCore.Components;
 
 public class ZoneStateProviderModel
     : ObservableComponentBase,
-      ActiveZoneStateChangedEventObserver,
-      ZoneAdminServiceDisconnectedEventObserver
+        ActiveZoneStateChangedEventObserver,
+        ZoneAdminServiceDisconnectedEventObserver
 {
     [Parameter]
     public RenderFragment ChildContent { get; set; } = null!;

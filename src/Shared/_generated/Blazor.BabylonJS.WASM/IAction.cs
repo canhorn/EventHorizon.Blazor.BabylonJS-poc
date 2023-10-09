@@ -1,122 +1,109 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+public interface IAction : ICachedEntity { }
+
+[JsonConverter(typeof(CachedEntityConverter<IActionCachedEntity>))]
+public class IActionCachedEntity : CachedEntityObject, IAction
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    public interface IAction : ICachedEntity { }
-    
-    [JsonConverter(typeof(CachedEntityConverter<IActionCachedEntity>))]
-    public class IActionCachedEntity : CachedEntityObject, IAction
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    #endregion
+
+    #region Properties
+
+    public decimal trigger
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-
-        #endregion
-
-        #region Properties
-        
-        public decimal trigger
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "trigger"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "trigger",
-                    value
-                );
-            }
-        }
-
-        
-        public CachedEntity triggerOptions
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                    this.___guid,
-                    "triggerOptions"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "triggerOptions",
-                    value
-                );
-            }
-        }
-        #endregion
-        
-        #region Constructor
-        public IActionCachedEntity() : base() { }
-
-        public IActionCachedEntity(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-        }
-
-
-        #endregion
-
-        #region Methods
-        public CachedEntity getTriggerParameter()
-        {
-            return EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "getTriggerParameter" }
-                }
+                this.___guid,
+                "trigger"
             );
         }
-
-        public CachedEntity serialize(object parent)
+        set
         {
-            return EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "serialize" }, parent
-                }
-            );
-        }
 
-        public IActionCachedEntity then(IAction action)
-        {
-            return EventHorizonBlazorInterop.FuncClass<IActionCachedEntity>(
-                entity => new IActionCachedEntity() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { this.___guid, "then" }, action
-                }
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "trigger", value);
         }
-        #endregion
     }
+
+    public CachedEntity triggerOptions
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<CachedEntity>(
+                this.___guid,
+                "triggerOptions"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "triggerOptions",
+                value
+            );
+        }
+    }
+    #endregion
+
+    #region Constructor
+    public IActionCachedEntity()
+        : base() { }
+
+    public IActionCachedEntity(ICachedEntity entity)
+        : base(entity) { }
+
+    #endregion
+
+    #region Methods
+    public CachedEntity getTriggerParameter()
+    {
+        return EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[]
+            {
+                new string[] { this.___guid, "getTriggerParameter" }
+            }
+        );
+    }
+
+    public CachedEntity serialize(object parent)
+    {
+        return EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[] { new string[] { this.___guid, "serialize" }, parent }
+        );
+    }
+
+    public IActionCachedEntity then(IAction action)
+    {
+        return EventHorizonBlazorInterop.FuncClass<IActionCachedEntity>(
+            entity => new IActionCachedEntity() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "then" }, action }
+        );
+    }
+    #endregion
 }

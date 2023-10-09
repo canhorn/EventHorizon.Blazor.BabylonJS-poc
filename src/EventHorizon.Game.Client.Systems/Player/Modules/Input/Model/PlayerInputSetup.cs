@@ -1,173 +1,142 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Model
+﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Input.Api;
+using EventHorizon.Game.Client.Engine.Systems.Camera.Set;
+using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Run;
+using EventHorizon.Game.Client.Systems.Player.Modules.Input.Api;
+using EventHorizon.Game.Client.Systems.Player.Modules.Input.Move;
+
+using MediatR;
+
+public interface PlayerInputSetup
 {
-    using System.Threading.Tasks;
+    Task Setup(InputModule module, PlayerInputConfig config);
+}
 
-    using EventHorizon.Game.Client.Engine.Input.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Camera.Set;
-    using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Run;
-    using EventHorizon.Game.Client.Systems.Player.Modules.Input.Api;
-    using EventHorizon.Game.Client.Systems.Player.Modules.Input.Move;
+public class StandardPlayerInputSetup : PlayerInputSetup
+{
+    private readonly IMediator _mediator;
 
-    using MediatR;
-
-    public interface PlayerInputSetup
+    public StandardPlayerInputSetup(IMediator mediator)
     {
-        Task Setup(
-            InputModule module,
-            PlayerInputConfig config
+        _mediator = mediator;
+    }
+
+    public async Task Setup(InputModule module, PlayerInputConfig config)
+    {
+        foreach (var keyInput in config.KeyInputList)
+        {
+            switch (keyInput.Type)
+            {
+                case "PlayerMove":
+                    await SetupPlayerMoveInput(module, keyInput);
+                    break;
+                case "SetActiveCamera":
+                    await SetupActiveCameraInput(module, keyInput);
+                    break;
+                case "RunInteraction":
+                    await SetupRunInteractionInput(module, keyInput);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private async Task SetupPlayerMoveInput(
+        InputModule module,
+        PlayerInputConfig.PlayerKeyInput keyInput
+    )
+    {
+        var pressedDirection = new Option<MoveDirection>();
+        var releasedDirection = new Option<MoveDirection>();
+        if (keyInput.TryGet<int>("Pressed", out var pressedResult))
+        {
+            pressedDirection = new Option<MoveDirection>(
+                (MoveDirection)pressedResult
+            );
+        }
+        if (keyInput.TryGet<int>("Released", out var releasedResult))
+        {
+            releasedDirection = new Option<MoveDirection>(
+                (MoveDirection)releasedResult
+            );
+        }
+
+        await module.RegisterInput(
+            new InputOptions(
+                keyInput.Key,
+                pressed: _ =>
+                {
+                    if (pressedDirection.HasValue)
+                    {
+                        _mediator.Publish(
+                            new MovePlayerInDirectionEvent(
+                                pressedDirection.Value
+                            )
+                        );
+                    }
+
+                    return Task.CompletedTask;
+                },
+                released: _ =>
+                {
+                    if (releasedDirection.HasValue)
+                    {
+                        _mediator.Publish(
+                            new MovePlayerInDirectionEvent(
+                                releasedDirection.Value
+                            )
+                        );
+                    }
+
+                    return Task.CompletedTask;
+                }
+            )
         );
     }
 
-    public class StandardPlayerInputSetup
-        : PlayerInputSetup
+    private async Task SetupActiveCameraInput(
+        InputModule module,
+        PlayerInputConfig.PlayerKeyInput keyInput
+    )
     {
-        private readonly IMediator _mediator;
-
-        public StandardPlayerInputSetup(
-            IMediator mediator
-        )
+        var cameraName = keyInput.Get<string>("Camera");
+        if (cameraName.HasValue.IsNotTrue())
         {
-            _mediator = mediator;
+            return;
         }
 
-        public async Task Setup(
-            InputModule module,
-            PlayerInputConfig config
-        )
-        {
-            foreach (var keyInput in config.KeyInputList)
-            {
-                switch (keyInput.Type)
+        await module.RegisterInput(
+            new InputOptions(
+                keyInput.Key,
+                pressed: _ => Task.CompletedTask,
+                released: async _ =>
                 {
-                    case "PlayerMove":
-                        await SetupPlayerMoveInput(
-                            module,
-                            keyInput
-                        );
-                        break;
-                    case "SetActiveCamera":
-                        await SetupActiveCameraInput(
-                            module,
-                            keyInput
-                        );
-                        break;
-                    case "RunInteraction":
-                        await SetupRunInteractionInput(
-                            module,
-                            keyInput
-                        );
-                        break;
-                    default:
-                        break;
+                    await _mediator.Send(
+                        new SetActiveCameraCommand(cameraName.Value)
+                    );
                 }
-            }
-        }
+            )
+        );
+    }
 
-        private async Task SetupPlayerMoveInput(
-            InputModule module,
-            PlayerInputConfig.PlayerKeyInput keyInput
-        )
-        {
-            var pressedDirection = new Option<MoveDirection>();
-            var releasedDirection = new Option<MoveDirection>();
-            if (keyInput.TryGet<int>(
-                "Pressed",
-                out var pressedResult
-            ))
-            {
-                pressedDirection = new Option<MoveDirection>(
-                    (MoveDirection)pressedResult
-                );
-            }
-            if (keyInput.TryGet<int>(
-                "Released",
-                out var releasedResult
-            ))
-            {
-                releasedDirection = new Option<MoveDirection>(
-                    (MoveDirection)releasedResult
-                );
-            }
-
-            await module.RegisterInput(
-                new InputOptions(
-                    keyInput.Key,
-                    pressed: _ =>
-                    {
-                        if (pressedDirection.HasValue)
-                        {
-                            _mediator.Publish(
-                                new MovePlayerInDirectionEvent(
-                                    pressedDirection.Value
-                                )
-                            );
-                        }
-
-                        return Task.CompletedTask;
-                    },
-                    released: _ =>
-                    {
-                        if (releasedDirection.HasValue)
-                        {
-                            _mediator.Publish(
-                                new MovePlayerInDirectionEvent(
-                                    releasedDirection.Value
-                                )
-                            );
-                        }
-
-                        return Task.CompletedTask;
-                    }
-                )
-            );
-        }
-
-        private async Task SetupActiveCameraInput(
-            InputModule module,
-            PlayerInputConfig.PlayerKeyInput keyInput
-        )
-        {
-            var cameraName = keyInput.Get<string>(
-                "Camera"
-            );
-            if (cameraName.HasValue.IsNotTrue())
-            {
-                return;
-            }
-
-            await module.RegisterInput(
-                    new InputOptions(
-                        keyInput.Key,
-                        pressed: _ => Task.CompletedTask,
-                        released: async _ =>
-                        {
-                            await _mediator.Send(
-                                new SetActiveCameraCommand(
-                                    cameraName.Value
-                                )
-                            );
-                        }
-                    )
-                );
-        }
-
-        private async Task SetupRunInteractionInput(
-            InputModule module,
-            PlayerInputConfig.PlayerKeyInput keyInput
-        )
-        {
-            await module.RegisterInput(
-                new InputOptions(
-                    keyInput.Key,
-                    pressed: _ => Task.CompletedTask,
-                    released: async _ =>
-                    {
-                        await _mediator.Publish(
-                            new RunInteractionEvent()
-                        );
-                    }
-                )
-            );
-        }
+    private async Task SetupRunInteractionInput(
+        InputModule module,
+        PlayerInputConfig.PlayerKeyInput keyInput
+    )
+    {
+        await module.RegisterInput(
+            new InputOptions(
+                keyInput.Key,
+                pressed: _ => Task.CompletedTask,
+                released: async _ =>
+                {
+                    await _mediator.Publish(new RunInteractionEvent());
+                }
+            )
+        );
     }
 }

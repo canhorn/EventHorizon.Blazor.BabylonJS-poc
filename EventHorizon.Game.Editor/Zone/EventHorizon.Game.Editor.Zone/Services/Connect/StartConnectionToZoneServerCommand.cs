@@ -1,22 +1,22 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Connect
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Connect;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Core.Services.Model;
+
+using MediatR;
+
+public struct StartConnectionToZoneServerCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Core.Services.Model;
-    using MediatR;
+    public string AccessToken { get; }
+    public CoreZoneDetails ZoneDetails { get; }
 
-    public struct StartConnectionToZoneServerCommand
-        : IRequest<StandardCommandResult>
+    public StartConnectionToZoneServerCommand(
+        string accessToken,
+        CoreZoneDetails zoneDetails
+    )
     {
-        public string AccessToken { get; }
-        public CoreZoneDetails ZoneDetails { get; }
-
-        public StartConnectionToZoneServerCommand(
-            string accessToken,
-            CoreZoneDetails zoneDetails
-        )
-        {
-            AccessToken = accessToken;
-            ZoneDetails = zoneDetails;
-        }
+        AccessToken = accessToken;
+        ZoneDetails = zoneDetails;
     }
 }

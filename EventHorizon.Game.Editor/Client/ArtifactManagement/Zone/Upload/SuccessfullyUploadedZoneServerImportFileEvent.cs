@@ -8,14 +8,11 @@ using EventHorizon.Observer.State;
 
 using MediatR;
 
-public record SuccessfullyUploadedZoneServerImportFileEvent(
-    string Url
-) : INotification;
+public record SuccessfullyUploadedZoneServerImportFileEvent(string Url)
+    : INotification;
 
 public interface SuccessfullyUploadedZoneServerImportFileEventObserver
-    : ArgumentObserver<SuccessfullyUploadedZoneServerImportFileEvent>
-{
-}
+    : ArgumentObserver<SuccessfullyUploadedZoneServerImportFileEvent> { }
 
 public class SuccessfullyUploadedZoneServerImportFileEventObserverHandler
     : INotificationHandler<SuccessfullyUploadedZoneServerImportFileEvent>
@@ -32,8 +29,9 @@ public class SuccessfullyUploadedZoneServerImportFileEventObserverHandler
     public Task Handle(
         SuccessfullyUploadedZoneServerImportFileEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<SuccessfullyUploadedZoneServerImportFileEventObserver, SuccessfullyUploadedZoneServerImportFileEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            SuccessfullyUploadedZoneServerImportFileEventObserver,
+            SuccessfullyUploadedZoneServerImportFileEvent
+        >(notification, cancellationToken);
 }

@@ -1,121 +1,101 @@
 /// Generated - Do Not Edit
-namespace BabylonJS.GUI
+namespace BabylonJS.GUI;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<Rectangle>))]
+public class Rectangle : Container
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<Rectangle>))]
-    public class Rectangle : Container
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    public decimal thickness
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-        
-        public decimal thickness
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "thickness"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "thickness",
-                    value
-                );
-            }
-        }
-
-        
-        public decimal cornerRadius
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "cornerRadius"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "cornerRadius",
-                    value
-                );
-            }
-        }
-        #endregion
-
-        #region Properties
-        
-        public string name
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<string>(
-                    this.___guid,
-                    "name"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "name",
-                    value
-                );
-            }
-        }
-        #endregion
-        
-        #region Constructor
-        public Rectangle() : base() { }
-
-        public Rectangle(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-        }
-
-        public Rectangle(
-            string name = null
-        ) : base()
-        {
-            var entity = EventHorizonBlazorInterop.New(
-                new string[] { "BABYLON", "GUI", "Rectangle" },
-                name
+                this.___guid,
+                "thickness"
             );
-            ___guid = entity.___guid;
         }
-        #endregion
+        set
+        {
 
-        #region Methods
-
-        #endregion
+            EventHorizonBlazorInterop.Set(this.___guid, "thickness", value);
+        }
     }
+
+    public decimal cornerRadius
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<decimal>(
+                this.___guid,
+                "cornerRadius"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "cornerRadius", value);
+        }
+    }
+    #endregion
+
+    #region Properties
+
+    public string name
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "name", value);
+        }
+    }
+    #endregion
+
+    #region Constructor
+    public Rectangle()
+        : base() { }
+
+    public Rectangle(ICachedEntity entity)
+        : base(entity) { }
+
+    public Rectangle(string name = null)
+        : base()
+    {
+        var entity = EventHorizonBlazorInterop.New(
+            new string[] { "BABYLON", "GUI", "Rectangle" },
+            name
+        );
+        ___guid = entity.___guid;
+    }
+    #endregion
+
+    #region Methods
+
+    #endregion
 }

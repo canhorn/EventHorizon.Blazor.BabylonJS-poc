@@ -19,9 +19,9 @@ using MediatR;
 
 public class QueryForActiveEditorNodeTreeViewHandler
     : IRequestHandler<
-          QueryForActiveEditorNodeTreeView,
-          CommandResult<TreeViewNodeData>
-      >
+        QueryForActiveEditorNodeTreeView,
+        CommandResult<TreeViewNodeData>
+    >
 {
     private readonly IMediator _mediator;
     private readonly Localizer<SharedResource> _localizer;
@@ -62,12 +62,7 @@ public class QueryForActiveEditorNodeTreeViewHandler
 
     private TreeViewNodeData BuildEditorTreeView(
         TreeViewNodeData exitingTreeView,
-        Action<
-            EditorNode,
-            EditorFileModalType,
-            bool,
-            bool
-        > onContextMenuClick,
+        Action<EditorNode, EditorFileModalType, bool, bool> onContextMenuClick,
         EditorNodeList editorNodeList,
         IEnumerable<TreeViewNodeData> expandedList
     )
@@ -95,12 +90,7 @@ public class QueryForActiveEditorNodeTreeViewHandler
 
     private TreeViewNodeData BuildEditorTreeViewNode(
         TreeViewNodeData existingTreeView,
-        Action<
-            EditorNode,
-            EditorFileModalType,
-            bool,
-            bool
-        > onContextMenuClick,
+        Action<EditorNode, EditorFileModalType, bool, bool> onContextMenuClick,
         EditorNode node,
         IEnumerable<TreeViewNodeData> expandedList
     )
@@ -117,8 +107,8 @@ public class QueryForActiveEditorNodeTreeViewHandler
             IconCssClass =
                 "--icon oi oi-" + (node.IsFolder ? "folder" : "file"),
             Children =
-                node.Children?
-                    .Select(
+                node.Children
+                    ?.Select(
                         childNode =>
                             BuildEditorTreeViewNode(
                                 existingTreeView,
@@ -132,8 +122,7 @@ public class QueryForActiveEditorNodeTreeViewHandler
             ContextMenu = BuildContextMenuForNode(node, onContextMenuClick),
             IsExpanded =
                 GetExistingValueOrDefault(
-                    existingTreeView?.Children
-                        ?? new List<TreeViewNodeData>(),
+                    existingTreeView?.Children ?? new List<TreeViewNodeData>(),
                     node.Id
                 ) || GetExistingValueOrDefault(expandedList, node.Id)
         };
@@ -146,12 +135,7 @@ public class QueryForActiveEditorNodeTreeViewHandler
 
     private TreeViewNodeContextMenu BuildContextMenuForNode(
         EditorNode node,
-        Action<
-            EditorNode,
-            EditorFileModalType,
-            bool,
-            bool
-        > onContextMenuClick
+        Action<EditorNode, EditorFileModalType, bool, bool> onContextMenuClick
     )
     {
         if (!node.Properties.SupportContextMenu ?? false)
@@ -159,32 +143,32 @@ public class QueryForActiveEditorNodeTreeViewHandler
             return new TreeViewNodeContextMenu();
         }
         var items = new List<TreeViewNodeContextMenuItem>
+        {
+            // Add "Add Folder" context item
+            new TreeViewNodeContextMenuItem
             {
-                // Add "Add Folder" context item
-                new TreeViewNodeContextMenuItem
-                {
-                    Text = _localizer["Add Folder"],
-                    OnClick = () =>
-                        onContextMenuClick(
-                            node,
-                            EditorFileModalType.AddFolder,
-                            true,
-                            false
-                        )
-                },
-                // Add "Add File" context item
-                new TreeViewNodeContextMenuItem
-                {
-                    Text = _localizer["Add File"],
-                    OnClick = () =>
-                        onContextMenuClick(
-                            node,
-                            EditorFileModalType.AddFile,
-                            true,
-                            false
-                        )
-                }
-            };
+                Text = _localizer["Add Folder"],
+                OnClick = () =>
+                    onContextMenuClick(
+                        node,
+                        EditorFileModalType.AddFolder,
+                        true,
+                        false
+                    )
+            },
+            // Add "Add File" context item
+            new TreeViewNodeContextMenuItem
+            {
+                Text = _localizer["Add File"],
+                OnClick = () =>
+                    onContextMenuClick(
+                        node,
+                        EditorFileModalType.AddFile,
+                        true,
+                        false
+                    )
+            }
+        };
         // Add "Delete" context item
         if (
             node.Properties.SupportDelete == null
@@ -199,8 +183,8 @@ public class QueryForActiveEditorNodeTreeViewHandler
                         onContextMenuClick(
                             node,
                             node.IsFolder
-                              ? EditorFileModalType.DeleteFolder
-                              : EditorFileModalType.DeleteFile,
+                                ? EditorFileModalType.DeleteFolder
+                                : EditorFileModalType.DeleteFile,
                             false,
                             true
                         )

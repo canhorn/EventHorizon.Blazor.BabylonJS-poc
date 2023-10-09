@@ -1,40 +1,38 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Systems.ClientAssets.Delete
+﻿namespace EventHorizon.Game.Editor.Zone.Systems.ClientAssets.Delete;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Zone.Systems.ClientAssets.Delete;
+
+using MediatR;
+
+public class DeleteClientAssetCommandHandler
+    : IRequestHandler<DeleteClientAssetCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Zone.Systems.ClientAssets.Delete;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class DeleteClientAssetCommandHandler
-        : IRequestHandler<DeleteClientAssetCommand, StandardCommandResult>
+    public DeleteClientAssetCommandHandler(ZoneAdminServices zoneAdminServices)
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public DeleteClientAssetCommandHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<StandardCommandResult> Handle(
+        DeleteClientAssetCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.ClientAssets.Delete(
+            request.Id,
+            cancellationToken
+        );
+        if (result.Success.IsNotTrue())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
-        public async Task<StandardCommandResult> Handle(
-            DeleteClientAssetCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.ClientAssets.Delete(
-                request.Id,
-                cancellationToken
-            );
-            if (result.Success.IsNotTrue())
-            {
-                return result.ErrorCode
-                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
-            }
-
-            return new();
-        }
+        return new();
     }
 }

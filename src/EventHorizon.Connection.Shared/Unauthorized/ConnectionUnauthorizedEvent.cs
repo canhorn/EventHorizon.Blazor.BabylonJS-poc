@@ -1,23 +1,18 @@
-﻿namespace EventHorizon.Connection.Shared.Unauthorized
+﻿namespace EventHorizon.Connection.Shared.Unauthorized;
+
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct ConnectionUnauthorizedEvent : INotification
 {
-    using EventHorizon.Observer.Model;
-    using MediatR;
+    public string Identifier { get; }
 
-    public struct ConnectionUnauthorizedEvent
-        : INotification
+    public ConnectionUnauthorizedEvent(string? identifier = null)
     {
-        public string Identifier { get; }
-
-        public ConnectionUnauthorizedEvent(
-            string? identifier = null
-        )
-        {
-            Identifier = identifier ?? string.Empty;
-        }
-    }
-
-    public interface ConnectionUnauthorizedEventObserver
-        : ArgumentObserver<ConnectionUnauthorizedEvent>
-    {
+        Identifier = identifier ?? string.Empty;
     }
 }
+
+public interface ConnectionUnauthorizedEventObserver
+    : ArgumentObserver<ConnectionUnauthorizedEvent> { }

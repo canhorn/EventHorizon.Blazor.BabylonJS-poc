@@ -1,12 +1,9 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Api
-{
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+﻿namespace EventHorizon.Game.Client.Systems.Player.Api;
 
-    public interface IPlayerEntity
-        : ILifecycleEntity,
-        IObjectEntity
-    {
-        IPlayerZoneDetails PlayerDetails { get; }
-    }
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+public interface IPlayerEntity : ILifecycleEntity, IObjectEntity
+{
+    IPlayerZoneDetails PlayerDetails { get; }
 }

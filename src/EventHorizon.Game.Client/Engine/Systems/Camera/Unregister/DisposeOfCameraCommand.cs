@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Camera.Unregister
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Camera.Unregister;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public class DisposeOfCameraCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Name { get; }
 
-    public class DisposeOfCameraCommand
-        : IRequest<StandardCommandResult>
+    public DisposeOfCameraCommand(string name)
     {
-        public string Name { get; }
-
-        public DisposeOfCameraCommand(
-            string name
-        )
-        {
-            Name = name;
-        }
+        Name = name;
     }
 }

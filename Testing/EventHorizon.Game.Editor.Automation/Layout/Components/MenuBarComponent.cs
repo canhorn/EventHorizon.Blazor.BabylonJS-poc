@@ -2,21 +2,12 @@
 
 using Atata;
 
-public class MenuBarComponent<TNavigateTo>
-    : Control<TNavigateTo>
+public class MenuBarComponent<TNavigateTo> : Control<TNavigateTo>
     where TNavigateTo : PageObject<TNavigateTo>
 {
     [TestSelector("login-link", Timeout = 30)]
-    public Link<TNavigateTo> LoginLink
-    {
-        get;
-        private set;
-    }
+    public Link<TNavigateTo> LoginLink { get; private set; }
 
     [TestSelector("logout-link")]
-    public Link<TNavigateTo> LogoutLink
-    {
-        get;
-        private set;
-    }
+    public Link<TNavigateTo> LogoutLink { get; private set; }
 }

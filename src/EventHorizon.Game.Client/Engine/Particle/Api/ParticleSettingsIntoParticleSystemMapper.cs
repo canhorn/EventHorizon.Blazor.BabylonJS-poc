@@ -1,12 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Engine.Particle.Api
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Engine.Particle.Api;
 
-    public interface ParticleSettingsIntoParticleSystemMapper
-    {
-        void Map(
-            EngineParticleSystem system,
-            ParticleSettings settings
-        );
-    }
+using System;
+
+public interface ParticleSettingsIntoParticleSystemMapper
+{
+    void Map(EngineParticleSystem system, ParticleSettings settings);
 }

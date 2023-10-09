@@ -1,13 +1,10 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Api
-{
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Api;
 
-    public interface ZoneAdminCommandApi
-    {
-        Task<StandardCommandResult> Send(
-            string command,
-            object data
-        );
-    }
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+public interface ZoneAdminCommandApi
+{
+    Task<StandardCommandResult> Send(string command, object data);
 }

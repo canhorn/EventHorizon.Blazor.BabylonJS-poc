@@ -1,53 +1,56 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+public interface CameraInputsMap<TCamera> : ICachedEntity { }
+
+[JsonConverter(
+    typeof(CachedEntityConverter<CameraInputsMapCachedEntity<CachedEntity>>)
+)]
+public class CameraInputsMapCachedEntity<TCamera>
+    : CachedEntityObject,
+        CameraInputsMap<TCamera>
+    where TCamera : CachedEntity, new()
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    public interface CameraInputsMap<TCamera> : ICachedEntity { }
-    
-    [JsonConverter(typeof(CachedEntityConverter<CameraInputsMapCachedEntity<CachedEntity>>))]
-    public class CameraInputsMapCachedEntity<TCamera> : CachedEntityObject, CameraInputsMap<TCamera> where TCamera : CachedEntity, new()
-    {
-        #region Static Accessors
+    #endregion
 
-        #endregion
+    #region Static Properties
 
-        #region Static Properties
+    #endregion
 
-        #endregion
+    #region Static Methods
 
-        #region Static Methods
+    #endregion
 
-        #endregion
+    #region Accessors
 
-        #region Accessors
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Properties
+    #endregion
 
-        #endregion
-        
-        #region Constructor
-        public CameraInputsMapCachedEntity() : base() { }
+    #region Constructor
+    public CameraInputsMapCachedEntity()
+        : base() { }
 
-        public CameraInputsMapCachedEntity(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-        }
+    public CameraInputsMapCachedEntity(ICachedEntity entity)
+        : base(entity) { }
 
+    #endregion
 
-        #endregion
+    #region Methods
 
-        #region Methods
-
-        #endregion
-    }
+    #endregion
 }

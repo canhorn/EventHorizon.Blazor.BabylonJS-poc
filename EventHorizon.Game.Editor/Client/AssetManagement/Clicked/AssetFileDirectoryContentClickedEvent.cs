@@ -1,24 +1,21 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Clicked
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Clicked;
+
+using EventHorizon.Game.Editor.Client.AssetManagement.Model;
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct AssetFileDirectoryContentClickedEvent : INotification
 {
-    using EventHorizon.Game.Editor.Client.AssetManagement.Model;
-    using EventHorizon.Observer.Model;
-    using MediatR;
+    public FileSystemDirectoryContent DirectoryContent { get; }
 
-    public struct AssetFileDirectoryContentClickedEvent
-        : INotification
+    public AssetFileDirectoryContentClickedEvent(
+        FileSystemDirectoryContent directoryContent
+    )
     {
-        public FileSystemDirectoryContent DirectoryContent { get; }
-
-        public AssetFileDirectoryContentClickedEvent(
-            FileSystemDirectoryContent directoryContent
-        )
-        {
-            DirectoryContent = directoryContent;
-        }
-    }
-
-    public interface AssetFileDirectoryContentClickedEventObserver
-        : ArgumentObserver<AssetFileDirectoryContentClickedEvent>
-    {
+        DirectoryContent = directoryContent;
     }
 }
+
+public interface AssetFileDirectoryContentClickedEventObserver
+    : ArgumentObserver<AssetFileDirectoryContentClickedEvent> { }

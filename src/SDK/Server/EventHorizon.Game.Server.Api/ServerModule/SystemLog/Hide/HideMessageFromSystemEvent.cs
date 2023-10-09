@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Server.ServerModule.SystemLog.Hide
-{
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Server.ServerModule.SystemLog.Hide;
 
-    public struct HideMessageFromSystemEvent
-        : INotification
-    {
+using EventHorizon.Observer.Model;
 
-    }
+using MediatR;
 
-    public interface HideMessageFromSystemEventObserver
-        : ArgumentObserver<HideMessageFromSystemEvent>
-    {
-    }
-}
+public struct HideMessageFromSystemEvent : INotification { }
+
+public interface HideMessageFromSystemEventObserver
+    : ArgumentObserver<HideMessageFromSystemEvent> { }

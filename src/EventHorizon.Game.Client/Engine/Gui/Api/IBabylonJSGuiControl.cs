@@ -1,11 +1,10 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Api
-{
-    using System;
-    using BabylonJS.GUI;
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Api;
 
-    public interface IBabylonJSGuiControl
-        : IGuiControl
-    {
-        Control Control { get; }
-    }
+using System;
+
+using BabylonJS.GUI;
+
+public interface IBabylonJSGuiControl : IGuiControl
+{
+    Control Control { get; }
 }

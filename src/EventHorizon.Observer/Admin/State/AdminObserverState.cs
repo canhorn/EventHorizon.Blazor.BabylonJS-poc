@@ -1,17 +1,13 @@
-﻿using EventHorizon.Observer.Admin.Model;
+﻿namespace EventHorizon.Observer.Admin.State;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EventHorizon.Observer.Admin.State
+using EventHorizon.Observer.Admin.Model;
+
+public interface AdminObserverState
 {
-    public interface AdminObserverState
-    {
-        void RegisterAdminObserver(
-            AdminObserverBase observer
-        );
-        void RemoveAdminObserver(
-            AdminObserverBase observer
-        );
-    }
+    void RegisterAdminObserver(AdminObserverBase observer);
+    void RemoveAdminObserver(AdminObserverBase observer);
 }

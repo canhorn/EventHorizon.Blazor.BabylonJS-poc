@@ -1,79 +1,68 @@
-﻿namespace EventHorizon.Game.Client.Engine.Canvas.Model
+﻿namespace EventHorizon.Game.Client.Engine.Canvas.Model;
+
+using System;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Exceptions;
+using EventHorizon.Game.Client.Engine.Canvas.Api;
+using EventHorizon.Game.Client.Engine.Canvas.Initialized;
+using EventHorizon.Game.Client.Engine.Canvas.Reset;
+using EventHorizon.Game.Client.Engine.Settings.Api;
+
+using MediatR;
+
+public class BabylonJSCanvas : ICanvas, CanvasResetObserver
 {
-    using System;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Canvas.Api;
-    using EventHorizon.Game.Client.Engine.Canvas.Initialized;
-    using EventHorizon.Game.Client.Engine.Canvas.Reset;
-    using EventHorizon.Game.Client.Engine.Settings.Api;
-    using MediatR;
+    private Html.Interop.Canvas? _canvas;
 
-    public class BabylonJSCanvas
-        : ICanvas,
-        CanvasResetObserver
+    private readonly IMediator _mediator;
+    private readonly IGameSettings _gameSettings;
+
+    public int Priority => 100_000;
+
+    public BabylonJSCanvas(IMediator mediator, IGameSettings gameSettings)
     {
-        private Html.Interop.Canvas? _canvas;
+        _mediator = mediator;
+        _gameSettings = gameSettings;
+    }
 
-        private readonly IMediator _mediator;
-        private readonly IGameSettings _gameSettings;
-
-        public int Priority => 100_000;
-
-        public BabylonJSCanvas(
-            IMediator mediator,
-            IGameSettings gameSettings
-        )
+    public T GetDrawingCanvas<T>()
+        where T : class
+    {
+        if (_canvas is T typedCanvas)
         {
-            _mediator = mediator;
-            _gameSettings = gameSettings;
+            return typedCanvas;
         }
+        throw new GameRuntimeException(
+            "canvas_not_initialized",
+            "Canvas is not Initialized"
+        );
+    }
 
-        public T GetDrawingCanvas<T>() where T : class
+    public async Task Initialize()
+    {
+        // Register Observer
+        GamePlatfrom.RegisterObserver(this);
+        if (_gameSettings.CanvasTagId.IsNull())
         {
-            if (_canvas is T typedCanvas)
-            {
-                return typedCanvas;
-            }
-            throw new GameRuntimeException(
-                "canvas_not_initialized",
-                "Canvas is not Initialized"
-            );
+            throw new Exception();
         }
+        _canvas = Html.Interop.Canvas.Create(_gameSettings.CanvasTagId);
+        await _mediator.Publish(new CanvasInitialized());
+    }
 
-        public async Task Initialize()
-        {
-            // Register Observer
-            GamePlatfrom.RegisterObserver(this);
-            if (_gameSettings.CanvasTagId.IsNull())
-            {
-                throw new Exception();
-            }
-            _canvas = Html.Interop.Canvas.Create(
-                _gameSettings.CanvasTagId
-            );
-            await _mediator.Publish(
-                new CanvasInitialized()
-            );
-        }
+    public Task Dispose()
+    {
+        GamePlatfrom.UnRegisterObserver(this);
+        _canvas = null;
 
-        public Task Dispose()
-        {
-            GamePlatfrom.UnRegisterObserver(this);
-            _canvas = null;
+        return Task.CompletedTask;
+    }
 
-            return Task.CompletedTask;
-        }
-
-        public async Task Handle(
-            CanvasReset _
-        )
-        {
-            await Dispose();
-            await Initialize();
-            await _mediator.Publish(
-                new CanvasResetFinished()
-            );
-        }
+    public async Task Handle(CanvasReset _)
+    {
+        await Dispose();
+        await Initialize();
+        await _mediator.Publish(new CanvasResetFinished());
     }
 }

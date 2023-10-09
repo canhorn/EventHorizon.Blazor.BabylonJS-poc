@@ -2,16 +2,13 @@
 
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Api;
 
-public class StandardZoneArtifactManagementState
-    : ZoneArtifactManagementState
+public class StandardZoneArtifactManagementState : ZoneArtifactManagementState
 {
     public string BackupReferenceId { get; private set; } = string.Empty;
     public string ExportReferenceId { get; private set; } = string.Empty;
     public string ImportReferenceId { get; private set; } = string.Empty;
 
-    public void SetBackupReferenceId(
-        string referenceId
-    )
+    public void SetBackupReferenceId(string referenceId)
     {
         if (referenceId.IsNull())
         {
@@ -21,9 +18,7 @@ public class StandardZoneArtifactManagementState
         BackupReferenceId = referenceId;
     }
 
-    public void SetExportReferenceId(
-        string referenceId
-    )
+    public void SetExportReferenceId(string referenceId)
     {
         if (referenceId.IsNull())
         {
@@ -33,9 +28,7 @@ public class StandardZoneArtifactManagementState
         ExportReferenceId = referenceId;
     }
 
-    public void SetImportReferenceId(
-        string referenceId
-    )
+    public void SetImportReferenceId(string referenceId)
     {
         if (referenceId.IsNull())
         {

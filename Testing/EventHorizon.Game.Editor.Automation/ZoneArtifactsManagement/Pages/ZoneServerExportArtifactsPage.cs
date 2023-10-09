@@ -11,7 +11,10 @@ using _ = ZoneServerExportArtifactsPage;
 [Url("/artifacts/zone/exports")]
 public class ZoneServerExportArtifactsPage : MainLayoutPage<_>
 {
-    public StandardToolbarComponent<_, StandardToolbarButtonComponent<_>> Toolbar { get; private set; }
+    public StandardToolbarComponent<
+        _,
+        StandardToolbarButtonComponent<_>
+    > Toolbar { get; private set; }
 
     [FindByClass("export-artifacts__table")]
     public ArtifactTable<_> ArtifactTable { get; private set; }

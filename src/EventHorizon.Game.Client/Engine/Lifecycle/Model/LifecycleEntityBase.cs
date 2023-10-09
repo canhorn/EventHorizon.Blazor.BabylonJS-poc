@@ -19,9 +19,7 @@ using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
 using Microsoft.Extensions.Logging;
 
-public abstract class LifecycleEntityBase
-    : ClientEntityBase,
-      ILifecycleEntity
+public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
 {
     protected IObjectEntityDetails _details;
 
@@ -30,7 +28,8 @@ public abstract class LifecycleEntityBase
     public string GlobalId => _details.GlobalId;
     public string Type => _details.Type;
     public ITransform Transform { get; }
-    public IList<string> Tags { get; private set; } = new List<string>().AsReadOnly();
+    public IList<string> Tags { get; private set; } =
+        new List<string>().AsReadOnly();
     public IObjectEntityDetails Details => _details;
     public IDictionary<string, object> Data { get; private set; } =
         new ReadOnlyDictionary<string, object>(
@@ -41,7 +40,8 @@ public abstract class LifecycleEntityBase
         long clientId,
         IObjectEntityDetails details,
         IBuilder<ITransform, IServerTransform> transformBuilder
-    ) : base(clientId)
+    )
+        : base(clientId)
     {
         Transform = transformBuilder.Build(details.Transform);
         _details = UpdateDetails(details);
@@ -54,8 +54,7 @@ public abstract class LifecycleEntityBase
             GameServiceProvider.GetService<
                 IBuilder<ITransform, IServerTransform>
             >()
-        )
-    { }
+        ) { }
 
     public LifecycleEntityBase(long clientId, IObjectEntityDetails details)
         : this(
@@ -64,10 +63,10 @@ public abstract class LifecycleEntityBase
             GameServiceProvider.GetService<
                 IBuilder<ITransform, IServerTransform>
             >()
-        )
-    { }
+        ) { }
 
     public abstract Task Initialize();
+
     public virtual async Task PostInitialize()
     {
         foreach (var module in _moduleMap.Values.OrderBy(a => a.Priority))
@@ -75,6 +74,7 @@ public abstract class LifecycleEntityBase
             await module.Initialize();
         }
     }
+
     public virtual async Task Dispose()
     {
         foreach (var module in _moduleMap.Values)
@@ -82,7 +82,9 @@ public abstract class LifecycleEntityBase
             await module.Dispose();
         }
     }
+
     public abstract Task Draw();
+
     public virtual async Task Update()
     {
         foreach (var module in _moduleMap.Values)
@@ -92,17 +94,17 @@ public abstract class LifecycleEntityBase
     }
 
     #region Module
-    protected IDictionary<string, IModule> _moduleMap = new Dictionary<
-        string,
-        IModule
-    >();
+    protected IDictionary<string, IModule> _moduleMap =
+        new Dictionary<string, IModule>();
+
     public void RegisterModule(string name, IModule module)
     {
         _moduleMap[name] = module;
     }
 
     [return: MaybeNull]
-    public T GetModule<T>(string name) where T : IModule
+    public T GetModule<T>(string name)
+        where T : IModule
     {
         if (_moduleMap.TryGetValue(name, out var module))
         {
@@ -139,10 +141,8 @@ public abstract class LifecycleEntityBase
         return default;
     }
 
-    public bool RemoveModule<T>(
-        string name,
-        [NotNullWhen(true)] out T? module
-    ) where T : IModule
+    public bool RemoveModule<T>(string name, [NotNullWhen(true)] out T? module)
+        where T : IModule
     {
         module = GetModule<T>(name);
         if (module is not null)
@@ -156,10 +156,8 @@ public abstract class LifecycleEntityBase
     #endregion
 
     #region Property
-    protected IDictionary<string, object> _propertyMap = new Dictionary<
-        string,
-        object
-    >();
+    protected IDictionary<string, object> _propertyMap =
+        new Dictionary<string, object>();
 
     public void SetProperty(string name, object property)
     {
@@ -200,9 +198,7 @@ public abstract class LifecycleEntityBase
                     }
                 }
             }
-            var mapper = GameServiceProvider.GetService__UNSAFE<
-                IMapper<T>
-            >();
+            var mapper = GameServiceProvider.GetService__UNSAFE<IMapper<T>>();
             if (mapper.IsNotNull())
             {
                 var value = mapper.Map(dataProperty);
@@ -237,18 +233,16 @@ public abstract class LifecycleEntityBase
     {
         _details = details;
         var baseTags = new List<string>
-            {
-                TagBuilder.CreateTypeTag(_details.Type ?? TagBuilder.UNDEFINED),
-                TagBuilder.CreateGlobalIdTag(
-                    _details.GlobalId ?? TagBuilder.UNDEFINED
-                ),
-            };
+        {
+            TagBuilder.CreateTypeTag(_details.Type ?? TagBuilder.UNDEFINED),
+            TagBuilder.CreateGlobalIdTag(
+                _details.GlobalId ?? TagBuilder.UNDEFINED
+            ),
+        };
         if (_details.Id != IObjectEntityDetails.DEFAULT_ID)
         {
             baseTags.Add(TagBuilder.CreateIdTag(_details.Id.ToString()));
-            baseTags.Add(
-                TagBuilder.CreateEntityIdTag(_details.Id.ToString())
-            );
+            baseTags.Add(TagBuilder.CreateEntityIdTag(_details.Id.ToString()));
         }
         Tags = baseTags.Concat(details.TagList).ToList().AsReadOnly();
         Data = new ReadOnlyDictionary<string, object>(details.Data);

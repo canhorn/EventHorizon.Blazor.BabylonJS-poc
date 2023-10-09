@@ -1,19 +1,16 @@
-﻿namespace EventHorizon.Game.Client.Engine.Entity.Model
+﻿namespace EventHorizon.Game.Client.Engine.Entity.Model;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Engine.Entity.Api;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+public class ClientEntityBase : IClientEntity
 {
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Engine.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+    public long ClientId { get; }
 
-    public class ClientEntityBase 
-        : IClientEntity
+    public ClientEntityBase(long clientId)
     {
-        public long ClientId { get; }
-
-        public ClientEntityBase(
-            long clientId
-        )
-        {
-            ClientId = clientId;
-        }
+        ClientId = clientId;
     }
 }

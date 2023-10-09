@@ -1,22 +1,19 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Set
+﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Set;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct SetClientScriptsAssemblyCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Hash { get; }
+    public string ScriptAssembly { get; }
 
-    public struct SetClientScriptsAssemblyCommand
-        : IRequest<StandardCommandResult>
+    public SetClientScriptsAssemblyCommand(string hash, string scriptAssembly)
     {
-        public string Hash { get; }
-        public string ScriptAssembly { get; }
-
-        public SetClientScriptsAssemblyCommand(
-            string hash,
-            string scriptAssembly
-        )
-        {
-            Hash = hash;
-            ScriptAssembly = scriptAssembly;
-        }
+        Hash = hash;
+        ScriptAssembly = scriptAssembly;
     }
 }

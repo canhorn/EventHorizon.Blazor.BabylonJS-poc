@@ -29,8 +29,7 @@ using NUnit.Framework;
 
 using Translations = Localization.SideBarQuickLinksTranslations;
 
-public class QuickLinksNavigateToExpectedPageWhenClicked
-    : WebHost
+public class QuickLinksNavigateToExpectedPageWhenClicked : WebHost
 {
     [Test]
     [Category("Quick Links")]
@@ -43,36 +42,59 @@ public class QuickLinksNavigateToExpectedPageWhenClicked
             )
             .SideBar.QuickLinks.Tree.Open()
             .Children.Count.Should.Be(8)
-            .SideBar.QuickLinks
-            .ValidateNavigationAndHeader<HomePage, ArtifactManagementPage>(
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<
+                HomePage,
+                ArtifactManagementPage
+            >(
                 Translations.EN_US.ArtifactManagementText,
                 ArtifactManagementPageTranslations.EN_US.Header
-            ).SideBar.QuickLinks
-            .ValidateNavigationAndHeader<ArtifactManagementPage, AssetManagementPage>(
+            )
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<
+                ArtifactManagementPage,
+                AssetManagementPage
+            >(
                 Translations.EN_US.AssetManagementText,
                 AssetManagementPageTranslations.EN_US.Header
-            ).SideBar.QuickLinks
-            .ValidateNavigationAndHeader<AssetManagementPage, DataStoragePage>(
+            )
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<
+                AssetManagementPage,
+                DataStoragePage
+            >(
                 Translations.EN_US.DataStorageText,
                 DataStoragePageTranslations.EN_US.Header
-            ).SideBar.QuickLinks
-            .ValidateNavigationAndHeader<DataStoragePage, EntityEditorPage>(
+            )
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<
+                DataStoragePage,
+                EntityEditorPage
+            >(
                 Translations.EN_US.EntityEditorText,
                 EntityEditorPageTranslations.EN_US.Header
-            ).SideBar.QuickLinks
-            .ValidateNavigationAndHeader<EntityEditorPage, LiveEditorPage>(
+            )
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<
+                EntityEditorPage,
+                LiveEditorPage
+            >(
                 Translations.EN_US.LiveEditorText,
                 LiveEditorPageTranslations.EN_US.Header
-            ).SideBar.QuickLinks
-            .ValidateNavigationAndHeader<LiveEditorPage, WizardEditorPage>(
+            )
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<
+                LiveEditorPage,
+                WizardEditorPage
+            >(
                 Translations.EN_US.WizardText,
                 WizardEditorPageTranslations.EN_US.Header
-            ).SideBar.QuickLinks
-            .ValidateNavigationAndHeader<WizardEditorPage, ZoneArtifactsManagementPage>(
+            )
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<
+                WizardEditorPage,
+                ZoneArtifactsManagementPage
+            >(
                 Translations.EN_US.ZoneArtifactManagementText,
                 ZoneArtifactsManagementPageTranslations.EN_US.Header
-            ).SideBar.QuickLinks
-            .ValidateNavigationAndHeader<ZoneArtifactsManagementPage, ZoneCommandsPage>(
+            )
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<
+                ZoneArtifactsManagementPage,
+                ZoneCommandsPage
+            >(
                 Translations.EN_US.ZoneCommandsText,
                 ZoneCommandsPageTranslations.EN_US.Header
             );
@@ -85,17 +107,15 @@ public static class ValidateQuickLinksExtensions
         this TreeViewComponent<TParent> node,
         string text,
         string header
-    ) where TParent : MainLayoutPage<TParent>
+    )
+        where TParent : MainLayoutPage<TParent>
         where TOwner : MainLayoutPage<TOwner>
     {
-        return node.Tree.Open()
+        return node.Tree
+            .Open()
             .Children.Should.Contain(a => a.Text == text)
-            .SideBar.QuickLinks.Tree.Children.First(
-                a => a.Text == text
-            )
+            .SideBar.QuickLinks.Tree.Children.First(a => a.Text == text)
             .Link.ClickAndGo<TOwner>()
-            .Header.Should.Be(
-                header
-            );
+            .Header.Should.Be(header);
     }
 }

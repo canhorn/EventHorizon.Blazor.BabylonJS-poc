@@ -1,37 +1,36 @@
-﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.Track
+﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.Track;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
+using EventHorizon.Game.Client.Engine.Lifecycle.Model;
+using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
+
+using MediatR;
+
+class TrackingLifecycleRegisterEntityEventHandler
+    : INotificationHandler<RegisterEntityEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Model;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
-    using MediatR;
+    private readonly IServerEntityTrackingState _serverEntityTrackingState;
 
-    class TrackingLifecycleRegisterEntityEventHandler
-        : INotificationHandler<RegisterEntityEvent>
+    public TrackingLifecycleRegisterEntityEventHandler(
+        IServerEntityTrackingState serverEntityTrackingState
+    )
     {
-        private readonly IServerEntityTrackingState _serverEntityTrackingState;
+        _serverEntityTrackingState = serverEntityTrackingState;
+    }
 
-        public TrackingLifecycleRegisterEntityEventHandler(
-            IServerEntityTrackingState serverEntityTrackingState
-        )
+    public Task Handle(
+        RegisterEntityEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Entity is ServerLifecycleEntityBase trackedEntity)
         {
-            _serverEntityTrackingState = serverEntityTrackingState;
+            // UnTrack any Server Entities
+            _serverEntityTrackingState.Track(trackedEntity);
         }
-
-        public Task Handle(
-            RegisterEntityEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (notification.Entity is ServerLifecycleEntityBase trackedEntity)
-            {
-                // UnTrack any Server Entities
-                _serverEntityTrackingState.Track(
-                    trackedEntity
-                );
-            }
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

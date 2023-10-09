@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Open
-{
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Open;
 
-    public struct OpenAssetServerImportFileUploaderEvent
-        : INotification
-    {
+using EventHorizon.Observer.Model;
 
-    }
+using MediatR;
 
-    public interface OpenAssetServerImportFileUploaderEventObserver
-        : ArgumentObserver<OpenAssetServerImportFileUploaderEvent>
-    {
-    }
-}
+public struct OpenAssetServerImportFileUploaderEvent : INotification { }
+
+public interface OpenAssetServerImportFileUploaderEventObserver
+    : ArgumentObserver<OpenAssetServerImportFileUploaderEvent> { }

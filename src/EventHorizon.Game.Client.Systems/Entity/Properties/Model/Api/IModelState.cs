@@ -1,17 +1,16 @@
-﻿namespace EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api
+﻿namespace EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
+
+using System;
+
+public interface IModelState
 {
-    using System;
+    public static string NAME => "modelState";
 
-    public interface IModelState
-    {
-        public static string NAME => "modelState";
+    decimal? ScalingDeterminant { get; }
+    IModelMesh Mesh { get; }
+}
 
-        decimal? ScalingDeterminant { get; }
-        IModelMesh Mesh { get; }
-    }
-
-    public interface IModelMesh
-    {
-        string AssetId { get; }
-    }
+public interface IModelMesh
+{
+    string AssetId { get; }
 }

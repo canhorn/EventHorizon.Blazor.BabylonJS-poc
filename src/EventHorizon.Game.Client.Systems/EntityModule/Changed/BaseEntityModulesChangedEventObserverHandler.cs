@@ -12,9 +12,7 @@ public class BaseEntityModulesChangedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public BaseEntityModulesChangedEventObserverHandler(
-        ObserverState observer
-    )
+    public BaseEntityModulesChangedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -22,8 +20,9 @@ public class BaseEntityModulesChangedEventObserverHandler
     public Task Handle(
         BaseEntityModulesChangedEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<BaseEntityModulesChangedEventObserver, BaseEntityModulesChangedEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            BaseEntityModulesChangedEventObserver,
+            BaseEntityModulesChangedEvent
+        >(notification, cancellationToken);
 }

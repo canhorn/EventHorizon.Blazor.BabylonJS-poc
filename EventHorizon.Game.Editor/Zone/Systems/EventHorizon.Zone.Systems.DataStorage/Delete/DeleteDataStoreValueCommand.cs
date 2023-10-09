@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Zone.Systems.DataStorage.Delete
+﻿namespace EventHorizon.Zone.Systems.DataStorage.Delete;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct DeleteDataStoreValueCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Key { get; }
 
-    public struct DeleteDataStoreValueCommand
-        : IRequest<StandardCommandResult>
+    public DeleteDataStoreValueCommand(string key)
     {
-        public string Key { get; }
-
-        public DeleteDataStoreValueCommand(
-            string key
-        )
-        {
-            Key = key;
-        }
+        Key = key;
     }
 }

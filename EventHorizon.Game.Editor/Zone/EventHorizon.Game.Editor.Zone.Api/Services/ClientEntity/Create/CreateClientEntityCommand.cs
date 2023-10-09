@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.ClientEntity.Create
+﻿namespace EventHorizon.Game.Editor.Zone.Services.ClientEntity.Create;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+using MediatR;
+
+public struct CreateClientEntityCommand
+    : IRequest<CommandResult<IObjectEntityDetails>>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using MediatR;
+    public IObjectEntityDetails Entity { get; }
 
-    public struct CreateClientEntityCommand
-        : IRequest<CommandResult<IObjectEntityDetails>>
+    public CreateClientEntityCommand(IObjectEntityDetails entity)
     {
-        public IObjectEntityDetails Entity { get; }
-
-        public CreateClientEntityCommand(
-            IObjectEntityDetails entity
-        )
-        {
-            Entity = entity;
-        }
+        Entity = entity;
     }
 }

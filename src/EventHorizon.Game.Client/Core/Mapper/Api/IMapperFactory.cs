@@ -1,11 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Core.Mapper.Api
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Core.Mapper.Api;
 
-    public interface IMapperFactory
-    {
-        public T Map<T>(
-            object obj
-        );
-    }
+using System;
+
+public interface IMapperFactory
+{
+    public T Map<T>(object obj);
 }

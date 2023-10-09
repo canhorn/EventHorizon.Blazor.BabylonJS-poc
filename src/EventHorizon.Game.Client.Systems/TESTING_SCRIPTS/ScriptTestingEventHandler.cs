@@ -1,29 +1,29 @@
-namespace EventHorizon.Game.Client.Systems.TESTING_SCRIPTS
+namespace EventHorizon.Game.Client.Systems.TESTING_SCRIPTS;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Testing.Events;
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public class ScriptTestingEventHandler
+    : INotificationHandler<ScriptTestingEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Testing.Events;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    private readonly ObserverState _observer;
 
-    public class ScriptTestingEventHandler
-        : INotificationHandler<ScriptTestingEvent>
+    public ScriptTestingEventHandler(ObserverState observer)
     {
-        private readonly ObserverState _observer;
+        _observer = observer;
+    }
 
-        public ScriptTestingEventHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            ScriptTestingEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<ScriptTestingEventObserver, ScriptTestingEvent>(
+    public Task Handle(
+        ScriptTestingEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<ScriptTestingEventObserver, ScriptTestingEvent>(
             notification,
             cancellationToken
         );
-    }
 }

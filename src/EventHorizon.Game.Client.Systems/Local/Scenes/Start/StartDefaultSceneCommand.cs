@@ -1,9 +1,5 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Scenes.Start
-{
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Systems.Local.Scenes.Start;
 
-    public struct StartDefaultSceneCommand
-        : IRequest
-    {
-    }
-}
+using MediatR;
+
+public struct StartDefaultSceneCommand : IRequest { }

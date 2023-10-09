@@ -1,10 +1,9 @@
-﻿namespace EventHorizon.Game.Client.Systems.Dialog.Api
-{
-    using System.Collections.Generic;
+﻿namespace EventHorizon.Game.Client.Systems.Dialog.Api;
 
-    public interface DialogTreeActionScript
-    {
-        public string Id { get; }
-        public IDictionary<string, object> Data { get; }
-    }
+using System.Collections.Generic;
+
+public interface DialogTreeActionScript
+{
+    public string Id { get; }
+    public IDictionary<string, object> Data { get; }
 }

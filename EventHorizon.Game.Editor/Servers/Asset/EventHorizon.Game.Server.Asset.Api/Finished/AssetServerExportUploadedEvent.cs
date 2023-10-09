@@ -17,6 +17,4 @@ public struct AssetServerExportUploadedEvent : INotification
 }
 
 public interface AssetServerExportUploadedEventObserver
-    : ArgumentObserver<AssetServerExportUploadedEvent>
-{
-}
+    : ArgumentObserver<AssetServerExportUploadedEvent> { }

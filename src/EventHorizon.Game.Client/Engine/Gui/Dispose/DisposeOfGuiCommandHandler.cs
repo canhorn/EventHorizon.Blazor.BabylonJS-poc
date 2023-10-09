@@ -1,50 +1,45 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Dispose
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Dispose;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
+
+using MediatR;
+
+public class DisposeOfGuiCommandHandler
+    : IRequestHandler<DisposeOfGuiCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly IGuiDefinitionState _state;
 
-    public class DisposeOfGuiCommandHandler
-        : IRequestHandler<DisposeOfGuiCommand, StandardCommandResult>
+    public DisposeOfGuiCommandHandler(
+        IMediator mediator,
+        IGuiDefinitionState state
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly IGuiDefinitionState _state;
+        _mediator = mediator;
+        _state = state;
+    }
 
-        public DisposeOfGuiCommandHandler(
-            IMediator mediator,
-            IGuiDefinitionState state
-        )
+    public async Task<StandardCommandResult> Handle(
+        DisposeOfGuiCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var gui = _state.Get(request.GuiId);
+        if (gui.HasValue)
         {
-            _mediator = mediator;
-            _state = state;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            DisposeOfGuiCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var gui = _state.Get(
-                request.GuiId
+            await _mediator.Send(
+                new DisposeOfEntityCommand(gui.Value),
+                cancellationToken
             );
-            if (gui.HasValue)
-            {
-                await _mediator.Send(
-                    new DisposeOfEntityCommand(
-                        gui.Value
-                    ),
-                    cancellationToken
-                );
-                _state.Remove(
-                    gui.Value.GuiId
-                );
-            }
-
-            return new StandardCommandResult();
+            _state.Remove(gui.Value.GuiId);
         }
+
+        return new StandardCommandResult();
     }
 }

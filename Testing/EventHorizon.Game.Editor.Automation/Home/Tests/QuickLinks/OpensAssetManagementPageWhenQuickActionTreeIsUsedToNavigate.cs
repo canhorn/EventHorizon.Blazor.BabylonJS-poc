@@ -29,8 +29,6 @@ public class OpensAssetManagementPageWhenQuickActionTreeIsUsedToNavigate
                 a => a.Text == Translations.EN_US.AssetManagementText
             )
             .Link.ClickAndGo<AssetManagementPage>()
-            .Header.Should.Be(
-                AssetManagementPageTranslations.EN_US.Header
-            );
+            .Header.Should.Be(AssetManagementPageTranslations.EN_US.Header);
     }
 }

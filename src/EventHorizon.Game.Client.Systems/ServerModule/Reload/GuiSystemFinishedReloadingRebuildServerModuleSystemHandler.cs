@@ -1,58 +1,57 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Reload
+﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Reload;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Gui.Reload;
+using EventHorizon.Game.Client.Systems.ServerModule.Api;
+using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
+using EventHorizon.Game.Client.Systems.ServerModule.Register;
+
+using MediatR;
+
+public class GuiSystemFinishedReloadingRebuildServerModuleSystemHandler
+    : INotificationHandler<GuiSystemFinishedReloadingEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Gui.Reload;
-    using EventHorizon.Game.Client.Systems.ServerModule.Register;
-    using EventHorizon.Game.Client.Systems.ServerModule.Api;
-    using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly ServerModuleState _serverModuleState;
+    private readonly ServerModuleScriptsState _serverModuleScriptsState;
 
-    public class GuiSystemFinishedReloadingRebuildServerModuleSystemHandler
-        : INotificationHandler<GuiSystemFinishedReloadingEvent>
+    public GuiSystemFinishedReloadingRebuildServerModuleSystemHandler(
+        IMediator mediator,
+        ServerModuleState serverModuleState,
+        ServerModuleScriptsState serverModuleScriptsState
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly ServerModuleState _serverModuleState;
-        private readonly ServerModuleScriptsState _serverModuleScriptsState;
+        _mediator = mediator;
+        _serverModuleState = serverModuleState;
+        _serverModuleScriptsState = serverModuleScriptsState;
+    }
 
-        public GuiSystemFinishedReloadingRebuildServerModuleSystemHandler(
-            IMediator mediator,
-            ServerModuleState serverModuleState,
-            ServerModuleScriptsState serverModuleScriptsState
-        )
+    public async Task Handle(
+        GuiSystemFinishedReloadingEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        // Remove all existing Server Modules
+        foreach (var serverModule in _serverModuleState.All())
         {
-            _mediator = mediator;
-            _serverModuleState = serverModuleState;
-            _serverModuleScriptsState = serverModuleScriptsState;
+            await _mediator.Send(
+                new DisposeOfServerModuleCommand(serverModule.Name),
+                cancellationToken
+            );
         }
 
-        public async Task Handle(
-            GuiSystemFinishedReloadingEvent notification, 
-            CancellationToken cancellationToken
-        )
+        // Create all new Server Modules from Existing Scripts
+        foreach (var serverModuleScripts in _serverModuleScriptsState.All())
         {
-            // Remove all existing Server Modules
-            foreach (var serverModule in _serverModuleState.All())
-            {
-                await _mediator.Send(
-                    new DisposeOfServerModuleCommand(
-                        serverModule.Name
-                    ),
-                    cancellationToken
-                );
-            }
-
-            // Create all new Server Modules from Existing Scripts
-            foreach (var serverModuleScripts in _serverModuleScriptsState.All())
-            {
-                await _mediator.Send(
-                    new RegisterNewServerModuleFromScriptCommand(
-                        serverModuleScripts
-                    ),
-                    cancellationToken
-                );
-            }
+            await _mediator.Send(
+                new RegisterNewServerModuleFromScriptCommand(
+                    serverModuleScripts
+                ),
+                cancellationToken
+            );
         }
     }
 }

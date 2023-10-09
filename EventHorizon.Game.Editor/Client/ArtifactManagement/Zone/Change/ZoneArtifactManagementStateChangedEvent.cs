@@ -8,16 +8,10 @@ using EventHorizon.Observer.State;
 
 using MediatR;
 
-public struct ZoneArtifactManagementStateChangedEvent
-        : INotification
-{
-
-}
+public struct ZoneArtifactManagementStateChangedEvent : INotification { }
 
 public interface ZoneArtifactManagementStateChangedEventObserver
-    : ArgumentObserver<ZoneArtifactManagementStateChangedEvent>
-{
-}
+    : ArgumentObserver<ZoneArtifactManagementStateChangedEvent> { }
 
 public class ZoneArtifactManagementStateChangedEventObserverHandler
     : INotificationHandler<ZoneArtifactManagementStateChangedEvent>
@@ -34,8 +28,9 @@ public class ZoneArtifactManagementStateChangedEventObserverHandler
     public Task Handle(
         ZoneArtifactManagementStateChangedEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<ZoneArtifactManagementStateChangedEventObserver, ZoneArtifactManagementStateChangedEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            ZoneArtifactManagementStateChangedEventObserver,
+            ZoneArtifactManagementStateChangedEvent
+        >(notification, cancellationToken);
 }

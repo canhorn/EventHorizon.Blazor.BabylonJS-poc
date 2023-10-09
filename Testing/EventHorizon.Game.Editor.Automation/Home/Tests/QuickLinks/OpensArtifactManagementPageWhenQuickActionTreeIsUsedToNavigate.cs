@@ -29,8 +29,6 @@ public class OpensArtifactManagementPageWhenQuickActionTreeIsUsedToNavigate
                 a => a.Text == Translations.EN_US.ArtifactManagementText
             )
             .Link.ClickAndGo<ArtifactManagementPage>()
-            .Header.Should.Be(
-                ArtifactManagementPageTranslations.EN_US.Header
-            );
+            .Header.Should.Be(ArtifactManagementPageTranslations.EN_US.Header);
     }
 }

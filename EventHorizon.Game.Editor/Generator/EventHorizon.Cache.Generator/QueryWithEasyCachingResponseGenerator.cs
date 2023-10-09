@@ -1,132 +1,145 @@
-﻿namespace EventHorizon.Cache.Generator
+﻿namespace EventHorizon.Cache.Generator;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
+
+[Generator]
+public class QueryWithEasyCachingResponseGenerator : ISourceGenerator
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Text;
+    private const string GenerateCacheAttributeName =
+        "EventHorizon.Cache.GenerateCacheAttribute";
 
-    using Microsoft.CodeAnalysis;
-    using Microsoft.CodeAnalysis.CSharp;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
-    using Microsoft.CodeAnalysis.Text;
-
-    [Generator]
-    public class QueryWithEasyCachingResponseGenerator
-        : ISourceGenerator
+    public void Execute(GeneratorExecutionContext context)
     {
-        private const string GenerateCacheAttributeName = "EventHorizon.Cache.GenerateCacheAttribute";
+        var attributeSymbol = context.Compilation.GetTypeByMetadataName(
+            GenerateCacheAttributeName
+        );
+        //#if DEBUG
+        //            if (!Debugger.IsAttached)
+        //            {
+        //                Debugger.Launch();
+        //            }
+        //#endif
 
-        public void Execute(GeneratorExecutionContext context)
+        var classWithAttributes = context.Compilation.SyntaxTrees.Where(
+            st =>
+                st.GetRoot()
+                    .DescendantNodes()
+                    .OfType<ClassDeclarationSyntax>()
+                    .Any(
+                        p => p.DescendantNodes().OfType<AttributeSyntax>().Any()
+                    )
+        );
+        Generate<ClassDeclarationSyntax>(
+            context,
+            attributeSymbol,
+            classWithAttributes
+        );
+
+        var structWithAttributes = context.Compilation.SyntaxTrees.Where(
+            st =>
+                st.GetRoot()
+                    .DescendantNodes()
+                    .OfType<StructDeclarationSyntax>()
+                    .Any(
+                        p => p.DescendantNodes().OfType<AttributeSyntax>().Any()
+                    )
+        );
+        Generate<StructDeclarationSyntax>(
+            context,
+            attributeSymbol,
+            structWithAttributes
+        );
+    }
+
+    private static void Generate<T>(
+        GeneratorExecutionContext context,
+        INamedTypeSymbol? attributeSymbol,
+        IEnumerable<SyntaxTree> elementsWithAttribute
+    )
+        where T : TypeDeclarationSyntax
+    {
+        foreach (SyntaxTree tree in elementsWithAttribute)
         {
-            var attributeSymbol = context.Compilation.GetTypeByMetadataName(
-                GenerateCacheAttributeName
-            );
-//#if DEBUG
-//            if (!Debugger.IsAttached)
-//            {
-//                Debugger.Launch();
-//            }
-//#endif
+            var semanticModel = context.Compilation.GetSemanticModel(tree);
 
-            var classWithAttributes = context.Compilation
-                .SyntaxTrees
-                .Where(
-                    st => st.GetRoot()
-                        .DescendantNodes()
-                        .OfType<ClassDeclarationSyntax>()
-                        .Any(
-                            p => p.DescendantNodes()
-                                .OfType<AttributeSyntax>()
-                                .Any()
-                        )
-                );
-            Generate<ClassDeclarationSyntax>(context, attributeSymbol, classWithAttributes);
-
-            var structWithAttributes = context.Compilation
-                .SyntaxTrees
-                .Where(
-                    st => st.GetRoot()
-                        .DescendantNodes()
-                        .OfType<StructDeclarationSyntax>()
-                        .Any(
-                            p => p.DescendantNodes()
-                                .OfType<AttributeSyntax>()
-                                .Any()
-                        )
-                );
-            Generate<StructDeclarationSyntax>(context, attributeSymbol, structWithAttributes);
-        }
-
-        private static void Generate<T>(
-            GeneratorExecutionContext context,
-            INamedTypeSymbol? attributeSymbol,
-            IEnumerable<SyntaxTree> elementsWithAttribute
-        ) where T : TypeDeclarationSyntax
-        {
-            foreach (SyntaxTree tree in elementsWithAttribute)
-            {
-                var semanticModel = context.Compilation.GetSemanticModel(tree);
-
-                foreach (var declaredClass in tree
-                    .GetRoot()
+            foreach (
+                var declaredClass in tree.GetRoot()
                     .DescendantNodes()
                     .OfType<T>()
-                    .Where(cd => cd.DescendantNodes().OfType<AttributeSyntax>().Any()))
-                {
-                    // Check for existing GenerateCacheAttributeName Attribute on <T>
-                    var nodes = declaredClass
+                    .Where(
+                        cd =>
+                            cd.DescendantNodes().OfType<AttributeSyntax>().Any()
+                    )
+            )
+            {
+                // Check for existing GenerateCacheAttributeName Attribute on <T>
+                var nodes = declaredClass
                     .DescendantNodes()
                     .OfType<AttributeSyntax>()
                     .FirstOrDefault(
-                        a => a.DescendantTokens()
-                            .Any(
-                                dt => dt.IsKind(SyntaxKind.IdentifierToken)
-                                    && dt.Parent != null
-                                    && attributeSymbol != null
-                                    && semanticModel.GetTypeInfo(dt.Parent).Type?.Name == attributeSymbol.Name
-                            )
-                    )?.DescendantTokens()
-                    ?.Where(
-                        dt => dt.IsKind(SyntaxKind.IdentifierToken)
-                    )?.ToList();
+                        a =>
+                            a.DescendantTokens()
+                                .Any(
+                                    dt =>
+                                        dt.IsKind(SyntaxKind.IdentifierToken)
+                                        && dt.Parent != null
+                                        && attributeSymbol != null
+                                        && semanticModel
+                                            .GetTypeInfo(dt.Parent)
+                                            .Type?.Name == attributeSymbol.Name
+                                )
+                    )
+                    ?.DescendantTokens()
+                    ?.Where(dt => dt.IsKind(SyntaxKind.IdentifierToken))
+                    ?.ToList();
 
-                    if (nodes == null)
-                    {
-                        continue;
-                    }
+                if (nodes == null)
+                {
+                    continue;
+                }
 
-                    if (declaredClass.Parent is not NamespaceDeclarationSyntax classNamespace)
-                    {
-                        // Ignored, dont care about non-namespaced
-                        continue;
-                    }
+                if (
+                    declaredClass.Parent
+                    is not NamespaceDeclarationSyntax classNamespace
+                )
+                {
+                    // Ignored, dont care about non-namespaced
+                    continue;
+                }
 
-                    var responseNamespace = classNamespace.Name.ToString();
-                    var responseUsingNamespace = classNamespace.Usings
-                        .ToString()
-                        .Replace("using EventHorizon.Cache;", string.Empty)
-                        .Replace("using MediatR;", string.Empty);
-                    var requestType = declaredClass.Identifier.ToString();
-                    var responseType = declaredClass.BaseList?.Types.Select(a => a.ToString()).FirstOrDefault(a => a.StartsWith("IRequest<"));
-                    if(responseType == null || string.IsNullOrEmpty(
-                        responseType
-                    ))
-                    {
-                        // Ignored, dont care about non IRequest< typed queries
-                        continue;
-                    }
-                    responseType = responseType.Replace(
-                        "IRequest<", string.Empty
-                    );
-                    responseType = responseType.Substring(
+                var responseNamespace = classNamespace.Name.ToString();
+                var responseUsingNamespace = classNamespace.Usings
+                    .ToString()
+                    .Replace("using EventHorizon.Cache;", string.Empty)
+                    .Replace("using MediatR;", string.Empty);
+                var requestType = declaredClass.Identifier.ToString();
+                var responseType = declaredClass.BaseList?.Types
+                    .Select(a => a.ToString())
+                    .FirstOrDefault(a => a.StartsWith("IRequest<"));
+                if (responseType == null || string.IsNullOrEmpty(responseType))
+                {
+                    // Ignored, dont care about non IRequest< typed queries
+                    continue;
+                }
+                responseType = responseType.Replace("IRequest<", string.Empty);
+                responseType = responseType.Substring(
 #pragma warning disable IDE0057 // Use range operator
-                        0,
-                        responseType.Length - 1
+                    0,
+                    responseType.Length - 1
 #pragma warning restore IDE0057 // Use range operator
-                    );
+                );
 
-                    var generatedClass = @$"
+                var generatedClass =
+                    @$"
 // namespace EventHorizon.Cache.Generated
 namespace {responseNamespace}
 {{
@@ -195,20 +208,14 @@ namespace {responseNamespace}
         }}
     }}
 }}";
-                    
-                    context.AddSource(
-                        $"{requestType}GeneratedCachedBehavior.cs",
-                        SourceText.From(
-                            generatedClass.ToString(),
-                            Encoding.UTF8
-                        )
-                    );
-                }
+
+                context.AddSource(
+                    $"{requestType}GeneratedCachedBehavior.cs",
+                    SourceText.From(generatedClass.ToString(), Encoding.UTF8)
+                );
             }
         }
-
-        public void Initialize(GeneratorInitializationContext context)
-        {
-        }
     }
+
+    public void Initialize(GeneratorInitializationContext context) { }
 }

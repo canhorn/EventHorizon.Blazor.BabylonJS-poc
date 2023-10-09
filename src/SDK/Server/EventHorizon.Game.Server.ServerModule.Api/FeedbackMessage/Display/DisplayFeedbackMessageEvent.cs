@@ -7,23 +7,18 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public struct DisplayFeedbackMessageEvent
-        : INotification
+    public struct DisplayFeedbackMessageEvent : INotification
     {
         public string Message { get; }
 
-        public DisplayFeedbackMessageEvent(
-            string message
-        )
+        public DisplayFeedbackMessageEvent(string message)
         {
             Message = message;
         }
     }
 
     public interface DisplayFeedbackMessageEventObserver
-        : ArgumentObserver<DisplayFeedbackMessageEvent>
-    {
-    }
+        : ArgumentObserver<DisplayFeedbackMessageEvent> { }
 
     // TODO: Move this into an Implementation Project, Remove from the SDK
     public class DisplayFeedbackMessageEventHandler
@@ -31,9 +26,7 @@
     {
         private readonly ObserverState _observer;
 
-        public DisplayFeedbackMessageEventHandler(
-            ObserverState observer
-        )
+        public DisplayFeedbackMessageEventHandler(ObserverState observer)
         {
             _observer = observer;
         }
@@ -41,9 +34,10 @@
         public Task Handle(
             DisplayFeedbackMessageEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<DisplayFeedbackMessageEventObserver, DisplayFeedbackMessageEvent>(
-            notification,
-            cancellationToken
-        );
+        ) =>
+            _observer.Trigger<
+                DisplayFeedbackMessageEventObserver,
+                DisplayFeedbackMessageEvent
+            >(notification, cancellationToken);
     }
 }

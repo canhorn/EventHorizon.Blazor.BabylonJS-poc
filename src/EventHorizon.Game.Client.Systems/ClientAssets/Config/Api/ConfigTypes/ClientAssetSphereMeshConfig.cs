@@ -1,11 +1,9 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes
-{
-    using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
 
-    public interface ClientAssetSphereMeshConfig
-        : ClientAssetConfig
-    {
-        float Segments { get; }
-        float Diameter { get; }
-    }
+using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+
+public interface ClientAssetSphereMeshConfig : ClientAssetConfig
+{
+    float Segments { get; }
+    float Diameter { get; }
 }

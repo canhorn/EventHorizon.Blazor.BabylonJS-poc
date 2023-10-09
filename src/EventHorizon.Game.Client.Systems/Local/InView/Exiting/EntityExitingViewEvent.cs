@@ -1,47 +1,43 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.InView.Exiting
+﻿namespace EventHorizon.Game.Client.Systems.Local.InView.Exiting;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Observer.Model;
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public struct EntityExitingViewEvent : INotification
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Observer.Model;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    public long ClientId { get; }
 
-    public struct EntityExitingViewEvent : INotification
+    public EntityExitingViewEvent(long clientId)
     {
-        public long ClientId { get; }
+        ClientId = clientId;
+    }
+}
 
-        public EntityExitingViewEvent(
-            long clientId
-        )
-        {
-            ClientId = clientId;
-        }
+public interface EntityExitingViewEventObserver
+    : ArgumentObserver<EntityExitingViewEvent> { }
+
+public class EntityExitingViewEventHandler
+    : INotificationHandler<EntityExitingViewEvent>
+{
+    private readonly ObserverState _observer;
+
+    public EntityExitingViewEventHandler(ObserverState observer)
+    {
+        _observer = observer;
     }
 
-    public interface EntityExitingViewEventObserver
-        : ArgumentObserver<EntityExitingViewEvent>
-    {
-    }
-
-    public class EntityExitingViewEventHandler
-        : INotificationHandler<EntityExitingViewEvent>
-    {
-        private readonly ObserverState _observer;
-
-        public EntityExitingViewEventHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            EntityExitingViewEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<EntityExitingViewEventObserver, EntityExitingViewEvent>(
-            notification,
-            cancellationToken
-        );
-    }
+    public Task Handle(
+        EntityExitingViewEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<
+            EntityExitingViewEventObserver,
+            EntityExitingViewEvent
+        >(notification, cancellationToken);
 }

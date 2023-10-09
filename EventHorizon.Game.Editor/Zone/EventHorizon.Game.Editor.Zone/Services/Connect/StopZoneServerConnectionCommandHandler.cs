@@ -1,29 +1,30 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Connect
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Connect;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+
+using MediatR;
+
+public class StopZoneServerConnectionCommandHandler
+    : IRequestHandler<StopZoneServerConnectionCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class StopZoneServerConnectionCommandHandler
-        : IRequestHandler<StopZoneServerConnectionCommand, StandardCommandResult>
+    public StopZoneServerConnectionCommandHandler(
+        ZoneAdminServices zoneAdminServices
+    )
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public StopZoneServerConnectionCommandHandler(
-            ZoneAdminServices zoneAdminServices
-        )
-        {
-            _zoneAdminServices = zoneAdminServices;
-        }
-
-        public Task<StandardCommandResult> Handle(
-            StopZoneServerConnectionCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            return _zoneAdminServices.Disconnect();
-        }
+    public Task<StandardCommandResult> Handle(
+        StopZoneServerConnectionCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return _zoneAdminServices.Disconnect();
     }
 }

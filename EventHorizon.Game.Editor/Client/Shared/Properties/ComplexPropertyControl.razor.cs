@@ -1,58 +1,53 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Properties
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Properties;
+
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+using BlazorMonaco;
+
+using EventHorizon.Game.Editor.Client.Zone.Api;
+using EventHorizon.Game.Editor.Properties.Model;
+
+using Microsoft.AspNetCore.Components;
+
+public partial class ComplexPropertyControl
 {
-    using System.Collections.Generic;
-    using System.Text.Json;
-    using System.Threading.Tasks;
+    [CascadingParameter]
+    public ZoneState ZoneState { get; set; } = null!;
 
-    using BlazorMonaco;
+    public MonacoEditor MonacoEditor { get; set; } = null!;
+    protected string PropertyEditorId => $"{PropertyName}-Editor";
+    protected bool IsEditorOpen { get; set; }
 
-    using EventHorizon.Game.Editor.Client.Zone.Api;
-    using EventHorizon.Game.Editor.Properties.Model;
-
-    using Microsoft.AspNetCore.Components;
-
-    public partial class ComplexPropertyControl
+    protected override object Parse(object value)
     {
-        [CascadingParameter]
-        public ZoneState ZoneState { get; set; } = null!;
-
-        public MonacoEditor MonacoEditor { get; set; } = null!;
-        protected string PropertyEditorId => $"{PropertyName}-Editor";
-        protected bool IsEditorOpen { get; set; }
-
-        protected override object Parse(object value)
-        {
-            return JsonSerializer.Deserialize<Dictionary<string, object>>(
+        return JsonSerializer.Deserialize<Dictionary<string, object>>(
                 value?.ToString() ?? "{}"
             ) ?? new Dictionary<string, object>();
-        }
+    }
 
-        public async Task HandleOpenEditor()
+    public async Task HandleOpenEditor()
+    {
+        if (MonacoEditor.IsNotNull())
         {
-            if (MonacoEditor.IsNotNull())
-            {
-                await MonacoEditor.SetValue(
-                    ToStringProperty()
-                );
-            }
-            IsEditorOpen = true;
+            await MonacoEditor.SetValue(ToStringProperty());
         }
+        IsEditorOpen = true;
+    }
 
-        public async Task HandleSave()
-        {
-            await HandleChange(
-                new ChangeEventArgs
-                {
-                    Value = await MonacoEditor.GetValue()
-                }
-            );
-            IsEditorOpen = false;
-        }
+    public async Task HandleSave()
+    {
+        await HandleChange(
+            new ChangeEventArgs { Value = await MonacoEditor.GetValue() }
+        );
+        IsEditorOpen = false;
+    }
 
-
-        public StandaloneEditorConstructionOptions BuildConstructionOptions(
-            MonacoEditor _
-        ) => new()
+    public StandaloneEditorConstructionOptions BuildConstructionOptions(
+        MonacoEditor _
+    ) =>
+        new()
         {
             Theme = "vs-dark",
             Language = "json",
@@ -60,16 +55,13 @@
             AutomaticLayout = true,
         };
 
-        private string ToStringProperty()
+    private string ToStringProperty()
+    {
+        if (Property is ComplexProperty)
         {
-            if (Property is ComplexProperty)
-            {
-                return JsonSerializer.Serialize(
-                    Property
-                );
-            }
-
-            return Property?.ToString() ?? "{ }";
+            return JsonSerializer.Serialize(Property);
         }
+
+        return Property?.ToString() ?? "{ }";
     }
 }

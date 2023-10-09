@@ -1,22 +1,19 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Delete
+﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Delete;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
+
+using MediatR;
+
+public struct DeleteZoneEditorFileCommand : IRequest<EditorResponse>
 {
-    using System.Collections.Generic;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-    using MediatR;
+    public string FileName { get; }
+    public IList<string> Path { get; }
 
-    public struct DeleteZoneEditorFileCommand
-        : IRequest<EditorResponse>
+    public DeleteZoneEditorFileCommand(string fileName, IList<string> path)
     {
-        public string FileName { get; }
-        public IList<string> Path { get; }
-
-        public DeleteZoneEditorFileCommand(
-            string fileName,
-            IList<string> path
-        )
-        {
-            FileName = fileName;
-            Path = path;
-        }
+        FileName = fileName;
+        Path = path;
     }
 }

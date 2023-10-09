@@ -1,19 +1,15 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Reload
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Reload;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct SetReloadOnZoneStateCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
+    public bool Reload { get; }
 
-    using MediatR;
-
-    public struct SetReloadOnZoneStateCommand
-        : IRequest<StandardCommandResult>
+    public SetReloadOnZoneStateCommand(bool reload)
     {
-        public bool Reload { get; }
-
-        public SetReloadOnZoneStateCommand(
-            bool reload
-        )
-        {
-            Reload = reload;
-        }
+        Reload = reload;
     }
 }

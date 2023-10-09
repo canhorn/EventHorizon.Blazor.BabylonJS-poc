@@ -1,17 +1,15 @@
-﻿using EventHorizon.Observer.Model;
+﻿namespace EventHorizon.Observer.Unregister;
+
+using EventHorizon.Observer.Model;
+
 using MediatR;
 
-namespace EventHorizon.Observer.Unregister
+public class UnregisterObserverCommand : IRequest
 {
-    public class UnregisterObserverCommand : IRequest
-    {
-        public ObserverBase Observer { get; }
+    public ObserverBase Observer { get; }
 
-        public UnregisterObserverCommand(
-            ObserverBase observer
-        )
-        {
-            Observer = observer;
-        }
+    public UnregisterObserverCommand(ObserverBase observer)
+    {
+        Observer = observer;
     }
 }

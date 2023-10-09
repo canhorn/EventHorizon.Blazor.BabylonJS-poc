@@ -1,35 +1,36 @@
-﻿namespace EventHorizon.Game.Client.Engine.Particle.Create
+﻿namespace EventHorizon.Game.Client.Engine.Particle.Create;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Particle.Api;
+
+using MediatR;
+
+public class CreateParticleFromTemplateCommandHandler
+    : IRequestHandler<CreateParticleFromTemplateCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Particle.Api;
-    using MediatR;
+    private readonly ParticleState _particleService;
 
-    public class CreateParticleFromTemplateCommandHandler
-        : IRequestHandler<CreateParticleFromTemplateCommand, StandardCommandResult>
+    public CreateParticleFromTemplateCommandHandler(
+        ParticleState particleService
+    )
     {
-        private readonly ParticleState _particleService;
+        _particleService = particleService;
+    }
 
-        public CreateParticleFromTemplateCommandHandler(
-            ParticleState particleService
-        )
-        {
-            _particleService = particleService;
-        }
+    public async Task<StandardCommandResult> Handle(
+        CreateParticleFromTemplateCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _particleService.CreateFromTemplate(
+            request.Id,
+            request.TemplateId,
+            request.Settings
+        );
 
-        public async Task<StandardCommandResult> Handle(
-            CreateParticleFromTemplateCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _particleService.CreateFromTemplate(
-                request.Id,
-                request.TemplateId,
-                request.Settings
-            );
-
-            return new StandardCommandResult();
-        }
+        return new StandardCommandResult();
     }
 }

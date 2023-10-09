@@ -1,10 +1,9 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Player.Api
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Player.Api;
 
-    public interface IPlayerDetails
-    {
-        string PlayerId { get; }
-        string AccessToken { get; }
-    }
+using System;
+
+public interface IPlayerDetails
+{
+    string PlayerId { get; }
+    string AccessToken { get; }
 }

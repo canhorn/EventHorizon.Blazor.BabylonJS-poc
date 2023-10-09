@@ -13,7 +13,10 @@ using EventHorizon.Game.Server.Asset.Query;
 using MediatR;
 
 public class QueryForAllArtifactBackupsHandler
-    : IRequestHandler<QueryForAllArtifactBackups, CommandResult<IEnumerable<ArtifactViewModel>>>
+    : IRequestHandler<
+        QueryForAllArtifactBackups,
+        CommandResult<IEnumerable<ArtifactViewModel>>
+    >
 {
     private readonly ISender _sender;
     private readonly GamePlatformServiceSettings _settings;
@@ -47,13 +50,14 @@ public class QueryForAllArtifactBackupsHandler
                 // TODO: Filter by Service
                 .Reverse()
                 .Select(
-                    backup => new ArtifactViewModel
-                    {
-                        Service = backup.Service,
-                        ReferenceId = backup.ReferenceId,
-                        CreatedDate = backup.Created,
-                        Path = $"{_settings.AssetServer}{backup.Path}",
-                    }
+                    backup =>
+                        new ArtifactViewModel
+                        {
+                            Service = backup.Service,
+                            ReferenceId = backup.ReferenceId,
+                            CreatedDate = backup.Created,
+                            Path = $"{_settings.AssetServer}{backup.Path}",
+                        }
                 )
         );
     }

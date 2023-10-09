@@ -15,8 +15,6 @@ public static class MockConfigurationExtensions
             .AddInMemoryCollection(configValues)
             .Build();
 
-        return services.AddSingleton<IConfiguration>(
-            configuration
-        );
+        return services.AddSingleton<IConfiguration>(configuration);
     }
 }

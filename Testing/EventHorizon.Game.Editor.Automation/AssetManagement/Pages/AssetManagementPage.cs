@@ -7,7 +7,4 @@ using EventHorizon.Game.Editor.Automation.Layout;
 using _ = AssetManagementPage;
 
 [Url("/asset/management")]
-public class AssetManagementPage
-    : MainLayoutPage<_>
-{
-}
+public class AssetManagementPage : MainLayoutPage<_> { }

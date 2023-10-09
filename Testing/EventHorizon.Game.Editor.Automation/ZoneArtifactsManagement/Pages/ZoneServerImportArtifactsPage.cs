@@ -11,7 +11,10 @@ using _ = ZoneServerImportArtifactsPage;
 [Url("/artifacts/zone/imports")]
 public class ZoneServerImportArtifactsPage : MainLayoutPage<_>
 {
-    public StandardToolbarComponent<_, StandardToolbarButtonComponent<_>> Toolbar { get; private set; }
+    public StandardToolbarComponent<
+        _,
+        StandardToolbarButtonComponent<_>
+    > Toolbar { get; private set; }
 
     [FindByClass("import-artifacts__table")]
     public ArtifactTable<_> ArtifactTable { get; private set; }

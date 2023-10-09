@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.Activity
+﻿namespace EventHorizon.Activity;
+
+public static class StandardActivityCategoryTypes
 {
-    public static class StandardActivityCategoryTypes
-    {
-        public const string DEFAULT = "default";
-    }
+    public const string DEFAULT = "default";
 }

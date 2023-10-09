@@ -4,12 +4,7 @@ using EventHorizon.Observer.Model;
 
 using MediatR;
 
-public struct OpenZoneServerImportFileUploaderEvent
-    : INotification
-{
-}
+public struct OpenZoneServerImportFileUploaderEvent : INotification { }
 
 public interface OpenZoneServerImportFileUploaderEventObserver
-    : ArgumentObserver<OpenZoneServerImportFileUploaderEvent>
-{
-}
+    : ArgumentObserver<OpenZoneServerImportFileUploaderEvent> { }

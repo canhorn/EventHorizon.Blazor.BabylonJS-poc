@@ -1,59 +1,56 @@
-﻿namespace EventHorizon.Platform.LogProvider.Process
+﻿namespace EventHorizon.Platform.LogProvider.Process;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Connection.Shared;
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Platform.LogProvider.Api;
+using EventHorizon.Platform.LogProvider.Connection.Api;
+using EventHorizon.Platform.LogProvider.Model;
+
+using MediatR;
+
+public class ProcesssPlatformLogMessageCommandHandler
+    : IRequestHandler<ProcesssPlatformLogMessageCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Connection.Shared;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Platform.LogProvider.Api;
-    using EventHorizon.Platform.LogProvider.Connection.Api;
-    using EventHorizon.Platform.LogProvider.Model;
-    using MediatR;
+    private const int BATCH_SIZE = 1000;
 
-    public class ProcesssPlatformLogMessageCommandHandler
-        : IRequestHandler<ProcesssPlatformLogMessageCommand, StandardCommandResult>
+    private readonly PlatformLoggerConnection _connection;
+    private readonly PendingLogQueue _pendingLogQueue;
+
+    public ProcesssPlatformLogMessageCommandHandler(
+        PlatformLoggerConnection connection,
+        PendingLogQueue pendingLogQueue
+    )
     {
-        private const int BATCH_SIZE = 1000;
+        _connection = connection;
+        _pendingLogQueue = pendingLogQueue;
+    }
 
-        private readonly PlatformLoggerConnection _connection;
-        private readonly PendingLogQueue _pendingLogQueue;
-
-        public ProcesssPlatformLogMessageCommandHandler(
-            PlatformLoggerConnection connection,
-            PendingLogQueue pendingLogQueue
-        )
+    public async Task<StandardCommandResult> Handle(
+        ProcesssPlatformLogMessageCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        if (!_connection.IsConnected)
         {
-            _connection = connection;
-            _pendingLogQueue = pendingLogQueue;
+            return new StandardCommandResult(ConnectionErrorTypes.NotConnected);
         }
 
-        public async Task<StandardCommandResult> Handle(
-            ProcesssPlatformLogMessageCommand request,
-            CancellationToken cancellationToken
-        )
+        for (int i = 0; i < BATCH_SIZE; i++)
         {
-            if (!_connection.IsConnected)
+            if (_pendingLogQueue.TryDequeue(out var result))
             {
-                return new StandardCommandResult(
-                    ConnectionErrorTypes.NotConnected
+                await _connection.LogMessage(
+                    result.ToClientLogMessage(),
+                    cancellationToken
                 );
+                continue;
             }
-
-            for (int i = 0; i < BATCH_SIZE; i++)
-            {
-                if (_pendingLogQueue.TryDequeue(
-                    out var result
-                ))
-                {
-                    await _connection.LogMessage(
-                        result.ToClientLogMessage(),
-                        cancellationToken
-                    );
-                    continue;
-                }
-                break;
-            }
-
-            return new();
+            break;
         }
+
+        return new();
     }
 }

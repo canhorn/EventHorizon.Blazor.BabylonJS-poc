@@ -1,38 +1,38 @@
 /// Generated - Do Not Edit
-namespace BabylonJS.GUI
+namespace BabylonJS.GUI;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<ScrollViewer>))]
+public class ScrollViewer : Rectangle
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<ScrollViewer>))]
-    public class ScrollViewer : Rectangle
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+    private ScrollBar __horizontalBar;
+    public ScrollBar horizontalBar
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-        private ScrollBar __horizontalBar;
-        public ScrollBar horizontalBar
+        get
         {
-            get
-            {
-            if(__horizontalBar == null)
+            if (__horizontalBar == null)
             {
                 __horizontalBar = EventHorizonBlazorInterop.GetClass<ScrollBar>(
                     this.___guid,
@@ -44,15 +44,15 @@ namespace BabylonJS.GUI
                 );
             }
             return __horizontalBar;
-            }
         }
+    }
 
-        private ScrollBar __verticalBar;
-        public ScrollBar verticalBar
+    private ScrollBar __verticalBar;
+    public ScrollBar verticalBar
+    {
+        get
         {
-            get
-            {
-            if(__verticalBar == null)
+            if (__verticalBar == null)
             {
                 __verticalBar = EventHorizonBlazorInterop.GetClass<ScrollBar>(
                     this.___guid,
@@ -64,181 +64,168 @@ namespace BabylonJS.GUI
                 );
             }
             return __verticalBar;
-            }
         }
+    }
 
-        
-        public Control[] children
+    public Control[] children
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.GetArrayClass<Control>(
-                    this.___guid,
-                    "children",
-                    (entity) =>
-                    {
-                        return new Control() { ___guid = entity.___guid };
-                    }
-                );
-            }
+                this.___guid,
+                "children",
+                (entity) =>
+                {
+                    return new Control() { ___guid = entity.___guid };
+                }
+            );
         }
+    }
 
-        
-        public bool freezeControls
+    public bool freezeControls
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "freezeControls"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "freezeControls",
-                    value
-                );
-            }
+                this.___guid,
+                "freezeControls"
+            );
         }
-
-        
-        public decimal bucketWidth
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "freezeControls",
+                value
+            );
+        }
+    }
+
+    public decimal bucketWidth
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "bucketWidth"
-                );
-            }
+                this.___guid,
+                "bucketWidth"
+            );
         }
+    }
 
-        
-        public decimal bucketHeight
+    public decimal bucketHeight
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "bucketHeight"
-                );
-            }
+                this.___guid,
+                "bucketHeight"
+            );
         }
+    }
 
-        
-        public bool forceHorizontalBar
+    public bool forceHorizontalBar
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "forceHorizontalBar"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "forceHorizontalBar",
-                    value
-                );
-            }
+                this.___guid,
+                "forceHorizontalBar"
+            );
         }
-
-        
-        public bool forceVerticalBar
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "forceHorizontalBar",
+                value
+            );
+        }
+    }
+
+    public bool forceVerticalBar
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "forceVerticalBar"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "forceVerticalBar",
-                    value
-                );
-            }
+                this.___guid,
+                "forceVerticalBar"
+            );
         }
-
-        
-        public decimal wheelPrecision
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "forceVerticalBar",
+                value
+            );
+        }
+    }
+
+    public decimal wheelPrecision
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "wheelPrecision"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "wheelPrecision",
-                    value
-                );
-            }
+                this.___guid,
+                "wheelPrecision"
+            );
         }
-
-        
-        public string scrollBackground
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "wheelPrecision",
+                value
+            );
+        }
+    }
+
+    public string scrollBackground
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<string>(
-                    this.___guid,
-                    "scrollBackground"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "scrollBackground",
-                    value
-                );
-            }
+                this.___guid,
+                "scrollBackground"
+            );
         }
-
-        
-        public string barColor
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "scrollBackground",
+                value
+            );
+        }
+    }
+
+    public string barColor
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<string>(
-                    this.___guid,
-                    "barColor"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "barColor",
-                    value
-                );
-            }
+                this.___guid,
+                "barColor"
+            );
         }
-
-        private Image __thumbImage;
-        public Image thumbImage
+        set
         {
-            get
-            {
-            if(__thumbImage == null)
+
+            EventHorizonBlazorInterop.Set(this.___guid, "barColor", value);
+        }
+    }
+
+    private Image __thumbImage;
+    public Image thumbImage
+    {
+        get
+        {
+            if (__thumbImage == null)
             {
                 __thumbImage = EventHorizonBlazorInterop.GetClass<Image>(
                     this.___guid,
@@ -250,229 +237,204 @@ namespace BabylonJS.GUI
                 );
             }
             return __thumbImage;
-            }
-            set
-            {
-__thumbImage = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "thumbImage",
-                    value
-                );
-            }
         }
-
-        private Image __horizontalThumbImage;
-        public Image horizontalThumbImage
+        set
         {
-            get
+            __thumbImage = null;
+            EventHorizonBlazorInterop.Set(this.___guid, "thumbImage", value);
+        }
+    }
+
+    private Image __horizontalThumbImage;
+    public Image horizontalThumbImage
+    {
+        get
+        {
+            if (__horizontalThumbImage == null)
             {
-            if(__horizontalThumbImage == null)
-            {
-                __horizontalThumbImage = EventHorizonBlazorInterop.GetClass<Image>(
-                    this.___guid,
-                    "horizontalThumbImage",
-                    (entity) =>
-                    {
-                        return new Image() { ___guid = entity.___guid };
-                    }
-                );
+                __horizontalThumbImage =
+                    EventHorizonBlazorInterop.GetClass<Image>(
+                        this.___guid,
+                        "horizontalThumbImage",
+                        (entity) =>
+                        {
+                            return new Image() { ___guid = entity.___guid };
+                        }
+                    );
             }
             return __horizontalThumbImage;
-            }
-            set
-            {
-__horizontalThumbImage = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "horizontalThumbImage",
-                    value
-                );
-            }
         }
-
-        private Image __verticalThumbImage;
-        public Image verticalThumbImage
+        set
         {
-            get
+            __horizontalThumbImage = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "horizontalThumbImage",
+                value
+            );
+        }
+    }
+
+    private Image __verticalThumbImage;
+    public Image verticalThumbImage
+    {
+        get
+        {
+            if (__verticalThumbImage == null)
             {
-            if(__verticalThumbImage == null)
-            {
-                __verticalThumbImage = EventHorizonBlazorInterop.GetClass<Image>(
-                    this.___guid,
-                    "verticalThumbImage",
-                    (entity) =>
-                    {
-                        return new Image() { ___guid = entity.___guid };
-                    }
-                );
+                __verticalThumbImage =
+                    EventHorizonBlazorInterop.GetClass<Image>(
+                        this.___guid,
+                        "verticalThumbImage",
+                        (entity) =>
+                        {
+                            return new Image() { ___guid = entity.___guid };
+                        }
+                    );
             }
             return __verticalThumbImage;
-            }
-            set
-            {
-__verticalThumbImage = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "verticalThumbImage",
-                    value
-                );
-            }
         }
-
-        
-        public decimal barSize
+        set
         {
-            get
-            {
+            __verticalThumbImage = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "verticalThumbImage",
+                value
+            );
+        }
+    }
+
+    public decimal barSize
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "barSize"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "barSize",
-                    value
-                );
-            }
+                this.___guid,
+                "barSize"
+            );
         }
-
-        
-        public decimal thumbLength
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "barSize", value);
+        }
+    }
+
+    public decimal thumbLength
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "thumbLength"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "thumbLength",
-                    value
-                );
-            }
+                this.___guid,
+                "thumbLength"
+            );
         }
-
-        
-        public decimal thumbHeight
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "thumbLength", value);
+        }
+    }
+
+    public decimal thumbHeight
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "thumbHeight"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "thumbHeight",
-                    value
-                );
-            }
+                this.___guid,
+                "thumbHeight"
+            );
         }
-
-        
-        public decimal barImageHeight
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "thumbHeight", value);
+        }
+    }
+
+    public decimal barImageHeight
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "barImageHeight"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "barImageHeight",
-                    value
-                );
-            }
+                this.___guid,
+                "barImageHeight"
+            );
         }
-
-        
-        public decimal horizontalBarImageHeight
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "barImageHeight",
+                value
+            );
+        }
+    }
+
+    public decimal horizontalBarImageHeight
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "horizontalBarImageHeight"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "horizontalBarImageHeight",
-                    value
-                );
-            }
+                this.___guid,
+                "horizontalBarImageHeight"
+            );
         }
-
-        
-        public decimal verticalBarImageHeight
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "horizontalBarImageHeight",
+                value
+            );
+        }
+    }
+
+    public decimal verticalBarImageHeight
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "verticalBarImageHeight"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "verticalBarImageHeight",
-                    value
-                );
-            }
+                this.___guid,
+                "verticalBarImageHeight"
+            );
         }
-
-        
-        public string barBackground
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "verticalBarImageHeight",
+                value
+            );
+        }
+    }
+
+    public string barBackground
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<string>(
-                    this.___guid,
-                    "barBackground"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "barBackground",
-                    value
-                );
-            }
+                this.___guid,
+                "barBackground"
+            );
         }
-
-        private Image __barImage;
-        public Image barImage
+        set
         {
-            get
-            {
-            if(__barImage == null)
+
+            EventHorizonBlazorInterop.Set(this.___guid, "barBackground", value);
+        }
+    }
+
+    private Image __barImage;
+    public Image barImage
+    {
+        get
+        {
+            if (__barImage == null)
             {
                 __barImage = EventHorizonBlazorInterop.GetClass<Image>(
                     this.___guid,
@@ -484,53 +446,50 @@ __verticalThumbImage = null;
                 );
             }
             return __barImage;
-            }
-            set
-            {
-__barImage = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "barImage",
-                    value
-                );
-            }
         }
-
-        private Image __horizontalBarImage;
-        public Image horizontalBarImage
+        set
         {
-            get
+            __barImage = null;
+            EventHorizonBlazorInterop.Set(this.___guid, "barImage", value);
+        }
+    }
+
+    private Image __horizontalBarImage;
+    public Image horizontalBarImage
+    {
+        get
+        {
+            if (__horizontalBarImage == null)
             {
-            if(__horizontalBarImage == null)
-            {
-                __horizontalBarImage = EventHorizonBlazorInterop.GetClass<Image>(
-                    this.___guid,
-                    "horizontalBarImage",
-                    (entity) =>
-                    {
-                        return new Image() { ___guid = entity.___guid };
-                    }
-                );
+                __horizontalBarImage =
+                    EventHorizonBlazorInterop.GetClass<Image>(
+                        this.___guid,
+                        "horizontalBarImage",
+                        (entity) =>
+                        {
+                            return new Image() { ___guid = entity.___guid };
+                        }
+                    );
             }
             return __horizontalBarImage;
-            }
-            set
-            {
-__horizontalBarImage = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "horizontalBarImage",
-                    value
-                );
-            }
         }
-
-        private Image __verticalBarImage;
-        public Image verticalBarImage
+        set
         {
-            get
-            {
-            if(__verticalBarImage == null)
+            __horizontalBarImage = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "horizontalBarImage",
+                value
+            );
+        }
+    }
+
+    private Image __verticalBarImage;
+    public Image verticalBarImage
+    {
+        get
+        {
+            if (__verticalBarImage == null)
             {
                 __verticalBarImage = EventHorizonBlazorInterop.GetClass<Image>(
                     this.___guid,
@@ -542,96 +501,94 @@ __horizontalBarImage = null;
                 );
             }
             return __verticalBarImage;
-            }
-            set
-            {
-__verticalBarImage = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "verticalBarImage",
-                    value
-                );
-            }
         }
-        #endregion
-
-        #region Properties
-
-        #endregion
-        
-        #region Constructor
-        public ScrollViewer() : base() { }
-
-        public ScrollViewer(
-            ICachedEntity entity
-        ) : base(entity)
+        set
         {
-        }
-
-        public ScrollViewer(
-            string name = null, System.Nullable<bool> isImageBased = null
-        ) : base()
-        {
-            var entity = EventHorizonBlazorInterop.New(
-                new string[] { "BABYLON", "GUI", "ScrollViewer" },
-                name, isImageBased
-            );
-            ___guid = entity.___guid;
-        }
-        #endregion
-
-        #region Methods
-        public Container addControl(Control control)
-        {
-            return EventHorizonBlazorInterop.FuncClass<Container>(
-                entity => new Container() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { this.___guid, "addControl" }, control
-                }
+            __verticalBarImage = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "verticalBarImage",
+                value
             );
         }
-
-        public Container removeControl(Control control)
-        {
-            return EventHorizonBlazorInterop.FuncClass<Container>(
-                entity => new Container() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { this.___guid, "removeControl" }, control
-                }
-            );
-        }
-
-        public void setBucketSizes(decimal width, decimal height)
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "setBucketSizes" }, width, height
-                }
-            );
-        }
-
-        public void resetWindow()
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "resetWindow" }
-                }
-            );
-        }
-
-        public void dispose()
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "dispose" }
-                }
-            );
-        }
-        #endregion
     }
+    #endregion
+
+    #region Properties
+
+    #endregion
+
+    #region Constructor
+    public ScrollViewer()
+        : base() { }
+
+    public ScrollViewer(ICachedEntity entity)
+        : base(entity) { }
+
+    public ScrollViewer(
+        string name = null,
+        System.Nullable<bool> isImageBased = null
+    )
+        : base()
+    {
+        var entity = EventHorizonBlazorInterop.New(
+            new string[] { "BABYLON", "GUI", "ScrollViewer" },
+            name,
+            isImageBased
+        );
+        ___guid = entity.___guid;
+    }
+    #endregion
+
+    #region Methods
+    public Container addControl(Control control)
+    {
+        return EventHorizonBlazorInterop.FuncClass<Container>(
+            entity => new Container() { ___guid = entity.___guid },
+            new object[]
+            {
+                new string[] { this.___guid, "addControl" },
+                control
+            }
+        );
+    }
+
+    public Container removeControl(Control control)
+    {
+        return EventHorizonBlazorInterop.FuncClass<Container>(
+            entity => new Container() { ___guid = entity.___guid },
+            new object[]
+            {
+                new string[] { this.___guid, "removeControl" },
+                control
+            }
+        );
+    }
+
+    public void setBucketSizes(decimal width, decimal height)
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[]
+            {
+                new string[] { this.___guid, "setBucketSizes" },
+                width,
+                height
+            }
+        );
+    }
+
+    public void resetWindow()
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[] { new string[] { this.___guid, "resetWindow" } }
+        );
+    }
+
+    public void dispose()
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[] { new string[] { this.___guid, "dispose" } }
+        );
+    }
+    #endregion
 }

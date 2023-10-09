@@ -1,34 +1,31 @@
-﻿namespace EventHorizon.Game.Editor.Client.Authentication.Query
+﻿namespace EventHorizon.Game.Editor.Client.Authentication.Query;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Authentication.Api;
+
+using MediatR;
+
+public class QueryForCurrentAccessTokenHandler
+    : IRequestHandler<QueryForCurrentAccessToken, CommandResult<string>>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Authentication.Api;
-    using MediatR;
+    private readonly EditorAuthenticationState _cache;
 
-    public class QueryForCurrentAccessTokenHandler
-        : IRequestHandler<QueryForCurrentAccessToken, CommandResult<string>>
+    public QueryForCurrentAccessTokenHandler(EditorAuthenticationState cache)
     {
-        private readonly EditorAuthenticationState _cache;
+        _cache = cache;
+    }
 
-        public QueryForCurrentAccessTokenHandler(
-            EditorAuthenticationState cache
-        )
-        {
-            _cache = cache;
-        }
-
-        public Task<CommandResult<string>> Handle(
-            QueryForCurrentAccessToken request,
-            CancellationToken cancellationToken
-        )
-        {
-            return new CommandResult<string>(
-                !string.IsNullOrWhiteSpace(
-                    _cache.AccessToken
-                ),
-                _cache.AccessToken
-            ).FromResult();
-        }
+    public Task<CommandResult<string>> Handle(
+        QueryForCurrentAccessToken request,
+        CancellationToken cancellationToken
+    )
+    {
+        return new CommandResult<string>(
+            !string.IsNullOrWhiteSpace(_cache.AccessToken),
+            _cache.AccessToken
+        ).FromResult();
     }
 }

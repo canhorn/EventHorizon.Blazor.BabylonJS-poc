@@ -27,10 +27,7 @@ public interface AssetManagementState
 
     Task Reload(string accessToken);
 
-    Task LoadFilterPath(
-        string filterPath,
-        CancellationToken cancellationToken
-    );
+    Task LoadFilterPath(string filterPath, CancellationToken cancellationToken);
 
     Task SetFileNode(
         TreeViewNodeData node,

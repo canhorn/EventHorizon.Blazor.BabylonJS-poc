@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Components;
 
 public class ArtifactManagementProviderBase
     : ObservableComponentBase,
-      AssetServerBackupUploadedEventObserver,
-      AssetServerExportUploadedEventObserver,
-      AssetServerImportUploadedEventObserver
+        AssetServerBackupUploadedEventObserver,
+        AssetServerExportUploadedEventObserver,
+        AssetServerImportUploadedEventObserver
 {
     [Parameter]
     public RenderFragment ChildContent { get; set; } = null!;

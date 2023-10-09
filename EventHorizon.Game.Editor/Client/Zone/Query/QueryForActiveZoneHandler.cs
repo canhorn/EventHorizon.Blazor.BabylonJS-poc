@@ -1,38 +1,33 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Query
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Query;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Zone.Api;
+
+using MediatR;
+
+public class QueryForActiveZoneHandler
+    : IRequestHandler<QueryForActiveZone, CommandResult<ZoneState>>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Zone.Api;
-    using MediatR;
+    private readonly ZoneStateCache _cache;
 
-    public class QueryForActiveZoneHandler
-        : IRequestHandler<QueryForActiveZone, CommandResult<ZoneState>>
+    public QueryForActiveZoneHandler(ZoneStateCache cache)
     {
-        private readonly ZoneStateCache _cache;
+        _cache = cache;
+    }
 
-        public QueryForActiveZoneHandler(
-            ZoneStateCache cache
-        )
+    public Task<CommandResult<ZoneState>> Handle(
+        QueryForActiveZone request,
+        CancellationToken cancellationToken
+    )
+    {
+        if (_cache.Active == null)
         {
-            _cache = cache;
+            return new CommandResult<ZoneState>("NO_ACTIVE_ZONE").FromResult();
         }
 
-        public Task<CommandResult<ZoneState>> Handle(
-            QueryForActiveZone request,
-            CancellationToken cancellationToken
-        )
-        {
-            if (_cache.Active == null)
-            {
-                return new CommandResult<ZoneState>(
-                    "NO_ACTIVE_ZONE"
-                ).FromResult();
-            }
-
-            return new CommandResult<ZoneState>(
-                _cache.Active
-            ).FromResult();
-        }
+        return new CommandResult<ZoneState>(_cache.Active).FromResult();
     }
 }

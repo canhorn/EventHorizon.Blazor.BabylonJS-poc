@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Components;
 
 public class ObjectEntityEditorBladeBase
     : ObservableComponentBase,
-      ObjectEntityOpenedEventObserver
+        ObjectEntityOpenedEventObserver
 {
     [CascadingParameter]
     public SessionValues SessionValues { get; set; } = null!;
@@ -20,10 +20,7 @@ public class ObjectEntityEditorBladeBase
 
     protected override void OnInitialized()
     {
-        EntityId = SessionValues.Get(
-            "lastOpenedObjectEntity",
-            string.Empty
-        );
+        EntityId = SessionValues.Get("lastOpenedObjectEntity", string.Empty);
         base.OnInitialized();
     }
 

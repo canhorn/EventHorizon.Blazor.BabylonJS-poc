@@ -1,20 +1,19 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Register
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Register;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+
+using MediatR;
+
+public class RegisterClientAssetInstanceCommand
+    : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-    using MediatR;
+    public ClientAssetInstance Instance { get; }
 
-    public class RegisterClientAssetInstanceCommand
-        : IRequest<StandardCommandResult>
+    public RegisterClientAssetInstanceCommand(ClientAssetInstance instance)
     {
-        public ClientAssetInstance Instance { get; }
-
-        public RegisterClientAssetInstanceCommand(
-            ClientAssetInstance instance
-        )
-        {
-            Instance = instance;
-        }
+        Instance = instance;
     }
 }

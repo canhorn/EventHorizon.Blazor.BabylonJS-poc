@@ -13,8 +13,7 @@ using NUnit.Framework;
 
 using Translations = Localization.SideBarQuickLinksTranslations;
 
-public class OpensEntityEditorPageWhenQuickActionTreeIsUsedToNavigate
-    : WebHost
+public class OpensEntityEditorPageWhenQuickActionTreeIsUsedToNavigate : WebHost
 {
     [Test]
     [Category("Quick Links")]
@@ -29,8 +28,6 @@ public class OpensEntityEditorPageWhenQuickActionTreeIsUsedToNavigate
                 a => a.Text == Translations.EN_US.EntityEditorText
             )
             .Link.ClickAndGo<EntityEditorPage>()
-            .Header.Should.Be(
-                EntityEditorPageTranslations.EN_US.Header
-            );
+            .Header.Should.Be(EntityEditorPageTranslations.EN_US.Header);
     }
 }

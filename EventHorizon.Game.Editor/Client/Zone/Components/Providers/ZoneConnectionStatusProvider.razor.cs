@@ -9,9 +9,9 @@ using EventHorizon.Game.Editor.Zone.Services.Connection;
 
 public class ZoneConnectionStatusProviderModel
     : ObservableComponentBase,
-      ZoneAdminServiceReconnectingEventObserver,
-      ZoneAdminServiceReconnectedEventObserver,
-      ZoneAdminServiceDisconnectedEventObserver
+        ZoneAdminServiceReconnectingEventObserver,
+        ZoneAdminServiceReconnectedEventObserver,
+        ZoneAdminServiceDisconnectedEventObserver
 {
     public bool IsReconnecting { get; set; }
 

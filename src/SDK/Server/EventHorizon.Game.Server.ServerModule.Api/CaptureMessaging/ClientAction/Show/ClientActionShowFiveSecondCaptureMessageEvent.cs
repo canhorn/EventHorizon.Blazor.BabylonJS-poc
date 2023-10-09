@@ -12,19 +12,15 @@
     //[ClientAction("Server.SHOW_FIVE_SECOND_CAPTURE_MESSAGE")]
     public struct ClientActionShowFiveSecondCaptureMessageEvent
         : INotification,
-        IClientAction
+            IClientAction
     {
         public ClientActionShowFiveSecondCaptureMessageEvent(
             IClientActionDataResolver _
-        )
-        {
-        }
+        ) { }
     }
 
     public interface ClientActionShowFiveSecondCaptureMessageEventObserver
-        : ArgumentObserver<ClientActionShowFiveSecondCaptureMessageEvent>
-    {
-    }
+        : ArgumentObserver<ClientActionShowFiveSecondCaptureMessageEvent> { }
 
     // TODO: Move this into an Implementation Project, Remove from the SDK
     public class ShowFiveSecondCaptureMessageEventHandler
@@ -32,9 +28,7 @@
     {
         private readonly ObserverState _observer;
 
-        public ShowFiveSecondCaptureMessageEventHandler(
-            ObserverState observer
-        )
+        public ShowFiveSecondCaptureMessageEventHandler(ObserverState observer)
         {
             _observer = observer;
         }
@@ -42,9 +36,10 @@
         public Task Handle(
             ClientActionShowFiveSecondCaptureMessageEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<ClientActionShowFiveSecondCaptureMessageEventObserver, ClientActionShowFiveSecondCaptureMessageEvent>(
-            notification,
-            cancellationToken
-        );
+        ) =>
+            _observer.Trigger<
+                ClientActionShowFiveSecondCaptureMessageEventObserver,
+                ClientActionShowFiveSecondCaptureMessageEvent
+            >(notification, cancellationToken);
     }
 }

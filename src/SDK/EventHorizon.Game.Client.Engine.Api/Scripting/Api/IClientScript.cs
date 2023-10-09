@@ -1,8 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Engine.Scripting.Api
+﻿namespace EventHorizon.Game.Client.Engine.Scripting.Api;
+
+public interface IClientScript : IServerScript
 {
-    public interface IClientScript
-        : IServerScript
-    {
-        string Id { get; }
-    }
+    string Id { get; }
 }

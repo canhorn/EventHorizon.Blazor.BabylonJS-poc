@@ -1,49 +1,47 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.ClientActions.Reload
+﻿namespace EventHorizon.Game.Editor.Client.Zone.ClientActions.Reload;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
+using EventHorizon.Game.Editor.Zone.AdminClientAction.Attributes;
+using EventHorizon.Observer.Model;
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+[AdminClientAction(
+    "SERVER_SCRIPTS_SYSTEM_FINISHED_SCRIPTS_COMPILE_CLIENT_ACTION_EVENT"
+)]
+public struct ServerScriptsSystemFinishedScriptsCompileClientAction
+    : IAdminClientAction
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    public ServerScriptsSystemFinishedScriptsCompileClientAction(
+        IAdminClientActionDataResolver _
+    ) { }
+}
 
-    using EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
-    using EventHorizon.Game.Editor.Zone.AdminClientAction.Attributes;
-    using EventHorizon.Observer.Model;
-    using EventHorizon.Observer.State;
+public interface ServerScriptsSystemFinishedScriptsCompileClientActionObserver
+    : ArgumentObserver<ServerScriptsSystemFinishedScriptsCompileClientAction> { }
 
-    using MediatR;
+public class ServerScriptsSystemFinishedScriptsCompileClientActionObserverHandler
+    : INotificationHandler<ServerScriptsSystemFinishedScriptsCompileClientAction>
+{
+    private readonly ObserverState _observer;
 
-    [AdminClientAction("SERVER_SCRIPTS_SYSTEM_FINISHED_SCRIPTS_COMPILE_CLIENT_ACTION_EVENT")]
-    public struct ServerScriptsSystemFinishedScriptsCompileClientAction
-        : IAdminClientAction
+    public ServerScriptsSystemFinishedScriptsCompileClientActionObserverHandler(
+        ObserverState observer
+    )
     {
-        public ServerScriptsSystemFinishedScriptsCompileClientAction(
-            IAdminClientActionDataResolver _
-        )
-        {
-        }
+        _observer = observer;
     }
 
-    public interface ServerScriptsSystemFinishedScriptsCompileClientActionObserver
-        : ArgumentObserver<ServerScriptsSystemFinishedScriptsCompileClientAction>
-    {
-    }
-
-    public class ServerScriptsSystemFinishedScriptsCompileClientActionObserverHandler
-        : INotificationHandler<ServerScriptsSystemFinishedScriptsCompileClientAction>
-    {
-        private readonly ObserverState _observer;
-
-        public ServerScriptsSystemFinishedScriptsCompileClientActionObserverHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            ServerScriptsSystemFinishedScriptsCompileClientAction notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<ServerScriptsSystemFinishedScriptsCompileClientActionObserver, ServerScriptsSystemFinishedScriptsCompileClientAction>(
-            notification,
-            cancellationToken
-        );
-    }
+    public Task Handle(
+        ServerScriptsSystemFinishedScriptsCompileClientAction notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<
+            ServerScriptsSystemFinishedScriptsCompileClientActionObserver,
+            ServerScriptsSystemFinishedScriptsCompileClientAction
+        >(notification, cancellationToken);
 }

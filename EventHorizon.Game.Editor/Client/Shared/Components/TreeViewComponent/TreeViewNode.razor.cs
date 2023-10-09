@@ -8,15 +8,14 @@ using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
 
 using Microsoft.AspNetCore.Components;
 
-public class TreeViewNodeModel
-    : ComponentBase,
-      IDisposable
+public class TreeViewNodeModel : ComponentBase, IDisposable
 {
     [CascadingParameter]
     public ClickCaptureProvider ClickCapture { get; set; } = null!;
 
     [Parameter]
     public TreeViewNodeData Node { get; set; } = null!;
+
     [Parameter]
     public EventCallback<TreeViewNodeData> OnChanged { get; set; }
 
@@ -39,18 +38,11 @@ public class TreeViewNodeModel
 
     private void CheckAndSetupContextMenu()
     {
-        if (
-            Node.ContextMenu != null
-            && Node.ContextMenu.Items.Count > 0
-        )
+        if (Node.ContextMenu != null && Node.ContextMenu.Items.Count > 0)
         {
             ContextMenu.Enabled = true;
-            ClickCapture.OnMouseClick(
-                HandleCloseContextMenu
-            );
-            ClickCapture.OnContextMenu(
-                HandleCloseContextMenu
-            );
+            ClickCapture.OnMouseClick(HandleCloseContextMenu);
+            ClickCapture.OnContextMenu(HandleCloseContextMenu);
         }
     }
 
@@ -69,8 +61,8 @@ public class TreeViewNodeModel
     protected string GetNodeHref()
     {
         return !string.IsNullOrWhiteSpace(Node.Href)
-          ? Node.Href
-          : "javascript:;";
+            ? Node.Href
+            : "javascript:;";
     }
 
     protected string GetIconClass()
@@ -142,7 +134,6 @@ public class TreeViewNodeModel
         GC.SuppressFinalize(this);
     }
     #endregion
-
 }
 
 public class ContextMenuState

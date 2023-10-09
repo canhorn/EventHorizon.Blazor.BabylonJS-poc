@@ -1,53 +1,51 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+public interface WebGLQuery : ICachedEntity { }
+
+[JsonConverter(typeof(CachedEntityConverter<WebGLQueryCachedEntity>))]
+public class WebGLQueryCachedEntity : CachedEntityObject, WebGLQuery
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    public interface WebGLQuery : ICachedEntity { }
-    
-    [JsonConverter(typeof(CachedEntityConverter<WebGLQueryCachedEntity>))]
-    public class WebGLQueryCachedEntity : CachedEntityObject, WebGLQuery
-    {
-        #region Static Accessors
+    #endregion
 
-        #endregion
+    #region Static Properties
 
-        #region Static Properties
+    #endregion
 
-        #endregion
+    #region Static Methods
 
-        #region Static Methods
+    #endregion
 
-        #endregion
+    #region Accessors
 
-        #region Accessors
+    #endregion
 
-        #endregion
+    #region Properties
 
-        #region Properties
+    #endregion
 
-        #endregion
-        
-        #region Constructor
-        public WebGLQueryCachedEntity() : base() { }
+    #region Constructor
+    public WebGLQueryCachedEntity()
+        : base() { }
 
-        public WebGLQueryCachedEntity(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-        }
+    public WebGLQueryCachedEntity(ICachedEntity entity)
+        : base(entity) { }
 
+    #endregion
 
-        #endregion
+    #region Methods
 
-        #region Methods
-
-        #endregion
-    }
+    #endregion
 }

@@ -11,20 +11,15 @@ using NUnit.Framework;
 
 using Translations = Localization.HomePageTranslations;
 
-public class DisplaysExpectedHomePageWhenLoginWasSuccessful
-    : WebHost
+public class DisplaysExpectedHomePageWhenLoginWasSuccessful : WebHost
 {
     [Test]
     [Category("Home Page")]
     [Property("TestType", "Smoke")]
     public void Displays_Expected_Home_Page_When_Login_Was_Successful()
     {
-        this.Login<HomePage>(
-            IdentityServerData.DefaultAdminUser
-        )
-            .Header.Should.Equal(
-                Translations.EN_US.Header
-            )
+        this.Login<HomePage>(IdentityServerData.DefaultAdminUser)
+            .Header.Should.Equal(Translations.EN_US.Header)
             .TwitterLink.Content.Should.Equal(
                 Translations.EN_US.TwitterLinkText
             )

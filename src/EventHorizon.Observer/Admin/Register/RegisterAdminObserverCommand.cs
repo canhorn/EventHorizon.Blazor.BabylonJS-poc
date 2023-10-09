@@ -1,17 +1,15 @@
-﻿using EventHorizon.Observer.Admin.Model;
+﻿namespace EventHorizon.Observer.Admin.Register;
+
+using EventHorizon.Observer.Admin.Model;
+
 using MediatR;
 
-namespace EventHorizon.Observer.Admin.Register
+public class RegisterAdminObserverCommand : IRequest
 {
-    public class RegisterAdminObserverCommand : IRequest
-    {
-        public AdminObserverBase Observer { get; }
+    public AdminObserverBase Observer { get; }
 
-        public RegisterAdminObserverCommand(
-            AdminObserverBase observer
-        )
-        {
-            Observer = observer;
-        }
+    public RegisterAdminObserverCommand(AdminObserverBase observer)
+    {
+        Observer = observer;
     }
 }

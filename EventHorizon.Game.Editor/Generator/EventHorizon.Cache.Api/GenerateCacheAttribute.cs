@@ -1,10 +1,6 @@
-﻿namespace EventHorizon.Cache
-{
-    using System;
+﻿namespace EventHorizon.Cache;
 
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public class GenerateCacheAttribute
-        : Attribute
-    { 
-    }
-}
+using System;
+
+[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
+public class GenerateCacheAttribute : Attribute { }

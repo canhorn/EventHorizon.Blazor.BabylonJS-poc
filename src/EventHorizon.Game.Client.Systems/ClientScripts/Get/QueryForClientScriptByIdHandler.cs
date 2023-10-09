@@ -15,9 +15,7 @@ public class QueryForClientScriptByIdHandler
 {
     private readonly ClientScriptsState _state;
 
-    public QueryForClientScriptByIdHandler(
-        ClientScriptsState state
-    )
+    public QueryForClientScriptByIdHandler(ClientScriptsState state)
     {
         _state = state;
     }
@@ -27,14 +25,10 @@ public class QueryForClientScriptByIdHandler
         CancellationToken cancellationToken
     )
     {
-        var script = _state.GetScript(
-            request.Id
-        );
+        var script = _state.GetScript(request.Id);
         if (script.HasValue)
         {
-            return new CommandResult<IClientScript>(
-                script.Value
-            ).FromResult();
+            return new CommandResult<IClientScript>(script.Value).FromResult();
         }
         return new CommandResult<IClientScript>(
             "client_script_not_found"

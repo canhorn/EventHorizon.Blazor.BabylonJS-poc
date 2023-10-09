@@ -1,14 +1,12 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Containers
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Containers;
+
+using Microsoft.AspNetCore.Components;
+
+public partial class DisplayContainerComponent : ComponentBase
 {
-    using Microsoft.AspNetCore.Components;
+    [Parameter]
+    public ComponentState State { get; set; }
 
-    public partial class DisplayContainerComponent
-        : ComponentBase
-    {
-        [Parameter]
-        public ComponentState State { get; set; }
-
-        [Parameter]
-        public RenderFragment ChildContent { get; set; } = null!;
-    }
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = null!;
 }

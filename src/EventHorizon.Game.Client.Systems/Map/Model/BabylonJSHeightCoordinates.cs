@@ -1,26 +1,18 @@
-﻿namespace EventHorizon.Game.Client.Systems.Map.Model
+﻿namespace EventHorizon.Game.Client.Systems.Map.Model;
+
+using BabylonJS;
+
+using EventHorizon.Game.Client.Systems.Height.Api;
+
+public class BabylonJSHeightCoordinates : IHeightCoordinates
 {
-    using BabylonJS;
-    using EventHorizon.Game.Client.Systems.Height.Api;
+    private readonly GroundMesh _mesh;
 
-    public class BabylonJSHeightCoordinates
-        : IHeightCoordinates
+    public BabylonJSHeightCoordinates(GroundMesh mesh)
     {
-        private readonly GroundMesh _mesh;
-
-        public BabylonJSHeightCoordinates(
-            GroundMesh mesh
-        )
-        {
-            _mesh = mesh;
-        }
-
-        public decimal getHeightAtCoordinates(
-            decimal x,
-            decimal z
-        ) => _mesh.getHeightAtCoordinates(
-            x,
-            z
-        );
+        _mesh = mesh;
     }
+
+    public decimal getHeightAtCoordinates(decimal x, decimal z) =>
+        _mesh.getHeightAtCoordinates(x, z);
 }

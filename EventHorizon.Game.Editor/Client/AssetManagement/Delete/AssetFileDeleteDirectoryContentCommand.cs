@@ -1,19 +1,19 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Delete
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Delete;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.AssetManagement.Model;
+
+using MediatR;
+
+public struct AssetFileDeleteDirectoryContentCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Model;
-    using MediatR;
+    public FileSystemDirectoryContent DirectoryContent { get; }
 
-    public struct AssetFileDeleteDirectoryContentCommand
-        : IRequest<StandardCommandResult>
+    public AssetFileDeleteDirectoryContentCommand(
+        FileSystemDirectoryContent directoryContent
+    )
     {
-        public FileSystemDirectoryContent DirectoryContent { get; }
-
-        public AssetFileDeleteDirectoryContentCommand(
-            FileSystemDirectoryContent directoryContent
-        )
-        {
-            DirectoryContent = directoryContent;
-        }
+        DirectoryContent = directoryContent;
     }
 }

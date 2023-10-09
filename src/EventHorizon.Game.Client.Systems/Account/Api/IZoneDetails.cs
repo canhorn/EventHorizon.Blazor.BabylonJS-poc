@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Game.Client.Systems.Account.Api
+﻿namespace EventHorizon.Game.Client.Systems.Account.Api;
+
+public interface IZoneDetails
 {
-    public interface IZoneDetails
-    {
-        string Id { get; }
-        string ServerAddress { get; }
-    }
+    string Id { get; }
+    string ServerAddress { get; }
 }

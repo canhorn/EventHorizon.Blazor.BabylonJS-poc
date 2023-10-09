@@ -1,24 +1,22 @@
-﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Publish
+﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Publish;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct PublishAdminClientActionCommand : IRequest<StandardCommandResult>
 {
-    using System.Collections.Generic;
+    public string ActionName { get; }
+    public IDictionary<string, object> Data { get; }
 
-    using EventHorizon.Game.Client.Core.Command.Model;
-
-    using MediatR;
-
-    public struct PublishAdminClientActionCommand
-        : IRequest<StandardCommandResult>
+    public PublishAdminClientActionCommand(
+        string actionName,
+        IDictionary<string, object> data
+    )
     {
-        public string ActionName { get; }
-        public IDictionary<string, object> Data { get; }
-
-        public PublishAdminClientActionCommand(
-            string actionName,
-            IDictionary<string, object> data
-        )
-        {
-            ActionName = actionName;
-            Data = data;
-        }
+        ActionName = actionName;
+        Data = data;
     }
 }

@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.ClientEntity.Delete
+﻿namespace EventHorizon.Game.Editor.Zone.Services.ClientEntity.Delete;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct DeleteClientEntityCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string EntityId { get; }
 
-    public struct DeleteClientEntityCommand
-        : IRequest<StandardCommandResult>
+    public DeleteClientEntityCommand(string entityId)
     {
-        public string EntityId { get; }
-
-        public DeleteClientEntityCommand(
-            string entityId
-        )
-        {
-            EntityId = entityId;
-        }
+        EntityId = entityId;
     }
 }

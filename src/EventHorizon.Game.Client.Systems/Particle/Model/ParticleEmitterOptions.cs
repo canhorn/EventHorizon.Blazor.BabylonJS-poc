@@ -1,30 +1,29 @@
-﻿namespace EventHorizon.Game.Client.Systems.Particle.Model
+﻿namespace EventHorizon.Game.Client.Systems.Particle.Model;
+
+using EventHorizon.Game.Client.Engine.Particle.State;
+
+public struct ParticleEmitterOptions
 {
-    using EventHorizon.Game.Client.Engine.Particle.State;
+    public long ParticleId { get; }
+    public string TemplateId { get; }
+    public bool IgnoreMeshVisibility { get; }
+    public bool StartAfterCreated { get; }
 
-    public struct ParticleEmitterOptions
+    public ParticleEmitterOptions(
+        long particleId,
+        string templateId,
+        bool ignoreMeshVisibility = false,
+        bool startAfterCreated = true
+    )
     {
-        public long ParticleId { get; }
-        public string TemplateId { get; }
-        public bool IgnoreMeshVisibility { get; }
-        public bool StartAfterCreated { get; }
+        ParticleId = particleId;
+        TemplateId = templateId;
+        IgnoreMeshVisibility = ignoreMeshVisibility;
+        StartAfterCreated = startAfterCreated;
 
-        public ParticleEmitterOptions(
-            long particleId,
-            string templateId,
-            bool ignoreMeshVisibility = false,
-            bool startAfterCreated = true
-        )
+        if (TemplateId.IsNullOrEmpty())
         {
-            ParticleId = particleId;
-            TemplateId = templateId;
-            IgnoreMeshVisibility = ignoreMeshVisibility;
-            StartAfterCreated = startAfterCreated;
-
-            if (TemplateId.IsNullOrEmpty())
-            {
-                TemplateId = DefaultParticleSettings.DEFAULT_TEMPLATE_ID;
-            }
+            TemplateId = DefaultParticleSettings.DEFAULT_TEMPLATE_ID;
         }
     }
 }

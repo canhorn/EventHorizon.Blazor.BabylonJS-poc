@@ -1,29 +1,29 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.WithIn
+﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.WithIn;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public class EntityWithinInteractionDistanceEventHandler
+    : INotificationHandler<EntityWithinInteractionDistanceEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    private readonly ObserverState _observer;
 
-    public class EntityWithinInteractionDistanceEventHandler
-        : INotificationHandler<EntityWithinInteractionDistanceEvent>
+    public EntityWithinInteractionDistanceEventHandler(ObserverState observer)
     {
-        private readonly ObserverState _observer;
-
-        public EntityWithinInteractionDistanceEventHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            EntityWithinInteractionDistanceEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<EntityWithinInteractionDistanceEventObserver, EntityWithinInteractionDistanceEvent>(
-            notification,
-            cancellationToken
-        );
+        _observer = observer;
     }
+
+    public Task Handle(
+        EntityWithinInteractionDistanceEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<
+            EntityWithinInteractionDistanceEventObserver,
+            EntityWithinInteractionDistanceEvent
+        >(notification, cancellationToken);
 }

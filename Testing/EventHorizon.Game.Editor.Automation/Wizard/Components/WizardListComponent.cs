@@ -3,21 +3,13 @@
 using Atata;
 
 [FindByClass("wizard-list")]
-public class WizardListComponent<TOwner>
-    : Control<TOwner> where TOwner : PageObject<TOwner>
+public class WizardListComponent<TOwner> : Control<TOwner>
+    where TOwner : PageObject<TOwner>
 {
     [FindByClass("wizard-filter")]
-    public WizardListFilterComponent FilterArea
-    {
-        get;
-        private set;
-    }
+    public WizardListFilterComponent FilterArea { get; private set; }
 
-    public Table<WizardTableRow, TOwner> List
-    {
-        get;
-        private set;
-    }
+    public Table<WizardTableRow, TOwner> List { get; private set; }
 
     public TOwner Select(string id)
     {
@@ -27,11 +19,7 @@ public class WizardListComponent<TOwner>
 
     public WizardTableRow GetRow(string id)
     {
-        return List.Rows[
-            a =>
-                a.Attributes["data-selector"].Value
-                == id
-        ];
+        return List.Rows[a => a.Attributes["data-selector"].Value == id];
     }
 
     public class WizardTableRow : TableRow<TOwner>
@@ -40,36 +28,19 @@ public class WizardListComponent<TOwner>
         public Text<TOwner> Name { get; private set; }
 
         [FindByClass("wizard-container__description")]
-        public Number<TOwner> Description
-        {
-            get;
-            private set;
-        }
+        public Number<TOwner> Description { get; private set; }
 
         [FindByClass("wizard-container__select-button")]
-        public Button<TOwner> Select
-        {
-            get;
-            private set;
-        }
+        public Button<TOwner> Select { get; private set; }
     }
 
-    public class WizardListFilterComponent
-        : Control<TOwner>
+    public class WizardListFilterComponent : Control<TOwner>
     {
         [FindByClass("wizard-filter__input")]
-        public TextInput<TOwner> Filter
-        {
-            get;
-            private set;
-        }
+        public TextInput<TOwner> Filter { get; private set; }
 
         [FindByClass("wizard-filter__submit")]
-        public Button<TOwner> Submit
-        {
-            get;
-            private set;
-        }
+        public Button<TOwner> Submit { get; private set; }
     }
     //public class TreeNode : Control<TOwner>
     //{

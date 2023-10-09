@@ -4,5 +4,4 @@ using EventHorizon.Game.Client.Core.Command.Model;
 
 using MediatR;
 
-public record ClearGuiSystemDataCommand
-    : IRequest<StandardCommandResult>;
+public record ClearGuiSystemDataCommand : IRequest<StandardCommandResult>;

@@ -1,44 +1,43 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Systems.Server.Scripts.Query
+﻿namespace EventHorizon.Game.Editor.Zone.Systems.Server.Scripts.Query;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using EventHorizon.Zone.System.Server.Scripts.Query;
+
+using MediatR;
+
+public class QueryForServerScriptsErrorDetailsHandler
+    : IRequestHandler<
+        QueryForServerScriptsErrorDetails,
+        CommandResult<ServerScriptsErrorDetailsResponse>
+    >
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Zone.System.Server.Scripts.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Query;
-
-    using MediatR;
-
-    public class QueryForServerScriptsErrorDetailsHandler
-        : IRequestHandler<QueryForServerScriptsErrorDetails, CommandResult<ServerScriptsErrorDetailsResponse>>
+    public QueryForServerScriptsErrorDetailsHandler(
+        ZoneAdminServices zoneAdminServices
+    )
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public QueryForServerScriptsErrorDetailsHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<CommandResult<ServerScriptsErrorDetailsResponse>> Handle(
+        QueryForServerScriptsErrorDetails request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.ServerScripts.GetErrorDetails(
+            cancellationToken
+        );
+        if (result.Success.IsNotTrue() || result.Result.IsNull())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
-        public async Task<CommandResult<ServerScriptsErrorDetailsResponse>> Handle(
-            QueryForServerScriptsErrorDetails request,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.ServerScripts.GetErrorDetails(
-                cancellationToken
-            );
-            if (result.Success.IsNotTrue()
-                || result.Result.IsNull()
-            )
-            {
-                return result.ErrorCode
-                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
-            }
-
-            return result.Result;
-        }
+        return result.Result;
     }
 }

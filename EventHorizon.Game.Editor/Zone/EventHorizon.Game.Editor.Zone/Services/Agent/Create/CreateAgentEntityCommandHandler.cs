@@ -1,41 +1,41 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Agent.Create
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Agent.Create;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+
+using MediatR;
+
+public class CreateAgentEntityCommandHandler
+    : IRequestHandler<
+        CreateAgentEntityCommand,
+        CommandResult<IObjectEntityDetails>
+    >
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class CreateAgentEntityCommandHandler
-        : IRequestHandler<CreateAgentEntityCommand, CommandResult<IObjectEntityDetails>>
+    public CreateAgentEntityCommandHandler(ZoneAdminServices zoneAdminServices)
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public CreateAgentEntityCommandHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<CommandResult<IObjectEntityDetails>> Handle(
+        CreateAgentEntityCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.Agent.CreateEntity(
+            request.Entity
+        );
+        if (result.Success.IsNotTrue() || result.AgentEntity.IsNull())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
-        public async Task<CommandResult<IObjectEntityDetails>> Handle(
-            CreateAgentEntityCommand request, 
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.Agent.CreateEntity(
-                request.Entity
-            );
-            if (result.Success.IsNotTrue()
-                || result.AgentEntity.IsNull())
-            {
-                return result.ErrorCode
-                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
-            }
-
-            return result.AgentEntity;
-        }
+        return result.AgentEntity;
     }
 }

@@ -8,12 +8,14 @@ using EventHorizon.Game.Client.Engine.Entity.Api;
 [JsonConverter(typeof(CachedEntityConverter<BabylonJSVector3>))]
 public class BabylonJSVector3 : BabylonJS.Vector3, IVector3
 {
-    public BabylonJSVector3(decimal x, decimal y, decimal z) : base(x, y, z) { }
+    public BabylonJSVector3(decimal x, decimal y, decimal z)
+        : base(x, y, z) { }
 
     public BabylonJSVector3(IVector3 vector)
         : base(vector.X, vector.Y, vector.Z) { }
 
-    public BabylonJSVector3(BabylonJS.Vector3 vector3) : base(vector3) { }
+    public BabylonJSVector3(BabylonJS.Vector3 vector3)
+        : base(vector3) { }
 
     public decimal X => x;
     public decimal Y => y;

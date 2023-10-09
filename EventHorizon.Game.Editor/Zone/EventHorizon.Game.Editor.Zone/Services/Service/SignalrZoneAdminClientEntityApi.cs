@@ -1,76 +1,67 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Service;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+using EventHorizon.Game.Editor.Services.Model.ClientEntity;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+
+using Microsoft.AspNetCore.SignalR.Client;
+
+public sealed class SignalrZoneAdminClientEntityApi : ZoneAdminClientEntityApi
 {
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using EventHorizon.Game.Editor.Services.Model.ClientEntity;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using Microsoft.AspNetCore.SignalR.Client;
+    private readonly HubConnection? _hubConnection;
 
-    public sealed class SignalrZoneAdminClientEntityApi
-        : ZoneAdminClientEntityApi
+    internal SignalrZoneAdminClientEntityApi(HubConnection? hubConnection)
     {
-        private readonly HubConnection? _hubConnection;
+        _hubConnection = hubConnection;
+    }
 
-        internal SignalrZoneAdminClientEntityApi(
-            HubConnection? hubConnection
-        )
+    public Task<AdminClientEntityResponse> Create(IObjectEntityDetails entity)
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            _hubConnection = hubConnection;
-
-        }
-
-        public Task<AdminClientEntityResponse> Create(
-            IObjectEntityDetails entity
-        )
-        {
-            if (_hubConnection.IsNotConnected())
+            return new AdminClientEntityResponse
             {
-                return new AdminClientEntityResponse
-                {
-                    Success = false,
-                    ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-                }.FromResult();
-            }
-            return _hubConnection.InvokeAsync<AdminClientEntityResponse>(
-                "ClientEntity_Create",
-                entity
-            );
+                Success = false,
+                ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
+            }.FromResult();
         }
+        return _hubConnection.InvokeAsync<AdminClientEntityResponse>(
+            "ClientEntity_Create",
+            entity
+        );
+    }
 
-        public Task<AdminClientEntityResponse> Delete(
-            string clientEntityId
-        )
+    public Task<AdminClientEntityResponse> Delete(string clientEntityId)
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            if (_hubConnection.IsNotConnected())
+            return new AdminClientEntityResponse
             {
-                return new AdminClientEntityResponse
-                {
-                    Success = false,
-                    ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-                }.FromResult();
-            }
-            return _hubConnection.InvokeAsync<AdminClientEntityResponse>(
-                "ClientEntity_Delete",
-                clientEntityId
-            );
+                Success = false,
+                ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
+            }.FromResult();
         }
+        return _hubConnection.InvokeAsync<AdminClientEntityResponse>(
+            "ClientEntity_Delete",
+            clientEntityId
+        );
+    }
 
-        public Task<AdminClientEntityResponse> Save(
-            IObjectEntityDetails entity
-        )
+    public Task<AdminClientEntityResponse> Save(IObjectEntityDetails entity)
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            if (_hubConnection.IsNotConnected())
+            return new AdminClientEntityResponse
             {
-                return new AdminClientEntityResponse
-                {
-                    Success = false,
-                    ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-                }.FromResult();
-            }
-            return _hubConnection.InvokeAsync<AdminClientEntityResponse>(
-                "ClientEntity_Save",
-                entity
-            );
+                Success = false,
+                ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
+            }.FromResult();
         }
+        return _hubConnection.InvokeAsync<AdminClientEntityResponse>(
+            "ClientEntity_Save",
+            entity
+        );
     }
 }

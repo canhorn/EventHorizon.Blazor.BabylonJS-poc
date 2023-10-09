@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Api
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Api;
+
+public interface IGuiGridLocation
 {
-    public interface IGuiGridLocation
-    {
-        int Column { get; }
-        int Row { get; }
-    }
+    int Column { get; }
+    int Row { get; }
 }

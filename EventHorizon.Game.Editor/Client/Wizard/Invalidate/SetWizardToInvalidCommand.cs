@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Invalidate
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Invalidate;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct SetWizardToInvalidCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string ErrorCode { get; }
 
-    public struct SetWizardToInvalidCommand
-        : IRequest<StandardCommandResult>
+    public SetWizardToInvalidCommand(string errorCode)
     {
-        public string ErrorCode { get; }
-
-        public SetWizardToInvalidCommand(
-            string errorCode
-        )
-        {
-            ErrorCode = errorCode;
-        }
+        ErrorCode = errorCode;
     }
 }

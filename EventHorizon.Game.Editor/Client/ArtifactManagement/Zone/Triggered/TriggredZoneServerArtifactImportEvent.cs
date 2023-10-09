@@ -1,4 +1,5 @@
 ﻿namespace EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Triggered;
+
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,9 +14,7 @@ public record TriggredZoneServerArtifactImportEvent(
 ) : INotification;
 
 public interface TriggredZoneServerArtifactImportEventObserver
-    : ArgumentObserver<TriggredZoneServerArtifactImportEvent>
-{
-}
+    : ArgumentObserver<TriggredZoneServerArtifactImportEvent> { }
 
 public class TriggredZoneServerArtifactImportEventObserverHandler
     : INotificationHandler<TriggredZoneServerArtifactImportEvent>
@@ -32,8 +31,9 @@ public class TriggredZoneServerArtifactImportEventObserverHandler
     public Task Handle(
         TriggredZoneServerArtifactImportEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<TriggredZoneServerArtifactImportEventObserver, TriggredZoneServerArtifactImportEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            TriggredZoneServerArtifactImportEventObserver,
+            TriggredZoneServerArtifactImportEvent
+        >(notification, cancellationToken);
 }

@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Interaction.Model
-{
-    public class InteractionConfiguration
-    {
-        public const string KEY = "interaction";
+﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Interaction.Model;
 
-        public int CheckInterval { get; set; } = 100;
-    }
+public class InteractionConfiguration
+{
+    public const string KEY = "interaction";
+
+    public int CheckInterval { get; set; } = 100;
 }

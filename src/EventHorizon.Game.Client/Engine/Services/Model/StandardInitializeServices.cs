@@ -1,33 +1,32 @@
-﻿namespace EventHorizon.Game.Client.Engine.Services.Model
+﻿namespace EventHorizon.Game.Client.Engine.Services.Model;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Api;
+using EventHorizon.Game.Client.Engine.Services.Api;
+
+public class StandardInitializeServices : IInitializeServices
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Api;
-    using EventHorizon.Game.Client.Engine.Services.Api;
+    private readonly IEnumerable<IServiceEntity> _serviceEntities;
 
-    public class StandardInitializeServices
-        : IInitializeServices
+    public StandardInitializeServices(
+        IEnumerable<IServiceEntity> serviceEntities
+    )
     {
-        private readonly IEnumerable<IServiceEntity> _serviceEntities;
+        _serviceEntities = serviceEntities;
+    }
 
-        public StandardInitializeServices(
-            IEnumerable<IServiceEntity> serviceEntities
-        )
+    public async Task InitializeServices()
+    {
+        var orderedServiceEntities = _serviceEntities
+            .OrderBy(a => a.Priority)
+            .Reverse();
+
+        foreach (var serviceEntity in orderedServiceEntities)
         {
-            _serviceEntities = serviceEntities;
-        }
-
-        public async Task InitializeServices()
-        {
-            var orderedServiceEntities = _serviceEntities.OrderBy(
-                a => a.Priority
-            ).Reverse();
-
-            foreach (var serviceEntity in orderedServiceEntities)
-            {
-                await serviceEntity.Initialize();
-            }
+            await serviceEntity.Initialize();
         }
     }
 }

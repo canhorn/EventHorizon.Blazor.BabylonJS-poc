@@ -1,32 +1,31 @@
-﻿namespace EventHorizon.Game.Client.Systems.Account.Platform
+﻿namespace EventHorizon.Game.Client.Systems.Account.Platform;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
+using EventHorizon.Game.Client.Systems.Account.Api;
+
+using MediatR;
+
+public class CleanupAccountOnDisposeOfEngineEventHandler
+    : INotificationHandler<DisposeOfEngineEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
-    using EventHorizon.Game.Client.Systems.Account.Api;
-    using MediatR;
+    private readonly IAccountState _state;
 
-    public class CleanupAccountOnDisposeOfEngineEventHandler
-        : INotificationHandler<DisposeOfEngineEvent>
+    public CleanupAccountOnDisposeOfEngineEventHandler(IAccountState state)
     {
-        private readonly IAccountState _state;
+        _state = state;
+    }
 
-        public CleanupAccountOnDisposeOfEngineEventHandler(
-            IAccountState state
-        )
-        {
-            _state = state;
-        }
+    public Task Handle(
+        DisposeOfEngineEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        _state.Reset();
 
-        public Task Handle(
-            DisposeOfEngineEvent notification, 
-            CancellationToken cancellationToken
-        )
-        {
-            _state.Reset();
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

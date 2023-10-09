@@ -1,12 +1,7 @@
-﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Api
+﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
+
+public interface IAdminClientActionDataResolver
 {
-    public interface IAdminClientActionDataResolver
-    {
-        T Resolve<T>(
-            string argumentName
-        );
-        T? ResolveNullable<T>(
-            string argumentName
-        );
-    }
+    T Resolve<T>(string argumentName);
+    T? ResolveNullable<T>(string argumentName);
 }

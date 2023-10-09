@@ -3,8 +3,5 @@
     using System;
     using MediatR;
 
-    public struct TriggerPageReloadCommand
-        : IRequest
-    {
-    }
+    public struct TriggerPageReloadCommand : IRequest { }
 }

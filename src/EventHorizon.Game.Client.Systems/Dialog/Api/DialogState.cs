@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Client.Systems.Dialog.Api
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Systems.Dialog.Api;
 
-    public interface DialogState
-    {
-        Option<DialogTree> Get(
-            string id
-        );
-        void Set(
-            string id, 
-            DialogTree config
-        );
-        void Clear();
-    }
+using System;
+
+public interface DialogState
+{
+    Option<DialogTree> Get(string id);
+    void Set(string id, DialogTree config);
+    void Clear();
 }

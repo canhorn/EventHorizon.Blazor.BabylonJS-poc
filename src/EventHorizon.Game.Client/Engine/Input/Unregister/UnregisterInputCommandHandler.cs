@@ -1,32 +1,29 @@
-﻿namespace EventHorizon.Game.Client.Engine.Input.Unregister
+﻿namespace EventHorizon.Game.Client.Engine.Input.Unregister;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Input.Api;
+
+using MediatR;
+
+public class UnregisterInputCommandHandler
+    : IRequestHandler<UnregisterInputCommand>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Input.Api;
-    using MediatR;
+    private readonly IUnregisterInput _unregister;
 
-    public class UnregisterInputCommandHandler
-        : IRequestHandler<UnregisterInputCommand>
+    public UnregisterInputCommandHandler(IUnregisterInput unregister)
     {
-        private readonly IUnregisterInput _unregister;
+        _unregister = unregister;
+    }
 
-        public UnregisterInputCommandHandler(
-            IUnregisterInput unregister
-        )
-        {
-            _unregister = unregister;
-        }
+    public Task<Unit> Handle(
+        UnregisterInputCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        _unregister.Unregister(request.Handle);
 
-        public Task<Unit> Handle(
-            UnregisterInputCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            _unregister.Unregister(
-                request.Handle
-            );
-
-            return Unit.Task;
-        }
+        return Unit.Task;
     }
 }

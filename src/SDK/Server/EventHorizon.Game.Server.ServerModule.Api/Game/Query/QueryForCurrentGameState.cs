@@ -7,7 +7,5 @@
 
     // TODO: [Game] - Finished Game Implementation
     public struct QueryForCurrentGameState
-        : IRequest<QueryResult<GameState>>
-    {
-    }
+        : IRequest<QueryResult<GameState>> { }
 }

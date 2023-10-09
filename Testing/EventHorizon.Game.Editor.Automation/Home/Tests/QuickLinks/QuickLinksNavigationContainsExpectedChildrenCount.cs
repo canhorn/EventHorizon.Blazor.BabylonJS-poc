@@ -9,8 +9,7 @@ using NUnit.Framework;
 
 using Translations = Localization.SideBarQuickLinksTranslations;
 
-public class QuickLinksNavigationContainsExpectedLinkCountWhenOpened
-    : WebHost
+public class QuickLinksNavigationContainsExpectedLinkCountWhenOpened : WebHost
 {
     [Test]
     [Category("Quick Links")]

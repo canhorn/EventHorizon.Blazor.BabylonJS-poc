@@ -29,9 +29,7 @@ public class TriggerImportOnSuccessfullyUploadedZoneServerImportFileEventHandler
     )
     {
         var result = await _sender.Send(
-            new TriggerZoneServerArtifactImportCommand(
-                notification.Url
-            ),
+            new TriggerZoneServerArtifactImportCommand(notification.Url),
             cancellationToken
         );
 

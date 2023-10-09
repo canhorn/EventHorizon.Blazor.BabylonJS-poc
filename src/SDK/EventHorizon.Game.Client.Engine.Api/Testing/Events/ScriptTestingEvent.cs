@@ -1,17 +1,11 @@
-﻿namespace EventHorizon.Game.Client.Engine.Testing.Events
-{
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Engine.Testing.Events;
 
-    // TODO: [TESTING] - Remove this when Not needed
-    public struct ScriptTestingEvent 
-        : INotification
-    {
+using EventHorizon.Observer.Model;
 
-    }
+using MediatR;
 
-    public interface ScriptTestingEventObserver
-        : ArgumentObserver<ScriptTestingEvent>
-    {
-    }
-}
+// TODO: [TESTING] - Remove this when Not needed
+public struct ScriptTestingEvent : INotification { }
+
+public interface ScriptTestingEventObserver
+    : ArgumentObserver<ScriptTestingEvent> { }

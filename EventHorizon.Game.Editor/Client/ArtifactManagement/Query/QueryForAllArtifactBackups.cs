@@ -9,6 +9,4 @@ using MediatR;
 
 // TODO: Caching Point
 public struct QueryForAllArtifactBackups
-    : IRequest<CommandResult<IEnumerable<ArtifactViewModel>>>
-{
-}
+    : IRequest<CommandResult<IEnumerable<ArtifactViewModel>>> { }

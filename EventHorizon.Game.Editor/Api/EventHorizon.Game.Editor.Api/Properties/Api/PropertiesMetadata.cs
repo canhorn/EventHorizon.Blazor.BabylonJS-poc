@@ -1,14 +1,8 @@
-﻿namespace EventHorizon.Game.Editor.Properties.Api
-{
-    public interface PropertiesMetadata
-    {
-        string GetPropertyType(
-            string name,
-            object value
-        );
+﻿namespace EventHorizon.Game.Editor.Properties.Api;
 
-        object GetDefaultValueForPropertyType(
-            string propertyType
-        );
-    }
+public interface PropertiesMetadata
+{
+    string GetPropertyType(string name, object value);
+
+    object GetDefaultValueForPropertyType(string propertyType);
 }

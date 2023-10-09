@@ -1,49 +1,46 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Reload
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Reload;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Zone.Query;
+
+using MediatR;
+
+public class ReloadPendingZoneStateCommandHandler
+    : IRequestHandler<ReloadPendingZoneStateCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Zone.Query;
-
-    using MediatR;
-
-    public class ReloadPendingZoneStateCommandHandler
-        : IRequestHandler<ReloadPendingZoneStateCommand, StandardCommandResult>
+    public ReloadPendingZoneStateCommandHandler(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ReloadPendingZoneStateCommandHandler(
-            IMediator mediator
-        )
+    public async Task<StandardCommandResult> Handle(
+        ReloadPendingZoneStateCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var zoneStateResult = await _mediator.Send(
+            new QueryForActiveZone(),
+            cancellationToken
+        );
+        if (!zoneStateResult)
         {
-            _mediator = mediator;
+            return zoneStateResult.ErrorCode;
         }
 
-        public async Task<StandardCommandResult> Handle(
-            ReloadPendingZoneStateCommand request,
-            CancellationToken cancellationToken
-        )
+        var zoneState = zoneStateResult.Result;
+        if (zoneState.IsPendingReload)
         {
-            var zoneStateResult = await _mediator.Send(
-                new QueryForActiveZone(),
+            await _mediator.Send(
+                new ReloadActiveZoneStateCommand(),
                 cancellationToken
             );
-            if (!zoneStateResult)
-            {
-                return zoneStateResult.ErrorCode;
-            }
-
-            var zoneState = zoneStateResult.Result;
-            if (zoneState.IsPendingReload)
-            {
-                await _mediator.Send(
-                    new ReloadActiveZoneStateCommand(),
-                    cancellationToken
-                );
-            }
-
-            return new();
         }
+
+        return new();
     }
 }

@@ -1,10 +1,9 @@
-﻿namespace EventHorizon.Game.Client.Systems.Account.Api
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Systems.Account.Api;
 
-    public interface IAccountInfo
-    {
-        IPlayerAccountDetails Player { get; }
-        IZoneDetails Zone { get; }
-    }
+using System;
+
+public interface IAccountInfo
+{
+    IPlayerAccountDetails Player { get; }
+    IZoneDetails Zone { get; }
 }

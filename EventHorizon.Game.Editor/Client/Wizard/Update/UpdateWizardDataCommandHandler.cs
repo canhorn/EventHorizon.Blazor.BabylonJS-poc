@@ -1,31 +1,28 @@
-﻿namespace EventHorizon.Game.Editor.Client.Wizard.Update
+﻿namespace EventHorizon.Game.Editor.Client.Wizard.Update;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Wizard.Api;
+
+using MediatR;
+
+public class UpdateWizardDataCommandHandler
+    : IRequestHandler<UpdateWizardDataCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Wizard.Api;
-    using MediatR;
+    private readonly WizardState _state;
 
-    public class UpdateWizardDataCommandHandler
-        : IRequestHandler<UpdateWizardDataCommand, StandardCommandResult>
+    public UpdateWizardDataCommandHandler(WizardState state)
     {
-        private readonly WizardState _state;
+        _state = state;
+    }
 
-        public UpdateWizardDataCommandHandler(
-            WizardState state
-        )
-        {
-            _state = state;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            UpdateWizardDataCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            return await _state.UpdateData(
-                request.WizardData
-            );
-        }
+    public async Task<StandardCommandResult> Handle(
+        UpdateWizardDataCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return await _state.UpdateData(request.WizardData);
     }
 }

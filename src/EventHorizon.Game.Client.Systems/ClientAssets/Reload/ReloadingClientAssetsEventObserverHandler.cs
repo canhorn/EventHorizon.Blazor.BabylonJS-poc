@@ -12,9 +12,7 @@ public class ReloadingClientAssetsEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ReloadingClientAssetsEventObserverHandler(
-        ObserverState observer
-    )
+    public ReloadingClientAssetsEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

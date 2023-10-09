@@ -18,9 +18,7 @@ public class CreateZoneGameAssetPageModel : EditorComponentBase
 
     protected async Task HandleSave()
     {
-        var result = await Mediator.Send(
-            new CreateClientAssetCommand(Model)
-        );
+        var result = await Mediator.Send(new CreateClientAssetCommand(Model));
         if (!result)
         {
             await ShowMessage(

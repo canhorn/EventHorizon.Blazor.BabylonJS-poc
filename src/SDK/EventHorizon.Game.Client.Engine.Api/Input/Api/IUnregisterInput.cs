@@ -1,9 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Engine.Input.Api
+﻿namespace EventHorizon.Game.Client.Engine.Input.Api;
+
+public interface IUnregisterInput
 {
-    public interface IUnregisterInput
-    {
-        void Unregister(
-            string handle
-        );
-    }
+    void Unregister(string handle);
 }

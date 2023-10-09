@@ -1,22 +1,21 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.ClientAction
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.ClientAction;
+
+using System;
+
+using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
+using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
+
+using MediatR;
+
+[ClientAction("EntityUnregistered")]
+public class ClientActionEntityUnregisteredEvent : INotification, IClientAction
 {
-    using System;
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
-    using MediatR;
+    public long EntityId { get; }
 
-    [ClientAction("EntityUnregistered")]
-    public class ClientActionEntityUnregisteredEvent
-        : INotification,
-        IClientAction
+    public ClientActionEntityUnregisteredEvent(
+        IClientActionDataResolver resolver
+    )
     {
-        public long EntityId { get; }
-
-        public ClientActionEntityUnregisteredEvent(
-            IClientActionDataResolver resolver
-        )
-        {
-            EntityId = resolver.Resolve<long>("entityId");
-        }
+        EntityId = resolver.Resolve<long>("entityId");
     }
 }

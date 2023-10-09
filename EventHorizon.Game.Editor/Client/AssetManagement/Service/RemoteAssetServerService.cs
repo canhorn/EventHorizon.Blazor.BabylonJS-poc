@@ -71,7 +71,9 @@ public class RemoteAssetServerService : AssetServerService
         );
     }
 
-    private async Task<CommandResult<UploadImportFileResult>> UploadFileToAssetServer(
+    private async Task<
+        CommandResult<UploadImportFileResult>
+    > UploadFileToAssetServer(
         string accessToken,
         IBrowserFile file,
         string service,
@@ -81,9 +83,7 @@ public class RemoteAssetServerService : AssetServerService
     {
         try
         {
-            if (
-                file.Size > AssetServerConstants.MAX_FILE_SIZE_IN_BYTES
-            )
+            if (file.Size > AssetServerConstants.MAX_FILE_SIZE_IN_BYTES)
             {
                 _logger.LogError(
                     "Asset Server Payload Too Large ({FileSize}) | ({MaxFileSizeInBytes} max) | Service: {UploadService}",
@@ -96,8 +96,7 @@ public class RemoteAssetServerService : AssetServerService
                 );
             }
 
-            using var content =
-                new MultipartFormDataContent();
+            using var content = new MultipartFormDataContent();
             using var fileContent = new StreamContent(
                 file.OpenReadStream(
                     AssetServerConstants.MAX_FILE_SIZE_IN_BYTES,
@@ -111,30 +110,23 @@ public class RemoteAssetServerService : AssetServerService
                 fileName: file.Name
             );
 
-            using var httpMessage =
-                new HttpRequestMessage(
-                    HttpMethod.Post,
-                    url
-                )
-                {
-                    Content = content,
-                };
-            AddAuthorizationHeader(
-                httpMessage,
-                accessToken
-            );
+            using var httpMessage = new HttpRequestMessage(HttpMethod.Post, url)
+            {
+                Content = content,
+            };
+            AddAuthorizationHeader(httpMessage, accessToken);
 
-            using var response =
-                await _httpClient.SendAsync(
-                    httpMessage,
-                    cancellationToken
-                );
+            using var response = await _httpClient.SendAsync(
+                httpMessage,
+                cancellationToken
+            );
 
             if (response.IsSuccessStatusCode)
             {
-                var successResult = await response.Content.ReadFromJsonAsync<UploadImportFileModel>(
-                    cancellationToken: cancellationToken
-                );
+                var successResult =
+                    await response.Content.ReadFromJsonAsync<UploadImportFileModel>(
+                        cancellationToken: cancellationToken
+                    );
                 if (successResult.IsNull())
                 {
                     return AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR;
@@ -154,10 +146,12 @@ public class RemoteAssetServerService : AssetServerService
                 return AssetServerErrorCodes.ASSET_SERVER_NOT_AUTHORIZED;
             }
 
-            var errorResult = await response.Content.ReadFromJsonAsync<ErrorDetails>(
-                cancellationToken: cancellationToken
-            );
-            return errorResult?.ErrorCode ?? AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR;
+            var errorResult =
+                await response.Content.ReadFromJsonAsync<ErrorDetails>(
+                    cancellationToken: cancellationToken
+                );
+            return errorResult?.ErrorCode
+                ?? AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR;
         }
         catch (HttpRequestException ex)
         {
@@ -176,10 +170,9 @@ public class RemoteAssetServerService : AssetServerService
         string accessToken
     )
     {
-        httpMessage.Headers.Authorization =
-            new AuthenticationHeaderValue(
-                "Bearer",
-                accessToken
-            );
+        httpMessage.Headers.Authorization = new AuthenticationHeaderValue(
+            "Bearer",
+            accessToken
+        );
     }
 }

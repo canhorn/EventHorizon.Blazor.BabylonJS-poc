@@ -1,26 +1,20 @@
-﻿namespace EventHorizon.Game.Server.Asset.Finished
+﻿namespace EventHorizon.Game.Server.Asset.Finished;
+
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct AssetServerExportFinishedEvent : INotification
 {
-    using EventHorizon.Observer.Model;
-    using MediatR;
+    public string ReferenceId { get; }
+    public string ExportPath { get; }
 
-    public struct AssetServerExportFinishedEvent
-        : INotification
+    public AssetServerExportFinishedEvent(string referenceId, string exportPath)
     {
-        public string ReferenceId { get; }
-        public string ExportPath { get; }
-
-        public AssetServerExportFinishedEvent(
-            string referenceId,
-            string exportPath
-        )
-        {
-            ReferenceId = referenceId;
-            ExportPath = exportPath;
-        }
-    }
-
-    public interface AssetServerExportFinishedEventObserver
-        : ArgumentObserver<AssetServerExportFinishedEvent>
-    {
+        ReferenceId = referenceId;
+        ExportPath = exportPath;
     }
 }
+
+public interface AssetServerExportFinishedEventObserver
+    : ArgumentObserver<AssetServerExportFinishedEvent> { }

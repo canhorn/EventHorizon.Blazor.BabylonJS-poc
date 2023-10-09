@@ -1,42 +1,42 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<TargetCamera>))]
+public class TargetCamera : Camera
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<TargetCamera>))]
-    public class TargetCamera : Camera
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    #endregion
+
+    #region Properties
+    private Vector3 __cameraDirection;
+    public Vector3 cameraDirection
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-
-        #endregion
-
-        #region Properties
-        private Vector3 __cameraDirection;
-        public Vector3 cameraDirection
+        get
         {
-            get
-            {
-            if(__cameraDirection == null)
+            if (__cameraDirection == null)
             {
                 __cameraDirection = EventHorizonBlazorInterop.GetClass<Vector3>(
                     this.___guid,
@@ -48,24 +48,24 @@ namespace BabylonJS
                 );
             }
             return __cameraDirection;
-            }
-            set
-            {
-__cameraDirection = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "cameraDirection",
-                    value
-                );
-            }
         }
-
-        private Vector2 __cameraRotation;
-        public Vector2 cameraRotation
+        set
         {
-            get
-            {
-            if(__cameraRotation == null)
+            __cameraDirection = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "cameraDirection",
+                value
+            );
+        }
+    }
+
+    private Vector2 __cameraRotation;
+    public Vector2 cameraRotation
+    {
+        get
+        {
+            if (__cameraRotation == null)
             {
                 __cameraRotation = EventHorizonBlazorInterop.GetClass<Vector2>(
                     this.___guid,
@@ -77,45 +77,44 @@ __cameraDirection = null;
                 );
             }
             return __cameraRotation;
-            }
-            set
-            {
-__cameraRotation = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "cameraRotation",
-                    value
-                );
-            }
         }
-
-        
-        public bool updateUpVectorFromRotation
+        set
         {
-            get
-            {
+            __cameraRotation = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "cameraRotation",
+                value
+            );
+        }
+    }
+
+    public bool updateUpVectorFromRotation
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "updateUpVectorFromRotation"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "updateUpVectorFromRotation",
-                    value
-                );
-            }
+                this.___guid,
+                "updateUpVectorFromRotation"
+            );
         }
-
-        private Vector3 __rotation;
-        public Vector3 rotation
+        set
         {
-            get
-            {
-            if(__rotation == null)
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "updateUpVectorFromRotation",
+                value
+            );
+        }
+    }
+
+    private Vector3 __rotation;
+    public Vector3 rotation
+    {
+        get
+        {
+            if (__rotation == null)
             {
                 __rotation = EventHorizonBlazorInterop.GetClass<Vector3>(
                     this.___guid,
@@ -127,196 +126,180 @@ __cameraRotation = null;
                 );
             }
             return __rotation;
-            }
-            set
-            {
-__rotation = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "rotation",
-                    value
-                );
-            }
         }
-
-        private Quaternion __rotationQuaternion;
-        public Quaternion rotationQuaternion
+        set
         {
-            get
+            __rotation = null;
+            EventHorizonBlazorInterop.Set(this.___guid, "rotation", value);
+        }
+    }
+
+    private Quaternion __rotationQuaternion;
+    public Quaternion rotationQuaternion
+    {
+        get
+        {
+            if (__rotationQuaternion == null)
             {
-            if(__rotationQuaternion == null)
-            {
-                __rotationQuaternion = EventHorizonBlazorInterop.GetClass<Quaternion>(
-                    this.___guid,
-                    "rotationQuaternion",
-                    (entity) =>
-                    {
-                        return new Quaternion() { ___guid = entity.___guid };
-                    }
-                );
+                __rotationQuaternion =
+                    EventHorizonBlazorInterop.GetClass<Quaternion>(
+                        this.___guid,
+                        "rotationQuaternion",
+                        (entity) =>
+                        {
+                            return new Quaternion()
+                            {
+                                ___guid = entity.___guid
+                            };
+                        }
+                    );
             }
             return __rotationQuaternion;
-            }
-            set
-            {
-__rotationQuaternion = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "rotationQuaternion",
-                    value
-                );
-            }
         }
-
-        
-        public decimal speed
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "speed"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "speed",
-                    value
-                );
-            }
-        }
-
-        
-        public bool noRotationConstraint
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "noRotationConstraint"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "noRotationConstraint",
-                    value
-                );
-            }
-        }
-
-        
-        public CachedEntity lockedTarget
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                    this.___guid,
-                    "lockedTarget"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "lockedTarget",
-                    value
-                );
-            }
-        }
-        #endregion
-        
-        #region Constructor
-        public TargetCamera() : base() { }
-
-        public TargetCamera(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-        }
-
-        public TargetCamera(
-            string name, Vector3 position, Scene scene, System.Nullable<bool> setActiveOnSceneIfNoneActive = null
-        ) : base()
-        {
-            var entity = EventHorizonBlazorInterop.New(
-                new string[] { "BABYLON", "TargetCamera" },
-                name, position, scene, setActiveOnSceneIfNoneActive
-            );
-            ___guid = entity.___guid;
-        }
-        #endregion
-
-        #region Methods
-        public Vector3 getFrontPosition(decimal distance)
-        {
-            return EventHorizonBlazorInterop.FuncClass<Vector3>(
-                entity => new Vector3() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { this.___guid, "getFrontPosition" }, distance
-                }
+            __rotationQuaternion = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "rotationQuaternion",
+                value
             );
         }
-
-        public Camera storeState()
-        {
-            return EventHorizonBlazorInterop.FuncClass<Camera>(
-                entity => new Camera() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { this.___guid, "storeState" }
-                }
-            );
-        }
-
-        public void setTarget(Vector3 target)
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "setTarget" }, target
-                }
-            );
-        }
-
-        public Vector3 getTarget()
-        {
-            return EventHorizonBlazorInterop.FuncClass<Vector3>(
-                entity => new Vector3() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { this.___guid, "getTarget" }
-                }
-            );
-        }
-
-        public Camera createRigCamera(string name, decimal cameraIndex)
-        {
-            return EventHorizonBlazorInterop.FuncClass<Camera>(
-                entity => new Camera() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { this.___guid, "createRigCamera" }, name, cameraIndex
-                }
-            );
-        }
-
-        public string getClassName()
-        {
-            return EventHorizonBlazorInterop.Func<string>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "getClassName" }
-                }
-            );
-        }
-        #endregion
     }
+
+    public decimal speed
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<decimal>(
+                this.___guid,
+                "speed"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "speed", value);
+        }
+    }
+
+    public bool noRotationConstraint
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<bool>(
+                this.___guid,
+                "noRotationConstraint"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "noRotationConstraint",
+                value
+            );
+        }
+    }
+
+    public CachedEntity lockedTarget
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<CachedEntity>(
+                this.___guid,
+                "lockedTarget"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "lockedTarget", value);
+        }
+    }
+    #endregion
+
+    #region Constructor
+    public TargetCamera()
+        : base() { }
+
+    public TargetCamera(ICachedEntity entity)
+        : base(entity) { }
+
+    public TargetCamera(
+        string name,
+        Vector3 position,
+        Scene scene,
+        System.Nullable<bool> setActiveOnSceneIfNoneActive = null
+    )
+        : base()
+    {
+        var entity = EventHorizonBlazorInterop.New(
+            new string[] { "BABYLON", "TargetCamera" },
+            name,
+            position,
+            scene,
+            setActiveOnSceneIfNoneActive
+        );
+        ___guid = entity.___guid;
+    }
+    #endregion
+
+    #region Methods
+    public Vector3 getFrontPosition(decimal distance)
+    {
+        return EventHorizonBlazorInterop.FuncClass<Vector3>(
+            entity => new Vector3() { ___guid = entity.___guid },
+            new object[]
+            {
+                new string[] { this.___guid, "getFrontPosition" },
+                distance
+            }
+        );
+    }
+
+    public Camera storeState()
+    {
+        return EventHorizonBlazorInterop.FuncClass<Camera>(
+            entity => new Camera() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "storeState" } }
+        );
+    }
+
+    public void setTarget(Vector3 target)
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[] { new string[] { this.___guid, "setTarget" }, target }
+        );
+    }
+
+    public Vector3 getTarget()
+    {
+        return EventHorizonBlazorInterop.FuncClass<Vector3>(
+            entity => new Vector3() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "getTarget" } }
+        );
+    }
+
+    public Camera createRigCamera(string name, decimal cameraIndex)
+    {
+        return EventHorizonBlazorInterop.FuncClass<Camera>(
+            entity => new Camera() { ___guid = entity.___guid },
+            new object[]
+            {
+                new string[] { this.___guid, "createRigCamera" },
+                name,
+                cameraIndex
+            }
+        );
+    }
+
+    public string getClassName()
+    {
+        return EventHorizonBlazorInterop.Func<string>(
+            new object[] { new string[] { this.___guid, "getClassName" } }
+        );
+    }
+    #endregion
 }

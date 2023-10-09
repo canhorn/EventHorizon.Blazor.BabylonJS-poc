@@ -1,17 +1,13 @@
-﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.Untrack
+﻿namespace EventHorizon.Game.Client.Engine.Entity.Tracking.Untrack;
+
+using MediatR;
+
+public struct UntrackServerEntityCommand : IRequest
 {
-    using MediatR;
+    public long ClientId { get; }
 
-    public struct UntrackServerEntityCommand
-        : IRequest
+    public UntrackServerEntityCommand(long clientId)
     {
-        public long ClientId { get; }
-
-        public UntrackServerEntityCommand(
-            long clientId
-        )
-        {
-            ClientId = clientId;
-        }
+        ClientId = clientId;
     }
 }

@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model.ConfigTypes
-{
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model.ConfigTypes;
 
-    public class ClientAssetBoxMeshConfigModel
-        : ClientAssetConfigBase,
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
+
+public class ClientAssetBoxMeshConfigModel
+    : ClientAssetConfigBase,
         ClientAssetBoxMeshConfig
-    {
-        public int Size { get; set; }
+{
+    public int Size { get; set; }
 
-        public ClientAssetBoxMeshConfigModel(
-            IDictionary<string, object> data
-        ) : base(data)
-        {
-            Size = GetInt("size");
-        }
+    public ClientAssetBoxMeshConfigModel(IDictionary<string, object> data)
+        : base(data)
+    {
+        Size = GetInt("size");
     }
 }

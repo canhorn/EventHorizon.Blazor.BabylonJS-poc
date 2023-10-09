@@ -1,12 +1,11 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Fetch
-{
-    using System;
-    using EventHorizon.Game.Client.Core.Query.Model;
-    using EventHorizon.Game.Client.Systems.ClientScripts.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Fetch;
 
-    public class FetchClientScriptsAssembly
-        : IRequest<QueryResult<ClientScriptsAssemblyResult>>
-    {
-    }
-}
+using System;
+
+using EventHorizon.Game.Client.Core.Query.Model;
+using EventHorizon.Game.Client.Systems.ClientScripts.Model;
+
+using MediatR;
+
+public class FetchClientScriptsAssembly
+    : IRequest<QueryResult<ClientScriptsAssemblyResult>> { }

@@ -1,18 +1,16 @@
-﻿namespace EventHorizon.Platform.LogProvider.Connection.Start
+﻿namespace EventHorizon.Platform.LogProvider.Connection.Start;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct StartConnectionToLoggingServerCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string AccessToken { get; }
 
-    public struct StartConnectionToLoggingServerCommand
-        : IRequest<StandardCommandResult>
+    public StartConnectionToLoggingServerCommand(string accessToken)
     {
-        public string AccessToken { get; }
-
-        public StartConnectionToLoggingServerCommand(
-            string accessToken
-        )
-        {
-            AccessToken = accessToken;
-        }
+        AccessToken = accessToken;
     }
 }

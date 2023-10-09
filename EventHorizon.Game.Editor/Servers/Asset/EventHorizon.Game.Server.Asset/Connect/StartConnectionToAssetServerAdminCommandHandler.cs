@@ -1,32 +1,33 @@
-﻿namespace EventHorizon.Game.Server.Asset.Connect
+﻿namespace EventHorizon.Game.Server.Asset.Connect;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Server.Asset.Api;
+
+using MediatR;
+
+public class StartConnectionToAssetServerAdminCommandHandler
+    : IRequestHandler<
+        StartConnectionToAssetServerAdminCommand,
+        StandardCommandResult
+    >
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Server.Asset.Api;
-    using MediatR;
+    private readonly AssetServerAdminService _services;
 
-    public class StartConnectionToAssetServerAdminCommandHandler
-        : IRequestHandler<StartConnectionToAssetServerAdminCommand, StandardCommandResult>
+    public StartConnectionToAssetServerAdminCommandHandler(
+        AssetServerAdminService services
+    )
     {
-        private readonly AssetServerAdminService _services;
+        _services = services;
+    }
 
-        public StartConnectionToAssetServerAdminCommandHandler(
-            AssetServerAdminService services
-        )
-        {
-            _services = services;
-        }
-
-        public Task<StandardCommandResult> Handle(
-            StartConnectionToAssetServerAdminCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            return _services.Connect(
-                request.AccessToken,
-                cancellationToken
-            );
-        }
+    public Task<StandardCommandResult> Handle(
+        StartConnectionToAssetServerAdminCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return _services.Connect(request.AccessToken, cancellationToken);
     }
 }

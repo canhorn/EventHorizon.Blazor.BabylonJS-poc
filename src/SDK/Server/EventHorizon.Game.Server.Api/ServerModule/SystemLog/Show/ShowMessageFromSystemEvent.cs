@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Server.ServerModule.SystemLog.Show
-{
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Server.ServerModule.SystemLog.Show;
 
-    public struct ShowMessageFromSystemEvent 
-        : INotification
-    {
+using EventHorizon.Observer.Model;
 
-    }
+using MediatR;
 
-    public interface ShowMessageFromSystemEventObserver
-        : ArgumentObserver<ShowMessageFromSystemEvent>
-    {
-    }
-}
+public struct ShowMessageFromSystemEvent : INotification { }
+
+public interface ShowMessageFromSystemEventObserver
+    : ArgumentObserver<ShowMessageFromSystemEvent> { }

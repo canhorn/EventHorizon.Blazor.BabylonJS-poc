@@ -2,8 +2,7 @@
 
 using EventHorizon.Game.Editor.Automation.Core.Browser.Api;
 
-public class WebHostSettingsModel
-    : WebHostSettings
+public class WebHostSettingsModel : WebHostSettings
 {
     public string BaseUrl { get; set; }
     public string Culture { get; set; }

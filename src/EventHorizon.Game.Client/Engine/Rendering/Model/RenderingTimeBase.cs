@@ -1,25 +1,18 @@
-﻿namespace EventHorizon.Game.Client.Engine.Rendering.Model
+﻿namespace EventHorizon.Game.Client.Engine.Rendering.Model;
+
+using EventHorizon.Game.Client.Engine.Rendering.Api;
+
+public class RenderingTimeBase : IRenderingTime
 {
-    using EventHorizon.Game.Client.Engine.Rendering.Api;
+    private readonly IRenderingEngine _renderingEngine;
 
-    public class RenderingTimeBase
-        : IRenderingTime
+    public long DeltaTime
     {
-        private readonly IRenderingEngine _renderingEngine;
+        get { return _renderingEngine.GetEngine().GetDeltaTime(); }
+    }
 
-        public long DeltaTime
-        {
-            get
-            {
-                return _renderingEngine.GetEngine().GetDeltaTime();
-            }
-        }
-
-        public RenderingTimeBase(
-            IRenderingEngine renderingEngine
-        )
-        {
-            _renderingEngine = renderingEngine;
-        }
+    public RenderingTimeBase(IRenderingEngine renderingEngine)
+    {
+        _renderingEngine = renderingEngine;
     }
 }

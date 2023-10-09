@@ -10,7 +10,7 @@ using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 
 public class ZoneServerToolbarBase
     : ObservableComponentBase,
-    TriggredZoneServerArtifactImportEventObserver
+        TriggredZoneServerArtifactImportEventObserver
 {
     protected async Task HandleTriggerExportClicked()
     {
@@ -79,9 +79,7 @@ public class ZoneServerToolbarBase
         );
     }
 
-    public async Task Handle(
-        TriggredZoneServerArtifactImportEvent args
-    )
+    public async Task Handle(TriggredZoneServerArtifactImportEvent args)
     {
         if (!args.Success)
         {

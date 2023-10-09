@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Load
+﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Load;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public class LoadClientScriptsAssembly : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Hash { get; }
 
-    public class LoadClientScriptsAssembly
-        : IRequest<StandardCommandResult>
+    public LoadClientScriptsAssembly(string hash)
     {
-        public string Hash { get; }
-
-        public LoadClientScriptsAssembly(
-            string hash
-        )
-        {
-            Hash = hash;
-        }
+        Hash = hash;
     }
 }

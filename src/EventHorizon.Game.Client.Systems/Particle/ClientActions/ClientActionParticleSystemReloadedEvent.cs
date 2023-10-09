@@ -13,11 +13,8 @@ using EventHorizon.Observer.State;
 
 using MediatR;
 
-[ClientAction(
-    "PARTICLE_SYSTEM_RELOADED_CLIENT_ACTION_EVENT"
-)]
-public record ClientActionParticleSystemReloadedEvent
-    : IClientAction
+[ClientAction("PARTICLE_SYSTEM_RELOADED_CLIENT_ACTION_EVENT")]
+public record ClientActionParticleSystemReloadedEvent : IClientAction
 {
     public IEnumerable<ParticleTemplate> ParticleTemplateList { get; }
 
@@ -25,9 +22,9 @@ public record ClientActionParticleSystemReloadedEvent
         IClientActionDataResolver resolver
     )
     {
-        ParticleTemplateList = resolver.Resolve<
-            List<ParticleTemplateModel>
-        >("particleTemplateList");
+        ParticleTemplateList = resolver.Resolve<List<ParticleTemplateModel>>(
+            "particleTemplateList"
+        );
     }
 }
 

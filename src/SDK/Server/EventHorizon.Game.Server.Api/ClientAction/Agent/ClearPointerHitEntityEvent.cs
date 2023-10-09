@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Server.ClientAction.Agent
-{
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Server.ClientAction.Agent;
 
-    public struct ClearPointerHitEntityEvent 
-        : INotification
-    {
+using EventHorizon.Observer.Model;
 
-    }
+using MediatR;
 
-    public interface ClearPointerHitEntityEventObserver
-        : ArgumentObserver<ClearPointerHitEntityEvent>
-    {
-    }
-}
+public struct ClearPointerHitEntityEvent : INotification { }
+
+public interface ClearPointerHitEntityEventObserver
+    : ArgumentObserver<ClearPointerHitEntityEvent> { }

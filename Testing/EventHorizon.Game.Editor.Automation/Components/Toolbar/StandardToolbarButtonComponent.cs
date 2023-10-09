@@ -4,7 +4,5 @@ using System;
 
 using Atata;
 
-public class StandardToolbarButtonComponent<TOwner>
-    : Button<TOwner> where TOwner : PageObject<TOwner>
-{
-}
+public class StandardToolbarButtonComponent<TOwner> : Button<TOwner>
+    where TOwner : PageObject<TOwner> { }

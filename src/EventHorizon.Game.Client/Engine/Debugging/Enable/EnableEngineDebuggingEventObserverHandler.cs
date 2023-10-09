@@ -1,4 +1,5 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Debugging.Enable;
+
 using System.Threading;
 using System.Threading.Tasks;
 

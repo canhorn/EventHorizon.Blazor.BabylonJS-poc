@@ -1,163 +1,129 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Factory.Controls
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Factory.Controls;
+
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using BabylonJS.GUI;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Game.Client.Core.Exceptions;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+using EventHorizon.Game.Client.Engine.Gui.Model;
+using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
+
+public class BabylonJSGuiButton : IBabylonJSGuiControl
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using BabylonJS.GUI;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using EventHorizon.Game.Client.Engine.Gui.Model;
-    using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
+    private readonly Button _control;
+    private readonly TextBlock _textControl;
 
-    public class BabylonJSGuiButton
-        : IBabylonJSGuiControl
+    public string Id { get; }
+    public GuiControlType Type => GuiControlType.BUTTON;
+    private bool _isVisiable = true;
+    public bool IsVisible
     {
-        private readonly Button _control;
-        private readonly TextBlock _textControl;
-
-        public string Id { get; }
-        public GuiControlType Type => GuiControlType.BUTTON;
-        private bool _isVisiable = true;
-        public bool IsVisible
+        get { return _isVisiable; }
+        set
         {
-            get
-            {
-                return _isVisiable;
-            }
-            set
-            {
-                _isVisiable = value;
-                Control.isVisible = _isVisiable;
-            }
+            _isVisiable = value;
+            Control.isVisible = _isVisiable;
         }
-        public int Layer { get; set; }
-        public IGuiControlOptions Options { get; private set; }
-        public string? ParentId { get; }
-        public IGuiGridLocation? GridLocation { get; }
+    }
+    public int Layer { get; set; }
+    public IGuiControlOptions Options { get; private set; }
+    public string? ParentId { get; }
+    public IGuiGridLocation? GridLocation { get; }
 
-        public Control Control => _control;
+    public Control Control => _control;
 
-        public BabylonJSGuiButton(
-            string id,
-            IGuiControlOptions options,
-            IGuiGridLocation? gridLocation
-        )
+    public BabylonJSGuiButton(
+        string id,
+        IGuiControlOptions options,
+        IGuiGridLocation? gridLocation
+    )
+    {
+        Id = id;
+        Options = options;
+        GridLocation = gridLocation;
+
+        (_control, _textControl) = CreateControl(id, options);
+    }
+
+    public void AddControl(IGuiControl guiControl)
+    {
+        throw new GameException(
+            "gui_add_control_not_supported",
+            "GuiButton does not support adding Controls"
+        );
+    }
+
+    public void Dispose()
+    {
+        if (!string.IsNullOrEmpty(_onPointerEnterObserverHandler))
         {
-            Id = id;
-            Options = options;
-            GridLocation = gridLocation;
-
-            (_control, _textControl) = CreateControl(
-                id,
-                options
-            );
-        }
-
-        public void AddControl(
-            IGuiControl guiControl
-        )
-        {
-            throw new GameException(
-                "gui_add_control_not_supported",
-                "GuiButton does not support adding Controls"
-            );
-        }
-
-        public void Dispose()
-        {
-            if (!string.IsNullOrEmpty(
+            _control.onPointerEnterObservable.add_Remove(
                 _onPointerEnterObserverHandler
-            ))
-            {
-                _control.onPointerEnterObservable.add_Remove(
-                    _onPointerEnterObserverHandler
-                );
-            }
-            if (!string.IsNullOrEmpty(
+            );
+        }
+        if (!string.IsNullOrEmpty(_onPointerOutObserverHandler))
+        {
+            _control.onPointerOutObservable.add_Remove(
                 _onPointerOutObserverHandler
-            ))
-            {
-                _control.onPointerOutObservable.add_Remove(
-                    _onPointerOutObserverHandler
-                );
-            }
-            if (!string.IsNullOrEmpty(
+            );
+        }
+        if (!string.IsNullOrEmpty(_onClickObserverHandler))
+        {
+            _control.onPointerClickObservable.add_Remove(
                 _onClickObserverHandler
-            ))
-            {
-                _control.onPointerClickObservable.add_Remove(
-                    _onClickObserverHandler
-                );
-            }
-            Control.dispose();
-        }
-
-        public void LinkWith(
-            object obj
-        )
-        {
-            if (obj is BabylonJSEngineMesh mesh)
-            {
-                Control.linkWithMesh(
-                    mesh.Mesh
-                );
-            }
-        }
-
-        public void Update(
-            IGuiControlOptions options
-        )
-        {
-            Update(
-                options,
-                _control,
-                _textControl
-            );
-
-            Options = GuiControlOptionsModel.MergeControlOptions(
-                Options,
-                options
             );
         }
+        Control.dispose();
+    }
 
-        private string _onClickObserverHandler = string.Empty;
-        private string _onPointerEnterObserverHandler = string.Empty;
-        private string _onPointerOutObserverHandler = string.Empty;
-
-        private (Button, TextBlock) CreateControl(
-            string id,
-            IGuiControlOptions options
-        )
+    public void LinkWith(object obj)
+    {
+        if (obj is BabylonJSEngineMesh mesh)
         {
-            //var buttonControl = new Rectangle(
-            //    $"{id}_button"
-            //);
-            //var textControl = new TextBlock(
-            //    $"{id}_text-block"
-            //);
-            var buttonControl = Button.CreateSimpleButton(
-                $"{id}_button",
-                ""
-            );
-            var textControl = buttonControl.textBlock;
-            buttonControl.thickness = 0;
-            // TextWrapping.WordWrap = 1
-            textControl.textWrapping = 1;
-            textControl.isPointerBlocker = false;
+            Control.linkWithMesh(mesh.Mesh);
+        }
+    }
 
-            Update(
-                options,
-                buttonControl,
-                textControl
-            );
+    public void Update(IGuiControlOptions options)
+    {
+        Update(options, _control, _textControl);
 
-            buttonControl.addControl(
-                textControl
-            );
+        Options = GuiControlOptionsModel.MergeControlOptions(Options, options);
+    }
 
-            // Hover Observer Setup
-            _onPointerEnterObserverHandler = buttonControl.onPointerEnterObservable.add(
+    private string _onClickObserverHandler = string.Empty;
+    private string _onPointerEnterObserverHandler = string.Empty;
+    private string _onPointerOutObserverHandler = string.Empty;
+
+    private (Button, TextBlock) CreateControl(
+        string id,
+        IGuiControlOptions options
+    )
+    {
+        //var buttonControl = new Rectangle(
+        //    $"{id}_button"
+        //);
+        //var textControl = new TextBlock(
+        //    $"{id}_text-block"
+        //);
+        var buttonControl = Button.CreateSimpleButton($"{id}_button", "");
+        var textControl = buttonControl.textBlock;
+        buttonControl.thickness = 0;
+        // TextWrapping.WordWrap = 1
+        textControl.textWrapping = 1;
+        textControl.isPointerBlocker = false;
+
+        Update(options, buttonControl, textControl);
+
+        buttonControl.addControl(textControl);
+
+        // Hover Observer Setup
+        _onPointerEnterObserverHandler =
+            buttonControl.onPointerEnterObservable.add(
                 (_, __) =>
                 {
                     if (_control.isEnabled)
@@ -183,7 +149,8 @@
                     return Task.CompletedTask;
                 }
             );
-            _onPointerOutObserverHandler = buttonControl.onPointerEnterObservable.add(
+        _onPointerOutObserverHandler =
+            buttonControl.onPointerEnterObservable.add(
                 (_, __) =>
                 {
                     if (_control.isEnabled)
@@ -210,115 +177,105 @@
                 }
             );
 
-            return (buttonControl, textControl);
-        }
+        return (buttonControl, textControl);
+    }
 
-        readonly IList<string> IGNORE_PROPERTY_LIST = new List<string>
-        {
-            "animation",
-            "textBlockOptions",
-            "onClick",
-        };
+    readonly IList<string> IGNORE_PROPERTY_LIST = new List<string>
+    {
+        "animation",
+        "textBlockOptions",
+        "onClick",
+    };
 
-        private void Update(
-            IGuiControlOptions options,
-            Rectangle buttonControl,
-            TextBlock textControl
-        )
+    private void Update(
+        IGuiControlOptions options,
+        Rectangle buttonControl,
+        TextBlock textControl
+    )
+    {
+        foreach (var option in options)
         {
-            foreach (var option in options)
+            if (!IGNORE_PROPERTY_LIST.Contains(option.Key))
             {
-                if (!IGNORE_PROPERTY_LIST.Contains(
-                    option.Key
-                ))
+                SetPropertyOnControl(buttonControl, option.Key, option.Value);
+            }
+            else if (option.Key == "textBlockOptions")
+            {
+                var textBlockOptions = option.Value.To(
+                    () => new GuiControlOptionsModel()
+                );
+                foreach (var textBlockOption in textBlockOptions)
                 {
                     SetPropertyOnControl(
-                        buttonControl,
-                        option.Key,
-                        option.Value
+                        textControl,
+                        textBlockOption.Key,
+                        textBlockOption.Value
                     );
                 }
-                else if (option.Key == "textBlockOptions")
-                {
-                    var textBlockOptions = option.Value.To(() => new GuiControlOptionsModel());
-                    foreach (var textBlockOption in textBlockOptions)
-                    {
-                        SetPropertyOnControl(
-                            textControl,
-                            textBlockOption.Key,
-                            textBlockOption.Value
-                        );
-                    }
-                }
             }
+        }
 
-            // Enable/Disable Button and Cursor Setters
-            if (buttonControl.isEnabled)
-            {
-                options.HasValueCallback<string>(
-                    "background",
-                    value =>
-                    {
-                        buttonControl.background = value;
-                    }
-                );
-                options.HasValueCallback<string>(
-                    "hoverCursor",
-                    value =>
-                    {
-                        buttonControl.hoverCursor = value;
-                    }
-                );
-            }
-            else
-            {
-                options.HasValueCallback<string>(
-                    "disabledColor",
-                    value =>
-                    {
-                        buttonControl.background = value;
-                    }
-                );
-                options.HasValueCallback<string>(
-                    "disabledHoverCursor",
-                    value =>
-                    {
-                        buttonControl.hoverCursor = value;
-                    }
-                );
-            }
-
-            // OnClick Setup
-            options.HasValueCallback<Func<Task>>(
-                "onClick",
+        // Enable/Disable Button and Cursor Setters
+        if (buttonControl.isEnabled)
+        {
+            options.HasValueCallback<string>(
+                "background",
                 value =>
                 {
-                    if (!string.IsNullOrEmpty(
-                        _onClickObserverHandler
-                    ))
-                    {
-                        buttonControl.onPointerEnterObservable.add_Remove(
-                            _onClickObserverHandler
-                        );
-                    }
-                    _onClickObserverHandler = buttonControl.onPointerClickObservable.add(
-                        (_, __) => value()
-                    );
+                    buttonControl.background = value;
+                }
+            );
+            options.HasValueCallback<string>(
+                "hoverCursor",
+                value =>
+                {
+                    buttonControl.hoverCursor = value;
+                }
+            );
+        }
+        else
+        {
+            options.HasValueCallback<string>(
+                "disabledColor",
+                value =>
+                {
+                    buttonControl.background = value;
+                }
+            );
+            options.HasValueCallback<string>(
+                "disabledHoverCursor",
+                value =>
+                {
+                    buttonControl.hoverCursor = value;
                 }
             );
         }
 
-        private static void SetPropertyOnControl(
-            Control control,
-            string property,
-            object value
-        )
-        {
-            EventHorizonBlazorInterop.Set(
-                control.___guid,
-                property,
-                value
-            );
-        }
+        // OnClick Setup
+        options.HasValueCallback<Func<Task>>(
+            "onClick",
+            value =>
+            {
+                if (!string.IsNullOrEmpty(_onClickObserverHandler))
+                {
+                    buttonControl.onPointerEnterObservable.add_Remove(
+                        _onClickObserverHandler
+                    );
+                }
+                _onClickObserverHandler =
+                    buttonControl.onPointerClickObservable.add(
+                        (_, __) => value()
+                    );
+            }
+        );
+    }
+
+    private static void SetPropertyOnControl(
+        Control control,
+        string property,
+        object value
+    )
+    {
+        EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }
 }

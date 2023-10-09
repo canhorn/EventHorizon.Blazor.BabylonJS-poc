@@ -1,11 +1,8 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Reload
-{
-    using EventHorizon.Game.Client.Core.Command.Model;
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Reload;
 
-    using MediatR;
+using EventHorizon.Game.Client.Core.Command.Model;
 
-    public struct ReloadPendingZoneStateCommand
-        : IRequest<StandardCommandResult>
-    {
-    }
-}
+using MediatR;
+
+public struct ReloadPendingZoneStateCommand
+    : IRequest<StandardCommandResult> { }

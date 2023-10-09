@@ -1,56 +1,50 @@
-﻿namespace EventHorizon.Game.Client.Systems.Lighting.Create
+﻿namespace EventHorizon.Game.Client.Systems.Lighting.Create;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
+using EventHorizon.Game.Client.Systems.Lighting.Model;
+
+using MediatR;
+
+public class CreateLightCommandHandler : IRequestHandler<CreateLightCommand>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
-    using EventHorizon.Game.Client.Systems.Lighting.Model;
-    using MediatR;
+    private readonly IMediator _mediator;
 
-    public class CreateLightCommandHandler
-        : IRequestHandler<CreateLightCommand>
+    public CreateLightCommandHandler(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public CreateLightCommandHandler(
-            IMediator mediator
-        )
+    public async Task<Unit> Handle(
+        CreateLightCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var details = request.LightDetailsModel;
+
+        switch (details.Type)
         {
-            _mediator = mediator;
+            case "point":
+                await _mediator.Publish(
+                    new RegisterEntityEvent(
+                        new BabylonJSPointLightEntity(details)
+                    )
+                );
+                break;
+            case "hemispheric":
+                await _mediator.Publish(
+                    new RegisterEntityEvent(
+                        new BabylonJSHemisphericLightEntity(details)
+                    )
+                );
+                break;
+            default:
+                break;
         }
 
-        public async Task<Unit> Handle(
-            CreateLightCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var details = request.LightDetailsModel;
-
-            switch (details.Type)
-            {
-                case "point":
-                    await _mediator.Publish(
-                        new RegisterEntityEvent(
-                            new BabylonJSPointLightEntity(
-                                details
-                            )
-                        )
-                    );
-                    break;
-                case "hemispheric":
-                    await _mediator.Publish(
-                        new RegisterEntityEvent(
-                            new BabylonJSHemisphericLightEntity(
-                                details
-                            )
-                        )
-                    );
-                    break;
-                default:
-                    break;
-            }
-
-            return Unit.Value;
-        }
+        return Unit.Value;
     }
 }

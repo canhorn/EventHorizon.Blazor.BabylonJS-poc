@@ -1,39 +1,35 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Hide
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Hide;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+using MediatR;
+
+public class HideGuiCommandHandler
+    : IRequestHandler<HideGuiCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using MediatR;
+    private readonly IGuiDefinitionState _state;
 
-    public class HideGuiCommandHandler
-        : IRequestHandler<HideGuiCommand, StandardCommandResult>
+    public HideGuiCommandHandler(IGuiDefinitionState state)
     {
-        private readonly IGuiDefinitionState _state;
+        _state = state;
+    }
 
-        public HideGuiCommandHandler(
-            IGuiDefinitionState state
-        )
+    public Task<StandardCommandResult> Handle(
+        HideGuiCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var gui = _state.Get(request.Id);
+        if (gui.HasValue)
         {
-            _state = state;
+            gui.Value.Hide();
         }
 
-        public Task<StandardCommandResult> Handle(
-            HideGuiCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var gui = _state.Get(
-                request.Id
-            );
-            if (gui.HasValue)
-            {
-                gui.Value.Hide();
-            }
-
-            return new StandardCommandResult()
-                .FromResult();
-        }
+        return new StandardCommandResult().FromResult();
     }
 }

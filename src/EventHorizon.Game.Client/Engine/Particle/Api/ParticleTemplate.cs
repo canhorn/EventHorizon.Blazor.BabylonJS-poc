@@ -1,10 +1,9 @@
-﻿namespace EventHorizon.Game.Client.Engine.Particle.Api
+﻿namespace EventHorizon.Game.Client.Engine.Particle.Api;
+
+public interface ParticleTemplate
 {
-    public interface ParticleTemplate
-    {
-        string Id { get; }
-        string Name { get; }
-        string Type { get; }
-        ParticleSettings DefaultSettings { get; }
-    }
+    string Id { get; }
+    string Name { get; }
+    string Type { get; }
+    ParticleSettings DefaultSettings { get; }
 }

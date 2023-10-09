@@ -1,15 +1,10 @@
-﻿namespace EventHorizon.Platform.LogProvider.Api
+﻿namespace EventHorizon.Platform.LogProvider.Api;
+
+using EventHorizon.Platform.LogProvider.Model;
+
+public interface PendingLogQueue
 {
-    using EventHorizon.Platform.LogProvider.Model;
+    void Add(PlatformLogMessage message);
 
-    public interface PendingLogQueue
-    {
-        void Add(
-            PlatformLogMessage message
-        );
-
-        bool TryDequeue(
-            out PlatformLogMessage result
-        );
-    }
+    bool TryDequeue(out PlatformLogMessage result);
 }

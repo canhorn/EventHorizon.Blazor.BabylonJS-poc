@@ -7,6 +7,4 @@ using EventHorizon.Game.Editor.Automation.Layout;
 using _ = ZoneCommandsPage;
 
 [Url("/zone/commands")]
-public class ZoneCommandsPage : MainLayoutPage<_>
-{
-}
+public class ZoneCommandsPage : MainLayoutPage<_> { }

@@ -13,9 +13,7 @@ public class ZoneServerImportFinishedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ZoneServerImportFinishedEventObserverHandler(
-        ObserverState observer
-    )
+    public ZoneServerImportFinishedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -23,9 +21,9 @@ public class ZoneServerImportFinishedEventObserverHandler
     public Task Handle(
         ZoneServerImportFinishedEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<ZoneServerImportFinishedEventObserver, ZoneServerImportFinishedEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            ZoneServerImportFinishedEventObserver,
+            ZoneServerImportFinishedEvent
+        >(notification, cancellationToken);
 }
-

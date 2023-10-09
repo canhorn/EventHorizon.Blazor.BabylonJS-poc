@@ -6,13 +6,9 @@ using EventHorizon.Blazor.Interop;
 
 public class Immutable : CachedEntity
 {
-    public Immutable()
-    {
-    }
+    public Immutable() { }
 
-    public Immutable(
-        ICachedEntity entity
-    )
+    public Immutable(ICachedEntity entity)
     {
         this.___guid = entity.___guid;
     }

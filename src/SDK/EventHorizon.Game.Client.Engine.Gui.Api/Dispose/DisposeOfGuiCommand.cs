@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Dispose
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Dispose;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public class DisposeOfGuiCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string GuiId { get; }
 
-    public class DisposeOfGuiCommand
-        : IRequest<StandardCommandResult>
+    public DisposeOfGuiCommand(string guiId)
     {
-        public string GuiId { get; }
-
-        public DisposeOfGuiCommand(
-            string guiId
-        )
-        {
-            GuiId = guiId;
-        }
+        GuiId = guiId;
     }
 }

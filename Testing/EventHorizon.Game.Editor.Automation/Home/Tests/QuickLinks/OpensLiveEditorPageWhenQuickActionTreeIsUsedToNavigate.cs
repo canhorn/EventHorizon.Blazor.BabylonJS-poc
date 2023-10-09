@@ -13,8 +13,7 @@ using NUnit.Framework;
 
 using Translations = Localization.SideBarQuickLinksTranslations;
 
-public class OpensLiveEditorPageWhenQuickActionTreeIsUsedToNavigate
-    : WebHost
+public class OpensLiveEditorPageWhenQuickActionTreeIsUsedToNavigate : WebHost
 {
     [Test]
     [Category("Quick Links")]
@@ -29,8 +28,6 @@ public class OpensLiveEditorPageWhenQuickActionTreeIsUsedToNavigate
                 a => a.Text == Translations.EN_US.LiveEditorText
             )
             .Link.ClickAndGo<LiveEditorPage>()
-            .Header.Should.Be(
-                LiveEditorPageTranslations.EN_US.Header
-            );
+            .Header.Should.Be(LiveEditorPageTranslations.EN_US.Header);
     }
 }

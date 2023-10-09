@@ -1,52 +1,49 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Canvas
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Canvas;
+
+using System;
+using System.Threading.Tasks;
+
+using BabylonJS.GUI;
+
+using EventHorizon.Game.Client.Core.Exceptions;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+using EventHorizon.Game.Client.Engine.Rendering.Api;
+
+public class BabylonJSGuiCanvas : IGuiCanvas
 {
-    using System;
-    using System.Threading.Tasks;
-    using BabylonJS.GUI;
-    using EventHorizon.Game.Client.Core.Exceptions;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using EventHorizon.Game.Client.Engine.Rendering.Api;
+    private AdvancedDynamicTexture? _uiTexture;
 
-    public class BabylonJSGuiCanvas
-        : IGuiCanvas
+    public Task Initialize()
     {
-        private AdvancedDynamicTexture? _uiTexture;
+        _uiTexture = AdvancedDynamicTexture.CreateFullscreenUI(
+            "ROOT_GUI",
+            true,
+            GameServiceProvider
+                .GetService<IRenderingScene>()
+                .GetBabylonJSScene()
+                .Scene
+        );
+        return Task.CompletedTask;
+    }
 
-        public Task Initialize()
+    public Task Dispose()
+    {
+        _uiTexture?.dispose();
+        return Task.CompletedTask;
+    }
+
+    public void AddControl(IGuiControl control)
+    {
+        if (_uiTexture == null)
         {
-            _uiTexture = AdvancedDynamicTexture.CreateFullscreenUI(
-                "ROOT_GUI",
-                true,
-                GameServiceProvider.GetService<IRenderingScene>()
-                    .GetBabylonJSScene()
-                    .Scene
+            throw new GameException(
+                "gui_canvas_not_initialized",
+                "Gui Canvas was not initialized."
             );
-            return Task.CompletedTask;
         }
-
-        public Task Dispose()
+        if (control is IBabylonJSGuiControl castedControl)
         {
-            _uiTexture?.dispose();
-            return Task.CompletedTask;
-        }
-
-        public void AddControl(
-            IGuiControl control
-        )
-        {
-            if (_uiTexture == null)
-            {
-                throw new GameException(
-                    "gui_canvas_not_initialized",
-                    "Gui Canvas was not initialized."
-                );
-            }
-            if (control is IBabylonJSGuiControl castedControl)
-            {
-                _uiTexture.addControl(
-                    castedControl.Control
-                );
-            }
+            _uiTexture.addControl(castedControl.Control);
         }
     }
 }

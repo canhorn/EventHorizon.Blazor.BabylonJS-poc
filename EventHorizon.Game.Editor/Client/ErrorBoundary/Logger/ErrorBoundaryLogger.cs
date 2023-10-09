@@ -6,8 +6,7 @@ using EventHorizon.Game.Editor.Client.ErrorBoundary.Api;
 
 using Microsoft.Extensions.Logging;
 
-public class ErrorBoundaryLogger
-    : ILogger
+public class ErrorBoundaryLogger : ILogger
 {
     private readonly ErrorBoundaryService _errorBoundaryService;
 
@@ -19,18 +18,15 @@ public class ErrorBoundaryLogger
         _errorBoundaryService = errorBoundaryService;
     }
 
-    public IDisposable BeginScope<TState>(
-        TState state
-    ) => NoOpDisposable.Instance;
+    public IDisposable BeginScope<TState>(TState state) =>
+        NoOpDisposable.Instance;
 
     /// <summary>
     /// We are always enabled
     /// </summary>
     /// <param name="logLevel"></param>
     /// <returns></returns>
-    public bool IsEnabled(
-        LogLevel logLevel
-    ) => true;
+    public bool IsEnabled(LogLevel logLevel) => true;
 
     public void Log<TState>(
         LogLevel logLevel,
@@ -49,8 +45,7 @@ public class ErrorBoundaryLogger
         }
     }
 
-    private class NoOpDisposable
-        : IDisposable
+    private class NoOpDisposable : IDisposable
     {
         public static NoOpDisposable Instance = new();
 

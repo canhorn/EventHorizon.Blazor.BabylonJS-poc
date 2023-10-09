@@ -1,17 +1,12 @@
-﻿namespace EventHorizon.Game.Editor.Client.Authentication.Api
+﻿namespace EventHorizon.Game.Editor.Client.Authentication.Api;
+
+public interface EditorAuthenticationState
 {
-    public interface EditorAuthenticationState
-    {
-        string AccessToken { get; }
+    string AccessToken { get; }
 
-        SessionValues Session { get; }
+    SessionValues Session { get; }
 
-        void SetAccessToken(
-            string accessToken
-        );
+    void SetAccessToken(string accessToken);
 
-        void SetSessionValues(
-            SessionValues sessionValues
-        );
-    }
+    void SetSessionValues(SessionValues sessionValues);
 }

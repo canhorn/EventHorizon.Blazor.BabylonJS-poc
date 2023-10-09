@@ -9,7 +9,9 @@ public static class ZoneArtifactManagementStartup
 {
     public static IServiceCollection AddZoneArtifactManagementServices(
         this IServiceCollection services
-    ) => services
-        .AddSingleton<ZoneArtifactManagementState, StandardZoneArtifactManagementState>()
-    ;
+    ) =>
+        services.AddSingleton<
+            ZoneArtifactManagementState,
+            StandardZoneArtifactManagementState
+        >();
 }

@@ -6,10 +6,10 @@ using EventHorizon.Game.Client.Engine.Entity.Api;
 
 public class StandardVector3 : IVector3
 {
-    public readonly static IVector3 FORWARD_DIRECTION = new StandardVector3(
+    public static readonly IVector3 FORWARD_DIRECTION = new StandardVector3(
         Vector3.UnitZ
     );
-    public readonly static IVector3 RIGHT_DIRECTION = new StandardVector3(
+    public static readonly IVector3 RIGHT_DIRECTION = new StandardVector3(
         Vector3.UnitX
     );
 

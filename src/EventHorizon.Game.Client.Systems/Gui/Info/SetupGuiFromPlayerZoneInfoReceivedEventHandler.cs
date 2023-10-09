@@ -1,38 +1,33 @@
-﻿namespace EventHorizon.Game.Client.Systems.Gui.Info
+﻿namespace EventHorizon.Game.Client.Systems.Gui.Info;
+
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Gui.Register;
+using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
+
+using MediatR;
+
+public class SetupGuiFromPlayerZoneInfoReceivedEventHandler
+    : INotificationHandler<PlayerZoneInfoReceivedEvent>
 {
-    using System;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Gui.Register;
-    using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
-    using MediatR;
+    private readonly IMediator _mediator;
 
-    public class SetupGuiFromPlayerZoneInfoReceivedEventHandler
-        : INotificationHandler<PlayerZoneInfoReceivedEvent>
+    public SetupGuiFromPlayerZoneInfoReceivedEventHandler(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public SetupGuiFromPlayerZoneInfoReceivedEventHandler(
-            IMediator mediator
-        )
+    public async Task Handle(
+        PlayerZoneInfoReceivedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        foreach (var guiLayout in notification.PlayerZoneInfo.GuiLayoutList)
         {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            PlayerZoneInfoReceivedEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            foreach (var guiLayout in notification.PlayerZoneInfo.GuiLayoutList)
-            {
-                await _mediator.Send(
-                    new RegisterGuiLayoutDataCommand(
-                        guiLayout
-                    )
-                );
-            }
+            await _mediator.Send(new RegisterGuiLayoutDataCommand(guiLayout));
         }
     }
 }

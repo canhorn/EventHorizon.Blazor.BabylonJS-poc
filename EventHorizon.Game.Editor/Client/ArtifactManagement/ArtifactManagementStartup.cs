@@ -6,6 +6,5 @@ public static class ArtifactManagementStartup
 {
     public static IServiceCollection AddArtifactManagementServices(
         this IServiceCollection services
-    ) => services
-    ;
+    ) => services;
 }

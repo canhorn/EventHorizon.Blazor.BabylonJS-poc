@@ -6,13 +6,9 @@ using EventHorizon.Blazor.Interop;
 
 public class BabylonFileParser : CachedEntity
 {
-    public BabylonFileParser()
-    {
-    }
+    public BabylonFileParser() { }
 
-    public BabylonFileParser(
-        ICachedEntity entity
-    )
+    public BabylonFileParser(ICachedEntity entity)
     {
         this.___guid = entity.___guid;
     }

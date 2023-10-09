@@ -90,10 +90,9 @@ public class StandardAssetManagementState : AssetManagementState
             CancellationToken.None
         );
 
-        FileCollection =
-            new ObservableCollection<FileSystemDirectoryContent>(
-                getFileResult.Files
-            );
+        FileCollection = new ObservableCollection<FileSystemDirectoryContent>(
+            getFileResult.Files
+        );
 
         BuildFileExplorer(getFileResult);
 
@@ -311,17 +310,14 @@ public class StandardAssetManagementState : AssetManagementState
         FileExplorerRoot.ContextMenu = new TreeViewNodeContextMenu
         {
             Items = new List<TreeViewNodeContextMenuItem>
+            {
+                new TreeViewNodeContextMenuItem
                 {
-                    new TreeViewNodeContextMenuItem
-                    {
-                        Text = _localizer["New Folder"],
-                        OnClick = () =>
-                            TriggerNewFolder(
-                                FileExplorerRoot,
-                                getFileResult.CWD
-                            )
-                    }
+                    Text = _localizer["New Folder"],
+                    OnClick = () =>
+                        TriggerNewFolder(FileExplorerRoot, getFileResult.CWD)
                 }
+            }
         };
 
         CurrentTreeViewNode = FileExplorerRoot;
@@ -346,17 +342,16 @@ public class StandardAssetManagementState : AssetManagementState
             Name = $"{directoryContent.FilterPath}/{directoryContent.Name}",
             Text = directoryContent.Name,
             IconCssClass =
-                "--icon oi oi-"
-                + (directoryContent.IsFile ? "file" : "folder"),
+                "--icon oi oi-" + (directoryContent.IsFile ? "file" : "folder"),
             Children = !directoryContent.IsFile
                 ? new List<TreeViewNodeData>
-                  {
-                          new TreeViewNodeData
-                          {
-                              Id = LOADING_ID,
-                              Text = _localizer["Loading"]
-                          }
-                  }
+                {
+                    new TreeViewNodeData
+                    {
+                        Id = LOADING_ID,
+                        Text = _localizer["Loading"]
+                    }
+                }
                 : new List<TreeViewNodeData>(),
             Data = directoryContent,
         };
@@ -384,23 +379,23 @@ public class StandardAssetManagementState : AssetManagementState
         node.ContextMenu = new TreeViewNodeContextMenu
         {
             Items = new List<TreeViewNodeContextMenuItem>
+            {
+                new TreeViewNodeContextMenuItem
                 {
-                    new TreeViewNodeContextMenuItem
-                    {
-                        Text = _localizer["New Folder"],
-                        OnClick = () => TriggerNewFolder(node, directoryContent)
-                    },
-                    new TreeViewNodeContextMenuItem
-                    {
-                        Text = _localizer["Upload"],
-                        OnClick = () => TriggerUpload(node, directoryContent)
-                    },
-                    new TreeViewNodeContextMenuItem
-                    {
-                        Text = _localizer["Delete"],
-                        OnClick = () => TriggerDelete(node, directoryContent)
-                    }
+                    Text = _localizer["New Folder"],
+                    OnClick = () => TriggerNewFolder(node, directoryContent)
+                },
+                new TreeViewNodeContextMenuItem
+                {
+                    Text = _localizer["Upload"],
+                    OnClick = () => TriggerUpload(node, directoryContent)
+                },
+                new TreeViewNodeContextMenuItem
+                {
+                    Text = _localizer["Delete"],
+                    OnClick = () => TriggerDelete(node, directoryContent)
                 }
+            }
         };
 
         return node;
@@ -418,11 +413,10 @@ public class StandardAssetManagementState : AssetManagementState
 
         foreach (var child in node.Children)
         {
-            var childNode =
-                GetTreeViewNodeByDirectoryContentAndExpandParent(
-                    child,
-                    directoryContent
-                );
+            var childNode = GetTreeViewNodeByDirectoryContentAndExpandParent(
+                child,
+                directoryContent
+            );
             if (childNode is not null)
             {
                 node.IsExpanded = true;
@@ -458,10 +452,7 @@ public class StandardAssetManagementState : AssetManagementState
 
         var getFileResult = await _assetFileManagement.GetFiles(
             _accessToken,
-            FileSystemDirectoryContent.BuildPath(
-                RootPath,
-                directoryContent
-            ),
+            FileSystemDirectoryContent.BuildPath(RootPath, directoryContent),
             cancellationToken
         );
         if (getFileResult.Error is not null)
@@ -470,8 +461,7 @@ public class StandardAssetManagementState : AssetManagementState
                 _localizer[
                     "Failed to Delete Directory Content: Code = {0} | Message = {1}",
                     getFileResult.Error?.Code ?? 500,
-                    getFileResult.Error?.Message
-                        ?? _localizer["Server Error"]
+                    getFileResult.Error?.Message ?? _localizer["Server Error"]
                 ],
                 cancellationToken,
                 MessageLevel.Error

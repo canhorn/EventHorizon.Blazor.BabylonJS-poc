@@ -1,15 +1,13 @@
-﻿namespace EventHorizon.Game.Client.Engine.Core.Model
+﻿namespace EventHorizon.Game.Client.Engine.Core.Model;
+
+using EventHorizon.Game.Client.Engine.Core.Api;
+
+public class IndexPoolBase : IIndexPool
 {
-    using EventHorizon.Game.Client.Engine.Core.Api;
+    private long _index;
 
-    public class IndexPoolBase
-        : IIndexPool
+    public long NextIndex()
     {
-        private long _index;
-
-        public long NextIndex()
-        {
-            return _index++;
-        }
+        return _index++;
     }
 }

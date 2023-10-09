@@ -1,10 +1,9 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Toast.Model
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Toast.Model;
+
+public enum MessageLevel
 {
-    public enum MessageLevel
-    {
-        Info,
-        Success,
-        Warning,
-        Error,
-    }
+    Info,
+    Success,
+    Warning,
+    Error,
 }

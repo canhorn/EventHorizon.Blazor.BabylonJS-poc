@@ -1,27 +1,25 @@
-﻿namespace EventHorizon.Game.Client.Engine.Particle.Mapper
+﻿namespace EventHorizon.Game.Client.Engine.Particle.Mapper;
+
+using System;
+using System.Collections.Generic;
+
+using BabylonJS;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Game.Client.Engine.Entity.Model;
+using EventHorizon.Game.Client.Engine.Particle.Api;
+using EventHorizon.Game.Client.Engine.Particle.Model;
+using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
+
+using Microsoft.Extensions.Logging;
+
+public class BabylonJSParticleSettingsIntoParticleSystemMapper
+    : ParticleSettingsIntoParticleSystemMapper
 {
-    using System;
-    using System.Collections.Generic;
-
-    using BabylonJS;
-
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Game.Client.Engine.Entity.Model;
-    using EventHorizon.Game.Client.Engine.Particle.Api;
-    using EventHorizon.Game.Client.Engine.Particle.Model;
-    using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
-
-    using Microsoft.Extensions.Logging;
-
-    public class BabylonJSParticleSettingsIntoParticleSystemMapper
-        : ParticleSettingsIntoParticleSystemMapper
-    {
-        private static IList<string> IGNORE_PROPERTY_LIST => new List<string>
-        {
-            "name",
-            "capacity",
-        };
-        private static IList<string> VECTOR3_PROPERTY_LIST => new List<string>
+    private static IList<string> IGNORE_PROPERTY_LIST =>
+        new List<string> { "name", "capacity", };
+    private static IList<string> VECTOR3_PROPERTY_LIST =>
+        new List<string>
         {
             "minEmitBox",
             "maxEmitBox",
@@ -29,149 +27,121 @@
             "direction2",
             "gravity",
         };
-        private static IList<string> COLOR4_PROPERTY_LIST => new List<string>
-        {
-            "color1",
-            "color2",
-            "colorDead",
-        };
+    private static IList<string> COLOR4_PROPERTY_LIST =>
+        new List<string> { "color1", "color2", "colorDead", };
 
-        public void Map(
-            EngineParticleSystem system,
-            ParticleSettings settings
-        )
-        {
-            UpdateFromSettings(
-                system.GetBabylonJSParticleSystem(),
-                settings
-            );
-        }
+    public void Map(EngineParticleSystem system, ParticleSettings settings)
+    {
+        UpdateFromSettings(system.GetBabylonJSParticleSystem(), settings);
+    }
 
-        private static void UpdateFromSettings(
-            Option<ParticleSystem> particleSystem,
-            ParticleSettings settings
-        )
+    private static void UpdateFromSettings(
+        Option<ParticleSystem> particleSystem,
+        ParticleSettings settings
+    )
+    {
+        try
         {
-            try
+            if (!particleSystem.HasValue)
             {
-                if (!particleSystem.HasValue)
+                return;
+            }
+            foreach (var setting in settings)
+            {
+                if (setting.Key == "particleTexture")
                 {
-                    return;
-                }
-                foreach (var setting in settings)
-                {
-                    if (setting.Key == "particleTexture")
-                    {
-                        if (setting.Value.IsNull()
-                            || (setting.Value is string textureUrl
-                                && textureUrl.IsNullOrEmpty()
-                            )
+                    if (
+                        setting.Value.IsNull()
+                        || (
+                            setting.Value is string textureUrl
+                            && textureUrl.IsNullOrEmpty()
                         )
-                        {
-                            particleSystem.Value.particleTexture = CreateMissingTexture();
-                            continue;
-                        }
-                        particleSystem.Value.particleTexture = new Texture(
-                            null!,
-                            AssetServer.CreateAssetLocationUrl(
-                                setting.Value.To(() => string.Empty)
-                            )
-                        );
-                        continue;
-                    }
-                    // Check for properties to ignore
-                    else if (IGNORE_PROPERTY_LIST.Contains(
-                        setting.Key
-                    ))
+                    )
                     {
+                        particleSystem.Value.particleTexture =
+                            CreateMissingTexture();
                         continue;
                     }
-                    // Check for Vector3 Properties
-                    else if (VECTOR3_PROPERTY_LIST.Contains(
-                        setting.Key
-                    ))
-                    {
-                        var vector3 = setting.Value.To<Vector3Model>(() => new());
-                        SetPropertyOnParticleSystem(
-                            particleSystem.Value.___guid,
-                            setting.Key,
-                            new Vector3(
-                                vector3.X,
-                                vector3.Y,
-                                vector3.Z
-                            )
-                        );
-                        continue;
-                    }
-                    // Check for Color4 Properties
-                    else if (COLOR4_PROPERTY_LIST.Contains(
-                        setting.Key
-                    ))
-                    {
-                        var color4 = setting.Value.To(() => new Color4Model());
-                        SetPropertyOnParticleSystem(
-                            particleSystem.Value.___guid,
-                            setting.Key,
-                            new Color4(
-                                color4.R,
-                                color4.G,
-                                color4.B,
-                                color4.A
-                            )
-                        );
-                        continue;
-                    }
-                    // Set the Properties
+                    particleSystem.Value.particleTexture = new Texture(
+                        null!,
+                        AssetServer.CreateAssetLocationUrl(
+                            setting.Value.To(() => string.Empty)
+                        )
+                    );
+                    continue;
+                }
+                // Check for properties to ignore
+                else if (IGNORE_PROPERTY_LIST.Contains(setting.Key))
+                {
+                    continue;
+                }
+                // Check for Vector3 Properties
+                else if (VECTOR3_PROPERTY_LIST.Contains(setting.Key))
+                {
+                    var vector3 = setting.Value.To<Vector3Model>(() => new());
                     SetPropertyOnParticleSystem(
                         particleSystem.Value.___guid,
                         setting.Key,
-                        setting.Value
+                        new Vector3(vector3.X, vector3.Y, vector3.Z)
                     );
+                    continue;
                 }
-            }
-            catch (Exception ex)
-            {
-                GameServiceProvider.GetService<ILogger<BabylonJSParticleSettingsIntoParticleSystemMapper>>()
-                    .LogError(
-                        ex,
-                        "Failed to Map Settings into BabylonJS Particle System."
-                    );
-            }
-        }
-
-        private static DynamicTexture CreateMissingTexture()
-        {
-            var dynamicTexture = new DynamicTexture(
-                null!,
-                new
+                // Check for Color4 Properties
+                else if (COLOR4_PROPERTY_LIST.Contains(setting.Key))
                 {
-                    Width = 32,
-                    Height = 32,
-                },
-                true
-            );
-            dynamicTexture.drawText(
-                "X",
-                "24",
-                "white",
-                "red",
-                invertY: true,
-                update: true
-            );
-            return dynamicTexture;
+                    var color4 = setting.Value.To(() => new Color4Model());
+                    SetPropertyOnParticleSystem(
+                        particleSystem.Value.___guid,
+                        setting.Key,
+                        new Color4(color4.R, color4.G, color4.B, color4.A)
+                    );
+                    continue;
+                }
+                // Set the Properties
+                SetPropertyOnParticleSystem(
+                    particleSystem.Value.___guid,
+                    setting.Key,
+                    setting.Value
+                );
+            }
         }
-
-        private static void SetPropertyOnParticleSystem(
-            string guid,
-            string property,
-            object value
-        )
+        catch (Exception ex)
         {
-            EventHorizonBlazorInterop.Set(
-                guid,
-                property,
-                value
-            );
+            GameServiceProvider
+                .GetService<
+                    ILogger<BabylonJSParticleSettingsIntoParticleSystemMapper>
+                >()
+                .LogError(
+                    ex,
+                    "Failed to Map Settings into BabylonJS Particle System."
+                );
         }
+    }
+
+    private static DynamicTexture CreateMissingTexture()
+    {
+        var dynamicTexture = new DynamicTexture(
+            null!,
+            new { Width = 32, Height = 32, },
+            true
+        );
+        dynamicTexture.drawText(
+            "X",
+            "24",
+            "white",
+            "red",
+            invertY: true,
+            update: true
+        );
+        return dynamicTexture;
+    }
+
+    private static void SetPropertyOnParticleSystem(
+        string guid,
+        string property,
+        object value
+    )
+    {
+        EventHorizonBlazorInterop.Set(guid, property, value);
     }
 }

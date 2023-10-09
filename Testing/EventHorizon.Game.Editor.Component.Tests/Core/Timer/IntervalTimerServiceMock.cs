@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 using EventHorizon.Game.Client.Core.Timer.Api;
 
-public class IntervalTimerServiceMock
-    : IIntervalTimerService
+public class IntervalTimerServiceMock : IIntervalTimerService
 {
     public void Dispose() { }
 

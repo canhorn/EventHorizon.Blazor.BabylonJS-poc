@@ -1,42 +1,43 @@
-﻿namespace EventHorizon.Game.Server.ServerModule.SystemLog.Message
+﻿namespace EventHorizon.Game.Server.ServerModule.SystemLog.Message;
+
+using EventHorizon.Game.Client.Engine.Gui.Api;
+using EventHorizon.Game.Client.Engine.Gui.Model;
+using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
+using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
+using EventHorizon.Observer.Model;
+
+[ClientAction("MessageFromSystem")]
+public struct ClientActionMessageFromSystemEvent : IClientAction
 {
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using EventHorizon.Game.Client.Engine.Gui.Model;
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
-    using EventHorizon.Observer.Model;
+    public string Message { get; }
+    public IGuiControlOptions? SenderControlOptions { get; }
+    public IGuiControlOptions? MessageControlOptions { get; }
 
-    [ClientAction("MessageFromSystem")]
-    public struct ClientActionMessageFromSystemEvent
-        : IClientAction
+    public ClientActionMessageFromSystemEvent(
+        IClientActionDataResolver resolver
+    )
     {
-        public string Message { get; }
-        public IGuiControlOptions? SenderControlOptions { get; }
-        public IGuiControlOptions? MessageControlOptions { get; }
-
-        public ClientActionMessageFromSystemEvent(
-            IClientActionDataResolver resolver
-        )
-        {
-            Message = resolver.Resolve<string>("message");
-            SenderControlOptions = resolver.ResolveNullable<GuiControlOptionsModel>("senderControlOptions");
-            MessageControlOptions = resolver.ResolveNullable<GuiControlOptionsModel>("messageControlOptions");
-        }
-
-        public ClientActionMessageFromSystemEvent(
-            string message,
-            IGuiControlOptions senderControlOptions,
-            IGuiControlOptions messageControlOptions
-        )
-        {
-            Message = message;
-            SenderControlOptions = senderControlOptions;
-            MessageControlOptions = messageControlOptions;
-        }
+        Message = resolver.Resolve<string>("message");
+        SenderControlOptions = resolver.ResolveNullable<GuiControlOptionsModel>(
+            "senderControlOptions"
+        );
+        MessageControlOptions =
+            resolver.ResolveNullable<GuiControlOptionsModel>(
+                "messageControlOptions"
+            );
     }
 
-    public interface ClientActionMessageFromSystemEventObserver
-        : ArgumentObserver<ClientActionMessageFromSystemEvent>
+    public ClientActionMessageFromSystemEvent(
+        string message,
+        IGuiControlOptions senderControlOptions,
+        IGuiControlOptions messageControlOptions
+    )
     {
+        Message = message;
+        SenderControlOptions = senderControlOptions;
+        MessageControlOptions = messageControlOptions;
     }
 }
+
+public interface ClientActionMessageFromSystemEventObserver
+    : ArgumentObserver<ClientActionMessageFromSystemEvent> { }

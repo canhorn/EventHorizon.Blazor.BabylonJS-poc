@@ -1,42 +1,41 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Dispose
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Dispose;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.ClientAssets.Api;
+
+using MediatR;
+
+public class DisposeOfClientAssetInstanceCommandHandler
+    : IRequestHandler<
+        DisposeOfClientAssetInstanceCommand,
+        StandardCommandResult
+    >
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-    using MediatR;
+    private readonly ClientAssetInstanceState _store;
 
-    public class DisposeOfClientAssetInstanceCommandHandler
-        : IRequestHandler<DisposeOfClientAssetInstanceCommand, StandardCommandResult>
+    public DisposeOfClientAssetInstanceCommandHandler(
+        ClientAssetInstanceState store
+    )
     {
-        private readonly ClientAssetInstanceState _store;
+        _store = store;
+    }
 
-        public DisposeOfClientAssetInstanceCommandHandler(
-            ClientAssetInstanceState store
-        )
+    public Task<StandardCommandResult> Handle(
+        DisposeOfClientAssetInstanceCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var clientInstanceAsset = _store.Get(request.AssetInstanceId);
+        if (clientInstanceAsset.HasValue)
         {
-            _store = store;
+            clientInstanceAsset.Value.Dispose();
+            _store.Remove(request.AssetInstanceId);
         }
 
-        public Task<StandardCommandResult> Handle(
-            DisposeOfClientAssetInstanceCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var clientInstanceAsset = _store.Get(
-                request.AssetInstanceId
-            );
-            if (clientInstanceAsset.HasValue)
-            {
-                clientInstanceAsset.Value.Dispose();
-                _store.Remove(
-                    request.AssetInstanceId
-                );
-            }
-
-            return new StandardCommandResult()
-                .FromResult();
-        }
+        return new StandardCommandResult().FromResult();
     }
 }

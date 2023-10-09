@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+public interface IServerVector3
 {
-    public interface IServerVector3
-    {
-        decimal X { get; }
-        decimal Y { get; }
-        decimal Z { get; }
-    }
+    decimal X { get; }
+    decimal Y { get; }
+    decimal Z { get; }
 }

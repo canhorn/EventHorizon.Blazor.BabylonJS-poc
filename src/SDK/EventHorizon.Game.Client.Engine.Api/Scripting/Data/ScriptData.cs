@@ -1,37 +1,27 @@
-﻿namespace EventHorizon.Game.Client.Engine.Scripting.Data
+﻿namespace EventHorizon.Game.Client.Engine.Scripting.Data;
+
+using System.Collections.Generic;
+
+public struct ScriptData
 {
-    using System.Collections.Generic;
+    private readonly IDictionary<string, object> _data;
 
-    public struct ScriptData
+    public ScriptData(IDictionary<string, object> data)
     {
-        private readonly IDictionary<string, object> _data;
+        _data = data;
+    }
 
-        public ScriptData(
-            IDictionary<string, object> data
-        )
+    public T Get<T>(string name)
+    {
+        if (!_data.ContainsKey(name))
         {
-            _data = data;
+            return default!;
         }
+        return _data[name].To<T>()!;
+    }
 
-        public T Get<T>(
-            string name
-        )
-        {
-            if (!_data.ContainsKey(
-                name
-            ))
-            {
-                return default!;
-            }
-            return _data[name].To<T>()!;
-        }
-
-        public void Set(
-            string name,
-            object value
-        )
-        {
-            _data[name] = value;
-        }
+    public void Set(string name, object value)
+    {
+        _data[name] = value;
     }
 }

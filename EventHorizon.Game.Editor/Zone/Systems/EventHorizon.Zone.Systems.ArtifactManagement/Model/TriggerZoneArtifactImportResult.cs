@@ -4,9 +4,7 @@ public class TriggerZoneArtifactImportResult
 {
     public string ReferenceId { get; }
 
-    public TriggerZoneArtifactImportResult(
-        string referenceId
-    )
+    public TriggerZoneArtifactImportResult(string referenceId)
     {
         ReferenceId = referenceId;
     }

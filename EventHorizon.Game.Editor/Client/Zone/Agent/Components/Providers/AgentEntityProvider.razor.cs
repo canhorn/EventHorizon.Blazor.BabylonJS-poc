@@ -48,9 +48,7 @@ public class AgentEntityProviderModel : EditorComponentBase
             // TODO: Look into this, it might be removing cross Game Server Data
             objectEntity.RawData = objectEntity.Data;
         }
-        var result = await Mediator.Send(
-            new SaveAgentEntityCommand(entity)
-        );
+        var result = await Mediator.Send(new SaveAgentEntityCommand(entity));
         if (result.Success.IsNotTrue())
         {
             await ShowMessage(

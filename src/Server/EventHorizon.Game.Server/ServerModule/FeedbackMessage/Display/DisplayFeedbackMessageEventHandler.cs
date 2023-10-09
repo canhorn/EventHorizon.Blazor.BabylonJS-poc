@@ -1,29 +1,29 @@
-﻿namespace EventHorizon.Game.Server.ServerModule.FeedbackMessage.Display
+﻿namespace EventHorizon.Game.Server.ServerModule.FeedbackMessage.Display;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+// TODO: Move this into an Implementation Project, Remove from the SDK
+public class DisplayFeedbackMessageEventHandler
+    : INotificationHandler<DisplayFeedbackMessageEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    private readonly ObserverState _observer;
 
-    // TODO: Move this into an Implementation Project, Remove from the SDK
-    public class DisplayFeedbackMessageEventHandler
-        : INotificationHandler<DisplayFeedbackMessageEvent>
+    public DisplayFeedbackMessageEventHandler(ObserverState observer)
     {
-        private readonly ObserverState _observer;
-
-        public DisplayFeedbackMessageEventHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            DisplayFeedbackMessageEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<DisplayFeedbackMessageEventObserver, DisplayFeedbackMessageEvent>(
-            notification,
-            cancellationToken
-        );
+        _observer = observer;
     }
+
+    public Task Handle(
+        DisplayFeedbackMessageEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<
+            DisplayFeedbackMessageEventObserver,
+            DisplayFeedbackMessageEvent
+        >(notification, cancellationToken);
 }

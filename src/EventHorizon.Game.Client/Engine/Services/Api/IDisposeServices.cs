@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Game.Client.Engine.Services.Api
-{
-    using System.Threading.Tasks;
+﻿namespace EventHorizon.Game.Client.Engine.Services.Api;
 
-    public interface IDisposeServices
-    {
-        Task DisposeServices();
-    }
+using System.Threading.Tasks;
+
+public interface IDisposeServices
+{
+    Task DisposeServices();
 }

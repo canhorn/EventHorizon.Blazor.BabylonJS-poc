@@ -7,24 +7,17 @@
     using EventHorizon.Observer.State;
     using MediatR;
 
-    public struct GameStateUpdatedEvent : INotification
-    {
-
-    }
+    public struct GameStateUpdatedEvent : INotification { }
 
     public interface GameStateUpdatedEventObserver
-        : ArgumentObserver<GameStateUpdatedEvent>
-    {
-    }
+        : ArgumentObserver<GameStateUpdatedEvent> { }
 
     public class GameStateUpdatedEventHandler
         : INotificationHandler<GameStateUpdatedEvent>
     {
         private readonly ObserverState _observer;
 
-        public GameStateUpdatedEventHandler(
-            ObserverState observer
-        )
+        public GameStateUpdatedEventHandler(ObserverState observer)
         {
             _observer = observer;
         }
@@ -32,9 +25,10 @@
         public Task Handle(
             GameStateUpdatedEvent notification,
             CancellationToken cancellationToken
-        ) => _observer.Trigger<GameStateUpdatedEventObserver, GameStateUpdatedEvent>(
-            notification,
-            cancellationToken
-        );
+        ) =>
+            _observer.Trigger<
+                GameStateUpdatedEventObserver,
+                GameStateUpdatedEvent
+            >(notification, cancellationToken);
     }
 }

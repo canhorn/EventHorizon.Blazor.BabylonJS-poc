@@ -1,34 +1,33 @@
-﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Stop
+﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Stop;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
+
+using MediatR;
+
+public class StopPlayerZoneConnectionCommandHandler
+    : IRequestHandler<StopPlayerZoneConnectionCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
-    using MediatR;
+    private readonly IPlayerZoneConnectionState _state;
 
-    public class StopPlayerZoneConnectionCommandHandler
-        : IRequestHandler<StopPlayerZoneConnectionCommand, StandardCommandResult>
+    public StopPlayerZoneConnectionCommandHandler(
+        IPlayerZoneConnectionState state
+    )
     {
-        private readonly IPlayerZoneConnectionState _state;
+        _state = state;
+    }
 
-        public StopPlayerZoneConnectionCommandHandler(
-            IPlayerZoneConnectionState state
-        )
-        {
-            _state = state;
-        }
+    public async Task<StandardCommandResult> Handle(
+        StopPlayerZoneConnectionCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _state.StopConnection(cancellationToken);
 
-        public async Task<StandardCommandResult> Handle(
-            StopPlayerZoneConnectionCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _state.StopConnection(
-                cancellationToken
-            );
-
-            return new StandardCommandResult();
-        }
+        return new StandardCommandResult();
     }
 }

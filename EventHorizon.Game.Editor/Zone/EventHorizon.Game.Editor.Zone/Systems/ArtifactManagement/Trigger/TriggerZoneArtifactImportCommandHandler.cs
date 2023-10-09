@@ -11,7 +11,10 @@ using EventHorizon.Zone.Systems.ArtifactManagement.Trigger;
 using MediatR;
 
 public class TriggerZoneArtifactImportCommandHandler
-    : IRequestHandler<TriggerZoneArtifactImportCommand, CommandResult<TriggerZoneArtifactImportResult>>
+    : IRequestHandler<
+        TriggerZoneArtifactImportCommand,
+        CommandResult<TriggerZoneArtifactImportResult>
+    >
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
@@ -27,16 +30,14 @@ public class TriggerZoneArtifactImportCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var result = await _zoneAdminServices.Api.ArtifactManagement.TriggerImport(
-            request.ImportArtifactUrl,
-            cancellationToken
-        );
-        if (result.Success.IsNotTrue()
-            || result.Result.IsNull()
-        )
+        var result =
+            await _zoneAdminServices.Api.ArtifactManagement.TriggerImport(
+                request.ImportArtifactUrl,
+                cancellationToken
+            );
+        if (result.Success.IsNotTrue() || result.Result.IsNull())
         {
-            return result.ErrorCode
-                ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
         return result.Result.ToResult();

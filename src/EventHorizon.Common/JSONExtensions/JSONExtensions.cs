@@ -1,62 +1,53 @@
-﻿namespace System.Text.Json
+﻿namespace System.Text.Json;
+
+using System;
+using System.Buffers;
+using System.Diagnostics;
+
+public static partial class JsonExtensions
 {
-    using System;
-    using System.Buffers;
-    using System.Diagnostics;
+    private static readonly JsonSerializerOptions DEFAULT_OPTIONS =
+        new JsonSerializerOptions { PropertyNameCaseInsensitive = true, };
 
-    public static partial class JsonExtensions
+    /// <summary>
+    ///
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="element"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public static T ToObject<T>(
+        this JsonElement element,
+        JsonSerializerOptions? options = null
+    )
     {
-        private readonly static JsonSerializerOptions DEFAULT_OPTIONS = new JsonSerializerOptions
+        var bufferWriter = new ArrayBufferWriter<byte>();
+        using (var writer = new Utf8JsonWriter(bufferWriter))
         {
-            PropertyNameCaseInsensitive = true,
-        };
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="element"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        public static T ToObject<T>(
-            this JsonElement element,
-            JsonSerializerOptions? options = null
-        )
-        {
-            var bufferWriter = new ArrayBufferWriter<byte>();
-            using (var writer = new Utf8JsonWriter(
-                bufferWriter
-            ))
-            {
-                element.WriteTo(writer);
-            }
-            return JsonSerializer.Deserialize<T>(
-                bufferWriter.WrittenSpan,
-                options ?? DEFAULT_OPTIONS
-            );
+            element.WriteTo(writer);
         }
+        return JsonSerializer.Deserialize<T>(
+            bufferWriter.WrittenSpan,
+            options ?? DEFAULT_OPTIONS
+        );
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="document"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        public static T ToObject<T>(
-            this JsonDocument document,
-            JsonSerializerOptions? options = null
-        )
+    /// <summary>
+    ///
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="document"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public static T ToObject<T>(
+        this JsonDocument document,
+        JsonSerializerOptions? options = null
+    )
+    {
+        if (document == null)
         {
-            if (document == null)
-            {
-                throw new ArgumentNullException(
-                    nameof(document)
-                );
-            }
-            return document.RootElement.ToObject<T>(
-                options
-            );
+            throw new ArgumentNullException(nameof(document));
         }
+        return document.RootElement.ToObject<T>(options);
     }
 }

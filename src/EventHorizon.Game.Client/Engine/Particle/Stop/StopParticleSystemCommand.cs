@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Engine.Particle.Stop
+﻿namespace EventHorizon.Game.Client.Engine.Particle.Stop;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct StopParticleSystemCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public long Id { get; }
 
-    public struct StopParticleSystemCommand
-        : IRequest<StandardCommandResult>
+    public StopParticleSystemCommand(long id)
     {
-        public long Id { get; }
-
-        public StopParticleSystemCommand(
-            long id
-        )
-        {
-            Id = id;
-        }
+        Id = id;
     }
 }

@@ -5,8 +5,8 @@ using Atata;
 using EventHorizon.Game.Editor.Automation.Components.Toast;
 using EventHorizon.Game.Editor.Automation.Layout.Components;
 
-public class MainLayoutPage<TOwner>
-    : Page<TOwner> where TOwner : Page<TOwner>
+public class MainLayoutPage<TOwner> : Page<TOwner>
+    where TOwner : Page<TOwner>
 {
     public MenuBarComponent<TOwner> TopBar { get; private set; }
 

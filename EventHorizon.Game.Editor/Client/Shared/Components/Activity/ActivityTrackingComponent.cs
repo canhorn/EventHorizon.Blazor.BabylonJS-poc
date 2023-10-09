@@ -1,31 +1,28 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Activity
-{
-    using System.Threading.Tasks;
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Activity;
 
-    using EventHorizon.Activity;
+using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Components;
-    using Microsoft.Extensions.Logging;
+using EventHorizon.Activity;
 
-    public class ActivityTrackingComponent
-        : ObservableComponentBase,
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
+
+public class ActivityTrackingComponent
+    : ObservableComponentBase,
         ActivityEventObserver
+{
+    [Inject]
+    public ILogger<ActivityTrackingComponent> Logger { get; set; } = null!;
+
+    public Task Handle(ActivityEvent args)
     {
-        [Inject]
-        public ILogger<ActivityTrackingComponent> Logger { get; set; } = null!;
+        Logger.LogDebug(
+            "Tracked Activity Event: ({Category}.{Action}.{Tag})",
+            args.Category,
+            args.Action,
+            args.Tag
+        );
 
-        public Task Handle(
-            ActivityEvent args
-        )
-        {
-            Logger.LogDebug(
-                "Tracked Activity Event: ({Category}.{Action}.{Tag})",
-                args.Category,
-                args.Action,
-                args.Tag
-            );
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

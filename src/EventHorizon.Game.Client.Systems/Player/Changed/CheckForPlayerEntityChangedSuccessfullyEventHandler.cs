@@ -1,41 +1,43 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Changed
+﻿namespace EventHorizon.Game.Client.Systems.Player.Changed;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Systems.Entity.Changed;
+using EventHorizon.Game.Client.Systems.Player.Api;
+
+using MediatR;
+
+public class CheckForPlayerEntityChangedSuccessfullyEventHandler
+    : INotificationHandler<EntityChangedSuccessfullyEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Systems.Entity.Changed;
-    using EventHorizon.Game.Client.Systems.Player.Api;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly IPlayerState _state;
 
-    public class CheckForPlayerEntityChangedSuccessfullyEventHandler
-        : INotificationHandler<EntityChangedSuccessfullyEvent>
+    public CheckForPlayerEntityChangedSuccessfullyEventHandler(
+        IMediator mediator,
+        IPlayerState state
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly IPlayerState _state;
+        _mediator = mediator;
+        _state = state;
+    }
 
-        public CheckForPlayerEntityChangedSuccessfullyEventHandler(
-            IMediator mediator,
-            IPlayerState state
+    public async Task Handle(
+        EntityChangedSuccessfullyEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (
+            _state.Player.HasValue
+            && notification.EntityId == _state.Player.Value.EntityId
         )
         {
-            _mediator = mediator;
-            _state = state;
-        }
-
-        public async Task Handle(
-            EntityChangedSuccessfullyEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (_state.Player.HasValue
-                && notification.EntityId == _state.Player.Value.EntityId
-            )
-            {
-                await _mediator.Publish(
-                    new PlayerDetailsChangedEvent(),
-                    cancellationToken
-                );
-            }
+            await _mediator.Publish(
+                new PlayerDetailsChangedEvent(),
+                cancellationToken
+            );
         }
     }
 }

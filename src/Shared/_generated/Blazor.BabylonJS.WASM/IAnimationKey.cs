@@ -1,156 +1,130 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+public interface IAnimationKey : ICachedEntity { }
+
+[JsonConverter(typeof(CachedEntityConverter<IAnimationKeyCachedEntity>))]
+public class IAnimationKeyCachedEntity : CachedEntityObject, IAnimationKey
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    public interface IAnimationKey : ICachedEntity { }
-    
-    [JsonConverter(typeof(CachedEntityConverter<IAnimationKeyCachedEntity>))]
-    public class IAnimationKeyCachedEntity : CachedEntityObject, IAnimationKey
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    #endregion
+
+    #region Properties
+
+    public decimal frame
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-
-        #endregion
-
-        #region Properties
-        
-        public decimal frame
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "frame"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "frame",
-                    value
-                );
-            }
+                this.___guid,
+                "frame"
+            );
         }
-
-        
-        public CachedEntity value
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                    this.___guid,
-                    "value"
-                );
-            }
-            set
-            {
 
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "value",
-                    value
-                );
-            }
+            EventHorizonBlazorInterop.Set(this.___guid, "frame", value);
         }
-
-        
-        public CachedEntity inTangent
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                    this.___guid,
-                    "inTangent"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "inTangent",
-                    value
-                );
-            }
-        }
-
-        
-        public CachedEntity outTangent
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                    this.___guid,
-                    "outTangent"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "outTangent",
-                    value
-                );
-            }
-        }
-
-        
-        public int interpolation
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<int>(
-                    this.___guid,
-                    "interpolation"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "interpolation",
-                    value
-                );
-            }
-        }
-        #endregion
-        
-        #region Constructor
-        public IAnimationKeyCachedEntity() : base() { }
-
-        public IAnimationKeyCachedEntity(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-        }
-
-
-        #endregion
-
-        #region Methods
-
-        #endregion
     }
+
+    public CachedEntity value
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<CachedEntity>(
+                this.___guid,
+                "value"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "value", value);
+        }
+    }
+
+    public CachedEntity inTangent
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<CachedEntity>(
+                this.___guid,
+                "inTangent"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "inTangent", value);
+        }
+    }
+
+    public CachedEntity outTangent
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<CachedEntity>(
+                this.___guid,
+                "outTangent"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "outTangent", value);
+        }
+    }
+
+    public int interpolation
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<int>(
+                this.___guid,
+                "interpolation"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "interpolation", value);
+        }
+    }
+    #endregion
+
+    #region Constructor
+    public IAnimationKeyCachedEntity()
+        : base() { }
+
+    public IAnimationKeyCachedEntity(ICachedEntity entity)
+        : base(entity) { }
+
+    #endregion
+
+    #region Methods
+
+    #endregion
 }

@@ -4,15 +4,12 @@ using System.Diagnostics.CodeAnalysis;
 
 public static class OptionExtensions
 {
-    public static Option<T> ToOption<T>(
-       this T value
-    ) => new(value);
+    public static Option<T> ToOption<T>(this T value) => new(value);
 }
 
 [Serializable]
 #pragma warning disable CA1716 // Identifiers should not match keywords
-public struct Option<T>
-    : IEquatable<Option<T>>
+public struct Option<T> : IEquatable<Option<T>>
 #pragma warning restore CA1716 // Identifiers should not match keywords
 {
     private readonly bool _hasValue;
@@ -26,10 +23,7 @@ public struct Option<T>
 
     public bool HasValue
     {
-        get
-        {
-            return _hasValue;
-        }
+        get { return _hasValue; }
     }
 
     [NotNull]
@@ -45,15 +39,9 @@ public struct Option<T>
         }
     }
 
-    public static implicit operator Option<T>(
-        T? result
-    ) => new(
-        result
-    );
+    public static implicit operator Option<T>(T? result) => new(result);
 
-    public static implicit operator bool(
-        Option<T> result
-    ) => result.HasValue;
+    public static implicit operator bool(Option<T> result) => result.HasValue;
 
     #region Generated
     public override bool Equals(object obj)
@@ -63,8 +51,8 @@ public struct Option<T>
 
     public bool Equals(Option<T> other)
     {
-        return _hasValue == other._hasValue &&
-               EqualityComparer<T>.Default.Equals(_value, other._value);
+        return _hasValue == other._hasValue
+            && EqualityComparer<T>.Default.Equals(_value, other._value);
     }
 
     public override int GetHashCode()
@@ -82,12 +70,9 @@ public struct Option<T>
         return !(left == right);
     }
 
-    public Option<T> ToOption() => new(
-        Value
-    );
+    public Option<T> ToOption() => new(Value);
 
-    public bool ToBoolean()
-        => HasValue;
+    public bool ToBoolean() => HasValue;
 
     #endregion
 }

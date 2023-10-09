@@ -1,11 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿namespace EventHorizon.Observer.Model;
 
-namespace EventHorizon.Observer.Model
+using System.Threading.Tasks;
+
+public interface ArgumentObserver<TArgs> : ObserverBase
 {
-    public interface ArgumentObserver<TArgs> : ObserverBase
-    {
-        Task Handle(
-            TArgs args
-        );
-    }
+    Task Handle(TArgs args);
 }

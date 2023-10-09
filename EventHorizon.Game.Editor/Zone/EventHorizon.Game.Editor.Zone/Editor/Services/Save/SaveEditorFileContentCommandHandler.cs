@@ -1,48 +1,47 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Save
+﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Save;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
+using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
+
+using MediatR;
+
+public class SaveEditorFileContentCommandHandler
+    : IRequestHandler<SaveEditorFileContentCommand, EditorResponse>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
+    private readonly ZoneEditorServices _zoneEditorServices;
 
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
-    using MediatR;
-
-    public class SaveEditorFileContentCommandHandler
-        : IRequestHandler<SaveEditorFileContentCommand, EditorResponse>
+    public SaveEditorFileContentCommandHandler(
+        IMediator mediator,
+        ZoneEditorServices zoneEditorServices
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly ZoneEditorServices _zoneEditorServices;
+        _mediator = mediator;
+        _zoneEditorServices = zoneEditorServices;
+    }
 
-        public SaveEditorFileContentCommandHandler(
-            IMediator mediator,
-            ZoneEditorServices zoneEditorServices
-        )
-        {
-            _mediator = mediator;
-            _zoneEditorServices = zoneEditorServices;
-        }
+    public async Task<EditorResponse> Handle(
+        SaveEditorFileContentCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneEditorServices.Api.SaveEditorFileContent(
+            request.Path,
+            request.FileName,
+            request.Content
+        );
 
-        public async Task<EditorResponse> Handle(
-            SaveEditorFileContentCommand request,
-            CancellationToken cancellationToken
-        )
+        if (result.Successful)
         {
-            var result = await _zoneEditorServices.Api.SaveEditorFileContent(
-                request.Path,
-                request.FileName,
-                request.Content
+            await _mediator.Publish(
+                new SavedEditorFileContentSuccessfulyEvent(),
+                cancellationToken
             );
-
-            if (result.Successful)
-            {
-                await _mediator.Publish(
-                    new SavedEditorFileContentSuccessfulyEvent(),
-                    cancellationToken
-                );
-            }
-
-            return result;
         }
+
+        return result;
     }
 }

@@ -37,14 +37,12 @@ public class WebHost
         AtataContext.Current?.CleanUp();
     }
 
-    private static readonly WebHostSettings Settings = new WebHostSettingsModel();
+    private static readonly WebHostSettings Settings =
+        new WebHostSettingsModel();
 
     static WebHost()
     {
-        TestConfiguration.Configuration.Bind(
-            "webHost",
-            Settings
-        );
+        TestConfiguration.Configuration.Bind("webHost", Settings);
     }
 
     [OneTimeSetUp]
@@ -54,41 +52,30 @@ public class WebHost
             .UseBaseUrl(Settings.BaseUrl)
             .UseCulture(Settings.Culture)
             .UseAllNUnitFeatures()
-            .UseDriver(
-                () =>
+            .UseDriver(() =>
+            {
+                if (Settings.Driver.IsRemote)
                 {
-                    if (Settings.Driver.IsRemote)
-                    {
-                        return new RemoteWebDriver(
-                            new Uri(
-                                Settings.Driver.Url
-                            ),
-                            GetDriverOptions()
-                        );
-                    }
-                    else if (Settings.Driver.Type == "edge")
-                    {
-                        return new EdgeDriver(
-                            BuildEdgeOptions()
-                        );
-                    }
-                    else if (Settings.Driver.Type == "chrome")
-                    {
-                        return new ChromeDriver(
-                            BuildChromeOptions()
-                        );
-                    }
-                    else if (Settings.Driver.Type == "firefox")
-                    {
-                        return new FirefoxDriver(
-                            BuildFirefoxOptions()
-                        );
-                    }
-
-                    throw new ArgumentException("Driver Type was not Valid");
+                    return new RemoteWebDriver(
+                        new Uri(Settings.Driver.Url),
+                        GetDriverOptions()
+                    );
                 }
-            );
+                else if (Settings.Driver.Type == "edge")
+                {
+                    return new EdgeDriver(BuildEdgeOptions());
+                }
+                else if (Settings.Driver.Type == "chrome")
+                {
+                    return new ChromeDriver(BuildChromeOptions());
+                }
+                else if (Settings.Driver.Type == "firefox")
+                {
+                    return new FirefoxDriver(BuildFirefoxOptions());
+                }
 
+                throw new ArgumentException("Driver Type was not Valid");
+            });
 
         if (!Settings.Driver.IsRemote)
         {
@@ -97,13 +84,12 @@ public class WebHost
 
         if (Settings.SlowMo)
         {
-            AtataContext.GlobalConfiguration
-                .Attributes.Global.Add(
-                   new WaitAttribute(Settings.SlowMoDelay)
-                   {
-                       On = TriggerEvents.BeforeAccess,
-                   }
-               );
+            AtataContext.GlobalConfiguration.Attributes.Global.Add(
+                new WaitAttribute(Settings.SlowMoDelay)
+                {
+                    On = TriggerEvents.BeforeAccess,
+                }
+            );
         }
     }
 
@@ -122,13 +108,11 @@ public class WebHost
 
     private static EdgeOptions BuildEdgeOptions()
     {
-        var options = new EdgeOptions
-        {
-            UseChromium = true,
-        };
+        var options = new EdgeOptions { UseChromium = true, };
         options.AddArguments(
-            Settings.Driver.Options.Arguments
-                .Where(a => !string.IsNullOrWhiteSpace(a))
+            Settings.Driver.Options.Arguments.Where(
+                a => !string.IsNullOrWhiteSpace(a)
+            )
         );
 
         return options;
@@ -136,12 +120,11 @@ public class WebHost
 
     private static ChromeOptions BuildChromeOptions()
     {
-        var options = new ChromeOptions
-        {
-        };
+        var options = new ChromeOptions { };
         options.AddArguments(
-            Settings.Driver.Options.Arguments
-                .Where(a => !string.IsNullOrWhiteSpace(a))
+            Settings.Driver.Options.Arguments.Where(
+                a => !string.IsNullOrWhiteSpace(a)
+            )
         );
 
         return options;
@@ -149,12 +132,11 @@ public class WebHost
 
     private static FirefoxOptions BuildFirefoxOptions()
     {
-        var options = new FirefoxOptions
-        {
-        };
+        var options = new FirefoxOptions { };
         options.AddArguments(
-            Settings.Driver.Options.Arguments
-                .Where(a => !string.IsNullOrWhiteSpace(a))
+            Settings.Driver.Options.Arguments.Where(
+                a => !string.IsNullOrWhiteSpace(a)
+            )
         );
 
         return options;

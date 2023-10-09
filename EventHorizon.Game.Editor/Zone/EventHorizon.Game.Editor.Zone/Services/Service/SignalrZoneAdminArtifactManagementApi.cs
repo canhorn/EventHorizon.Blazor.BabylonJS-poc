@@ -14,16 +14,14 @@ public class SignalrZoneAdminArtifactManagementApi
 {
     private readonly HubConnection? _hubConnection;
 
-    public SignalrZoneAdminArtifactManagementApi(
-        HubConnection? hubConnection
-    )
+    public SignalrZoneAdminArtifactManagementApi(HubConnection? hubConnection)
     {
         _hubConnection = hubConnection;
     }
 
-    public async Task<ApiResponse<TriggerZoneArtifactBackupApiResult>> TriggerBackup(
-        CancellationToken cancellationToken
-    )
+    public async Task<
+        ApiResponse<TriggerZoneArtifactBackupApiResult>
+    > TriggerBackup(CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -34,15 +32,14 @@ public class SignalrZoneAdminArtifactManagementApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<ApiResponse<TriggerZoneArtifactBackupApiResult>>(
-            "ArtifactManagement_TriggerBackup",
-            cancellationToken
-        );
+        return await _hubConnection.InvokeAsync<
+            ApiResponse<TriggerZoneArtifactBackupApiResult>
+        >("ArtifactManagement_TriggerBackup", cancellationToken);
     }
 
-    public async Task<ApiResponse<TriggerZoneArtifactExportApiResult>> TriggerExport(
-        CancellationToken cancellationToken
-    )
+    public async Task<
+        ApiResponse<TriggerZoneArtifactExportApiResult>
+    > TriggerExport(CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -53,13 +50,14 @@ public class SignalrZoneAdminArtifactManagementApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<ApiResponse<TriggerZoneArtifactExportApiResult>>(
-            "ArtifactManagement_TriggerExport",
-            cancellationToken
-        );
+        return await _hubConnection.InvokeAsync<
+            ApiResponse<TriggerZoneArtifactExportApiResult>
+        >("ArtifactManagement_TriggerExport", cancellationToken);
     }
 
-    public async Task<ApiResponse<TriggerZoneArtifactImportApiResult>> TriggerImport(
+    public async Task<
+        ApiResponse<TriggerZoneArtifactImportApiResult>
+    > TriggerImport(
         string importArtifactUrl,
         CancellationToken cancellationToken
     )
@@ -73,7 +71,9 @@ public class SignalrZoneAdminArtifactManagementApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<ApiResponse<TriggerZoneArtifactImportApiResult>>(
+        return await _hubConnection.InvokeAsync<
+            ApiResponse<TriggerZoneArtifactImportApiResult>
+        >(
             "ArtifactManagement_TriggerImport",
             importArtifactUrl,
             cancellationToken

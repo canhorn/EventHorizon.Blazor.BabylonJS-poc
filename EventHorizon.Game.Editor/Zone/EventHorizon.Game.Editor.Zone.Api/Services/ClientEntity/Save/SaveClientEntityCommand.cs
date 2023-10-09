@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.ClientEntity.Save
+﻿namespace EventHorizon.Game.Editor.Zone.Services.ClientEntity.Save;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+using MediatR;
+
+public struct SaveClientEntityCommand
+    : IRequest<CommandResult<IObjectEntityDetails>>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using MediatR;
+    public IObjectEntityDetails Entity { get; }
 
-    public struct SaveClientEntityCommand
-        : IRequest<CommandResult<IObjectEntityDetails>>
+    public SaveClientEntityCommand(IObjectEntityDetails entity)
     {
-        public IObjectEntityDetails Entity { get; }
-
-        public SaveClientEntityCommand(
-            IObjectEntityDetails entity
-        )
-        {
-            Entity = entity;
-        }
+        Entity = entity;
     }
 }

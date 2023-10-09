@@ -1,74 +1,80 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+public interface IAudioEngine : ICachedEntity { }
+
+[JsonConverter(typeof(CachedEntityConverter<IAudioEngineCachedEntity>))]
+public class IAudioEngineCachedEntity : CachedEntityObject, IAudioEngine
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    public interface IAudioEngine : ICachedEntity { }
-    
-    [JsonConverter(typeof(CachedEntityConverter<IAudioEngineCachedEntity>))]
-    public class IAudioEngineCachedEntity : CachedEntityObject, IAudioEngine
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    #endregion
+
+    #region Properties
+
+    public bool canUseWebAudio
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-
-        #endregion
-
-        #region Properties
-        
-        public bool canUseWebAudio
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "canUseWebAudio"
-                );
-            }
+                this.___guid,
+                "canUseWebAudio"
+            );
         }
+    }
 
-        private AudioContext __audioContext;
-        public AudioContext audioContext
+    private AudioContext __audioContext;
+    public AudioContext audioContext
+    {
+        get
         {
-            get
+            if (__audioContext == null)
             {
-            if(__audioContext == null)
-            {
-                __audioContext = EventHorizonBlazorInterop.GetClass<AudioContext>(
-                    this.___guid,
-                    "audioContext",
-                    (entity) =>
-                    {
-                        return new AudioContext() { ___guid = entity.___guid };
-                    }
-                );
+                __audioContext =
+                    EventHorizonBlazorInterop.GetClass<AudioContext>(
+                        this.___guid,
+                        "audioContext",
+                        (entity) =>
+                        {
+                            return new AudioContext()
+                            {
+                                ___guid = entity.___guid
+                            };
+                        }
+                    );
             }
             return __audioContext;
-            }
         }
+    }
 
-        private GainNode __masterGain;
-        public GainNode masterGain
+    private GainNode __masterGain;
+    public GainNode masterGain
+    {
+        get
         {
-            get
-            {
-            if(__masterGain == null)
+            if (__masterGain == null)
             {
                 __masterGain = EventHorizonBlazorInterop.GetClass<GainNode>(
                     this.___guid,
@@ -80,178 +86,172 @@ namespace BabylonJS
                 );
             }
             return __masterGain;
-            }
         }
+    }
 
-        
-        public bool isMP3supported
+    public bool isMP3supported
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "isMP3supported"
-                );
-            }
+                this.___guid,
+                "isMP3supported"
+            );
         }
+    }
 
-        
-        public bool isOGGsupported
+    public bool isOGGsupported
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "isOGGsupported"
-                );
-            }
+                this.___guid,
+                "isOGGsupported"
+            );
         }
+    }
 
-        
-        public bool WarnedWebAudioUnsupported
+    public bool WarnedWebAudioUnsupported
+    {
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "WarnedWebAudioUnsupported"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "WarnedWebAudioUnsupported",
-                    value
-                );
-            }
+                this.___guid,
+                "WarnedWebAudioUnsupported"
+            );
         }
-
-        
-        public bool useCustomUnlockedButton
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "WarnedWebAudioUnsupported",
+                value
+            );
+        }
+    }
+
+    public bool useCustomUnlockedButton
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "useCustomUnlockedButton"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "useCustomUnlockedButton",
-                    value
-                );
-            }
+                this.___guid,
+                "useCustomUnlockedButton"
+            );
         }
-
-        
-        public bool unlocked
+        set
         {
-            get
-            {
+
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "useCustomUnlockedButton",
+                value
+            );
+        }
+    }
+
+    public bool unlocked
+    {
+        get
+        {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "unlocked"
-                );
-            }
+                this.___guid,
+                "unlocked"
+            );
         }
+    }
 
-        private Observable<AudioEngine> __onAudioUnlockedObservable;
-        public Observable<AudioEngine> onAudioUnlockedObservable
+    private Observable<AudioEngine> __onAudioUnlockedObservable;
+    public Observable<AudioEngine> onAudioUnlockedObservable
+    {
+        get
         {
-            get
+            if (__onAudioUnlockedObservable == null)
             {
-            if(__onAudioUnlockedObservable == null)
-            {
-                __onAudioUnlockedObservable = EventHorizonBlazorInterop.GetClass<Observable<AudioEngine>>(
-                    this.___guid,
-                    "onAudioUnlockedObservable",
-                    (entity) =>
-                    {
-                        return new Observable<AudioEngine>() { ___guid = entity.___guid };
-                    }
-                );
+                __onAudioUnlockedObservable =
+                    EventHorizonBlazorInterop.GetClass<Observable<AudioEngine>>(
+                        this.___guid,
+                        "onAudioUnlockedObservable",
+                        (entity) =>
+                        {
+                            return new Observable<AudioEngine>()
+                            {
+                                ___guid = entity.___guid
+                            };
+                        }
+                    );
             }
             return __onAudioUnlockedObservable;
-            }
-            set
-            {
-__onAudioUnlockedObservable = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "onAudioUnlockedObservable",
-                    value
-                );
-            }
         }
-
-        private Observable<AudioEngine> __onAudioLockedObservable;
-        public Observable<AudioEngine> onAudioLockedObservable
+        set
         {
-            get
+            __onAudioUnlockedObservable = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "onAudioUnlockedObservable",
+                value
+            );
+        }
+    }
+
+    private Observable<AudioEngine> __onAudioLockedObservable;
+    public Observable<AudioEngine> onAudioLockedObservable
+    {
+        get
+        {
+            if (__onAudioLockedObservable == null)
             {
-            if(__onAudioLockedObservable == null)
-            {
-                __onAudioLockedObservable = EventHorizonBlazorInterop.GetClass<Observable<AudioEngine>>(
+                __onAudioLockedObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<AudioEngine>
+                >(
                     this.___guid,
                     "onAudioLockedObservable",
                     (entity) =>
                     {
-                        return new Observable<AudioEngine>() { ___guid = entity.___guid };
+                        return new Observable<AudioEngine>()
+                        {
+                            ___guid = entity.___guid
+                        };
                     }
                 );
             }
             return __onAudioLockedObservable;
-            }
-            set
-            {
-__onAudioLockedObservable = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "onAudioLockedObservable",
-                    value
-                );
-            }
         }
-        #endregion
-        
-        #region Constructor
-        public IAudioEngineCachedEntity() : base() { }
-
-        public IAudioEngineCachedEntity(
-            ICachedEntity entity
-        ) : base(entity)
+        set
         {
-        }
-
-
-        #endregion
-
-        #region Methods
-        public void @lock()
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "@lock" }
-                }
+            __onAudioLockedObservable = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "onAudioLockedObservable",
+                value
             );
         }
-
-        public void @unlock()
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "@unlock" }
-                }
-            );
-        }
-        #endregion
     }
+    #endregion
+
+    #region Constructor
+    public IAudioEngineCachedEntity()
+        : base() { }
+
+    public IAudioEngineCachedEntity(ICachedEntity entity)
+        : base(entity) { }
+
+    #endregion
+
+    #region Methods
+    public void @lock()
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[] { new string[] { this.___guid, "@lock" } }
+        );
+    }
+
+    public void @unlock()
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[] { new string[] { this.___guid, "@unlock" } }
+        );
+    }
+    #endregion
 }

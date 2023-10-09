@@ -1,41 +1,38 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Services.Command.Send
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Services.Command.Send;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+
+using MediatR;
+
+public class SendZoneAdminCommandHandler
+    : IRequestHandler<SendZoneAdminCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class SendZoneAdminCommandHandler
-        : IRequestHandler<SendZoneAdminCommand, StandardCommandResult>
+    public SendZoneAdminCommandHandler(ZoneAdminServices zoneAdminServices)
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public SendZoneAdminCommandHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<StandardCommandResult> Handle(
+        SendZoneAdminCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.Command.Send(
+            request.Command,
+            request.Data
+        );
+        if (result.Success.IsNotTrue())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return new(result.ErrorCode);
         }
 
-        public async Task<StandardCommandResult> Handle(
-            SendZoneAdminCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.Command.Send(
-                request.Command,
-                request.Data
-            );
-            if (result.Success.IsNotTrue())
-            {
-                return new(
-                    result.ErrorCode
-                );
-            }
-
-            return new();
-        }
+        return new();
     }
 }

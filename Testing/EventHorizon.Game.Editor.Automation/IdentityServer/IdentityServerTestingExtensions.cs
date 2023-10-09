@@ -15,7 +15,8 @@ public static class IdentityServerTestingExtensions
     public static TOwner Login<TOwner>(
         this WebHost _,
         IdentityServerUser user = null
-    ) where TOwner : MainLayoutPage<TOwner>
+    )
+        where TOwner : MainLayoutPage<TOwner>
     {
         if (user == null)
         {
@@ -24,59 +25,53 @@ public static class IdentityServerTestingExtensions
 
         Go.To<TOwner>()
             .Wait(0.1)
-            .Do(
-                currentPage =>
-                {
-                    // Check if we are already on the login page,
-                    // this can happen if the Go.To<TOwner> page redirect was to an
-                    // Authorized page, and so the platform will auto redirect to the login page.
-                    if (
-                        currentPage.PageUrl.Value.Contains(
-                            IdentityServerLoginPage.Url,
-                            StringComparison.InvariantCultureIgnoreCase
-                        )
+            .Do(currentPage =>
+            {
+                // Check if we are already on the login page,
+                // this can happen if the Go.To<TOwner> page redirect was to an
+                // Authorized page, and so the platform will auto redirect to the login page.
+                if (
+                    currentPage.PageUrl.Value.Contains(
+                        IdentityServerLoginPage.Url,
+                        StringComparison.InvariantCultureIgnoreCase
                     )
-                    {
-                        return currentPage;
-                    }
-
-                    // Current page, a Layout Page.
-                    // Click LoginLink on TopBar Component
-                    return currentPage.TopBar.LoginLink.Click();
+                )
+                {
+                    return currentPage;
                 }
-            );
 
-        return Go.To<IdentityServerLoginPage>(
-            navigate: false
-        ).CookieBanner.AcceptAndClose.Click()
+                // Current page, a Layout Page.
+                // Click LoginLink on TopBar Component
+                return currentPage.TopBar.LoginLink.Click();
+            });
+
+        return Go.To<IdentityServerLoginPage>(navigate: false)
+            .CookieBanner.AcceptAndClose.Click()
             .Email.Set(user.Email)
             .Password.Set(user.Password)
             .Login.Click()
-            .Do(
-                currentPage =>
-                {
-                    if (
-                        currentPage.PageUrl.Value.Contains(
-                            IdentityServerConsentPage.Url,
-                            StringComparison.InvariantCultureIgnoreCase
-                        )
+            .Do(currentPage =>
+            {
+                if (
+                    currentPage.PageUrl.Value.Contains(
+                        IdentityServerConsentPage.Url,
+                        StringComparison.InvariantCultureIgnoreCase
                     )
-                    {
-                        return Go.To<IdentityServerConsentPage>(
-                            navigate: false
-                        ).Yes.ClickAndGo<TOwner>();
-                    }
-
-                    // Validate LogoutLink IsVisible
-                    return Go.To<TOwner>(navigate: false)
-                        .TopBar.LogoutLink.Should.Within(30).BeVisible();
+                )
+                {
+                    return Go.To<IdentityServerConsentPage>(navigate: false)
+                        .Yes.ClickAndGo<TOwner>();
                 }
-            );
+
+                // Validate LogoutLink IsVisible
+                return Go.To<TOwner>(navigate: false)
+                    .TopBar.LogoutLink.Should.Within(30)
+                    .BeVisible();
+            });
     }
 
-    public static TOwner Logout<TOwner>(
-        this PageObject<TOwner> _
-    ) where TOwner : MainLayoutPage<TOwner>
+    public static TOwner Logout<TOwner>(this PageObject<TOwner> _)
+        where TOwner : MainLayoutPage<TOwner>
     {
         Go.To<LogoutPage>();
 
@@ -86,7 +81,8 @@ public static class IdentityServerTestingExtensions
     public static TOwner NewUserRegister<TOwner>(
         this WebHost _,
         out IdentityServerUser user
-    ) where TOwner : MainLayoutPage<TOwner>
+    )
+        where TOwner : MainLayoutPage<TOwner>
     {
         var userId = Guid.NewGuid();
         user = new IdentityServerUser
@@ -99,7 +95,8 @@ public static class IdentityServerTestingExtensions
         // Should Redirect to Identity Server Login Page
         Go.To<IdentityServerLoginPage>(
             url: $"{IdentityServerData.Url}{IdentityServerLoginPage.Url}"
-        ).RegisterNewUser.ClickAndGo<IdentityServerRegisterPage>()
+        )
+            .RegisterNewUser.ClickAndGo<IdentityServerRegisterPage>()
             .Email.Set(user.Email)
             .Password.Set(user.Password)
             .ConfirmPassword.Set(user.Password)
@@ -110,7 +107,8 @@ public static class IdentityServerTestingExtensions
 
         Go.To<IdentityServerLogoutPage>(
             url: $"{IdentityServerData.Url}{IdentityServerLogoutPage.Url}"
-        ).Yes.Click();
+        )
+            .Yes.Click();
 
         return Login<TOwner>(_, user);
     }

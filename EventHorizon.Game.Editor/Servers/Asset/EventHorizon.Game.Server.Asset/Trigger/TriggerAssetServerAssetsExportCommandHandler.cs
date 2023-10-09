@@ -11,9 +11,9 @@ using MediatR;
 
 public class TriggerAssetServerAssetsExportCommandHandler
     : IRequestHandler<
-          TriggerAssetServerAssetsExportCommand,
-          CommandResult<ExportTriggerResult>
-      >
+        TriggerAssetServerAssetsExportCommand,
+        CommandResult<ExportTriggerResult>
+    >
 {
     private readonly AssetServerAdminService _service;
 

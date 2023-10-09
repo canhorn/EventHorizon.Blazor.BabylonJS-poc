@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Cache
+﻿namespace EventHorizon.Cache;
+
+public interface CacheKey
 {
-    public interface CacheKey
-    {
-        string CacheKeyPrefix { get; }
-        string CacheKey { get; }
-    }
+    string CacheKeyPrefix { get; }
+    string CacheKey { get; }
 }

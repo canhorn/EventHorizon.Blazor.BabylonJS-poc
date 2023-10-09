@@ -1,12 +1,11 @@
-﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model
-{
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-    using EventHorizon.Game.Client.Systems.Player.Api;
+﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model;
 
-    public class PlayerZoneDetailsModel
-        : ObjectEntityDetailsModel,
+using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+using EventHorizon.Game.Client.Systems.Player.Api;
+
+public class PlayerZoneDetailsModel
+    : ObjectEntityDetailsModel,
         IPlayerZoneDetails
-    {
-        public string PlayerId { get; set; } = string.Empty;
-    }
+{
+    public string PlayerId { get; set; } = string.Empty;
 }

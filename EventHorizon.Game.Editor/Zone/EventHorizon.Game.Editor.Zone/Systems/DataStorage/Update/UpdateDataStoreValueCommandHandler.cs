@@ -1,42 +1,42 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Systems.DataStorage.Update
+﻿namespace EventHorizon.Game.Editor.Zone.Systems.DataStorage.Update;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Zone.Systems.DataStorage.Update;
+
+using MediatR;
+
+public class UpdateDataStoreValueCommandHandler
+    : IRequestHandler<UpdateDataStoreValueCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Zone.Systems.DataStorage.Update;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class UpdateDataStoreValueCommandHandler
-        : IRequestHandler<UpdateDataStoreValueCommand, StandardCommandResult>
+    public UpdateDataStoreValueCommandHandler(
+        ZoneAdminServices zoneAdminServices
+    )
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public UpdateDataStoreValueCommandHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<StandardCommandResult> Handle(
+        UpdateDataStoreValueCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.DataStorage.Update(
+            request.Key,
+            request.Type,
+            request.Value,
+            cancellationToken
+        );
+        if (result.Success.IsNotTrue())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
-        public async Task<StandardCommandResult> Handle(
-            UpdateDataStoreValueCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.DataStorage.Update(
-                request.Key,
-                request.Type,
-                request.Value,
-                cancellationToken
-            );
-            if (result.Success.IsNotTrue())
-            {
-                return result.ErrorCode
-                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
-            }
-
-            return new();
-        }
+        return new();
     }
 }

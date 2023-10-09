@@ -1,17 +1,15 @@
-﻿using EventHorizon.Observer.Admin.Model;
+﻿namespace EventHorizon.Observer.Admin.Unregister;
+
+using EventHorizon.Observer.Admin.Model;
+
 using MediatR;
 
-namespace EventHorizon.Observer.Admin.Unregister
+public class UnregisterAdminObserverCommand : IRequest
 {
-    public class UnregisterAdminObserverCommand : IRequest
-    {
-        public AdminObserverBase Observer { get; }
+    public AdminObserverBase Observer { get; }
 
-        public UnregisterAdminObserverCommand(
-            AdminObserverBase observer
-        )
-        {
-            Observer = observer;
-        }
+    public UnregisterAdminObserverCommand(AdminObserverBase observer)
+    {
+        Observer = observer;
     }
 }

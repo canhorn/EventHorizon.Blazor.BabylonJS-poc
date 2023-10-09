@@ -1,21 +1,16 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.State.Api
+﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
+
+using System;
+
+using EventHorizon.Game.Client.Engine.Systems.Module.Api;
+
+public interface IStateModule : IModule
 {
-    using System;
-    using EventHorizon.Game.Client.Engine.Systems.Module.Api;
+    public static string MODULE_NAME => "STATE_MODULE_NAME";
 
-    public interface IStateModule
-        : IModule
-    {
-        public static string MODULE_NAME => "STATE_MODULE_NAME";
+    int Size { get; }
 
-        int Size { get; }
-
-        void Add(
-            IState state
-        );
-        void AddPriority(
-            IState state
-        );
-        void Clear();
-    }
+    void Add(IState state);
+    void AddPriority(IState state);
+    void Clear();
 }

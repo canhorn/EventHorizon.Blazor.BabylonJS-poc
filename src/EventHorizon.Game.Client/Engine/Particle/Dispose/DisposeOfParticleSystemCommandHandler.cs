@@ -1,34 +1,32 @@
-﻿namespace EventHorizon.Game.Client.Engine.Particle.Dispose
+﻿namespace EventHorizon.Game.Client.Engine.Particle.Dispose;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Particle.Api;
+
+using MediatR;
+
+public class DisposeOfParticleSystemCommandHandler
+    : IRequestHandler<DisposeOfParticleSystemCommand, StandardCommandResult>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Particle.Api;
-    using MediatR;
+    private readonly ParticleLifecycleService _particleLifecycleService;
 
-    public class DisposeOfParticleSystemCommandHandler
-        : IRequestHandler<DisposeOfParticleSystemCommand, StandardCommandResult>
+    public DisposeOfParticleSystemCommandHandler(
+        ParticleLifecycleService particleLifecycleService
+    )
     {
+        _particleLifecycleService = particleLifecycleService;
+    }
 
-        private readonly ParticleLifecycleService _particleLifecycleService;
+    public async Task<StandardCommandResult> Handle(
+        DisposeOfParticleSystemCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _particleLifecycleService.DisposeSystem(request.Id);
 
-        public DisposeOfParticleSystemCommandHandler(
-            ParticleLifecycleService particleLifecycleService
-        )
-        {
-            _particleLifecycleService = particleLifecycleService;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            DisposeOfParticleSystemCommand request, 
-            CancellationToken cancellationToken
-        )
-        {
-            await _particleLifecycleService.DisposeSystem(
-                request.Id
-            );
-
-            return new StandardCommandResult();
-        }
+        return new StandardCommandResult();
     }
 }

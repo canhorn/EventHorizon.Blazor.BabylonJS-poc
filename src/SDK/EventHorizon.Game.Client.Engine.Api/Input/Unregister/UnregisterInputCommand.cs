@@ -1,17 +1,13 @@
-﻿namespace EventHorizon.Game.Client.Engine.Input.Unregister
+﻿namespace EventHorizon.Game.Client.Engine.Input.Unregister;
+
+using MediatR;
+
+public struct UnregisterInputCommand : IRequest
 {
-    using MediatR;
+    public string Handle { get; }
 
-    public struct UnregisterInputCommand
-        : IRequest
+    public UnregisterInputCommand(string handle)
     {
-        public string Handle { get; }
-
-        public UnregisterInputCommand(
-            string handle
-        )
-        {
-            Handle = handle;
-        }
+        Handle = handle;
     }
 }

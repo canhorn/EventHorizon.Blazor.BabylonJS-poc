@@ -22,8 +22,9 @@ public class OpenZoneServerImportFileUploaderEventObserverHandler
     public Task Handle(
         OpenZoneServerImportFileUploaderEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<OpenZoneServerImportFileUploaderEventObserver, OpenZoneServerImportFileUploaderEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            OpenZoneServerImportFileUploaderEventObserver,
+            OpenZoneServerImportFileUploaderEvent
+        >(notification, cancellationToken);
 }

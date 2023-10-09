@@ -1,52 +1,40 @@
-﻿namespace EventHorizon.Game.Client.Engine.Input.Trigger
+﻿namespace EventHorizon.Game.Client.Engine.Input.Trigger;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Input.Api;
+
+using MediatR;
+
+public class TriggerInputCommandHandler : IRequestHandler<TriggerInputCommand>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Input.Api;
-    using MediatR;
+    private readonly IInputState _inputState;
 
-    public class TriggerInputCommandHandler
-        : IRequestHandler<TriggerInputCommand>
+    public TriggerInputCommandHandler(IInputState inputState)
     {
-        private readonly IInputState _inputState;
+        _inputState = inputState;
+    }
 
-        public TriggerInputCommandHandler(
-            IInputState inputState
-        )
+    public async Task<Unit> Handle(
+        TriggerInputCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var options = _inputState.Where(a => a.Key == request.Key);
+        foreach (var option in options)
         {
-            _inputState = inputState;
-        }
-
-        public async Task<Unit> Handle(
-            TriggerInputCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var options = _inputState.Where(
-                a => a.Key == request.Key
-            );
-            foreach (var option in options)
+            if (request.TriggerType == Model.InputTriggerType.Pressed)
             {
-                if (request.TriggerType == Model.InputTriggerType.Pressed)
-                {
-                    await option.Pressed(
-                        new InputKeyEvent(
-                            request.Key
-                        )
-                    );
-                }
-                else if (request.TriggerType == Model.InputTriggerType.Released)
-                {
-                    await option.Released(
-                        new InputKeyEvent(
-                            request.Key
-                        )
-                    );
-                }
+                await option.Pressed(new InputKeyEvent(request.Key));
             }
-
-            return Unit.Value;
+            else if (request.TriggerType == Model.InputTriggerType.Released)
+            {
+                await option.Released(new InputKeyEvent(request.Key));
+            }
         }
+
+        return Unit.Value;
     }
 }

@@ -12,9 +12,9 @@ using MediatR;
 
 public class TriggerZoneServerArtifactBackupCommandHandler
     : IRequestHandler<
-          TriggerZoneServerArtifactBackupCommand,
-          StandardCommandResult
-      >
+        TriggerZoneServerArtifactBackupCommand,
+        StandardCommandResult
+    >
 {
     private readonly IMediator _mediator;
     private readonly ZoneArtifactManagementState _state;

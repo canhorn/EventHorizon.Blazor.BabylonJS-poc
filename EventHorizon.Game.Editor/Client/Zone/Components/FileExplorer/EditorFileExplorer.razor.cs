@@ -21,24 +21,27 @@ using MediatR;
 
 using Microsoft.AspNetCore.Components;
 
-public class EditorFileExplorerModel
-    : ComponentBase
+public class EditorFileExplorerModel : ComponentBase
 {
     [CascadingParameter]
     public ZoneState ZoneState { get; set; } = null!;
+
     [CascadingParameter]
     public SessionValues SessionValues { get; set; } = null!;
 
     [Inject]
     public IMediator Mediator { get; set; } = null!;
+
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;
 
     public bool IsEnabled { get; set; }
 
-    public TreeViewNodeData EditorTreeView { get; set; } = new TreeViewNodeData();
+    public TreeViewNodeData EditorTreeView { get; set; } =
+        new TreeViewNodeData();
 
-    public EditorFileExplorerModalState ModalState { get; set; } = new EditorFileExplorerModalState();
+    public EditorFileExplorerModalState ModalState { get; set; } =
+        new EditorFileExplorerModalState();
 
     protected override Task OnInitializedAsync()
     {
@@ -54,17 +57,11 @@ public class EditorFileExplorerModel
     {
         // Save Session Value for Currently expanded Nodes
         var expandedList = new List<string>();
-        FillExpandedList(
-            EditorTreeView,
-            ref expandedList
-        );
+        FillExpandedList(EditorTreeView, ref expandedList);
         await Mediator.Send(
             new SetSessionValueCommand(
                 "editorFileExplorer",
-                string.Join(
-                    ',',
-                    expandedList
-                )
+                string.Join(',', expandedList)
             )
         );
     }
@@ -76,25 +73,19 @@ public class EditorFileExplorerModel
     {
         if (editorTreeView.IsExpanded)
         {
-            expandedList.Add(
-                editorTreeView.Id
-            );
+            expandedList.Add(editorTreeView.Id);
         }
         foreach (var child in editorTreeView.Children)
         {
-            FillExpandedList(
-                child,
-                ref expandedList
-            );
+            FillExpandedList(child, ref expandedList);
         }
     }
 
     private async Task HandleZoneStateChange()
     {
-        var expandedList = SessionValues.Get(
-            "editorFileExplorer",
-            ""
-        ).Split(",");
+        var expandedList = SessionValues
+            .Get("editorFileExplorer", "")
+            .Split(",");
 
         var result = await Mediator.Send(
             new QueryForActiveEditorNodeTreeView(
@@ -135,24 +126,16 @@ public class EditorFileExplorerModel
         switch (ModalState.ModalType)
         {
             case EditorFileModalType.AddFolder:
-                await CreateNewFolder(
-                    ModalState.Node
-                );
+                await CreateNewFolder(ModalState.Node);
                 break;
             case EditorFileModalType.DeleteFolder:
-                await DeleteFolder(
-                    ModalState.Node
-                );
+                await DeleteFolder(ModalState.Node);
                 break;
             case EditorFileModalType.AddFile:
-                await CreateNewFile(
-                    ModalState.Node
-                );
+                await CreateNewFile(ModalState.Node);
                 break;
             case EditorFileModalType.DeleteFile:
-                await DeleteFile(
-                    ModalState.Node
-                );
+                await DeleteFile(ModalState.Node);
                 break;
             default:
                 break;
@@ -164,9 +147,7 @@ public class EditorFileExplorerModel
         ModalState.IsOpen = false;
     }
 
-    private async Task CreateNewFile(
-        EditorNode node
-    )
+    private async Task CreateNewFile(EditorNode node)
     {
         // Path
         var path = node.Path.ToList();
@@ -179,63 +160,48 @@ public class EditorFileExplorerModel
 
         await ValidateResponse(
             await Mediator.Send(
-                new CreateNewZoneEditorFileCommand(
-                    fileName,
-                    path
-                )
+                new CreateNewZoneEditorFileCommand(fileName, path)
             )
         );
     }
 
-    private async Task CreateNewFolder(
-        EditorNode node
-    ) => await ValidateResponse(
-        await Mediator.Send(
-            new CreateNewZoneEditorFolderCommand(
-                // FolderName
-                ModalState.TextInput,
-                // Path
-                new List<string>(
-                    node.Path
-                )
-                {
-                        node.Name
-                }
-            )
-        )
-    );
-
-    private async Task DeleteFile(
-        EditorNode node
-    ) => await ValidateResponse(
-        await Mediator.Send(
-            new DeleteZoneEditorFileCommand(
-                // FolderName
-                node.Name,
-                // Path
-                new List<string>(
-                    node.Path
+    private async Task CreateNewFolder(EditorNode node) =>
+        await ValidateResponse(
+            await Mediator.Send(
+                new CreateNewZoneEditorFolderCommand(
+                    // FolderName
+                    ModalState.TextInput,
+                    // Path
+                    new List<string>(node.Path) { node.Name }
                 )
             )
-        )
-    );
+        );
 
-    private async Task DeleteFolder(
-        EditorNode folderNode
-    ) => await ValidateResponse(
-        await Mediator.Send(
-            new DeleteZoneEditorFolderCommand(
-                // FolderName
-                folderNode.Name,
-                // Path
-                folderNode.Path.ToList()
+    private async Task DeleteFile(EditorNode node) =>
+        await ValidateResponse(
+            await Mediator.Send(
+                new DeleteZoneEditorFileCommand(
+                    // FolderName
+                    node.Name,
+                    // Path
+                    new List<string>(node.Path)
+                )
             )
-        )
-    );
+        );
 
-    private async Task ValidateResponse(
-        EditorResponse response
-    )
+    private async Task DeleteFolder(EditorNode folderNode) =>
+        await ValidateResponse(
+            await Mediator.Send(
+                new DeleteZoneEditorFolderCommand(
+                    // FolderName
+                    folderNode.Name,
+                    // Path
+                    folderNode.Path.ToList()
+                )
+            )
+        );
+
+    private async Task ValidateResponse(EditorResponse response)
     {
         if (response.Successful)
         {
@@ -247,9 +213,7 @@ public class EditorFileExplorerModel
             {
                 ModalState.ErrorMessage = Localizer[
                     "Failed to Reload Active State: {0}",
-                    Localizer[
-                        result.ErrorCode
-                    ]
+                    Localizer[result.ErrorCode]
                 ];
             }
         }
@@ -257,9 +221,7 @@ public class EditorFileExplorerModel
         {
             ModalState.ErrorMessage = Localizer[
                 "Error received from Server: {0}",
-                Localizer[
-                    response.ErrorCode
-                ]
+                Localizer[response.ErrorCode]
             ];
         }
     }

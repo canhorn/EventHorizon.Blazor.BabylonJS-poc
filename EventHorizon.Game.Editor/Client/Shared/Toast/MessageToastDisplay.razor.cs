@@ -12,6 +12,7 @@ public class MessageToastDisplayModel : ComponentBase, IAsyncDisposable
 {
     [Parameter]
     public MessageModel Message { get; set; }
+
     [Parameter]
     public EventCallback<string> OnRemove { get; set; }
 
@@ -74,11 +75,9 @@ public class MessageToastDisplayModel : ComponentBase, IAsyncDisposable
 
     private void HandleRemoveCallback(object? _, ElapsedEventArgs args)
     {
-        InvokeAsync(
-            async () =>
-            {
-                await OnRemove.InvokeAsync(Message.Id);
-            }
-        );
+        InvokeAsync(async () =>
+        {
+            await OnRemove.InvokeAsync(Message.Id);
+        });
     }
 }

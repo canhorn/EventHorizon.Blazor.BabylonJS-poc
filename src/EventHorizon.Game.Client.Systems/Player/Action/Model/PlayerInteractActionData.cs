@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Action.Model
+﻿namespace EventHorizon.Game.Client.Systems.Player.Action.Model;
+
+using System;
+
+using EventHorizon.Game.Client.Systems.Player.Action.Api;
+
+public class PlayerInteractActionData : IPlayerActionData
 {
-    using System;
-    using EventHorizon.Game.Client.Systems.Player.Action.Api;
+    public long InteractionEntityId { get; }
 
-    public class PlayerInteractActionData
-        : IPlayerActionData
+    public PlayerInteractActionData(long entityId)
     {
-        public long InteractionEntityId { get; }
-
-        public PlayerInteractActionData(
-            long entityId
-        )
-        {
-            InteractionEntityId = entityId;
-        }
+        InteractionEntityId = entityId;
     }
 }

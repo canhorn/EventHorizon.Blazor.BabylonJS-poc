@@ -1,93 +1,86 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+public interface IMaterialCompilationOptions : ICachedEntity { }
+
+[JsonConverter(
+    typeof(CachedEntityConverter<IMaterialCompilationOptionsCachedEntity>)
+)]
+public class IMaterialCompilationOptionsCachedEntity
+    : CachedEntityObject,
+        IMaterialCompilationOptions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    public interface IMaterialCompilationOptions : ICachedEntity { }
-    
-    [JsonConverter(typeof(CachedEntityConverter<IMaterialCompilationOptionsCachedEntity>))]
-    public class IMaterialCompilationOptionsCachedEntity : CachedEntityObject, IMaterialCompilationOptions
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+
+    #endregion
+
+    #region Properties
+
+    public bool clipPlane
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-
-        #endregion
-
-        #region Properties
-        
-        public bool clipPlane
+        get
         {
-            get
-            {
             return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "clipPlane"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "clipPlane",
-                    value
-                );
-            }
+                this.___guid,
+                "clipPlane"
+            );
         }
-
-        
-        public bool useInstances
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "useInstances"
-                );
-            }
-            set
-            {
 
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "useInstances",
-                    value
-                );
-            }
+            EventHorizonBlazorInterop.Set(this.___guid, "clipPlane", value);
         }
-        #endregion
-        
-        #region Constructor
-        public IMaterialCompilationOptionsCachedEntity() : base() { }
-
-        public IMaterialCompilationOptionsCachedEntity(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-        }
-
-
-        #endregion
-
-        #region Methods
-
-        #endregion
     }
+
+    public bool useInstances
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<bool>(
+                this.___guid,
+                "useInstances"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "useInstances", value);
+        }
+    }
+    #endregion
+
+    #region Constructor
+    public IMaterialCompilationOptionsCachedEntity()
+        : base() { }
+
+    public IMaterialCompilationOptionsCachedEntity(ICachedEntity entity)
+        : base(entity) { }
+
+    #endregion
+
+    #region Methods
+
+    #endregion
 }

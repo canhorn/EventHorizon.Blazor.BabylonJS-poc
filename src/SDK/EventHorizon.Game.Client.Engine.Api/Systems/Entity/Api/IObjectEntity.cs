@@ -17,11 +17,10 @@ public interface IObjectEntity : IClientEntity
     IObjectEntityDetails Details { get; }
 
     void RegisterModule(string name, IModule module);
-    T? GetModule<T>(string name) where T : IModule;
-    public bool RemoveModule<T>(
-        string name,
-        [NotNullWhen(true)] out T? module
-    ) where T : IModule;
+    T? GetModule<T>(string name)
+        where T : IModule;
+    public bool RemoveModule<T>(string name, [NotNullWhen(true)] out T? module)
+        where T : IModule;
     Option<T> GetPropertyAsOption<T>(string name);
     void SetProperty(string name, object property);
     T? GetProperty<T>(string name);
@@ -31,7 +30,5 @@ public interface IObjectEntity : IClientEntity
     /// </summary>
     /// <param name="details">New details for Entity</param>
     /// <returns>The details set into entity.</returns>
-    IObjectEntityDetails UpdateDetails(
-        IObjectEntityDetails details
-    );
+    IObjectEntityDetails UpdateDetails(IObjectEntityDetails details);
 }

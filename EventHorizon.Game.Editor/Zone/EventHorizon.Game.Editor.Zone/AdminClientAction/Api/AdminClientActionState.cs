@@ -1,12 +1,11 @@
-﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Api
-{
-    using System.Collections.Generic;
+﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
 
-    public interface AdminClientActionState
-    {
-        Option<IAdminClientAction> Get(
-            string actionName,
-            IDictionary<string, object> data
-        );
-    }
+using System.Collections.Generic;
+
+public interface AdminClientActionState
+{
+    Option<IAdminClientAction> Get(
+        string actionName,
+        IDictionary<string, object> data
+    );
 }

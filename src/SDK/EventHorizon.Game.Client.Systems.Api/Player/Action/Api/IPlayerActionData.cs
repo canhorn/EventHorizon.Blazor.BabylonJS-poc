@@ -1,8 +1,5 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Action.Api
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Systems.Player.Action.Api;
 
-    public interface IPlayerActionData
-    {
-    }
-}
+using System;
+
+public interface IPlayerActionData { }

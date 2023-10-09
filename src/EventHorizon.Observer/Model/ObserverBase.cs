@@ -1,6 +1,3 @@
-﻿namespace EventHorizon.Observer.Model
-{
-    public interface ObserverBase
-    {
-    }
-}
+﻿namespace EventHorizon.Observer.Model;
+
+public interface ObserverBase { }

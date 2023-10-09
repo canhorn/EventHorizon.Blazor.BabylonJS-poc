@@ -1,43 +1,40 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Query
+﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Query;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
+using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
+
+using MediatR;
+
+public class QueryForZoneEditorStateHandler
+    : IRequestHandler<QueryForZoneEditorState, CommandResult<ZoneEditorState>>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
-    using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-    using MediatR;
+    private readonly ZoneEditorServices _zoneEditorServices;
 
-    public class QueryForZoneEditorStateHandler
-        : IRequestHandler<QueryForZoneEditorState, CommandResult<ZoneEditorState>>
+    public QueryForZoneEditorStateHandler(ZoneEditorServices zoneEditorServices)
     {
-        private readonly ZoneEditorServices _zoneEditorServices;
+        _zoneEditorServices = zoneEditorServices;
+    }
 
-        public QueryForZoneEditorStateHandler(
-            ZoneEditorServices zoneEditorServices
-        )
+    public async Task<CommandResult<ZoneEditorState>> Handle(
+        QueryForZoneEditorState request,
+        CancellationToken cancellationToken
+    )
+    {
+        // TODO: Use Cache to get State
+        var result = await _zoneEditorServices.Api.GetEditorZoneList();
+        if (!result.Success)
         {
-            _zoneEditorServices = zoneEditorServices;
-        }
-
-        public async Task<CommandResult<ZoneEditorState>> Handle(
-            QueryForZoneEditorState request,
-            CancellationToken cancellationToken
-        )
-        {
-            // TODO: Use Cache to get State
-            var result = await _zoneEditorServices.Api.GetEditorZoneList();
-            if (!result.Success)
-            {
-                return new(
-                    result.ErrorCode ?? ZoneEditorErrorCodes.EDITOR_API_ERROR
-                );
-            }
-            return new CommandResult<ZoneEditorState>(
-                new ZoneEditorStateModel(
-                    result.Result
-                )
+            return new(
+                result.ErrorCode ?? ZoneEditorErrorCodes.EDITOR_API_ERROR
             );
         }
+        return new CommandResult<ZoneEditorState>(
+            new ZoneEditorStateModel(result.Result)
+        );
     }
 }

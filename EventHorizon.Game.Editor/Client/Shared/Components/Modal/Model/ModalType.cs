@@ -1,10 +1,9 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Modal.Model
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Modal.Model;
+
+public enum ModalType
 {
-    public enum ModalType
-    {
-        None,
-        FullScreen,
-        Slim,
-        Fit,
-    }
+    None,
+    FullScreen,
+    Slim,
+    Fit,
 }

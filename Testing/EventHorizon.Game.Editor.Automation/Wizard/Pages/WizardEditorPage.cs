@@ -11,16 +11,8 @@ using _ = WizardEditorPage;
 public class WizardEditorPage : MainLayoutPage<_>
 {
     [TestSelector("wizard-editor-page__list")]
-    public WizardListComponent<_> WizardList
-    {
-        get;
-        private set;
-    }
+    public WizardListComponent<_> WizardList { get; private set; }
 
     [TestSelector("wizard-editor-page__step-editor")]
-    public WizardStepEditorComponent<_> WizardStepEditor
-    {
-        get;
-        private set;
-    }
+    public WizardStepEditorComponent<_> WizardStepEditor { get; private set; }
 }

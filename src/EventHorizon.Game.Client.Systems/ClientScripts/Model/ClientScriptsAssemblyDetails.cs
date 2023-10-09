@@ -1,11 +1,10 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Model
-{
-    using System;
-    using EventHorizon.Game.Client.Systems.ClientScripts.Api;
+﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Model;
 
-    public class ClientScriptsAssemblyDetails
-        : IClientScriptsAssemblyDetails
-    {
-        public string Hash { get; set; } = string.Empty;
-    }
+using System;
+
+using EventHorizon.Game.Client.Systems.ClientScripts.Api;
+
+public class ClientScriptsAssemblyDetails : IClientScriptsAssemblyDetails
+{
+    public string Hash { get; set; } = string.Empty;
 }

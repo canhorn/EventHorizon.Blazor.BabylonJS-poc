@@ -1,18 +1,15 @@
-﻿namespace EventHorizon.Game.Editor.Client.Authentication.Set
+﻿namespace EventHorizon.Game.Editor.Client.Authentication.Set;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct SetEditorAccessTokenCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string AccessToken { get; }
 
-    public struct SetEditorAccessTokenCommand
-        : IRequest<StandardCommandResult>
+    public SetEditorAccessTokenCommand(string accessToken)
     {
-        public string AccessToken { get; }
-
-        public SetEditorAccessTokenCommand(
-            string accessToken
-        )
-        {
-            AccessToken = accessToken;
-        }
+        AccessToken = accessToken;
     }
 }

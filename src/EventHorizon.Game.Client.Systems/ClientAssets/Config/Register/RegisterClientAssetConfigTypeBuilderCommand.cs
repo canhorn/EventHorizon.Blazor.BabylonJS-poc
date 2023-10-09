@@ -1,23 +1,24 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Register
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Register;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
+
+using MediatR;
+
+public struct RegisterClientAssetConfigTypeBuilderCommand
+    : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
-    using MediatR;
+    public string Type { get; }
+    public ClientAssetConfigTypeBuilder Builder { get; }
 
-    public struct RegisterClientAssetConfigTypeBuilderCommand
-        : IRequest<StandardCommandResult>
+    public RegisterClientAssetConfigTypeBuilderCommand(
+        string type,
+        ClientAssetConfigTypeBuilder builder
+    )
     {
-        public string Type { get; }
-        public ClientAssetConfigTypeBuilder Builder { get; }
-
-        public RegisterClientAssetConfigTypeBuilderCommand(
-            string type,
-            ClientAssetConfigTypeBuilder builder
-        )
-        {
-            Type = type;
-            Builder = builder;
-        }
+        Type = type;
+        Builder = builder;
     }
 }

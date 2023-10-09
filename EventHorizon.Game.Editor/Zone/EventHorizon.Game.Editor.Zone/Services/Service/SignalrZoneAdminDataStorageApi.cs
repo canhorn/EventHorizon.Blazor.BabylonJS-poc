@@ -1,112 +1,109 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Service;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Game.Editor.Zone.Services.Model;
+
+using Microsoft.AspNetCore.SignalR.Client;
+
+public class SignalrZoneAdminDataStorageApi : ZoneAdminDataStorageApi
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Game.Editor.Zone.Services.Model;
-    using Microsoft.AspNetCore.SignalR.Client;
+    private readonly HubConnection? _hubConnection;
 
-    public class SignalrZoneAdminDataStorageApi
-        : ZoneAdminDataStorageApi
+    public SignalrZoneAdminDataStorageApi(HubConnection? hubConnection)
     {
-        private readonly HubConnection? _hubConnection;
+        _hubConnection = hubConnection;
+    }
 
-        public SignalrZoneAdminDataStorageApi(
-            HubConnection? hubConnection
-        )
+    public async Task<ApiResponse<Dictionary<string, object>>> All(
+        CancellationToken cancellationToken
+    )
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            _hubConnection = hubConnection;
-        }
-
-        public async Task<ApiResponse<Dictionary<string, object>>> All(
-            CancellationToken cancellationToken
-        )
-        {
-            if (_hubConnection.IsNotConnected())
+            return new ApiResponse<Dictionary<string, object>>()
             {
-                return new ApiResponse<Dictionary<string, object>>()
-                {
-                    Success = false,
-                    ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-                };
-            }
-
-            return await _hubConnection.InvokeAsync<ApiResponse<Dictionary<string, object>>>(
-                "DataStorage_All",
-                cancellationToken
-            );
+                Success = false,
+                ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
+            };
         }
 
-        public async Task<StandardApiResponse> Create(
-            string key, 
-            string type,
-            object value,
-            CancellationToken cancellationToken
-        )
+        return await _hubConnection.InvokeAsync<
+            ApiResponse<Dictionary<string, object>>
+        >("DataStorage_All", cancellationToken);
+    }
+
+    public async Task<StandardApiResponse> Create(
+        string key,
+        string type,
+        object value,
+        CancellationToken cancellationToken
+    )
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            if (_hubConnection.IsNotConnected())
+            return new StandardApiResponse()
             {
-                return new StandardApiResponse()
-                {
-                    Success = false,
-                    ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-                };
-            }
-
-            return await _hubConnection.InvokeAsync<StandardApiResponse>(
-                "DataStorage_Create",
-                key,
-                type,
-                value,
-                cancellationToken
-            );
+                Success = false,
+                ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
+            };
         }
 
-        public async Task<StandardApiResponse> Delete(
-            string key,
-            CancellationToken cancellationToken
-        )
+        return await _hubConnection.InvokeAsync<StandardApiResponse>(
+            "DataStorage_Create",
+            key,
+            type,
+            value,
+            cancellationToken
+        );
+    }
+
+    public async Task<StandardApiResponse> Delete(
+        string key,
+        CancellationToken cancellationToken
+    )
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            if (_hubConnection.IsNotConnected())
+            return new StandardApiResponse()
             {
-                return new StandardApiResponse()
-                {
-                    Success = false,
-                    ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-                };
-            }
-
-            return await _hubConnection.InvokeAsync<StandardApiResponse>(
-                "DataStorage_Delete",
-                key,
-                cancellationToken
-            );
+                Success = false,
+                ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
+            };
         }
 
-        public async Task<StandardApiResponse> Update(
-            string key, 
-            string type,
-            object value,
-            CancellationToken cancellationToken
-        )
+        return await _hubConnection.InvokeAsync<StandardApiResponse>(
+            "DataStorage_Delete",
+            key,
+            cancellationToken
+        );
+    }
+
+    public async Task<StandardApiResponse> Update(
+        string key,
+        string type,
+        object value,
+        CancellationToken cancellationToken
+    )
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            if (_hubConnection.IsNotConnected())
+            return new StandardApiResponse()
             {
-                return new StandardApiResponse()
-                {
-                    Success = false,
-                    ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-                };
-            }
-
-            return await _hubConnection.InvokeAsync<StandardApiResponse>(
-                "DataStorage_Update",
-                key,
-                type,
-                value,
-                cancellationToken
-            );
+                Success = false,
+                ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
+            };
         }
+
+        return await _hubConnection.InvokeAsync<StandardApiResponse>(
+            "DataStorage_Update",
+            key,
+            type,
+            value,
+            cancellationToken
+        );
     }
 }

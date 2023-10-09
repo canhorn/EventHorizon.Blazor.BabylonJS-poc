@@ -1,20 +1,16 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Register
+﻿namespace EventHorizon.Game.Client.Systems.Player.Register;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.Player.Api;
+
+using MediatR;
+
+public class RegisterPlayerCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.Player.Api;
+    public IPlayerZoneDetails Player { get; }
 
-    using MediatR;
-
-    public class RegisterPlayerCommand
-        : IRequest<StandardCommandResult>
+    public RegisterPlayerCommand(IPlayerZoneDetails player)
     {
-        public IPlayerZoneDetails Player { get; }
-
-        public RegisterPlayerCommand(
-            IPlayerZoneDetails player
-        )
-        {
-            Player = player;
-        }
+        Player = player;
     }
 }

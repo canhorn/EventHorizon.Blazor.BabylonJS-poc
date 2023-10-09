@@ -1,14 +1,13 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.State.Api
+﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
+
+using System.Threading.Tasks;
+
+public interface IState
 {
-    using System.Threading.Tasks;
+    long ClientId { get; }
+    bool Remove { get; }
+    string Name { get; }
 
-    public interface IState
-    {
-        long ClientId { get; }
-        bool Remove { get; }
-        string Name { get; }
-
-        Task Update();
-        Task Reset();
-    }
+    Task Update();
+    Task Reset();
 }

@@ -6,6 +6,4 @@ using EventHorizon.Game.Server.Asset.Model;
 using MediatR;
 
 public struct TriggerAssetServerAssetsExportCommand
-    : IRequest<CommandResult<ExportTriggerResult>>
-{
-}
+    : IRequest<CommandResult<ExportTriggerResult>> { }

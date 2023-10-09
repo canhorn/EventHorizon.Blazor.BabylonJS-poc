@@ -1,42 +1,35 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Query
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Query;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Game.Editor.Zone.Services.Model;
+
+using MediatR;
+
+public class QueryForZoneInfoHandler
+    : IRequestHandler<QueryForZoneInfo, CommandResult<ZoneInfo>>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Game.Editor.Zone.Services.Model;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class QueryForZoneInfoHandler
-        : IRequestHandler<QueryForZoneInfo, CommandResult<ZoneInfo>>
+    public QueryForZoneInfoHandler(ZoneAdminServices zoneAdminServices)
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public QueryForZoneInfoHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<CommandResult<ZoneInfo>> Handle(
+        QueryForZoneInfo request,
+        CancellationToken cancellationToken
+    )
+    {
+        var zoneInfo = await _zoneAdminServices.Api.GetZoneInfo();
+        if (zoneInfo.IsNull())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return new(ZoneAdminErrorCodes.ZONE_INFO_INVALID);
         }
-
-        public async Task<CommandResult<ZoneInfo>> Handle(
-            QueryForZoneInfo request,
-            CancellationToken cancellationToken
-        )
-        {
-            var zoneInfo = await _zoneAdminServices
-                .Api
-                .GetZoneInfo();
-            if (zoneInfo.IsNull())
-            {
-                return new(
-                    ZoneAdminErrorCodes.ZONE_INFO_INVALID
-                );
-            }
-            return new(
-                zoneInfo
-            );
-        }
+        return new(zoneInfo);
     }
 }

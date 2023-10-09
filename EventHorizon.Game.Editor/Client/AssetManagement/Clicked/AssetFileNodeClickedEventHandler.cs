@@ -1,40 +1,38 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Clicked
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Clicked;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.AssetManagement.Api;
+using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
+
+using MediatR;
+
+public class AssetFileNodeClickedEventHandler
+    : INotificationHandler<AssetFileNodeClickedEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Api;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly AssetManagementState _state;
 
-    public class AssetFileNodeClickedEventHandler
-        : INotificationHandler<AssetFileNodeClickedEvent>
+    public AssetFileNodeClickedEventHandler(
+        IMediator mediator,
+        AssetManagementState state
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly AssetManagementState _state;
+        _mediator = mediator;
+        _state = state;
+    }
 
-        public AssetFileNodeClickedEventHandler(
-            IMediator mediator,
-            AssetManagementState state
-        )
-        {
-            _mediator = mediator;
-            _state = state;
-        }
+    public async Task Handle(
+        AssetFileNodeClickedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _state.SetFileNode(notification.Node, cancellationToken);
 
-        public async Task Handle(
-            AssetFileNodeClickedEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _state.SetFileNode(
-                notification.Node,
-                cancellationToken
-            );
-
-            await _mediator.Publish(
-                new AssetManagementStateChangedEvent(),
-                cancellationToken
-            );
-        }
+        await _mediator.Publish(
+            new AssetManagementStateChangedEvent(),
+            cancellationToken
+        );
     }
 }

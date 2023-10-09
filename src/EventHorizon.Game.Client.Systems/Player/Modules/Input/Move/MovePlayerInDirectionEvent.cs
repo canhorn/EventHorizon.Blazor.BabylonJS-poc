@@ -1,26 +1,19 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Move
+﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Move;
+
+using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
+using EventHorizon.Observer.Model;
+
+using MediatR;
+
+public struct MovePlayerInDirectionEvent : INotification
 {
-    using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
-    using EventHorizon.Observer.Model;
+    public MoveDirection Direction { get; }
 
-    using MediatR;
-
-    public struct MovePlayerInDirectionEvent
-        : INotification
+    public MovePlayerInDirectionEvent(MoveDirection direction)
     {
-        public MoveDirection Direction { get; }
-
-        public MovePlayerInDirectionEvent(
-            MoveDirection direction
-        )
-        {
-            Direction = direction;
-        }
-
-    }
-
-    public interface MovePlayerInDirectionEventObserver
-        : ArgumentObserver<MovePlayerInDirectionEvent>
-    {
+        Direction = direction;
     }
 }
+
+public interface MovePlayerInDirectionEventObserver
+    : ArgumentObserver<MovePlayerInDirectionEvent> { }

@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api;
+
+using System;
+
+public interface ClientAssetLoaderState
 {
-    using System;
+    Option<ClientAssetLoader> Get(string id);
 
-    public interface ClientAssetLoaderState
-    {
-        Option<ClientAssetLoader> Get(
-            string id
-        );
-
-        void Set(
-            string id,
-            ClientAssetLoader loader
-        );
-    }
+    void Set(string id, ClientAssetLoader loader);
 }

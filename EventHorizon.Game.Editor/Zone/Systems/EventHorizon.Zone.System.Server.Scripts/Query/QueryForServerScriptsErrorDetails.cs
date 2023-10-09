@@ -1,12 +1,9 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Query
-{
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Model;
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Query;
 
-    using MediatR;
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Zone.System.Server.Scripts.Model;
 
-    public struct QueryForServerScriptsErrorDetails
-        : IRequest<CommandResult<ServerScriptsErrorDetailsResponse>>
-    {
-    }
-}
+using MediatR;
+
+public struct QueryForServerScriptsErrorDetails
+    : IRequest<CommandResult<ServerScriptsErrorDetailsResponse>> { }

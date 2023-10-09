@@ -1,39 +1,37 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Agent.Delete
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Agent.Delete;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Zone.Services.Api;
+
+using MediatR;
+
+public class DeleteAgentEntityCommandHandler
+    : IRequestHandler<DeleteAgentEntityCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using MediatR;
+    private readonly ZoneAdminServices _zoneAdminServices;
 
-    public class DeleteAgentEntityCommandHandler
-        : IRequestHandler<DeleteAgentEntityCommand, StandardCommandResult>
+    public DeleteAgentEntityCommandHandler(ZoneAdminServices zoneAdminServices)
     {
-        private readonly ZoneAdminServices _zoneAdminServices;
+        _zoneAdminServices = zoneAdminServices;
+    }
 
-        public DeleteAgentEntityCommandHandler(
-            ZoneAdminServices zoneAdminServices
-        )
+    public async Task<StandardCommandResult> Handle(
+        DeleteAgentEntityCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _zoneAdminServices.Api.Agent.DeleteEntity(
+            request.EntityId
+        );
+        if (result.Success.IsNotTrue())
         {
-            _zoneAdminServices = zoneAdminServices;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
-        public async Task<StandardCommandResult> Handle(
-            DeleteAgentEntityCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _zoneAdminServices.Api.Agent.DeleteEntity(
-                request.EntityId
-            );
-            if (result.Success.IsNotTrue())
-            {
-                return result.ErrorCode
-                    ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
-            }
-
-            return new();
-        }
+        return new();
     }
 }

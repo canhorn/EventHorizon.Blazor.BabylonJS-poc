@@ -10,15 +10,13 @@ using Microsoft.AspNetCore.Components;
 
 public class ZoneEntityListPageModel
     : ObservableComponentBase,
-    ClientEntitySelectedEventObserver,
-    AgentEntitySelectedEventObserver
+        ClientEntitySelectedEventObserver,
+        AgentEntitySelectedEventObserver
 {
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
 
-    public Task Handle(
-       ClientEntitySelectedEvent args
-    )
+    public Task Handle(ClientEntitySelectedEvent args)
     {
         NavigationManager.NavigateTo(
             ZoneEntityEditorPage.Route(args.Entity.GlobalId)
@@ -27,9 +25,7 @@ public class ZoneEntityListPageModel
         return Task.CompletedTask;
     }
 
-    public Task Handle(
-        AgentEntitySelectedEvent args
-    )
+    public Task Handle(AgentEntitySelectedEvent args)
     {
         NavigationManager.NavigateTo(
             ZoneEntityEditorPage.Route(args.Entity.GlobalId)

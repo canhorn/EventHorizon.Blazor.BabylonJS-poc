@@ -1,12 +1,11 @@
-﻿using System;
+﻿namespace EventHorizon.Game.Client.Engine.Services.Api;
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EventHorizon.Game.Client.Engine.Services.Api
+public interface IInitializeServices
 {
-    public interface IInitializeServices
-    {
-        Task InitializeServices();
-    }
+    Task InitializeServices();
 }

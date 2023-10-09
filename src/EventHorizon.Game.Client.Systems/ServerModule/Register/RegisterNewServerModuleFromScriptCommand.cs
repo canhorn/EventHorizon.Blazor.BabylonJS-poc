@@ -1,19 +1,19 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Register
+﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Register;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.ServerModule.Api;
+
+using MediatR;
+
+public struct RegisterNewServerModuleFromScriptCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.ServerModule.Api;
-    using MediatR;
+    public IServerModuleScripts Scripts { get; }
 
-    public struct RegisterNewServerModuleFromScriptCommand
-        : IRequest<StandardCommandResult>
+    public RegisterNewServerModuleFromScriptCommand(
+        IServerModuleScripts scripts
+    )
     {
-        public IServerModuleScripts Scripts { get; }
-
-        public RegisterNewServerModuleFromScriptCommand(
-            IServerModuleScripts scripts
-        )
-        {
-            Scripts = scripts;
-        }
+        Scripts = scripts;
     }
 }

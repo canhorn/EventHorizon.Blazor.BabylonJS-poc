@@ -1,48 +1,43 @@
-﻿namespace EventHorizon.Blazor.BabylonJS.Authentication.Set
+﻿namespace EventHorizon.Blazor.BabylonJS.Authentication.Set;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Observer.Model;
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public struct AccessTokenSetEvent : INotification
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Observer.Model;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    public string AccessToken { get; }
 
-    public struct AccessTokenSetEvent
-        : INotification
+    public AccessTokenSetEvent(string accessToken)
     {
-        public string AccessToken { get; }
+        AccessToken = accessToken;
+    }
+}
 
-        public AccessTokenSetEvent(
-            string accessToken
-        )
-        {
-            AccessToken = accessToken;
-        }
+public interface AccessTokenSetEventObserver
+    : ArgumentObserver<AccessTokenSetEvent> { }
+
+public class AccessTokenSetEventObserverHandler
+    : INotificationHandler<AccessTokenSetEvent>
+{
+    private readonly ObserverState _observer;
+
+    public AccessTokenSetEventObserverHandler(ObserverState observer)
+    {
+        _observer = observer;
     }
 
-    public interface AccessTokenSetEventObserver
-        : ArgumentObserver<AccessTokenSetEvent>
-    {
-    }
-
-    public class AccessTokenSetEventObserverHandler
-        : INotificationHandler<AccessTokenSetEvent>
-    {
-        private readonly ObserverState _observer;
-
-        public AccessTokenSetEventObserverHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            AccessTokenSetEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<AccessTokenSetEventObserver, AccessTokenSetEvent>(
+    public Task Handle(
+        AccessTokenSetEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<AccessTokenSetEventObserver, AccessTokenSetEvent>(
             notification,
             cancellationToken
         );
-    }
 }

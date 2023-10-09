@@ -1,55 +1,50 @@
-﻿namespace EventHorizon.Game.Editor.Client.Shared.Properties
+﻿namespace EventHorizon.Game.Editor.Client.Shared.Properties;
+
+using System.Reflection.Metadata;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.Shared.Components;
+
+using Microsoft.AspNetCore.Components;
+
+public abstract class PropertyControlBase : EditorComponentBase
 {
-    using System.Reflection.Metadata;
-    using System.Threading.Tasks;
+    [Parameter]
+    public string Label { get; set; } = string.Empty;
 
-    using EventHorizon.Game.Editor.Client.Shared.Components;
+    [Parameter]
+    public string PropertyName { get; set; } = string.Empty;
 
-    using Microsoft.AspNetCore.Components;
+    [Parameter]
+    public object Property { get; set; } = null!;
 
-    public abstract class PropertyControlBase
-        : EditorComponentBase
+    [Parameter]
+    public EventCallback<PropertyChangedArgs> OnChange { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnRemove { get; set; }
+
+    public string LabelText =>
+        string.IsNullOrWhiteSpace(Label) ? PropertyName : Label;
+    public bool ShowRemove => OnRemove.HasDelegate;
+
+    protected async Task HandleChange(ChangeEventArgs args)
     {
-        [Parameter]
-        public string Label { get; set; } = string.Empty;
-        [Parameter]
-        public string PropertyName { get; set; } = string.Empty;
-        [Parameter]
-        public object Property { get; set; } = null!;
-        [Parameter]
-        public EventCallback<PropertyChangedArgs> OnChange { get; set; }
-        [Parameter]
-        public EventCallback<string> OnRemove { get; set; }
-
-        public string LabelText => string.IsNullOrWhiteSpace(Label) ? PropertyName : Label;
-        public bool ShowRemove => OnRemove.HasDelegate;
-
-        protected async Task HandleChange(
-            ChangeEventArgs args
-        )
-        {
-            args.NullCheck();
-            args.Value.NullCheck();
-            await OnChange.InvokeAsync(
-                new PropertyChangedArgs
-                {
-                    PropertyName = PropertyName,
-                    Property = Parse(
-                        args.Value
-                    )
-                }
-            );
-        }
-
-        protected async Task HandleRemove()
-        {
-            await OnRemove.InvokeAsync(
-                PropertyName
-            );
-        }
-
-        protected abstract object Parse(
-            object value
+        args.NullCheck();
+        args.Value.NullCheck();
+        await OnChange.InvokeAsync(
+            new PropertyChangedArgs
+            {
+                PropertyName = PropertyName,
+                Property = Parse(args.Value)
+            }
         );
     }
+
+    protected async Task HandleRemove()
+    {
+        await OnRemove.InvokeAsync(PropertyName);
+    }
+
+    protected abstract object Parse(object value);
 }

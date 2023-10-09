@@ -1,47 +1,44 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+
+using Microsoft.Extensions.Logging;
+
+public static class ObjectEntityExtensions
 {
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-
-    using Microsoft.Extensions.Logging;
-
-    public static class ObjectEntityExtensions
+    public static ObjectEntityConfiguration GetEntityConfiguration(
+        this IObjectEntity entity
+    )
     {
-        public static ObjectEntityConfiguration GetEntityConfiguration(
-            this IObjectEntity entity
-        )
+        var config = entity.GetPropertyAsOption<ObjectEntityConfiguration>(
+            "entityConfiguration"
+        );
+        if (config.HasValue.IsNotTrue())
         {
-            var config = entity.GetPropertyAsOption<ObjectEntityConfiguration>(
-                "entityConfiguration"
-            );
-            if (config.HasValue.IsNotTrue())
-            {
-                GamePlatfrom.Logger<IObjectEntity>()
-                    .LogWarning(
-                        "Failed to find Entity Configuration."
-                    );
-                return new ObjectEntityConfigurationModel();
-            }
-
-            return config.Value;
+            GamePlatfrom
+                .Logger<IObjectEntity>()
+                .LogWarning("Failed to find Entity Configuration.");
+            return new ObjectEntityConfigurationModel();
         }
 
-        public static ObjectEntityConfiguration GetPlayerConfiguration(
-            this IObjectEntity entity
-        )
-        {
-            var config = entity.GetPropertyAsOption<ObjectEntityConfiguration>(
-                "playerConfiguration"
-            );
-            if (config.HasValue.IsNotTrue())
-            {
-                GamePlatfrom.Logger<IObjectEntity>()
-                    .LogWarning(
-                        "Failed to find Player Configuration."
-                    );
-                return new ObjectEntityConfigurationModel();
-            }
+        return config.Value;
+    }
 
-            return config.Value;
+    public static ObjectEntityConfiguration GetPlayerConfiguration(
+        this IObjectEntity entity
+    )
+    {
+        var config = entity.GetPropertyAsOption<ObjectEntityConfiguration>(
+            "playerConfiguration"
+        );
+        if (config.HasValue.IsNotTrue())
+        {
+            GamePlatfrom
+                .Logger<IObjectEntity>()
+                .LogWarning("Failed to find Player Configuration.");
+            return new ObjectEntityConfigurationModel();
         }
+
+        return config.Value;
     }
 }

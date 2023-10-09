@@ -1,23 +1,20 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Register
+﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Register;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api;
+
+using MediatR;
+
+public struct RegisterClientAssetLoaderCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api;
-    using MediatR;
+    public string Id { get; }
+    public ClientAssetLoader Loader { get; }
 
-    public struct RegisterClientAssetLoaderCommand
-        : IRequest<StandardCommandResult>
+    public RegisterClientAssetLoaderCommand(string id, ClientAssetLoader loader)
     {
-        public string Id { get; }
-        public ClientAssetLoader Loader { get; }
-
-        public RegisterClientAssetLoaderCommand(
-            string id,
-            ClientAssetLoader loader
-        )
-        {
-            Id = id;
-            Loader = loader;
-        }
+        Id = id;
+        Loader = loader;
     }
 }

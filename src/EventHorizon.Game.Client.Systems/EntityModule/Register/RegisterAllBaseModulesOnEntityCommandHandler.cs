@@ -10,7 +10,10 @@ using EventHorizon.Game.Client.Systems.EntityModule.Model;
 using MediatR;
 
 public class RegisterAllBaseModulesOnEntityCommandHandler
-    : IRequestHandler<RegisterAllBaseModulesOnEntityCommand,StandardCommandResult>
+    : IRequestHandler<
+        RegisterAllBaseModulesOnEntityCommand,
+        StandardCommandResult
+    >
 {
     private readonly EntityBaseScriptModuleState _state;
 

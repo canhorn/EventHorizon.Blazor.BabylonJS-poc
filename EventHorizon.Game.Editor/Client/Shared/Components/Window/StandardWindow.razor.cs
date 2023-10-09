@@ -30,13 +30,13 @@ public partial class StandardWindowModel : ComponentBase
 
     /// <summary>
     /// Where to display the Window
-    /// 
+    ///
     /// <pre>
     /// | TopLeft     |   TopCenter       |   TopRight    |
     /// | MiddleLeft  |   MiddleCenter    |   MiddleRight |
     /// | BottomLeft  |   BottomCenter    |   BottomRight |
     /// </pre>
-    /// 
+    ///
     /// 900x300
     /// </summary>
     [Parameter]

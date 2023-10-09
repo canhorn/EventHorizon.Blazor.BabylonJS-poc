@@ -12,9 +12,7 @@ public class AssetServerImportUploadedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public AssetServerImportUploadedEventObserverHandler(
-        ObserverState observer
-    )
+    public AssetServerImportUploadedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

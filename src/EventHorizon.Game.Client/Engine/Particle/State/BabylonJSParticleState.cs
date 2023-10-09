@@ -9,26 +9,17 @@ using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
 
 using Microsoft.Extensions.Logging;
 
-public class BabylonJSParticleState
-    : ParticleState,
-      ParticleLifecycleService
+public class BabylonJSParticleState : ParticleState, ParticleLifecycleService
 {
-    private readonly ILogger _logger =
-        GamePlatfrom.Logger<ParticleState>();
+    private readonly ILogger _logger = GamePlatfrom.Logger<ParticleState>();
     private readonly IDictionary<
         long,
         EngineParticleSystem
-    > _particleSystemList = new Dictionary<
-        long,
-        EngineParticleSystem
-    >();
+    > _particleSystemList = new Dictionary<long, EngineParticleSystem>();
     private readonly IDictionary<
         string,
         ParticleTemplate
-    > _particleTemplateList = new Dictionary<
-        string,
-        ParticleTemplate
-    >();
+    > _particleTemplateList = new Dictionary<string, ParticleTemplate>();
 
     public int Priority => 0;
 
@@ -64,20 +55,17 @@ public class BabylonJSParticleState
     {
         if (
             !_particleTemplateList.ContainsKey(templateId)
-            || templateId.Equals(
-                DefaultParticleSettings.DEFAULT_TEMPLATE_ID
-            )
+            || templateId.Equals(DefaultParticleSettings.DEFAULT_TEMPLATE_ID)
         )
         {
-            var defaultParticleSystem =
-                new BabylonJSEngineParticleSystem(
-                    id,
-                    ParticleSettingsModel.Merge(
-                        DefaultParticleSettings.Settings,
-                        settings,
-                        GetGeneratedSettings(settings)
-                    )
-                );
+            var defaultParticleSystem = new BabylonJSEngineParticleSystem(
+                id,
+                ParticleSettingsModel.Merge(
+                    DefaultParticleSettings.Settings,
+                    settings,
+                    GetGeneratedSettings(settings)
+                )
+            );
             _particleSystemList[defaultParticleSystem.Id] =
                 defaultParticleSystem;
 
@@ -102,17 +90,15 @@ public class BabylonJSParticleState
         }
 
         var template = _particleTemplateList[templateId];
-        var particleSystem =
-            new BabylonJSEngineParticleSystem(
-                id,
-                ParticleSettingsModel.Merge(
-                    template.DefaultSettings,
-                    settings,
-                    GetGeneratedSettings(settings)
-                )
-            );
-        _particleSystemList[particleSystem.Id] =
-            particleSystem;
+        var particleSystem = new BabylonJSEngineParticleSystem(
+            id,
+            ParticleSettingsModel.Merge(
+                template.DefaultSettings,
+                settings,
+                GetGeneratedSettings(settings)
+            )
+        );
+        _particleSystemList[particleSystem.Id] = particleSystem;
 
         return Task.CompletedTask;
     }
@@ -125,10 +111,7 @@ public class BabylonJSParticleState
 
         foreach (var setting in settings)
         {
-            if (
-                setting.Value
-                is BabylonJSEngineMesh engineMesh
-            )
+            if (setting.Value is BabylonJSEngineMesh engineMesh)
             {
                 result.Add(setting.Key, engineMesh.Mesh);
             }
@@ -139,12 +122,7 @@ public class BabylonJSParticleState
 
     public async Task DisposeSystem(long id)
     {
-        if (
-            _particleSystemList.TryGetValue(
-                id,
-                out var system
-            )
-        )
+        if (_particleSystemList.TryGetValue(id, out var system))
         {
             await system.Dispose();
             _particleSystemList.Remove(id);
@@ -153,12 +131,7 @@ public class BabylonJSParticleState
 
     public async Task StartSystem(long id)
     {
-        if (
-            _particleSystemList.TryGetValue(
-                id,
-                out var system
-            )
-        )
+        if (_particleSystemList.TryGetValue(id, out var system))
         {
             await system.Start();
         }
@@ -166,28 +139,15 @@ public class BabylonJSParticleState
 
     public async Task StopSystem(long id)
     {
-        if (
-            _particleSystemList.TryGetValue(
-                id,
-                out var system
-            )
-        )
+        if (_particleSystemList.TryGetValue(id, out var system))
         {
             await system.Stop();
         }
     }
 
-    public async Task UpdateSystem(
-        long id,
-        ParticleSettings settings
-    )
+    public async Task UpdateSystem(long id, ParticleSettings settings)
     {
-        if (
-            _particleSystemList.TryGetValue(
-                id,
-                out var system
-            )
-        )
+        if (_particleSystemList.TryGetValue(id, out var system))
         {
             await system.UpdateSettings(settings);
         }

@@ -9,10 +9,7 @@ public struct AssetServerBackupFinishedEvent : INotification
     public string ReferenceId { get; }
     public string BackupPath { get; }
 
-    public AssetServerBackupFinishedEvent(
-        string referenceId,
-        string backupPath
-    )
+    public AssetServerBackupFinishedEvent(string referenceId, string backupPath)
     {
         ReferenceId = referenceId;
         BackupPath = backupPath;
@@ -20,6 +17,4 @@ public struct AssetServerBackupFinishedEvent : INotification
 }
 
 public interface AssetServerBackupFinishedEventObserver
-    : ArgumentObserver<AssetServerBackupFinishedEvent>
-{
-}
+    : ArgumentObserver<AssetServerBackupFinishedEvent> { }

@@ -6,10 +6,8 @@ using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 
 public class StandardClientAssetState : ClientAssetState
 {
-    private readonly IDictionary<string, ClientAsset> _map = new Dictionary<
-        string,
-        ClientAsset
-    >();
+    private readonly IDictionary<string, ClientAsset> _map =
+        new Dictionary<string, ClientAsset>();
 
     public Option<ClientAsset> Get(string id)
     {

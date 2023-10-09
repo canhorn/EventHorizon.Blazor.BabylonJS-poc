@@ -1,21 +1,17 @@
-﻿namespace EventHorizon.Game.Editor.Client.Authentication.Set
+﻿namespace EventHorizon.Game.Editor.Client.Authentication.Set;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public class SetSessionValueCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Key { get; }
+    public string Value { get; }
 
-    public class SetSessionValueCommand
-        : IRequest<StandardCommandResult>
+    public SetSessionValueCommand(string key, string value)
     {
-        public string Key { get; }
-        public string Value { get; }
-
-        public SetSessionValueCommand(
-            string key,
-            string value
-        )
-        {
-            Key = key;
-            Value = value;
-        }
+        Key = key;
+        Value = value;
     }
 }

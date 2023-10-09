@@ -36,7 +36,5 @@ public class TreeViewComponent<TOwner> : Control<TOwner>
     }
 
     [ControlDefinition("li/ul")]
-    public class TreeNodeItem : TreeNode
-    {
-    }
+    public class TreeNodeItem : TreeNode { }
 }

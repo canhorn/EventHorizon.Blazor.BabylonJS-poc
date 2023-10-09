@@ -1,29 +1,25 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Generate
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Generate;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+using MediatR;
+
+public class GetGeneratedGuiControlIdHandler
+    : IRequestHandler<GetGeneratedGuiControlId, string>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using MediatR;
+    private readonly IGuiControlState _state;
 
-    public class GetGeneratedGuiControlIdHandler
-        : IRequestHandler<GetGeneratedGuiControlId, string>
+    public GetGeneratedGuiControlIdHandler(IGuiControlState state)
     {
-        private readonly IGuiControlState _state;
-
-        public GetGeneratedGuiControlIdHandler(
-            IGuiControlState state
-        )
-        {
-            _state = state;
-        }
-
-        public Task<string> Handle(
-            GetGeneratedGuiControlId request,
-            CancellationToken cancellationToken
-        ) => _state.GenerateId(
-            request.GuiId,
-            request.ControlId
-        ).FromResult();
+        _state = state;
     }
+
+    public Task<string> Handle(
+        GetGeneratedGuiControlId request,
+        CancellationToken cancellationToken
+    ) => _state.GenerateId(request.GuiId, request.ControlId).FromResult();
 }

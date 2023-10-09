@@ -14,9 +14,9 @@ using Microsoft.AspNetCore.Components;
 
 public class ZoneServerLifecycleProviderBase
     : ObservableComponentBase,
-    ZoneServerBackupFinishedEventObserver,
-    ZoneServerExportFinishedEventObserver,
-    ZoneServerImportFinishedEventObserver
+        ZoneServerBackupFinishedEventObserver,
+        ZoneServerExportFinishedEventObserver,
+        ZoneServerImportFinishedEventObserver
 {
     [CascadingParameter]
     public ZoneArtifactManagementState State { get; set; } = null!;
@@ -63,9 +63,11 @@ public class ZoneServerLifecycleProviderBase
 
         if (args.ReferenceId == State.BackupReferenceId)
         {
-            if (!NavigationManager.Uri.ToLowerInvariant().EndsWith(
-                ZoneServerBackupArtifactsPage.Route
-            ))
+            if (
+                !NavigationManager.Uri
+                    .ToLowerInvariant()
+                    .EndsWith(ZoneServerBackupArtifactsPage.Route)
+            )
             {
                 NavigationManager.NavigateTo(
                     ZoneServerBackupArtifactsPage.Route

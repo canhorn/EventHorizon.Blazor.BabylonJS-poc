@@ -1,119 +1,103 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Model
-{
-    using System.Threading.Tasks;
-    using BabylonJS;
-    using EventHorizon.Game.Client.Engine.Entity.Model;
-    using EventHorizon.Game.Client.Engine.Rendering.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-    using EventHorizon.Game.Client.Engine.Systems.Module.Model;
-    using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Api;
-    using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
-    using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Mesh;
-    using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Model;
 
-    public class BabylonJSScreenPointerModule
-        : ModuleEntityBase,
+using System.Threading.Tasks;
+
+using BabylonJS;
+
+using EventHorizon.Game.Client.Engine.Entity.Model;
+using EventHorizon.Game.Client.Engine.Rendering.Api;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+using EventHorizon.Game.Client.Engine.Systems.Module.Model;
+using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Api;
+using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
+using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Mesh;
+using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Model;
+
+using MediatR;
+
+public class BabylonJSScreenPointerModule
+    : ModuleEntityBase,
         ScreenPointerModule
+{
+    private readonly IMediator _mediator;
+    private readonly IRenderingScene _renderingScene;
+    private readonly IObjectEntity _entity;
+    private readonly string _addHandler;
+
+    public override int Priority => 0;
+
+    public BabylonJSScreenPointerModule(IObjectEntity entity)
+        : base()
     {
-        private readonly IMediator _mediator;
-        private readonly IRenderingScene _renderingScene;
-        private readonly IObjectEntity _entity;
-        private readonly string _addHandler;
+        _mediator = GameServiceProvider.GetService<IMediator>();
+        _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
+        _entity = entity;
 
-        public override int Priority => 0;
+        _addHandler = _renderingScene
+            .GetBabylonJSScene()
+            .Scene.onPointerObservable.add(HandlePointerObservable);
+    }
 
-        public BabylonJSScreenPointerModule(
-            IObjectEntity entity
-        ) : base()
+    public override Task Initialize()
+    {
+        return Task.CompletedTask;
+    }
+
+    public override Task Dispose()
+    {
+        _renderingScene
+            .GetBabylonJSScene()
+            .Scene.onPointerObservable.add_Remove(_addHandler);
+        return Task.CompletedTask;
+    }
+
+    public override Task Update()
+    {
+        return Task.CompletedTask;
+    }
+
+    private async Task HandlePointerObservable(
+        PointerInfo pointerInfo,
+        EventState eventState
+    )
+    {
+        if (pointerInfo.type == BabylonJSPointerEventTypes.POINTERUP)
         {
-            _mediator = GameServiceProvider.GetService<IMediator>();
-            _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
-            _entity = entity;
+            await HandleEntityHit(pointerInfo.pickInfo);
+        }
+    }
 
-            _addHandler = _renderingScene.GetBabylonJSScene()
-                .Scene
-                .onPointerObservable
-                .add(
-                    HandlePointerObservable
-                );
+    private async Task HandleEntityHit(PickingInfo pickInfo)
+    {
+        var ownerEntityId = pickInfo.pickedMesh.GetOwnerEntityId();
+        if (ownerEntityId != null)
+        {
+            await _mediator.Publish(
+                new PointerHitEntityEvent((long)ownerEntityId)
+            );
         }
+        else
+        {
+            await _mediator.Publish(
+                new PointerHitMeshEvent(
+                    pickInfo.pickedMesh.name,
+                    new BabylonJSVector3(pickInfo.pickedPoint)
+                )
+            );
+        }
+    }
 
-        public override Task Initialize()
+    private long? getOwnerEntityId(Node pickedMesh)
+    {
+        var ownerEntityId = pickedMesh.GetOwnerEntityId();
+        if (ownerEntityId != null)
         {
-            return Task.CompletedTask;
+            return ownerEntityId;
         }
-
-        public override Task Dispose()
+        else if (pickedMesh.parent != null)
         {
-            _renderingScene.GetBabylonJSScene()
-                .Scene
-                .onPointerObservable
-                .add_Remove(
-                    _addHandler
-                );
-            return Task.CompletedTask;
+            return getOwnerEntityId(pickedMesh.parent);
         }
-
-        public override Task Update()
-        {
-            return Task.CompletedTask;
-        }
-
-        private async Task HandlePointerObservable(
-            PointerInfo pointerInfo,
-            EventState eventState
-        )
-        {
-            if (pointerInfo.type == BabylonJSPointerEventTypes.POINTERUP)
-            {
-                await HandleEntityHit(
-                    pointerInfo.pickInfo
-                );
-            }
-        }
-
-        private async Task HandleEntityHit(
-            PickingInfo pickInfo
-        )
-        {
-            var ownerEntityId = pickInfo.pickedMesh.GetOwnerEntityId();
-            if (ownerEntityId != null)
-            {
-                await _mediator.Publish(
-                    new PointerHitEntityEvent(
-                        (long)ownerEntityId
-                    )
-                );
-            }
-            else
-            {
-                await _mediator.Publish(
-                    new PointerHitMeshEvent(
-                        pickInfo.pickedMesh.name,
-                        new BabylonJSVector3(
-                            pickInfo.pickedPoint
-                        )
-                    )
-                );
-            }
-        }
-        private long? getOwnerEntityId(
-            Node pickedMesh
-        )
-        {
-            var ownerEntityId = pickedMesh.GetOwnerEntityId();
-            if (ownerEntityId != null)
-            {
-                return ownerEntityId;
-            }
-            else if (pickedMesh.parent != null)
-            {
-                return getOwnerEntityId(
-                    pickedMesh.parent
-                );
-            }
-            return null;
-        }
+        return null;
     }
 }

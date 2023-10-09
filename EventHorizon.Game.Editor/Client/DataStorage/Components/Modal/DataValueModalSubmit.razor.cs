@@ -1,65 +1,63 @@
-﻿namespace EventHorizon.Game.Editor.Client.DataStorage.Components.Modal
+﻿namespace EventHorizon.Game.Editor.Client.DataStorage.Components.Modal;
+
+using System;
+
+using Microsoft.AspNetCore.Components;
+
+public class DataValueModalSubmitBase : ComponentBase
 {
-    using System;
-    using Microsoft.AspNetCore.Components;
+    [Parameter]
+    public bool IsNewValue { get; set; }
 
-    public class DataValueModalSubmitBase
-        : ComponentBase
+    [Parameter]
+    public string DataName { get; set; } = string.Empty;
+
+    [Parameter]
+    public Func<string, bool> ContainsName { get; set; } = _ => false;
+
+    [Parameter]
+    public RenderFragment Override { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment Update { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment Clone { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment Create { get; set; } = null!;
+
+    public RenderFragment? SectionFragment { get; set; }
+
+    protected override void OnInitialized()
     {
-        [Parameter]
-        public bool IsNewValue { get; set; }
-        [Parameter]
-        public string DataName { get; set; } = string.Empty;
-        [Parameter]
-        public Func<string, bool> ContainsName { get; set; } = _ => false;
+        base.OnInitialized();
 
-        [Parameter]
-        public RenderFragment Override { get; set; } = null!;
-        [Parameter]
-        public RenderFragment Update { get; set; } = null!;
-        [Parameter]
-        public RenderFragment Clone { get; set; } = null!;
-        [Parameter]
-        public RenderFragment Create { get; set; } = null!;
+        Setup();
+    }
 
-        public RenderFragment? SectionFragment { get; set; }
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
-        protected override void OnInitialized()
+        Setup();
+    }
+
+    private void Setup()
+    {
+        SectionFragment = Override;
+
+        if (!IsNewValue && ContainsName(DataName))
         {
-            base.OnInitialized();
-
-            Setup();
+            SectionFragment = Update;
         }
-
-        protected override void OnParametersSet()
+        else if (!IsNewValue && !ContainsName(DataName))
         {
-            base.OnParametersSet();
-
-            Setup();
+            SectionFragment = Clone;
         }
-
-        private void Setup()
+        else if (IsNewValue && !ContainsName(DataName))
         {
-            SectionFragment = Override;
-
-            if (!IsNewValue
-                && ContainsName(DataName)
-            )
-            {
-                SectionFragment = Update;
-            }
-            else if (!IsNewValue
-                && !ContainsName(DataName)
-            )
-            {
-                SectionFragment = Clone;
-            }
-            else if (IsNewValue
-                && !ContainsName(DataName)
-            )
-            {
-                SectionFragment = Create;
-            }
+            SectionFragment = Create;
         }
     }
 }

@@ -53,9 +53,7 @@ public class Program
         builder.RootComponents.Add<App>("#app");
 
         // Setup Logging
-        builder.Logging.AddPlatformLogger(
-            new PlatformLoggerConfiguration()
-        );
+        builder.Logging.AddPlatformLogger(new PlatformLoggerConfiguration());
 
         // Activity Services
         builder.Services.AddActivityServices();
@@ -67,16 +65,14 @@ public class Program
         builder.Services.AddBrowserServices();
 
         // Caching Services
-        builder.Services.AddEasyCaching(
-            option =>
-            {
-                option.UseInMemory(
-                    builder.Configuration,
-                    "DefaultInMemory",
-                    "EasyCaching:InMemory"
-                );
-            }
-        );
+        builder.Services.AddEasyCaching(option =>
+        {
+            option.UseInMemory(
+                builder.Configuration,
+                "DefaultInMemory",
+                "EasyCaching:InMemory"
+            );
+        });
 
         // Setup Blazor Services
         builder.Services.AddScoped<ResizeListener>();
@@ -85,12 +81,10 @@ public class Program
         builder.Services.AddSingleton(
             new GamePlatformServiceSettings()
             {
-                CoreServer = builder.Configuration[
-                    "Game:CoreServer"
-                ] ?? string.Empty,
-                AssetServer = builder.Configuration[
-                    "Game:AssetServer"
-                ] ?? string.Empty,
+                CoreServer =
+                    builder.Configuration["Game:CoreServer"] ?? string.Empty,
+                AssetServer =
+                    builder.Configuration["Game:AssetServer"] ?? string.Empty,
             }
         );
 
@@ -119,10 +113,7 @@ public class Program
 
         // Zone Services
         builder.Services
-            .AddSingleton<
-                ZoneStateCache,
-                InMemoryZoneStateCache
-            >()
+            .AddSingleton<ZoneStateCache, InMemoryZoneStateCache>()
             .AddSingleton<
                 IBuilder<ZoneStateModel, ZoneState>,
                 ZoneStateModelFromZoneStateBuilder
@@ -131,38 +122,28 @@ public class Program
 
         // I18n Services
         builder.Services
-            .AddScoped(
-                typeof(Localizer<>),
-                typeof(StringBasedLocalizer<>)
-            )
-            .AddLocalization(
-                options =>
-                    options.ResourcesPath = "Resources"
-            )
-            .Configure<RequestLocalizationOptions>(
-                opts =>
+            .AddScoped(typeof(Localizer<>), typeof(StringBasedLocalizer<>))
+            .AddLocalization(options => options.ResourcesPath = "Resources")
+            .Configure<RequestLocalizationOptions>(opts =>
+            {
+                var supportedCultures = new List<CultureInfo>
                 {
-                    var supportedCultures = new List<CultureInfo>
-                    {
-                            new CultureInfo("en-US"),
-                    };
+                    new CultureInfo("en-US"),
+                };
 
-                    opts.DefaultRequestCulture = new RequestCulture("en-US");
-                    // Formatting numbers, dates, etc.
-                    opts.SupportedCultures = supportedCultures;
-                    // UI strings that we have localized.
-                    opts.SupportedUICultures = supportedCultures;
-                }
-            );
+                opts.DefaultRequestCulture = new RequestCulture("en-US");
+                // Formatting numbers, dates, etc.
+                opts.SupportedCultures = supportedCultures;
+                // UI strings that we have localized.
+                opts.SupportedUICultures = supportedCultures;
+            });
 
         // Base HTTP Client
         builder.Services.AddScoped(
             sp =>
                 new HttpClient
                 {
-                    BaseAddress = new Uri(
-                        builder.HostEnvironment.BaseAddress
-                    )
+                    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
                 }
         );
 
@@ -170,25 +151,21 @@ public class Program
         builder.Services.AddBlazoredLocalStorage();
 
         // Add Authentication Configuration
-        builder.Services.AddOidcAuthentication(
-            options =>
+        builder.Services.AddOidcAuthentication(options =>
+        {
+            builder.Configuration.Bind("Auth", options.ProviderOptions);
+            var authScopes = (
+                builder.Configuration["Auth:Scope"] ?? string.Empty
+            ).Split(" ");
+            foreach (var authScope in authScopes)
             {
-                builder.Configuration.Bind(
-                    "Auth",
-                    options.ProviderOptions
-                );
-                var authScopes = (builder.Configuration["Auth:Scope"] ?? string.Empty)
-                    .Split(" ");
-                foreach (var authScope in authScopes)
-                {
-                    options.ProviderOptions.DefaultScopes.Add(
-                        authScope
-                    );
-                }
+                options.ProviderOptions.DefaultScopes.Add(authScope);
             }
-        );
-        builder.Services
-            .AddSingleton<EditorAuthenticationState, StandardEditorAuthenticationState>();
+        });
+        builder.Services.AddSingleton<
+            EditorAuthenticationState,
+            StandardEditorAuthenticationState
+        >();
 
         // Observer State Manager
         builder.Services

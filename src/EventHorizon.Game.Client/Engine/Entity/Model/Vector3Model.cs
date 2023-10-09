@@ -22,13 +22,17 @@ public class Vector3Model : StandardVector3, IVector3
         set { _vector.Z = (float)value; }
     }
 
-    public Vector3Model() : base(Vector3.Zero) { }
+    public Vector3Model()
+        : base(Vector3.Zero) { }
 
-    public Vector3Model(IVector3 vector3) : base(vector3) { }
+    public Vector3Model(IVector3 vector3)
+        : base(vector3) { }
 
-    public Vector3Model(Vector3 vector3) : base(vector3) { }
+    public Vector3Model(Vector3 vector3)
+        : base(vector3) { }
 
-    public Vector3Model(decimal x, decimal y, decimal z) : base(x, y, z) { }
+    public Vector3Model(decimal x, decimal y, decimal z)
+        : base(x, y, z) { }
 
     public override string ToString()
     {

@@ -7,8 +7,7 @@ using EventHorizon.Game.Editor.Automation.Layout;
 using _ = ArtifactManagementPage;
 
 [Url("/artifact/management")]
-public class ArtifactManagementPage
-    : MainLayoutPage<_>
+public class ArtifactManagementPage : MainLayoutPage<_>
 {
     [FindByClass("page__description")]
     public Text<_> Description { get; private set; }

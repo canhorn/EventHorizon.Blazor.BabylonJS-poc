@@ -11,7 +11,10 @@ using EventHorizon.Zone.Systems.ArtifactManagement.Trigger;
 using MediatR;
 
 public class TriggerZoneServerArtifactImportCommandHandler
-    : IRequestHandler<TriggerZoneServerArtifactImportCommand, StandardCommandResult>
+    : IRequestHandler<
+        TriggerZoneServerArtifactImportCommand,
+        StandardCommandResult
+    >
 {
     private readonly ISender _sender;
     private readonly IPublisher _publisher;
@@ -34,9 +37,7 @@ public class TriggerZoneServerArtifactImportCommandHandler
     )
     {
         var result = await _sender.Send(
-            new TriggerZoneArtifactImportCommand(
-                request.ImportArtifactUrl
-            ),
+            new TriggerZoneArtifactImportCommand(request.ImportArtifactUrl),
             cancellationToken
         );
 
@@ -45,9 +46,7 @@ public class TriggerZoneServerArtifactImportCommandHandler
             return result.ErrorCode;
         }
 
-        _state.SetImportReferenceId(
-            result.Result.ReferenceId
-        );
+        _state.SetImportReferenceId(result.Result.ReferenceId);
         await _publisher.Publish(
             new ZoneArtifactManagementStateChangedEvent(),
             cancellationToken

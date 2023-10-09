@@ -13,8 +13,7 @@ using NUnit.Framework;
 
 using Translations = Localization.SideBarQuickLinksTranslations;
 
-public class OpensDataStoragePageWhenQuickActionTreeIsUsedToNavigate
-    : WebHost
+public class OpensDataStoragePageWhenQuickActionTreeIsUsedToNavigate : WebHost
 {
     [Test]
     [Category("Quick Links")]
@@ -29,8 +28,6 @@ public class OpensDataStoragePageWhenQuickActionTreeIsUsedToNavigate
                 a => a.Text == Translations.EN_US.DataStorageText
             )
             .Link.ClickAndGo<DataStoragePage>()
-            .Header.Should.Be(
-                DataStoragePageTranslations.EN_US.Header
-            );
+            .Header.Should.Be(DataStoragePageTranslations.EN_US.Header);
     }
 }

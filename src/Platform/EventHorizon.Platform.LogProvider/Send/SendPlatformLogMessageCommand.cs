@@ -1,19 +1,16 @@
-﻿namespace EventHorizon.Platform.LogProvider.Send
+﻿namespace EventHorizon.Platform.LogProvider.Send;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Platform.LogProvider.Model;
+
+using MediatR;
+
+public struct SendPlatformLogMessageCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Platform.LogProvider.Model;
-    using MediatR;
+    public PlatformLogMessage Message { get; }
 
-    public struct SendPlatformLogMessageCommand
-        : IRequest<StandardCommandResult>
+    public SendPlatformLogMessageCommand(PlatformLogMessage message)
     {
-        public PlatformLogMessage Message { get; }
-
-        public SendPlatformLogMessageCommand(
-            PlatformLogMessage message
-        )
-        {
-            Message = message;
-        }
+        Message = message;
     }
 }

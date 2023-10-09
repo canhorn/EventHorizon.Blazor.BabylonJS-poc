@@ -1,20 +1,20 @@
-﻿namespace EventHorizon.Game.Client.Engine.Rendering.Api
-{
-    using EventHorizon.Game.Client.Engine.Rendering.Model;
+﻿namespace EventHorizon.Game.Client.Engine.Rendering.Api;
 
-    public static class BabylonJSExtensions
+using EventHorizon.Game.Client.Engine.Rendering.Model;
+
+public static class BabylonJSExtensions
+{
+    public static BabylonJSSceneImplementation GetBabylonJSScene(
+        this IRenderingScene renderingScene
+    )
     {
-        public static BabylonJSSceneImplementation GetBabylonJSScene(
-            this IRenderingScene renderingScene
-        )
-        {
-            return renderingScene.GetScene<BabylonJSSceneImplementation>();
-        }
-        public static BabylonJSEngineImplementation GetBabylonJSEngine(
-            this IRenderingEngine renderingEngine
-        )
-        {
-            return renderingEngine.GetEngine<BabylonJSEngineImplementation>();
-        }
+        return renderingScene.GetScene<BabylonJSSceneImplementation>();
+    }
+
+    public static BabylonJSEngineImplementation GetBabylonJSEngine(
+        this IRenderingEngine renderingEngine
+    )
+    {
+        return renderingEngine.GetEngine<BabylonJSEngineImplementation>();
     }
 }

@@ -1,23 +1,20 @@
-﻿namespace EventHorizon.Game.Client.Core.Factory.Model
+﻿namespace EventHorizon.Game.Client.Core.Factory.Model;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Factory.Api;
+
+public class StandardFactory<T> : IFactory<T>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Factory.Api;
+    private readonly Func<T> _builder;
 
-    public class StandardFactory<T>
-        : IFactory<T>
+    public StandardFactory(Func<T> builder)
     {
-        private readonly Func<T> _builder;
+        _builder = builder;
+    }
 
-        public StandardFactory(
-            Func<T> builder
-        )
-        {
-            _builder = builder;
-        }
-
-        public T Create()
-        {
-            return _builder();
-        }
+    public T Create()
+    {
+        return _builder();
     }
 }

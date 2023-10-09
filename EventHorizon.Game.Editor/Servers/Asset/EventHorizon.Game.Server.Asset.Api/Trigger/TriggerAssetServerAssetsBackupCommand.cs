@@ -6,6 +6,4 @@ using EventHorizon.Game.Server.Asset.Model;
 using MediatR;
 
 public struct TriggerAssetServerAssetsBackupCommand
-    : IRequest<CommandResult<BackupTriggerResult>>
-{
-}
+    : IRequest<CommandResult<BackupTriggerResult>> { }

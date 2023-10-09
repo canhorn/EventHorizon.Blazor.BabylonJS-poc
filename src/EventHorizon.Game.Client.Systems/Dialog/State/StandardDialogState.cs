@@ -1,41 +1,31 @@
-﻿namespace EventHorizon.Game.Client.Systems.Dialog.State
+﻿namespace EventHorizon.Game.Client.Systems.Dialog.State;
+
+using System;
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Systems.Dialog.Api;
+
+public class StandardDialogState : DialogState
 {
-    using System;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.Dialog.Api;
+    private readonly IDictionary<string, DialogTree> _map =
+        new Dictionary<string, DialogTree>();
 
-    public class StandardDialogState
-        : DialogState
+    public void Clear()
     {
-        private readonly IDictionary<string, DialogTree> _map = new Dictionary<string, DialogTree>();
+        _map.Clear();
+    }
 
-        public void Clear()
+    public Option<DialogTree> Get(string id)
+    {
+        if (_map.TryGetValue(id, out var value))
         {
-            _map.Clear();
+            return value.ToOption();
         }
+        return new Option<DialogTree>(null);
+    }
 
-        public Option<DialogTree> Get(
-            string id
-        )
-        {
-            if (_map.TryGetValue(
-                id,
-                out var value
-            ))
-            {
-                return value.ToOption();
-            }
-            return new Option<DialogTree>(
-                null
-            );
-        }
-
-        public void Set(
-            string id,
-            DialogTree config
-        )
-        {
-            _map[id] = config;
-        }
+    public void Set(string id, DialogTree config)
+    {
+        _map[id] = config;
     }
 }

@@ -1,6 +1,3 @@
-﻿namespace EventHorizon.Activity
-{
-    public interface TrackActivity
-    {
-    }
-}
+﻿namespace EventHorizon.Activity;
+
+public interface TrackActivity { }

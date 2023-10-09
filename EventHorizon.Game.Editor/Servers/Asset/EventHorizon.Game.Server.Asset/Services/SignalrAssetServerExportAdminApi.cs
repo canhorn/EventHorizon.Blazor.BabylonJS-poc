@@ -8,37 +8,30 @@ using EventHorizon.Game.Server.Asset.Model;
 
 using Microsoft.AspNetCore.SignalR.Client;
 
-public class SignalrAssetServerExportAdminApi
-    : AssetServerExportAdminApi
+public class SignalrAssetServerExportAdminApi : AssetServerExportAdminApi
 {
     private readonly HubConnection? _hubConnection;
 
-    internal SignalrAssetServerExportAdminApi(
-        HubConnection? hubConnection
-    )
+    internal SignalrAssetServerExportAdminApi(HubConnection? hubConnection)
     {
         _hubConnection = hubConnection;
     }
 
-    public async Task<
-        ApiResponse<ExportTriggerResult>
-    > Trigger(CancellationToken cancellationToken)
+    public async Task<ApiResponse<ExportTriggerResult>> Trigger(
+        CancellationToken cancellationToken
+    )
     {
         if (_hubConnection.IsNotConnected())
         {
             return new ApiResponse<ExportTriggerResult>
             {
                 Success = false,
-                ErrorCode =
-                    AssetServerAdminErrorCodes.NOT_CONNECTED,
+                ErrorCode = AssetServerAdminErrorCodes.NOT_CONNECTED,
             };
         }
 
         return await _hubConnection.InvokeAsync<
             ApiResponse<ExportTriggerResult>
-        >(
-            "Asset_Export_Trigger",
-            cancellationToken: cancellationToken
-        );
+        >("Asset_Export_Trigger", cancellationToken: cancellationToken);
     }
 }

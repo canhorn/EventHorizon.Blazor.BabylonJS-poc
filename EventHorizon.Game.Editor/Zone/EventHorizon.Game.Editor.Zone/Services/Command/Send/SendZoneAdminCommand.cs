@@ -1,21 +1,17 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Services.Command.Send
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Services.Command.Send;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public class SendZoneAdminCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Command { get; }
+    public object Data { get; }
 
-    public class SendZoneAdminCommand
-        : IRequest<StandardCommandResult>
+    public SendZoneAdminCommand(string command, object data)
     {
-        public string Command { get; }
-        public object Data { get; }
-
-        public SendZoneAdminCommand(
-            string command,
-            object data
-        )
-        {
-            Command = command;
-            Data = data;
-        }
+        Command = command;
+        Data = data;
     }
 }

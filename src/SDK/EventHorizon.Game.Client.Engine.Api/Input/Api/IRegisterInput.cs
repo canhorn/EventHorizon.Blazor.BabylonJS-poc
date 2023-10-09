@@ -1,9 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Engine.Input.Api
+﻿namespace EventHorizon.Game.Client.Engine.Input.Api;
+
+public interface IRegisterInput
 {
-    public interface IRegisterInput
-    {
-        string Register(
-            InputOptions options
-        );
-    }
+    string Register(InputOptions options);
 }

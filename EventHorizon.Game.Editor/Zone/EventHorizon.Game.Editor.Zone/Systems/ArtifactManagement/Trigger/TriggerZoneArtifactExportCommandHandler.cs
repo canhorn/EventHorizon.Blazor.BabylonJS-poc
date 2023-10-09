@@ -11,7 +11,10 @@ using EventHorizon.Zone.Systems.ArtifactManagement.Trigger;
 using MediatR;
 
 public class TriggerZoneArtifactExportCommandHandler
-    : IRequestHandler<TriggerZoneArtifactExportCommand, CommandResult<TriggerZoneArtifactExportResult>>
+    : IRequestHandler<
+        TriggerZoneArtifactExportCommand,
+        CommandResult<TriggerZoneArtifactExportResult>
+    >
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
@@ -27,15 +30,13 @@ public class TriggerZoneArtifactExportCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var result = await _zoneAdminServices.Api.ArtifactManagement.TriggerExport(
-            cancellationToken
-        );
-        if (result.Success.IsNotTrue()
-            || result.Result.IsNull()
-        )
+        var result =
+            await _zoneAdminServices.Api.ArtifactManagement.TriggerExport(
+                cancellationToken
+            );
+        if (result.Success.IsNotTrue() || result.Result.IsNull())
         {
-            return result.ErrorCode
-                ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
+            return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;
         }
 
         return result.Result.ToResult();

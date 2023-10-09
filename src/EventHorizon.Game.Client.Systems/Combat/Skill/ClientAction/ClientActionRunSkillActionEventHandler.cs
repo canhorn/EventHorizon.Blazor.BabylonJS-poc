@@ -1,46 +1,48 @@
-﻿namespace EventHorizon.Game.Client.Systems.Combat.Skill.ClientAction
+﻿namespace EventHorizon.Game.Client.Systems.Combat.Skill.ClientAction;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class ClientActionRunSkillActionEventHandler
+    : INotificationHandler<ClientActionRunSkillActionEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
 
-    public class ClientActionRunSkillActionEventHandler
-        : INotificationHandler<ClientActionRunSkillActionEvent>
+    public ClientActionRunSkillActionEventHandler(
+        ILogger<ClientActionRunSkillActionEventHandler> logger,
+        IMediator mediator
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
+        _logger = logger;
+        _mediator = mediator;
+    }
 
-        public ClientActionRunSkillActionEventHandler(
-            ILogger<ClientActionRunSkillActionEventHandler> logger,
-            IMediator mediator
-        )
-        {
-            _logger = logger;
-            _mediator = mediator;
-        }
+    public async Task Handle(
+        ClientActionRunSkillActionEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        _logger.LogDebug(
+            "Run Skill Action: {SkillAction} | {Data}",
+            notification.Action,
+            notification.Data
+        );
 
-        public async Task Handle(
-            ClientActionRunSkillActionEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            _logger.LogDebug(
-                "Run Skill Action: {SkillAction} | {Data}", 
+        await _mediator.Send(
+            new RunClientScriptCommand(
+                notification.Action,
                 notification.Action,
                 notification.Data
-            );
-
-            await _mediator.Send(
-                new RunClientScriptCommand(
-                    notification.Action,
-                    notification.Action,
-                    notification.Data
-                ),
-                cancellationToken
-            );
-        }
+            ),
+            cancellationToken
+        );
     }
 }

@@ -20,7 +20,7 @@ using Microsoft.Extensions.Logging;
 
 public class SignalrAssetServerAdminService
     : AssetServerAdminService,
-      IAsyncDisposable
+        IAsyncDisposable
 {
     private readonly ILogger _logger;
     private readonly IMediator _mediator;

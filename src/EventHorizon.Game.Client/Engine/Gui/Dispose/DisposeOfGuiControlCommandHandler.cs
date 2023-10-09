@@ -1,53 +1,45 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Dispose
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Dispose;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+using MediatR;
+
+public class DisposeOfGuiControlCommandHandler
+    : IRequestHandler<DisposeOfGuiControlCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly IGuiControlState _controlState;
 
-    public class DisposeOfGuiControlCommandHandler
-        : IRequestHandler<DisposeOfGuiControlCommand, StandardCommandResult>
+    public DisposeOfGuiControlCommandHandler(
+        IMediator mediator,
+        IGuiControlState controlState
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly IGuiControlState _controlState;
+        _mediator = mediator;
+        _controlState = controlState;
+    }
 
-        public DisposeOfGuiControlCommandHandler(
-            IMediator mediator,
-            IGuiControlState controlState
-        )
+    public Task<StandardCommandResult> Handle(
+        DisposeOfGuiControlCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var control = _controlState.Get(request.GuiId, request.ControlId);
+        if (control.HasValue)
         {
-            _mediator = mediator;
-            _controlState = controlState;
-        }
-
-        public Task<StandardCommandResult> Handle(
-            DisposeOfGuiControlCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var control = _controlState.Get(
-                request.GuiId,
-                request.ControlId
+            _mediator.Send(
+                new DisposeOfGuiControlChildrenCommand(request.ControlId),
+                cancellationToken
             );
-            if (control.HasValue)
-            {
-                _mediator.Send(
-                    new DisposeOfGuiControlChildrenCommand(
-                        request.ControlId
-                    ),
-                    cancellationToken
-                );
-                control.Value.Dispose();
-                _controlState.Remove(
-                    request.GuiId,
-                    control.Value.Id
-                );
-            }
-
-            return new StandardCommandResult()
-                .FromResult();
+            control.Value.Dispose();
+            _controlState.Remove(request.GuiId, control.Value.Id);
         }
+
+        return new StandardCommandResult().FromResult();
     }
 }

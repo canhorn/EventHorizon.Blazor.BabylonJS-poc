@@ -1,9 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Core.Model
-{
-    using System;
+﻿namespace EventHorizon.Game.Client.Core.Model;
 
-    // TODO: Testing
-    public class CoreModelClass
-    {
-    }
-}
+using System;
+
+// TODO: Testing
+public class CoreModelClass { }

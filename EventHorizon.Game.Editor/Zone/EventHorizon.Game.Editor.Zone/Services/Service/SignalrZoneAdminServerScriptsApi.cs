@@ -1,44 +1,38 @@
-﻿namespace EventHorizon.Game.Editor.Zone.Services.Service
+﻿namespace EventHorizon.Game.Editor.Zone.Services.Service;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Zone.Services.Api;
+using EventHorizon.Game.Editor.Zone.Services.Model;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+
+using Microsoft.AspNetCore.SignalR.Client;
+
+public class SignalrZoneAdminServerScriptsApi : ZoneAdminServerScriptsApi
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly HubConnection? _hubConnection;
 
-    using EventHorizon.Game.Editor.Zone.Services.Api;
-    using EventHorizon.Game.Editor.Zone.Services.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Model;
-
-    using Microsoft.AspNetCore.SignalR.Client;
-
-    public class SignalrZoneAdminServerScriptsApi
-        : ZoneAdminServerScriptsApi
+    internal SignalrZoneAdminServerScriptsApi(HubConnection? hubConnection)
     {
-        private readonly HubConnection? _hubConnection;
+        _hubConnection = hubConnection;
+    }
 
-        internal SignalrZoneAdminServerScriptsApi(
-            HubConnection? hubConnection
-        )
+    public async Task<
+        ApiResponse<ServerScriptsErrorDetailsResponse>
+    > GetErrorDetails(CancellationToken cancellationToken)
+    {
+        if (_hubConnection.IsNotConnected())
         {
-            _hubConnection = hubConnection;
-
-        }
-
-        public async Task<ApiResponse<ServerScriptsErrorDetailsResponse>> GetErrorDetails(
-            CancellationToken cancellationToken
-        )
-        {
-            if (_hubConnection.IsNotConnected())
+            return new ApiResponse<ServerScriptsErrorDetailsResponse>()
             {
-                return new ApiResponse<ServerScriptsErrorDetailsResponse>()
-                {
-                    Success = false,
-                    ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-                };
-            }
-
-            return await _hubConnection.InvokeAsync<ApiResponse<ServerScriptsErrorDetailsResponse>>(
-                "ServerScripts_ErrorDetails",
-                cancellationToken
-            );
+                Success = false,
+                ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
+            };
         }
+
+        return await _hubConnection.InvokeAsync<
+            ApiResponse<ServerScriptsErrorDetailsResponse>
+        >("ServerScripts_ErrorDetails", cancellationToken);
     }
 }

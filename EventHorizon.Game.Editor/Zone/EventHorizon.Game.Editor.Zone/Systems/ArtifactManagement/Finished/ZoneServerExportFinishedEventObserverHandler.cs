@@ -13,9 +13,7 @@ public class ZoneServerExportFinishedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ZoneServerExportFinishedEventObserverHandler(
-        ObserverState observer
-    )
+    public ZoneServerExportFinishedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -23,8 +21,9 @@ public class ZoneServerExportFinishedEventObserverHandler
     public Task Handle(
         ZoneServerExportFinishedEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<ZoneServerExportFinishedEventObserver, ZoneServerExportFinishedEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            ZoneServerExportFinishedEventObserver,
+            ZoneServerExportFinishedEvent
+        >(notification, cancellationToken);
 }

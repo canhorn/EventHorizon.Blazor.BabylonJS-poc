@@ -1,29 +1,29 @@
-﻿namespace EventHorizon.Game.Editor.Connection
+﻿namespace EventHorizon.Game.Editor.Connection;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Connection.Shared.Unauthorized;
+using EventHorizon.Observer.State;
+
+using MediatR;
+
+public class ConnectionUnauthorizedEventObserverHandler
+    : INotificationHandler<ConnectionUnauthorizedEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Connection.Shared.Unauthorized;
-    using EventHorizon.Observer.State;
-    using MediatR;
+    private readonly ObserverState _observer;
 
-    public class ConnectionUnauthorizedEventObserverHandler
-        : INotificationHandler<ConnectionUnauthorizedEvent>
+    public ConnectionUnauthorizedEventObserverHandler(ObserverState observer)
     {
-        private readonly ObserverState _observer;
-
-        public ConnectionUnauthorizedEventObserverHandler(
-            ObserverState observer
-        )
-        {
-            _observer = observer;
-        }
-
-        public Task Handle(
-            ConnectionUnauthorizedEvent notification,
-            CancellationToken cancellationToken
-        ) => _observer.Trigger<ConnectionUnauthorizedEventObserver, ConnectionUnauthorizedEvent>(
-            notification,
-            cancellationToken
-        );
+        _observer = observer;
     }
+
+    public Task Handle(
+        ConnectionUnauthorizedEvent notification,
+        CancellationToken cancellationToken
+    ) =>
+        _observer.Trigger<
+            ConnectionUnauthorizedEventObserver,
+            ConnectionUnauthorizedEvent
+        >(notification, cancellationToken);
 }

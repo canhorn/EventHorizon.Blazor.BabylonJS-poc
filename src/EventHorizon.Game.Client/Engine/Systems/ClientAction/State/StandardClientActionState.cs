@@ -59,10 +59,13 @@ public class StandardClientActionState : ClientActionState
         {
             if (_actionTypes.TryGetValue(actionName, out var actionType))
             {
-                return Activator.CreateInstance(
-                    actionType,
-                    new ClientActionDataResolver(data)
-                )!.To<IClientAction>()!.ToOption();
+                return Activator
+                    .CreateInstance(
+                        actionType,
+                        new ClientActionDataResolver(data)
+                    )!
+                    .To<IClientAction>()!
+                    .ToOption();
             }
         }
         catch (Exception ex)
@@ -101,10 +104,13 @@ public class StandardClientActionState : ClientActionState
                 _externalActions.TryGetValue(actionName, out var externalAction)
             )
             {
-                var clientAction = Activator.CreateInstance(
-                    externalAction.Event,
-                    new ClientActionDataResolver(data)
-                )!.To<IClientAction>()!.ToOption();
+                var clientAction = Activator
+                    .CreateInstance(
+                        externalAction.Event,
+                        new ClientActionDataResolver(data)
+                    )!
+                    .To<IClientAction>()!
+                    .ToOption();
 
                 return new ExternalClientAction(
                     clientAction.Value,

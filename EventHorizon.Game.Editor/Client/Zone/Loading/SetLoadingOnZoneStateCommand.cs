@@ -1,19 +1,15 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Loading
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Loading;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct SetLoadingOnZoneStateCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
+    public bool IsLoading { get; }
 
-    using MediatR;
-
-    public struct SetLoadingOnZoneStateCommand
-        : IRequest<StandardCommandResult>
+    public SetLoadingOnZoneStateCommand(bool isLoading)
     {
-        public bool IsLoading { get; }
-
-        public SetLoadingOnZoneStateCommand(
-            bool isLoading
-        )
-        {
-            IsLoading = isLoading;
-        }
+        IsLoading = isLoading;
     }
 }

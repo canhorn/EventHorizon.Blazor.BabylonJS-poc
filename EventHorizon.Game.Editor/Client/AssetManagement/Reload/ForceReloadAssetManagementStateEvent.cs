@@ -1,16 +1,10 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Reload
-{
-    using EventHorizon.Observer.Model;
-    using MediatR;
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Reload;
 
-    public struct ForceReloadAssetManagementStateEvent
-        : INotification
-    {
+using EventHorizon.Observer.Model;
 
-    }
+using MediatR;
 
-    public interface ForceReloadAssetManagementStateEventObserver
-        : ArgumentObserver<ForceReloadAssetManagementStateEvent>
-    {
-    }
-}
+public struct ForceReloadAssetManagementStateEvent : INotification { }
+
+public interface ForceReloadAssetManagementStateEventObserver
+    : ArgumentObserver<ForceReloadAssetManagementStateEvent> { }

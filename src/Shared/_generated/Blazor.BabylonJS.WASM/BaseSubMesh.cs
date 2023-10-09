@@ -1,67 +1,71 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<BaseSubMesh>))]
+public class BaseSubMesh : CachedEntityObject
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<BaseSubMesh>))]
-    public class BaseSubMesh : CachedEntityObject
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+
+    #endregion
+
+    #region Accessors
+    private MaterialDefines __materialDefines;
+    public MaterialDefines materialDefines
     {
-        #region Static Accessors
-
-        #endregion
-
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-
-        #endregion
-
-        #region Accessors
-        private MaterialDefines __materialDefines;
-        public MaterialDefines materialDefines
+        get
         {
-            get
+            if (__materialDefines == null)
             {
-            if(__materialDefines == null)
-            {
-                __materialDefines = EventHorizonBlazorInterop.GetClass<MaterialDefines>(
-                    this.___guid,
-                    "materialDefines",
-                    (entity) =>
-                    {
-                        return new MaterialDefines() { ___guid = entity.___guid };
-                    }
-                );
+                __materialDefines =
+                    EventHorizonBlazorInterop.GetClass<MaterialDefines>(
+                        this.___guid,
+                        "materialDefines",
+                        (entity) =>
+                        {
+                            return new MaterialDefines()
+                            {
+                                ___guid = entity.___guid
+                            };
+                        }
+                    );
             }
             return __materialDefines;
-            }
-            set
-            {
-__materialDefines = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "materialDefines",
-                    value
-                );
-            }
         }
-
-        private Effect __effect;
-        public Effect effect
+        set
         {
-            get
-            {
-            if(__effect == null)
+            __materialDefines = null;
+            EventHorizonBlazorInterop.Set(
+                this.___guid,
+                "materialDefines",
+                value
+            );
+        }
+    }
+
+    private Effect __effect;
+    public Effect effect
+    {
+        get
+        {
+            if (__effect == null)
             {
                 __effect = EventHorizonBlazorInterop.GetClass<Effect>(
                     this.___guid,
@@ -73,37 +77,37 @@ __materialDefines = null;
                 );
             }
             return __effect;
-            }
         }
-        #endregion
-
-        #region Properties
-
-        #endregion
-        
-        #region Constructor
-        public BaseSubMesh() : base() { } 
-
-        public BaseSubMesh(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-            ___guid = entity.___guid;
-        }
-
-
-        #endregion
-
-        #region Methods
-        public void setEffect(Effect effect, MaterialDefines defines = null)
-        {
-            EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "setEffect" }, effect, defines
-                }
-            );
-        }
-        #endregion
     }
+    #endregion
+
+    #region Properties
+
+    #endregion
+
+    #region Constructor
+    public BaseSubMesh()
+        : base() { }
+
+    public BaseSubMesh(ICachedEntity entity)
+        : base(entity)
+    {
+        ___guid = entity.___guid;
+    }
+
+    #endregion
+
+    #region Methods
+    public void setEffect(Effect effect, MaterialDefines defines = null)
+    {
+        EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[]
+            {
+                new string[] { this.___guid, "setEffect" },
+                effect,
+                defines
+            }
+        );
+    }
+    #endregion
 }

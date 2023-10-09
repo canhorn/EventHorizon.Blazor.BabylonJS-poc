@@ -1,28 +1,24 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.ClientAction
+﻿namespace EventHorizon.Game.Client.Systems.Player.ClientAction;
+
+using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
+using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+using EventHorizon.Observer.Model;
+
+[ClientAction("Player.PLAYER_SYSTEM_RELOADED")]
+public struct ClientActionPlayerSystemReloadedEvent : IClientAction
 {
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
-    using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-    using EventHorizon.Observer.Model;
+    public ObjectEntityConfigurationModel PlayerConfiguration { get; }
 
-    [ClientAction("Player.PLAYER_SYSTEM_RELOADED")]
-    public struct ClientActionPlayerSystemReloadedEvent
-        : IClientAction
+    public ClientActionPlayerSystemReloadedEvent(
+        IClientActionDataResolver resolver
+    )
     {
-        public ObjectEntityConfigurationModel PlayerConfiguration { get; }
-
-        public ClientActionPlayerSystemReloadedEvent(
-            IClientActionDataResolver resolver
-        )
-        {
-            PlayerConfiguration = resolver.Resolve<ObjectEntityConfigurationModel>(
-                "playerConfiguration"
-            );
-        }
-    }
-
-    public interface ClientActionPlayerSystemReloadedEventObserver
-        : ArgumentObserver<ClientActionPlayerSystemReloadedEvent>
-    {
+        PlayerConfiguration = resolver.Resolve<ObjectEntityConfigurationModel>(
+            "playerConfiguration"
+        );
     }
 }
+
+public interface ClientActionPlayerSystemReloadedEventObserver
+    : ArgumentObserver<ClientActionPlayerSystemReloadedEvent> { }

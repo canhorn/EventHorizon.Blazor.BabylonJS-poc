@@ -8,8 +8,6 @@ public class TriggerZoneArtifactExportApiResult
 
     internal TriggerZoneArtifactExportResult ToResult()
     {
-        return new TriggerZoneArtifactExportResult(
-            ReferenceId
-        );
+        return new TriggerZoneArtifactExportResult(ReferenceId);
     }
 }

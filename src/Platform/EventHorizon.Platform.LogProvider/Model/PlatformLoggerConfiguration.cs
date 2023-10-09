@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.Platform.LogProvider.Model
+﻿namespace EventHorizon.Platform.LogProvider.Model;
+
+public class PlatformLoggerConfiguration
 {
-    public class PlatformLoggerConfiguration
-    {
-        public bool DebugView { get; set; }
-    }
+    public bool DebugView { get; set; }
 }

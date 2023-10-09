@@ -1,32 +1,31 @@
-﻿namespace EventHorizon.Game.Client.Systems.Height.Set
+﻿namespace EventHorizon.Game.Client.Systems.Height.Set;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Systems.Height.Api;
+
+using MediatR;
+
+public class SetHeightResolverCoordinatesCommandHandler
+    : IRequestHandler<SetHeightResolverCoordinatesCommand>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Systems.Height.Api;
-    using MediatR;
+    private readonly ISetHeightResolver _heightResolver;
 
-    public class SetHeightResolverCoordinatesCommandHandler
-        : IRequestHandler<SetHeightResolverCoordinatesCommand>
+    public SetHeightResolverCoordinatesCommandHandler(
+        ISetHeightResolver heightResolver
+    )
     {
-        private readonly ISetHeightResolver _heightResolver;
+        _heightResolver = heightResolver;
+    }
 
-        public SetHeightResolverCoordinatesCommandHandler(
-            ISetHeightResolver heightResolver
-        )
-        {
-            _heightResolver = heightResolver;
-        }
-
-        public Task<Unit> Handle(
-            SetHeightResolverCoordinatesCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            _heightResolver.setCoordinates(
-                request.HeightCoordinates
-            );
-            return Unit.Task;
-        }
+    public Task<Unit> Handle(
+        SetHeightResolverCoordinatesCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        _heightResolver.setCoordinates(request.HeightCoordinates);
+        return Unit.Task;
     }
 }

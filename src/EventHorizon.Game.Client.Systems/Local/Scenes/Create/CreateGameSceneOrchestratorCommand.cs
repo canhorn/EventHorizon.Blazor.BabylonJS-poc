@@ -1,23 +1,23 @@
-﻿namespace EventHorizon.Game.Client.Systems.Local.Scenes.Create
+﻿namespace EventHorizon.Game.Client.Systems.Local.Scenes.Create;
+
+using System;
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
+
+using MediatR;
+
+public class CreateGameSceneOrchestratorCommand : IRequest
 {
-    using System;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
-    using MediatR;
+    public string DefaultSceneId { get; }
+    public IDictionary<string, Func<GameSceneBase>> Scenes { get; }
 
-    public class CreateGameSceneOrchestratorCommand
-        : IRequest
+    public CreateGameSceneOrchestratorCommand(
+        string defaultSceneId,
+        IDictionary<string, Func<GameSceneBase>> scenes
+    )
     {
-        public string DefaultSceneId { get; }
-        public IDictionary<string, Func<GameSceneBase>> Scenes { get; }
-
-        public CreateGameSceneOrchestratorCommand(
-            string defaultSceneId, 
-            IDictionary<string, Func<GameSceneBase>> scenes
-        )
-        {
-            DefaultSceneId = defaultSceneId;
-            Scenes = scenes;
-        }
+        DefaultSceneId = defaultSceneId;
+        Scenes = scenes;
     }
 }

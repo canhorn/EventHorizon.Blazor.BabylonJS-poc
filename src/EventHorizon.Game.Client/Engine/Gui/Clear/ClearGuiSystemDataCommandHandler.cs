@@ -39,9 +39,7 @@ public class ClearGuiSystemDataCommandHandler
         foreach (var guiDefinition in _guiDefinitionState.All.ToList())
         {
             await _sender.Send(
-                new DisposeOfGuiCommand(
-                    guiDefinition.GuiId
-                ),
+                new DisposeOfGuiCommand(guiDefinition.GuiId),
                 cancellationToken
             );
         }

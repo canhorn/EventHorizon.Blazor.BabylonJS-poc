@@ -11,13 +11,18 @@ public class IdentityServerData
     public static string EmailDomain { get; } = string.Empty;
     public static string UserPassword { get; } = string.Empty;
 
-    public static IdentityServerUser DefaultAdminUser { get; } = new IdentityServerUser();
+    public static IdentityServerUser DefaultAdminUser { get; } =
+        new IdentityServerUser();
 
     static IdentityServerData()
     {
         Url = TestConfiguration.Configuration["identityServer:url"];
-        EmailDomain = TestConfiguration.Configuration["identityServer:emailDomain"];
-        UserPassword = TestConfiguration.Configuration["identityServer:userPassword"];
+        EmailDomain = TestConfiguration.Configuration[
+            "identityServer:emailDomain"
+        ];
+        UserPassword = TestConfiguration.Configuration[
+            "identityServer:userPassword"
+        ];
         TestConfiguration.Configuration.Bind(
             "identityServer:defaultAdminUser",
             DefaultAdminUser

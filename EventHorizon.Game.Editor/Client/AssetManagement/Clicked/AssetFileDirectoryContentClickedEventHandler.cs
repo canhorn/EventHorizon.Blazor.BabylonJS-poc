@@ -1,40 +1,41 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Clicked
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Clicked;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Editor.Client.AssetManagement.Api;
+using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
+
+using MediatR;
+
+public class AssetFileDirectoryContentClickedEventHandler
+    : INotificationHandler<AssetFileDirectoryContentClickedEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Api;
-    using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly AssetManagementState _state;
 
-    public class AssetFileDirectoryContentClickedEventHandler
-        : INotificationHandler<AssetFileDirectoryContentClickedEvent>
+    public AssetFileDirectoryContentClickedEventHandler(
+        IMediator mediator,
+        AssetManagementState state
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly AssetManagementState _state;
+        _mediator = mediator;
+        _state = state;
+    }
 
-        public AssetFileDirectoryContentClickedEventHandler(
-            IMediator mediator,
-            AssetManagementState state
-        )
-        {
-            _mediator = mediator;
-            _state = state;
-        }
+    public async Task Handle(
+        AssetFileDirectoryContentClickedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _state.SetFileDirectoryContent(
+            notification.DirectoryContent,
+            cancellationToken
+        );
 
-        public async Task Handle(
-            AssetFileDirectoryContentClickedEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _state.SetFileDirectoryContent(
-                notification.DirectoryContent,
-                cancellationToken
-            );
-
-            await _mediator.Publish(
-                new AssetManagementStateChangedEvent(),
-                cancellationToken
-            );
-        }
+        await _mediator.Publish(
+            new AssetManagementStateChangedEvent(),
+            cancellationToken
+        );
     }
 }

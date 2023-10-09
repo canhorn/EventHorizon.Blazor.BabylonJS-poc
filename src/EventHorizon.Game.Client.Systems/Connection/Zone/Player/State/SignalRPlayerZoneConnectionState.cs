@@ -64,14 +64,12 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
                             accessToken.FromResult<string?>();
                     }
                 )
-                .ConfigureLogging(
-                    builder =>
-                    {
-                        builder.AddProvider(
-                            GameServiceProvider.GetService<ILoggerProvider>()
-                        );
-                    }
-                )
+                .ConfigureLogging(builder =>
+                {
+                    builder.AddProvider(
+                        GameServiceProvider.GetService<ILoggerProvider>()
+                    );
+                })
                 .Build();
 
             var clientActionRegistered = false;
@@ -200,7 +198,8 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
     public Task<T> InvokeMethodWithResult<T>(
         string methodName,
         IList<object> data
-    ) where T : class
+    )
+        where T : class
     {
         if (_connection?.State != HubConnectionState.Connected)
         {

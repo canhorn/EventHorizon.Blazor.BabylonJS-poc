@@ -19,21 +19,14 @@ public class DisplaysNewRowInArtifactsTableWhenAssetBackupButtonIsClicked
     public void Displays_New_Row_In_Artifacts_Table_When_Asset_Backup_Button_Is_Clicked()
     {
         this.Login<AssetBackupArtifactsPage>()
-            .Header.Should.Equal(
-                Translations.EN_US.Header
-            )
-            .ArtifactTable.GetFirstRowReferenceId(
-                out var referenceId
-            )
+            .Header.Should.Equal(Translations.EN_US.Header)
+            .ArtifactTable.GetFirstRowReferenceId(out var referenceId)
             .Toolbar.Children[
-                a => a.Content == Translations.EN_US.ToolbarBackupButton
-            ].Click()
-            .ArtifactTable
-            .Rows[0]
-                .ReferenceId.Should.Within(
-                    Seconds_To_Wait_For_Backup_Creation
-                ).Not.Equal(
-                    referenceId
-                );
+            a => a.Content == Translations.EN_US.ToolbarBackupButton
+        ]
+            .Click()
+            .ArtifactTable.Rows[0].ReferenceId.Should
+            .Within(Seconds_To_Wait_For_Backup_Creation)
+            .Not.Equal(referenceId);
     }
 }

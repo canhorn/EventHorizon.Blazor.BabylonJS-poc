@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Components;
 
 public class EditZoneGameAssetPageModel
     : ObservableComponentBase,
-      ZoneAdminServiceConnectedEventObserver
+        ZoneAdminServiceConnectedEventObserver
 {
     [Parameter]
     public string Id { get; set; } = string.Empty;
@@ -24,7 +24,8 @@ public class EditZoneGameAssetPageModel
 
     protected ClientAsset Model { get; private set; } = new ClientAsset();
 
-    protected ComponentState ModelState { get; private set; } = ComponentState.Loading;
+    protected ComponentState ModelState { get; private set; } =
+        ComponentState.Loading;
     protected string Message { get; private set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
@@ -36,9 +37,7 @@ public class EditZoneGameAssetPageModel
     protected async Task HandleSave()
     {
         ModelState = ComponentState.Loading;
-        var result = await Mediator.Send(
-            new UpdateClientAssetCommand(Model)
-        );
+        var result = await Mediator.Send(new UpdateClientAssetCommand(Model));
         if (!result)
         {
             Message = Localizer[

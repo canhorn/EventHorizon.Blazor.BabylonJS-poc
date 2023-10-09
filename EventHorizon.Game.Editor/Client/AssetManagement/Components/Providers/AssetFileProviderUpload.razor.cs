@@ -18,7 +18,7 @@ using Microsoft.JSInterop;
 
 public class AssetFileProviderUploadModel
     : ObservableComponentBase,
-      AssetOpenFileUploadTrggeredEventObserver
+        AssetOpenFileUploadTrggeredEventObserver
 {
     [CascadingParameter]
     public AssetManagementState State { get; set; } = null!;

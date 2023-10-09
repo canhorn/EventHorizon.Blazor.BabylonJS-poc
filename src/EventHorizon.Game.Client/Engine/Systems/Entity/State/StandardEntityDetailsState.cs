@@ -1,57 +1,41 @@
-﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.State
+﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.State;
+
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+
+public class StandardEntityDetailsState : IEntityDetailsState
 {
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+    private readonly IDictionary<string, IObjectEntityDetails> _detailMap =
+        new ConcurrentDictionary<string, IObjectEntityDetails>();
 
-    public class StandardEntityDetailsState
-        : IEntityDetailsState
+    public IEnumerable<IObjectEntityDetails> All()
     {
-        private readonly IDictionary<string, IObjectEntityDetails> _detailMap = new ConcurrentDictionary<string, IObjectEntityDetails>();
+        return _detailMap.Values;
+    }
 
-        public IEnumerable<IObjectEntityDetails> All()
-        {
-            return _detailMap.Values;
-        }
+    public bool Contains(string globalId)
+    {
+        return _detailMap.ContainsKey(globalId);
+    }
 
-        public bool Contains(
-            string globalId
-        )
-        {
-            return _detailMap.ContainsKey(
-                globalId
-            );
-        }
+    public IObjectEntityDetails Get(string globalId)
+    {
+        return _detailMap[globalId];
+    }
 
-        public IObjectEntityDetails Get(
-            string globalId
-        )
+    public IObjectEntityDetails? Remove(string globalId)
+    {
+        if (_detailMap.Remove(globalId, out var entityDetails))
         {
-            return _detailMap[globalId];
+            return entityDetails;
         }
+        return null;
+    }
 
-        public IObjectEntityDetails? Remove(
-            string globalId
-        )
-        {
-            if (_detailMap.Remove(
-                globalId,
-                out var entityDetails
-            ))
-            {
-                return entityDetails;
-            }
-            return null;
-        }
-
-        public void Set(
-            IObjectEntityDetails entityDetails
-        )
-        {
-            _detailMap.TryAdd(
-                entityDetails.GlobalId,
-                entityDetails
-            );
-        }
+    public void Set(IObjectEntityDetails entityDetails)
+    {
+        _detailMap.TryAdd(entityDetails.GlobalId, entityDetails);
     }
 }

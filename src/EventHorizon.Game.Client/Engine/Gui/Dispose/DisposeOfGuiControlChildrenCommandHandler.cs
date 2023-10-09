@@ -1,46 +1,43 @@
-﻿namespace EventHorizon.Game.Client.Engine.Gui.Dispose
+﻿namespace EventHorizon.Game.Client.Engine.Gui.Dispose;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+
+using MediatR;
+
+public class DisposeOfGuiControlChildrenCommandHandler
+    : IRequestHandler<DisposeOfGuiControlChildrenCommand, StandardCommandResult>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Client.Engine.Gui.Api;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly IGuiControlChildrenState _state;
 
-    public class DisposeOfGuiControlChildrenCommandHandler
-        : IRequestHandler<DisposeOfGuiControlChildrenCommand, StandardCommandResult>
+    public DisposeOfGuiControlChildrenCommandHandler(
+        IMediator mediator,
+        IGuiControlChildrenState state
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly IGuiControlChildrenState _state;
+        _mediator = mediator;
+        _state = state;
+    }
 
-        public DisposeOfGuiControlChildrenCommandHandler(
-            IMediator mediator,
-            IGuiControlChildrenState state
-        )
+    public async Task<StandardCommandResult> Handle(
+        DisposeOfGuiControlChildrenCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var children = _state.GetChildren(request.ControlId);
+        foreach (var childGuiId in children)
         {
-            _mediator = mediator;
-            _state = state;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            DisposeOfGuiControlChildrenCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var children = _state.GetChildren(
-                request.ControlId
+            await _mediator.Send(
+                new DisposeOfGuiCommand(childGuiId),
+                cancellationToken
             );
-            foreach (var childGuiId in children)
-            {
-                await _mediator.Send(
-                    new DisposeOfGuiCommand(
-                        childGuiId
-                    ),
-                    cancellationToken
-                );
-            }
-
-            return new StandardCommandResult();
         }
+
+        return new StandardCommandResult();
     }
 }

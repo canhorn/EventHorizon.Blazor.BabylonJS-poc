@@ -8,8 +8,7 @@ using EventHorizon.Observer.State;
 
 using MediatR;
 
-public record ParticleTemplatesChangedEvent
-    : INotification { }
+public record ParticleTemplatesChangedEvent : INotification { }
 
 public interface ParticleTemplatesChangedEventObserver
     : ArgumentObserver<ParticleTemplatesChangedEvent> { }
@@ -19,9 +18,7 @@ public class ParticleTemplatesChangedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ParticleTemplatesChangedEventObserverHandler(
-        ObserverState observer
-    )
+    public ParticleTemplatesChangedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

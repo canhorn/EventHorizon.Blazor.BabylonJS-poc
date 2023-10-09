@@ -22,8 +22,9 @@ public class DisposeOfAndRemoveRegisteredEntityModuleEventObserverHandler
     public Task Handle(
         DisposeOfAndRemoveRegisteredEntityModuleEvent notification,
         CancellationToken cancellationToken
-    ) => _observer.Trigger<DisposeOfAndRemoveRegisteredEntityModuleEventObserver, DisposeOfAndRemoveRegisteredEntityModuleEvent>(
-        notification,
-        cancellationToken
-    );
+    ) =>
+        _observer.Trigger<
+            DisposeOfAndRemoveRegisteredEntityModuleEventObserver,
+            DisposeOfAndRemoveRegisteredEntityModuleEvent
+        >(notification, cancellationToken);
 }

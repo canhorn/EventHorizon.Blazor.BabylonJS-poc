@@ -1,10 +1,6 @@
-﻿namespace EventHorizon.Game.Client.Systems.Height.Api
+﻿namespace EventHorizon.Game.Client.Systems.Height.Api;
+
+public interface IHeightResolver
 {
-    public interface IHeightResolver
-    {
-        decimal FindHeight(
-            decimal x, 
-            decimal z
-        );
-    }
+    decimal FindHeight(decimal x, decimal z);
 }

@@ -1,25 +1,24 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileEditor.Model
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileEditor.Model;
+
+using EventHorizon.Zone.System.Server.Scripts.Model;
+
+public static class EditorFileErrorDetailsExtensions
 {
-    using EventHorizon.Zone.System.Server.Scripts.Model;
-
-    public static class EditorFileErrorDetailsExtensions
+    public static EditorFileErrorDetails From(
+        this EditorFileErrorDetails details,
+        GeneratedServerScriptErrorDetailsModel? from
+    )
     {
-        public static EditorFileErrorDetails From(
-            this EditorFileErrorDetails details,
-            GeneratedServerScriptErrorDetailsModel? from
-        )
+        if (from.IsNull())
         {
-            if (from.IsNull())
-            {
-                return details;
-            }
-
-            return new EditorFileErrorDetails(
-                details.ScriptId,
-                from.Message,
-                from.ErrorLineContent,
-                from.Column
-            );
+            return details;
         }
+
+        return new EditorFileErrorDetails(
+            details.ScriptId,
+            from.Message,
+            from.ErrorLineContent,
+            from.Column
+        );
     }
 }

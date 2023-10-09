@@ -10,7 +10,10 @@ using EventHorizon.Game.Client.Systems.EntityModule.Model;
 using MediatR;
 
 public class RegisterAllPlayerModulesOnEntityCommandHandler
-    : IRequestHandler<RegisterAllPlayerModulesOnEntityCommand, StandardCommandResult>
+    : IRequestHandler<
+        RegisterAllPlayerModulesOnEntityCommand,
+        StandardCommandResult
+    >
 {
     private readonly EntityPlayerScriptModuleState _state;
 
@@ -28,23 +31,17 @@ public class RegisterAllPlayerModulesOnEntityCommandHandler
     {
         request.Entity.RegisterModule(
             EntityPlayerModuleManagementModule.MODULE_NAME,
-            new StandardEntityPlayerModuleManagementModule(
-                request.Entity
-            )
+            new StandardEntityPlayerModuleManagementModule(request.Entity)
         );
 
         foreach (var scriptModule in _state.All())
         {
             request.Entity.RegisterModule(
                 scriptModule.Name,
-                new StandardEntityModule(
-                    request.Entity,
-                    scriptModule
-                )
+                new StandardEntityModule(request.Entity, scriptModule)
             );
         }
 
-        return new StandardCommandResult()
-            .FromResult();
+        return new StandardCommandResult().FromResult();
     }
 }

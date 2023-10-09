@@ -1,15 +1,16 @@
-﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Model
+﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Model;
+
+using System.Collections.Generic;
+
+public class FileSystemResponse
 {
-    using System.Collections.Generic;
+    public FileSystemDirectoryContent CWD { get; set; } =
+        new FileSystemDirectoryContent();
 
-    public class FileSystemResponse
-    {
-        public FileSystemDirectoryContent CWD { get; set; } = new FileSystemDirectoryContent();
+    public IEnumerable<FileSystemDirectoryContent> Files { get; set; } =
+        new List<FileSystemDirectoryContent>();
 
-        public IEnumerable<FileSystemDirectoryContent> Files { get; set; } = new List<FileSystemDirectoryContent>();
+    public ErrorDetails? Error { get; set; }
 
-        public ErrorDetails? Error { get; set; }
-
-        public FileDetails? Details { get; set; }
-    }
+    public FileDetails? Details { get; set; }
 }

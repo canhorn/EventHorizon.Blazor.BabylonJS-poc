@@ -1,19 +1,16 @@
-﻿namespace EventHorizon.Game.Editor.Client.Zone.Active
+﻿namespace EventHorizon.Game.Editor.Client.Zone.Active;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+using EventHorizon.Game.Editor.Client.Zone.Api;
+
+using MediatR;
+
+public class SetZoneAsActiveCommand : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using EventHorizon.Game.Editor.Client.Zone.Api;
-    using MediatR;
+    public ZoneState Zone { get; }
 
-    public class SetZoneAsActiveCommand
-        : IRequest<StandardCommandResult>
+    public SetZoneAsActiveCommand(ZoneState zone)
     {
-        public ZoneState Zone { get; }
-
-        public SetZoneAsActiveCommand(
-            ZoneState zone
-        )
-        {
-            Zone = zone;
-        }
+        Zone = zone;
     }
 }

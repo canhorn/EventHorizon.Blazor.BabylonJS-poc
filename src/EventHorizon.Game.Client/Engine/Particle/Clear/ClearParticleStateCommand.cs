@@ -4,5 +4,4 @@ using EventHorizon.Game.Client.Core.Command.Model;
 
 using MediatR;
 
-public record ClearParticleStateCommand
-    : IRequest<StandardCommandResult>;
+public record ClearParticleStateCommand : IRequest<StandardCommandResult>;

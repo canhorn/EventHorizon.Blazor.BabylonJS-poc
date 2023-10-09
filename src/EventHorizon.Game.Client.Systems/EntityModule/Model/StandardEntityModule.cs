@@ -19,12 +19,14 @@ using MediatR;
 
 public class StandardEntityModule
     : ModuleEntityBase,
-    IEntityModule,
-    ClientScriptsAssemblySetEventObserver,
-    DisposeOfAndRemoveRegisteredEntityModuleEventObserver
+        IEntityModule,
+        ClientScriptsAssemblySetEventObserver,
+        DisposeOfAndRemoveRegisteredEntityModuleEventObserver
 {
-    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
-    private readonly ScriptServices _scriptServices = GameServiceProvider.GetService<ScriptServices>();
+    private readonly IMediator _mediator =
+        GameServiceProvider.GetService<IMediator>();
+    private readonly ScriptServices _scriptServices =
+        GameServiceProvider.GetService<ScriptServices>();
 
     private readonly IObjectEntity _entity;
     private readonly EntityModuleScripts _moduleScripts;
@@ -35,7 +37,10 @@ public class StandardEntityModule
     private Option<IClientScript> _disposeScript = new(null);
     private Option<IClientScript> _updateScript = new(null);
 
-    private Func<ScriptServices, ScriptData, Task> _runnableUpdateScript = (_, __) => Task.CompletedTask;
+    private Func<ScriptServices, ScriptData, Task> _runnableUpdateScript = (
+        _,
+        __
+    ) => Task.CompletedTask;
     public string Name { get; }
     public bool IsInitializable => _initializeScript.HasValue;
     public bool IsDisposable => _disposeScript.HasValue;
@@ -53,10 +58,7 @@ public class StandardEntityModule
         _entity = entity;
         _moduleScripts = moduleScripts;
         _scriptData = new ScriptData(
-            new Dictionary<string, object>
-            {
-                { "entity", _entity }
-            }
+            new Dictionary<string, object> { { "entity", _entity } }
         );
     }
 
@@ -71,41 +73,28 @@ public class StandardEntityModule
         GamePlatfrom.UnRegisterObserver(this);
         if (_disposeScript.HasValue)
         {
-            await _disposeScript.Value.Run(
-                _scriptServices,
-                _scriptData
-            );
+            await _disposeScript.Value.Run(_scriptServices, _scriptData);
         }
     }
 
     public override async Task Update()
     {
-        await _runnableUpdateScript(
-            _scriptServices,
-            _scriptData
-        );
+        await _runnableUpdateScript(_scriptServices, _scriptData);
     }
 
-    public Task Handle(
-        ClientScriptsAssemblySetEvent args
-    )
+    public Task Handle(ClientScriptsAssemblySetEvent args)
     {
         return RunInitialize();
     }
 
-    public async Task Handle(
-        DisposeOfAndRemoveRegisteredEntityModuleEvent args
-    )
+    public async Task Handle(DisposeOfAndRemoveRegisteredEntityModuleEvent args)
     {
         if (args.ModuleName != Name)
         {
             return;
         }
 
-        if (_entity.RemoveModule<IModule>(
-            args.ModuleName,
-            out var module
-        ))
+        if (_entity.RemoveModule<IModule>(args.ModuleName, out var module))
         {
             await module.Dispose();
         }
@@ -118,10 +107,7 @@ public class StandardEntityModule
         await SetClientScript();
         if (!_initialized && _initializeScript.HasValue)
         {
-            await _initializeScript.Value.Run(
-                _scriptServices,
-                _scriptData
-            );
+            await _initializeScript.Value.Run(_scriptServices, _scriptData);
             _initialized = true;
         }
         if (_updateScript.HasValue)
@@ -132,30 +118,26 @@ public class StandardEntityModule
 
     private async Task SetClientScript()
     {
-        var initializeScriptResult =
-            await _mediator.Send(
-                new QueryForClientScriptById(
-                    _moduleScripts.InitializeScript
-                )
-            );
+        var initializeScriptResult = await _mediator.Send(
+            new QueryForClientScriptById(_moduleScripts.InitializeScript)
+        );
         if (initializeScriptResult.Success)
         {
-            _initialized = !(!_initializeScript.HasValue || _initializeScript.Value == initializeScriptResult.Result);
+            _initialized = !(
+                !_initializeScript.HasValue
+                || _initializeScript.Value == initializeScriptResult.Result
+            );
             _initializeScript = initializeScriptResult.Result.ToOption();
         }
         var updateScriptResult = await _mediator.Send(
-            new QueryForClientScriptById(
-                _moduleScripts.UpdateScript
-            )
+            new QueryForClientScriptById(_moduleScripts.UpdateScript)
         );
         if (updateScriptResult.Success)
         {
             _updateScript = updateScriptResult.Result.ToOption();
         }
         var disposeScriptResult = await _mediator.Send(
-            new QueryForClientScriptById(
-                _moduleScripts.DisposeScript
-            )
+            new QueryForClientScriptById(_moduleScripts.DisposeScript)
         );
         if (disposeScriptResult.Success)
         {

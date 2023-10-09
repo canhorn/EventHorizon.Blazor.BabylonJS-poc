@@ -1,19 +1,17 @@
-﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Dispose
+﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Dispose;
+
+using System;
+
+using EventHorizon.Game.Client.Core.Command.Model;
+
+using MediatR;
+
+public struct DisposeOfServerModuleCommand : IRequest<StandardCommandResult>
 {
-    using System;
-    using EventHorizon.Game.Client.Core.Command.Model;
-    using MediatR;
+    public string Name { get; }
 
-    public struct DisposeOfServerModuleCommand
-        : IRequest<StandardCommandResult>
+    public DisposeOfServerModuleCommand(string name)
     {
-        public string Name { get; }
-
-        public DisposeOfServerModuleCommand(
-            string name
-        )
-        {
-            Name = name;
-        }
+        Name = name;
     }
 }

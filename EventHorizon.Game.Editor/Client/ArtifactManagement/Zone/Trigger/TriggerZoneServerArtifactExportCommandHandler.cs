@@ -11,7 +11,10 @@ using EventHorizon.Zone.Systems.ArtifactManagement.Trigger;
 using MediatR;
 
 public class TriggerZoneServerArtifactExportCommandHandler
-    : IRequestHandler<TriggerZoneServerArtifactExportCommand, StandardCommandResult>
+    : IRequestHandler<
+        TriggerZoneServerArtifactExportCommand,
+        StandardCommandResult
+    >
 {
     private readonly IMediator _mediator;
     private readonly ZoneArtifactManagementState _state;
@@ -40,9 +43,7 @@ public class TriggerZoneServerArtifactExportCommandHandler
             return new(result.ErrorCode);
         }
 
-        _state.SetExportReferenceId(
-            result.Result.ReferenceId
-        );
+        _state.SetExportReferenceId(result.Result.ReferenceId);
         await _mediator.Publish(
             new ZoneArtifactManagementStateChangedEvent(),
             cancellationToken

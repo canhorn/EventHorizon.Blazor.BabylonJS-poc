@@ -11,9 +11,7 @@ public class AssetServerToolbarBase : EditorComponentBase
 {
     protected async Task HandleTriggerExportClicked()
     {
-        var result = await Sender.Send(
-            new TriggerAssetServerExportCommand()
-        );
+        var result = await Sender.Send(new TriggerAssetServerExportCommand());
         if (!result)
         {
             await ShowMessage(
@@ -30,16 +28,12 @@ public class AssetServerToolbarBase : EditorComponentBase
 
     protected async Task HandleImportClicked()
     {
-        await Publisher.Publish(
-            new OpenAssetServerImportFileUploaderEvent()
-        );
+        await Publisher.Publish(new OpenAssetServerImportFileUploaderEvent());
     }
 
     protected async Task HandleBackupClicked()
     {
-        var result = await Sender.Send(
-            new TriggerAssetServerBackupCommand()
-        );
+        var result = await Sender.Send(new TriggerAssetServerBackupCommand());
         if (!result)
         {
             await ShowMessage(

@@ -1,32 +1,33 @@
-﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Platform
+﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Platform;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
+using EventHorizon.Game.Client.Systems.ClientScripts.Api;
+
+using MediatR;
+
+public class CleanupClientScriptsOnDisposeOfEngineEventHandler
+    : INotificationHandler<DisposeOfEngineEvent>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
-    using EventHorizon.Game.Client.Systems.ClientScripts.Api;
-    using MediatR;
+    private readonly ClientScriptsState _state;
 
-    public class CleanupClientScriptsOnDisposeOfEngineEventHandler
-        : INotificationHandler<DisposeOfEngineEvent>
+    public CleanupClientScriptsOnDisposeOfEngineEventHandler(
+        ClientScriptsState state
+    )
     {
-        private readonly ClientScriptsState _state;
+        _state = state;
+    }
 
-        public CleanupClientScriptsOnDisposeOfEngineEventHandler(
-            ClientScriptsState state
-        )
-        {
-            _state = state;
-        }
+    public Task Handle(
+        DisposeOfEngineEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        _state.Reset();
 
-        public Task Handle(
-            DisposeOfEngineEvent notification, 
-            CancellationToken cancellationToken
-        )
-        {
-            _state.Reset();
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

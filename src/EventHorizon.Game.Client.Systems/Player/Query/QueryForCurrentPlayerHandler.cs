@@ -1,39 +1,36 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Query
+﻿namespace EventHorizon.Game.Client.Systems.Player.Query;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Client.Core.Query.Model;
+using EventHorizon.Game.Client.Systems.Player.Api;
+
+using MediatR;
+
+public class QueryForCurrentPlayerHandler
+    : IRequestHandler<QueryForCurrentPlayer, QueryResult<IPlayerEntity>>
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Game.Client.Core.Query.Model;
-    using EventHorizon.Game.Client.Systems.Player.Api;
-    using MediatR;
+    private readonly IPlayerState _state;
 
-    public class QueryForCurrentPlayerHandler
-        : IRequestHandler<QueryForCurrentPlayer, QueryResult<IPlayerEntity>>
+    public QueryForCurrentPlayerHandler(IPlayerState state)
     {
-        private readonly IPlayerState _state;
+        _state = state;
+    }
 
-        public QueryForCurrentPlayerHandler(
-            IPlayerState state
-        )
+    public Task<QueryResult<IPlayerEntity>> Handle(
+        QueryForCurrentPlayer request,
+        CancellationToken cancellationToken
+    )
+    {
+        var player = _state.Player;
+        if (player.HasValue)
         {
-            _state = state;
+            return new QueryResult<IPlayerEntity>(player.Value).FromResult();
         }
-
-        public Task<QueryResult<IPlayerEntity>> Handle(
-            QueryForCurrentPlayer request,
-            CancellationToken cancellationToken
-        )
-        {
-            var player = _state.Player;
-            if (player.HasValue)
-            {
-                return new QueryResult<IPlayerEntity>(
-                    player.Value
-                ).FromResult();
-            }
-            return new QueryResult<IPlayerEntity>(
-                "current_player_not_found"
-            ).FromResult();
-        }
+        return new QueryResult<IPlayerEntity>(
+            "current_player_not_found"
+        ).FromResult();
     }
 }

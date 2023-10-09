@@ -1,70 +1,67 @@
 /// Generated - Do Not Edit
-namespace BabylonJS
+namespace BabylonJS;
+
+using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+
+using EventHorizon.Blazor.Interop;
+using EventHorizon.Blazor.Interop.Callbacks;
+
+using Microsoft.JSInterop;
+
+[JsonConverter(typeof(CachedEntityConverter<FresnelParameters>))]
+public class FresnelParameters : CachedEntityObject
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text.Json.Serialization;
-    using System.Threading.Tasks;
-    using EventHorizon.Blazor.Interop;
-    using EventHorizon.Blazor.Interop.Callbacks;
-    using Microsoft.JSInterop;
+    #region Static Accessors
 
-    
-    
-    [JsonConverter(typeof(CachedEntityConverter<FresnelParameters>))]
-    public class FresnelParameters : CachedEntityObject
+    #endregion
+
+    #region Static Properties
+
+    #endregion
+
+    #region Static Methods
+    public static FresnelParameters Parse(object parsedFresnelParameters)
     {
-        #region Static Accessors
+        return EventHorizonBlazorInterop.FuncClass<FresnelParameters>(
+            entity => new FresnelParameters() { ___guid = entity.___guid },
+            new object[]
+            {
+                new string[] { "BABYLON", "FresnelParameters", "Parse" },
+                parsedFresnelParameters
+            }
+        );
+    }
+    #endregion
 
-        #endregion
+    #region Accessors
 
-        #region Static Properties
-
-        #endregion
-
-        #region Static Methods
-        public static FresnelParameters Parse(object parsedFresnelParameters)
+    public bool isEnabled
+    {
+        get
         {
-            return EventHorizonBlazorInterop.FuncClass<FresnelParameters>(
-                entity => new FresnelParameters() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { "BABYLON", "FresnelParameters", "Parse" }, parsedFresnelParameters
-                }
+            return EventHorizonBlazorInterop.Get<bool>(
+                this.___guid,
+                "isEnabled"
             );
         }
-        #endregion
-
-        #region Accessors
-        
-        public bool isEnabled
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<bool>(
-                    this.___guid,
-                    "isEnabled"
-                );
-            }
-            set
-            {
 
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "isEnabled",
-                    value
-                );
-            }
+            EventHorizonBlazorInterop.Set(this.___guid, "isEnabled", value);
         }
-        #endregion
+    }
+    #endregion
 
-        #region Properties
-        private Color3 __leftColor;
-        public Color3 leftColor
+    #region Properties
+    private Color3 __leftColor;
+    public Color3 leftColor
+    {
+        get
         {
-            get
-            {
-            if(__leftColor == null)
+            if (__leftColor == null)
             {
                 __leftColor = EventHorizonBlazorInterop.GetClass<Color3>(
                     this.___guid,
@@ -76,24 +73,20 @@ namespace BabylonJS
                 );
             }
             return __leftColor;
-            }
-            set
-            {
-__leftColor = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "leftColor",
-                    value
-                );
-            }
         }
-
-        private Color3 __rightColor;
-        public Color3 rightColor
+        set
         {
-            get
-            {
-            if(__rightColor == null)
+            __leftColor = null;
+            EventHorizonBlazorInterop.Set(this.___guid, "leftColor", value);
+        }
+    }
+
+    private Color3 __rightColor;
+    public Color3 rightColor
+    {
+        get
+        {
+            if (__rightColor == null)
             {
                 __rightColor = EventHorizonBlazorInterop.GetClass<Color3>(
                     this.___guid,
@@ -105,95 +98,70 @@ __leftColor = null;
                 );
             }
             return __rightColor;
-            }
-            set
-            {
-__rightColor = null;
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "rightColor",
-                    value
-                );
-            }
         }
-
-        
-        public decimal bias
+        set
         {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "bias"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "bias",
-                    value
-                );
-            }
+            __rightColor = null;
+            EventHorizonBlazorInterop.Set(this.___guid, "rightColor", value);
         }
-
-        
-        public decimal power
-        {
-            get
-            {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                    this.___guid,
-                    "power"
-                );
-            }
-            set
-            {
-
-                EventHorizonBlazorInterop.Set(
-                    this.___guid,
-                    "power",
-                    value
-                );
-            }
-        }
-        #endregion
-        
-        #region Constructor
-        public FresnelParameters() : base() { } 
-
-        public FresnelParameters(
-            ICachedEntity entity
-        ) : base(entity)
-        {
-            ___guid = entity.___guid;
-        }
-
-
-        #endregion
-
-        #region Methods
-        public FresnelParameters clone()
-        {
-            return EventHorizonBlazorInterop.FuncClass<FresnelParameters>(
-                entity => new FresnelParameters() { ___guid = entity.___guid },
-                new object[] 
-                {
-                    new string[] { this.___guid, "clone" }
-                }
-            );
-        }
-
-        public CachedEntity serialize()
-        {
-            return EventHorizonBlazorInterop.Func<CachedEntity>(
-                new object[] 
-                {
-                    new string[] { this.___guid, "serialize" }
-                }
-            );
-        }
-        #endregion
     }
+
+    public decimal bias
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bias");
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "bias", value);
+        }
+    }
+
+    public decimal power
+    {
+        get
+        {
+            return EventHorizonBlazorInterop.Get<decimal>(
+                this.___guid,
+                "power"
+            );
+        }
+        set
+        {
+
+            EventHorizonBlazorInterop.Set(this.___guid, "power", value);
+        }
+    }
+    #endregion
+
+    #region Constructor
+    public FresnelParameters()
+        : base() { }
+
+    public FresnelParameters(ICachedEntity entity)
+        : base(entity)
+    {
+        ___guid = entity.___guid;
+    }
+
+    #endregion
+
+    #region Methods
+    public FresnelParameters clone()
+    {
+        return EventHorizonBlazorInterop.FuncClass<FresnelParameters>(
+            entity => new FresnelParameters() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "clone" } }
+        );
+    }
+
+    public CachedEntity serialize()
+    {
+        return EventHorizonBlazorInterop.Func<CachedEntity>(
+            new object[] { new string[] { this.___guid, "serialize" } }
+        );
+    }
+    #endregion
 }
