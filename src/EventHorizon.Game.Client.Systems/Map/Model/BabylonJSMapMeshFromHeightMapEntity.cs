@@ -106,7 +106,7 @@ public class BabylonJSMapMeshFromHeightMapEntity
 
         if (_mesh.isPickable)
         {
-            GamePlatfrom.RegisterObserver(this);
+            GamePlatform.RegisterObserver(this);
         }
     }
 
@@ -123,7 +123,7 @@ public class BabylonJSMapMeshFromHeightMapEntity
 
     public override Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         _mesh?.dispose();
 
         return base.Dispose();

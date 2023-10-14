@@ -42,7 +42,7 @@ public class BabylonJSCanvas : ICanvas, CanvasResetObserver
     public async Task Initialize()
     {
         // Register Observer
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         if (_gameSettings.CanvasTagId.IsNull())
         {
             throw new Exception();
@@ -53,7 +53,7 @@ public class BabylonJSCanvas : ICanvas, CanvasResetObserver
 
     public Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         _canvas = null;
 
         return Task.CompletedTask;

@@ -35,7 +35,7 @@ public class BabylonJSCameraModule
 
     public override async Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         await _mediator.Send(
             new ManageCameraCommand(
                 PLAYER_UNIVERSAL_CAMERA_NAME,
@@ -63,7 +63,7 @@ public class BabylonJSCameraModule
 
     public override async Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         await _mediator.Send(
             new DisposeOfCameraCommand(PLAYER_UNIVERSAL_CAMERA_NAME)
         );

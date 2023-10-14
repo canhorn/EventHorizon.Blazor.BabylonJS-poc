@@ -67,7 +67,7 @@ public class StandardSelectedIndicatorModule
 
     public override async Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
 
         await _activeParticle.Initialize();
         await _activeParticle.PostInitialize();
@@ -75,7 +75,7 @@ public class StandardSelectedIndicatorModule
 
     public override async Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         await _activeParticle.Dispose();
     }
 

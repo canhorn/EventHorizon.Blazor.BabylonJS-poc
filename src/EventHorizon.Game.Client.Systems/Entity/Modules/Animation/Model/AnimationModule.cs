@@ -56,7 +56,7 @@ public class AnimationModule
         _intervalTimer.Setup(100, HandleOnCheckMovement);
         _intervalTimer.Start();
 
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
 
         return Task.CompletedTask;
     }
@@ -64,7 +64,7 @@ public class AnimationModule
     public override Task Dispose()
     {
         _intervalTimer.Dispose();
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
 
         return Task.CompletedTask;
     }

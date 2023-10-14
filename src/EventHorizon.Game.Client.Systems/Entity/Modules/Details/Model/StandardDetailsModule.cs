@@ -31,14 +31,14 @@ public class StandardDetailsModule
 
     public override Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
 
         return Task.CompletedTask;
     }
 
     public override Task Dispose()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
 
         return Task.CompletedTask;
     }

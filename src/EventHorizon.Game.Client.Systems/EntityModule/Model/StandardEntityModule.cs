@@ -64,13 +64,13 @@ public class StandardEntityModule
 
     public override Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         return RunInitialize();
     }
 
     public override async Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         if (_disposeScript.HasValue)
         {
             await _disposeScript.Value.Run(_scriptServices, _scriptData);

@@ -29,7 +29,7 @@ public class ZoneScene : GameSceneBase, AccountChangedEventObserver
 
     public override async Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         // Uncomment the line below to see a Data Generated GUI displayed when this scene is loaded.
         //await _exampleGui.Initialize();
         //await Register(
@@ -50,7 +50,7 @@ public class ZoneScene : GameSceneBase, AccountChangedEventObserver
     public override async Task Dispose()
     {
         await _exampleGui.Dispose();
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         if (!string.IsNullOrEmpty(_serverAddress))
         {
             await _mediator.Send(

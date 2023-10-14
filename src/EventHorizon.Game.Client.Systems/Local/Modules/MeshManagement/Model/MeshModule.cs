@@ -63,7 +63,7 @@ public class MeshModule
 
     public override Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
 
         PositionMesh();
 
@@ -85,7 +85,7 @@ public class MeshModule
 
     public override Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         if (_timer != null)
         {
             _timer.Dispose();

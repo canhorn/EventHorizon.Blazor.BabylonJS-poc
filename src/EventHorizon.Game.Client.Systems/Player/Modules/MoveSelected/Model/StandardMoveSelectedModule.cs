@@ -31,13 +31,13 @@ public class StandardMoveSelectedModule
 
     public override Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         return Task.CompletedTask;
     }
 
     public override Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         return Task.CompletedTask;
     }
 

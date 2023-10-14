@@ -44,13 +44,13 @@ public class ModelLoaderModule
 
     public override async Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         await LoadModelAsset();
     }
 
     public override Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         return Task.CompletedTask;
     }
 

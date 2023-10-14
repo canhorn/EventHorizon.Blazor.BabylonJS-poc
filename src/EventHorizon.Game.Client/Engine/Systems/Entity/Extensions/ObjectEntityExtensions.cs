@@ -15,7 +15,7 @@ public static class ObjectEntityExtensions
         );
         if (config.HasValue.IsNotTrue())
         {
-            GamePlatfrom
+            GamePlatform
                 .Logger<IObjectEntity>()
                 .LogWarning("Failed to find Entity Configuration.");
             return new ObjectEntityConfigurationModel();
@@ -33,7 +33,7 @@ public static class ObjectEntityExtensions
         );
         if (config.HasValue.IsNotTrue())
         {
-            GamePlatfrom
+            GamePlatform
                 .Logger<IObjectEntity>()
                 .LogWarning("Failed to find Player Configuration.");
             return new ObjectEntityConfigurationModel();

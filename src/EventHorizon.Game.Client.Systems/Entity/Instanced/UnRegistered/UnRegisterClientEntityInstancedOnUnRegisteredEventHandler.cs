@@ -36,7 +36,7 @@ public class UnRegisterClientEntityInstancedOnUnRegisteredEventHandler
             ),
             cancellationToken
         );
-        GamePlatfrom
+        GamePlatform
             .Logger<QueryForEntity>()
             .LogWarning(
                 "Found [{ResultCount}] Entities of '{GlobalId}' GlobalId to Dispose.",

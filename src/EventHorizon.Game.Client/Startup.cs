@@ -45,7 +45,7 @@ public class Startup : IStartup
         _gameService = gameService;
         _serviceScope = scopeFactory.CreateScope();
         GameServiceProvider.SetServiceProvider(_serviceScope.ServiceProvider);
-        GamePlatfrom.Setup();
+        GamePlatform.Setup();
     }
 
     public void Setup(

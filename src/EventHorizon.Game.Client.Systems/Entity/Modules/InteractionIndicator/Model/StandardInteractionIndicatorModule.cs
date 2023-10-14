@@ -21,7 +21,7 @@ public class StandardInteractionIndicatorModule
         ClearInteractionIndicatorEventObserver
 {
     private readonly ILogger _logger =
-        GamePlatfrom.Logger<StandardInteractionIndicatorModule>();
+        GamePlatform.Logger<StandardInteractionIndicatorModule>();
 
     private readonly IObjectEntity _entity;
     private ParticleEmitter? _particle;
@@ -57,7 +57,7 @@ public class StandardInteractionIndicatorModule
             return;
         }
 
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
 
         _particle = new StandardServerParticle(
             _entity,
@@ -74,7 +74,7 @@ public class StandardInteractionIndicatorModule
 
     public override async Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         if (_particle.IsNotNull())
         {
             await _particle.Dispose();

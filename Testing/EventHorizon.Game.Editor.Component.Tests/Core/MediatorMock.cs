@@ -34,7 +34,7 @@ public class MediatorMock : IMediator
         {
             return Task.FromResult((TResponse)response);
         }
-        return Task.FromResult(default(TResponse));
+        return Task.FromResult(default(TResponse)!);
     }
 
     public Task<object?> Send(

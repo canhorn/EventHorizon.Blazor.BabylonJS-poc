@@ -113,7 +113,7 @@ public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
                 return typedModule;
             }
 #if DEBUG
-            GamePlatfrom
+            GamePlatform
                 .Logger<LifecycleEntityBase>()
                 .LogDebug(
                     "Module was not the correct type on entity: EntityId = {EntityId} | GlobalId = {GlobalId} | Module: {ModuleName} | Type: {ModuleType}",
@@ -127,7 +127,7 @@ public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
 #if DEBUG
         else
         {
-            GamePlatfrom
+            GamePlatform
                 .Logger<LifecycleEntityBase>()
                 .LogDebug(
                     "Module was not found on entity: EntityId = {EntityId} | GlobalId = {GlobalId} | Module: {ModuleName} | Type: {ModuleType}",
@@ -215,7 +215,7 @@ public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
             }
         }
 #if DEBUG
-        GamePlatfrom
+        GamePlatform
             .Logger<LifecycleEntityBase>()
             .LogDebug(
                 "Property was not found on entity: EntityId = {EntityId} | GlobalId = {GlobalId} | Property: {PropertyName} | Type: {PropertyType}",

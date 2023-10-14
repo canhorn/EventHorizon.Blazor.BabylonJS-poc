@@ -18,18 +18,18 @@ using Microsoft.Extensions.Logging;
 
 public static class GameServiceProvider
 {
-    private static IServiceProvider? _serviceProvider;
+    private static IServiceProvider? ServiceProvider;
 
     public static void SetServiceProvider(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
+        ServiceProvider = serviceProvider;
     }
 
     public static T GetService<T>()
         where T : notnull
     {
 #if DEBUG
-        if (_serviceProvider.IsNull())
+        if (ServiceProvider.IsNull())
         {
             throw new GameRuntimeException(
                 "service_provider_not_set",
@@ -37,37 +37,37 @@ public static class GameServiceProvider
             );
         }
 #endif
-        return _serviceProvider.GetRequiredService<T>();
+        return ServiceProvider.GetRequiredService<T>();
     }
 
     [return: MaybeNull]
     public static T GetService__UNSAFE<T>()
     {
-        if (_serviceProvider.IsNull())
+        if (ServiceProvider.IsNull())
         {
             return default;
         }
-        return _serviceProvider.GetService<T>();
+        return ServiceProvider.GetService<T>();
     }
 }
 
-public static class GamePlatfrom
+public static class GamePlatform
 {
-    private static ObserverState? _observerState;
+    private static ObserverState? ObserverState;
 
     internal static void Setup()
     {
-        _observerState = GameServiceProvider.GetService<ObserverState>();
+        ObserverState = GameServiceProvider.GetService<ObserverState>();
     }
 
     public static void RegisterObserver(ObserverBase observer)
     {
-        _observerState!.Register(observer);
+        ObserverState!.Register(observer);
     }
 
     public static void UnRegisterObserver(ObserverBase observer)
     {
-        _observerState!.Remove(observer);
+        ObserverState!.Remove(observer);
     }
 
     public static ILogger Logger<T>()

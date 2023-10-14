@@ -38,7 +38,7 @@ public class ClientEntityInstanced
 
     public override Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         SetProperty(
             IModelState.NAME,
             new ModelStateModel
@@ -76,7 +76,7 @@ public class ClientEntityInstanced
 
     public override Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         return base.Dispose();
     }
 

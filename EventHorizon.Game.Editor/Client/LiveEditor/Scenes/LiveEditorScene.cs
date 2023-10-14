@@ -27,13 +27,13 @@ public class LiveEditorScene : GameSceneBase, AccountChangedEventObserver
 
     public override async Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         await StartZoneConnection();
     }
 
     public override async Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         if (!string.IsNullOrEmpty(_serverAddress))
         {
             await _mediator.Send(

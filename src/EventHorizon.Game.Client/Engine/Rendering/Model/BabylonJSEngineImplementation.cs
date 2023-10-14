@@ -33,7 +33,7 @@ public class BabylonJSEngineImplementation
                 preserveDrawingBuffer = preserveDrawingBuffer,
             }
         );
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
     }
 
     public void DisplayLoadingUI()
@@ -44,7 +44,7 @@ public class BabylonJSEngineImplementation
     public void Dispose()
     {
         Engine.dispose();
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
     }
 
     public long GetDeltaTime()

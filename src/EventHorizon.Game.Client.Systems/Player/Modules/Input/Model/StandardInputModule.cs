@@ -72,12 +72,12 @@ public class StandardInputModule
         );
         _movePlayerIntervalTimer.Start();
 
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
     }
 
     public override async Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
 
         _movePlayerIntervalTimer.Dispose();
         foreach (var registeredInput in _registeredInput)

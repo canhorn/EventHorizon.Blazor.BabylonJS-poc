@@ -43,7 +43,7 @@ public class MainMenuScene
 
     public override async Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         var accountInfoResult = await _mediator.Send(new QueryForAccountInfo());
 
         // IGuiLayoutData
@@ -119,7 +119,7 @@ public class MainMenuScene
 
     public override async Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         await _mediator.Send(new DisposeOfGuiCommand(_mainMenuGuiId));
         await base.Dispose();
     }

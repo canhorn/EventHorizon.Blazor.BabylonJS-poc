@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 public class BabylonJSParticleState : ParticleState, ParticleLifecycleService
 {
-    private readonly ILogger _logger = GamePlatfrom.Logger<ParticleState>();
+    private readonly ILogger _logger = GamePlatform.Logger<ParticleState>();
     private readonly IDictionary<
         long,
         EngineParticleSystem

@@ -44,7 +44,7 @@ public class MoveModule
         _stateModule = _entity.GetModule<IStateModule>(
             IStateModule.MODULE_NAME
         );
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         if (_currentMoveTo.IsNotNull())
         {
             await SetMoveTo(_currentMoveTo);
@@ -53,7 +53,7 @@ public class MoveModule
 
     public override Task Dispose()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
 
         return Task.CompletedTask;
     }

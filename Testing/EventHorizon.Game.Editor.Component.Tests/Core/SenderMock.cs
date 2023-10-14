@@ -29,7 +29,7 @@ public class SenderMock : ISender
         CancellationToken cancellationToken = default
     )
     {
-        return Task.FromResult(default(TResponse));
+        return Task.FromResult(default(TResponse)!);
     }
 
     public Task<object?> Send(

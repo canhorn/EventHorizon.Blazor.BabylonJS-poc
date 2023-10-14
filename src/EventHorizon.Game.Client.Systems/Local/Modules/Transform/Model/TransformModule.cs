@@ -31,7 +31,7 @@ public class TransformModule
     {
         _entity = entity;
 
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
 
         Reset(entity.Transform.Position);
     }
@@ -48,7 +48,7 @@ public class TransformModule
 
     public override Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         return Task.CompletedTask;
     }
 

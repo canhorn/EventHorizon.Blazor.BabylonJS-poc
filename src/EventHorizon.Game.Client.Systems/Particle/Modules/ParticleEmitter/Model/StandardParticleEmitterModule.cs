@@ -40,13 +40,13 @@ public class StandardParticleEmitterModule
 
     public override async Task Initialize()
     {
-        GamePlatfrom.RegisterObserver(this);
+        GamePlatform.RegisterObserver(this);
         await CreateParticle();
     }
 
     public override Task Dispose()
     {
-        GamePlatfrom.UnRegisterObserver(this);
+        GamePlatform.UnRegisterObserver(this);
         return Task.CompletedTask;
     }
 
