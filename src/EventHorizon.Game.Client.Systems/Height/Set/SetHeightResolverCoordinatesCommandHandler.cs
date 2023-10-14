@@ -20,12 +20,12 @@ public class SetHeightResolverCoordinatesCommandHandler
         _heightResolver = heightResolver;
     }
 
-    public Task<Unit> Handle(
+    public Task Handle(
         SetHeightResolverCoordinatesCommand request,
         CancellationToken cancellationToken
     )
     {
         _heightResolver.setCoordinates(request.HeightCoordinates);
-        return Unit.Task;
+        return Task.CompletedTask;
     }
 }

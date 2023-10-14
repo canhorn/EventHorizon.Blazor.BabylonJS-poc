@@ -18,7 +18,7 @@ public class CreateLightCommandHandler : IRequestHandler<CreateLightCommand>
         _mediator = mediator;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         CreateLightCommand request,
         CancellationToken cancellationToken
     )
@@ -44,7 +44,5 @@ public class CreateLightCommandHandler : IRequestHandler<CreateLightCommand>
             default:
                 break;
         }
-
-        return Unit.Value;
     }
 }

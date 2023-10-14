@@ -22,7 +22,7 @@ public class SetupAccountCommandHandler : IRequestHandler<SetupAccountCommand>
         _state = state;
     }
 
-    public Task<Unit> Handle(
+    public Task Handle(
         SetupAccountCommand request,
         CancellationToken cancellationToken
     )
@@ -35,6 +35,7 @@ public class SetupAccountCommandHandler : IRequestHandler<SetupAccountCommand>
                 "ACCOUNT_LOGIN_URL" // TODO: [GAME_SETTINGS] : Create Constants/Extensions abstraction
             ) ?? string.Empty
         );
-        return Unit.Task;
+
+        return Task.CompletedTask;
     }
 }

@@ -10,7 +10,12 @@ public static class ClientSystemsStartup
         this IServiceCollection services
     ) =>
         services
-            .AddMediatR(typeof(ClientSystemsStartup).Assembly)
+            .AddMediatR(
+                config =>
+                    config.RegisterServicesFromAssembly(
+                        typeof(ClientSystemsStartup).Assembly
+                    )
+            )
             // Local Systems
             .AddClientScenesServices()
             // Core Server Systems

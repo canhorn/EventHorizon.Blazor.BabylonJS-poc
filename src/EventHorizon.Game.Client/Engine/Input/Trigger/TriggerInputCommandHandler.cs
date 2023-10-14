@@ -17,7 +17,7 @@ public class TriggerInputCommandHandler : IRequestHandler<TriggerInputCommand>
         _inputState = inputState;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         TriggerInputCommand request,
         CancellationToken cancellationToken
     )
@@ -34,7 +34,5 @@ public class TriggerInputCommandHandler : IRequestHandler<TriggerInputCommand>
                 await option.Released(new InputKeyEvent(request.Key));
             }
         }
-
-        return Unit.Value;
     }
 }

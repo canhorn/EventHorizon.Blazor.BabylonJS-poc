@@ -19,7 +19,7 @@ public class DisposeOfEntityCommandHandler
         _mediator = mediator;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         DisposeOfEntityCommand request,
         CancellationToken cancellationToken
     )
@@ -38,7 +38,5 @@ public class DisposeOfEntityCommandHandler
             new EntityDisposedEvent(request.Entity),
             cancellationToken
         );
-
-        return Unit.Value;
     }
 }

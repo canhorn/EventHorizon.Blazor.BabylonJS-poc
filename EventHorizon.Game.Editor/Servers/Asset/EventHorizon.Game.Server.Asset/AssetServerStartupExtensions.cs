@@ -15,17 +15,16 @@ public static class AssetServerStartupExtensions
     public static IServiceCollection AddAssetServerAdminServices(
         this IServiceCollection services
     ) =>
-        services
-            .AddSingleton<
-                AssetServerAdminService,
-                SignalrAssetServerAdminService
-            >();
-            // TODO: Look at updating the generated code.
-            // .AddScoped<
-            //     IPipelineBehavior<
-            //         QueryForFileManagementAssets,
-            //         CommandResult<FileManagementAssets>
-            //     >,
-            //     QueryForFileManagementAssetsGeneratedCachedBehavior
-            // >();
+        services.AddSingleton<
+            AssetServerAdminService,
+            SignalrAssetServerAdminService
+        >();
+    // TODO: Look at updating the generated code.
+    // .AddScoped<
+    //     IPipelineBehavior<
+    //         QueryForFileManagementAssets,
+    //         CommandResult<FileManagementAssets>
+    //     >,
+    //     QueryForFileManagementAssetsGeneratedCachedBehavior
+    // >();
 }

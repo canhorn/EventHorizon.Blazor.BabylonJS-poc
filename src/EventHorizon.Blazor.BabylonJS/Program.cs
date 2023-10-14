@@ -94,16 +94,19 @@ public class Program
             .AddGameServerServices();
 
         builder.Services.AddMediatR(
-            new Type[]
-            {
-                typeof(Program),
-                typeof(ObserverState),
-                // Platform Services
-                typeof(PlatformLoggerExtensions),
-                // Game Service Registration
-                typeof(ClientExtensions),
-                typeof(GameServerStartup),
-            }
+            config =>
+                config.RegisterServicesFromAssemblies(
+                    new[]
+                    {
+                        typeof(Program).Assembly,
+                        typeof(ObserverState).Assembly,
+                        // Platform Services
+                        typeof(PlatformLoggerExtensions).Assembly,
+                        // Game Service Registration
+                        typeof(ClientExtensions).Assembly,
+                        typeof(GameServerStartup).Assembly,
+                    }
+                )
         );
 
         // Configure Logging

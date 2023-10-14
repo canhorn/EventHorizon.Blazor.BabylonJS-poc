@@ -17,13 +17,14 @@ public class RegisterObserverCommandHandler
         _state = state;
     }
 
-    public Task<Unit> Handle(
+    public Task Handle(
         RegisterObserverCommand request,
         CancellationToken cancellationToken
     )
     {
         request.NullCheck(nameof(request));
         _state.Register(request.Observer);
-        return Unit.Task;
+
+        return Task.CompletedTask;
     }
 }

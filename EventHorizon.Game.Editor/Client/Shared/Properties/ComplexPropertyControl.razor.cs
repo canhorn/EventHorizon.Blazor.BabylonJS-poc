@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-using BlazorMonaco;
+using BlazorMonaco.Editor;
 
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Properties.Model;
@@ -16,7 +16,7 @@ public partial class ComplexPropertyControl
     [CascadingParameter]
     public ZoneState ZoneState { get; set; } = null!;
 
-    public MonacoEditor MonacoEditor { get; set; } = null!;
+    public StandaloneCodeEditor MonacoEditor { get; set; } = null!;
     protected string PropertyEditorId => $"{PropertyName}-Editor";
     protected bool IsEditorOpen { get; set; }
 
@@ -45,7 +45,7 @@ public partial class ComplexPropertyControl
     }
 
     public StandaloneEditorConstructionOptions BuildConstructionOptions(
-        MonacoEditor _
+        StandaloneCodeEditor _
     ) =>
         new()
         {

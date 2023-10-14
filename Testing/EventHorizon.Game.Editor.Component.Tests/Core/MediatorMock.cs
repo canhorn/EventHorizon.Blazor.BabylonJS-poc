@@ -53,4 +53,29 @@ public class MediatorMock : IMediator
     {
         _stubMap.Add(request, response);
     }
+
+    public Task Send<TRequest>(
+        TRequest request,
+        CancellationToken cancellationToken = default
+    )
+        where TRequest : IRequest
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public IAsyncEnumerable<TResponse> CreateStream<TResponse>(
+        IStreamRequest<TResponse> request,
+        CancellationToken cancellationToken = default
+    )
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public IAsyncEnumerable<object?> CreateStream(
+        object request,
+        CancellationToken cancellationToken = default
+    )
+    {
+        throw new System.NotImplementedException();
+    }
 }

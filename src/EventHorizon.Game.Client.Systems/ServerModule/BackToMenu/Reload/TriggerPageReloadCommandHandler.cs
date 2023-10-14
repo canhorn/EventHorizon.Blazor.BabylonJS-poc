@@ -28,7 +28,7 @@ public class TriggerPageReloadCommandHandler
         _mediator = mediator;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         TriggerPageReloadCommand request,
         CancellationToken cancellationToken
     )
@@ -57,7 +57,5 @@ public class TriggerPageReloadCommandHandler
             "window.location.reload();",
             new { }
         );
-
-        return Unit.Value;
     }
 }

@@ -179,22 +179,27 @@ public class Program
 
         // Setup MediatR
         builder.Services.AddMediatR(
-            (configuration) => configuration.AsSingleton(),
-            new Type[]
+            (configuration) =>
             {
-                typeof(ObserverState),
-                typeof(Program),
-                typeof(EditorSharedExtensions),
-                typeof(ActivityStartupExtensions),
-                // Servers
-                typeof(AssetServerStartupExtensions),
-                typeof(EditorCoreExtensions),
-                typeof(EditorZoneExtensions),
-                // Platform Services
-                typeof(PlatformLoggerExtensions),
-                // Game Service Registration
-                typeof(ClientExtensions),
-                typeof(GameServerStartup),
+                configuration.Lifetime = ServiceLifetime.Singleton;
+                configuration.RegisterServicesFromAssemblies(
+                    new[]
+                    {
+                        typeof(ObserverState).Assembly,
+                        typeof(Program).Assembly,
+                        typeof(EditorSharedExtensions).Assembly,
+                        typeof(ActivityStartupExtensions).Assembly,
+                        // Servers
+                        typeof(AssetServerStartupExtensions).Assembly,
+                        typeof(EditorCoreExtensions).Assembly,
+                        typeof(EditorZoneExtensions).Assembly,
+                        // Platform Services
+                        typeof(PlatformLoggerExtensions).Assembly,
+                        // Game Service Registration
+                        typeof(ClientExtensions).Assembly,
+                        typeof(GameServerStartup).Assembly,
+                    }
+                );
             }
         );
 

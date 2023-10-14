@@ -68,7 +68,7 @@ switch ($Command) {
         Write-Output "Client Automation Testing Not Implemented"
     }
     "client:publish" {
-        Write-Ouput "Publishing Client"
+        Write-Output "Publishing Client"
         # TODO: Add client publish command
         # dotnet publish -c $Configuration -o ./published $clientProject
     }
@@ -100,17 +100,19 @@ switch ($Command) {
         dotnet test $editorTestingAutomationProject
     }
     "editor:publish" {
-        Write-Ouput "Publishing Editor"
+        Write-Output "Publishing Editor"
         # TODO: Add editor publish command
         # dotnet publish -c $Configuration -o ./published $editorProject
     }
     "pre" {
         ./entry.ps1 -Command format
-        ./entry.ps1 -Command build
+        ./entry.ps1 -Command client:build
         ./entry.ps1 -Command client:publish
         ./entry.ps1 -Command client:test 
         ./entry.ps1 -Command client:test:automation
+        ./entry.ps1 -Command editor:build
         ./entry.ps1 -Command editor:publish
+        ./entry.ps1 -Command editor:test
         ./entry.ps1 -Command editor:test:automation
     }
     "generate:babylonjs" {
@@ -136,7 +138,7 @@ switch ($Command) {
         # Get-ChildItem -Recurse -Path $PWD -Filter *.csproj | ForEach-Object { Write-Output $_.FullName }
         Get-ChildItem -Recurse -Path $PWD -Filter *.csproj | ForEach-Object { 
             Write-Output $_.FullName
-            dotnet format $_.FullName }
+            dotnet outdated --upgrade $_.FullName }
     }
     Default {
         Write-Output "Invalid Command"

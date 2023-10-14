@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Blazored.LocalStorage;
 
 using BlazorMonaco;
+using BlazorMonaco.Editor;
 
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
@@ -149,13 +150,13 @@ public class ZoneFileEditorComponentModel
     #endregion
 
     #region Editor
-    public MonacoEditor MonacoEditor { get; set; } = null!;
+    public StandaloneCodeEditor MonacoEditor { get; set; } = null!;
 
     public async Task HandleDidInit()
     {
         await MonacoEditor.AddCommand(
-            (int)KeyMode.CtrlCmd | (int)KeyMode.Shift | (int)KeyCode.KEY_S,
-            (editor, keyCode) =>
+            (int)KeyMod.CtrlCmd | (int)KeyMod.Shift | (int)KeyCode.KeyS,
+            (args) =>
             {
                 _ = HandleSaveFile();
             }
@@ -196,7 +197,7 @@ public class ZoneFileEditorComponentModel
     }
 
     public StandaloneEditorConstructionOptions BuildConstructionOptions(
-        MonacoEditor _
+        StandaloneCodeEditor _
     )
     {
         return new StandaloneEditorConstructionOptions

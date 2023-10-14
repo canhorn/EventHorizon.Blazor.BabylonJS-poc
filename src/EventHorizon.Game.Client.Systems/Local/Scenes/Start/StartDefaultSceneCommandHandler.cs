@@ -23,14 +23,12 @@ public class StartDefaultSceneCommandHandler
         _trackingState = trackingState;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         StartDefaultSceneCommand request,
         CancellationToken cancellationToken
     )
     {
         await _trackingState.DisposeOfTracked();
         await _state.StartDefaultScene();
-
-        return Unit.Value;
     }
 }

@@ -19,13 +19,14 @@ public class CreateGameSceneOrchestratorCommandHandler
         _state = state;
     }
 
-    public Task<Unit> Handle(
+    public Task Handle(
         CreateGameSceneOrchestratorCommand request,
         CancellationToken cancellationToken
     )
     {
         _state.Clear();
         _state.Setup(request.DefaultSceneId, request.Scenes);
-        return Unit.Task;
+
+        return Task.CompletedTask;
     }
 }

@@ -1,4 +1,4 @@
-﻿@using BlazorMonaco
+﻿@using BlazorMonaco.Editor
 @inherits PropertyControlBase
 
 <div class="complex-property-control">
@@ -38,7 +38,7 @@
         <Body>
             <div class="property__editor-container">
 
-                <MonacoEditor @ref="MonacoEditor"
+                <StandaloneCodeEditor @ref="MonacoEditor"
                               Id="@PropertyEditorId"
                               CssClass="property__editor"
                               ConstructionOptions="BuildConstructionOptions" />

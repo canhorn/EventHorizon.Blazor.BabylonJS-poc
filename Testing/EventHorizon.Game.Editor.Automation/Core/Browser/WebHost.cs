@@ -85,7 +85,7 @@ public class WebHost
         if (Settings.SlowMo)
         {
             AtataContext.GlobalConfiguration.Attributes.Global.Add(
-                new WaitAttribute(Settings.SlowMoDelay)
+                new WaitSecondsAttribute(Settings.SlowMoDelay)
                 {
                     On = TriggerEvents.BeforeAccess,
                 }

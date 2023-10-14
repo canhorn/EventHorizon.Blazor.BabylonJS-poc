@@ -1,5 +1,5 @@
 # Stage 1 - Restore .NET Project
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS dotnet-restore
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS dotnet-restore
 WORKDIR /source
 
 ENV PATH="$PATH:/root/.dotnet/tools"
@@ -155,7 +155,7 @@ RUN dotnet build --output /artifacts /p:Version=$Version --configuration Release
 
 
 # Stage 4.2 - Publish to NuGet
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS dotnet-nuget-push
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS dotnet-nuget-push
 WORKDIR /artifacts
 COPY --from=dotnet-nuget-build /artifacts .
 RUN find . -name '*.nupkg' -ls
@@ -164,7 +164,7 @@ CMD ["--source", "https://api.nuget.org/v3/index.json"]
 
 
 # Stage 4.2 - Editor Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS editor-runtime
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS editor-runtime
 ARG Version=0.0.0
 ENV APPLICATION_VERSION=$Version
 
@@ -177,7 +177,7 @@ ENTRYPOINT ["dotnet", "EventHorizon.Game.Editor.Server.dll"]
 
 
 # Stage 4.3 - Client Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS client-runtime
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS client-runtime
 ARG Version=0.0.0
 ENV APPLICATION_VERSION=$Version
 

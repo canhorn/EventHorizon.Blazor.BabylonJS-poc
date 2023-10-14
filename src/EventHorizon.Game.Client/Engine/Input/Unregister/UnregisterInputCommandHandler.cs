@@ -17,13 +17,13 @@ public class UnregisterInputCommandHandler
         _unregister = unregister;
     }
 
-    public Task<Unit> Handle(
+    public Task Handle(
         UnregisterInputCommand request,
         CancellationToken cancellationToken
     )
     {
         _unregister.Unregister(request.Handle);
 
-        return Unit.Task;
+        return Task.CompletedTask;
     }
 }

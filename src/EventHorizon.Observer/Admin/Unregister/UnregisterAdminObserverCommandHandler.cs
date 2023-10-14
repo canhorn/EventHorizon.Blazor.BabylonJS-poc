@@ -17,13 +17,14 @@ public class UnregisterAdminObserverCommandHandler
         _state = state;
     }
 
-    public Task<Unit> Handle(
+    public Task Handle(
         UnregisterAdminObserverCommand request,
         CancellationToken cancellationToken
     )
     {
         request.NullCheck(nameof(request));
         _state.RemoveAdminObserver(request.Observer);
-        return Unit.Task;
+
+        return Task.CompletedTask;
     }
 }

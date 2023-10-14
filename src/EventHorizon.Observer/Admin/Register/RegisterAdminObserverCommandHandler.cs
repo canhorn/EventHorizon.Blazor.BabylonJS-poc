@@ -18,13 +18,14 @@ public class RegisterAdminObserverCommandHandler
         _state = state;
     }
 
-    public Task<Unit> Handle(
+    public Task Handle(
         RegisterAdminObserverCommand request,
         CancellationToken cancellationToken
     )
     {
         request.NullCheck(nameof(request));
         _state.RegisterAdminObserver(request.Observer);
-        return Unit.Task;
+
+        return Task.CompletedTask;
     }
 }
