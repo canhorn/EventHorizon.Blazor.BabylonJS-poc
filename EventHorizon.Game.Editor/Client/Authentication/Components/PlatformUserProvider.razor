@@ -93,7 +93,7 @@ else
 
     private async Task SetupAuthenticatedPlatformUser()
     {
-        var userId = Configuration["DeploymentDetails:UserId"];
+        var userId = Configuration["DeploymentDetails:UserId"] ?? string.Empty;
         var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var accessTokenResult = await TokenProvider.RequestAccessToken();
         PlatformUser.IsAuthenticated = state.User?.Identity?.IsAuthenticated ?? false;

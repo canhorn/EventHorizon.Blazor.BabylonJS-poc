@@ -3,16 +3,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
-
 using EventHorizon.Platform.LogProvider.Api;
 using EventHorizon.Platform.LogProvider.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class PlatformConsoleLogger : ILogger
 {
     private static readonly JsonSerializerOptions JSON_OPTIONS =
-        new JsonSerializerOptions { WriteIndented = true };
+        new() { WriteIndented = true };
 
     private readonly string _name;
     private readonly PlatformLoggerConfiguration _config;
@@ -32,8 +30,8 @@ public class PlatformConsoleLogger : ILogger
         _logEnrichmentService = logEnrichmentService;
     }
 
-    public IDisposable BeginScope<TState>(TState state) =>
-        NoOpDisposable.Instance;
+    public IDisposable BeginScope<TState>(TState state)
+        where TState : notnull => NoOpDisposable.Instance;
 
     public bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None;
 
@@ -41,7 +39,7 @@ public class PlatformConsoleLogger : ILogger
         LogLevel logLevel,
         EventId eventId,
         TState state,
-        Exception exception,
+        Exception? exception,
         Func<TState, Exception, string> formatter
     )
     {
@@ -85,7 +83,10 @@ public class PlatformConsoleLogger : ILogger
                 $"[{timestamp:O}] [{logLevel}] [{_name}[{eventId.Id}]] {formatter(state, exception!)}"
             );
             Console.WriteLine(state?.GetType()?.FullName ?? string.Empty);
-            Console.WriteLine(exception?.ToString());
+            if (exception != null)
+            {
+                Console.WriteLine(exception.ToString());
+            }
             Console.WriteLine(
                 JsonSerializer.Serialize(stateAsDictionary, JSON_OPTIONS)
             );

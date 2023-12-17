@@ -2,7 +2,6 @@
 
 using System;
 using System.Timers;
-
 using EventHorizon.Game.Client.Core.Timer.Api;
 
 public class TimerService : ITimerService
@@ -24,7 +23,7 @@ public class TimerService : ITimerService
         _timer = null;
     }
 
-    private void NotifyTimerElapsed(object source, ElapsedEventArgs _)
+    private void NotifyTimerElapsed(object? source, ElapsedEventArgs _)
     {
         _onElapsed?.Invoke();
         _timer?.Dispose();

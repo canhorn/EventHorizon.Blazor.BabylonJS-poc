@@ -151,7 +151,7 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
         catch (Exception ex)
         {
             _connection = null;
-            _logger.LogError("Core Connection Start Failed", ex);
+            _logger.LogError(ex, "Core Connection Start Failed");
             return _mediator.Publish(
                 new PlayerZoneConnectionDisconnectedEvent("status_code_401", ex)
             );
@@ -163,7 +163,7 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
         var code = "closed";
         if (ex.IsNotNull())
         {
-            _logger.LogError("Core Bus Closed, with Exception", ex);
+            _logger.LogError(ex,"Core Bus Closed, with Exception");
             code = "exception";
         }
 

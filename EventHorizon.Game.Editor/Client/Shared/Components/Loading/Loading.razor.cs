@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Loading;
 
 using System;
-
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
-
 using Microsoft.AspNetCore.Components;
 
 public class LoadingBase : EditorComponentBase, IDisposable
@@ -19,7 +17,7 @@ public class LoadingBase : EditorComponentBase, IDisposable
     public bool ShowLongLoadingIndicator { get; set; }
 
     [Parameter]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment? ChildContent { get; set; }
 
     [Inject]
     public IFactory<ITimerService> TimerFactory { get; set; } = null!;

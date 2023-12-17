@@ -3,12 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class CreateNewZoneEditorFileCommandHandler
@@ -33,17 +30,17 @@ public class CreateNewZoneEditorFileCommandHandler
     {
         try
         {
-            return _zoneEditorServices.Api.CreateEditorFile(
-                request.Path,
-                request.FileName
-            );
+            return _zoneEditorServices
+                .Api
+                .CreateEditorFile(request.Path, request.FileName);
         }
         catch (Exception ex)
         {
             _logger.LogError(
                 ex,
-                "Failed to Create New Zone Editor File",
-                request
+                "Failed to Create New Zone Editor File: {EditorFilePath} | {EditorFileName}",
+                request.Path,
+                request.FileName
             );
         }
         return new EditorResponse

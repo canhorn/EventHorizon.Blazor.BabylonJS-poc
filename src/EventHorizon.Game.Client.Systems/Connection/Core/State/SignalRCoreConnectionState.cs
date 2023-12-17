@@ -2,14 +2,11 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Connection.Core.Account.Connected;
 using EventHorizon.Game.Client.Systems.Connection.Core.Account.Disconnected;
 using EventHorizon.Game.Client.Systems.Connection.Core.Api;
 using EventHorizon.Game.Client.Systems.Connection.Core.Model;
-
 using MediatR;
-
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
@@ -101,12 +98,12 @@ public class SignalRCoreConnectionState : CoreConnectionState
         await _mediator.Publish(new AccountConnectedEvent(accountInfo));
     }
 
-    private Task HandleConnectionClosed(Exception ex)
+    private Task HandleConnectionClosed(Exception? ex)
     {
         var code = "closed";
         if (ex != null)
         {
-            _logger.LogError("Core Bus Closed, with Exception", ex);
+            _logger.LogError(ex, "Core Bus Closed, with Exception");
             code = "exception";
         }
 
