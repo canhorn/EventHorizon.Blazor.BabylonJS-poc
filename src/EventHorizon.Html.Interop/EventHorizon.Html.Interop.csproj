@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EventHorizon.Blazor.Interop" Version="0.2.5" />
+        <PackageReference Include="EventHorizon.Blazor.Interop" Version="0.3.0" />
     </ItemGroup>
 
     <ItemGroup>

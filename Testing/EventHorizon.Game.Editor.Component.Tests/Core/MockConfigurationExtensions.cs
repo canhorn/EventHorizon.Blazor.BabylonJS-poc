@@ -8,7 +8,7 @@ public static class MockConfigurationExtensions
 {
     public static IServiceCollection AddConfigurationValues(
         this IServiceCollection services,
-        Dictionary<string, string> configValues
+        Dictionary<string, string?> configValues
     )
     {
         var configuration = new ConfigurationBuilder()

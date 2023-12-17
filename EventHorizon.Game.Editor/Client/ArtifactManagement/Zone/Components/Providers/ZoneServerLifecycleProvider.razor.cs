@@ -1,7 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Components.Providers;
 
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Api;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Pages;
@@ -9,7 +9,6 @@ using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Editor.Model;
 using EventHorizon.Zone.Systems.ArtifactManagement.Finished;
-
 using Microsoft.AspNetCore.Components;
 
 public class ZoneServerLifecycleProviderBase
@@ -39,7 +38,7 @@ public class ZoneServerLifecycleProviderBase
             )
         );
 
-        if (args.ReferenceId == State.ExportReferenceId)
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Create("browser")))
         {
             await EventHorizonBlazorInterop.RunScript(
                 "OpenInNewTab",
@@ -64,7 +63,8 @@ public class ZoneServerLifecycleProviderBase
         if (args.ReferenceId == State.BackupReferenceId)
         {
             if (
-                !NavigationManager.Uri
+                !NavigationManager
+                    .Uri
                     .ToLowerInvariant()
                     .EndsWith(ZoneServerBackupArtifactsPage.Route)
             )

@@ -79,7 +79,8 @@ switch ($Command) {
         dotnet restore --no-cache $editorSolution
     }
     "editor:build" {
-        dotnet build $editorSolution
+        dotnet clean $editorSolution
+        dotnet build $editorSolution --no-cache
     }
     "editor:run" {
         $Env:ASPNETCORE_ENVIRONMENT = "$Configuration"
