@@ -6,9 +6,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-
+using global::BabylonJS;
 using BlazorPro.BlazorSize;
-
 using EventHorizon.Blazor.BabylonJS.Authentication.Set;
 using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes;
 using EventHorizon.Game.Client;
@@ -25,11 +24,7 @@ using EventHorizon.Game.Client.Engine.Systems.Player.Model;
 using EventHorizon.Game.Client.Engine.Window.Resize;
 using EventHorizon.Html.Interop;
 using EventHorizon.Platform.LogProvider.Api;
-
-using global::BabylonJS;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -107,8 +102,10 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
         //var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
         var accessTokenResult = await TokenProvider.RequestAccessToken();
         var accessToken = string.Empty;
-        var playerId = state.User
-            ?.Claims?.FirstOrDefault(a => a.Type == "sub")
+        var playerId = state
+            .User
+            ?.Claims
+            ?.FirstOrDefault(a => a.Type == "sub")
             ?.Value;
 
         if (string.IsNullOrWhiteSpace(playerId))
@@ -134,6 +131,10 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
             ClientEnrichmentService.EnrichWith(
                 "Client.DeploymentDetails.UserId",
                 Configuration["DeploymentDetails:UserId"]
+                    ?? throw new GameRuntimeException(
+                        "MISSING_DEPLOYMENT_DETAILS_USER_ID",
+                        "DeploymentDetails:UserId is not set in the appsettings.json file."
+                    )
             );
         }
         Startup.Setup(
@@ -141,8 +142,16 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
             "game-window",
             new StandardPlayerDetails(playerId, accessToken),
             "/login?returnUrl=/game",
-            Configuration["Game:CoreServer"],
-            Configuration["Game:AssetServer"],
+            Configuration["Game:CoreServer"]
+                ?? throw new GameRuntimeException(
+                    "MISSING_GAME_CORE_SERVER",
+                    "Game:CoreServer is not set in the appsettings.json file."
+                ),
+            Configuration["Game:AssetServer"]
+                ?? throw new GameRuntimeException(
+                    "MISSING_GAME_ASSET_SERVER",
+                    "Game:AssetServer is not set in the appsettings.json file."
+                ),
             ""
         );
         await Startup.Run();

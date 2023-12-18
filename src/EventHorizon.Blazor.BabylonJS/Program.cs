@@ -6,9 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
-
 using BlazorPro.BlazorSize;
-
 using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Client;
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Server;
@@ -16,9 +14,7 @@ using EventHorizon.Observer.Admin.State;
 using EventHorizon.Observer.State;
 using EventHorizon.Platform.LogProvider;
 using EventHorizon.Platform.LogProvider.Model;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -38,15 +34,20 @@ public class Program
         // Setup Logging
         builder.Logging.AddPlatformLogger(new PlatformLoggerConfiguration());
 
-        builder.Services.AddTransient(
-            sp =>
-                new HttpClient
-                {
-                    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-                }
-        );
+        builder
+            .Services
+            .AddTransient(
+                sp =>
+                    new HttpClient
+                    {
+                        BaseAddress = new Uri(
+                            builder.HostEnvironment.BaseAddress
+                        )
+                    }
+            );
 
-        builder.Services
+        builder
+            .Services
             // I18n Services
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .Configure<RequestLocalizationOptions>(opts =>
@@ -67,7 +68,8 @@ public class Program
 
         // Add ExternalServices
         // Observer State Manager
-        builder.Services
+        builder
+            .Services
             .AddSingleton<GenericObserverState>()
             .AddSingleton<ObserverState>(
                 services => services.GetRequiredService<GenericObserverState>()
@@ -77,42 +79,48 @@ public class Program
             );
 
         // Add Authentication Configuration
-        builder.Services.AddOidcAuthentication(options =>
-        {
-            builder.Configuration.Bind("Auth", options.ProviderOptions);
-            var authScopes = builder.Configuration["Auth:Scope"].Split(" ");
-            foreach (var authScope in authScopes)
+        builder
+            .Services
+            .AddOidcAuthentication(options =>
             {
-                options.ProviderOptions.DefaultScopes.Add(authScope);
-            }
-        });
+                builder.Configuration.Bind("Auth", options.ProviderOptions);
+                var authScopes =
+                    builder.Configuration["Auth:Scope"]?.Split(" ") ?? [];
+                foreach (var authScope in authScopes)
+                {
+                    options.ProviderOptions.DefaultScopes.Add(authScope);
+                }
+            });
 
         // Setup Solution Dependencies
-        builder.Services
+        builder
+            .Services
             .AddClientServices()
             .AddGameClient()
             .AddGameServerServices();
 
-        builder.Services.AddMediatR(
-            config =>
-                config.RegisterServicesFromAssemblies(
-                    new[]
-                    {
-                        typeof(Program).Assembly,
-                        typeof(ObserverState).Assembly,
-                        // Platform Services
-                        typeof(PlatformLoggerExtensions).Assembly,
-                        // Game Service Registration
-                        typeof(ClientExtensions).Assembly,
-                        typeof(GameServerStartup).Assembly,
-                    }
-                )
-        );
+        builder
+            .Services
+            .AddMediatR(
+                config =>
+                    config.RegisterServicesFromAssemblies(
+                        new[]
+                        {
+                            typeof(Program).Assembly,
+                            typeof(ObserverState).Assembly,
+                            // Platform Services
+                            typeof(PlatformLoggerExtensions).Assembly,
+                            // Game Service Registration
+                            typeof(ClientExtensions).Assembly,
+                            typeof(GameServerStartup).Assembly,
+                        }
+                    )
+            );
 
         // Configure Logging
-        builder.Logging.AddConfiguration(
-            builder.Configuration.GetSection("Logging")
-        );
+        builder
+            .Logging
+            .AddConfiguration(builder.Configuration.GetSection("Logging"));
 
         await builder.Build().RunAsync();
     }
