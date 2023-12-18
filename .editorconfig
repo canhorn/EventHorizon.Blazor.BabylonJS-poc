@@ -257,3 +257,6 @@ dotnet_diagnostic.CA1816.severity = silent
 
 # CA2211: Non-constant fields should not be visible
 dotnet_diagnostic.CA2211.severity = silent
+
+# CA1416: Validate platform compatibility
+dotnet_diagnostic.ca1416.severity = silent

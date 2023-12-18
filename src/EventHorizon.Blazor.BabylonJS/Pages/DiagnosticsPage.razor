@@ -1,7 +1,5 @@
 ﻿@page "/diagnostics-page"
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@inject NavigationManager Navigation
-@inject SignOutSessionStateManager SignOutManager
 
 <h1>Diagnostics Page</h1>
 
@@ -32,6 +30,11 @@
     public IAccessTokenProvider TokenProvider { get; set; } = null!;
     [Inject]
     public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+    [Inject]
+    public NavigationManager Navigation { get; set; } = null!;
+    [Inject]
+    // TODO: Refactor to use new Authentication
+    public SignOutSessionStateManager SignOutManager { get; set; } = null!;
 
     public string AccessToken { get; set; } = string.Empty;
 

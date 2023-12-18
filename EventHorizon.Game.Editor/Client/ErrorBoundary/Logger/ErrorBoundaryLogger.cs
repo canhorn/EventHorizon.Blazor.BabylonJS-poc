@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Client.ErrorBoundary.Logger;
 
 using System;
-
 using EventHorizon.Game.Editor.Client.ErrorBoundary.Api;
-
 using Microsoft.Extensions.Logging;
 
 public class ErrorBoundaryLogger : ILogger
@@ -18,8 +16,8 @@ public class ErrorBoundaryLogger : ILogger
         _errorBoundaryService = errorBoundaryService;
     }
 
-    public IDisposable BeginScope<TState>(TState state) =>
-        NoOpDisposable.Instance;
+    public IDisposable BeginScope<TState>(TState state)
+        where TState : notnull => NoOpDisposable.Instance;
 
     /// <summary>
     /// We are always enabled

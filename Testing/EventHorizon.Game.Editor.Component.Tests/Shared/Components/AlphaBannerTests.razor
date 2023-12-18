@@ -11,7 +11,7 @@
             new StringLocalizerMock<SharedResource>()
         );
         ctx.Services.AddConfigurationValues(
-            new Dictionary<string, string>
+            new Dictionary<string, string?>
                 {
                     ["DeploymentDetails:PlatformId"] = "platform-id",
                     ["DeploymentDetails:PlatformDomain"] = "platform-domain",

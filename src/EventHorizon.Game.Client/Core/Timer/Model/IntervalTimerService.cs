@@ -3,7 +3,6 @@
 using System;
 using System.Threading.Tasks;
 using System.Timers;
-
 using EventHorizon.Game.Client.Core.Timer.Api;
 
 public class IntervalTimerService : IIntervalTimerService
@@ -40,7 +39,7 @@ public class IntervalTimerService : IIntervalTimerService
         _timer = null;
     }
 
-    private async void NotifyTimerElapsed(object source, ElapsedEventArgs _)
+    private async void NotifyTimerElapsed(object? source, ElapsedEventArgs _)
     {
         if (_onElapsed != null)
         {

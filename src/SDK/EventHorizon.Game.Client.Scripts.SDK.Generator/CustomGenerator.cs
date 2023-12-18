@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
+// TODO: This might be a good idea in the future, but is not currently used.
 [Generator]
 public class CustomGenerator : ISourceGenerator
 {
@@ -23,6 +24,7 @@ public class CustomGenerator : ISourceGenerator
 
     public static string[] GetSolutionAssemblies()
     {
+        // FIX: This is no longer supported in .NET8+
         var assemblies = Directory
             .GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
             .Select(x => AssemblyName.GetAssemblyName(x).Name);

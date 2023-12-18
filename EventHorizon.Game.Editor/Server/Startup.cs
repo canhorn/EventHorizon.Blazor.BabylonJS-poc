@@ -1,7 +1,6 @@
 namespace EventHorizon.Game.Editor.Server;
 
 using EventHorizon.Platform;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

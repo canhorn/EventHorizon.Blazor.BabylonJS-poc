@@ -2,9 +2,7 @@
 
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
-
 using MediatR;
-
 using Microsoft.Extensions.DependencyInjection;
 
 public static class MockEditorComponentBaseExtensions
@@ -14,13 +12,12 @@ public static class MockEditorComponentBaseExtensions
         out EditorComponentBaseMocks editorComponentBaseMocks
     )
     {
-        editorComponentBaseMocks = new EditorComponentBaseMocks
-        {
-            Localizer = new StringLocalizerMock<SharedResource>(),
-            Mediator = new MediatorMock(),
-            Sender = new SenderMock(),
-            Publisher = new PublisherMock(),
-        };
+        editorComponentBaseMocks = new EditorComponentBaseMocks(
+            new StringLocalizerMock<SharedResource>(),
+            new MediatorMock(),
+            new SenderMock(),
+            new PublisherMock()
+        );
 
         services.AddSingleton<Localizer<SharedResource>>(
             editorComponentBaseMocks.Localizer
@@ -33,10 +30,9 @@ public static class MockEditorComponentBaseExtensions
     }
 }
 
-public class EditorComponentBaseMocks
-{
-    public StringLocalizerMock<SharedResource> Localizer { get; internal set; }
-    public MediatorMock Mediator { get; internal set; }
-    public SenderMock Sender { get; internal set; }
-    public PublisherMock Publisher { get; internal set; }
-}
+public record EditorComponentBaseMocks(
+    StringLocalizerMock<SharedResource> Localizer,
+    MediatorMock Mediator,
+    SenderMock Sender,
+    PublisherMock Publisher
+);

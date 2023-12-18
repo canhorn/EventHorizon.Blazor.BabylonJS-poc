@@ -29,6 +29,7 @@
     [Inject]
     public NavigationManager Navigation { get; set; } = null!;
     [Inject]
+    // TODO: Refactor to use new Authentication
     public SignOutSessionStateManager SignOutManager { get; set; } = null!;
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;

@@ -2,9 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-
 using BlazorPro.BlazorSize;
-
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Engine.Input.Model;
 using EventHorizon.Game.Client.Engine.Input.Trigger;
@@ -13,9 +11,7 @@ using EventHorizon.Game.Client.Engine.Window.Resize;
 using EventHorizon.Game.Editor.Client.LiveEditor.Game;
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
@@ -73,8 +69,14 @@ public class LiveEditorWindowModel : ComponentBase, IAsyncDisposable
                 "live-editor-window",
                 new StandardPlayerDetails(PlayerId, AccessToken),
                 "/login?returnUrl=/game",
-                Configuration["Game:CoreServer"],
-                Configuration["Game:AssetServer"],
+                Configuration["Game:CoreServer"]
+                    ?? throw new NullReferenceException(
+                        "Game:CoreServer Configuration is null"
+                    ),
+                Configuration["Game:AssetServer"]
+                    ?? throw new NullReferenceException(
+                        "Game:AssetServer Configuration is null"
+                    ),
                 ""
             );
             await Startup.Run();

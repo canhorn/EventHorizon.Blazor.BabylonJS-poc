@@ -1,8 +1,16 @@
 # Stage 1 - Restore .NET Project
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS dotnet-restore
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-restore
 WORKDIR /source
 
 ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Install Workloads
+RUN dotnet workload install wasm-tools
+# Install Build tools for WASM
+RUN apt-get update
+RUN apt-get update && \
+    apt-get -y install gcc mono-mcs python3 && \
+    rm -rf /var/lib/apt/lists/*
 
 # Solutions
 COPY ./*.sln .
@@ -40,7 +48,6 @@ COPY src/SDK/EventHorizon.Game.Client.Core.Api/*.csproj ./src/SDK/EventHorizon.G
 COPY src/SDK/EventHorizon.Game.Client.Engine.Api/*.csproj ./src/SDK/EventHorizon.Game.Client.Engine.Api/
 COPY src/SDK/EventHorizon.Game.Client.Engine.Gui.Api/*.csproj ./src/SDK/EventHorizon.Game.Client.Engine.Gui.Api/
 COPY src/SDK/EventHorizon.Game.Client.Scripts.SDK/*.csproj ./src/SDK/EventHorizon.Game.Client.Scripts.SDK/
-COPY src/SDK/EventHorizon.Game.Client.Scripts.SDK.Generator/*.csproj ./src/SDK/EventHorizon.Game.Client.Scripts.SDK.Generator/
 COPY src/SDK/EventHorizon.Game.Client.Systems.Api/*.csproj ./src/SDK/EventHorizon.Game.Client.Systems.Api/
 
 COPY src/SDK/Server/EventHorizon.Game.Server.Api/*.csproj ./src/SDK/Server/EventHorizon.Game.Server.Api/
@@ -119,7 +126,7 @@ ARG Version=0.0.0
 WORKDIR /source
 
 ## Single folder publish of whole solution
-RUN dotnet publish /p:Version=$Version --output /app/client/ --configuration Release --no-build --no-restore
+RUN dotnet publish /p:Version=$Version --output /app/client/ --configuration Release --no-restore
 
 
 # Stage 3.1 - Build Editor
@@ -140,7 +147,7 @@ ARG Version=0.0.0
 WORKDIR /source
 
 ## Single folder publish of whole project
-RUN dotnet publish /p:Version=$Version --output /app/editor/ --configuration Release --no-build --no-restore ./EventHorizon.Game.Editor
+RUN dotnet publish /p:Version=$Version --output /app/editor/ --configuration Release --no-restore ./EventHorizon.Game.Editor
 
 
 # Stage 4.1 - Build NuGet
@@ -155,7 +162,7 @@ RUN dotnet build --output /artifacts /p:Version=$Version --configuration Release
 
 
 # Stage 4.2 - Publish to NuGet
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS dotnet-nuget-push
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-nuget-push
 WORKDIR /artifacts
 COPY --from=dotnet-nuget-build /artifacts .
 RUN find . -name '*.nupkg' -ls
@@ -164,7 +171,7 @@ CMD ["--source", "https://api.nuget.org/v3/index.json"]
 
 
 # Stage 4.2 - Editor Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS editor-runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS editor-runtime
 ARG Version=0.0.0
 ENV APPLICATION_VERSION=$Version
 
@@ -177,7 +184,7 @@ ENTRYPOINT ["dotnet", "EventHorizon.Game.Editor.Server.dll"]
 
 
 # Stage 4.3 - Client Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS client-runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS client-runtime
 ARG Version=0.0.0
 ENV APPLICATION_VERSION=$Version
 

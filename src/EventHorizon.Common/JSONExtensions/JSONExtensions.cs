@@ -2,12 +2,11 @@
 
 using System;
 using System.Buffers;
-using System.Diagnostics;
 
 public static partial class JsonExtensions
 {
     private static readonly JsonSerializerOptions DEFAULT_OPTIONS =
-        new JsonSerializerOptions { PropertyNameCaseInsensitive = true, };
+        new() { PropertyNameCaseInsensitive = true, };
 
     /// <summary>
     ///
@@ -16,7 +15,7 @@ public static partial class JsonExtensions
     /// <param name="element"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static T ToObject<T>(
+    public static T? ToObject<T>(
         this JsonElement element,
         JsonSerializerOptions? options = null
     )
@@ -39,7 +38,7 @@ public static partial class JsonExtensions
     /// <param name="document"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static T ToObject<T>(
+    public static T? ToObject<T>(
         this JsonDocument document,
         JsonSerializerOptions? options = null
     )

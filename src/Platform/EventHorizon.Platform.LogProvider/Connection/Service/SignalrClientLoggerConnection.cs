@@ -4,15 +4,12 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Connection.Shared;
 using EventHorizon.Connection.Shared.Unauthorized;
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Platform.LogProvider.Connection.Api;
 using EventHorizon.Platform.LogProvider.Connection.Model;
-
 using MediatR;
-
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -38,7 +35,8 @@ public class SignalrClientLoggerConnection : PlatformLoggerConnection
     {
         _logger = logger;
         _mediator = mediator;
-        _loggingServerUrl = configuration["Platform:Logging:Server"];
+        _loggingServerUrl =
+            configuration["Platform:Logging:Server"] ?? string.Empty;
     }
 
     public async Task<StandardCommandResult> Connect(
@@ -72,7 +70,7 @@ public class SignalrClientLoggerConnection : PlatformLoggerConnection
                     {
                         // options..LogLevel = SignalRLogLevel.Error;
                         options.AccessTokenProvider = () =>
-                            Task.FromResult(accessToken);
+                            Task.FromResult<string?>(accessToken);
                     }
                 )
                 .Build();

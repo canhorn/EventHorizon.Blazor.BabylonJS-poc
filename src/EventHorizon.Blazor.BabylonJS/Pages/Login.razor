@@ -11,16 +11,20 @@
         {
             var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
             if (QueryHelpers.ParseQuery(
-                uri.Query
-            ).TryGetValue("returnUrl", out var returnUrl))
+            uri.Query
+            ).TryGetValue("returnUrl", out var returnUrlValue))
             {
-                NavigationManager.NavigateTo(
-                    returnUrl
-                );
+                var returnValue = returnUrlValue.FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(returnValue))
+                {
+                    NavigationManager.NavigateTo(
+                        returnValue
+                    );
+                }
                 return;
             }
             NavigationManager.NavigateTo(
-                "/"
+            "/"
             );
         }
         else
