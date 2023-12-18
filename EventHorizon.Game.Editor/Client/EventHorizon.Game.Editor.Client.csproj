@@ -3,6 +3,11 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+
+        <!-- <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+		<BlazorWebAssemblyPreserveCollationData>false</BlazorWebAssemblyPreserveCollationData> -->
+
+        <RunAOTCompilation>true</RunAOTCompilation>
     </PropertyGroup>
 
     <ItemGroup>
@@ -43,7 +48,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Zone\Particle\Components\" />
+        <Folder Include="Zone\Particle\Components\" />
     </ItemGroup>
 
 </Project>

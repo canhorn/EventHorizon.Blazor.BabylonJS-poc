@@ -5,10 +5,16 @@
         <!-- TODO: [LINKING] : Currently an issue in Linking with Authorization library -->
         <!--<BlazorWebAssemblyEnableLinking>false</BlazorWebAssemblyEnableLinking>-->
         <!--<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>-->
+
+
+        <!-- <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+        <BlazorWebAssemblyPreserveCollationData>false</BlazorWebAssemblyPreserveCollationData> -->
+
+        <RunAOTCompilation>true</RunAOTCompilation>
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Remove="wwwroot\babylonjs\MapMeshMaterial.ts" />
+        <Content Remove="wwwroot\babylonjs\MapMeshMaterial.ts" />
     </ItemGroup>
 
     <ItemGroup>
@@ -18,6 +24,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" PrivateAssets="all" />
         <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.0" />
         <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
@@ -34,8 +41,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\i18n\" />
-      <Folder Include="wwwroot\game-data\" />
+        <Folder Include="wwwroot\i18n\" />
+        <Folder Include="wwwroot\game-data\" />
     </ItemGroup>
 
 </Project>

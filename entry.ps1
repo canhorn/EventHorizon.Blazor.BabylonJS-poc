@@ -11,6 +11,8 @@ param(
         "client:test",
         "client:test:automation",
         "client:publish",
+        "client:serve",
+        "client:docker",
         "editor:clean",
         "editor:restore",
         "editor:build",
@@ -19,6 +21,8 @@ param(
         "editor:test",
         "editor:test:automation",
         "editor:publish",
+        "editor:serve",
+        "editor:docker",
         "pre",
         "fix:formatting",
         "generate:babylonjs"
@@ -47,6 +51,7 @@ switch ($Command) {
         dotnet restore --no-cache $clientSolution
     }
     "client:build" {
+        dotnet clean $clientSolution
         dotnet build $clientSolution
     }
     "client:run" {
@@ -71,6 +76,11 @@ switch ($Command) {
         Write-Output "Publishing Client"
         # TODO: Add client publish command
         # dotnet publish -c $Configuration -o ./published $clientProject
+    }
+    "client:docker" {
+        docker build --build-arg Version=0.1.0 `
+            --target dotnet-publish-client `
+            -t canhorn/ehz-platform-server-client_dotnet-publish:dev .
     }
     "editor:clean" {
         dotnet clean $editorSolution
@@ -101,9 +111,15 @@ switch ($Command) {
         dotnet test $editorTestingAutomationProject
     }
     "editor:publish" {
-        Write-Output "Publishing Editor"
-        # TODO: Add editor publish command
-        # dotnet publish -c $Configuration -o ./published $editorProject
+        dotnet publish -c $Configuration -o ./published $editorProject
+    }
+    "editor:serve" {
+        dotnet serve --port 5001 -S -d="./published/wwwroot" --fallback-file index.html
+    }
+    "editor:docker" {
+        docker build --build-arg Version=0.1.0 `
+            --target dotnet-publish-editor `
+            -t canhorn/ehz-platform-server-engine_dotnet-publish:dev .
     }
     "pre" {
         ./entry.ps1 -Command format
