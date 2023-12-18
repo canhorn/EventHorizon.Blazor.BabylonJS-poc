@@ -1,5 +1,5 @@
 ﻿# Simple .NET Test Runner
-FROM mcr.microsoft.com/dotnet/sdk:7.0
+FROM mcr.microsoft.com/dotnet/sdk:8.0
 ARG BUILD_CONFIGURATION=Release
 ENV BUILD_CONFIGURATION=${BUILD_CONFIGURATION}
 
