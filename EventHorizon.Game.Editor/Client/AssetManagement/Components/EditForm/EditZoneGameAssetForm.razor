@@ -1,8 +1,7 @@
 ﻿@using EventHorizon.Game.Editor.Client.Shared.Properties
 @inherits EditZoneGameAssetFormModel
 
-<EditForm Model="Model"
-          OnSubmit="HandleSubmit">
+<EditForm Model="Model" OnSubmit="HandleSubmit">
 
     <StandardToolbar class="form__toolbar">
         <StandardToolbarButton type="submit">
@@ -40,23 +39,18 @@
         </div>
 
         <div class="form-item">
-            <label for="create-game-asset__name"
-                   class="--font-bold">
+            <label for="create-game-asset__name" class="--font-bold">
                 @Localizer["Asset Name"]
             </label>
-            <InputText id="create-game-asset__name"
-                       @bind-Value="@AssetName"
-                       placeholder="@Localizer["Asset Name"]" />
+            <InputText id="create-game-asset__name" @bind-Value="@AssetName" placeholder="@Localizer["Asset Name"]" />
         </div>
 
         <div class="form-item">
-            <label for="create-game-asset__type"
-                   class="--font-bold">
+            <label for="create-game-asset__type" class="--font-bold">
                 @Localizer["Asset Type"]
             </label>
-            <StandardSelect Options="AssetTypeOptions"
-                            Value="@AssetTypeOption"
-                            ValueChanged="HandleAssetTypeChanged"></StandardSelect>
+            <StandardSelect Options="AssetTypeOptions" Value="@AssetTypeOption" ValueChanged="HandleAssetTypeChanged">
+            </StandardSelect>
         </div>
 
         <ContainerStatesComponent State="TypeDataState">
@@ -69,9 +63,8 @@
                 </div>
 
                 <div class="form-item">
-                    <PropertiesDisplay Data="TypeData"
-                                       PropertiesMetadata="TypePropertiesMetadata"
-                                       OnChanged="HandleTypeDataChanged" />
+                    <PropertiesDisplay Data="TypeData" PropertiesMetadata="TypePropertiesMetadata"
+                        OnChanged="HandleTypeDataChanged" />
                 </div>
             </ContentFragment>
         </ContainerStatesComponent>

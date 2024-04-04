@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 public static class OptionExtensions
 {
-    public static Option<T> ToOption<T>(this T value) => new(value);
+    public static Option<T> ToOption<T>(this T? value) => new(value);
 }
 
 [Serializable]
@@ -26,7 +26,7 @@ public struct Option<T> : IEquatable<Option<T>>
         get { return _hasValue; }
     }
 
-    [NotNull]
+    [MaybeNull]
     public T Value
     {
         get

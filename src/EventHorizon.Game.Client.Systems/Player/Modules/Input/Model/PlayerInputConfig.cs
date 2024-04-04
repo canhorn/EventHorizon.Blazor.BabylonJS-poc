@@ -2,17 +2,18 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using EventHorizon.Game.Client.Engine.Input.Model;
 
 public class PlayerInputConfig
 {
     public const string PROPERTY_NAME = "playerInput";
 
     public int MovementDelay { get; set; } = 1000; // 1 second delay
-    public List<PlayerKeyInput> KeyInputList { get; set; } =
-        new List<PlayerKeyInput>();
+    public List<PlayerKeyInput> KeyInputList { get; set; } = [];
+    public Dictionary<string, PlayerKeyInput> KeyInputMap { get; set; } = [];
     public bool StopMovementOnTick { get; set; } = true;
 
-    public class PlayerKeyInput : Dictionary<string, object>
+    public class PlayerKeyInput : Dictionary<string, object>, KeyInputBase
     {
         public string Key
         {
@@ -24,6 +25,21 @@ public class PlayerInputConfig
             get { return this["type"].ToString() ?? string.Empty; }
             set { this["type"] = value; }
         }
+
+        public MoveDirection? Pressed =>
+            TryGet<int>("pressed", out var pressedResult)
+                ? (MoveDirection)pressedResult
+                : null;
+
+        public MoveDirection? Released =>
+            TryGet<int>("released", out var releasedResult)
+                ? (MoveDirection)releasedResult
+                : null;
+
+        public string? Camera =>
+            TryGet<string>("camera", out var cameraResult)
+                ? cameraResult
+                : null;
 
         public Option<T> Get<T>(string key)
         {

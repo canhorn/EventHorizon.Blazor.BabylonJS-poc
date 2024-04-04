@@ -3,14 +3,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
+using EventHorizon.Game.Editor.Client.Shared.Properties;
 using EventHorizon.Zone.Systems.ClientAssets.Model;
 using EventHorizon.Zone.Systems.ClientAssets.Query;
-
 using Microsoft.AspNetCore.Components;
 
 public class EditZoneGameAssetFormModel : EditorComponentBase
@@ -121,11 +120,11 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
         );
     }
 
-    protected void HandleTypeDataChanged(IDictionary<string, object> data)
+    protected void HandleTypeDataChanged(PropertiesDisplayChangedArgs args)
     {
         MessageState = ComponentState.Content;
         Message = string.Empty;
-        TypeData = new Dictionary<string, object>(data);
+        TypeData = new Dictionary<string, object>(args.Data);
     }
 
     private async Task Setup()
@@ -141,8 +140,8 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
         }
 
         _clientAssetTypeDetails = result.Result;
-        AssetTypeOptions = result.Result
-            .Select(
+        AssetTypeOptions = result
+            .Result.Select(
                 details =>
                     new StandardSelectOption
                     {

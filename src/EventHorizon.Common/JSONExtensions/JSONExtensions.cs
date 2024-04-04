@@ -5,8 +5,13 @@ using System.Buffers;
 
 public static partial class JsonExtensions
 {
-    private static readonly JsonSerializerOptions DEFAULT_OPTIONS =
-        new() { PropertyNameCaseInsensitive = true, };
+    public static readonly JsonSerializerOptions DEFAULT_OPTIONS =
+        new()
+        {
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
 
     /// <summary>
     ///

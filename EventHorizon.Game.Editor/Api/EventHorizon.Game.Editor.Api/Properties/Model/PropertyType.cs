@@ -13,4 +13,6 @@ public static class PropertyType
     public const string AssetServerPath = nameof(AssetServerPath);
     public const string AssetServerFile = nameof(AssetServerFile);
     public const string AssetServerFileName = nameof(AssetServerFileName);
+
+    public const string InputKeyMap = nameof(InputKeyMap);
 }

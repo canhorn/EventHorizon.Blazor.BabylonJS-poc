@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Input.Api;
+using EventHorizon.Game.Client.Engine.Input.Model;
 using EventHorizon.Game.Client.Engine.Input.Register;
 using EventHorizon.Game.Client.Engine.Input.Unregister;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;

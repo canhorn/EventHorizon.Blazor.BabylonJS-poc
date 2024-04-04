@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
+namespace EventHorizon.Game.Client.Engine.Input.Model;
 
 public enum MoveDirection
 {

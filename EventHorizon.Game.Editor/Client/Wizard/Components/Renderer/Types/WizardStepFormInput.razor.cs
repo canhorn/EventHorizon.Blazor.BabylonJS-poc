@@ -1,14 +1,22 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
-
+using EventHorizon.Game.Client;
+using EventHorizon.Game.Client.Engine.Input.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
+using EventHorizon.Game.Editor.Client.Shared.Properties;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Editor.Properties.Api;
 using EventHorizon.Game.Editor.Properties.Model;
+using EventHorizon.Zone.Systems.Wizard.Model;
+using Microsoft.Extensions.Logging;
+using static EventHorizon.Game.Editor.Client.Shared.Properties.InputKeyMapControlModel;
 
 public class WizardStepFormInputBase : WizardStepCommonBase
 {
@@ -66,6 +74,8 @@ public class WizardStepFormInputBase : WizardStepCommonBase
                 return long.TryParse(Data[key], out var longValue)
                     ? longValue
                     : GetDefaultProperty(keyType);
+            case PropertyType.InputKeyMap:
+                return GetInputKeyMap(key, Data);
             case PropertyType.String:
             case PropertyType.Asset:
             case PropertyType.AssetServerPath:
@@ -88,6 +98,61 @@ public class WizardStepFormInputBase : WizardStepCommonBase
         }
     }
 
+    public static string GetInputKeyMap(string parentKey, WizardData data)
+    {
+        var inputKeyMap = new Dictionary<string, ControlKeyInput>();
+
+        var keyInputList = data.Where(a => a.Key.StartsWith($"{parentKey}:"))
+            .Select(
+                a =>
+                    a.Key.Replace($"{parentKey}:", string.Empty)
+                        .Split(":", StringSplitOptions.RemoveEmptyEntries)
+                        .First()
+            )
+            .Distinct()
+            .ToList();
+
+        foreach (var key in keyInputList)
+        {
+            var keyInput = new ControlKeyInput
+            {
+                Key = data[$"{parentKey}:{key}:key"],
+                Type = data[$"{parentKey}:{key}:type"],
+                Camera = data.TryGetValue(
+                    $"{parentKey}:{key}:camera",
+                    out var camera
+                )
+                    ? camera
+                    : null,
+                Pressed = data.TryGetValue(
+                    $"{parentKey}:{key}:pressed",
+                    out var pressed
+                )
+                    ? Enum.TryParse<MoveDirection>(pressed, out var pressedEnum)
+                        ? pressedEnum
+                        : null
+                    : null,
+                Released = data.TryGetValue(
+                    $"{parentKey}:{key}:released",
+                    out var released
+                )
+                    ? Enum.TryParse<MoveDirection>(
+                        released,
+                        out var releasedEnum
+                    )
+                        ? releasedEnum
+                        : null
+                    : null,
+            };
+            inputKeyMap[key] = keyInput;
+        }
+
+        return JsonSerializer.Serialize(
+            inputKeyMap,
+            JsonExtensions.DEFAULT_OPTIONS
+        );
+    }
+
     public static object GetDefaultProperty(string propertyType)
     {
         return propertyType switch
@@ -96,20 +161,63 @@ public class WizardStepFormInputBase : WizardStepCommonBase
             PropertyType.Decimal => 0.0m,
             PropertyType.Long => 0,
             PropertyType.Vector3 => ServerVector3.Zero(),
+            PropertyType.InputKeyMap => "{}",
             _ => string.Empty,
         };
     }
 
-    public Task HandleDataChanged(IDictionary<string, object> data)
+    public Task HandleDataChanged(PropertiesDisplayChangedArgs args)
     {
-        PropertiesData = new Dictionary<string, object>(data);
+        PropertiesData = new Dictionary<string, object>(args.Data);
 
-        foreach (var property in PropertiesData)
+        var propertyKey = args.PropertyName;
+        var propertyType = PropertiesMetadata[propertyKey];
+
+        if (propertyType == PropertyType.InputKeyMap)
         {
-            Data[property.Key] = property.Value?.ToString() ?? string.Empty;
+            var inputKeyMap =
+                JsonSerializer.Deserialize<Dictionary<string, ControlKeyInput>>(
+                    PropertiesData[propertyKey]?.ToString() ?? "{}",
+                    JsonExtensions.DEFAULT_OPTIONS
+                ) ?? [];
+            FlattenInputKeyMapIntoData(Data, propertyKey, inputKeyMap);
+        }
+        else
+        {
+            Data[propertyKey] =
+                PropertiesData[propertyKey]?.ToString() ?? string.Empty;
         }
 
         return Task.CompletedTask;
+    }
+
+    public static WizardData FlattenInputKeyMapIntoData(
+        WizardData data,
+        string propertyKey,
+        Dictionary<string, ControlKeyInput> inputKeyMap
+    )
+    {
+        foreach (var (key, control) in inputKeyMap)
+        {
+            data[$"{propertyKey}:{key}:key"] = control.Key;
+            data[$"{propertyKey}:{key}:type"] = control.Type;
+            if (control.Camera.IsNotNullOrEmpty())
+            {
+                data[$"{propertyKey}:{key}:camera"] = control.Camera;
+            }
+            if (control.Pressed.HasValue)
+            {
+                data[$"{propertyKey}:{key}:pressed"] =
+                    ((int?)control.Pressed).ToString() ?? "0";
+            }
+            if (control.Released.HasValue)
+            {
+                data[$"{propertyKey}:{key}:released"] =
+                    ((int?)control.Released).ToString() ?? "0";
+            }
+        }
+
+        return data;
     }
 
     public class PropertiesMetadataModel

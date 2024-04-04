@@ -1,26 +1,30 @@
-﻿<button type="button"
-        @onclick="HandleOpenWizardSelection">
-    @Localizer["Wizards"]
+﻿<button type="button" @onclick="HandleOpenWizardSelection">
+    @if (IsOpen)
+    {
+        @Localizer["Close Wizards"]
+    }
+    else
+    {
+        @Localizer["Wizards"]
+    }
 </button>
 
-<StandardWindow IsOpen="State.CurrentStep"
-                IsDraggable="true"
-                WidthSize="medium"
-                Location="WindowLocationType.BottomRight">
+<StandardWindow IsOpen="State.CurrentStep && IsOpen" IsDraggable="true" WidthSize="medium">
     <Header>
         @State.CurrentStep.Result?.Name
     </Header>
+
     <Body>
         @if (State.CurrentStep)
         {
-            <WizardStepEditor Step="State.CurrentStep.Result"
-                              Data="State.CurrentData" />
+            <WizardStepEditor Step="State.CurrentStep.Result" Data="State.CurrentData" />
         }
     </Body>
 </StandardWindow>
 
 <StandardModal IsOpen="!State.CurrentStep && IsOpen" OnClose="HandleCloseModal">
     <Header>@Localizer["Wizard Editor"]</Header>
+
     <Body>
         <WizardList />
     </Body>
@@ -37,7 +41,7 @@
 
     public void HandleOpenWizardSelection()
     {
-        IsOpen = true;
+        IsOpen = !IsOpen;
     }
 
     public void HandleCloseModal()

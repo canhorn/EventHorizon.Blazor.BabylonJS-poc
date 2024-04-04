@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
@@ -14,7 +13,6 @@ using EventHorizon.Game.Editor.Client.Zone.Edited;
 using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Clone;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class ObjectEntityEditorModel
@@ -128,10 +126,10 @@ public class ObjectEntityEditorModel
         await Mediator.Publish(new ObjectEntityDetailsEditedEvent(EditEntity));
     }
 
-    protected async Task HandleDataChanged(IDictionary<string, object> data)
+    protected async Task HandleDataChanged(PropertiesDisplayChangedArgs args)
     {
         IsPendingChange = true;
-        EditEntity.Data = new Dictionary<string, object>(data);
+        EditEntity.Data = new Dictionary<string, object>(args.Data);
 
         await Mediator.Publish(new ObjectEntityDetailsEditedEvent(EditEntity));
     }

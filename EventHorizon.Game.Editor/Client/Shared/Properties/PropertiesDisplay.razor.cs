@@ -1,15 +1,14 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Properties;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Properties.Api;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class PropertiesDisplayModel : ComponentBase
@@ -28,7 +27,7 @@ public class PropertiesDisplayModel : ComponentBase
     public PropertiesMetadata PropertiesMetadata { get; set; } = null!;
 
     [Parameter]
-    public EventCallback<IDictionary<string, object>> OnChanged { get; set; }
+    public EventCallback<PropertiesDisplayChangedArgs> OnChanged { get; set; }
 
     [Parameter]
     public EventCallback<string> OnRemove { get; set; }
@@ -60,7 +59,9 @@ public class PropertiesDisplayModel : ComponentBase
     {
         args.NullCheck();
         Data[args.PropertyName] = args.Property;
-        await OnChanged.InvokeAsync(Data);
+        await OnChanged.InvokeAsync(
+            new PropertiesDisplayChangedArgs(args.PropertyName, Data)
+        );
     }
 
     private void SetupProperties()

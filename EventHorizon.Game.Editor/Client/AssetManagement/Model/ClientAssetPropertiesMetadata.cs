@@ -3,10 +3,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-
 using EventHorizon.Game.Editor.Properties.Api;
 using EventHorizon.Game.Editor.Properties.Model;
-
 using Newtonsoft.Json.Linq;
 
 public class ClientAssetPropertiesMetadata : PropertiesMetadata
@@ -48,6 +46,7 @@ public class ClientAssetPropertiesMetadata : PropertiesMetadata
             PropertyType.Long => 0,
             PropertyType.String => string.Empty,
             PropertyType.Complex => new { },
+            PropertyType.InputKeyMap => "{}",
             _ => string.Empty,
         };
     }

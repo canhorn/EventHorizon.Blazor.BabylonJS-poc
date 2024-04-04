@@ -1,13 +1,12 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Input.Api;
+using EventHorizon.Game.Client.Engine.Input.Model;
 using EventHorizon.Game.Client.Engine.Systems.Camera.Set;
 using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Run;
 using EventHorizon.Game.Client.Systems.Player.Modules.Input.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.Input.Move;
-
 using MediatR;
 
 public interface PlayerInputSetup
@@ -15,18 +14,11 @@ public interface PlayerInputSetup
     Task Setup(InputModule module, PlayerInputConfig config);
 }
 
-public class StandardPlayerInputSetup : PlayerInputSetup
+public class StandardPlayerInputSetup(IMediator mediator) : PlayerInputSetup
 {
-    private readonly IMediator _mediator;
-
-    public StandardPlayerInputSetup(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     public async Task Setup(InputModule module, PlayerInputConfig config)
     {
-        foreach (var keyInput in config.KeyInputList)
+        foreach (var (_, keyInput) in config.KeyInputMap)
         {
             switch (keyInput.Type)
             {
@@ -52,6 +44,7 @@ public class StandardPlayerInputSetup : PlayerInputSetup
     {
         var pressedDirection = new Option<MoveDirection>();
         var releasedDirection = new Option<MoveDirection>();
+        // TODO: Test to see if can go direct to MoveDirection
         if (keyInput.TryGet<int>("Pressed", out var pressedResult))
         {
             pressedDirection = new Option<MoveDirection>(
@@ -72,7 +65,7 @@ public class StandardPlayerInputSetup : PlayerInputSetup
                 {
                     if (pressedDirection.HasValue)
                     {
-                        _mediator.Publish(
+                        mediator.Publish(
                             new MovePlayerInDirectionEvent(
                                 pressedDirection.Value
                             )
@@ -85,7 +78,7 @@ public class StandardPlayerInputSetup : PlayerInputSetup
                 {
                     if (releasedDirection.HasValue)
                     {
-                        _mediator.Publish(
+                        mediator.Publish(
                             new MovePlayerInDirectionEvent(
                                 releasedDirection.Value
                             )
@@ -115,8 +108,8 @@ public class StandardPlayerInputSetup : PlayerInputSetup
                 pressed: _ => Task.CompletedTask,
                 released: async _ =>
                 {
-                    await _mediator.Send(
-                        new SetActiveCameraCommand(cameraName.Value)
+                    await mediator.Send(
+                        new SetActiveCameraCommand(cameraName.Value ?? string.Empty)
                     );
                 }
             )
@@ -134,7 +127,7 @@ public class StandardPlayerInputSetup : PlayerInputSetup
                 pressed: _ => Task.CompletedTask,
                 released: async _ =>
                 {
-                    await _mediator.Publish(new RunInteractionEvent());
+                    await mediator.Publish(new RunInteractionEvent());
                 }
             )
         );

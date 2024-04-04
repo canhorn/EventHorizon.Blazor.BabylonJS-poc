@@ -85,9 +85,17 @@
                                             OnRemove="OnRemove" />
             break;
 
+        case PropertyType.InputKeyMap:
+            <InputKeyMapControl PropertyName="@Property.Name"
+                                Property="Property.Value"
+                                Label="@Property.Label"
+                                OnChange="OnChanged"
+                                OnRemove="OnRemove" />
+            break;
+
         default:
             <div>
-                @Localizer["not_supported_property_type"]
+                @Localizer["not_supported_property_type {0}", Property.Type]
             </div>
             break;
     }
