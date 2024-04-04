@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 
 public class ObjectEntityConfigurationModel
@@ -22,7 +21,7 @@ public class ObjectEntityConfigurationModel
     public T Get<T>(string key, Func<T> defaultGenerator)
     {
         var result = Get<T>(key);
-        if (result.HasValue.IsNotTrue())
+        if (!result.HasValue)
         {
             return defaultGenerator();
         }

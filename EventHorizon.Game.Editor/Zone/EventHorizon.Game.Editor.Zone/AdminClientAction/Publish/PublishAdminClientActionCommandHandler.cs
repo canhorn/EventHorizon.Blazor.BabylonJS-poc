@@ -2,12 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class PublishAdminClientActionCommandHandler

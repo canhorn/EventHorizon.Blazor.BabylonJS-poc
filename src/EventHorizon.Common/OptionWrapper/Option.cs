@@ -8,26 +8,19 @@ public static class OptionExtensions
 }
 
 [Serializable]
-#pragma warning disable CA1716 // Identifiers should not match keywords
-public struct Option<T> : IEquatable<Option<T>>
-#pragma warning restore CA1716 // Identifiers should not match keywords
+public readonly struct Option<T>(T? value) : IEquatable<Option<T>>
 {
-    private readonly bool _hasValue;
-    private readonly T _value;
+    private readonly bool _hasValue = value != null;
+    private readonly T _value = value!;
 
-    public Option(T? value)
-    {
-        _hasValue = value != null;
-        _value = value!;
-    }
-
-    public bool HasValue
+    [MemberNotNullWhen(true, nameof(Value))]
+    public readonly bool HasValue
     {
         get { return _hasValue; }
     }
 
-    [MaybeNull]
-    public T Value
+    [MemberNotNullWhen(true, nameof(Value))]
+    public readonly T? Value
     {
         get
         {
@@ -35,7 +28,7 @@ public struct Option<T> : IEquatable<Option<T>>
             {
                 throw new InvalidOperationException("Value is not present.");
             }
-            return _value!;
+            return _value;
         }
     }
 
@@ -44,7 +37,7 @@ public struct Option<T> : IEquatable<Option<T>>
     public static implicit operator bool(Option<T> result) => result.HasValue;
 
     #region Generated
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         return obj is Option<T> option && Equals(option);
     }

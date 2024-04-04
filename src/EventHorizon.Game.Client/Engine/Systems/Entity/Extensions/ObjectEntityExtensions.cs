@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-
 using Microsoft.Extensions.Logging;
 
 public static class ObjectEntityExtensions
@@ -13,7 +12,7 @@ public static class ObjectEntityExtensions
         var config = entity.GetPropertyAsOption<ObjectEntityConfiguration>(
             "entityConfiguration"
         );
-        if (config.HasValue.IsNotTrue())
+        if (!config.HasValue)
         {
             GamePlatform
                 .Logger<IObjectEntity>()
@@ -31,7 +30,7 @@ public static class ObjectEntityExtensions
         var config = entity.GetPropertyAsOption<ObjectEntityConfiguration>(
             "playerConfiguration"
         );
-        if (config.HasValue.IsNotTrue())
+        if (!config.HasValue)
         {
             GamePlatform
                 .Logger<IObjectEntity>()

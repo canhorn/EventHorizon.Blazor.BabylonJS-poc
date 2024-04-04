@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.I18n.Api;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Dispose;
@@ -17,7 +16,6 @@ using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Get;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-
 using MediatR;
 
 public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
@@ -410,9 +408,10 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
     private string OptionTextFromKey(IGuiControlOptions options)
     {
         // Contains textKey, run through Localizer
-        if (options.ContainsKey("textKey"))
+        var optionText = options.GetValue<string>("textKey");
+        if (optionText.HasValue)
         {
-            return _localizer[options.GetValue<string>("textKey").Value];
+            return _localizer[optionText.Value];
         }
         // Check text
         var text = options.GetValue<string>("text");

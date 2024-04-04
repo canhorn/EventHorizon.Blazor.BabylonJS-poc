@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Input.Api;
@@ -17,9 +16,7 @@ using EventHorizon.Game.Client.Systems.Player.Api;
 using EventHorizon.Game.Client.Systems.Player.ClientAction;
 using EventHorizon.Game.Client.Systems.Player.Modules.Input.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.Input.Move;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardInputModule
@@ -56,7 +53,7 @@ public class StandardInputModule
             _entity.GetPropertyAsOption<ObjectEntityConfiguration>(
                 "playerConfiguration"
             );
-        if (playerConfiguration.HasValue.IsNotTrue())
+        if (!playerConfiguration.HasValue)
         {
             _logger.LogDebug("Player Configuration not Found.");
             return;
@@ -135,7 +132,7 @@ public class StandardInputModule
             PlayerInputConfig.PROPERTY_NAME
         );
 
-        if (inputConfig.HasValue.IsNotTrue())
+        if (!inputConfig.HasValue)
         {
             _logger.LogDebug("Failed to Load Player Input Configuration.");
             return false;

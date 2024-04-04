@@ -3,13 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Model;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
 using EventHorizon.Observer.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardClientActionState : ClientActionState
@@ -23,8 +21,8 @@ public class StandardClientActionState : ClientActionState
         _logger = logger;
         _actionTypes = new Dictionary<string, Type>();
 
-        var clientActionTypeInfoList = AppDomain.CurrentDomain
-            .GetAssemblies()
+        var clientActionTypeInfoList = AppDomain
+            .CurrentDomain.GetAssemblies()
             .SelectMany(x => x.DefinedTypes)
             .Where(type => typeof(IClientAction).IsAssignableFrom(type));
 
@@ -113,7 +111,7 @@ public class StandardClientActionState : ClientActionState
                     .ToOption();
 
                 return new ExternalClientAction(
-                    clientAction.Value,
+                    clientAction.Value!,
                     externalAction.Event,
                     externalAction.Observer
                 ).ToOption();
