@@ -3,14 +3,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Services.Command.Response;
 using EventHorizon.Game.Editor.Client.Zone.Services.Command.Send;
-
 using Microsoft.AspNetCore.Components;
 
 public class ZoneQuickCommandsModel
@@ -63,7 +61,7 @@ public class ZoneQuickCommandsModel
         IsDisabled = false;
     }
 
-    public async Task HandleSelectedComandChanged(StandardSelectOption option)
+    public async Task HandleSelectedCommandChanged(StandardSelectOption option)
     {
         option.NullCheck();
         await RunCommand(option.Value);

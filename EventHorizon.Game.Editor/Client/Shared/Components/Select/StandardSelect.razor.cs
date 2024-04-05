@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Components;
 
 public class StandardSelectModel : ComponentBase
@@ -27,19 +26,7 @@ public class StandardSelectModel : ComponentBase
     public bool Disabled { get; set; }
 
     [Parameter]
-    public StandardSelectOption Value
-    {
-        get => _value;
-        set
-        {
-            var newValue =
-                value?.Value?.ToString(CultureInfo.InvariantCulture)
-                ?? DefaultValue;
-            _value =
-                Options.FirstOrDefault(option => option.Value == newValue)
-                ?? new StandardSelectOption();
-        }
-    }
+    public required StandardSelectOption Value { get; set; }
 
     protected string SelectedValue
     {
@@ -57,10 +44,13 @@ public class StandardSelectModel : ComponentBase
 
     protected override void OnInitialized()
     {
-        if (Options == null)
-        {
-            Options = new List<StandardSelectOption>();
-        }
+        Options ??= [];
+    }
+
+    protected override void OnParametersSet()
+    {
+        _value = Value;
+        base.OnParametersSet();
     }
 
     protected Task HandleSelectChanged(ChangeEventArgs changeEventArgs)
@@ -74,7 +64,7 @@ public class StandardSelectModel : ComponentBase
     }
 }
 
-public class StandardSelectOption
+public record StandardSelectOption
 {
     public string Value { get; set; } = string.Empty;
     public string Text { get; set; } = string.Empty;

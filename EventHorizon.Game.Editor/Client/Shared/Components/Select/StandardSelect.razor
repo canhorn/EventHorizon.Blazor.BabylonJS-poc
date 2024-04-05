@@ -1,13 +1,14 @@
 ﻿@inherits StandardSelectModel
 
 <select class="standard-select"
-        value="@SelectedValue"
+        value="@Value.Value"
         @onchange="@HandleSelectChanged"
         disabled="@IsDisabled">
     @foreach (var option in Options)
     {
         <option value="@option.Value"
                 disabled="@option.Disabled"
+                selected="@(option.Value == Value.Value)"
                 hidden="@option.Hidden">
             @option.Text
         </option>

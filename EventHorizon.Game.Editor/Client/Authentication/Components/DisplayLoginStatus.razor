@@ -2,41 +2,31 @@
 
 <AuthorizeView>
     <Authorized>
-        <a class="nav-link"
-           href="@AuthenticationPage.Route("logout")"
-           @onclick="BeginSignOut"
-           data-test-selector="logout-link">
+        <a class="nav-link" href="@AuthenticationPage.Route("logout")" @onclick="BeginSignOut"
+            data-test-selector="logout-link">
             @(LogoutDisplayText ?? Localizer["Logout"])
         </a>
     </Authorized>
     <NotAuthorized>
-        <a class="nav-link"
-           href="@AuthenticationPage.Route("login", Navigation.Uri)"
-           data-test-selector="login-link">
+        <a class="nav-link" href="@AuthenticationPage.Route("login", Navigation.Uri)" data-test-selector="login-link">
             @(LoginDisplayText ?? Localizer["Login"])
         </a>
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
-    [MaybeNull]
     [Parameter]
-    public string LoginDisplayText { get; set; }
-    [MaybeNull]
+    public required string LoginDisplayText { get; set; }
     [Parameter]
-    public string LogoutDisplayText { get; set; }
+    public required string LogoutDisplayText { get; set; }
 
     [Inject]
-    public NavigationManager Navigation { get; set; } = null!;
+    public required NavigationManager Navigation { get; set; }
     [Inject]
-    // TODO: Refactor to use new Authentication
-    public SignOutSessionStateManager SignOutManager { get; set; } = null!;
-    [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
+    public required Localizer<SharedResource> Localizer { get; set; }
 
-    private async Task BeginSignOut(MouseEventArgs args)
+    private void BeginSignOut(MouseEventArgs args)
     {
-        await SignOutManager.SetSignOutState();
-        Navigation.NavigateTo(AuthenticationPage.Route("logout"));
+        Navigation.NavigateToLogout(AuthenticationPage.Route("logout"));
     }
 }

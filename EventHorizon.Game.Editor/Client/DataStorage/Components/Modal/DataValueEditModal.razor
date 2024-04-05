@@ -1,12 +1,11 @@
 ﻿@using EventHorizon.Game.Editor.Client.Shared.Properties
 @inherits DataValueEditModalBase
 
-<StandardModal IsOpen="IsOpen"
-               OnClose="OnClose"
-               OnShown="HandleShown">
+<StandardModal IsOpen="IsOpen" OnClose="OnClose" OnShown="HandleShown">
     <Header>
         <h2>@Localizer["Data Value Management"]</h2>
     </Header>
+
     <Body>
         <ContainerStatesComponent State="MessageState">
             <LoadingFragment>
@@ -21,19 +20,15 @@
             <label class="--font-bold">
                 @Localizer["Data Name"]
             </label>
-            <input @ref="DataNameInput" value="@EditingModel.DataName"
-                   @oninput="HandleDataNameChanged"
-                   placeholder="@Localizer["Data Name"]" />
+            <input @ref="DataNameInput" value="@EditingModel.DataName" @oninput="HandleDataNameChanged"
+                placeholder="@Localizer["Data Name"]" />
         </div>
-        <div class="edit-modal__form-item @DataTypeCssModifier"
-             title="@DataTypeTitle">
+        <div class="edit-modal__form-item @DataTypeCssModifier" title="@DataTypeTitle">
             <label class="--font-bold">
                 @Localizer["Data Type"]
             </label>
-            <StandardSelect Options="EditingModel.PropertyTypeOptions"
-                            Value="@EditingModel.DataTypeOption"
-                            Disabled="DataTypeDisabled"
-                            ValueChanged="HandleValueTypeChanged"></StandardSelect>
+            <StandardSelect Options="EditingModel.PropertyTypeOptions" Value="@EditingModel.DataTypeOption"
+                Disabled="DataTypeDisabled" ValueChanged="HandleValueTypeChanged"></StandardSelect>
         </div>
         <DisplayContainerComponent State="DisplayPropertyEditState">
             <hr />
@@ -41,40 +36,34 @@
                 <label class="--font-bold --sr-only">
                     @Localizer["Data Value"]
                 </label>
-                <PropertyDisplay Property="EditingModel.PropertyDisplayType"
-                                 OnChanged="HandlePropertyChanged" />
+                <PropertyDisplay Property="EditingModel.PropertyDisplayType" OnChanged="HandlePropertyChanged" />
             </div>
         </DisplayContainerComponent>
     </Body>
     <Footer>
-        <DataValueModalSubmit IsNewValue="EditingModel.IsNewValue"
-                              DataName="@EditingModel.DataName"
-                              ContainsName="@ContainsName">
+        <DataValueModalSubmit IsNewValue="EditingModel.IsNewValue" DataName="@EditingModel.DataName"
+            ContainsName="@ContainsName">
             <Override>
-                <button class="edit-modal__button"
-                        type="button"
-                        @onclick="() => HandleSubmit(DataValueModalSubmitType.Override)">
+                <button class="edit-modal__button" type="button"
+                    @onclick="() => HandleSubmit(DataValueModalSubmitType.Override)">
                     @Localizer["Override"]
                 </button>
             </Override>
             <Update>
-                <button class="edit-modal__button"
-                        type="button"
-                        @onclick="() => HandleSubmit(DataValueModalSubmitType.Update)">
+                <button class="edit-modal__button" type="button"
+                    @onclick="() => HandleSubmit(DataValueModalSubmitType.Update)">
                     @Localizer["Update"]
                 </button>
             </Update>
             <Clone>
-                <button class="edit-modal__button"
-                        type="button"
-                        @onclick="() => HandleSubmit(DataValueModalSubmitType.Clone)">
+                <button class="edit-modal__button" type="button"
+                    @onclick="() => HandleSubmit(DataValueModalSubmitType.Clone)">
                     @Localizer["Clone"]
                 </button>
             </Clone>
             <Create>
-                <button class="edit-modal__button"
-                        type="button"
-                        @onclick="() => HandleSubmit(DataValueModalSubmitType.Create)">
+                <button class="edit-modal__button" type="button"
+                    @onclick="() => HandleSubmit(DataValueModalSubmitType.Create)">
                     @Localizer["Create"]
                 </button>
             </Create>
