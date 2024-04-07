@@ -14,17 +14,21 @@ using Microsoft.AspNetCore.Components;
 public class PropertiesDisplayModel : ComponentBase
 {
     [CascadingParameter]
-    public ZoneState State { get; set; } = null!;
+    public required ZoneState State { get; set; }
 
     [Parameter]
-    public IDictionary<string, string> LabelMap { get; set; } =
-        new Dictionary<string, string>();
+    [EditorRequired]
+    public required IDictionary<string, object> Data { get; set; }
 
     [Parameter]
-    public IDictionary<string, object> Data { get; set; } = null!;
+    [EditorRequired]
+    public required PropertiesMetadata PropertiesMetadata { get; set; }
 
     [Parameter]
-    public PropertiesMetadata PropertiesMetadata { get; set; } = null!;
+    public Dictionary<string, string> LabelMap { get; set; } = [];
+
+    [Parameter]
+    public Dictionary<string, int> SortMap { get; set; } = [];
 
     [Parameter]
     public EventCallback<PropertiesDisplayChangedArgs> OnChanged { get; set; }
@@ -33,7 +37,7 @@ public class PropertiesDisplayModel : ComponentBase
     public EventCallback<string> OnRemove { get; set; }
 
     [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
+    public required Localizer<SharedResource> Localizer { get; set; }
 
     protected IDictionary<string, PropertyDisplayType> DisplayProperties
     {
@@ -51,8 +55,14 @@ public class PropertiesDisplayModel : ComponentBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-
-        SetupProperties();
+        try
+        {
+            SetupProperties();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     protected async Task HandlePropertyChanged(PropertyChangedArgs args)
@@ -67,12 +77,11 @@ public class PropertiesDisplayModel : ComponentBase
     private void SetupProperties()
     {
         DisplayProperties.Clear();
-        var data = Data.Where(
-                prop =>
-                    !prop.Key.StartsWith(
-                        ZoneEditorMetadata.EDITOR_METADATA_PREFIX,
-                        System.StringComparison.InvariantCulture
-                    )
+        var data = Data.Where(prop =>
+                !prop.Key.StartsWith(
+                    ZoneEditorMetadata.EDITOR_METADATA_PREFIX,
+                    System.StringComparison.InvariantCulture
+                )
             )
             .OrderBy(a => a.Key);
         foreach (var prop in data)
@@ -84,6 +93,7 @@ public class PropertiesDisplayModel : ComponentBase
                 new PropertyDisplayType
                 {
                     Label = GetLabel(prop.Key),
+                    Order = GetOrder(prop.Key),
                     Name = prop.Key,
                     Type = type,
                     Value = prop.Value
@@ -94,6 +104,21 @@ public class PropertiesDisplayModel : ComponentBase
 
     public string GetLabel(string key)
     {
+        Console.WriteLine("GetLabel" + key);
+        foreach (var item in LabelMap)
+        {
+            Console.WriteLine(item.Key + " : " + item.Value);
+        }
         return LabelMap.TryGetValue(key, out var value) ? value : string.Empty;
+    }
+
+    public int GetOrder(string key)
+    {
+        Console.WriteLine("GetOrder" + key);
+        foreach (var item in SortMap)
+        {
+            Console.WriteLine(item.Key + " : " + item.Value);
+        }
+        return SortMap.TryGetValue(key, out var value) ? value : 0;
     }
 }

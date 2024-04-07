@@ -2,11 +2,9 @@
 @using EventHorizon.Game.Editor.Zone.Editor.Services.Model
 
 <div class="entity-properties-display">
-    @foreach (var prop in DisplayProperties.Values)
+    @foreach (var prop in DisplayProperties.Values.OrderBy(prop => prop.Order))
     {
-        <PropertyDisplay Property="prop"
-                         OnChanged="HandlePropertyChanged"
-                         OnRemove="OnRemove" />
+        <PropertyDisplay Property="prop" OnChanged="HandlePropertyChanged" OnRemove="OnRemove" />
         <hr class="--accent-color" />
     }
 </div>

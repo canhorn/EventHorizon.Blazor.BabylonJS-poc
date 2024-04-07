@@ -83,15 +83,16 @@
                 </div>
             }
         </EditForm>
+
+        <div>
+            <div>
+                @ErrorMessage
+            </div>
+            <input type="text" @bind="NewKeyInput" />
+            <button type="button" @onclick="HandleAddNewInput">
+                @Localizer["Add"]
+            </button>
+        </div>
     </div>
 
-    <div>
-        <div>
-            @ErrorMessage
-        </div>
-        <input type="text" @bind="NewKeyInput" />
-        <button type="button" @onclick="HandleAddNewInput">
-            @Localizer["Add"]
-        </button>
-    </div>
 </div>

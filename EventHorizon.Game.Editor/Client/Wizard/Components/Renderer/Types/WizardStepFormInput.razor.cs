@@ -5,33 +5,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Engine.Input.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
 using EventHorizon.Game.Editor.Client.Shared.Properties;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Editor.Properties.Api;
 using EventHorizon.Game.Editor.Properties.Model;
 using EventHorizon.Zone.Systems.Wizard.Model;
-using Microsoft.Extensions.Logging;
 using static EventHorizon.Game.Editor.Client.Shared.Properties.InputKeyMapControlModel;
 
 public class WizardStepFormInputBase : WizardStepCommonBase
 {
     public Dictionary<string, string> PropertyLabelMap { get; private set; } =
-        new();
-    public Dictionary<string, object> PropertiesData { get; private set; } =
-        new();
+        [];
+    public Dictionary<string, int> PropertySortMap { get; private set; } = [];
+    public Dictionary<string, object> PropertiesData { get; private set; } = [];
     public PropertiesMetadataModel PropertiesMetadata { get; private set; } =
-        new();
+        [];
 
     protected override void OnInitializing()
     {
         var properties = Step.Details.Where(a =>
             a.Key.StartsWith("property:")
             && a.Key.EndsWith(":label").IsNotTrue()
+            && a.Key.EndsWith(":sort").IsNotTrue()
         );
         foreach (var property in properties)
         {
@@ -42,6 +40,7 @@ public class WizardStepFormInputBase : WizardStepCommonBase
                 property.Value
             );
             PropertyLabelMap[propertyKey] = GetLabel(propertyKey);
+            PropertySortMap[propertyKey] = GetSortValue(propertyKey);
             Data[property.Key] = property.Value;
         }
     }
@@ -55,6 +54,16 @@ public class WizardStepFormInputBase : WizardStepCommonBase
         }
 
         return label;
+    }
+
+    private int GetSortValue(string propertyKey)
+    {
+        return int.TryParse(
+            Step.Details[$"property:{propertyKey}:sort"],
+            out var sortValue
+        )
+            ? sortValue
+            : 0;
     }
 
     public object ParseDataValue(string key, string keyType)
