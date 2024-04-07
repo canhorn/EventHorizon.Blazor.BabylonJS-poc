@@ -29,10 +29,9 @@ public class WizardStepFormInputBase : WizardStepCommonBase
 
     protected override void OnInitializing()
     {
-        var properties = Step.Details.Where(
-            a =>
-                a.Key.StartsWith("property:")
-                && a.Key.EndsWith(":label").IsNotTrue()
+        var properties = Step.Details.Where(a =>
+            a.Key.StartsWith("property:")
+            && a.Key.EndsWith(":label").IsNotTrue()
         );
         foreach (var property in properties)
         {
@@ -103,11 +102,10 @@ public class WizardStepFormInputBase : WizardStepCommonBase
         var inputKeyMap = new Dictionary<string, ControlKeyInput>();
 
         var keyInputList = data.Where(a => a.Key.StartsWith($"{parentKey}:"))
-            .Select(
-                a =>
-                    a.Key.Replace($"{parentKey}:", string.Empty)
-                        .Split(":", StringSplitOptions.RemoveEmptyEntries)
-                        .First()
+            .Select(a =>
+                a.Key.Replace($"{parentKey}:", string.Empty)
+                    .Split(":", StringSplitOptions.RemoveEmptyEntries)
+                    .First()
             )
             .Distinct()
             .ToList();
@@ -216,6 +214,36 @@ public class WizardStepFormInputBase : WizardStepCommonBase
                     ((int?)control.Released).ToString() ?? "0";
             }
         }
+
+        // Log the inputKeyMap
+        Console.WriteLine(JsonSerializer.Serialize(inputKeyMap));
+
+        // Remove any keys that are no longer in the inputKeyMap
+        var keysToRemove = data
+            .Keys.Where(a =>
+                a.StartsWith($"{propertyKey}:")
+                && a.Split(":", StringSplitOptions.RemoveEmptyEntries).Length
+                    > 2
+                && !inputKeyMap.ContainsKey(
+                    a.Split(":", StringSplitOptions.RemoveEmptyEntries)
+                        .Skip(2)
+                        .First()
+                )
+            )
+            .Select(a =>
+                a.Split(":", StringSplitOptions.RemoveEmptyEntries).Take(3)
+            )
+            .Select(a => string.Join(":", a))
+            .ToList();
+
+        Console.WriteLine(JsonSerializer.Serialize(keysToRemove));
+        // Mark for removal
+        foreach (var key in keysToRemove)
+        {
+            data[$"{key}:$$deleted$$"] = "true";
+        }
+
+        Console.WriteLine(JsonSerializer.Serialize(data));
 
         return data;
     }

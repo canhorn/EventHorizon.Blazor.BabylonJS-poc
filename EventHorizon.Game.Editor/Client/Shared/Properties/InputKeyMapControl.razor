@@ -72,6 +72,11 @@
                             (editing Menu Settings)
                         </div>
                     }
+                    <div>
+                        <button class="c-button" type="button" @onclick="() => HandleRemoveKeyInput(key)">
+                            &#10060 @Localizer["Remove"]
+                        </button>
+                    </div>
 
                     <hr />
                     @* <DumpToJson Data="@keyInput" /> *@

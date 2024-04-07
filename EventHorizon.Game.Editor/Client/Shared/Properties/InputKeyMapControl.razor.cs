@@ -5,16 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Engine.Input.Model;
-using EventHorizon.Game.Client.Systems.Player.Modules.Input.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
-using EventHorizon.Game.Server.Asset.Query;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Logging;
 
 public class InputKeyMapControlModel : PropertyControlBase
 {
@@ -81,8 +77,8 @@ public class InputKeyMapControlModel : PropertyControlBase
         foreach (var (key, keyInput) in ControlInputConfig)
         {
             keyInput.OptionType =
-                InputActionTypeOptions.FirstOrDefault(
-                    a => a.Value == keyInput.Type
+                InputActionTypeOptions.FirstOrDefault(a =>
+                    a.Value == keyInput.Type
                 ) ?? new();
         }
 
@@ -124,7 +120,7 @@ public class InputKeyMapControlModel : PropertyControlBase
 
     protected string ErrorMessage { get; set; } = string.Empty;
 
-    protected void HandleAddNewInput()
+    protected async Task HandleAddNewInput()
     {
         ErrorMessage = string.Empty;
         if (string.IsNullOrEmpty(NewKeyInput))
@@ -142,11 +138,21 @@ public class InputKeyMapControlModel : PropertyControlBase
         {
             Key = NewKeyInput,
             Type = KeyInputType.PlayerMove,
-            OptionType = InputActionTypeOptions.First(
-                a => a.Value == KeyInputType.PlayerMove
+            OptionType = InputActionTypeOptions.First(a =>
+                a.Value == KeyInputType.PlayerMove
             ),
         };
         NewKeyInput = string.Empty;
+
+        await HandleChange(
+            new ChangeEventArgs
+            {
+                Value = JsonSerializer.Serialize(
+                    ControlInputConfig,
+                    JsonExtensions.DEFAULT_OPTIONS
+                ),
+            }
+        );
     }
 
     protected async Task HandleKeyInputTypeChanged(
@@ -168,6 +174,21 @@ public class InputKeyMapControlModel : PropertyControlBase
         }
 
         keyInput.OptionType = option;
+
+        await HandleChange(
+            new ChangeEventArgs
+            {
+                Value = JsonSerializer.Serialize(
+                    ControlInputConfig,
+                    JsonExtensions.DEFAULT_OPTIONS
+                ),
+            }
+        );
+    }
+
+    protected async Task HandleRemoveKeyInput(string key)
+    {
+        ControlInputConfig.Remove(key);
 
         await HandleChange(
             new ChangeEventArgs

@@ -28,10 +28,10 @@
     white-space: nowrap;
 }
 
-    .tree-view__node-item ::deep .active {
-        background-color: var(--contrast-dark-hint);
-        color: var(--accent-color);
-    }
+.tree-view__node-item ::deep .active {
+    background-color: var(--contrast-dark-hint);
+    color: var(--accent-color);
+}
 
 .tree-view__node-icon {
     padding-right: 0.2rem;
@@ -41,24 +41,28 @@
     color: var(--icon-color);
     border-radius: 4px;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     text-decoration: none;
     padding: 0.3rem;
     border: 1px solid transparent;
 }
 
-    ::deep .tree-view__node-link:hover {
-        background-color: var(--contrast-dark-hint);
-        color: var(--accent-color);
-        text-decoration: none;
-    }
+::deep .tree-view__node-link:hover {
+    background-color: var(--contrast-dark-hint);
+    color: var(--accent-color);
+    text-decoration: none;
+}
 
-    ::deep .tree-view__node-link:focus {
-        background-color: var(--contrast-dark-hint);
-        color: var(--accent-color);
-        text-decoration: none;
-        border: 1px solid var(--accent-light);
-    }
+::deep .tree-view__node-link:focus {
+    background-color: var(--contrast-dark-hint);
+    color: var(--accent-color);
+    text-decoration: none;
+    border: 1px solid var(--accent-light);
+}
+
+.tree-view__node-text {
+    padding-top: 1px;
+}
 
 .tree-view__context-menu {
     font-size: 13px;
@@ -77,9 +81,9 @@
     cursor: default;
 }
 
-    .tree-view__context-menu__item:hover {
-        background: var(--main-background);
-    }
+.tree-view__context-menu__item:hover {
+    background: var(--main-background);
+}
 
 .--transparent {
     color: transparent;
