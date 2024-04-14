@@ -6,16 +6,14 @@
 <div>
     <h2>Activity Tracking</h2>
 
-    <button type="button"
-            @onclick="@HandleSendActivityEvent">
+    <button type="button" @onclick="@HandleSendActivityEvent">
         Send Activity
     </button>
 </div>
 
 <div>
     <h2>Asset Management</h2>
-    <button type="button"
-            @onclick="@HandleGetFileManagementAssets">
+    <button type="button" @onclick="@HandleGetFileManagementAssets">
         Get File Management Assets
     </button>
     <DumpToJson Data="FileManagementAssets" />
@@ -25,13 +23,14 @@
     [Inject]
     public MediatR.IMediator Mediator { get; set; } = null!;
 
-    public EventHorizon.Game.Server.Asset.Model.FileManagementAssets FileManagementAssets { get; set; } = new Server.Asset.Model.FileManagementAssets();
+    public EventHorizon.Game.Server.Asset.Model.FileManagementAssets FileManagementAssets { get; set; } = new
+    Server.Asset.Model.FileManagementAssets();
 
 
     public async Task HandleGetFileManagementAssets()
     {
         var result = await Mediator.Send(
-            new EventHorizon.Game.Server.Asset.Query.QueryForFileManagementAssets()
+        new EventHorizon.Game.Server.Asset.Query.QueryForFileManagementAssets()
         );
         if (result)
         {
@@ -42,56 +41,44 @@
 }
 
 
-@* <ZoneStateProvider> *@
-    <EditorFileExplorer />
-    @*<ZoneStateSandbox />*@
-@* </ZoneStateProvider> *@
+<EditorFileExplorer />
+@*<ZoneStateSandbox />*@
 
-<button type="button"
-        @onclick="HandleOpenWindow">
+<button type="button" @onclick="HandleOpenWindow">
     Open Window
 </button>
 
-<StandardWindow IsOpen="IsWindowOpen"
-                IsDraggable="IsDraggable"
-                WidthSize="@WidthSize"
-                HeightSize="@HeightSize">
+<StandardWindow IsOpen="IsWindowOpen" IsDraggable="IsDraggable" WidthSize="@WidthSize" HeightSize="@HeightSize">
     <Header>Window</Header>
+
     <Body>
         <h2>Content</h2>
         <div>
-            <button type="button"
-                    @onclick="@(() => WidthSize = "small")">
+            <button type="button" @onclick="@(() => WidthSize = "small")">
                 Width Small
             </button>
-            <button type="button"
-                    @onclick="@(() => WidthSize = "medium")">
+            <button type="button" @onclick="@(() => WidthSize = "medium")">
                 Width Medium
             </button>
-            <button type="button"
-                    @onclick="@(() => WidthSize = "large")">
+            <button type="button" @onclick="@(() => WidthSize = "large")">
                 Width Large
             </button>
         </div>
         <div>
-            <button type="button"
-                    @onclick="@(() => HeightSize = "small")">
+            <button type="button" @onclick="@(() => HeightSize = "small")">
                 Height Small
             </button>
-            <button type="button"
-                    @onclick="@(() => HeightSize = "medium")">
+            <button type="button" @onclick="@(() => HeightSize = "medium")">
                 Height Medium
             </button>
-            <button type="button"
-                    @onclick="@(() => HeightSize = "large")">
+            <button type="button" @onclick="@(() => HeightSize = "large")">
                 Height Large
             </button>
         </div>
     </Body>
 </StandardWindow>
 
-<button type="button"
-        @onclick="@(() => throw new Exception("Manual thrown error"))">
+<button type="button" @onclick="@(() => throw new Exception("Manual thrown error"))">
     Throw Error
 </button>
 
@@ -118,11 +105,10 @@
         left: @(gridCell.Left)px;
         border: 5px solid white;
         pointer-events: none;
-"></div>
+    "></div>
 }
 
-<button type="button"
-        @onclick="HandleCreateGrid">
+<button type="button" @onclick="HandleCreateGrid">
     Create Grid
 </button>
 
@@ -150,18 +136,18 @@
         var cellBottomRight = (cellWidth * 2, cellHeight * 2, cellWidth, cellHeight);
 
         TestingGird = new List<(int Left, int Top, int CellWidth, int CellHeight)>() {
-            cellTopLeft,
-            cellTopCenter,
-            cellTopRight,
+cellTopLeft,
+cellTopCenter,
+cellTopRight,
 
-            cellMiddleLeft,
-            cellMiddleCenter,
-            cellMiddleRight,
+cellMiddleLeft,
+cellMiddleCenter,
+cellMiddleRight,
 
-            cellBottomLeft,
-            cellBottomCenter,
-            cellBottomRight,
-        };
+cellBottomLeft,
+cellBottomCenter,
+cellBottomRight,
+};
     }
 }
 
@@ -172,6 +158,7 @@
     <Header>
         <h2>Header</h2>
     </Header>
+
     <Body>
         <div>
             Body!
@@ -179,8 +166,7 @@
     </Body>
     <Footer>
         <div>
-            <button type="button"
-                    @onclick="HandleCloseModal">
+            <button type="button" @onclick="HandleCloseModal">
                 Cancel
             </button>
         </div>
@@ -189,20 +175,17 @@
 
 
 <div>
-    <button type="button"
-            @onclick="SendErrorMessage">
+    <button type="button" @onclick="SendErrorMessage">
         Send Error Log Message
     </button>
 </div>
 <div>
-    <button type="button"
-            @onclick="SendInfoMessage">
+    <button type="button" @onclick="SendInfoMessage">
         Send Info Log Message
     </button>
 </div>
 <div>
-    <button type="button"
-            @onclick="SendArgsMessage">
+    <button type="button" @onclick="SendArgsMessage">
         Send Info w/Args Log Message
     </button>
 </div>
@@ -232,8 +215,8 @@
         catch (Exception ex)
         {
             Logger.LogError(
-                ex,
-                "Error Message 123-123-123-123"
+            ex,
+            "Error Message 123-123-123-123"
             );
         }
     }
@@ -241,14 +224,14 @@
     public void SendInfoMessage()
     {
         Logger.LogInformation(
-            "Standard Message 123-123-123-123"
+        "Standard Message 123-123-123-123"
         );
     }
     public void SendArgsMessage()
     {
         Logger.LogInformation(
-            "Templated Message {Guid}",
-            Guid.NewGuid().ToString()
+        "Templated Message {Guid}",
+        Guid.NewGuid().ToString()
         );
     }
 }

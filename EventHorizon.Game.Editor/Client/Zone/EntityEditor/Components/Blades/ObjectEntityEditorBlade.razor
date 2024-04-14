@@ -1,20 +1,18 @@
 ﻿@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Providers
 @inherits ObjectEntityEditorBladeBase
 
-@* <ZoneStateProvider> *@
-    @if (string.IsNullOrWhiteSpace(EntityId))
-    {
-        <EntityList />
-    }
-    else
-    {
-        <div class="back-to-entity-list">
-            <button @onclick="HandleBackToEntityList">
-                @Localizer["Back to Entity List"]
-            </button>
-        </div>
-        <EntityProvider EntityId="@EntityId">
-            <ObjectEntityEditor />
-        </EntityProvider>
-    }
-@* </ZoneStateProvider> *@
+@if (string.IsNullOrWhiteSpace(EntityId))
+{
+    <EntityList />
+}
+else
+{
+    <div class="back-to-entity-list">
+        <button @onclick="HandleBackToEntityList">
+            @Localizer["Back to Entity List"]
+        </button>
+    </div>
+    <EntityProvider EntityId="@EntityId">
+        <ObjectEntityEditor />
+    </EntityProvider>
+}

@@ -6,11 +6,9 @@
 @layout ViewHeightLayout
 @using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor
 
-@* <ZoneStateProvider> *@
-    <FileEditorProvider EncodedFileNodeId="@EncodedFileNodeId">
-        <ZoneFileEditorComponent />
-    </FileEditorProvider>
-@* </ZoneStateProvider> *@
+<FileEditorProvider EncodedFileNodeId="@EncodedFileNodeId">
+    <ZoneFileEditorComponent />
+</FileEditorProvider>
 
 @code {
     [Parameter]

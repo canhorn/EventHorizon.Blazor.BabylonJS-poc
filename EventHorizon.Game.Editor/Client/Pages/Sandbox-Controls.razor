@@ -20,41 +20,31 @@
 </StandardWindow>")
 </pre>
 
-<StandardWindow IsOpen="IsWindowOpen"
-                IsDraggable="IsDraggable"
-                WidthSize="@WidthSize"
-                HeightSize="@HeightSize">
+<StandardWindow IsOpen="IsWindowOpen" IsDraggable="IsDraggable" WidthSize="@WidthSize" HeightSize="@HeightSize">
     <Header>Window</Header>
+
     <Body>
-        @* <ZoneStateProvider> *@
-            <EventHorizon.Game.Editor.Client.LiveEditor.Components.LiveEditor />
-        @* </ZoneStateProvider> *@
+        <EventHorizon.Game.Editor.Client.LiveEditor.Components.LiveEditor />
         <h2>Content</h2>
         <div>
-            <button type="button"
-                    @onclick="@(() => WidthSize = "small")">
+            <button type="button" @onclick="@(() => WidthSize = "small")">
                 Width Small
             </button>
-            <button type="button"
-                    @onclick="@(() => WidthSize = "medium")">
+            <button type="button" @onclick="@(() => WidthSize = "medium")">
                 Width Medium
             </button>
-            <button type="button"
-                    @onclick="@(() => WidthSize = "large")">
+            <button type="button" @onclick="@(() => WidthSize = "large")">
                 Width Large
             </button>
         </div>
         <div>
-            <button type="button"
-                    @onclick="@(() => HeightSize = "small")">
+            <button type="button" @onclick="@(() => HeightSize = "small")">
                 Height Small
             </button>
-            <button type="button"
-                    @onclick="@(() => HeightSize = "medium")">
+            <button type="button" @onclick="@(() => HeightSize = "medium")">
                 Height Medium
             </button>
-            <button type="button"
-                    @onclick="@(() => HeightSize = "large")">
+            <button type="button" @onclick="@(() => HeightSize = "large")">
                 Height Large
             </button>
         </div>
@@ -76,8 +66,7 @@
 }
 
 
-<button type="button"
-        @onclick="HandleOpenModal">
+<button type="button" @onclick="HandleOpenModal">
     Open
 </button>
 
@@ -85,6 +74,7 @@
     <Header>
         <h2>Header</h2>
     </Header>
+
     <Body>
         <div>
             Body!
@@ -92,8 +82,7 @@
     </Body>
     <Footer>
         <div>
-            <button type="button"
-                    @onclick="HandleCloseModal">
+            <button type="button" @onclick="HandleCloseModal">
                 Cancel
             </button>
         </div>
@@ -102,20 +91,17 @@
 
 
 <div>
-    <button type="button"
-            @onclick="SendErrorMessage">
+    <button type="button" @onclick="SendErrorMessage">
         Send Error Log Message
     </button>
 </div>
 <div>
-    <button type="button"
-            @onclick="SendInfoMessage">
+    <button type="button" @onclick="SendInfoMessage">
         Send Info Log Message
     </button>
 </div>
 <div>
-    <button type="button"
-            @onclick="SendArgsMessage">
+    <button type="button" @onclick="SendArgsMessage">
         Send Info w/Args Log Message
     </button>
 </div>
@@ -145,8 +131,8 @@
         catch (Exception ex)
         {
             Logger.LogError(
-                ex,
-                "Error Message 123-123-123-123"
+            ex,
+            "Error Message 123-123-123-123"
             );
         }
     }
@@ -154,14 +140,14 @@
     public void SendInfoMessage()
     {
         Logger.LogInformation(
-            "Standard Message 123-123-123-123"
+        "Standard Message 123-123-123-123"
         );
     }
     public void SendArgsMessage()
     {
         Logger.LogInformation(
-            "Templated Message {Guid}",
-            Guid.NewGuid().ToString()
+        "Templated Message {Guid}",
+        Guid.NewGuid().ToString()
         );
     }
 }
