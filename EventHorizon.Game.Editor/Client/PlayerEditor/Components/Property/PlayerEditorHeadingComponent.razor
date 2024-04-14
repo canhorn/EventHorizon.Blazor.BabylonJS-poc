@@ -1,0 +1,58 @@
+@inherits EditorComponentBase
+
+<div class="player-editor__heading">
+    <div class="player-editor__heading__delete">
+        <FluentButton id="@($"player-editor-{_componentId}-delete-button")"
+            IconEnd="@(new Icons.Regular.Size16.Dismiss().WithColor(Color.Error))" @onclick="HandleShowDelete"
+            Appearance="Appearance.Lightweight" title="@Title">
+        </FluentButton>
+    </div>
+    <div class="player-editor__heading__label">@Label</div>
+    <div class="player-editor__heading__description">@Description</div>
+
+    <FluentPopover @bind-Open="_showDelete" AnchorId="@($"player-editor-{_componentId}-delete-button")">
+        <Header>@ConfirmTitle</Header>
+
+        <Body>
+            <p>@ConfirmDescription</p>
+            <FluentButton IconEnd="@(new Icons.Regular.Size16.Delete().WithColor(Color.Error))"
+                @onclick="HandleDeleteProperty">
+                @ConfirmButtonText
+            </FluentButton>
+        </Body>
+    </FluentPopover>
+</div>
+
+@code {
+    [Parameter]
+    public required string PropertyKey { get; set; }
+    [Parameter]
+    public required string Title { get; set; }
+    [Parameter]
+    public required string Label { get; set; }
+    [Parameter]
+    public required string Description { get; set; }
+    [Parameter]
+    public required string ConfirmTitle { get; set; }
+    [Parameter]
+    public required string ConfirmDescription { get; set; }
+    [Parameter]
+    public required string ConfirmButtonText { get; set; }
+    [Parameter]
+    public EventCallback<string> OnDeleteProperty { get; set; }
+
+    public readonly string _componentId = Guid.NewGuid().ToString();
+
+    private bool _showDelete = false;
+
+    private void HandleShowDelete()
+    {
+        _showDelete = !_showDelete;
+    }
+
+    private async Task HandleDeleteProperty()
+    {
+        await OnDeleteProperty.InvokeAsync(PropertyKey);
+        _showDelete = false;
+    }
+}

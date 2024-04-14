@@ -8,6 +8,7 @@ public interface ZoneAdminApi
 {
     Task<ZoneInfo?> GetZoneInfo();
     ZoneAdminAgentApi Agent { get; }
+    ZoneAdminPlayerApi Player { get; }
     ZoneAdminArtifactManagementApi ArtifactManagement { get; }
     ZoneAdminClientAssetsApi ClientAssets { get; }
     ZoneAdminClientEntityApi ClientEntity { get; }

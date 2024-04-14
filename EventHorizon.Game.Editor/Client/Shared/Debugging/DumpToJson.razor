@@ -1,14 +1,9 @@
-﻿
-<pre class="pre">
-@JsonString
+﻿<pre class="pre">
+<code>
+        @JsonString
+</code>
 </pre>
 
-<style>
-    .pre {
-        color: white;
-        word-wrap: break-word;
-    }
-</style>
 
 @code {
     [Parameter]
@@ -19,8 +14,8 @@
     protected override void OnInitialized()
     {
         JsonString = System.Text.Json.JsonSerializer.Serialize(
-            Data,
-            new System.Text.Json.JsonSerializerOptions()
+        Data,
+        new System.Text.Json.JsonSerializerOptions()
             {
                 WriteIndented = true,
             }
@@ -30,8 +25,8 @@
     protected override void OnParametersSet()
     {
         JsonString = System.Text.Json.JsonSerializer.Serialize(
-            Data,
-            new System.Text.Json.JsonSerializerOptions()
+        Data,
+        new System.Text.Json.JsonSerializerOptions()
             {
                 WriteIndented = true,
             }

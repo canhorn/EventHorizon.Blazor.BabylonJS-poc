@@ -1,11 +1,9 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model.Agent;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public sealed class SignalrZoneAdminAgentApi : ZoneAdminAgentApi

@@ -8,10 +8,10 @@
 @layout MainLayout
 @inherits ZoneEntityEditorPageModel
 
-<ZoneStateProvider>
+@* <ZoneStateProvider> *@
     <EntityProvider EntityId="@EntityId"
                     EntitySessionValue="clientEntityPage"
                     DisableInteractionEvent="true">
         <ObjectEntityEditor />
     </EntityProvider>
-</ZoneStateProvider>
+@* </ZoneStateProvider> *@

@@ -3,12 +3,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
 using EventHorizon.Game.Editor.Zone.Systems.Wizard.Model;
 using EventHorizon.Zone.Systems.Wizard.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public sealed class SignalrZoneAdminWizardApi : ZoneAdminWizardApi

@@ -62,6 +62,14 @@ public class StandardSelectModel : ComponentBase
             Options.FirstOrDefault(option => option.Value == newValue)
         );
     }
+
+    protected Task HandleSelectedOptionChanged(StandardSelectOption option)
+    {
+        var newValue = option.Value?.ToString() ?? DefaultValue;
+        return ValueChanged.InvokeAsync(
+            Options.FirstOrDefault(option => option.Value == newValue)
+        );
+    }
 }
 
 public record StandardSelectOption

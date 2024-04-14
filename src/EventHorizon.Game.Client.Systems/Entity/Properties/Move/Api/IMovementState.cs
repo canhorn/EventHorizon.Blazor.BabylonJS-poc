@@ -4,7 +4,7 @@ using System;
 
 public interface IMovementState
 {
-    public static string NAME = "movementState";
+    public const string NAME = "movementState";
 
     decimal Speed { get; }
 }

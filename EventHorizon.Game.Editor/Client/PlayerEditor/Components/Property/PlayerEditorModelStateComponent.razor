@@ -1,0 +1,19 @@
+@inherits PlayerEditorModelStateComponentBase
+@using EventHorizon.Game.Editor.Client.Shared.Properties
+
+<h1>Model State</h1>
+
+<EditForm Model="this" OnSubmit="HandleSave">
+    <FluentStack Orientation="Orientation.Vertical">
+        <div class="form-control">
+            <FluentNumberField @bind-Value="ModelState.ScalingDeterminant"
+                Label="@Localizer["Scaling Determinant"]" />
+        </div>
+
+        <div class="form-control">
+            <AssetPropertyControl PropertyName="Asset Id" Property="ModelState.Mesh.AssetId"
+                Label="@Localizer["Asset Id"]" OnChange="HandleAssetIdChanged" />
+        </div>
+        <FluentButton Type="ButtonType.Submit">Save</FluentButton>
+    </FluentStack>
+</EditForm>

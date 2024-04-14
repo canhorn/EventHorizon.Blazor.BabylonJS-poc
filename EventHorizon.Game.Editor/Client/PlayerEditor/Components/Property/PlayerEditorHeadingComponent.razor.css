@@ -1,0 +1,21 @@
+.player-editor__heading {
+    display: grid;
+    grid-template-areas: "delete label" "delete description";
+    grid-template-rows: auto 1fr;
+    grid-template-columns: auto 1fr;
+    gap: 0 0.6rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-editor__heading__delete {
+    grid-area: delete;
+}
+
+.player-editor__heading__label {
+    grid-area: label;
+}
+
+.player-editor__heading__description {
+    grid-area: description;
+}

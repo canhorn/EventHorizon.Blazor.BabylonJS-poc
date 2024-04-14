@@ -6,11 +6,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
-
 using Blazored.LocalStorage;
-
 using BlazorPro.BlazorSize;
-
 using EventHorizon.Activity;
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Core.Builder.Api;
@@ -32,9 +29,7 @@ using EventHorizon.Observer.State;
 using EventHorizon.Platform.ErrorBoundary;
 using EventHorizon.Platform.LogProvider;
 using EventHorizon.Platform.LogProvider.Model;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -42,6 +37,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 public class Program
 {
@@ -51,6 +47,8 @@ public class Program
 
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
         builder.RootComponents.Add<App>("#app");
+
+        builder.Services.AddFluentUIComponents();
 
         // Setup Logging
         builder.Logging.AddPlatformLogger(new PlatformLoggerConfiguration());
@@ -89,14 +87,14 @@ public class Program
         );
 
         // Game Client Services
-        builder.Services
-            .AddClientSystemsServices()
+        builder
+            .Services.AddClientSystemsServices()
             .AddGameClient()
             .AddGameServerServices();
 
         // Artifact Management Services
-        builder.Services
-            .AddArtifactManagementServices()
+        builder
+            .Services.AddArtifactManagementServices()
             .AddZoneArtifactManagementServices();
 
         // Asset Management Services
@@ -112,8 +110,8 @@ public class Program
         builder.Services.AddEditorWizard();
 
         // Zone Services
-        builder.Services
-            .AddSingleton<ZoneStateCache, InMemoryZoneStateCache>()
+        builder
+            .Services.AddSingleton<ZoneStateCache, InMemoryZoneStateCache>()
             .AddSingleton<
                 IBuilder<ZoneStateModel, ZoneState>,
                 ZoneStateModelFromZoneStateBuilder
@@ -121,8 +119,11 @@ public class Program
             .AddEditorZoneServices();
 
         // I18n Services
-        builder.Services
-            .AddScoped(typeof(Localizer<>), typeof(StringBasedLocalizer<>))
+        builder
+            .Services.AddScoped(
+                typeof(Localizer<>),
+                typeof(StringBasedLocalizer<>)
+            )
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .Configure<RequestLocalizationOptions>(opts =>
             {
@@ -139,13 +140,10 @@ public class Program
             });
 
         // Base HTTP Client
-        builder.Services.AddScoped(
-            sp =>
-                new HttpClient
-                {
-                    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-                }
-        );
+        builder.Services.AddScoped(sp => new HttpClient
+        {
+            BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+        });
 
         // LocalStorage Services
         builder.Services.AddBlazoredLocalStorage();
@@ -168,13 +166,13 @@ public class Program
         >();
 
         // Observer State Manager
-        builder.Services
-            .AddSingleton<GenericObserverState>()
-            .AddSingleton<ObserverState>(
-                services => services.GetRequiredService<GenericObserverState>()
+        builder
+            .Services.AddSingleton<GenericObserverState>()
+            .AddSingleton<ObserverState>(services =>
+                services.GetRequiredService<GenericObserverState>()
             )
-            .AddSingleton<AdminObserverState>(
-                services => services.GetRequiredService<GenericObserverState>()
+            .AddSingleton<AdminObserverState>(services =>
+                services.GetRequiredService<GenericObserverState>()
             );
 
         // Setup MediatR

@@ -1,0 +1,19 @@
+@page "/player-editor"
+@code {
+    public const string Route = "/player-editor";
+}
+
+@using EventHorizon.Game.Editor.Client.PlayerEditor.Components
+
+<h1>@Localizer["Player Editor"]</h1>
+
+<p>
+    @Localizer["Use this Editor to set the default setting of a player when they login to the server."]
+</p>
+
+<PlayerEditorComponent />
+
+@code {
+    [Inject]
+    public required Localizer<SharedResource> Localizer { get; set; }
+}

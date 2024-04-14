@@ -22,6 +22,7 @@
       <ProjectReference Include="..\Systems\EventHorizon.Zone.Systems.ArtifactManagement\EventHorizon.Zone.Systems.ArtifactManagement.csproj" />
       <ProjectReference Include="..\Systems\EventHorizon.Zone.Systems.ClientAssets\EventHorizon.Zone.Systems.ClientAssets.csproj" />
       <ProjectReference Include="..\Systems\EventHorizon.Zone.Systems.DataStorage\EventHorizon.Zone.Systems.DataStorage.csproj" />
+      <ProjectReference Include="..\Systems\EventHorizon.Zone.Systems.Player\EventHorizon.Zone.Systems.Player.csproj" />
       <ProjectReference Include="..\Systems\EventHorizon.Zone.Systems.Wizard\EventHorizon.Zone.Systems.Wizard.csproj" />
     </ItemGroup>
 

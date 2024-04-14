@@ -1,0 +1,10 @@
+@inherits PlayerEditorMovementStateComponentBase
+
+<EditForm Model="this" OnSubmit="HandleSave">
+    <FluentStack Orientation="Orientation.Vertical">
+        <div class="form-control">
+            <FluentNumberField @bind-Value="MovementState.Speed" Label="@Localizer["Speed"]" />
+        </div>
+        <FluentButton Type="ButtonType.Submit">Save</FluentButton>
+    </FluentStack>
+</EditForm>

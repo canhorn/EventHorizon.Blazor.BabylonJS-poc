@@ -1,7 +1,8 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+﻿@import url("open-iconic/font/css/open-iconic-bootstrap.min.css");
 
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+html,
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: var(--primary-light);
     background-color: var(--background-dark);
     padding: 0;
@@ -9,15 +10,18 @@ html, body {
     overflow: hidden;
 }
 
-*, ::after, ::before {
+*,
+::after,
+::before {
     box-sizing: border-box;
 }
 
-    *:focus-visible {
-        outline: none;
-    }
+*:focus-visible {
+    outline: none;
+}
 
-a, .btn-link {
+a,
+.btn-link {
     color: var(--primary-light);
 }
 
@@ -27,7 +31,7 @@ a, .btn-link {
     border-color: var(--accent-base);
 }
 
-.valid.modified:not([type=checkbox]) {
+.valid.modified:not([type="checkbox"]) {
     outline: 1px solid #26b050;
 }
 
@@ -43,9 +47,9 @@ a, .btn-link {
     display: none;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+}
 
 hr {
     margin-top: 0.5rem;
@@ -131,17 +135,17 @@ table {
     border-collapse: collapse;
 }
 
-    table.--full {
-        width: 100%;
-    }
+table.--full {
+    width: 100%;
+}
 
 tr {
     background: var(--contrast-light-primary);
 }
 
-    tr:nth-of-type(odd) {
-        background: var(--background-dark);
-    }
+tr:nth-of-type(odd) {
+    background: var(--background-dark);
+}
 
 th {
     background: var(--contrast-light-primary);
@@ -149,7 +153,8 @@ th {
     border-bottom: var(--accent-light) 1px solid;
 }
 
-td, th {
+td,
+th {
     padding: 6px;
     text-align: left;
 }
@@ -159,7 +164,6 @@ td, th {
 
 @media (min-width: 768px) {
 }
-
 
 /* Controls */
 button {
@@ -172,64 +176,62 @@ button {
     border-radius: 0;
 }
 
-    button:hover,
-    button:focus {
-        background-color: var(--contrast-light-disabled);
-        border: 1px solid var(--contrast-dark-secondary);
-    }
+button:hover,
+button:focus {
+    background-color: var(--contrast-light-disabled);
+    border: 1px solid var(--contrast-dark-secondary);
+}
 
-    button.--transparent {
-        background-color: transparent;
-    }
+button.--transparent {
+    background-color: transparent;
+}
 
-    button.--error {
-        background: var(--error-light-secondary);
-        color: inherit;
-        border: 1px solid var(--error-light-disabled);
-    }
+button.--error {
+    background: var(--error-light-secondary);
+    color: inherit;
+    border: 1px solid var(--error-light-disabled);
+}
 
-        button.--error:hover,
-        button.--error:focus {
-            background: var(--error-light-disabled);
-            border: 1px solid var(--error-light-primary);
-        }
+button.--error:hover,
+button.--error:focus {
+    background: var(--error-light-disabled);
+    border: 1px solid var(--error-light-primary);
+}
 
-    button.--no-border,
-    button.--no-border {
-        border: 1px solid transparent;
-    }
+button.--no-border,
+button.--no-border {
+    border: 1px solid transparent;
+}
 
-    button:hover.--no-border,
-    button:focus.--no-border {
-        border: 1px solid var(--contrast-dark-secondary);
-    }
+button:hover.--no-border,
+button:focus.--no-border {
+    border: 1px solid var(--contrast-dark-secondary);
+}
 
-    button.--text {
-        background: none;
-        color: inherit;
-        border: solid 1px transparent;
-        padding: 0;
-        font: inherit;
-        cursor: pointer;
-    }
+button.--text {
+    background: none;
+    color: inherit;
+    border: solid 1px transparent;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}
 
-    button[disabled] {
-        background-color: var(--contrast-light-disabled);
-        border: 1px solid var(--contrast-dark-secondary);
-        color: var(--contrast-dark-secondary);
-        cursor: not-allowed;
-    }
-
+button[disabled] {
+    background-color: var(--contrast-light-disabled);
+    border: 1px solid var(--contrast-dark-secondary);
+    color: var(--contrast-dark-secondary);
+    cursor: not-allowed;
+}
 
 input {
     font: inherit;
     box-sizing: border-box;
 }
 
-    input:not([type=checkbox]) {
-        width: 100%;
-    }
-
+input:not([type="checkbox"]) {
+    width: 100%;
+}
 
 .alpha-banner a {
     color: var(--accent-base);
@@ -242,8 +244,20 @@ input {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0,0,0,0);
+    clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+.--w-100 {
+    width: 100%;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.form-control > * {
+    width: 100%;
 }
 
 /* Scroll Bars */
@@ -270,145 +284,145 @@ input {
     align-items: center;
 }
 
-    .app-loader .row {
-        display: flex;
-    }
+.app-loader .row {
+    display: flex;
+}
 
-    .app-loader .arrow {
-        width: 0;
-        height: 0;
-        margin: 0 -6px;
-        border-left: 12px solid transparent;
-        border-right: 12px solid transparent;
-        border-bottom: 21.6px solid var(--loading-color);
-        -webkit-animation: blink 1s infinite;
-        animation: blink 1s infinite;
-        filter: drop-shadow(0 0 18px var(--loading-filter-color));
-    }
+.app-loader .arrow {
+    width: 0;
+    height: 0;
+    margin: 0 -6px;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 21.6px solid var(--loading-color);
+    -webkit-animation: blink 1s infinite;
+    animation: blink 1s infinite;
+    filter: drop-shadow(0 0 18px var(--loading-filter-color));
+}
 
-        .app-loader .arrow.down {
-            transform: rotate(180deg);
-        }
+.app-loader .arrow.down {
+    transform: rotate(180deg);
+}
 
-        .app-loader .arrow.outer-1 {
-            -webkit-animation-delay: -0.0555555556s;
-            animation-delay: -0.0555555556s;
-        }
+.app-loader .arrow.outer-1 {
+    -webkit-animation-delay: -0.0555555556s;
+    animation-delay: -0.0555555556s;
+}
 
-        .app-loader .arrow.outer-2 {
-            -webkit-animation-delay: -0.1111111111s;
-            animation-delay: -0.1111111111s;
-        }
+.app-loader .arrow.outer-2 {
+    -webkit-animation-delay: -0.1111111111s;
+    animation-delay: -0.1111111111s;
+}
 
-        .app-loader .arrow.outer-3 {
-            -webkit-animation-delay: -0.1666666667s;
-            animation-delay: -0.1666666667s;
-        }
+.app-loader .arrow.outer-3 {
+    -webkit-animation-delay: -0.1666666667s;
+    animation-delay: -0.1666666667s;
+}
 
-        .app-loader .arrow.outer-4 {
-            -webkit-animation-delay: -0.2222222222s;
-            animation-delay: -0.2222222222s;
-        }
+.app-loader .arrow.outer-4 {
+    -webkit-animation-delay: -0.2222222222s;
+    animation-delay: -0.2222222222s;
+}
 
-        .app-loader .arrow.outer-5 {
-            -webkit-animation-delay: -0.2777777778s;
-            animation-delay: -0.2777777778s;
-        }
+.app-loader .arrow.outer-5 {
+    -webkit-animation-delay: -0.2777777778s;
+    animation-delay: -0.2777777778s;
+}
 
-        .app-loader .arrow.outer-6 {
-            -webkit-animation-delay: -0.3333333333s;
-            animation-delay: -0.3333333333s;
-        }
+.app-loader .arrow.outer-6 {
+    -webkit-animation-delay: -0.3333333333s;
+    animation-delay: -0.3333333333s;
+}
 
-        .app-loader .arrow.outer-7 {
-            -webkit-animation-delay: -0.3888888889s;
-            animation-delay: -0.3888888889s;
-        }
+.app-loader .arrow.outer-7 {
+    -webkit-animation-delay: -0.3888888889s;
+    animation-delay: -0.3888888889s;
+}
 
-        .app-loader .arrow.outer-8 {
-            -webkit-animation-delay: -0.4444444444s;
-            animation-delay: -0.4444444444s;
-        }
+.app-loader .arrow.outer-8 {
+    -webkit-animation-delay: -0.4444444444s;
+    animation-delay: -0.4444444444s;
+}
 
-        .app-loader .arrow.outer-9 {
-            -webkit-animation-delay: -0.5s;
-            animation-delay: -0.5s;
-        }
+.app-loader .arrow.outer-9 {
+    -webkit-animation-delay: -0.5s;
+    animation-delay: -0.5s;
+}
 
-        .app-loader .arrow.outer-10 {
-            -webkit-animation-delay: -0.5555555556s;
-            animation-delay: -0.5555555556s;
-        }
+.app-loader .arrow.outer-10 {
+    -webkit-animation-delay: -0.5555555556s;
+    animation-delay: -0.5555555556s;
+}
 
-        .app-loader .arrow.outer-11 {
-            -webkit-animation-delay: -0.6111111111s;
-            animation-delay: -0.6111111111s;
-        }
+.app-loader .arrow.outer-11 {
+    -webkit-animation-delay: -0.6111111111s;
+    animation-delay: -0.6111111111s;
+}
 
-        .app-loader .arrow.outer-12 {
-            -webkit-animation-delay: -0.6666666667s;
-            animation-delay: -0.6666666667s;
-        }
+.app-loader .arrow.outer-12 {
+    -webkit-animation-delay: -0.6666666667s;
+    animation-delay: -0.6666666667s;
+}
 
-        .app-loader .arrow.outer-13 {
-            -webkit-animation-delay: -0.7222222222s;
-            animation-delay: -0.7222222222s;
-        }
+.app-loader .arrow.outer-13 {
+    -webkit-animation-delay: -0.7222222222s;
+    animation-delay: -0.7222222222s;
+}
 
-        .app-loader .arrow.outer-14 {
-            -webkit-animation-delay: -0.7777777778s;
-            animation-delay: -0.7777777778s;
-        }
+.app-loader .arrow.outer-14 {
+    -webkit-animation-delay: -0.7777777778s;
+    animation-delay: -0.7777777778s;
+}
 
-        .app-loader .arrow.outer-15 {
-            -webkit-animation-delay: -0.8333333333s;
-            animation-delay: -0.8333333333s;
-        }
+.app-loader .arrow.outer-15 {
+    -webkit-animation-delay: -0.8333333333s;
+    animation-delay: -0.8333333333s;
+}
 
-        .app-loader .arrow.outer-16 {
-            -webkit-animation-delay: -0.8888888889s;
-            animation-delay: -0.8888888889s;
-        }
+.app-loader .arrow.outer-16 {
+    -webkit-animation-delay: -0.8888888889s;
+    animation-delay: -0.8888888889s;
+}
 
-        .app-loader .arrow.outer-17 {
-            -webkit-animation-delay: -0.9444444444s;
-            animation-delay: -0.9444444444s;
-        }
+.app-loader .arrow.outer-17 {
+    -webkit-animation-delay: -0.9444444444s;
+    animation-delay: -0.9444444444s;
+}
 
-        .app-loader .arrow.outer-18 {
-            -webkit-animation-delay: -1s;
-            animation-delay: -1s;
-        }
+.app-loader .arrow.outer-18 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
 
-        .app-loader .arrow.inner-1 {
-            -webkit-animation-delay: -0.1666666667s;
-            animation-delay: -0.1666666667s;
-        }
+.app-loader .arrow.inner-1 {
+    -webkit-animation-delay: -0.1666666667s;
+    animation-delay: -0.1666666667s;
+}
 
-        .app-loader .arrow.inner-2 {
-            -webkit-animation-delay: -0.3333333333s;
-            animation-delay: -0.3333333333s;
-        }
+.app-loader .arrow.inner-2 {
+    -webkit-animation-delay: -0.3333333333s;
+    animation-delay: -0.3333333333s;
+}
 
-        .app-loader .arrow.inner-3 {
-            -webkit-animation-delay: -0.5s;
-            animation-delay: -0.5s;
-        }
+.app-loader .arrow.inner-3 {
+    -webkit-animation-delay: -0.5s;
+    animation-delay: -0.5s;
+}
 
-        .app-loader .arrow.inner-4 {
-            -webkit-animation-delay: -0.6666666667s;
-            animation-delay: -0.6666666667s;
-        }
+.app-loader .arrow.inner-4 {
+    -webkit-animation-delay: -0.6666666667s;
+    animation-delay: -0.6666666667s;
+}
 
-        .app-loader .arrow.inner-5 {
-            -webkit-animation-delay: -0.8333333333s;
-            animation-delay: -0.8333333333s;
-        }
+.app-loader .arrow.inner-5 {
+    -webkit-animation-delay: -0.8333333333s;
+    animation-delay: -0.8333333333s;
+}
 
-        .app-loader .arrow.inner-6 {
-            -webkit-animation-delay: -1s;
-            animation-delay: -1s;
-        }
+.app-loader .arrow.inner-6 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
 
 @-webkit-keyframes blink {
     0% {

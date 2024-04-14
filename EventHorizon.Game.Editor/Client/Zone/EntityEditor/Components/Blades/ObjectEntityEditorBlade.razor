@@ -1,7 +1,7 @@
 ﻿@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Providers
 @inherits ObjectEntityEditorBladeBase
 
-<ZoneStateProvider>
+@* <ZoneStateProvider> *@
     @if (string.IsNullOrWhiteSpace(EntityId))
     {
         <EntityList />
@@ -17,4 +17,4 @@
             <ObjectEntityEditor />
         </EntityProvider>
     }
-</ZoneStateProvider>
+@* </ZoneStateProvider> *@

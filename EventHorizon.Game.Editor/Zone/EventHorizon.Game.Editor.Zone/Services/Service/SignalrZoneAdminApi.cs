@@ -12,6 +12,7 @@ public sealed class SignalrZoneAdminApi : ZoneAdminApi
     private readonly HubConnection? _hubConnection;
 
     public ZoneAdminAgentApi Agent { get; }
+    public ZoneAdminPlayerApi Player { get; }
     public ZoneAdminArtifactManagementApi ArtifactManagement { get; }
     public ZoneAdminClientAssetsApi ClientAssets { get; }
     public ZoneAdminClientEntityApi ClientEntity { get; }
@@ -25,6 +26,7 @@ public sealed class SignalrZoneAdminApi : ZoneAdminApi
         _hubConnection = hubConnection;
 
         Agent = new SignalrZoneAdminAgentApi(hubConnection);
+        Player = new SignalrZoneAdminPlayerApi(hubConnection);
         ArtifactManagement = new SignalrZoneAdminArtifactManagementApi(
             hubConnection
         );

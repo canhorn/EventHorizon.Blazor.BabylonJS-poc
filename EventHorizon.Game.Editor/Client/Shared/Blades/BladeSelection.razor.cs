@@ -4,16 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Authentication.Api;
 using EventHorizon.Game.Editor.Client.Authentication.Set;
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
 using EventHorizon.Game.Editor.Client.Shared.ClickCapture;
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Components;
 
 public class BladeSelectionModel : ComponentBase
@@ -30,24 +27,23 @@ public class BladeSelectionModel : ComponentBase
     [Inject]
     public Localizer<SharedResource> Localizer { get; set; } = null!;
 
-    private readonly IDictionary<string, string> DEFAULT_BLADES =
-        new Dictionary<string, string>
+    private static readonly Dictionary<string, string> DEFAULT_BLADES =
+        new()
         {
             ["NAV_MENU"] = "Nav",
             ["ENTITY_LIST"] = "Entity List",
+            ["PLAYER_EDITOR"] = "Player Editor",
             ["EDITOR_FILE_EXPLORER"] = "File Explorer",
             ["OBJECT_ENTITY_EDITOR"] = "Entity Editor",
             ["ASSET_FILE_EXPLORER"] = "Asset File Explorer",
         };
 
     protected StandardSelectOption? SelectedBladeOption { get; private set; }
-    protected List<StandardSelectOption> BladeOptions { get; private set; } =
-        new List<StandardSelectOption>();
+    protected List<StandardSelectOption> BladeOptions { get; private set; } = [];
 
     public string CurrentBlade { get; set; } = string.Empty;
     public bool CollapseContent { get; private set; } = true;
-    public string ContentCssClass =>
-        CollapseContent ? string.Empty : "--expanded";
+    public string ContentCssClass => CollapseContent ? string.Empty : "--expanded";
 
     public bool IsSettingsOpen { get; private set; }
 
@@ -56,14 +52,11 @@ public class BladeSelectionModel : ComponentBase
         // TODO: Pull this from a Command
         // When the dynamic component is available in .NET6 this will be easier to do
         BladeOptions = DEFAULT_BLADES
-            .Select(
-                blade =>
-                    new StandardSelectOption
-                    {
-                        Value = blade.Key,
-                        Text = Localizer[blade.Value],
-                    }
-            )
+            .Select(blade => new StandardSelectOption
+            {
+                Value = blade.Key,
+                Text = Localizer[blade.Value],
+            })
             .OrderBy(option => option.Text)
             .InsertItem(
                 0,
@@ -72,7 +65,7 @@ public class BladeSelectionModel : ComponentBase
                     Value = string.Empty,
                     Text = Localizer["Select a Blade..."],
                     Hidden = true,
-                    Disabled = true,
+                    // Disabled = true,
                 }
             )
             .ToList();
@@ -99,14 +92,18 @@ public class BladeSelectionModel : ComponentBase
 
     protected async Task HandleBladeValueChanged(StandardSelectOption option)
     {
+        if (option.Value == CurrentBlade)
+        {
+            return;
+        }
+
         CurrentBlade = option.Value;
         SetSelectedOption(CurrentBlade);
         if (string.IsNullOrWhiteSpace(Id).IsNotTrue())
         {
-            await Mediator.Send(
-                new SetSessionValueCommand($"currentBlade__{Id}", CurrentBlade)
-            );
+            await Mediator.Send(new SetSessionValueCommand($"currentBlade__{Id}", CurrentBlade));
         }
+        IsSettingsOpen = false;
     }
 
     protected void ToggleNavMenu()
@@ -128,18 +125,13 @@ public class BladeSelectionModel : ComponentBase
     {
         if (string.IsNullOrWhiteSpace(Id).IsNotTrue())
         {
-            CurrentBlade = SessionValues.Get(
-                $"currentBlade__{Id}",
-                CurrentBlade
-            );
+            CurrentBlade = SessionValues.Get($"currentBlade__{Id}", CurrentBlade);
             SetSelectedOption(CurrentBlade);
         }
     }
 
     private void SetSelectedOption(string bladeOptionValue)
     {
-        SelectedBladeOption = BladeOptions
-            .Where(a => a.Value == bladeOptionValue)
-            .FirstOrDefault();
+        SelectedBladeOption = BladeOptions.Where(a => a.Value == bladeOptionValue).FirstOrDefault();
     }
 }

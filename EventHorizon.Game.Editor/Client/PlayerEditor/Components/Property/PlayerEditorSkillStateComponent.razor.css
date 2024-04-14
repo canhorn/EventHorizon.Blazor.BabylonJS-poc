@@ -1,0 +1,24 @@
+.skill-state__editor-container {
+    height: 100%;
+    display: grid;
+    grid-template-areas: "editor" "toolbar";
+    grid-template-rows: auto minmax(min-content, max-content);
+    overflow: hidden;
+}
+
+.skill-state__editor-container ::deep .skill-state__editor {
+    grid-area: editor;
+    height: 100%;
+}
+
+.skill-state__editor-container .skill-state__editor-toolbar {
+    grid-area: toolbar;
+}
+
+/* var(--screen-min-width) */
+@media only screen and (min-width: 640px) {
+    .skill-state__editor-container {
+        grid-template-areas: "toolbar" "editor";
+        grid-template-rows: minmax(min-content, max-content) auto;
+    }
+}

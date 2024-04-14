@@ -1,0 +1,82 @@
+@inherits PlayerEditorComponentBase
+@using EventHorizon.Game.Client.Systems.Combat.Model;
+@using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
+@using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Api;
+@using EventHorizon.Game.Editor.Client.PlayerEditor.Components.Property
+
+<ContainerComponent State="State" Error="@ErrorMessage">
+    <div class="player-editor__container">
+        @if (AvailableDataTypes.Count > 0)
+        {
+            <label>@Localizer["Force Set Types"]</label>
+            <p>@Localizer["Enabling the below Types will make it so a player will have these settings on Sign in."]</p>
+            <select @onchange="HandleDataTypeChanged">
+                <option value="" selected>@Localizer["Select a data type"]</option>
+                @foreach (var dataType in AvailableDataTypes)
+                {
+                    <option value="@dataType.PropertyName">@dataType.Label</option>
+                }
+            </select>
+        }
+
+        <FluentAccordion ExpandMode="AccordionExpandMode.Single">
+            @foreach (var property in CustomizableProperties)
+            {
+                @switch (property.Key)
+                {
+                    case IModelState.NAME:
+                        <FluentAccordionItem>
+                            <HeadingTemplate>
+                                <PlayerEditorHeadingComponent PropertyKey="@property.Key"
+                                    Title="@Localizer["Remove Model State from Player Configuration."]"
+                                    Label="@Localizer["Model State"]" Description="@Localizer["The Model State of the Player"]"
+                                    ConfirmTitle="@Localizer["Confirm Delete Model State"]"
+                                    ConfirmDescription="@Localizer["Are you sure you want to remove the Model State from the Player Configuration?"]"
+                                    ConfirmButtonText="@Localizer["Delete Model State"]" OnDeleteProperty="HandleDeleteProperty" />
+                            </HeadingTemplate>
+                            <ChildContent>
+                                <PlayerEditorModelStateComponent Data="property.Value" OnDataChange="HandlePropertyChange" />
+                            </ChildContent>
+                        </FluentAccordionItem>
+                        break;
+                    case IMovementState.NAME:
+                        <FluentAccordionItem>
+                            <HeadingTemplate>
+                                <PlayerEditorHeadingComponent PropertyKey="@property.Key"
+                                    Title="@Localizer["Remove Movement State from Player Configuration."]"
+                                    Label="@Localizer["Movement State"]"
+                                    Description="@Localizer["The Movement State of the Player"]"
+                                    ConfirmTitle="@Localizer["Confirm Delete Movement State"]"
+                                    ConfirmDescription="@Localizer["Are you sure you want to remove the Movement State from the Player Configuration?"]"
+                                    ConfirmButtonText="@Localizer["Delete Movement State"]"
+                                    OnDeleteProperty="HandleDeleteProperty" />
+                            </HeadingTemplate>
+                            <ChildContent>
+                                <PlayerEditorMovementStateComponent Data="property.Value" OnDataChange="HandlePropertyChange" />
+                            </ChildContent>
+                        </FluentAccordionItem>
+                        break;
+                    case ISkillState.NAME:
+                        <FluentAccordionItem>
+                            <HeadingTemplate>
+                                <PlayerEditorHeadingComponent PropertyKey="@property.Key"
+                                    Title="@Localizer["Remove Skill State from Player Configuration."]"
+                                    Label="@Localizer["Skill State"]" Description="@Localizer["The Skill State of the Player"]"
+                                    ConfirmTitle="@Localizer["Confirm Delete Skill State"]"
+                                    ConfirmDescription="@Localizer["Are you sure you want to remove the Skill State from the Player Configuration?"]"
+                                    ConfirmButtonText="@Localizer["Delete Skill State"]" OnDeleteProperty="HandleDeleteProperty" />
+                            </HeadingTemplate>
+                            <ChildContent>
+                                <PlayerEditorSkillStateComponent Data="property.Value" OnDataChange="HandlePropertyChange" />
+                            </ChildContent>
+                        </FluentAccordionItem>
+                        break;
+                }
+            }
+        </FluentAccordion>
+    </div>
+
+    <DumpToJson Data="@CustomizableProperties" />
+    <DumpToJson Data="@PlayerData" />
+
+</ContainerComponent>

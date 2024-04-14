@@ -4,11 +4,8 @@
 <div class="complex-property-control">
     @if (ShowRemove)
     {
-        <label class="--font-bold --cursor-pointer"
-               title="@Localizer["Remove"]">
-            <button class="c-button --text"
-                    type="button"
-                    @onclick="HandleRemove">
+        <label class="--font-bold --cursor-pointer" title="@Localizer["Remove"]">
+            <button class="c-button --text" type="button" @onclick="HandleRemove">
                 &#10060
             </button>
             @LabelText
@@ -21,8 +18,7 @@
         </label>
     }
     <div>
-        <button @onclick="HandleOpenEditor"
-                type="button">
+        <button @onclick="HandleOpenEditor" type="button">
             @Localizer["Open Editor"]
         </button>
         <details>
@@ -35,13 +31,11 @@
         </details>
     </div>
     <StandardModal IsOpen="IsEditorOpen" HideClose="true">
+
         <Body>
             <div class="property__editor-container">
-
-                <StandaloneCodeEditor @ref="MonacoEditor"
-                              Id="@PropertyEditorId"
-                              CssClass="property__editor"
-                              ConstructionOptions="BuildConstructionOptions" />
+                <StandaloneCodeEditor @ref="MonacoEditor" Id="@PropertyEditorId" CssClass="property__editor"
+                    ConstructionOptions="BuildConstructionOptions" />
                 <StandardToolbar class="property__editor-toolbar">
                     <StandardToolbarButton @onclick="HandleSave">
                         @Localizer["Save"]

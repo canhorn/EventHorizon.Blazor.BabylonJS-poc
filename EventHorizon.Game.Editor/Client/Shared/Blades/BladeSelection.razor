@@ -1,5 +1,6 @@
 ﻿@using EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Blades
 @using EventHorizon.Game.Editor.Client.AssetManagement.Components.Blades
+@using EventHorizon.Game.Editor.Client.PlayerEditor.Components.Blades
 
 @inherits BladeSelectionModel
 
@@ -63,6 +64,9 @@
         {
             case "ENTITY_LIST":
                 <EntityListBlade />
+                break;
+            case "PLAYER_EDITOR":
+                <PlayerEditorBlade />
                 break;
             case "EDITOR_FILE_EXPLORER":
                 <EditorFileExplorerBlade />
