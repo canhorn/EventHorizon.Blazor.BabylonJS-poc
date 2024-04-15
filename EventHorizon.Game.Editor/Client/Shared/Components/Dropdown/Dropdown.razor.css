@@ -1,0 +1,5 @@
+.badge__container {
+    display: flex;
+    gap: var(--main-padding);
+    flex-wrap: wrap;
+}

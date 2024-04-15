@@ -260,6 +260,16 @@ input:not([type="checkbox"]) {
     width: 100%;
 }
 
+.form-control > .--compact {
+    width: auto;
+}
+
+.form-control .label__description {
+    font-size: 0.8rem;
+    color: var(--contrast-dark-secondary);
+    padding-bottom: var(--secondary-padding);
+}
+
 /* Scroll Bars */
 *::-webkit-scrollbar {
     width: 5px;

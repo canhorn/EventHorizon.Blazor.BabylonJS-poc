@@ -6,17 +6,46 @@
 
 <ContainerComponent State="State" Error="@ErrorMessage">
     <div class="player-editor__container">
-        @if (AvailableDataTypes.Count > 0)
-        {
-            <label>@Localizer["Force Set Types"]</label>
-            <p>@Localizer["Enabling the below Types will make it so a player will have these settings on Sign in."]</p>
-            <select @onchange="HandleDataTypeChanged">
-                <option value="" selected>@Localizer["Select a data type"]</option>
-                @foreach (var dataType in AvailableDataTypes)
+        <FluentStack Class="player-editor__data-section" Orientation="Orientation.Vertical">
+            <FluentButton Class="--compact"
+             IconEnd="new Icons.Regular.Size16.ClipboardCheckmark()" OnClick="HandleSave"
+                Disabled="!PendingSave">
+                @if (PendingSave)
                 {
-                    <option value="@dataType.PropertyName">@dataType.Label</option>
+                    @Localizer["Save"]
                 }
-            </select>
+                else
+                {
+                    @Localizer["No Pending Save"]
+                }
+            </FluentButton>
+        </FluentStack>
+
+        <div class="player-editor__container form-control" style="max-width: 300px">
+            <label class="label">@Localizer["Force Set States"]</label>
+            <div class="label__description">
+                @Localizer["The selected types will always be set when a player logs onto the server."]
+            </div>
+            <Dropdown 
+                TOption="PropertyType"
+                Label="@Localizer["Force Set States"]"
+                DeleteOptionTitle="@Localizer["Remove State"]"
+                DropdownHeader="@Localizer["Select any states"]"
+                OptionText="@(option => option.Label)"
+                Options="@PlayerDataForceSet" SelectedOptions="@SelectedForceSetStates" SelectedOptionsChanged="HandleSelectedForceSetStatesChanged" />
+        </div>
+        @if (AvailableDataOptions.Count > 1)
+        {
+            <FluentStack Class="player-editor__data-section" Orientation="Orientation.Vertical">
+                <div class="form-control">
+                    <label class="label">@Localizer["Available State(s)"]</label>
+                    <div class="label__description">
+                        @Localizer["The available states that can be set on the player configuration. States can be used to set default settings."]
+                    </div>
+                    <StandardSelect Options="AvailableDataOptions" ValueChanged="HandleDataOptionChanged"
+                        Value="SelectedDataOption" />
+                </div>
+            </FluentStack>
         }
 
         <FluentAccordion ExpandMode="AccordionExpandMode.Single">
@@ -75,8 +104,5 @@
             }
         </FluentAccordion>
     </div>
-
-    <DumpToJson Data="@CustomizableProperties" />
-    <DumpToJson Data="@PlayerData" />
 
 </ContainerComponent>

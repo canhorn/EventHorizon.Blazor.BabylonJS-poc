@@ -47,11 +47,11 @@
 
 @code {
     [Inject]
-    public IJSRuntime JSRuntime { get; set; } = null!;
+    public required IJSRuntime JSRuntime { get; set; }
     [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
+    public required Localizer<SharedResource> Localizer { get; set; }
     [Inject]
-    public LoggingHostedService LoggingHostedService { get; set; } = null!;
+    public required LoggingHostedService LoggingHostedService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

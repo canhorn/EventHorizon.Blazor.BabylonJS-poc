@@ -10,7 +10,8 @@
     <div class="player-editor__heading__label">@Label</div>
     <div class="player-editor__heading__description">@Description</div>
 
-    <FluentPopover @bind-Open="_showDelete" AnchorId="@($"player-editor-{_componentId}-delete-button")">
+    <FluentPopover @bind-Open="_showDelete" AnchorId="@($"player-editor-{_componentId}-delete-button")"
+        HorizontalPosition="HorizontalPosition.Right">
         <Header>@ConfirmTitle</Header>
 
         <Body>

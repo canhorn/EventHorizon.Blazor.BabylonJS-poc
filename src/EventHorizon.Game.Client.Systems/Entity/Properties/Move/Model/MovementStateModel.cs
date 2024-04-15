@@ -5,5 +5,5 @@ using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Api;
 
 public class MovementStateModel : IMovementState
 {
-    public decimal Speed { get; set; }
+    public decimal Speed { get; set; } = 1.0m;
 }

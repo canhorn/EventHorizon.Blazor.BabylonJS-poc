@@ -31,7 +31,6 @@ public class PlayerEditorModelStateComponentBase : EditorComponentBase
         base.OnParametersSet();
 
         var movementState = Data.To<ModelStateModel>();
-        Console.WriteLine("Scaling Determinant: " + movementState?.ScalingDeterminant);
         if (Data == _editingData)
         {
             return;
@@ -57,7 +56,7 @@ public class PlayerEditorModelStateComponentBase : EditorComponentBase
 
     public record EditableModelState() : IModelState
     {
-        public decimal? ScalingDeterminant { get; set; }
+        public decimal? ScalingDeterminant { get; set; } = 1.0m;
         public EditableModelMesh Mesh { get; set; } = new EditableModelMesh();
         IModelMesh IModelState.Mesh => Mesh;
 

@@ -1,3 +1,7 @@
 .player-editor__container {
-    padding-top: 1rem;
+    padding: var(--large-padding) 0;
+}
+
+::deep .player-editor__data-section {
+    padding: var(--main-padding) 0;
 }

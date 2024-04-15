@@ -5,11 +5,8 @@
 <div>
     @if (ShowRemove)
     {
-        <label class="--cursor-pointer"
-               title="@Localizer["Remove"]">
-            <button class="c-button --text"
-                    type="button"
-                    @onclick="HandleRemove">
+        <label class="--cursor-pointer" title="@Localizer["Remove"]">
+            <button class="c-button --text" type="button" @onclick="HandleRemove">
                 &#10060
             </button>
             @LabelText
@@ -22,9 +19,7 @@
         </label>
     }
 
-    <StandardSelect Options="AssetOptions"
-                    ValueChanged="HandleAssetValueChanged"
-                    Value="SelectedAssetOption"></StandardSelect>
+    <StandardSelect Options="AssetOptions" ValueChanged="HandleAssetValueChanged" Value="SelectedAssetOption" />
 </div>
 
 
@@ -50,29 +45,29 @@
     protected override void OnInitialized()
     {
         var options = ZoneInfo.ClientAssetList
-            .Select(
-                clientAsset => new StandardSelectOption
-                {
-                    Value = clientAsset.Id,
-                    Text = Localizer[
-                        "{0} ({1}) ({2})",
-                        clientAsset.Name,
-                        clientAsset.Type,
-                        clientAsset.Id
-                    ]
-                }
-            ).OrderBy(
-                a => a.Text
-            ).InsertItem(
-                0,
-                new StandardSelectOption
-                {
-                    Value = "none",
-                    Text = Localizer["Select an Asset..."],
-                    Disabled = true,
-                    Hidden = true,
-                }
-            ).ToList();
+        .Select(
+        clientAsset => new StandardSelectOption
+            {
+                Value = clientAsset.Id,
+                Text = Localizer[
+            "{0} ({1}) ({2})",
+            clientAsset.Name,
+            clientAsset.Type,
+            clientAsset.Id
+            ]
+            }
+        ).OrderBy(
+        a => a.Text
+        ).InsertItem(
+        0,
+        new StandardSelectOption
+            {
+                Value = "none",
+                Text = Localizer["Select an Asset..."],
+                Disabled = true,
+                Hidden = true,
+            }
+        ).ToList();
         AssetId = Property.ToString() ?? string.Empty;
         AssetOptions = options;
         this.SetSelectedAssetOption();
@@ -83,7 +78,7 @@
         if (AssetOptions.Exists(a => a.Value == AssetId))
         {
             SelectedAssetOption = AssetOptions.First(
-                a => a.Value == AssetId
+            a => a.Value == AssetId
             );
         }
         else
@@ -93,7 +88,7 @@
     }
 
     public async Task HandleAssetValueChanged(
-        StandardSelectOption option
+    StandardSelectOption option
     )
     {
         option.NullCheck(nameof(option));
@@ -103,7 +98,7 @@
         var AssetId = option.Value;
 
         await HandleChange(
-            new ChangeEventArgs
+        new ChangeEventArgs
             {
                 Value = AssetId
             }

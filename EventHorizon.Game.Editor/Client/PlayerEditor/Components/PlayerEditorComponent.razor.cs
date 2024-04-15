@@ -1,22 +1,21 @@
 namespace EventHorizon.Game.Editor.Client.PlayerEditor.Components;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using EventHorizon.Game.Client.Systems.Combat.Model;
 using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
 using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Model;
 using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Api;
 using EventHorizon.Game.Client.Systems.Entity.Properties.Move.Model;
-using EventHorizon.Game.Client.Systems.Player.Modules.SkillSelection.Api;
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
+using EventHorizon.Game.Editor.Client.Shared.Components.Select;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Change;
 using EventHorizon.Zone.Systems.Player.Model;
@@ -36,6 +35,11 @@ public class PlayerEditorComponentBase
         ),
         new(ISkillState.NAME, (Localizer<SharedResource> localizer) => localizer["Skill State"]),
         new(IModelState.NAME, (Localizer<SharedResource> localizer) => localizer["Model State"]),
+        // new("forceSet", (Localizer<SharedResource> localizer) => localizer["Force Set"]),
+        // new("forceSet1", (Localizer<SharedResource> localizer) => localizer["Force Set 1"]),
+        // new("forceSet2", (Localizer<SharedResource> localizer) => localizer["Force Set 2"]),
+        // new("forceSet3", (Localizer<SharedResource> localizer) => localizer["Force Set 3"]),
+        // new("forceSet4", (Localizer<SharedResource> localizer) => localizer["Force Set 4"]),
     ];
 
     [CascadingParameter]
@@ -43,10 +47,16 @@ public class PlayerEditorComponentBase
 
     protected ComponentState State { get; set; } = ComponentState.Loading;
     protected string ErrorMessage { get; set; } = string.Empty;
+    protected bool PendingSave { get; set; }
+
     protected PlayerObjectEntityDataModel PlayerData { get; set; } = [];
+    protected IEnumerable<PropertyType> PlayerDataForceSet { get; set; } = [];
+    protected IEnumerable<PropertyType> SelectedForceSetStates { get; set; } = [];
     protected Dictionary<string, object> CustomizableProperties { get; set; } = [];
 
     protected List<PropertyType> AvailableDataTypes { get; private set; } = [];
+    protected List<StandardSelectOption> AvailableDataOptions { get; private set; } = [];
+    protected StandardSelectOption SelectedDataOption { get; private set; } = new();
 
     public record PropertyType(string PropertyName, string Label);
 
@@ -65,53 +75,90 @@ public class PlayerEditorComponentBase
 
     public async Task Handle(ActiveZoneStateChangedEvent args)
     {
+        PendingSave = false;
         await LoadPlayerData();
         Setup();
     }
 
-    protected async Task HandlePropertyChange(PropertyChangeArgs args)
+    protected void HandlePropertyChange(PropertyChangeArgs args)
     {
-        Console.WriteLine(args);
-        CustomizableProperties[args.PropertyName] = args.Value;
         PlayerData[args.PropertyName] = args.Value;
+        CustomizableProperties[args.PropertyName] = args.Value;
 
-        await SavePlayerData();
+        PendingSave = true;
     }
 
-    private async Task SavePlayerData()
+    protected async Task HandleSave()
+    {
+        var success = await SavePlayerData();
+        if (success)
+        {
+            PendingSave = false;
+            await LoadPlayerData();
+            Setup();
+        }
+    }
+
+    private async Task<bool> SavePlayerData()
     {
         var saveResult = await Sender.Send(new SaveZonePlayerDataCommand(PlayerData));
-        if (!saveResult)
+        if (saveResult)
         {
-            var errorMessage = Localizer[
-                "Failed to save Player Data: {0}",
-                saveResult.ErrorCode ?? "Unknown Error"
-            ];
-            await ShowMessage(
-                Localizer["Failed to Save Player Data"],
-                errorMessage,
-                MessageLevel.Error
-            );
-            return;
+            return true;
         }
+
+        var errorMessage = Localizer[
+            "Failed to save Player Data: {0}",
+            saveResult.ErrorCode ?? "Unknown Error"
+        ];
+        await ShowMessage(
+            Localizer["Failed to Save Player Data"],
+            errorMessage,
+            MessageLevel.Error
+        );
+        return false;
     }
 
-    private void Setup(bool force = false)
+    protected void HandleDataOptionChanged(StandardSelectOption option)
     {
-        if (!force && State != ComponentState.Content)
+        var propertyName = option.Value;
+        if (string.IsNullOrEmpty(propertyName))
         {
+            Setup();
             return;
         }
 
-        AvailableDataTypes = DefaultDataTypes
-            .Where(type => !PlayerData.ContainsKey(type.PropertyName))
-            .Select(a => new PropertyType(a.PropertyName, a.GetLabel(Localizer)))
-            .ToList();
+        switch (propertyName)
+        {
+            case IMovementState.NAME:
+                PlayerData[IMovementState.NAME] = new MovementStateModel();
+                break;
+            case ISkillState.NAME:
+                PlayerData[ISkillState.NAME] = new SkillStateModel();
+                break;
+            case IModelState.NAME:
+                PlayerData[IModelState.NAME] = new ModelStateModel();
+                break;
+        }
 
-        CustomizableProperties = DefaultDataTypes
-            .Where(property => PlayerData.ContainsKey(property.PropertyName))
-            .OrderBy(property => property.PropertyName)
-            .ToDictionary(property => property.PropertyName, a => PlayerData[a.PropertyName]);
+        PendingSave = true;
+        Setup();
+    }
+
+    protected void HandleDeleteProperty(string propertyName)
+    {
+        PlayerData.Remove(propertyName);
+        PendingSave = true;
+        Setup();
+    }
+
+    protected void HandleSelectedForceSetStatesChanged(IEnumerable<PropertyType> options)
+    {
+        Console.WriteLine(options.Dump());
+        PlayerData["forceSet"] = options.Select(a => a.PropertyName).ToList();
+        SelectedForceSetStates = options.OrderBy(a => a.Label);
+        PendingSave = true;
+        Setup();
     }
 
     private async Task LoadPlayerData()
@@ -129,34 +176,49 @@ public class PlayerEditorComponentBase
         State = ComponentState.Content;
     }
 
-    protected void HandleDataTypeChanged(ChangeEventArgs args)
+    private void Setup()
     {
-        Console.WriteLine(args.Value);
-        if (args.Value is not string propertyName)
-        {
-            return;
-        }
-        switch (propertyName)
-        {
-            case IMovementState.NAME:
-                PlayerData[IMovementState.NAME] = new MovementStateModel();
-                break;
-            case ISkillState.NAME:
-                PlayerData[ISkillState.NAME] = new SkillStateModel();
-                break;
-            case IModelState.NAME:
-                PlayerData[IModelState.NAME] = new ModelStateModel();
-                break;
-        }
+        AvailableDataTypes = DefaultDataTypes
+            .Where(type => !PlayerData.ContainsKey(type.PropertyName))
+            .Select(a => new PropertyType(a.PropertyName, a.GetLabel(Localizer)))
+            .ToList();
 
-        Setup(force: true);
-    }
+        CustomizableProperties = DefaultDataTypes
+            .Where(property => PlayerData.ContainsKey(property.PropertyName))
+            .OrderBy(property => property.PropertyName)
+            .ToDictionary(property => property.PropertyName, a => PlayerData[a.PropertyName]);
 
-    protected void HandleDeleteProperty(string propertyName)
-    {
-        Console.WriteLine(propertyName);
-        PlayerData.Remove(propertyName);
-        Setup(force: true);
+        AvailableDataOptions = AvailableDataTypes
+            .Select(type => new StandardSelectOption
+            {
+                Value = type.PropertyName,
+                Text = type.Label,
+            })
+            .OrderBy(option => option.Text)
+            .InsertItem(
+                0,
+                new StandardSelectOption
+                {
+                    Value = string.Empty,
+                    Text = Localizer["Add Player State..."],
+                }
+            )
+            .ToList();
+        SelectedDataOption = AvailableDataOptions.First();
+
+        PlayerDataForceSet = DefaultDataTypes
+            .Select(type => new PropertyType(type.PropertyName, type.GetLabel(Localizer)))
+            .OrderBy(a => a.Label)
+            .ToList();
+        SelectedForceSetStates = PlayerData
+            .Where(property => property.Key.StartsWith("forceSet"))
+            .Select(property => property.Value.To<List<string>>() ?? [])
+            .SelectMany(list => list)
+            .Select(propertyName =>
+                PlayerDataForceSet.FirstOrDefault(a => a.PropertyName == propertyName)
+                ?? new PropertyType(propertyName, Localizer["Unknown Property({0})", propertyName])
+            )
+            .ToList();
     }
 }
 

@@ -14,8 +14,8 @@
                 <StandaloneCodeEditor @ref="MonacoEditor" Id="@PropertyEditorId" CssClass="skill-state__editor"
                     ConstructionOptions="BuildConstructionOptions" />
                 <StandardToolbar class="skill-state__editor-toolbar">
-                    <StandardToolbarButton @onclick="HandleSave">
-                        @Localizer["Save"]
+                    <StandardToolbarButton @onclick="HandleUpdate">
+                        @Localizer["Update"]
                     </StandardToolbarButton>
                     <StandardToolbarButton @onclick="() => IsEditorOpen = false">
                         @Localizer["Cancel"]

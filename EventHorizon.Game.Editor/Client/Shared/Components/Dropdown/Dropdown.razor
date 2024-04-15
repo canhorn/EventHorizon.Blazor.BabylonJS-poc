@@ -1,100 +1,28 @@
-﻿@using EventHorizon.Game.Editor.Client.Shared.ClickCapture
-@implements IDisposable
+@inherits DropdownBase<TOption>
+@typeparam TOption
 
-<div class="dropdown" @onclick:stopPropagation @onclick:preventDefault>
-    <button type="button"
-            @onclick="HandleToggle">
-        @Display
-    </button>
-    <div class="dropdown-content @ContentCss"
-         type="button">
-        @Content
-    </div>
-</div>
+<FluentStack VerticalGap="4" Orientation="Orientation.Vertical">
+    <FluentButton id="@($"component-{_componentId}-button")" @onclick="HandleDropdownShow"
+        IconEnd="new Icons.Regular.Size16.ChevronDoubleDown()">
+        @Label
+    </FluentButton>
 
-@code {
-    [CascadingParameter]
-    public ClickCaptureProviderModel ClickProvider { get; set; } = null!;
-
-    [Parameter]
-    public RenderFragment Display { get; set; } = null!;
-    [Parameter]
-    public RenderFragment Content { get; set; } = null!;
-
-
-    private bool isOpen;
-
-    private string ContentCss => isOpen ? "--display" : string.Empty;
-
-    protected override Task OnInitializedAsync()
-    {
-        ClickProvider.OnMouseClick(HandleCloseMenu);
-        ClickProvider.OnContextMenu(HandleCloseMenu);
-        return base.OnInitializedAsync();
-    }
-
-    public void Dispose()
-    {
-        ClickProvider.OffMouseClick(HandleCloseMenu);
-        ClickProvider.OffContextMenu(HandleCloseMenu);
-    }
-
-    private void HandleToggle()
-    {
-        isOpen = !isOpen;
-    }
-
-    private void HandleCloseMenu()
-    {
-        isOpen = false;
-    }
-}
-
-
-<style>
-    .dropbtn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 9999;
-    }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
+    <div class="badge__container">
+        @foreach (var option in SelectedOptions)
+        {
+            <FluentBadge title="@DeleteOptionTitle" OnClick="() => HandleRemoveOption(option)">@OptionText(option)
+            </FluentBadge>
         }
+    </div>
 
-            .dropdown-content a:hover {
-                background-color: #f1f1f1
-            }
-
-    @*.dropdown:hover .dropdown-content {
-        display: block;
-    }*@
-
-    .dropdown .dropdown-content.--display {
-        display: block;
-    }
-
-    .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
-    }
-</style>
+    <FluentMenu Anchor="@($"component-{_componentId}-button")" Style="max-height: 200px; overflow-y: auto;"
+        @bind-Open="_showForceSet" HorizontalPosition="HorizontalPosition.Right">
+        @foreach (var option in Options)
+        {
+            <FluentMenuItem Checked="@(SelectedOptions.Contains(option))" Role="MenuItemRole.MenuItemCheckbox"
+                OnClick="(e) => HandleMenuItemClicked(option)">
+                @OptionText(option)
+            </FluentMenuItem>
+        }
+    </FluentMenu>
+</FluentStack>

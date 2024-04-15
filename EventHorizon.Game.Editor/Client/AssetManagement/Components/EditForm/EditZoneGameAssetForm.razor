@@ -18,12 +18,12 @@
     <div class="game-asset-form__content">
         <ContainerStatesComponent State="MessageState">
             <LoadingFragment>
-                <div class="form-item">
+                <div class="form-control">
                     @Localizer["Loading..."]
                 </div>
             </LoadingFragment>
             <ErrorFragment>
-                <div class="form-item">
+                <div class="form-control">
                     <span class="--error" role="alert">
                         @Message
                     </span>
@@ -31,38 +31,38 @@
             </ErrorFragment>
         </ContainerStatesComponent>
 
-        <div class="form-item">
+        <div class="form-control">
             <h2 class="form__details-header">
                 @Localizer["Asset Details"]
             </h2>
             <hr />
         </div>
 
-        <div class="form-item">
+        <div class="form-control">
             <label for="create-game-asset__name" class="--font-bold">
                 @Localizer["Asset Name"]
             </label>
-            <InputText id="create-game-asset__name" @bind-Value="@AssetName" placeholder="@Localizer["Asset Name"]" />
+            <FluentTextField id="create-game-asset__name" @bind-Value="@AssetName"
+                Placeholder="@Localizer["Asset Name"]" />
         </div>
 
-        <div class="form-item">
+        <div class="form-control">
             <label for="create-game-asset__type" class="--font-bold">
                 @Localizer["Asset Type"]
             </label>
-            <StandardSelect Options="AssetTypeOptions" Value="@AssetTypeOption" ValueChanged="HandleAssetTypeChanged">
-            </StandardSelect>
+            <StandardSelect Options="AssetTypeOptions" Value="@AssetTypeOption" ValueChanged="HandleAssetTypeChanged" />
         </div>
 
         <ContainerStatesComponent State="TypeDataState">
             <ContentFragment>
-                <div class="form-item">
+                <div class="form-control">
                     <h2 class="form__config-data-header">
                         @Localizer["Asset Configuration"]
                     </h2>
                     <hr />
                 </div>
 
-                <div class="form-item">
+                <div class="form-control">
                     <PropertiesDisplay Data="TypeData" PropertiesMetadata="TypePropertiesMetadata"
                         OnChanged="HandleTypeDataChanged" />
                 </div>

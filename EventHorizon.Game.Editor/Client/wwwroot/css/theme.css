@@ -1,4 +1,7 @@
 ﻿:root {
+    --main-padding: calc(var(--design-unit) * 1px);
+    --large-padding: calc(var(--design-unit) * 2 * 1px);
+    --secondary-padding: calc(var(--design-unit) / 2px * 1px);
     --header-color: blue;
     --main-background: lightblue;
     --footer-background-accent: white;
@@ -12,7 +15,7 @@
     --loading-color: purple;
     --loading-filter-color: rebeccapurple;
     --brand-color: rebeccapurple;
-    --brand-faded-color: #800080DD;
+    --brand-faded-color: #800080dd;
     /* Sizes */
     --sidebar-width: 300px;
     --top-row-height: 3.5rem;
@@ -45,7 +48,7 @@
     --contrast-dark-secondary: rgba(255, 255, 255, 0.7);
     --contrast-dark-disabled: rgba(255, 255, 255, 0.5);
     --contrast-dark-hint: rgba(255, 255, 255, 0.12);
-    --brand-contrast-dark-primary: rgb(128,0,128);
+    --brand-contrast-dark-primary: rgb(128, 0, 128);
     --brand-contrast-dark-hint: rgba(128, 0, 128, 0.12);
     /* Contrast - Light */
     --contrast-light-primary: rgba(0, 0, 0, 0.87);
@@ -71,10 +74,14 @@
     --alpha-banner-shadow2-color: rgba(255, 255, 255, 0.5);
     /* Top Bar */
     --top-bar-height: 3.5rem;
+    /* FluentUI Overrides */
+    --accent-fill-rest: rebeccapurple !important;
+    --control-corner-radius: 0 !important;
+    --layer-corner-radius: 0 !important;
 }
 
-    :root .--dark-theme {
-        --alpha-banner-background-color: lightgray;
-        --alpha-banner-shadow-color: rgb(68, 72, 75);
-        --alpha-banner-shadow2-color: rgba(36, 36, 36, 0.726);
-    }
+:root .--dark-theme {
+    --alpha-banner-background-color: lightgray;
+    --alpha-banner-shadow-color: rgb(68, 72, 75);
+    --alpha-banner-shadow2-color: rgba(36, 36, 36, 0.726);
+}

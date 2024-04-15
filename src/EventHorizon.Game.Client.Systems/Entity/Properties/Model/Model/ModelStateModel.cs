@@ -5,7 +5,7 @@ using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
 
 public class ModelStateModel : IModelState
 {
-    public decimal? ScalingDeterminant { get; set; }
+    public decimal? ScalingDeterminant { get; set; } = 1.0m;
 
     public StandardModelMesh Mesh { get; set; } = new StandardModelMesh();
     IModelMesh IModelState.Mesh => Mesh;

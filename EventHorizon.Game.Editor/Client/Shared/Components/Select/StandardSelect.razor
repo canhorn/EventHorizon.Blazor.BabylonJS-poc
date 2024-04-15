@@ -10,9 +10,9 @@ hidden="@option.Hidden">
 }
 </select> *@
 
-<FluentSelect Items="@Options" TOption="StandardSelectOption" OptionText="@(i => i.Text)" OptionValue="@(i => i.Value)"
-    OptionSelected="@(i => i.Value == SelectedValue)" OptionDisabled="@(i => i.Disabled)" Disabled="@IsDisabled"
-    Value="@SelectedValue" Width="100%" Height="250px" SelectedOptionChanged="HandleSelectedOptionChanged">
+<FluentSelect Style="max-height: 250px" Items="@Options" TOption="StandardSelectOption" OptionText="@(i => i.Text)"
+    OptionValue="@(i => i.Value)" OptionSelected="@(i => i.Value == SelectedValue)" OptionDisabled="@(i => i.Disabled)"
+    Disabled="@IsDisabled" Value="@SelectedValue" Width="100%" SelectedOptionChanged="HandleSelectedOptionChanged">
     <OptionTemplate>
         <span title="@context.Text">@context.Text</span>
     </OptionTemplate>

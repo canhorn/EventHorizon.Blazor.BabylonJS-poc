@@ -31,7 +31,7 @@ public class PlayerEditorSkillStateComponentBase : EditorComponentBase
         return JsonSerializer.Serialize(Data, JsonOptions);
     }
 
-    protected async Task HandleSave()
+    protected async Task HandleUpdate()
     {
         var dataAsString = await MonacoEditor.GetValue();
         await OnDataChange.InvokeAsync(

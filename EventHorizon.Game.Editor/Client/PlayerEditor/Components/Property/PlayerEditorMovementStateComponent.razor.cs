@@ -37,7 +37,6 @@ public class PlayerEditorMovementStateComponentBase : EditorComponentBase
 
     protected async Task HandleSave()
     {
-        Console.WriteLine("Saving MovementState");
         await OnDataChange.InvokeAsync(
             new PropertyChangeArgs(IMovementState.NAME, MovementState.ToState())
         );
@@ -45,7 +44,7 @@ public class PlayerEditorMovementStateComponentBase : EditorComponentBase
 
     public record EditableMovementStateModel() : IMovementState
     {
-        public decimal Speed { get; set; }
+        public decimal Speed { get; set; } = 1.0m;
 
         public void SetFrom(IMovementState model)
         {

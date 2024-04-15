@@ -89,4 +89,15 @@ public static class ObjectExtensions
     {
         return objectToCheck != null;
     }
+
+    /// <summary>
+    /// Dump the object to a string.
+    /// </summary>
+    public static string Dump(this object objectToDump)
+    {
+        return JsonSerializer.Serialize(
+                objectToDump,
+                new JsonSerializerOptions { WriteIndented = true, }
+            ) ?? string.Empty;
+    }
 }
