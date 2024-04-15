@@ -154,7 +154,6 @@ public class PlayerEditorComponentBase
 
     protected void HandleSelectedForceSetStatesChanged(IEnumerable<PropertyType> options)
     {
-        Console.WriteLine(options.Dump());
         PlayerData["forceSet"] = options.Select(a => a.PropertyName).ToList();
         SelectedForceSetStates = options.OrderBy(a => a.Label);
         PendingSave = true;

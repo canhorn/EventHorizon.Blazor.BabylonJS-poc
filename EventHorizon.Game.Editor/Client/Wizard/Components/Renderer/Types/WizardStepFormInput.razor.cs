@@ -194,9 +194,6 @@ public class WizardStepFormInputBase : WizardStepCommonBase
             }
         }
 
-        // Log the inputKeyMap
-        Console.WriteLine(JsonSerializer.Serialize(inputKeyMap));
-
         // Remove any keys that are no longer in the inputKeyMap
         var keysToRemove = data
             .Keys.Where(a =>
@@ -210,14 +207,11 @@ public class WizardStepFormInputBase : WizardStepCommonBase
             .Select(a => string.Join(":", a))
             .ToList();
 
-        Console.WriteLine(JsonSerializer.Serialize(keysToRemove));
         // Mark for removal
         foreach (var key in keysToRemove)
         {
             data[$"{key}:$$deleted$$"] = "true";
         }
-
-        Console.WriteLine(JsonSerializer.Serialize(data));
 
         return data;
     }

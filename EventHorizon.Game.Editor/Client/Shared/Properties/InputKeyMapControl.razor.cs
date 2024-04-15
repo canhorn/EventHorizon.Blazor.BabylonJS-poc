@@ -51,13 +51,6 @@ public class InputKeyMapControlModel : PropertyControlBase
                 Value = KeyInputType.RunInteraction,
             },
         ];
-        // Console.WriteLine(
-        //     "InputKeyMapControlModel.OnInitialized" + Property?.ToString()
-        //         ?? "null"
-        // );
-
-        Console.WriteLine("InputKeyMapControlModel.OnInitialized");
-        Console.WriteLine(Property?.ToString() ?? "null");
 
         ControlInputConfig =
             JsonSerializer.Deserialize<Dictionary<string, ControlKeyInput>>(
@@ -77,9 +70,6 @@ public class InputKeyMapControlModel : PropertyControlBase
 
     private void HandleFieldChanged(object? sender, FieldChangedEventArgs e)
     {
-        Console.WriteLine("HandleFieldChanged");
-        Console.WriteLine(e.FieldIdentifier.FieldName);
-
         OnChange.InvokeAsync(
             new PropertyChangedArgs
             {
@@ -147,7 +137,6 @@ public class InputKeyMapControlModel : PropertyControlBase
         StandardSelectOption option
     )
     {
-        Console.WriteLine("HandleKeyInputTypeChanged" + option.Value);
         keyInput.Type = option.Value;
 
         if (option.Value == KeyInputType.PlayerMove)
