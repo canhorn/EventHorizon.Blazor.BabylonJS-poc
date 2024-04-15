@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using MediatR;
 
 public class QueryForZoneEditorStateHandler
@@ -29,12 +27,8 @@ public class QueryForZoneEditorStateHandler
         var result = await _zoneEditorServices.Api.GetEditorZoneList();
         if (!result.Success)
         {
-            return new(
-                result.ErrorCode ?? ZoneEditorErrorCodes.EDITOR_API_ERROR
-            );
+            return new(result.ErrorCode ?? ZoneEditorErrorCodes.EDITOR_API_ERROR);
         }
-        return new CommandResult<ZoneEditorState>(
-            new ZoneEditorStateModel(result.Result)
-        );
+        return new CommandResult<ZoneEditorState>(new ZoneEditorStateModel(result.Result));
     }
 }

@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Builder.Api;
 using EventHorizon.Game.Client.Core.Mapper.Api;
 using EventHorizon.Game.Client.Engine.Core.Api;
@@ -16,7 +15,6 @@ using EventHorizon.Game.Client.Engine.Entity.Tag;
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;
-
 using Microsoft.Extensions.Logging;
 
 public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
@@ -28,13 +26,10 @@ public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
     public string GlobalId => _details.GlobalId;
     public string Type => _details.Type;
     public ITransform Transform { get; }
-    public IList<string> Tags { get; private set; } =
-        new List<string>().AsReadOnly();
+    public IList<string> Tags { get; private set; } = new List<string>().AsReadOnly();
     public IObjectEntityDetails Details => _details;
     public IDictionary<string, object> Data { get; private set; } =
-        new ReadOnlyDictionary<string, object>(
-            new Dictionary<string, object>()
-        );
+        new ReadOnlyDictionary<string, object>(new Dictionary<string, object>());
 
     public LifecycleEntityBase(
         long clientId,
@@ -51,18 +46,14 @@ public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
         : this(
             GameServiceProvider.GetService<IIndexPool>().NextIndex(),
             details,
-            GameServiceProvider.GetService<
-                IBuilder<ITransform, IServerTransform>
-            >()
+            GameServiceProvider.GetService<IBuilder<ITransform, IServerTransform>>()
         ) { }
 
     public LifecycleEntityBase(long clientId, IObjectEntityDetails details)
         : this(
             clientId,
             details,
-            GameServiceProvider.GetService<
-                IBuilder<ITransform, IServerTransform>
-            >()
+            GameServiceProvider.GetService<IBuilder<ITransform, IServerTransform>>()
         ) { }
 
     public abstract Task Initialize();
@@ -94,8 +85,7 @@ public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
     }
 
     #region Module
-    protected IDictionary<string, IModule> _moduleMap =
-        new Dictionary<string, IModule>();
+    protected IDictionary<string, IModule> _moduleMap = new Dictionary<string, IModule>();
 
     public void RegisterModule(string name, IModule module)
     {
@@ -156,16 +146,14 @@ public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
     #endregion
 
     #region Property
-    protected IDictionary<string, object> _propertyMap =
-        new Dictionary<string, object>();
+    protected IDictionary<string, object> _propertyMap = new Dictionary<string, object>();
 
     public void SetProperty(string name, object property)
     {
         _propertyMap[name] = property;
     }
 
-    public Option<T> GetPropertyAsOption<T>(string name) =>
-        new(GetProperty<T>(name));
+    public Option<T> GetPropertyAsOption<T>(string name) => new(GetProperty<T>(name));
 
     // TODO: Use Option<T> to get rid of MaybeNull
     public T? GetProperty<T>(string name)
@@ -235,9 +223,7 @@ public abstract class LifecycleEntityBase : ClientEntityBase, ILifecycleEntity
         var baseTags = new List<string>
         {
             TagBuilder.CreateTypeTag(_details.Type ?? TagBuilder.UNDEFINED),
-            TagBuilder.CreateGlobalIdTag(
-                _details.GlobalId ?? TagBuilder.UNDEFINED
-            ),
+            TagBuilder.CreateGlobalIdTag(_details.GlobalId ?? TagBuilder.UNDEFINED),
         };
         if (_details.Id != IObjectEntityDetails.DEFAULT_ID)
         {

@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Settings.Api;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
-
 using MediatR;
 
 public class StartPlayerZoneConnectionCommandHandler

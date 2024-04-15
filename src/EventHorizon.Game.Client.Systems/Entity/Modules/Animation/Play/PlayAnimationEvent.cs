@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct PlayAnimationEvent : INotification
@@ -21,11 +19,9 @@ public struct PlayAnimationEvent : INotification
     }
 }
 
-public interface PlayAnimationEventObserver
-    : ArgumentObserver<PlayAnimationEvent> { }
+public interface PlayAnimationEventObserver : ArgumentObserver<PlayAnimationEvent> { }
 
-public class PlayAnimationEventHandler
-    : INotificationHandler<PlayAnimationEvent>
+public class PlayAnimationEventHandler : INotificationHandler<PlayAnimationEvent>
 {
     private readonly ObserverState _observer;
 
@@ -34,10 +30,7 @@ public class PlayAnimationEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        PlayAnimationEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(PlayAnimationEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<PlayAnimationEventObserver, PlayAnimationEvent>(
             notification,
             cancellationToken

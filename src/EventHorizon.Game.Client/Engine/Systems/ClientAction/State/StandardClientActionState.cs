@@ -48,20 +48,14 @@ public class StandardClientActionState : ClientActionState
         _externalActions = new Dictionary<string, ExternalAction>();
     }
 
-    public Option<IClientAction> Get(
-        string actionName,
-        IDictionary<string, object> data
-    )
+    public Option<IClientAction> Get(string actionName, IDictionary<string, object> data)
     {
         try
         {
             if (_actionTypes.TryGetValue(actionName, out var actionType))
             {
                 return Activator
-                    .CreateInstance(
-                        actionType,
-                        new ClientActionDataResolver(data)
-                    )!
+                    .CreateInstance(actionType, new ClientActionDataResolver(data))!
                     .To<IClientAction>()!
                     .ToOption();
             }
@@ -79,11 +73,7 @@ public class StandardClientActionState : ClientActionState
         public Type ActionType { get; }
         public Type ObserverType { get; }
 
-        public ExternalClientAction(
-            IClientAction action,
-            Type actionType,
-            Type observerType
-        )
+        public ExternalClientAction(IClientAction action, Type actionType, Type observerType)
         {
             Action = action;
             ActionType = actionType;
@@ -98,15 +88,10 @@ public class StandardClientActionState : ClientActionState
     {
         try
         {
-            if (
-                _externalActions.TryGetValue(actionName, out var externalAction)
-            )
+            if (_externalActions.TryGetValue(actionName, out var externalAction))
             {
                 var clientAction = Activator
-                    .CreateInstance(
-                        externalAction.Event,
-                        new ClientActionDataResolver(data)
-                    )!
+                    .CreateInstance(externalAction.Event, new ClientActionDataResolver(data))!
                     .To<IClientAction>()!
                     .ToOption();
 
@@ -119,11 +104,7 @@ public class StandardClientActionState : ClientActionState
         }
         catch (Exception ex)
         {
-            _logger.LogError(
-                ex,
-                "Failed to lookup external action: {ActionName}",
-                actionName
-            );
+            _logger.LogError(ex, "Failed to lookup external action: {ActionName}", actionName);
         }
 
         return new Option<ExternalClientAction>(null);
@@ -133,12 +114,12 @@ public class StandardClientActionState : ClientActionState
     {
         _externalActions.Clear();
 
-        var clientActionTypeInfoList = assembly.DefinedTypes.Where(
-            type => typeof(IClientAction).IsAssignableFrom(type)
+        var clientActionTypeInfoList = assembly.DefinedTypes.Where(type =>
+            typeof(IClientAction).IsAssignableFrom(type)
         );
 
-        var argumentObservers = assembly.DefinedTypes.Where(
-            type => typeof(ObserverBase).IsAssignableFrom(type)
+        var argumentObservers = assembly.DefinedTypes.Where(type =>
+            typeof(ObserverBase).IsAssignableFrom(type)
         );
         foreach (var observer in argumentObservers)
         {
@@ -148,16 +129,13 @@ public class StandardClientActionState : ClientActionState
         foreach (var typeInfoType in clientActionTypeInfoList)
         {
             var attributes = Attribute
-                .GetCustomAttributes(
-                    typeInfoType,
-                    typeof(ClientActionAttribute)
-                )
+                .GetCustomAttributes(typeInfoType, typeof(ClientActionAttribute))
                 .Cast<ClientActionAttribute>();
 
             foreach (var clientActionAttribute in attributes)
             {
-                var observerType = argumentObservers.FirstOrDefault(
-                    x => x.Name == $"{typeInfoType.Name}Observer"
+                var observerType = argumentObservers.FirstOrDefault(x =>
+                    x.Name == $"{typeInfoType.Name}Observer"
                 );
                 if (observerType == null)
                 {

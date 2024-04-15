@@ -3,13 +3,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Builder.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaded;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
-
 using MediatR;
 
 public class SetupClientAssetsFromPlayerZoneInfoReceivedEventHandler
@@ -26,10 +24,7 @@ public class SetupClientAssetsFromPlayerZoneInfoReceivedEventHandler
     public SetupClientAssetsFromPlayerZoneInfoReceivedEventHandler(
         IMediator mediator,
         ClientAssetState clientAssetState,
-        IBuilder<
-            ClientAssetConfig,
-            IDictionary<string, object>
-        > clientAssetConfigBuilder,
+        IBuilder<ClientAssetConfig, IDictionary<string, object>> clientAssetConfigBuilder,
         ClientAssetConfigBuilderState builderState
     )
     {
@@ -46,14 +41,9 @@ public class SetupClientAssetsFromPlayerZoneInfoReceivedEventHandler
     {
         foreach (var clientAsset in notification.PlayerZoneInfo.ClientAssetList)
         {
-            clientAsset.SetConfig(
-                _builderState.Get(clientAsset.Type).Build(clientAsset.Data)
-            );
+            clientAsset.SetConfig(_builderState.Get(clientAsset.Type).Build(clientAsset.Data));
             _clientAssetState.Set(clientAsset);
         }
-        await _mediator.Publish(
-            new ClientAssetsLoadedEvent(),
-            cancellationToken
-        );
+        await _mediator.Publish(new ClientAssetsLoadedEvent(), cancellationToken);
     }
 }

@@ -1,7 +1,6 @@
 namespace EventHorizon.Blazor.BabylonJS.Server;
 
 using EventHorizon.Platform;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -45,9 +44,8 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapPlatformDetails(
-                options =>
-                    options.SetVersion(Configuration["APPLICATION_VERSION"])
+            endpoints.MapPlatformDetails(options =>
+                options.SetVersion(Configuration["APPLICATION_VERSION"])
             );
 
             endpoints.MapRazorPages();

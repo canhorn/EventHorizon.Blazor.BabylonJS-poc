@@ -2,16 +2,13 @@
 
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public struct AssetFileDirectoryContentClickedEvent : INotification
 {
     public FileSystemDirectoryContent DirectoryContent { get; }
 
-    public AssetFileDirectoryContentClickedEvent(
-        FileSystemDirectoryContent directoryContent
-    )
+    public AssetFileDirectoryContentClickedEvent(FileSystemDirectoryContent directoryContent)
     {
         DirectoryContent = directoryContent;
     }

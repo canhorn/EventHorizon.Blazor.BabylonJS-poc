@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Mesh>))]
@@ -22,222 +20,102 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     public static decimal FRONTSIDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.FRONTSIDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.FRONTSIDE"); }
     }
 
     public static decimal BACKSIDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.BACKSIDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.BACKSIDE"); }
     }
 
     public static decimal DOUBLESIDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.DOUBLESIDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.DOUBLESIDE"); }
     }
 
     public static decimal DEFAULTSIDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.DEFAULTSIDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.DEFAULTSIDE"); }
     }
 
     public static decimal NO_CAP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.NO_CAP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.NO_CAP"); }
     }
 
     public static decimal CAP_START
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.CAP_START"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.CAP_START"); }
     }
 
     public static decimal CAP_END
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.CAP_END"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.CAP_END"); }
     }
 
     public static decimal CAP_ALL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.CAP_ALL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.CAP_ALL"); }
     }
 
     public static decimal NO_FLIP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.NO_FLIP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.NO_FLIP"); }
     }
 
     public static decimal FLIP_TILE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.FLIP_TILE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.FLIP_TILE"); }
     }
 
     public static decimal ROTATE_TILE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.ROTATE_TILE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.ROTATE_TILE"); }
     }
 
     public static decimal FLIP_ROW
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.FLIP_ROW"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.FLIP_ROW"); }
     }
 
     public static decimal ROTATE_ROW
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.ROTATE_ROW"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.ROTATE_ROW"); }
     }
 
     public static decimal FLIP_N_ROTATE_TILE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.FLIP_N_ROTATE_TILE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.FLIP_N_ROTATE_TILE"); }
     }
 
     public static decimal FLIP_N_ROTATE_ROW
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.FLIP_N_ROTATE_ROW"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.FLIP_N_ROTATE_ROW"); }
     }
 
     public static decimal CENTER
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.CENTER"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.CENTER"); }
     }
 
     public static decimal LEFT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.LEFT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.LEFT"); }
     }
 
     public static decimal RIGHT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.RIGHT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.RIGHT"); }
     }
 
     public static decimal TOP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.TOP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.TOP"); }
     }
 
     public static decimal BOTTOM
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Mesh.BOTTOM"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Mesh.BOTTOM"); }
     }
     #endregion
 
@@ -246,13 +124,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Mesh", "Parse" },
-                parsedMesh,
-                scene,
-                rootUrl
-            }
+            new object[] { new string[] { "BABYLON", "Mesh", "Parse" }, parsedMesh, scene, rootUrl }
         );
     }
 
@@ -768,11 +640,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
         );
     }
 
-    public static Mesh CreatePolyhedron(
-        string name,
-        object options,
-        Scene scene
-    )
+    public static Mesh CreatePolyhedron(string name, object options, Scene scene)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -827,11 +695,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     public static CachedEntity MinMax(AbstractMesh[] meshes)
     {
         return EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Mesh", "MinMax" },
-                meshes
-            }
+            new object[] { new string[] { "BABYLON", "Mesh", "MinMax" }, meshes }
         );
     }
 
@@ -839,11 +703,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Mesh", "Center" },
-                meshesOrMinMaxVector
-            }
+            new object[] { new string[] { "BABYLON", "Mesh", "Center" }, meshesOrMinMaxVector }
         );
     }
 
@@ -881,17 +741,12 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
         {
             if (__onBeforeRenderObservable == null)
             {
-                __onBeforeRenderObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Mesh>
-                >(
+                __onBeforeRenderObservable = EventHorizonBlazorInterop.GetClass<Observable<Mesh>>(
                     this.___guid,
                     "onBeforeRenderObservable",
                     (entity) =>
                     {
-                        return new Observable<Mesh>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Mesh>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -906,17 +761,12 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
         {
             if (__onBeforeBindObservable == null)
             {
-                __onBeforeBindObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Mesh>
-                >(
+                __onBeforeBindObservable = EventHorizonBlazorInterop.GetClass<Observable<Mesh>>(
                     this.___guid,
                     "onBeforeBindObservable",
                     (entity) =>
                     {
-                        return new Observable<Mesh>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Mesh>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -931,17 +781,12 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
         {
             if (__onAfterRenderObservable == null)
             {
-                __onAfterRenderObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Mesh>
-                >(
+                __onAfterRenderObservable = EventHorizonBlazorInterop.GetClass<Observable<Mesh>>(
                     this.___guid,
                     "onAfterRenderObservable",
                     (entity) =>
                     {
-                        return new Observable<Mesh>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Mesh>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -956,17 +801,12 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
         {
             if (__onBeforeDrawObservable == null)
             {
-                __onBeforeDrawObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Mesh>
-                >(
+                __onBeforeDrawObservable = EventHorizonBlazorInterop.GetClass<Observable<Mesh>>(
                     this.___guid,
                     "onBeforeDrawObservable",
                     (entity) =>
                     {
-                        return new Observable<Mesh>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Mesh>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -976,13 +816,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     public bool hasInstances
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasInstances"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasInstances"); }
     }
 
     private MorphTargetManager __morphTargetManager;
@@ -992,29 +826,21 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
         {
             if (__morphTargetManager == null)
             {
-                __morphTargetManager =
-                    EventHorizonBlazorInterop.GetClass<MorphTargetManager>(
-                        this.___guid,
-                        "morphTargetManager",
-                        (entity) =>
-                        {
-                            return new MorphTargetManager()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __morphTargetManager = EventHorizonBlazorInterop.GetClass<MorphTargetManager>(
+                    this.___guid,
+                    "morphTargetManager",
+                    (entity) =>
+                    {
+                        return new MorphTargetManager() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __morphTargetManager;
         }
         set
         {
             __morphTargetManager = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "morphTargetManager",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "morphTargetManager", value);
         }
     }
 
@@ -1040,13 +866,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     public bool isUnIndexed
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isUnIndexed"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isUnIndexed"); }
         set
         {
 
@@ -1087,13 +907,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     public bool hasLODLevels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasLODLevels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasLODLevels"); }
     }
 
     private Geometry __geometry;
@@ -1118,24 +932,12 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     public bool isBlocked
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isBlocked"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isBlocked"); }
     }
 
     public bool areNormalsFrozen
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "areNormalsFrozen"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "areNormalsFrozen"); }
     }
     #endregion
 
@@ -1143,21 +945,11 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     public decimal delayLoadState
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "delayLoadState"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "delayLoadState"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "delayLoadState",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "delayLoadState", value);
         }
     }
 
@@ -1183,21 +975,11 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     public string delayLoadingFile
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "delayLoadingFile"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "delayLoadingFile"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "delayLoadingFile",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "delayLoadingFile", value);
         }
     }
 
@@ -1213,11 +995,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "overrideMaterialSideOrientation",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "overrideMaterialSideOrientation", value);
         }
     }
     #endregion
@@ -1255,10 +1033,8 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     #region Methods
     #region onLODLevelSelection TODO: Get Comments as metadata identification
     private bool _isOnLODLevelSelectionEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _onLODLevelSelectionActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _onLODLevelSelectionActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string onLODLevelSelection(Func<Task> callback)
     {
@@ -1328,11 +1104,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     public string toString(System.Nullable<bool> fullDetails = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                fullDetails
-            }
+            new object[] { new string[] { this.___guid, "toString" }, fullDetails }
         );
     }
 
@@ -1348,12 +1120,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addLODLevel" },
-                distance,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "addLODLevel" }, distance, mesh }
         );
     }
 
@@ -1361,11 +1128,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getLODLevelAtDistance" },
-                distance
-            }
+            new object[] { new string[] { this.___guid, "getLODLevelAtDistance" }, distance }
         );
     }
 
@@ -1373,27 +1136,15 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeLODLevel" },
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "removeLODLevel" }, mesh }
         );
     }
 
-    public AbstractMesh getLOD(
-        Camera camera,
-        BoundingSphere boundingSphere = null
-    )
+    public AbstractMesh getLOD(Camera camera, BoundingSphere boundingSphere = null)
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getLOD" },
-                camera,
-                boundingSphere
-            }
+            new object[] { new string[] { this.___guid, "getLOD" }, camera, boundingSphere }
         );
     }
 
@@ -1425,43 +1176,28 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<VertexBuffer>(
             entity => new VertexBuffer() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getVertexBuffer" },
-                kind
-            }
+            new object[] { new string[] { this.___guid, "getVertexBuffer" }, kind }
         );
     }
 
     public bool isVerticesDataPresent(string kind)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isVerticesDataPresent" },
-                kind
-            }
+            new object[] { new string[] { this.___guid, "isVerticesDataPresent" }, kind }
         );
     }
 
     public bool isVertexBufferUpdatable(string kind)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isVertexBufferUpdatable" },
-                kind
-            }
+            new object[] { new string[] { this.___guid, "isVertexBufferUpdatable" }, kind }
         );
     }
 
     public string[] getVerticesDataKinds()
     {
         return EventHorizonBlazorInterop.FuncArray<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "getVerticesDataKinds" }
-            }
+            new object[] { new string[] { this.___guid, "getVerticesDataKinds" } }
         );
     }
 
@@ -1478,12 +1214,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     )
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getIndices" },
-                copyWhenShared,
-                forceCopy
-            }
+            new object[] { new string[] { this.___guid, "getIndices" }, copyWhenShared, forceCopy }
         );
     }
 
@@ -1522,11 +1253,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "refreshBoundingInfo" },
-                applySkeleton
-            }
+            new object[] { new string[] { this.___guid, "refreshBoundingInfo" }, applySkeleton }
         );
     }
 
@@ -1560,18 +1287,11 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     public void removeVerticesData(string kind)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "removeVerticesData" },
-                kind
-            }
+            new object[] { new string[] { this.___guid, "removeVerticesData" }, kind }
         );
     }
 
-    public void markVerticesDataAsUpdatable(
-        string kind,
-        System.Nullable<bool> updatable = null
-    )
+    public void markVerticesDataAsUpdatable(string kind, System.Nullable<bool> updatable = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -1587,11 +1307,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setVerticesBuffer" },
-                buffer
-            }
+            new object[] { new string[] { this.___guid, "setVerticesBuffer" }, buffer }
         );
     }
 
@@ -1617,10 +1333,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     #region updateMeshPositions TODO: Get Comments as metadata identification
     private bool _isUpdateMeshPositionsEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<decimal[], Task>
-    > _updateMeshPositionsActionMap =
+    private readonly IDictionary<string, Func<decimal[], Task>> _updateMeshPositionsActionMap =
         new Dictionary<string, Func<decimal[], Task>>();
 
     public string updateMeshPositions(Func<decimal[], Task> callback)
@@ -1717,10 +1430,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     #region registerBeforeRender TODO: Get Comments as metadata identification
     private bool _isRegisterBeforeRenderEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<AbstractMesh, Task>
-    > _registerBeforeRenderActionMap =
+    private readonly IDictionary<string, Func<AbstractMesh, Task>> _registerBeforeRenderActionMap =
         new Dictionary<string, Func<AbstractMesh, Task>>();
 
     public string registerBeforeRender(Func<AbstractMesh, Task> callback)
@@ -1768,8 +1478,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     private readonly IDictionary<
         string,
         Func<AbstractMesh, Task>
-    > _unregisterBeforeRenderActionMap =
-        new Dictionary<string, Func<AbstractMesh, Task>>();
+    > _unregisterBeforeRenderActionMap = new Dictionary<string, Func<AbstractMesh, Task>>();
 
     public string unregisterBeforeRender(Func<AbstractMesh, Task> callback)
     {
@@ -1813,10 +1522,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     #region registerAfterRender TODO: Get Comments as metadata identification
     private bool _isRegisterAfterRenderEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<AbstractMesh, Task>
-    > _registerAfterRenderActionMap =
+    private readonly IDictionary<string, Func<AbstractMesh, Task>> _registerAfterRenderActionMap =
         new Dictionary<string, Func<AbstractMesh, Task>>();
 
     public string registerAfterRender(Func<AbstractMesh, Task> callback)
@@ -1861,10 +1567,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
 
     #region unregisterAfterRender TODO: Get Comments as metadata identification
     private bool _isUnregisterAfterRenderEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<AbstractMesh, Task>
-    > _unregisterAfterRenderActionMap =
+    private readonly IDictionary<string, Func<AbstractMesh, Task>> _unregisterAfterRenderActionMap =
         new Dictionary<string, Func<AbstractMesh, Task>>();
 
     public string unregisterAfterRender(Func<AbstractMesh, Task> callback)
@@ -1942,11 +1645,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     public bool isInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isInFrustum" }, frustumPlanes }
         );
     }
 
@@ -1954,19 +1653,14 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setMaterialByID" },
-                id
-            }
+            new object[] { new string[] { this.___guid, "setMaterialByID" }, id }
         );
     }
 
     public IAnimatableCachedEntity[] getAnimatables()
     {
         return EventHorizonBlazorInterop.FuncArrayClass<IAnimatableCachedEntity>(
-            entity =>
-                new IAnimatableCachedEntity() { ___guid = entity.___guid },
+            entity => new IAnimatableCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getAnimatables" } }
         );
     }
@@ -1975,11 +1669,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "bakeTransformIntoVertices" },
-                transform
-            }
+            new object[] { new string[] { this.___guid, "bakeTransformIntoVertices" }, transform }
         );
     }
 
@@ -1991,11 +1681,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
             entity => new Mesh() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "bakeCurrentTransformIntoVertices"
-                },
+                new string[] { this.___guid, "bakeCurrentTransformIntoVertices" },
                 bakeIndependenlyOfChildren
             }
         );
@@ -2094,10 +1780,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "convertToFlatShadedMesh" }
-            }
+            new object[] { new string[] { this.___guid, "convertToFlatShadedMesh" } }
         );
     }
 
@@ -2105,10 +1788,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "convertToUnIndexedMesh" }
-            }
+            new object[] { new string[] { this.___guid, "convertToUnIndexedMesh" } }
         );
     }
 
@@ -2116,32 +1796,21 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "flipFaces" },
-                flipNormals
-            }
+            new object[] { new string[] { this.___guid, "flipFaces" }, flipNormals }
         );
     }
 
     public void increaseVertices(decimal numberPerEdge)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "increaseVertices" },
-                numberPerEdge
-            }
+            new object[] { new string[] { this.___guid, "increaseVertices" }, numberPerEdge }
         );
     }
 
     public void forceSharedVertices()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "forceSharedVertices" }
-            }
+            new object[] { new string[] { this.___guid, "forceSharedVertices" } }
         );
     }
 
@@ -2149,11 +1818,7 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<InstancedMesh>(
             entity => new InstancedMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "createInstance" },
-                name
-            }
+            new object[] { new string[] { this.___guid, "createInstance" }, name }
         );
     }
 
@@ -2161,19 +1826,14 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "synchronizeInstances" }
-            }
+            new object[] { new string[] { this.___guid, "synchronizeInstances" } }
         );
     }
 
     #region optimizeIndices TODO: Get Comments as metadata identification
     private bool _isOptimizeIndicesEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Mesh, Task>
-    > _optimizeIndicesActionMap = new Dictionary<string, Func<Mesh, Task>>();
+    private readonly IDictionary<string, Func<Mesh, Task>> _optimizeIndicesActionMap =
+        new Dictionary<string, Func<Mesh, Task>>();
 
     public string optimizeIndices(Func<Mesh, Task> callback)
     {
@@ -2218,31 +1878,21 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     public void serialize(object serializationObject)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "serialize" },
-                serializationObject
-            }
+            new object[] { new string[] { this.___guid, "serialize" }, serializationObject }
         );
     }
 
     public decimal[] setPositionsForCPUSkinning()
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "setPositionsForCPUSkinning" }
-            }
+            new object[] { new string[] { this.___guid, "setPositionsForCPUSkinning" } }
         );
     }
 
     public decimal[] setNormalsForCPUSkinning()
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "setNormalsForCPUSkinning" }
-            }
+            new object[] { new string[] { this.___guid, "setNormalsForCPUSkinning" } }
         );
     }
 
@@ -2250,33 +1900,21 @@ public class Mesh : AbstractMesh, IGetSetVerticesData
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "applySkeleton" },
-                skeleton
-            }
+            new object[] { new string[] { this.___guid, "applySkeleton" }, skeleton }
         );
     }
 
     public void addInstance(InstancedMesh instance)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addInstance" },
-                instance
-            }
+            new object[] { new string[] { this.___guid, "addInstance" }, instance }
         );
     }
 
     public void removeInstance(InstancedMesh instance)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "removeInstance" },
-                instance
-            }
+            new object[] { new string[] { this.___guid, "removeInstance" }, instance }
         );
     }
     #endregion

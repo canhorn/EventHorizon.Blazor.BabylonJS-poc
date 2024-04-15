@@ -31,10 +31,7 @@ public class ZoneServerLifecycleProviderBase
         await Mediator.Publish(
             new ShowMessageEvent(
                 Localizer["Zone Server Export"],
-                Localizer[
-                    "Successfully Exported Assets for '{0}'.",
-                    args.ReferenceId
-                ]
+                Localizer["Successfully Exported Assets for '{0}'.", args.ReferenceId]
             )
         );
 
@@ -64,14 +61,11 @@ public class ZoneServerLifecycleProviderBase
         {
             if (
                 !NavigationManager
-                    .Uri
-                    .ToLowerInvariant()
+                    .Uri.ToLowerInvariant()
                     .EndsWith(ZoneServerBackupArtifactsPage.Route)
             )
             {
-                NavigationManager.NavigateTo(
-                    ZoneServerBackupArtifactsPage.Route
-                );
+                NavigationManager.NavigateTo(ZoneServerBackupArtifactsPage.Route);
             }
         }
     }
@@ -81,10 +75,7 @@ public class ZoneServerLifecycleProviderBase
         await Mediator.Publish(
             new ShowMessageEvent(
                 Localizer["Zone Server Import"],
-                Localizer[
-                    "Successfully Import Assets for '{0}'.",
-                    args.ReferenceId
-                ]
+                Localizer["Successfully Import Assets for '{0}'.", args.ReferenceId]
             )
         );
     }

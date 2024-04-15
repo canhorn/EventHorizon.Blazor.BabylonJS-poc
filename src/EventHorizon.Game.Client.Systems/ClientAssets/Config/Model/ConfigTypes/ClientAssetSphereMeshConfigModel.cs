@@ -1,12 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model.ConfigTypes;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
 
-public class ClientAssetSphereMeshConfigModel
-    : ClientAssetConfigBase,
-        ClientAssetSphereMeshConfig
+public class ClientAssetSphereMeshConfigModel : ClientAssetConfigBase, ClientAssetSphereMeshConfig
 {
     public float Segments { get; }
     public float Diameter { get; }

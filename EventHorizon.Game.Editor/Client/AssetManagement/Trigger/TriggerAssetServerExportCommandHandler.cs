@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
 using EventHorizon.Game.Server.Asset.Trigger;
-
 using MediatR;
 
 public class TriggerAssetServerExportCommandHandler
@@ -16,10 +14,7 @@ public class TriggerAssetServerExportCommandHandler
     private readonly IMediator _mediator;
     private readonly AssetManagementState _state;
 
-    public TriggerAssetServerExportCommandHandler(
-        IMediator mediator,
-        AssetManagementState state
-    )
+    public TriggerAssetServerExportCommandHandler(IMediator mediator, AssetManagementState state)
     {
         _mediator = mediator;
         _state = state;
@@ -41,10 +36,7 @@ public class TriggerAssetServerExportCommandHandler
         }
 
         _state.SetExportReferenceId(result.Result.ReferenceId);
-        await _mediator.Publish(
-            new AssetManagementStateChangedEvent(),
-            cancellationToken
-        );
+        await _mediator.Publish(new AssetManagementStateChangedEvent(), cancellationToken);
 
         return new();
     }

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Layout;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Components.BladeSelection;
 
 public class ThreeSplitLayoutPage<TOwner> : MainLayoutPage<TOwner>

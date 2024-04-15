@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.Systems.ClientAssets.Delete;
-
 using MediatR;
 
 public class DeleteClientAssetCommandHandler

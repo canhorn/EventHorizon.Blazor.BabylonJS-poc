@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AdvancedDynamicTexture>))]
@@ -35,13 +33,7 @@ public class AdvancedDynamicTexture : DynamicTexture
             entity => new AdvancedDynamicTexture() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "GUI",
-                    "AdvancedDynamicTexture",
-                    "CreateForMesh"
-                },
+                new string[] { "BABYLON", "GUI", "AdvancedDynamicTexture", "CreateForMesh" },
                 mesh,
                 width,
                 height,
@@ -62,13 +54,7 @@ public class AdvancedDynamicTexture : DynamicTexture
             entity => new AdvancedDynamicTexture() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "GUI",
-                    "AdvancedDynamicTexture",
-                    "CreateFullscreenUI"
-                },
+                new string[] { "BABYLON", "GUI", "AdvancedDynamicTexture", "CreateFullscreenUI" },
                 name,
                 foreground,
                 scene,
@@ -82,35 +68,17 @@ public class AdvancedDynamicTexture : DynamicTexture
 
     public decimal numLayoutCalls
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "numLayoutCalls"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "numLayoutCalls"); }
     }
 
     public decimal numRenderCalls
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "numRenderCalls"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "numRenderCalls"); }
     }
 
     public decimal renderScale
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "renderScale"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "renderScale"); }
         set
         {
 
@@ -120,13 +88,7 @@ public class AdvancedDynamicTexture : DynamicTexture
 
     public string background
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "background"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "background"); }
         set
         {
 
@@ -136,13 +98,7 @@ public class AdvancedDynamicTexture : DynamicTexture
 
     public decimal idealWidth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "idealWidth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "idealWidth"); }
         set
         {
 
@@ -152,13 +108,7 @@ public class AdvancedDynamicTexture : DynamicTexture
 
     public decimal idealHeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "idealHeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "idealHeight"); }
         set
         {
 
@@ -168,53 +118,27 @@ public class AdvancedDynamicTexture : DynamicTexture
 
     public bool useSmallestIdeal
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useSmallestIdeal"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useSmallestIdeal"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useSmallestIdeal",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useSmallestIdeal", value);
         }
     }
 
     public bool renderAtIdealSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "renderAtIdealSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "renderAtIdealSize"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderAtIdealSize",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderAtIdealSize", value);
         }
     }
 
     public decimal idealRatio
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "idealRatio"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "idealRatio"); }
     }
 
     private Layer __layer;
@@ -270,10 +194,7 @@ public class AdvancedDynamicTexture : DynamicTexture
                         "focusedControl",
                         (entity) =>
                         {
-                            return new IFocusableControlCachedEntity()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new IFocusableControlCachedEntity() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -282,23 +203,13 @@ public class AdvancedDynamicTexture : DynamicTexture
         set
         {
             __focusedControl = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "focusedControl",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "focusedControl", value);
         }
     }
 
     public bool isForeground
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isForeground"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isForeground"); }
         set
         {
 
@@ -308,13 +219,7 @@ public class AdvancedDynamicTexture : DynamicTexture
 
     public string clipboardData
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "clipboardData"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "clipboardData"); }
         set
         {
 
@@ -334,11 +239,7 @@ public class AdvancedDynamicTexture : DynamicTexture
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useInvalidateRectOptimization",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useInvalidateRectOptimization", value);
         }
     }
     #endregion
@@ -358,10 +259,7 @@ public class AdvancedDynamicTexture : DynamicTexture
                     "onClipboardObservable",
                     (entity) =>
                     {
-                        return new Observable<ClipboardInfo>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<ClipboardInfo>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -370,11 +268,7 @@ public class AdvancedDynamicTexture : DynamicTexture
         set
         {
             __onClipboardObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onClipboardObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onClipboardObservable", value);
         }
     }
 
@@ -385,29 +279,23 @@ public class AdvancedDynamicTexture : DynamicTexture
         {
             if (__onControlPickedObservable == null)
             {
-                __onControlPickedObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Control>>(
-                        this.___guid,
-                        "onControlPickedObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Control>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onControlPickedObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Control>
+                >(
+                    this.___guid,
+                    "onControlPickedObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Control>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onControlPickedObservable;
         }
         set
         {
             __onControlPickedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onControlPickedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onControlPickedObservable", value);
         }
     }
 
@@ -437,11 +325,7 @@ public class AdvancedDynamicTexture : DynamicTexture
         set
         {
             __onBeginLayoutObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onBeginLayoutObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onBeginLayoutObservable", value);
         }
     }
 
@@ -471,11 +355,7 @@ public class AdvancedDynamicTexture : DynamicTexture
         set
         {
             __onEndLayoutObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onEndLayoutObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onEndLayoutObservable", value);
         }
     }
 
@@ -505,11 +385,7 @@ public class AdvancedDynamicTexture : DynamicTexture
         set
         {
             __onBeginRenderObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onBeginRenderObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onBeginRenderObservable", value);
         }
     }
 
@@ -539,23 +415,13 @@ public class AdvancedDynamicTexture : DynamicTexture
         set
         {
             __onEndRenderObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onEndRenderObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onEndRenderObservable", value);
         }
     }
 
     public bool premulAlpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "premulAlpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "premulAlpha"); }
         set
         {
 
@@ -628,10 +494,7 @@ public class AdvancedDynamicTexture : DynamicTexture
 
     #region executeOnAllControls TODO: Get Comments as metadata identification
     private bool _isExecuteOnAllControlsEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Control, Task>
-    > _executeOnAllControlsActionMap =
+    private readonly IDictionary<string, Func<Control, Task>> _executeOnAllControlsActionMap =
         new Dictionary<string, Func<Control, Task>>();
 
     public string executeOnAllControls(Func<Control, Task> callback)
@@ -712,11 +575,7 @@ public class AdvancedDynamicTexture : DynamicTexture
     {
         return EventHorizonBlazorInterop.FuncClass<AdvancedDynamicTexture>(
             entity => new AdvancedDynamicTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "addControl" }, control }
         );
     }
 
@@ -724,11 +583,7 @@ public class AdvancedDynamicTexture : DynamicTexture
     {
         return EventHorizonBlazorInterop.FuncClass<AdvancedDynamicTexture>(
             entity => new AdvancedDynamicTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "removeControl" }, control }
         );
     }
 
@@ -762,46 +617,28 @@ public class AdvancedDynamicTexture : DynamicTexture
     public void registerClipboardEvents()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "registerClipboardEvents" }
-            }
+            new object[] { new string[] { this.___guid, "registerClipboardEvents" } }
         );
     }
 
     public void unRegisterClipboardEvents()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "unRegisterClipboardEvents" }
-            }
+            new object[] { new string[] { this.___guid, "unRegisterClipboardEvents" } }
         );
     }
 
-    public void attachToMesh(
-        AbstractMesh mesh,
-        System.Nullable<bool> supportPointerMove = null
-    )
+    public void attachToMesh(AbstractMesh mesh, System.Nullable<bool> supportPointerMove = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "attachToMesh" },
-                mesh,
-                supportPointerMove
-            }
+            new object[] { new string[] { this.___guid, "attachToMesh" }, mesh, supportPointerMove }
         );
     }
 
     public void moveFocusToControl(IFocusableControl control)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "moveFocusToControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "moveFocusToControl" }, control }
         );
     }
     #endregion

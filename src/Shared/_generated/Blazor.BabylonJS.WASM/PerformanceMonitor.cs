@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<PerformanceMonitor>))]
@@ -30,23 +28,14 @@ public class PerformanceMonitor : CachedEntityObject
 
     public decimal averageFrameTime
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "averageFrameTime"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "averageFrameTime"); }
     }
 
     public decimal averageFrameTimeVariance
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "averageFrameTimeVariance"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "averageFrameTimeVariance");
         }
     }
 
@@ -54,55 +43,28 @@ public class PerformanceMonitor : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "instantaneousFrameTime"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "instantaneousFrameTime");
         }
     }
 
     public decimal averageFPS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "averageFPS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "averageFPS"); }
     }
 
     public decimal instantaneousFPS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "instantaneousFPS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "instantaneousFPS"); }
     }
 
     public bool isSaturated
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isSaturated"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isSaturated"); }
     }
 
     public bool isEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isEnabled"); }
     }
     #endregion
 
@@ -134,11 +96,7 @@ public class PerformanceMonitor : CachedEntityObject
     public void sampleFrame(System.Nullable<decimal> timeMs = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "sampleFrame" },
-                timeMs
-            }
+            new object[] { new string[] { this.___guid, "sampleFrame" }, timeMs }
         );
     }
 

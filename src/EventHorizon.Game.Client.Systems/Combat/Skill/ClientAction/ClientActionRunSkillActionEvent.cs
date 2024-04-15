@@ -4,12 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 [ClientAction("RunSkillAction")]
@@ -33,9 +31,7 @@ public class ClientActionRunSkillActionEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ClientActionRunSkillActionEventObserverHandler(
-        ObserverState observer
-    )
+    public ClientActionRunSkillActionEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -44,8 +40,8 @@ public class ClientActionRunSkillActionEventObserverHandler
         ClientActionRunSkillActionEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ClientActionRunSkillActionEventObserver,
-            ClientActionRunSkillActionEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ClientActionRunSkillActionEventObserver, ClientActionRunSkillActionEvent>(
+            notification,
+            cancellationToken
+        );
 }

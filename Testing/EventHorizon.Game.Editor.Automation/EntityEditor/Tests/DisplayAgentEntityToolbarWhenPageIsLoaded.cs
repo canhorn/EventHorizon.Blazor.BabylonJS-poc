@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.EntityEditor.Tests;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.EntityEditor.Pages;
-
 using NUnit.Framework;
 
 public class DisplayAgentEntityToolbarWhenPageIsLoaded : WebHost
@@ -15,8 +13,6 @@ public class DisplayAgentEntityToolbarWhenPageIsLoaded : WebHost
     {
         this.Login<EntityEditorPage>()
             .AgentEntityToolbar.Children.Count.Should.Be(1)
-            .AgentEntityToolbar.Children.Should.Contain(
-                a => a.Content == "New"
-            );
+            .AgentEntityToolbar.Children.Should.Contain(a => a.Content == "New");
     }
 }

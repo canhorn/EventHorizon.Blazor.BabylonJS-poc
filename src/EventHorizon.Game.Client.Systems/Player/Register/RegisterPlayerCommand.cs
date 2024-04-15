@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.Player.Api;
-
 using MediatR;
 
 public class RegisterPlayerCommand : IRequest<StandardCommandResult>

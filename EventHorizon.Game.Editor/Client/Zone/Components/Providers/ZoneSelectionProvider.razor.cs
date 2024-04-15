@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Authentication.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Zone.Active;
@@ -16,7 +15,6 @@ using EventHorizon.Game.Editor.Core.Services.Model;
 using EventHorizon.Game.Editor.Core.Services.Query;
 using EventHorizon.Game.Editor.Core.Services.Registered;
 using EventHorizon.Game.Editor.Zone.Services.Connection;
-
 using Microsoft.AspNetCore.Components;
 
 public class ZoneSelectionProviderModel
@@ -35,8 +33,7 @@ public class ZoneSelectionProviderModel
 
     public string ErrorMessage { get; private set; } = string.Empty;
 
-    public IEnumerable<CoreZoneDetails> Zones { get; private set; } =
-        new List<CoreZoneDetails>();
+    public IEnumerable<CoreZoneDetails> Zones { get; private set; } = new List<CoreZoneDetails>();
     public string SelectedZoneId { get; private set; } = string.Empty;
     public CoreZoneDetails? SelectedZone { get; private set; }
     public ZoneState? ZoneState { get; private set; }
@@ -97,10 +94,7 @@ public class ZoneSelectionProviderModel
     public async Task ChangeZone(string selectedZoneId)
     {
         ErrorMessage = string.Empty;
-        if (
-            SelectedZoneId == selectedZoneId
-            || string.IsNullOrWhiteSpace(selectedZoneId)
-        )
+        if (SelectedZoneId == selectedZoneId || string.IsNullOrWhiteSpace(selectedZoneId))
         {
             return;
         }
@@ -108,10 +102,7 @@ public class ZoneSelectionProviderModel
         var zone = Zones.FirstOrDefault(a => a.Id == SelectedZoneId);
         if (zone.IsNull())
         {
-            ErrorMessage = Localizer[
-                "Failed to Find Selected Zone Details: {0}",
-                SelectedZoneId
-            ];
+            ErrorMessage = Localizer["Failed to Find Selected Zone Details: {0}", SelectedZoneId];
             return;
         }
         SelectedZone = zone;
@@ -142,10 +133,7 @@ public class ZoneSelectionProviderModel
         if (zonesResult.Success.IsNotTrue())
         {
             SelectedZoneId = string.Empty;
-            ErrorMessage = Localizer[
-                "Failed to get Zone Details: {0}",
-                zonesResult.ErrorCode
-            ];
+            ErrorMessage = Localizer["Failed to get Zone Details: {0}", zonesResult.ErrorCode];
             return;
         }
         Zones = new List<CoreZoneDetails>(zonesResult.Result);
@@ -159,17 +147,12 @@ public class ZoneSelectionProviderModel
         var zone = Zones.FirstOrDefault(a => a.Id == SelectedZoneId);
         if (zone.IsNull())
         {
-            ErrorMessage = Localizer[
-                "Failed to Find Selected Zone Details: {0}",
-                SelectedZoneId
-            ];
+            ErrorMessage = Localizer["Failed to Find Selected Zone Details: {0}", SelectedZoneId];
             SelectedZoneId = string.Empty;
             return;
         }
         SelectedZone = zone;
-        var zoneStateResult = await Mediator.Send(
-            new GetZoneStateCommand(SelectedZone)
-        );
+        var zoneStateResult = await Mediator.Send(new GetZoneStateCommand(SelectedZone));
         if (!zoneStateResult.Success)
         {
             ErrorMessage = Localizer[
@@ -208,10 +191,7 @@ public class ZoneSelectionProviderModel
         var zonesResult = await Mediator.Send(new QueryForAllZoneDetails());
         if (!zonesResult.Success)
         {
-            ErrorMessage = Localizer[
-                "Failed to Query Zone Details: {0}",
-                zonesResult.ErrorCode
-            ];
+            ErrorMessage = Localizer["Failed to Query Zone Details: {0}", zonesResult.ErrorCode];
             return;
         }
         Zones = new List<CoreZoneDetails>(zonesResult.Result);

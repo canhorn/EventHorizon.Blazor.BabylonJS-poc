@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ScrollViewer>))]
@@ -84,135 +82,67 @@ public class ScrollViewer : Rectangle
 
     public bool freezeControls
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "freezeControls"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "freezeControls"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "freezeControls",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "freezeControls", value);
         }
     }
 
     public decimal bucketWidth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "bucketWidth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bucketWidth"); }
     }
 
     public decimal bucketHeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "bucketHeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bucketHeight"); }
     }
 
     public bool forceHorizontalBar
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "forceHorizontalBar"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "forceHorizontalBar"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "forceHorizontalBar",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "forceHorizontalBar", value);
         }
     }
 
     public bool forceVerticalBar
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "forceVerticalBar"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "forceVerticalBar"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "forceVerticalBar",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "forceVerticalBar", value);
         }
     }
 
     public decimal wheelPrecision
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "wheelPrecision"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "wheelPrecision"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "wheelPrecision",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "wheelPrecision", value);
         }
     }
 
     public string scrollBackground
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "scrollBackground"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "scrollBackground"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "scrollBackground",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "scrollBackground", value);
         }
     }
 
     public string barColor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "barColor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "barColor"); }
         set
         {
 
@@ -252,26 +182,21 @@ public class ScrollViewer : Rectangle
         {
             if (__horizontalThumbImage == null)
             {
-                __horizontalThumbImage =
-                    EventHorizonBlazorInterop.GetClass<Image>(
-                        this.___guid,
-                        "horizontalThumbImage",
-                        (entity) =>
-                        {
-                            return new Image() { ___guid = entity.___guid };
-                        }
-                    );
+                __horizontalThumbImage = EventHorizonBlazorInterop.GetClass<Image>(
+                    this.___guid,
+                    "horizontalThumbImage",
+                    (entity) =>
+                    {
+                        return new Image() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __horizontalThumbImage;
         }
         set
         {
             __horizontalThumbImage = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "horizontalThumbImage",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "horizontalThumbImage", value);
         }
     }
 
@@ -282,38 +207,27 @@ public class ScrollViewer : Rectangle
         {
             if (__verticalThumbImage == null)
             {
-                __verticalThumbImage =
-                    EventHorizonBlazorInterop.GetClass<Image>(
-                        this.___guid,
-                        "verticalThumbImage",
-                        (entity) =>
-                        {
-                            return new Image() { ___guid = entity.___guid };
-                        }
-                    );
+                __verticalThumbImage = EventHorizonBlazorInterop.GetClass<Image>(
+                    this.___guid,
+                    "verticalThumbImage",
+                    (entity) =>
+                    {
+                        return new Image() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __verticalThumbImage;
         }
         set
         {
             __verticalThumbImage = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "verticalThumbImage",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "verticalThumbImage", value);
         }
     }
 
     public decimal barSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "barSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "barSize"); }
         set
         {
 
@@ -323,13 +237,7 @@ public class ScrollViewer : Rectangle
 
     public decimal thumbLength
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "thumbLength"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "thumbLength"); }
         set
         {
 
@@ -339,13 +247,7 @@ public class ScrollViewer : Rectangle
 
     public decimal thumbHeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "thumbHeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "thumbHeight"); }
         set
         {
 
@@ -355,21 +257,11 @@ public class ScrollViewer : Rectangle
 
     public decimal barImageHeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "barImageHeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "barImageHeight"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "barImageHeight",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "barImageHeight", value);
         }
     }
 
@@ -377,19 +269,12 @@ public class ScrollViewer : Rectangle
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "horizontalBarImageHeight"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "horizontalBarImageHeight");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "horizontalBarImageHeight",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "horizontalBarImageHeight", value);
         }
     }
 
@@ -397,31 +282,18 @@ public class ScrollViewer : Rectangle
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "verticalBarImageHeight"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "verticalBarImageHeight");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "verticalBarImageHeight",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "verticalBarImageHeight", value);
         }
     }
 
     public string barBackground
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "barBackground"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "barBackground"); }
         set
         {
 
@@ -461,26 +333,21 @@ public class ScrollViewer : Rectangle
         {
             if (__horizontalBarImage == null)
             {
-                __horizontalBarImage =
-                    EventHorizonBlazorInterop.GetClass<Image>(
-                        this.___guid,
-                        "horizontalBarImage",
-                        (entity) =>
-                        {
-                            return new Image() { ___guid = entity.___guid };
-                        }
-                    );
+                __horizontalBarImage = EventHorizonBlazorInterop.GetClass<Image>(
+                    this.___guid,
+                    "horizontalBarImage",
+                    (entity) =>
+                    {
+                        return new Image() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __horizontalBarImage;
         }
         set
         {
             __horizontalBarImage = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "horizontalBarImage",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "horizontalBarImage", value);
         }
     }
 
@@ -505,11 +372,7 @@ public class ScrollViewer : Rectangle
         set
         {
             __verticalBarImage = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "verticalBarImage",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "verticalBarImage", value);
         }
     }
     #endregion
@@ -525,10 +388,7 @@ public class ScrollViewer : Rectangle
     public ScrollViewer(ICachedEntity entity)
         : base(entity) { }
 
-    public ScrollViewer(
-        string name = null,
-        System.Nullable<bool> isImageBased = null
-    )
+    public ScrollViewer(string name = null, System.Nullable<bool> isImageBased = null)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(
@@ -545,11 +405,7 @@ public class ScrollViewer : Rectangle
     {
         return EventHorizonBlazorInterop.FuncClass<Container>(
             entity => new Container() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "addControl" }, control }
         );
     }
 
@@ -557,23 +413,14 @@ public class ScrollViewer : Rectangle
     {
         return EventHorizonBlazorInterop.FuncClass<Container>(
             entity => new Container() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "removeControl" }, control }
         );
     }
 
     public void setBucketSizes(decimal width, decimal height)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setBucketSizes" },
-                width,
-                height
-            }
+            new object[] { new string[] { this.___guid, "setBucketSizes" }, width, height }
         );
     }
 

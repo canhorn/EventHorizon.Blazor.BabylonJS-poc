@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
@@ -13,13 +12,9 @@ using EventHorizon.Game.Client.Systems.Entity.Moving;
 using EventHorizon.Game.Client.Systems.Entity.States.Move.Model;
 using EventHorizon.Game.Client.Systems.Height.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
-
 using MediatR;
 
-public class MoveModule
-    : ModuleEntityBase,
-        IMoveModule,
-        ClientActionEntityMoveEventObserver
+public class MoveModule : ModuleEntityBase, IMoveModule, ClientActionEntityMoveEventObserver
 {
     private readonly IMediator _mediator;
     private readonly IHeightResolver _heightResolver;
@@ -41,9 +36,7 @@ public class MoveModule
 
     public override async Task Initialize()
     {
-        _stateModule = _entity.GetModule<IStateModule>(
-            IStateModule.MODULE_NAME
-        );
+        _stateModule = _entity.GetModule<IStateModule>(IStateModule.MODULE_NAME);
         GamePlatform.RegisterObserver(this);
         if (_currentMoveTo.IsNotNull())
         {
@@ -87,12 +80,7 @@ public class MoveModule
         _currentMoveTo = moveTo;
         _stateModule!.Clear();
         _stateModule!.Add(
-            new MoveState(
-                _entity,
-                "move_entity",
-                0.3m,
-                new IVector3[] { _currentMoveTo }
-            )
+            new MoveState(_entity, "move_entity", 0.3m, new IVector3[] { _currentMoveTo })
         );
         await _mediator.Publish(new EntityMovingEvent(_entity.ClientId));
     }

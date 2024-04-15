@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<FreeCamera>))]
@@ -30,33 +28,17 @@ public class FreeCamera : TargetCamera
 
     public decimal angularSensibility
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "angularSensibility"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "angularSensibility"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "angularSensibility",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "angularSensibility", value);
         }
     }
 
     public decimal[] keysUp
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "keysUp"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "keysUp"); }
         set
         {
 
@@ -66,13 +48,7 @@ public class FreeCamera : TargetCamera
 
     public decimal[] keysDown
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "keysDown"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "keysDown"); }
         set
         {
 
@@ -82,13 +58,7 @@ public class FreeCamera : TargetCamera
 
     public decimal[] keysLeft
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "keysLeft"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "keysLeft"); }
         set
         {
 
@@ -98,13 +68,7 @@ public class FreeCamera : TargetCamera
 
     public decimal[] keysRight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "keysRight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "keysRight"); }
         set
         {
 
@@ -114,13 +78,7 @@ public class FreeCamera : TargetCamera
 
     public decimal collisionMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "collisionMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "collisionMask"); }
         set
         {
 
@@ -176,43 +134,23 @@ public class FreeCamera : TargetCamera
         set
         {
             __ellipsoidOffset = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ellipsoidOffset",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ellipsoidOffset", value);
         }
     }
 
     public bool checkCollisions
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "checkCollisions"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "checkCollisions"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "checkCollisions",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "checkCollisions", value);
         }
     }
 
     public bool applyGravity
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "applyGravity"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "applyGravity"); }
         set
         {
 
@@ -227,18 +165,14 @@ public class FreeCamera : TargetCamera
         {
             if (__inputs == null)
             {
-                __inputs =
-                    EventHorizonBlazorInterop.GetClass<FreeCameraInputsManager>(
-                        this.___guid,
-                        "inputs",
-                        (entity) =>
-                        {
-                            return new FreeCameraInputsManager()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __inputs = EventHorizonBlazorInterop.GetClass<FreeCameraInputsManager>(
+                    this.___guid,
+                    "inputs",
+                    (entity) =>
+                    {
+                        return new FreeCameraInputsManager() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __inputs;
         }
@@ -322,10 +256,7 @@ public class FreeCamera : TargetCamera
     }
     #endregion
 
-    public void attachControl(
-        object element,
-        System.Nullable<bool> noPreventDefault = null
-    )
+    public void attachControl(object element, System.Nullable<bool> noPreventDefault = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -340,11 +271,7 @@ public class FreeCamera : TargetCamera
     public void detachControl(object element)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "detachControl" },
-                element
-            }
+            new object[] { new string[] { this.___guid, "detachControl" }, element }
         );
     }
 

@@ -5,13 +5,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
-
 using Microsoft.Extensions.Logging;
 
 public class CreateTreeScript
@@ -64,19 +61,13 @@ public class CreateTreeScript
             //var radius = Data.Get<int>("radius");
 
             // TODO: pull from $state or Asset store
-            var leafMaterial = new StandardMaterial(
-                $"leafMaterial-${id}",
-                scene
-            )
+            var leafMaterial = new StandardMaterial($"leafMaterial-${id}", scene)
             {
                 diffuseColor = new Color3(0.5m, 1, 0.5m)
             };
 
             // TODO: pull from $state or Asset store
-            var woodMaterial = new StandardMaterial(
-                $"woodMaterial-${id}",
-                scene
-            )
+            var woodMaterial = new StandardMaterial($"woodMaterial-${id}", scene)
             {
                 diffuseColor = new Color3(0.4m, 0.2m, 0.0m)
             };
@@ -86,10 +77,7 @@ public class CreateTreeScript
 
             if (resolve == null)
             {
-                throw new GameException(
-                    "invalid_create_script",
-                    "Resolve is invalid"
-                );
+                throw new GameException("invalid_create_script", "Resolve is invalid");
             }
             resolve(
                 CreateQuickTreeGenerator(
@@ -126,9 +114,7 @@ public class CreateTreeScript
     {
         var leaves = new Mesh($"leaves-${id}", scene);
 
-        var vertexData = VertexData.CreateSphere(
-            new { segments = 2, diameter = sizeBranch, }
-        );
+        var vertexData = VertexData.CreateSphere(new { segments = 2, diameter = sizeBranch, });
 
         vertexData.applyToMesh(leaves, true);
 
@@ -140,11 +126,7 @@ public class CreateTreeScript
 
         for (var i = 0; i < numberOfPoints; i++)
         {
-            var point = new Vector3(
-                positions[i * 3],
-                positions[i * 3 + 1],
-                positions[i * 3 + 2]
-            );
+            var point = new Vector3(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]);
 
             var found = false;
             foreach (var array in map)
@@ -154,13 +136,7 @@ public class CreateTreeScript
                     break;
                 }
                 var p0 = array.Point;
-                if (
-                    p0 != null
-                    && (
-                        p0.equals(point)
-                        || p0.subtract(point).lengthSquared() < 0.01m
-                    )
-                )
+                if (p0 != null && (p0.equals(point) || p0.subtract(point).lengthSquared() < 0.01m))
                 {
                     array.Vertices.Add(i * 3);
                     found = true;
@@ -329,9 +305,7 @@ public class CreateTreeScript
             faceNormalz = faceNormalSign * (p1p2x * p3p2y - p1p2y * p3p2x);
             // normalize this normal and store it in the array facetData
             length = System.Math.Sqrt(
-                faceNormalx * faceNormalx
-                    + faceNormaly * faceNormaly
-                    + faceNormalz * faceNormalz
+                faceNormalx * faceNormalx + faceNormaly * faceNormaly + faceNormalz * faceNormalz
             );
             length = (length == 0) ? 1.0 : length;
             faceNormalx /= length;
@@ -357,9 +331,7 @@ public class CreateTreeScript
             faceNormalz = normals[index * 3 + 2];
 
             length = System.Math.Sqrt(
-                faceNormalx * faceNormalx
-                    + faceNormaly * faceNormaly
-                    + faceNormalz * faceNormalz
+                faceNormalx * faceNormalx + faceNormaly * faceNormaly + faceNormalz * faceNormalz
             );
             length = (length == 0) ? 1.0 : length;
             faceNormalx /= length;

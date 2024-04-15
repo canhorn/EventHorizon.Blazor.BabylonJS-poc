@@ -3,7 +3,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Tag;
 using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
@@ -12,7 +11,6 @@ using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
 using EventHorizon.Game.Client.Systems.Player.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Api;
 using EventHorizon.Game.Server.ClientAction.Agent;
-
 using MediatR;
 
 public class StandardSelectedCompanionTrackerModule
@@ -23,8 +21,7 @@ public class StandardSelectedCompanionTrackerModule
 {
     private static long NOT_SELECTED_ID { get; } = -1;
 
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
     private readonly IPlayerEntity _entity;
 
     public bool HasSelectedEntity
@@ -66,9 +63,7 @@ public class StandardSelectedCompanionTrackerModule
             return;
         }
         var hitEntityResult = await _mediator.Send(
-            new QueryForEntity(
-                TagBuilder.CreateEntityIdTag(args.EntityId.ToString())
-            )
+            new QueryForEntity(TagBuilder.CreateEntityIdTag(args.EntityId.ToString()))
         );
         if (!hitEntityResult.Success || !hitEntityResult.Result.Any())
         {
@@ -80,9 +75,7 @@ public class StandardSelectedCompanionTrackerModule
         if (ownerState.IsNotNull() && ownerState.OwnerId == _entity.GlobalId)
         {
             SelectedEntityId = args.EntityId;
-            await _mediator.Publish(
-                new CompanionSelectedEvent(SelectedEntityId)
-            );
+            await _mediator.Publish(new CompanionSelectedEvent(SelectedEntityId));
         }
     }
 

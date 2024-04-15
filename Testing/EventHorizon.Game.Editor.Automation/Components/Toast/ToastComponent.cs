@@ -1,16 +1,12 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Components.Toast;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Core.Exceptions;
 
 public class ToastComponent<TNavigateTo> : Control<TNavigateTo>
     where TNavigateTo : PageObject<TNavigateTo>
 {
-    private ControlList<
-        ToastMessageDisplayItem,
-        TNavigateTo
-    > Messages { get; set; }
+    private ControlList<ToastMessageDisplayItem, TNavigateTo> Messages { get; set; }
 
     public TNavigateTo WaitForMessage(string message)
     {
@@ -28,9 +24,7 @@ public class ToastComponent<TNavigateTo> : Control<TNavigateTo>
             Go.To<TNavigateTo>(navigate: false).Wait(0.2);
         }
 
-        throw new WaitForMessageException(
-            $"Failed to find Message of '{message}'."
-        );
+        throw new WaitForMessageException($"Failed to find Message of '{message}'.");
     }
 
     [ControlDefinition("div", ContainingClass = "toast")]

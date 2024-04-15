@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public record ParticleTemplatesChangedEvent : INotification { }
@@ -27,8 +25,8 @@ public class ParticleTemplatesChangedEventObserverHandler
         ParticleTemplatesChangedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ParticleTemplatesChangedEventObserver,
-            ParticleTemplatesChangedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ParticleTemplatesChangedEventObserver, ParticleTemplatesChangedEvent>(
+            notification,
+            cancellationToken
+        );
 }

@@ -3,14 +3,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
 using EventHorizon.Game.Client.Systems.Player.Api;
-
 using MediatR;
 
-public class CleanupPlayerOnDisposeOfEngineEventHandler
-    : INotificationHandler<DisposeOfEngineEvent>
+public class CleanupPlayerOnDisposeOfEngineEventHandler : INotificationHandler<DisposeOfEngineEvent>
 {
     private readonly IPlayerState _state;
 
@@ -19,10 +16,7 @@ public class CleanupPlayerOnDisposeOfEngineEventHandler
         _state = state;
     }
 
-    public Task Handle(
-        DisposeOfEngineEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(DisposeOfEngineEvent notification, CancellationToken cancellationToken)
     {
         _state.Reset();
 

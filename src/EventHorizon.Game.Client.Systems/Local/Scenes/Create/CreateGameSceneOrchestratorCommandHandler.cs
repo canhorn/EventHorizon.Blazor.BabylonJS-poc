@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Local.Scenes.Api;
-
 using MediatR;
 
 public class CreateGameSceneOrchestratorCommandHandler
@@ -12,9 +10,7 @@ public class CreateGameSceneOrchestratorCommandHandler
 {
     private readonly ISceneOrchestratorState _state;
 
-    public CreateGameSceneOrchestratorCommandHandler(
-        ISceneOrchestratorState state
-    )
+    public CreateGameSceneOrchestratorCommandHandler(ISceneOrchestratorState state)
     {
         _state = state;
     }

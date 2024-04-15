@@ -1,12 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model.ConfigTypes;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
 
-public class ClientAssetGLTFMeshConfigModel
-    : ClientAssetConfigBase,
-        ClientAssetGLTFMeshConfig
+public class ClientAssetGLTFMeshConfigModel : ClientAssetConfigBase, ClientAssetGLTFMeshConfig
 {
     public string Path { get; }
     public string File { get; }

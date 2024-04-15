@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Reflection;
-
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 
 public interface ClientScriptsState

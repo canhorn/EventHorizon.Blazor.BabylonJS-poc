@@ -4,10 +4,8 @@ using System;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
 public class RegisterGuiControlCommandHandler
@@ -33,22 +31,15 @@ public class RegisterGuiControlCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var storedControl = _controlState.Get(
-            request.GuiId,
-            request.Control.Id
-        );
+        var storedControl = _controlState.Get(request.GuiId, request.Control.Id);
         if (storedControl.HasValue)
         {
-            return new StandardCommandResult(
-                "gui_control_already_registered"
-            ).FromResult();
+            return new StandardCommandResult("gui_control_already_registered").FromResult();
         }
         var template = _templateState.Get(request.Control.TemplateId);
         if (!template.HasValue)
         {
-            return new StandardCommandResult(
-                "gui_control_template_not_found"
-            ).FromResult();
+            return new StandardCommandResult("gui_control_template_not_found").FromResult();
         }
         var builtControl = _controlFactory.Build(
             request.Control.Id,

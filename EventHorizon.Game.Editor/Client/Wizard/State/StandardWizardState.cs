@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Wizard.Api;
 using EventHorizon.Game.Editor.Client.Wizard.Model;
@@ -21,8 +20,7 @@ public class StandardWizardState : WizardState
         new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
     public WizardData CurrentData { get; private set; } = new WizardData();
 
-    public event WizardState.OnChangeHandler OnChange = () =>
-        Task.CompletedTask;
+    public event WizardState.OnChangeHandler OnChange = () => Task.CompletedTask;
 
     public Task SetWizardList(IEnumerable<WizardMetadata> wizardList)
     {
@@ -91,10 +89,7 @@ public class StandardWizardState : WizardState
             return WizardErrorCodes.WIZARD_STEP_LIST_EMPTY;
         }
         else if (
-            metadata.StepList.TryGetItem(
-                obj => obj.Id == metadata.FirstStep,
-                out var nextStep
-            )
+            metadata.StepList.TryGetItem(obj => obj.Id == metadata.FirstStep, out var nextStep)
         )
         {
             _currentWizard = metadata;
@@ -120,9 +115,7 @@ public class StandardWizardState : WizardState
         _currentWizard = null;
 
         CurrentWizardId = string.Empty;
-        CurrentStep = new CommandResult<WizardStep>(
-            WizardErrorCodes.WIZARD_NOT_STARTED
-        );
+        CurrentStep = new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
         CurrentData = new WizardData();
 
         await OnChange.Invoke();

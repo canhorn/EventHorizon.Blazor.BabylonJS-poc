@@ -20,20 +20,14 @@ public static partial class JsonExtensions
     /// <param name="element"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static T? ToObject<T>(
-        this JsonElement element,
-        JsonSerializerOptions? options = null
-    )
+    public static T? ToObject<T>(this JsonElement element, JsonSerializerOptions? options = null)
     {
         var bufferWriter = new ArrayBufferWriter<byte>();
         using (var writer = new Utf8JsonWriter(bufferWriter))
         {
             element.WriteTo(writer);
         }
-        return JsonSerializer.Deserialize<T>(
-            bufferWriter.WrittenSpan,
-            options ?? DEFAULT_OPTIONS
-        );
+        return JsonSerializer.Deserialize<T>(bufferWriter.WrittenSpan, options ?? DEFAULT_OPTIONS);
     }
 
     /// <summary>
@@ -43,10 +37,7 @@ public static partial class JsonExtensions
     /// <param name="document"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static T? ToObject<T>(
-        this JsonDocument document,
-        JsonSerializerOptions? options = null
-    )
+    public static T? ToObject<T>(this JsonDocument document, JsonSerializerOptions? options = null)
     {
         if (document == null)
         {

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<StencilState>))]
@@ -22,35 +20,17 @@ public class StencilState : CachedEntityObject
 
     public static decimal ALWAYS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "StencilState.ALWAYS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "StencilState.ALWAYS"); }
     }
 
     public static decimal KEEP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "StencilState.KEEP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "StencilState.KEEP"); }
     }
 
     public static decimal REPLACE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "StencilState.REPLACE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "StencilState.REPLACE"); }
     }
     #endregion
 
@@ -62,21 +42,12 @@ public class StencilState : CachedEntityObject
 
     public bool isDirty
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty"); }
     }
 
     public decimal stencilFunc
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "stencilFunc"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "stencilFunc"); }
         set
         {
 
@@ -86,81 +57,41 @@ public class StencilState : CachedEntityObject
 
     public decimal stencilFuncRef
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "stencilFuncRef"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "stencilFuncRef"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "stencilFuncRef",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "stencilFuncRef", value);
         }
     }
 
     public decimal stencilFuncMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "stencilFuncMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "stencilFuncMask"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "stencilFuncMask",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "stencilFuncMask", value);
         }
     }
 
     public decimal stencilOpStencilFail
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "stencilOpStencilFail"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "stencilOpStencilFail"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "stencilOpStencilFail",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "stencilOpStencilFail", value);
         }
     }
 
     public decimal stencilOpDepthFail
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "stencilOpDepthFail"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "stencilOpDepthFail"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "stencilOpDepthFail",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "stencilOpDepthFail", value);
         }
     }
 
@@ -176,23 +107,13 @@ public class StencilState : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "stencilOpStencilDepthPass",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "stencilOpStencilDepthPass", value);
         }
     }
 
     public decimal stencilMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "stencilMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "stencilMask"); }
         set
         {
 
@@ -202,13 +123,7 @@ public class StencilState : CachedEntityObject
 
     public bool stencilTest
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "stencilTest"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "stencilTest"); }
         set
         {
 

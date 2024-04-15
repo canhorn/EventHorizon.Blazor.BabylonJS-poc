@@ -2,23 +2,16 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Server.Asset.Api;
-
 using MediatR;
 
 public class StartConnectionToAssetServerAdminCommandHandler
-    : IRequestHandler<
-        StartConnectionToAssetServerAdminCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<StartConnectionToAssetServerAdminCommand, StandardCommandResult>
 {
     private readonly AssetServerAdminService _services;
 
-    public StartConnectionToAssetServerAdminCommandHandler(
-        AssetServerAdminService services
-    )
+    public StartConnectionToAssetServerAdminCommandHandler(AssetServerAdminService services)
     {
         _services = services;
     }

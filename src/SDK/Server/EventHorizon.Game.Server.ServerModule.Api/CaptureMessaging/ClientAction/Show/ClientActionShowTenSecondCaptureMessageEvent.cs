@@ -10,13 +10,9 @@
 
     // TODO: [ClientAction] : Finish Implementation
     //[ClientAction("Server.SHOW_TEN_SECOND_CAPTURE_MESSAGE")]
-    public struct ClientActionShowTenSecondCaptureMessageEvent
-        : INotification,
-            IClientAction
+    public struct ClientActionShowTenSecondCaptureMessageEvent : INotification, IClientAction
     {
-        public ClientActionShowTenSecondCaptureMessageEvent(
-            IClientActionDataResolver _
-        ) { }
+        public ClientActionShowTenSecondCaptureMessageEvent(IClientActionDataResolver _) { }
     }
 
     public interface ClientActionShowTenSecondCaptureMessageEventObserver
@@ -28,9 +24,7 @@
     {
         private readonly ObserverState _observer;
 
-        public ClientActionShowTenSecondCaptureMessageEventHandler(
-            ObserverState observer
-        )
+        public ClientActionShowTenSecondCaptureMessageEventHandler(ObserverState observer)
         {
             _observer = observer;
         }

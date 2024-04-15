@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct SetEntityRotationEvent : INotification
@@ -22,11 +20,9 @@ public struct SetEntityRotationEvent : INotification
     }
 }
 
-public interface SetEntityRotationEventObserver
-    : ArgumentObserver<SetEntityRotationEvent> { }
+public interface SetEntityRotationEventObserver : ArgumentObserver<SetEntityRotationEvent> { }
 
-public class SetEntityRotationEventHandler
-    : INotificationHandler<SetEntityRotationEvent>
+public class SetEntityRotationEventHandler : INotificationHandler<SetEntityRotationEvent>
 {
     private readonly ObserverState _observer;
 
@@ -35,12 +31,9 @@ public class SetEntityRotationEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        SetEntityRotationEvent notification,
-        CancellationToken cancellationToken
-    ) =>
-        _observer.Trigger<
-            SetEntityRotationEventObserver,
-            SetEntityRotationEvent
-        >(notification, cancellationToken);
+    public Task Handle(SetEntityRotationEvent notification, CancellationToken cancellationToken) =>
+        _observer.Trigger<SetEntityRotationEventObserver, SetEntityRotationEvent>(
+            notification,
+            cancellationToken
+        );
 }

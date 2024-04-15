@@ -5,17 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ICustomAnimationFrameRequester : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<ICustomAnimationFrameRequesterCachedEntity>)
-)]
+[JsonConverter(typeof(CachedEntityConverter<ICustomAnimationFrameRequesterCachedEntity>))]
 public class ICustomAnimationFrameRequesterCachedEntity
     : CachedEntityObject,
         ICustomAnimationFrameRequester
@@ -40,13 +36,7 @@ public class ICustomAnimationFrameRequesterCachedEntity
 
     public decimal requestID
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "requestID"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "requestID"); }
         set
         {
 
@@ -75,10 +65,7 @@ public class ICustomAnimationFrameRequesterCachedEntity
     public void requestAnimationFrame()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "requestAnimationFrame" }
-            }
+            new object[] { new string[] { this.___guid, "requestAnimationFrame" } }
         );
     }
     #endregion

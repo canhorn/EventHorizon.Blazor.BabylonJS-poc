@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Server.Asset.Finished;
 
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public struct AssetServerImportUploadedEvent : INotification

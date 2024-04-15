@@ -27,9 +27,9 @@
             ShowMessageFromSystemEvent notification,
             CancellationToken cancellationToken
         ) =>
-            _observer.Trigger<
-                ShowMessageFromSystemEventObserver,
-                ShowMessageFromSystemEvent
-            >(notification, cancellationToken);
+            _observer.Trigger<ShowMessageFromSystemEventObserver, ShowMessageFromSystemEvent>(
+                notification,
+                cancellationToken
+            );
     }
 }

@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
 using EventHorizon.Game.Client.Systems.ServerModule.Api;
-
 using MediatR;
 
 public class CleanupServerModuleOnDisposeOfEngineEventHandler
@@ -24,10 +22,7 @@ public class CleanupServerModuleOnDisposeOfEngineEventHandler
         _serverModuleScriptsState = serverModuleScriptsState;
     }
 
-    public Task Handle(
-        DisposeOfEngineEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(DisposeOfEngineEvent notification, CancellationToken cancellationToken)
     {
         _serverModuleScriptsState.Clear();
         _serverModuleState.Clear();

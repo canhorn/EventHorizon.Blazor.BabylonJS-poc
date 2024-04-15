@@ -2,13 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Editor.Client.Zone.Api;
 
 public class InMemoryZoneStateCache : ZoneStateCache
 {
-    private readonly IDictionary<string, ZoneState> _map =
-        new Dictionary<string, ZoneState>();
+    private readonly IDictionary<string, ZoneState> _map = new Dictionary<string, ZoneState>();
 
     public ZoneState? Active { get; private set; }
 

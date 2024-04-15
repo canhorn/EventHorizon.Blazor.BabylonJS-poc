@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct EntityStoppingEvent : INotification
@@ -19,11 +17,9 @@ public struct EntityStoppingEvent : INotification
     }
 }
 
-public interface EntityStoppingEventObserver
-    : ArgumentObserver<EntityStoppingEvent> { }
+public interface EntityStoppingEventObserver : ArgumentObserver<EntityStoppingEvent> { }
 
-public class EntityStoppingEventHandler
-    : INotificationHandler<EntityStoppingEvent>
+public class EntityStoppingEventHandler : INotificationHandler<EntityStoppingEvent>
 {
     private readonly ObserverState _observer;
 
@@ -32,10 +28,7 @@ public class EntityStoppingEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        EntityStoppingEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(EntityStoppingEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<EntityStoppingEventObserver, EntityStoppingEvent>(
             notification,
             cancellationToken

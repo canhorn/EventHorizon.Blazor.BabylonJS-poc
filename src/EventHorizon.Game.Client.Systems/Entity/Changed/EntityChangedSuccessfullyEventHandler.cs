@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class EntityChangedSuccessfullyEventHandler
@@ -21,8 +19,8 @@ public class EntityChangedSuccessfullyEventHandler
         EntityChangedSuccessfullyEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            EntityChangedSuccessfullyEventObserver,
-            EntityChangedSuccessfullyEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<EntityChangedSuccessfullyEventObserver, EntityChangedSuccessfullyEvent>(
+            notification,
+            cancellationToken
+        );
 }

@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Services.Model.Command;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct AdminCommandResponseEvent : INotification
@@ -20,8 +18,7 @@ public struct AdminCommandResponseEvent : INotification
     }
 }
 
-public interface AdminCommandResponseEventObserver
-    : ArgumentObserver<AdminCommandResponseEvent> { }
+public interface AdminCommandResponseEventObserver : ArgumentObserver<AdminCommandResponseEvent> { }
 
 public class AdminCommandResponseEventObserverHandler
     : INotificationHandler<AdminCommandResponseEvent>
@@ -37,8 +34,8 @@ public class AdminCommandResponseEventObserverHandler
         AdminCommandResponseEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            AdminCommandResponseEventObserver,
-            AdminCommandResponseEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<AdminCommandResponseEventObserver, AdminCommandResponseEvent>(
+            notification,
+            cancellationToken
+        );
 }

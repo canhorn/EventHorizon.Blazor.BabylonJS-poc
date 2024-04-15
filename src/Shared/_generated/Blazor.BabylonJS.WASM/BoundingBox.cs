@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<BoundingBox>))]
@@ -26,12 +24,7 @@ public class BoundingBox : CachedEntityObject, ICullable
     public static bool Intersects(BoundingBox box0, BoundingBox box1)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { "BABYLON", "BoundingBox", "Intersects" },
-                box0,
-                box1
-            }
+            new object[] { new string[] { "BABYLON", "BoundingBox", "Intersects" }, box0, box1 }
         );
     }
 
@@ -54,30 +47,19 @@ public class BoundingBox : CachedEntityObject, ICullable
         );
     }
 
-    public static bool IsCompletelyInFrustum(
-        Vector3[] boundingVectors,
-        Plane[] frustumPlanes
-    )
+    public static bool IsCompletelyInFrustum(Vector3[] boundingVectors, Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "BoundingBox",
-                    "IsCompletelyInFrustum"
-                },
+                new string[] { "BABYLON", "BoundingBox", "IsCompletelyInFrustum" },
                 boundingVectors,
                 frustumPlanes
             }
         );
     }
 
-    public static bool IsInFrustum(
-        Vector3[] boundingVectors,
-        Plane[] frustumPlanes
-    )
+    public static bool IsInFrustum(Vector3[] boundingVectors, Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
             new object[]
@@ -326,13 +308,7 @@ public class BoundingBox : CachedEntityObject, ICullable
     public void reConstruct(Vector3 min, Vector3 max, Matrix worldMatrix = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "reConstruct" },
-                min,
-                max,
-                worldMatrix
-            }
+            new object[] { new string[] { this.___guid, "reConstruct" }, min, max, worldMatrix }
         );
     }
 
@@ -355,56 +331,35 @@ public class BoundingBox : CachedEntityObject, ICullable
     public bool isInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isInFrustum" }, frustumPlanes }
         );
     }
 
     public bool isCompletelyInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isCompletelyInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isCompletelyInFrustum" }, frustumPlanes }
         );
     }
 
     public bool intersectsPoint(Vector3 point)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsPoint" },
-                point
-            }
+            new object[] { new string[] { this.___guid, "intersectsPoint" }, point }
         );
     }
 
     public bool intersectsSphere(BoundingSphere sphere)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsSphere" },
-                sphere
-            }
+            new object[] { new string[] { this.___guid, "intersectsSphere" }, sphere }
         );
     }
 
     public bool intersectsMinMax(Vector3 min, Vector3 max)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsMinMax" },
-                min,
-                max
-            }
+            new object[] { new string[] { this.___guid, "intersectsMinMax" }, min, max }
         );
     }
     #endregion

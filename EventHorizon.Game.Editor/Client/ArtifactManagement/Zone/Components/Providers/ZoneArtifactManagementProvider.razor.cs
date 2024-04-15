@@ -1,11 +1,9 @@
 namespace EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Components.Providers;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Api;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Change;
 using EventHorizon.Game.Editor.Client.Shared.Components;
-
 using Microsoft.AspNetCore.Components;
 
 public class ZoneArtifactManagementProviderBase

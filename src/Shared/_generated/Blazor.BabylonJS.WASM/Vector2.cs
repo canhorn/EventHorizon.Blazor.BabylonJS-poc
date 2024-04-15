@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Vector2>))]
@@ -39,27 +37,15 @@ public class Vector2 : CachedEntityObject
         );
     }
 
-    public static Vector2 FromArray(
-        decimal[] array,
-        System.Nullable<decimal> offset = null
-    )
+    public static Vector2 FromArray(decimal[] array, System.Nullable<decimal> offset = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "FromArray" },
-                array,
-                offset
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "FromArray" }, array, offset }
         );
     }
 
-    public static void FromArrayToRef(
-        decimal[] array,
-        decimal offset,
-        Vector2 result
-    )
+    public static void FromArrayToRef(decimal[] array, decimal offset, Vector2 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -98,13 +84,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "Clamp" },
-                value,
-                min,
-                max
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "Clamp" }, value, min, max }
         );
     }
 
@@ -134,25 +114,14 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "Lerp" },
-                start,
-                end,
-                amount
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "Lerp" }, start, end, amount }
         );
     }
 
     public static decimal Dot(Vector2 left, Vector2 right)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "Dot" },
-                left,
-                right
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "Dot" }, left, right }
         );
     }
 
@@ -160,11 +129,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "Normalize" },
-                vector
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "Normalize" }, vector }
         );
     }
 
@@ -172,12 +137,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "Minimize" },
-                left,
-                right
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "Minimize" }, left, right }
         );
     }
 
@@ -185,12 +145,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "Maximize" },
-                left,
-                right
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "Maximize" }, left, right }
         );
     }
 
@@ -207,11 +162,7 @@ public class Vector2 : CachedEntityObject
         );
     }
 
-    public static void TransformToRef(
-        Vector2 vector,
-        Matrix transformation,
-        Vector2 result
-    )
+    public static void TransformToRef(Vector2 vector, Matrix transformation, Vector2 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -224,34 +175,17 @@ public class Vector2 : CachedEntityObject
         );
     }
 
-    public static bool PointInTriangle(
-        Vector2 p,
-        Vector2 p0,
-        Vector2 p1,
-        Vector2 p2
-    )
+    public static bool PointInTriangle(Vector2 p, Vector2 p0, Vector2 p1, Vector2 p2)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "PointInTriangle" },
-                p,
-                p0,
-                p1,
-                p2
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "PointInTriangle" }, p, p0, p1, p2 }
         );
     }
 
     public static decimal Distance(Vector2 value1, Vector2 value2)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "Distance" },
-                value1,
-                value2
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "Distance" }, value1, value2 }
         );
     }
 
@@ -271,30 +205,16 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector2", "Center" },
-                value1,
-                value2
-            }
+            new object[] { new string[] { "BABYLON", "Vector2", "Center" }, value1, value2 }
         );
     }
 
-    public static decimal DistanceOfPointFromSegment(
-        Vector2 p,
-        Vector2 segA,
-        Vector2 segB
-    )
+    public static decimal DistanceOfPointFromSegment(Vector2 p, Vector2 segA, Vector2 segB)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Vector2",
-                    "DistanceOfPointFromSegment"
-                },
+                new string[] { "BABYLON", "Vector2", "DistanceOfPointFromSegment" },
                 p,
                 segA,
                 segB
@@ -311,10 +231,7 @@ public class Vector2 : CachedEntityObject
 
     public decimal x
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "x");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "x"); }
         set
         {
 
@@ -324,10 +241,7 @@ public class Vector2 : CachedEntityObject
 
     public decimal y
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "y");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "y"); }
         set
         {
 
@@ -346,16 +260,9 @@ public class Vector2 : CachedEntityObject
         ___guid = entity.___guid;
     }
 
-    public Vector2(
-        System.Nullable<decimal> x = null,
-        System.Nullable<decimal> y = null
-    )
+    public Vector2(System.Nullable<decimal> x = null, System.Nullable<decimal> y = null)
     {
-        var entity = EventHorizonBlazorInterop.New(
-            new string[] { "BABYLON", "Vector2" },
-            x,
-            y
-        );
+        var entity = EventHorizonBlazorInterop.New(new string[] { "BABYLON", "Vector2" }, x, y);
         ___guid = entity.___guid;
     }
     #endregion
@@ -382,19 +289,11 @@ public class Vector2 : CachedEntityObject
         );
     }
 
-    public Vector2 toArray(
-        decimal[] array,
-        System.Nullable<decimal> index = null
-    )
+    public Vector2 toArray(decimal[] array, System.Nullable<decimal> index = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "toArray" },
-                array,
-                index
-            }
+            new object[] { new string[] { this.___guid, "toArray" }, array, index }
         );
     }
 
@@ -417,12 +316,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "copyFromFloats" },
-                x,
-                y
-            }
+            new object[] { new string[] { this.___guid, "copyFromFloats" }, x, y }
         );
     }
 
@@ -446,12 +340,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addToRef" },
-                otherVector,
-                result
-            }
+            new object[] { new string[] { this.___guid, "addToRef" }, otherVector, result }
         );
     }
 
@@ -459,11 +348,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addInPlace" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "addInPlace" }, otherVector }
         );
     }
 
@@ -471,11 +356,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addVector3" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "addVector3" }, otherVector }
         );
     }
 
@@ -483,11 +364,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtract" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "subtract" }, otherVector }
         );
     }
 
@@ -495,12 +372,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtractToRef" },
-                otherVector,
-                result
-            }
+            new object[] { new string[] { this.___guid, "subtractToRef" }, otherVector, result }
         );
     }
 
@@ -508,11 +380,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtractInPlace" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "subtractInPlace" }, otherVector }
         );
     }
 
@@ -520,11 +388,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyInPlace" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "multiplyInPlace" }, otherVector }
         );
     }
 
@@ -532,11 +396,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiply" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "multiply" }, otherVector }
         );
     }
 
@@ -544,12 +404,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyToRef" },
-                otherVector,
-                result
-            }
+            new object[] { new string[] { this.___guid, "multiplyToRef" }, otherVector, result }
         );
     }
 
@@ -557,12 +412,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyByFloats" },
-                x,
-                y
-            }
+            new object[] { new string[] { this.___guid, "multiplyByFloats" }, x, y }
         );
     }
 
@@ -570,11 +420,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "divide" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "divide" }, otherVector }
         );
     }
 
@@ -582,12 +428,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "divideToRef" },
-                otherVector,
-                result
-            }
+            new object[] { new string[] { this.___guid, "divideToRef" }, otherVector, result }
         );
     }
 
@@ -595,11 +436,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "divideInPlace" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "divideInPlace" }, otherVector }
         );
     }
 
@@ -623,11 +460,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "negateToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "negateToRef" }, result }
         );
     }
 
@@ -635,11 +468,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleInPlace" },
-                scale
-            }
+            new object[] { new string[] { this.___guid, "scaleInPlace" }, scale }
         );
     }
 
@@ -655,12 +484,7 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleToRef" },
-                scale,
-                result
-            }
+            new object[] { new string[] { this.___guid, "scaleToRef" }, scale, result }
         );
     }
 
@@ -668,30 +492,18 @@ public class Vector2 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleAndAddToRef" },
-                scale,
-                result
-            }
+            new object[] { new string[] { this.___guid, "scaleAndAddToRef" }, scale, result }
         );
     }
 
     public bool equals(Vector2 otherVector)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "equals" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "equals" }, otherVector }
         );
     }
 
-    public bool equalsWithEpsilon(
-        Vector2 otherVector,
-        System.Nullable<decimal> epsilon = null
-    )
+    public bool equalsWithEpsilon(Vector2 otherVector, System.Nullable<decimal> epsilon = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
             new object[]

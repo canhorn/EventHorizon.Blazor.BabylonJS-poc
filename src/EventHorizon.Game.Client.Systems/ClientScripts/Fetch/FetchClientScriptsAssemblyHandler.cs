@@ -4,24 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Query.Model;
 using EventHorizon.Game.Client.Systems.ClientScripts.Model;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
-
 using MediatR;
 
 public class FetchClientScriptsAssemblyHandler
-    : IRequestHandler<
-        FetchClientScriptsAssembly,
-        QueryResult<ClientScriptsAssemblyResult>
-    >
+    : IRequestHandler<FetchClientScriptsAssembly, QueryResult<ClientScriptsAssemblyResult>>
 {
     private readonly IPlayerZoneConnectionState _playerZoneConnectionState;
 
-    public FetchClientScriptsAssemblyHandler(
-        IPlayerZoneConnectionState playerZoneConnectionState
-    )
+    public FetchClientScriptsAssemblyHandler(IPlayerZoneConnectionState playerZoneConnectionState)
     {
         _playerZoneConnectionState = playerZoneConnectionState;
     }

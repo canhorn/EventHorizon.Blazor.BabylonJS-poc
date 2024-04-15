@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<UtilityLayerRenderer>))]
@@ -22,18 +20,14 @@ public class UtilityLayerRenderer : CachedEntityObject, _IDisposable
         {
             if (__DefaultUtilityLayer == null)
             {
-                __DefaultUtilityLayer =
-                    EventHorizonBlazorInterop.GetClass<UtilityLayerRenderer>(
-                        "BABYLON",
-                        "UtilityLayerRenderer.DefaultUtilityLayer",
-                        (entity) =>
-                        {
-                            return new UtilityLayerRenderer()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __DefaultUtilityLayer = EventHorizonBlazorInterop.GetClass<UtilityLayerRenderer>(
+                    "BABYLON",
+                    "UtilityLayerRenderer.DefaultUtilityLayer",
+                    (entity) =>
+                    {
+                        return new UtilityLayerRenderer() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __DefaultUtilityLayer;
         }
@@ -52,10 +46,7 @@ public class UtilityLayerRenderer : CachedEntityObject, _IDisposable
                         "UtilityLayerRenderer.DefaultKeepDepthUtilityLayer",
                         (entity) =>
                         {
-                            return new UtilityLayerRenderer()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new UtilityLayerRenderer() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -104,21 +95,11 @@ public class UtilityLayerRenderer : CachedEntityObject, _IDisposable
 
     public bool pickUtilitySceneFirst
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "pickUtilitySceneFirst"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "pickUtilitySceneFirst"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "pickUtilitySceneFirst",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "pickUtilitySceneFirst", value);
         }
     }
 
@@ -143,23 +124,13 @@ public class UtilityLayerRenderer : CachedEntityObject, _IDisposable
         set
         {
             __utilityLayerScene = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "utilityLayerScene",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "utilityLayerScene", value);
         }
     }
 
     public bool shouldRender
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "shouldRender"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "shouldRender"); }
         set
         {
 
@@ -171,39 +142,22 @@ public class UtilityLayerRenderer : CachedEntityObject, _IDisposable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "onlyCheckPointerDownEvents"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "onlyCheckPointerDownEvents");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onlyCheckPointerDownEvents",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onlyCheckPointerDownEvents", value);
         }
     }
 
     public bool processAllEvents
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "processAllEvents"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "processAllEvents"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "processAllEvents",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "processAllEvents", value);
         }
     }
 
@@ -217,10 +171,7 @@ public class UtilityLayerRenderer : CachedEntityObject, _IDisposable
     public UtilityLayerRenderer(ICachedEntity entity)
         : base(entity) { }
 
-    public UtilityLayerRenderer(
-        Scene originalScene,
-        System.Nullable<bool> handleEvents = null
-    )
+    public UtilityLayerRenderer(Scene originalScene, System.Nullable<bool> handleEvents = null)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(
@@ -233,9 +184,7 @@ public class UtilityLayerRenderer : CachedEntityObject, _IDisposable
     #endregion
 
     #region Methods
-    public Camera getRenderCamera(
-        System.Nullable<bool> getRigParentIfPossible = null
-    )
+    public Camera getRenderCamera(System.Nullable<bool> getRigParentIfPossible = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Camera>(
             entity => new Camera() { ___guid = entity.___guid },
@@ -250,20 +199,13 @@ public class UtilityLayerRenderer : CachedEntityObject, _IDisposable
     public void setRenderCamera(Camera cam)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setRenderCamera" },
-                cam
-            }
+            new object[] { new string[] { this.___guid, "setRenderCamera" }, cam }
         );
     }
 
     #region mainSceneTrackerPredicate TODO: Get Comments as metadata identification
     private bool _isMainSceneTrackerPredicateEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _mainSceneTrackerPredicateActionMap =
+    private readonly IDictionary<string, Func<Task>> _mainSceneTrackerPredicateActionMap =
         new Dictionary<string, Func<Task>>();
 
     public string mainSceneTrackerPredicate(Func<Task> callback)

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.I18n.Api;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Particle.Api;

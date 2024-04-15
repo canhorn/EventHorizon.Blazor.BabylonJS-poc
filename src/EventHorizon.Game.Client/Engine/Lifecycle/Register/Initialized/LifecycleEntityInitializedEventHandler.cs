@@ -2,14 +2,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
-
 using MediatR;
 
-public class LifecycleEntityInitializedEventHandler
-    : INotificationHandler<EntityInitializedEvent>
+public class LifecycleEntityInitializedEventHandler : INotificationHandler<EntityInitializedEvent>
 {
     private readonly IRegisterUpdatable _registerUpdatable;
     private readonly IRegisterDrawable _registerDrawable;

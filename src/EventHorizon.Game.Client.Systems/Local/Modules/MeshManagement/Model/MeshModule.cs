@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
@@ -17,7 +16,6 @@ using EventHorizon.Game.Client.Systems.Local.InView.Exiting;
 using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set;
 using EventHorizon.Game.Client.Systems.Map.Ready;
-
 using MediatR;
 
 public class MeshModuleOptions
@@ -118,17 +116,12 @@ public class MeshModule
 
         if (_entity.Transform.ScalingDeterminant.HasValue)
         {
-            Mesh.ScalingDeterminant = _entity
-                .Transform
-                .ScalingDeterminant
-                .Value;
+            Mesh.ScalingDeterminant = _entity.Transform.ScalingDeterminant.Value;
         }
         else
         {
             var modelState = _entity.GetProperty<IModelState>(IModelState.NAME);
-            if (
-                modelState.IsNotNull() && modelState.ScalingDeterminant.HasValue
-            )
+            if (modelState.IsNotNull() && modelState.ScalingDeterminant.HasValue)
             {
                 Mesh.ScalingDeterminant = modelState.ScalingDeterminant.Value;
             }
@@ -137,10 +130,7 @@ public class MeshModule
 
     private IEngineMesh BuildMesh()
     {
-        var scene = GameServiceProvider
-            .GetService<IRenderingScene>()
-            .GetBabylonJSScene()
-            .Scene;
+        var scene = GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene;
         return new BabylonJSEngineMesh(
             BabylonJS.Mesh.CreateSphere(
                 $"testing_sphere_{_entity.ClientId}",

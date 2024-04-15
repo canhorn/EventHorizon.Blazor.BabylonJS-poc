@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Zone.Api;
-
 using Microsoft.AspNetCore.Components;
 
 public class PropertyDisplayModel : EditorComponentBase

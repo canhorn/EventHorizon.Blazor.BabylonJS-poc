@@ -4,27 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Components.Model;
 using EventHorizon.Game.Editor.Model;
 using EventHorizon.Game.Server.Asset.Query;
-
 using MediatR;
 
 public class QueryForAllArtifactExportsHandler
-    : IRequestHandler<
-        QueryForAllArtifactExports,
-        CommandResult<IEnumerable<ArtifactViewModel>>
-    >
+    : IRequestHandler<QueryForAllArtifactExports, CommandResult<IEnumerable<ArtifactViewModel>>>
 {
     private readonly ISender _sender;
     private readonly GamePlatformServiceSettings _settings;
 
-    public QueryForAllArtifactExportsHandler(
-        ISender sender,
-        GamePlatformServiceSettings settings
-    )
+    public QueryForAllArtifactExportsHandler(ISender sender, GamePlatformServiceSettings settings)
     {
         _sender = sender;
         _settings = settings;
@@ -35,10 +27,7 @@ public class QueryForAllArtifactExportsHandler
         CancellationToken cancellationToken
     )
     {
-        var result = await _sender.Send(
-            new QueryForAssetServerArtifacts(),
-            cancellationToken
-        );
+        var result = await _sender.Send(new QueryForAssetServerArtifacts(), cancellationToken);
 
         if (!result)
         {
@@ -46,19 +35,16 @@ public class QueryForAllArtifactExportsHandler
         }
 
         return new(
-            result.Result.ExportList
-                .OrderBy(export => export.Path)
+            result
+                .Result.ExportList.OrderBy(export => export.Path)
                 .Reverse()
-                .Select(
-                    export =>
-                        new ArtifactViewModel
-                        {
-                            Service = export.Service,
-                            ReferenceId = export.ReferenceId,
-                            CreatedDate = export.Created,
-                            Path = $"{_settings.AssetServer}{export.Path}",
-                        }
-                )
+                .Select(export => new ArtifactViewModel
+                {
+                    Service = export.Service,
+                    ReferenceId = export.ReferenceId,
+                    CreatedDate = export.Created,
+                    Path = $"{_settings.AssetServer}{export.Path}",
+                })
         );
     }
 }

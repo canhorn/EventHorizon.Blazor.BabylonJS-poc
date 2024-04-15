@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Model.Agent;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 
 public class AdminAgentEntityResponse

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Pages.Asset;
@@ -9,7 +8,6 @@ using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Editor.Model;
 using EventHorizon.Game.Server.Asset.Finished;
-
 using Microsoft.AspNetCore.Components;
 
 public class AssetServerLifecycleProviderBase
@@ -31,10 +29,7 @@ public class AssetServerLifecycleProviderBase
         await Mediator.Publish(
             new ShowMessageEvent(
                 Localizer["Asset Server Export"],
-                Localizer[
-                    "Successfully Exported Assets for '{0}'.",
-                    args.ReferenceId
-                ]
+                Localizer["Successfully Exported Assets for '{0}'.", args.ReferenceId]
             )
         );
 
@@ -63,14 +58,12 @@ public class AssetServerLifecycleProviderBase
         if (args.ReferenceId == State.BackupReferenceId)
         {
             if (
-                !NavigationManager.Uri
-                    .ToLowerInvariant()
+                !NavigationManager
+                    .Uri.ToLowerInvariant()
                     .EndsWith(AssetServerBackupArtifactsPage.Route)
             )
             {
-                NavigationManager.NavigateTo(
-                    AssetServerBackupArtifactsPage.Route
-                );
+                NavigationManager.NavigateTo(AssetServerBackupArtifactsPage.Route);
             }
         }
     }

@@ -47,15 +47,11 @@ public class StandardPlayerInputSetup(IMediator mediator) : PlayerInputSetup
         // TODO: Test to see if can go direct to MoveDirection
         if (keyInput.TryGet<int>("Pressed", out var pressedResult))
         {
-            pressedDirection = new Option<MoveDirection>(
-                (MoveDirection)pressedResult
-            );
+            pressedDirection = new Option<MoveDirection>((MoveDirection)pressedResult);
         }
         if (keyInput.TryGet<int>("Released", out var releasedResult))
         {
-            releasedDirection = new Option<MoveDirection>(
-                (MoveDirection)releasedResult
-            );
+            releasedDirection = new Option<MoveDirection>((MoveDirection)releasedResult);
         }
 
         await module.RegisterInput(
@@ -65,11 +61,7 @@ public class StandardPlayerInputSetup(IMediator mediator) : PlayerInputSetup
                 {
                     if (pressedDirection.HasValue)
                     {
-                        mediator.Publish(
-                            new MovePlayerInDirectionEvent(
-                                pressedDirection.Value
-                            )
-                        );
+                        mediator.Publish(new MovePlayerInDirectionEvent(pressedDirection.Value));
                     }
 
                     return Task.CompletedTask;
@@ -78,11 +70,7 @@ public class StandardPlayerInputSetup(IMediator mediator) : PlayerInputSetup
                 {
                     if (releasedDirection.HasValue)
                     {
-                        mediator.Publish(
-                            new MovePlayerInDirectionEvent(
-                                releasedDirection.Value
-                            )
-                        );
+                        mediator.Publish(new MovePlayerInDirectionEvent(releasedDirection.Value));
                     }
 
                     return Task.CompletedTask;

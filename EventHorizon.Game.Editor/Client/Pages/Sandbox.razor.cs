@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Activity;
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
 
 public partial class Sandbox
@@ -16,9 +14,7 @@ public partial class Sandbox
         await Mediator.Send(new SandboxActivityEvent());
     }
 
-    public struct SandboxActivityEvent
-        : IRequest<CommandResult<bool>>,
-            TrackActivity { }
+    public struct SandboxActivityEvent : IRequest<CommandResult<bool>>, TrackActivity { }
 
     public class SandboxActivityEventHandler
         : IRequestHandler<SandboxActivityEvent, CommandResult<bool>>

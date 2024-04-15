@@ -4,10 +4,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Gui.Register;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
-
 using MediatR;
 
 public class SetupGuiFromPlayerZoneInfoReceivedEventHandler

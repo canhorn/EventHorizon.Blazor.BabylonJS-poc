@@ -1,13 +1,11 @@
 ﻿namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Lights;
 
 using System.Threading.Tasks;
-
+using global::BabylonJS;
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-
-using global::BabylonJS;
 
 public struct LightSettings
 {

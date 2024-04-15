@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Particle.Modules.ParticleEmitter.Api;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
 public interface ParticleEmitterModule : IModule

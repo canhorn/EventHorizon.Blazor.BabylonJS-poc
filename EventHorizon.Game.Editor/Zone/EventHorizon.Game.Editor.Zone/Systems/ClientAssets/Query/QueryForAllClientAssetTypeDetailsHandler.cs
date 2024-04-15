@@ -3,12 +3,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Properties.Model;
 using EventHorizon.Zone.Systems.ClientAssets.Model;
 using EventHorizon.Zone.Systems.ClientAssets.Query;
-
 using MediatR;
 
 public class QueryForAllClientAssetTypeDetailsHandler
@@ -50,12 +48,8 @@ public class QueryForAllClientAssetTypeDetailsHandler
                 {
                     Type = "MESH:BOX",
                     Name = "Mesh Box",
-                    Metadata = new Dictionary<string, string>
-                    {
-                        ["size"] = PropertyType.Decimal,
-                    },
-                    DefaultValue = () =>
-                        new Dictionary<string, object> { ["size"] = 2m, },
+                    Metadata = new Dictionary<string, string> { ["size"] = PropertyType.Decimal, },
+                    DefaultValue = () => new Dictionary<string, object> { ["size"] = 2m, },
                 },
                 new()
                 {
@@ -175,10 +169,7 @@ public class QueryForAllClientAssetTypeDetailsHandler
                                 ["uScale"] = 1m,
                                 ["vScale"] = 1m,
                             },
-                            ["blendTexture"] = new ComplexProperty
-                            {
-                                ["image"] = string.Empty,
-                            },
+                            ["blendTexture"] = new ComplexProperty { ["image"] = string.Empty, },
                             ["sandLimit"] = 1,
                             ["rockLimit"] = 5,
                             ["snowLimit"] = 8,
@@ -188,29 +179,16 @@ public class QueryForAllClientAssetTypeDetailsHandler
                 {
                     Type = "IMAGE:URL",
                     Name = "Image",
-                    Metadata = new Dictionary<string, string>
-                    {
-                        ["url"] = PropertyType.String,
-                    },
-                    DefaultValue = () =>
-                        new Dictionary<string, object>
-                        {
-                            ["url"] = string.Empty,
-                        },
+                    Metadata = new Dictionary<string, string> { ["url"] = PropertyType.String, },
+                    DefaultValue = () => new Dictionary<string, object> { ["url"] = string.Empty, },
                 },
                 new()
                 {
                     Type = "DIALOG",
                     Name = "Dialog",
-                    Metadata = new Dictionary<string, string>
-                    {
-                        ["root"] = PropertyType.Complex,
-                    },
+                    Metadata = new Dictionary<string, string> { ["root"] = PropertyType.Complex, },
                     DefaultValue = () =>
-                        new Dictionary<string, object>
-                        {
-                            ["root"] = new ComplexProperty(),
-                        },
+                        new Dictionary<string, object> { ["root"] = new ComplexProperty(), },
                 },
             }
         ).FromResult();

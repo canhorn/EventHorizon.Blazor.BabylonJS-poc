@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<RenderTargetTexture>))]
@@ -93,10 +91,7 @@ public class RenderTargetTexture : Texture
                         "renderTargetOptions",
                         (entity) =>
                         {
-                            return new RenderTargetCreationOptions()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new RenderTargetCreationOptions() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -125,11 +120,7 @@ public class RenderTargetTexture : Texture
         set
         {
             __boundingBoxSize = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "boundingBoxSize",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "boundingBoxSize", value);
         }
     }
 
@@ -140,18 +131,14 @@ public class RenderTargetTexture : Texture
         {
             if (__depthStencilTexture == null)
             {
-                __depthStencilTexture =
-                    EventHorizonBlazorInterop.GetClass<InternalTexture>(
-                        this.___guid,
-                        "depthStencilTexture",
-                        (entity) =>
-                        {
-                            return new InternalTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __depthStencilTexture = EventHorizonBlazorInterop.GetClass<InternalTexture>(
+                    this.___guid,
+                    "depthStencilTexture",
+                    (entity) =>
+                    {
+                        return new InternalTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __depthStencilTexture;
         }
@@ -159,13 +146,7 @@ public class RenderTargetTexture : Texture
 
     public decimal samples
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "samples"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "samples"); }
         set
         {
 
@@ -175,13 +156,7 @@ public class RenderTargetTexture : Texture
 
     public decimal refreshRate
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "refreshRate"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "refreshRate"); }
         set
         {
 
@@ -191,13 +166,7 @@ public class RenderTargetTexture : Texture
 
     public bool canRescale
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "canRescale"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "canRescale"); }
     }
     #endregion
 
@@ -205,10 +174,7 @@ public class RenderTargetTexture : Texture
 
     public bool isCube
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isCube");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isCube"); }
         set
         {
 
@@ -218,33 +184,17 @@ public class RenderTargetTexture : Texture
 
     public bool renderParticles
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "renderParticles"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "renderParticles"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderParticles",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderParticles", value);
         }
     }
 
     public bool renderSprites
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "renderSprites"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "renderSprites"); }
         set
         {
 
@@ -254,21 +204,11 @@ public class RenderTargetTexture : Texture
 
     public decimal coordinatesMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "coordinatesMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "coordinatesMode"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "coordinatesMode",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "coordinatesMode", value);
         }
     }
 
@@ -299,41 +239,21 @@ public class RenderTargetTexture : Texture
 
     public bool useCameraPostProcesses
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useCameraPostProcesses"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useCameraPostProcesses"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useCameraPostProcesses",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useCameraPostProcesses", value);
         }
     }
 
     public bool ignoreCameraViewport
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "ignoreCameraViewport"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "ignoreCameraViewport"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ignoreCameraViewport",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ignoreCameraViewport", value);
         }
     }
 
@@ -351,10 +271,7 @@ public class RenderTargetTexture : Texture
                     "onBeforeBindObservable",
                     (entity) =>
                     {
-                        return new Observable<RenderTargetTexture>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<RenderTargetTexture>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -363,11 +280,7 @@ public class RenderTargetTexture : Texture
         set
         {
             __onBeforeBindObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onBeforeBindObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onBeforeBindObservable", value);
         }
     }
 
@@ -385,10 +298,7 @@ public class RenderTargetTexture : Texture
                     "onAfterUnbindObservable",
                     (entity) =>
                     {
-                        return new Observable<RenderTargetTexture>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<RenderTargetTexture>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -397,11 +307,7 @@ public class RenderTargetTexture : Texture
         set
         {
             __onAfterUnbindObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAfterUnbindObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAfterUnbindObservable", value);
         }
     }
 
@@ -416,17 +322,12 @@ public class RenderTargetTexture : Texture
         {
             if (__onClearObservable == null)
             {
-                __onClearObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Engine>
-                >(
+                __onClearObservable = EventHorizonBlazorInterop.GetClass<Observable<Engine>>(
                     this.___guid,
                     "onClearObservable",
                     (entity) =>
                     {
-                        return new Observable<Engine>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Engine>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -435,11 +336,7 @@ public class RenderTargetTexture : Texture
         set
         {
             __onClearObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onClearObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onClearObservable", value);
         }
     }
 
@@ -457,10 +354,7 @@ public class RenderTargetTexture : Texture
                     "onResizeObservable",
                     (entity) =>
                     {
-                        return new Observable<RenderTargetTexture>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<RenderTargetTexture>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -469,11 +363,7 @@ public class RenderTargetTexture : Texture
         set
         {
             __onResizeObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onResizeObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onResizeObservable", value);
         }
     }
 
@@ -509,26 +399,21 @@ public class RenderTargetTexture : Texture
         {
             if (__boundingBoxPosition == null)
             {
-                __boundingBoxPosition =
-                    EventHorizonBlazorInterop.GetClass<Vector3>(
-                        this.___guid,
-                        "boundingBoxPosition",
-                        (entity) =>
-                        {
-                            return new Vector3() { ___guid = entity.___guid };
-                        }
-                    );
+                __boundingBoxPosition = EventHorizonBlazorInterop.GetClass<Vector3>(
+                    this.___guid,
+                    "boundingBoxPosition",
+                    (entity) =>
+                    {
+                        return new Vector3() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __boundingBoxPosition;
         }
         set
         {
             __boundingBoxPosition = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "boundingBoxPosition",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "boundingBoxPosition", value);
         }
     }
     #endregion
@@ -580,10 +465,8 @@ public class RenderTargetTexture : Texture
     #region Methods
     #region renderListPredicate TODO: Get Comments as metadata identification
     private bool _isRenderListPredicateEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _renderListPredicateActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _renderListPredicateActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string renderListPredicate(Func<Task> callback)
     {
@@ -627,10 +510,8 @@ public class RenderTargetTexture : Texture
 
     #region getCustomRenderList TODO: Get Comments as metadata identification
     private bool _isGetCustomRenderListEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _getCustomRenderListActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _getCustomRenderListActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string getCustomRenderList(Func<Task> callback)
     {
@@ -674,10 +555,8 @@ public class RenderTargetTexture : Texture
 
     #region customRenderFunction TODO: Get Comments as metadata identification
     private bool _isCustomRenderFunctionEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _customRenderFunctionActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _customRenderFunctionActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string customRenderFunction(Func<Task> callback)
     {
@@ -739,43 +618,28 @@ public class RenderTargetTexture : Texture
     public void resetRefreshCounter()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "resetRefreshCounter" }
-            }
+            new object[] { new string[] { this.___guid, "resetRefreshCounter" } }
         );
     }
 
     public void addPostProcess(PostProcess postProcess)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addPostProcess" },
-                postProcess
-            }
+            new object[] { new string[] { this.___guid, "addPostProcess" }, postProcess }
         );
     }
 
     public void clearPostProcesses(System.Nullable<bool> dispose = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "clearPostProcesses" },
-                dispose
-            }
+            new object[] { new string[] { this.___guid, "clearPostProcesses" }, dispose }
         );
     }
 
     public void removePostProcess(PostProcess postProcess)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "removePostProcess" },
-                postProcess
-            }
+            new object[] { new string[] { this.___guid, "removePostProcess" }, postProcess }
         );
     }
 
@@ -818,10 +682,7 @@ public class RenderTargetTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getReflectionTextureMatrix" }
-            }
+            new object[] { new string[] { this.___guid, "getReflectionTextureMatrix" } }
         );
     }
 
@@ -874,11 +735,7 @@ public class RenderTargetTexture : Texture
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "setRenderingAutoClearDepthStencil"
-                },
+                new string[] { this.___guid, "setRenderingAutoClearDepthStencil" },
                 renderingGroupId,
                 autoClearDepthStencil
             }
@@ -903,10 +760,7 @@ public class RenderTargetTexture : Texture
     public void disposeFramebufferObjects()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "disposeFramebufferObjects" }
-            }
+            new object[] { new string[] { this.___guid, "disposeFramebufferObjects" } }
         );
     }
 
@@ -920,10 +774,7 @@ public class RenderTargetTexture : Texture
     public void freeRenderingGroups()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "freeRenderingGroups" }
-            }
+            new object[] { new string[] { this.___guid, "freeRenderingGroups" } }
         );
     }
 

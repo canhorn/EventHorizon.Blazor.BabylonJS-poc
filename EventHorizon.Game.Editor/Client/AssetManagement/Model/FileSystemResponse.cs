@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public class FileSystemResponse
 {
-    public FileSystemDirectoryContent CWD { get; set; } =
-        new FileSystemDirectoryContent();
+    public FileSystemDirectoryContent CWD { get; set; } = new FileSystemDirectoryContent();
 
     public IEnumerable<FileSystemDirectoryContent> Files { get; set; } =
         new List<FileSystemDirectoryContent>();

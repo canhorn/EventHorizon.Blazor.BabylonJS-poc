@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Camera>))]
@@ -24,10 +22,7 @@ public class Camera : Node
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Camera.PERSPECTIVE_CAMERA"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Camera.PERSPECTIVE_CAMERA");
         }
     }
 
@@ -35,10 +30,7 @@ public class Camera : Node
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Camera.ORTHOGRAPHIC_CAMERA"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Camera.ORTHOGRAPHIC_CAMERA");
         }
     }
 
@@ -66,13 +58,7 @@ public class Camera : Node
 
     public static decimal RIG_MODE_NONE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Camera.RIG_MODE_NONE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Camera.RIG_MODE_NONE"); }
     }
 
     public static decimal RIG_MODE_STEREOSCOPIC_ANAGLYPH
@@ -132,35 +118,17 @@ public class Camera : Node
 
     public static decimal RIG_MODE_VR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Camera.RIG_MODE_VR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Camera.RIG_MODE_VR"); }
     }
 
     public static decimal RIG_MODE_WEBVR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Camera.RIG_MODE_WEBVR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Camera.RIG_MODE_WEBVR"); }
     }
 
     public static decimal RIG_MODE_CUSTOM
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Camera.RIG_MODE_CUSTOM"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Camera.RIG_MODE_CUSTOM"); }
     }
 
     public static bool ForceAttachControlToAlwaysPreventDefault
@@ -187,10 +155,8 @@ public class Camera : Node
     #region Static Methods
     #region GetConstructorFromName TODO: Get Comments as metadata identification
     private static bool IsGetConstructorFromNameEnabled = false;
-    private static readonly IDictionary<
-        string,
-        Func<Task>
-    > GetConstructorFromNameActionMap = new Dictionary<string, Func<Task>>();
+    private static readonly IDictionary<string, Func<Task>> GetConstructorFromNameActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public static string GetConstructorFromName(Func<Task> callback)
     {
@@ -235,12 +201,7 @@ public class Camera : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Camera>(
             entity => new Camera() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Camera", "Parse" },
-                parsedCamera,
-                scene
-            }
+            new object[] { new string[] { "BABYLON", "Camera", "Parse" }, parsedCamera, scene }
         );
     }
     #endregion
@@ -313,18 +274,14 @@ public class Camera : Node
         {
             if (__rigPostProcess == null)
             {
-                __rigPostProcess =
-                    EventHorizonBlazorInterop.GetClass<PostProcess>(
-                        this.___guid,
-                        "rigPostProcess",
-                        (entity) =>
-                        {
-                            return new PostProcess()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __rigPostProcess = EventHorizonBlazorInterop.GetClass<PostProcess>(
+                    this.___guid,
+                    "rigPostProcess",
+                    (entity) =>
+                    {
+                        return new PostProcess() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __rigPostProcess;
         }
@@ -332,24 +289,12 @@ public class Camera : Node
 
     public bool isLeftCamera
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isLeftCamera"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isLeftCamera"); }
     }
 
     public bool isRightCamera
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isRightCamera"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isRightCamera"); }
     }
 
     private FreeCamera __leftCamera;
@@ -399,18 +344,14 @@ public class Camera : Node
         {
             if (__absoluteRotation == null)
             {
-                __absoluteRotation =
-                    EventHorizonBlazorInterop.GetClass<Quaternion>(
-                        this.___guid,
-                        "absoluteRotation",
-                        (entity) =>
-                        {
-                            return new Quaternion()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __absoluteRotation = EventHorizonBlazorInterop.GetClass<Quaternion>(
+                    this.___guid,
+                    "absoluteRotation",
+                    (entity) =>
+                    {
+                        return new Quaternion() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __absoluteRotation;
         }
@@ -425,17 +366,12 @@ public class Camera : Node
         {
             if (__inputs == null)
             {
-                __inputs = EventHorizonBlazorInterop.GetClass<
-                    CameraInputsManager<Camera>
-                >(
+                __inputs = EventHorizonBlazorInterop.GetClass<CameraInputsManager<Camera>>(
                     this.___guid,
                     "inputs",
                     (entity) =>
                     {
-                        return new CameraInputsManager<Camera>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new CameraInputsManager<Camera>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -475,13 +411,7 @@ public class Camera : Node
 
     public decimal orthoLeft
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "orthoLeft"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "orthoLeft"); }
         set
         {
 
@@ -491,13 +421,7 @@ public class Camera : Node
 
     public decimal orthoRight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "orthoRight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "orthoRight"); }
         set
         {
 
@@ -507,13 +431,7 @@ public class Camera : Node
 
     public decimal orthoBottom
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "orthoBottom"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "orthoBottom"); }
         set
         {
 
@@ -523,13 +441,7 @@ public class Camera : Node
 
     public decimal orthoTop
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "orthoTop"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "orthoTop"); }
         set
         {
 
@@ -539,10 +451,7 @@ public class Camera : Node
 
     public decimal fov
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "fov");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "fov"); }
         set
         {
 
@@ -552,10 +461,7 @@ public class Camera : Node
 
     public decimal minZ
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "minZ");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "minZ"); }
         set
         {
 
@@ -565,10 +471,7 @@ public class Camera : Node
 
     public decimal maxZ
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "maxZ");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "maxZ"); }
         set
         {
 
@@ -578,13 +481,7 @@ public class Camera : Node
 
     public decimal inertia
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "inertia"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "inertia"); }
         set
         {
 
@@ -594,10 +491,7 @@ public class Camera : Node
 
     public decimal mode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "mode");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "mode"); }
         set
         {
 
@@ -607,21 +501,11 @@ public class Camera : Node
 
     public bool isIntermediate
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isIntermediate"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isIntermediate"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "isIntermediate",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "isIntermediate", value);
         }
     }
 
@@ -652,13 +536,7 @@ public class Camera : Node
 
     public decimal layerMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "layerMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "layerMask"); }
         set
         {
 
@@ -668,13 +546,7 @@ public class Camera : Node
 
     public decimal fovMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "fovMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "fovMode"); }
         set
         {
 
@@ -684,13 +556,7 @@ public class Camera : Node
 
     public decimal cameraRigMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cameraRigMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cameraRigMode"); }
         set
         {
 
@@ -700,21 +566,11 @@ public class Camera : Node
 
     public decimal interaxialDistance
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "interaxialDistance"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "interaxialDistance"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "interaxialDistance",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "interaxialDistance", value);
         }
     }
 
@@ -722,19 +578,12 @@ public class Camera : Node
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isStereoscopicSideBySide"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isStereoscopicSideBySide");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "isStereoscopicSideBySide",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "isStereoscopicSideBySide", value);
         }
     }
 
@@ -747,21 +596,14 @@ public class Camera : Node
                 "customRenderTargets",
                 (entity) =>
                 {
-                    return new RenderTargetTexture()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new RenderTargetTexture() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "customRenderTargets",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "customRenderTargets", value);
         }
     }
 
@@ -772,29 +614,21 @@ public class Camera : Node
         {
             if (__outputRenderTarget == null)
             {
-                __outputRenderTarget =
-                    EventHorizonBlazorInterop.GetClass<RenderTargetTexture>(
-                        this.___guid,
-                        "outputRenderTarget",
-                        (entity) =>
-                        {
-                            return new RenderTargetTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __outputRenderTarget = EventHorizonBlazorInterop.GetClass<RenderTargetTexture>(
+                    this.___guid,
+                    "outputRenderTarget",
+                    (entity) =>
+                    {
+                        return new RenderTargetTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __outputRenderTarget;
         }
         set
         {
             __outputRenderTarget = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "outputRenderTarget",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "outputRenderTarget", value);
         }
     }
 
@@ -805,29 +639,23 @@ public class Camera : Node
         {
             if (__onViewMatrixChangedObservable == null)
             {
-                __onViewMatrixChangedObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Camera>>(
-                        this.___guid,
-                        "onViewMatrixChangedObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Camera>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onViewMatrixChangedObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Camera>
+                >(
+                    this.___guid,
+                    "onViewMatrixChangedObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Camera>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onViewMatrixChangedObservable;
         }
         set
         {
             __onViewMatrixChangedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onViewMatrixChangedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onViewMatrixChangedObservable", value);
         }
     }
 
@@ -838,18 +666,16 @@ public class Camera : Node
         {
             if (__onProjectionMatrixChangedObservable == null)
             {
-                __onProjectionMatrixChangedObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Camera>>(
-                        this.___guid,
-                        "onProjectionMatrixChangedObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Camera>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onProjectionMatrixChangedObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Camera>
+                >(
+                    this.___guid,
+                    "onProjectionMatrixChangedObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Camera>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onProjectionMatrixChangedObservable;
         }
@@ -871,29 +697,23 @@ public class Camera : Node
         {
             if (__onAfterCheckInputsObservable == null)
             {
-                __onAfterCheckInputsObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Camera>>(
-                        this.___guid,
-                        "onAfterCheckInputsObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Camera>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAfterCheckInputsObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Camera>
+                >(
+                    this.___guid,
+                    "onAfterCheckInputsObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Camera>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAfterCheckInputsObservable;
         }
         set
         {
             __onAfterCheckInputsObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAfterCheckInputsObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAfterCheckInputsObservable", value);
         }
     }
 
@@ -904,17 +724,12 @@ public class Camera : Node
         {
             if (__onRestoreStateObservable == null)
             {
-                __onRestoreStateObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Camera>
-                >(
+                __onRestoreStateObservable = EventHorizonBlazorInterop.GetClass<Observable<Camera>>(
                     this.___guid,
                     "onRestoreStateObservable",
                     (entity) =>
                     {
-                        return new Observable<Camera>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Camera>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -923,23 +738,13 @@ public class Camera : Node
         set
         {
             __onRestoreStateObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onRestoreStateObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onRestoreStateObservable", value);
         }
     }
 
     public bool isRigCamera
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isRigCamera"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isRigCamera"); }
         set
         {
 
@@ -1025,19 +830,14 @@ public class Camera : Node
     public string toString(System.Nullable<bool> fullDetails = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                fullDetails
-            }
+            new object[] { new string[] { this.___guid, "toString" }, fullDetails }
         );
     }
 
     public SmartArray<AbstractMesh> getActiveMeshes()
     {
         return EventHorizonBlazorInterop.FuncClass<SmartArray<AbstractMesh>>(
-            entity =>
-                new SmartArray<AbstractMesh>() { ___guid = entity.___guid },
+            entity => new SmartArray<AbstractMesh>() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getActiveMeshes" } }
         );
     }
@@ -1052,18 +852,11 @@ public class Camera : Node
     public bool isReady(System.Nullable<bool> completeCheck = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isReady" },
-                completeCheck
-            }
+            new object[] { new string[] { this.___guid, "isReady" }, completeCheck }
         );
     }
 
-    public void attachControl(
-        object element,
-        System.Nullable<bool> noPreventDefault = null
-    )
+    public void attachControl(object element, System.Nullable<bool> noPreventDefault = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -1078,11 +871,7 @@ public class Camera : Node
     public void detachControl(object element)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "detachControl" },
-                element
-            }
+            new object[] { new string[] { this.___guid, "detachControl" }, element }
         );
     }
 
@@ -1111,11 +900,7 @@ public class Camera : Node
     public void detachPostProcess(PostProcess postProcess)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "detachPostProcess" },
-                postProcess
-            }
+            new object[] { new string[] { this.___guid, "detachPostProcess" }, postProcess }
         );
     }
 
@@ -1131,32 +916,21 @@ public class Camera : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getViewMatrix" },
-                force
-            }
+            new object[] { new string[] { this.___guid, "getViewMatrix" }, force }
         );
     }
 
     public void freezeProjectionMatrix(Matrix projection = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "freezeProjectionMatrix" },
-                projection
-            }
+            new object[] { new string[] { this.___guid, "freezeProjectionMatrix" }, projection }
         );
     }
 
     public void unfreezeProjectionMatrix()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "unfreezeProjectionMatrix" }
-            }
+            new object[] { new string[] { this.___guid, "unfreezeProjectionMatrix" } }
         );
     }
 
@@ -1164,11 +938,7 @@ public class Camera : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getProjectionMatrix" },
-                force
-            }
+            new object[] { new string[] { this.___guid, "getProjectionMatrix" }, force }
         );
     }
 
@@ -1176,36 +946,21 @@ public class Camera : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getTransformationMatrix" }
-            }
+            new object[] { new string[] { this.___guid, "getTransformationMatrix" } }
         );
     }
 
-    public bool isInFrustum(
-        ICullable target,
-        System.Nullable<bool> checkRigCameras = null
-    )
+    public bool isInFrustum(ICullable target, System.Nullable<bool> checkRigCameras = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isInFrustum" },
-                target,
-                checkRigCameras
-            }
+            new object[] { new string[] { this.___guid, "isInFrustum" }, target, checkRigCameras }
         );
     }
 
     public bool isCompletelyInFrustum(ICullable target)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isCompletelyInFrustum" },
-                target
-            }
+            new object[] { new string[] { this.___guid, "isCompletelyInFrustum" }, target }
         );
     }
 
@@ -1261,24 +1016,14 @@ public class Camera : Node
     public void setCameraRigMode(decimal mode, object rigParams)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setCameraRigMode" },
-                mode,
-                rigParams
-            }
+            new object[] { new string[] { this.___guid, "setCameraRigMode" }, mode, rigParams }
         );
     }
 
     public void setCameraRigParameter(string name, object value)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setCameraRigParameter" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setCameraRigParameter" }, name, value }
         );
     }
 
@@ -1286,12 +1031,7 @@ public class Camera : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Camera>(
             entity => new Camera() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "createRigCamera" },
-                name,
-                cameraIndex
-            }
+            new object[] { new string[] { this.___guid, "createRigCamera" }, name, cameraIndex }
         );
     }
 
@@ -1314,23 +1054,14 @@ public class Camera : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getDirection" },
-                localAxis
-            }
+            new object[] { new string[] { this.___guid, "getDirection" }, localAxis }
         );
     }
 
     public void getDirectionToRef(Vector3 localAxis, Vector3 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getDirectionToRef" },
-                localAxis,
-                result
-            }
+            new object[] { new string[] { this.___guid, "getDirectionToRef" }, localAxis, result }
         );
     }
 

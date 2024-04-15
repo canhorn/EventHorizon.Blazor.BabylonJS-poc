@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Create;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using MediatR;
 
 public struct CreateNewZoneEditorFileCommand : IRequest<EditorResponse>

@@ -1,9 +1,7 @@
 namespace EventHorizon.Game.Editor.Automation.Home.Tests.QuickLinks;
 
 using System.Linq;
-
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.ArtifactManagement.Localization;
 using EventHorizon.Game.Editor.Automation.ArtifactManagement.Pages;
 using EventHorizon.Game.Editor.Automation.AssetManagement.Localization;
@@ -24,9 +22,7 @@ using EventHorizon.Game.Editor.Automation.ZoneArtifactsManagement.Localization;
 using EventHorizon.Game.Editor.Automation.ZoneArtifactsManagement.Pages;
 using EventHorizon.Game.Editor.Automation.ZoneCommands.Localization;
 using EventHorizon.Game.Editor.Automation.ZoneCommands.Pages;
-
 using NUnit.Framework;
-
 using Translations = Localization.SideBarQuickLinksTranslations;
 
 public class QuickLinksNavigateToExpectedPageWhenClicked : WebHost
@@ -37,50 +33,30 @@ public class QuickLinksNavigateToExpectedPageWhenClicked : WebHost
     public void Quick_Links_Navigate_To_Expected_Page_When_Clicked()
     {
         this.Login<HomePage>()
-            .SideBar.QuickLinks.Tree.Text.Should.Be(
-                Translations.EN_US.QuickLinksText
-            )
+            .SideBar.QuickLinks.Tree.Text.Should.Be(Translations.EN_US.QuickLinksText)
             .SideBar.QuickLinks.Tree.Open()
             .Children.Count.Should.Be(8)
-            .SideBar.QuickLinks.ValidateNavigationAndHeader<
-                HomePage,
-                ArtifactManagementPage
-            >(
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<HomePage, ArtifactManagementPage>(
                 Translations.EN_US.ArtifactManagementText,
                 ArtifactManagementPageTranslations.EN_US.Header
             )
             .SideBar.QuickLinks.ValidateNavigationAndHeader<
                 ArtifactManagementPage,
                 AssetManagementPage
-            >(
-                Translations.EN_US.AssetManagementText,
-                AssetManagementPageTranslations.EN_US.Header
-            )
-            .SideBar.QuickLinks.ValidateNavigationAndHeader<
-                AssetManagementPage,
-                DataStoragePage
-            >(
+            >(Translations.EN_US.AssetManagementText, AssetManagementPageTranslations.EN_US.Header)
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<AssetManagementPage, DataStoragePage>(
                 Translations.EN_US.DataStorageText,
                 DataStoragePageTranslations.EN_US.Header
             )
-            .SideBar.QuickLinks.ValidateNavigationAndHeader<
-                DataStoragePage,
-                EntityEditorPage
-            >(
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<DataStoragePage, EntityEditorPage>(
                 Translations.EN_US.EntityEditorText,
                 EntityEditorPageTranslations.EN_US.Header
             )
-            .SideBar.QuickLinks.ValidateNavigationAndHeader<
-                EntityEditorPage,
-                LiveEditorPage
-            >(
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<EntityEditorPage, LiveEditorPage>(
                 Translations.EN_US.LiveEditorText,
                 LiveEditorPageTranslations.EN_US.Header
             )
-            .SideBar.QuickLinks.ValidateNavigationAndHeader<
-                LiveEditorPage,
-                WizardEditorPage
-            >(
+            .SideBar.QuickLinks.ValidateNavigationAndHeader<LiveEditorPage, WizardEditorPage>(
                 Translations.EN_US.WizardText,
                 WizardEditorPageTranslations.EN_US.Header
             )
@@ -94,10 +70,7 @@ public class QuickLinksNavigateToExpectedPageWhenClicked : WebHost
             .SideBar.QuickLinks.ValidateNavigationAndHeader<
                 ZoneArtifactsManagementPage,
                 ZoneCommandsPage
-            >(
-                Translations.EN_US.ZoneCommandsText,
-                ZoneCommandsPageTranslations.EN_US.Header
-            );
+            >(Translations.EN_US.ZoneCommandsText, ZoneCommandsPageTranslations.EN_US.Header);
     }
 }
 
@@ -111,8 +84,8 @@ public static class ValidateQuickLinksExtensions
         where TParent : MainLayoutPage<TParent>
         where TOwner : MainLayoutPage<TOwner>
     {
-        return node.Tree
-            .Open()
+        return node
+            .Tree.Open()
             .Children.Should.Contain(a => a.Text == text)
             .SideBar.QuickLinks.Tree.Children.First(a => a.Text == text)
             .Link.ClickAndGo<TOwner>()

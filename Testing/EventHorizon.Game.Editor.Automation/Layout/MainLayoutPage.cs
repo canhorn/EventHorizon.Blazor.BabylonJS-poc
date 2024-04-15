@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Layout;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Components.Toast;
 using EventHorizon.Game.Editor.Automation.Layout.Components;
 

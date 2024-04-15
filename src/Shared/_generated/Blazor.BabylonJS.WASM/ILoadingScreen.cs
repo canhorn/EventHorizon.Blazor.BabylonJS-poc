@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ILoadingScreen : ICachedEntity { }
@@ -38,31 +36,18 @@ public class ILoadingScreenCachedEntity : CachedEntityObject, ILoadingScreen
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "loadingUIBackgroundColor"
-            );
+            return EventHorizonBlazorInterop.Get<string>(this.___guid, "loadingUIBackgroundColor");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "loadingUIBackgroundColor",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "loadingUIBackgroundColor", value);
         }
     }
 
     public string loadingUIText
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "loadingUIText"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "loadingUIText"); }
         set
         {
 
@@ -83,10 +68,8 @@ public class ILoadingScreenCachedEntity : CachedEntityObject, ILoadingScreen
     #region Methods
     #region displayLoadingUI TODO: Get Comments as metadata identification
     private bool _isDisplayLoadingUIEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _displayLoadingUIActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _displayLoadingUIActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string displayLoadingUI(Func<Task> callback)
     {

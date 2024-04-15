@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Observer.Admin.Register;
 
 using EventHorizon.Observer.Admin.Model;
-
 using MediatR;
 
 public class RegisterAdminObserverCommand : IRequest

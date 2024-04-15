@@ -2,9 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 using EventHorizon.Game.Client.Engine.Window.Resize;
 
@@ -13,9 +11,7 @@ public class MyEngineOptions : EngineOptionsCachedEntity
     public bool preserveDrawingBuffer { get; set; }
 }
 
-public class BabylonJSEngineImplementation
-    : IEngineImplementation,
-        SystemWindowResizedEventObserver
+public class BabylonJSEngineImplementation : IEngineImplementation, SystemWindowResizedEventObserver
 {
     public BabylonJS.Engine Engine { get; }
 
@@ -28,10 +24,7 @@ public class BabylonJSEngineImplementation
         Engine = new BabylonJS.Engine(
             canvas,
             antialias,
-            new MyEngineOptions
-            {
-                preserveDrawingBuffer = preserveDrawingBuffer,
-            }
+            new MyEngineOptions { preserveDrawingBuffer = preserveDrawingBuffer, }
         );
         GamePlatform.RegisterObserver(this);
     }

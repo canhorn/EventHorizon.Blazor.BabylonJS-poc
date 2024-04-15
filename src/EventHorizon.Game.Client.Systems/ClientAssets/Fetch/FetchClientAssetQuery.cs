@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Client.Core.Query.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-
 using MediatR;
 
 public class FetchClientAssetQuery : IRequest<QueryResult<ClientAsset>>

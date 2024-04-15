@@ -2,14 +2,10 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 
-public interface ParticleEmitter
-    : IInitializableEntity,
-        IDisposableEntity,
-        IUpdatableEntity
+public interface ParticleEmitter : IInitializableEntity, IDisposableEntity, IUpdatableEntity
 {
     bool IsActive { get; }
     Task Start();

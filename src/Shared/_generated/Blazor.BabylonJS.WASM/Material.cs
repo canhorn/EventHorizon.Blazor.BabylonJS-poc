@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Material>))]
@@ -24,10 +22,7 @@ public class Material : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.TriangleFillMode"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.TriangleFillMode");
         }
     }
 
@@ -35,32 +30,20 @@ public class Material : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.WireFrameFillMode"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.WireFrameFillMode");
         }
     }
 
     public static decimal PointFillMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.PointFillMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.PointFillMode"); }
     }
 
     public static decimal PointListDrawMode
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.PointListDrawMode"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.PointListDrawMode");
         }
     }
 
@@ -68,10 +51,7 @@ public class Material : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.LineListDrawMode"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.LineListDrawMode");
         }
     }
 
@@ -79,10 +59,7 @@ public class Material : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.LineLoopDrawMode"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.LineLoopDrawMode");
         }
     }
 
@@ -90,10 +67,7 @@ public class Material : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.LineStripDrawMode"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.LineStripDrawMode");
         }
     }
 
@@ -145,32 +119,20 @@ public class Material : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.TextureDirtyFlag"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.TextureDirtyFlag");
         }
     }
 
     public static decimal LightDirtyFlag
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.LightDirtyFlag"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.LightDirtyFlag"); }
     }
 
     public static decimal FresnelDirtyFlag
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.FresnelDirtyFlag"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.FresnelDirtyFlag");
         }
     }
 
@@ -187,33 +149,17 @@ public class Material : CachedEntityObject, IAnimatable
 
     public static decimal MiscDirtyFlag
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.MiscDirtyFlag"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.MiscDirtyFlag"); }
     }
 
     public static decimal AllDirtyFlag
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Material.AllDirtyFlag"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Material.AllDirtyFlag"); }
     }
     #endregion
 
     #region Static Methods
-    public static Material Parse(
-        object parsedMaterial,
-        Scene scene,
-        string rootUrl
-    )
+    public static Material Parse(object parsedMaterial, Scene scene, string rootUrl)
     {
         return EventHorizonBlazorInterop.FuncClass<Material>(
             entity => new Material() { ___guid = entity.___guid },
@@ -232,13 +178,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public decimal alpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alpha"); }
         set
         {
 
@@ -248,33 +188,17 @@ public class Material : CachedEntityObject, IAnimatable
 
     public bool backFaceCulling
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "backFaceCulling"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "backFaceCulling"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "backFaceCulling",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "backFaceCulling", value);
         }
     }
 
     public bool hasRenderTargetTextures
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasRenderTargetTextures"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasRenderTargetTextures"); }
     }
 
     private Observable<AbstractMesh> __onBindObservable;
@@ -284,17 +208,12 @@ public class Material : CachedEntityObject, IAnimatable
         {
             if (__onBindObservable == null)
             {
-                __onBindObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<AbstractMesh>
-                >(
+                __onBindObservable = EventHorizonBlazorInterop.GetClass<Observable<AbstractMesh>>(
                     this.___guid,
                     "onBindObservable",
                     (entity) =>
                     {
-                        return new Observable<AbstractMesh>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<AbstractMesh>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -309,17 +228,12 @@ public class Material : CachedEntityObject, IAnimatable
         {
             if (__onUnBindObservable == null)
             {
-                __onUnBindObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Material>
-                >(
+                __onUnBindObservable = EventHorizonBlazorInterop.GetClass<Observable<Material>>(
                     this.___guid,
                     "onUnBindObservable",
                     (entity) =>
                     {
-                        return new Observable<Material>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Material>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -329,13 +243,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public decimal alphaMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alphaMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alphaMode"); }
         set
         {
 
@@ -345,33 +253,17 @@ public class Material : CachedEntityObject, IAnimatable
 
     public bool needDepthPrePass
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "needDepthPrePass"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "needDepthPrePass"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "needDepthPrePass",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "needDepthPrePass", value);
         }
     }
 
     public bool fogEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "fogEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "fogEnabled"); }
         set
         {
 
@@ -381,13 +273,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public bool wireframe
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "wireframe"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "wireframe"); }
         set
         {
 
@@ -397,13 +283,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public bool pointsCloud
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "pointsCloud"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "pointsCloud"); }
         set
         {
 
@@ -413,13 +293,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public decimal fillMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "fillMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "fillMode"); }
         set
         {
 
@@ -429,13 +303,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public bool isFrozen
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isFrozen"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isFrozen"); }
     }
     #endregion
 
@@ -443,10 +311,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public string id
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "id");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "id"); }
         set
         {
 
@@ -456,13 +321,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
         set
         {
 
@@ -472,10 +331,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -485,13 +341,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public CachedEntity metadata
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "metadata"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "metadata"); }
         set
         {
 
@@ -503,68 +353,38 @@ public class Material : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "reservedDataStore"
-            );
+            return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "reservedDataStore");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "reservedDataStore",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "reservedDataStore", value);
         }
     }
 
     public bool checkReadyOnEveryCall
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "checkReadyOnEveryCall"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "checkReadyOnEveryCall"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "checkReadyOnEveryCall",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "checkReadyOnEveryCall", value);
         }
     }
 
     public bool checkReadyOnlyOnce
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "checkReadyOnlyOnce"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "checkReadyOnlyOnce"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "checkReadyOnlyOnce",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "checkReadyOnlyOnce", value);
         }
     }
 
     public string state
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "state");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "state"); }
         set
         {
 
@@ -581,41 +401,24 @@ public class Material : CachedEntityObject, IAnimatable
                 "inspectableCustomProperties",
                 (entity) =>
                 {
-                    return new IInspectableCachedEntity()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new IInspectableCachedEntity() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "inspectableCustomProperties",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "inspectableCustomProperties", value);
         }
     }
 
     public decimal sideOrientation
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sideOrientation"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sideOrientation"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "sideOrientation",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "sideOrientation", value);
         }
     }
 
@@ -639,9 +442,10 @@ public class Material : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<
-                ActionCallback<Effect, string>
-            >(this.___guid, "onError");
+            return EventHorizonBlazorInterop.Get<ActionCallback<Effect, string>>(
+                this.___guid,
+                "onError"
+            );
         }
         set
         {
@@ -662,31 +466,17 @@ public class Material : CachedEntityObject, IAnimatable
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "getRenderTargetTextures",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "getRenderTargetTextures", value);
         }
     }
 
     public bool doNotSerialize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "doNotSerialize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "doNotSerialize"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "doNotSerialize",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "doNotSerialize", value);
         }
     }
 
@@ -717,17 +507,12 @@ public class Material : CachedEntityObject, IAnimatable
         {
             if (__onDisposeObservable == null)
             {
-                __onDisposeObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Material>
-                >(
+                __onDisposeObservable = EventHorizonBlazorInterop.GetClass<Observable<Material>>(
                     this.___guid,
                     "onDisposeObservable",
                     (entity) =>
                     {
-                        return new Observable<Material>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Material>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -736,63 +521,33 @@ public class Material : CachedEntityObject, IAnimatable
         set
         {
             __onDisposeObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onDisposeObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onDisposeObservable", value);
         }
     }
 
     public bool disableDepthWrite
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "disableDepthWrite"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "disableDepthWrite"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "disableDepthWrite",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "disableDepthWrite", value);
         }
     }
 
     public bool forceDepthWrite
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "forceDepthWrite"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "forceDepthWrite"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "forceDepthWrite",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "forceDepthWrite", value);
         }
     }
 
     public decimal depthFunction
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "depthFunction"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "depthFunction"); }
         set
         {
 
@@ -802,33 +557,17 @@ public class Material : CachedEntityObject, IAnimatable
 
     public bool separateCullingPass
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "separateCullingPass"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "separateCullingPass"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "separateCullingPass",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "separateCullingPass", value);
         }
     }
 
     public decimal pointSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "pointSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "pointSize"); }
         set
         {
 
@@ -838,13 +577,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public decimal zOffset
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "zOffset"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "zOffset"); }
         set
         {
 
@@ -854,13 +587,7 @@ public class Material : CachedEntityObject, IAnimatable
 
     public CachedEntity meshMap
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "meshMap"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "meshMap"); }
         set
         {
 
@@ -876,11 +603,7 @@ public class Material : CachedEntityObject, IAnimatable
     public Material(ICachedEntity entity)
         : base(entity) { }
 
-    public Material(
-        string name,
-        Scene scene,
-        System.Nullable<bool> doNotAdd = null
-    )
+    public Material(string name, Scene scene, System.Nullable<bool> doNotAdd = null)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(
@@ -897,11 +620,7 @@ public class Material : CachedEntityObject, IAnimatable
     public string toString(System.Nullable<bool> fullDetails = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                fullDetails
-            }
+            new object[] { new string[] { this.___guid, "toString" }, fullDetails }
         );
     }
 
@@ -926,18 +645,10 @@ public class Material : CachedEntityObject, IAnimatable
         );
     }
 
-    public bool isReady(
-        AbstractMesh mesh = null,
-        System.Nullable<bool> useInstances = null
-    )
+    public bool isReady(AbstractMesh mesh = null, System.Nullable<bool> useInstances = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isReady" },
-                mesh,
-                useInstances
-            }
+            new object[] { new string[] { this.___guid, "isReady" }, mesh, useInstances }
         );
     }
 
@@ -984,11 +695,7 @@ public class Material : CachedEntityObject, IAnimatable
     public bool needAlphaBlendingForMesh(AbstractMesh mesh)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "needAlphaBlendingForMesh" },
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "needAlphaBlendingForMesh" }, mesh }
         );
     }
 
@@ -1003,10 +710,7 @@ public class Material : CachedEntityObject, IAnimatable
     {
         return EventHorizonBlazorInterop.FuncClass<BaseTexture>(
             entity => new BaseTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAlphaTestTexture" }
-            }
+            new object[] { new string[] { this.___guid, "getAlphaTestTexture" } }
         );
     }
 
@@ -1027,24 +731,14 @@ public class Material : CachedEntityObject, IAnimatable
     public void bindForSubMesh(Matrix world, Mesh mesh, SubMesh subMesh)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindForSubMesh" },
-                world,
-                mesh,
-                subMesh
-            }
+            new object[] { new string[] { this.___guid, "bindForSubMesh" }, world, mesh, subMesh }
         );
     }
 
     public void bindOnlyWorldMatrix(Matrix world)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindOnlyWorldMatrix" },
-                world
-            }
+            new object[] { new string[] { this.___guid, "bindOnlyWorldMatrix" }, world }
         );
     }
 
@@ -1070,11 +764,7 @@ public class Material : CachedEntityObject, IAnimatable
     public void bindViewProjection(Effect effect)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindViewProjection" },
-                effect
-            }
+            new object[] { new string[] { this.___guid, "bindViewProjection" }, effect }
         );
     }
 
@@ -1096,11 +786,7 @@ public class Material : CachedEntityObject, IAnimatable
     public bool hasTexture(BaseTexture texture)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "hasTexture" },
-                texture
-            }
+            new object[] { new string[] { this.___guid, "hasTexture" }, texture }
         );
     }
 
@@ -1139,18 +825,10 @@ public class Material : CachedEntityObject, IAnimatable
         );
     }
 
-    public void forceCompilationAsync(
-        AbstractMesh mesh,
-        IMaterialCompilationOptions options = null
-    )
+    public void forceCompilationAsync(AbstractMesh mesh, IMaterialCompilationOptions options = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "forceCompilationAsync" },
-                mesh,
-                options
-            }
+            new object[] { new string[] { this.___guid, "forceCompilationAsync" }, mesh, options }
         );
     }
 

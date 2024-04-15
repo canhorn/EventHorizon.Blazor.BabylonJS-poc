@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Entity.Model;
 
 using System.Numerics;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 
 public class Vector3Model : StandardVector3, IVector3

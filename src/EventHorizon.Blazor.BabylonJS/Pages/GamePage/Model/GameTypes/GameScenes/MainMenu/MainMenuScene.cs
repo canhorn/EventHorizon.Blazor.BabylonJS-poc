@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Core.Exceptions;
@@ -22,19 +21,12 @@ using EventHorizon.Game.Client.Systems.Account.Query;
 using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
 using EventHorizon.Game.Client.Systems.Local.Scenes.Start;
 using EventHorizon.Game.Client.Systems.Zone.Changed;
-
 using Microsoft.Extensions.Logging;
 
-public class MainMenuScene
-    : GameSceneBase,
-        AccountChangedEventObserver,
-        ZoneChangedEventObserver
+public class MainMenuScene : GameSceneBase, AccountChangedEventObserver, ZoneChangedEventObserver
 {
-    private readonly ILogger _logger = GameServiceProvider.GetService<
-        ILogger<MainMenuScene>
-    >();
-    private readonly HttpClient _http =
-        GameServiceProvider.GetService<HttpClient>();
+    private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<MainMenuScene>>();
+    private readonly HttpClient _http = GameServiceProvider.GetService<HttpClient>();
 
     private string _mainMenuGuiId = string.Empty;
 
@@ -79,8 +71,7 @@ public class MainMenuScene
         var accountDetailsDisabled = accountInfoResult.Success;
         var zoneDetailsAvailable = accountInfoResult.Success;
 
-        Func<Task> StartZoneSceneClickHandler = () =>
-            _mediator.Send(new StartSceneCommand("zone"));
+        Func<Task> StartZoneSceneClickHandler = () => _mediator.Send(new StartSceneCommand("zone"));
         Func<Task> StartAccountDetailsSceneClickHandler = () =>
             _mediator.Send(new StartSceneCommand("account-details"));
         Func<Task> StartExampleGuiSceneClickHandler = () =>
@@ -142,10 +133,7 @@ public class MainMenuScene
                 new GuiControlDataModel
                 {
                     ControlId = "main_menu-account_details-button",
-                    Options = new GuiControlOptionsModel
-                    {
-                        { "isDisabled", false },
-                    },
+                    Options = new GuiControlOptionsModel { { "isDisabled", false }, },
                 }
             )
         );
@@ -159,10 +147,7 @@ public class MainMenuScene
                 new GuiControlDataModel
                 {
                     ControlId = "main_menu-start_game-button",
-                    Options = new GuiControlOptionsModel
-                    {
-                        { "isDisabled", false },
-                    },
+                    Options = new GuiControlOptionsModel { { "isDisabled", false }, },
                 }
             )
         );

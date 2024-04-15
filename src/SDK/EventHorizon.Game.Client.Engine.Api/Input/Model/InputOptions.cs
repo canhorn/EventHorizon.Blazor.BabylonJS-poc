@@ -27,10 +27,7 @@ public struct InputOptions
     {
         return obj is InputOptions options
             && Key == options.Key
-            && EqualityComparer<Func<InputKeyEvent, Task>>.Default.Equals(
-                Pressed,
-                options.Pressed
-            )
+            && EqualityComparer<Func<InputKeyEvent, Task>>.Default.Equals(Pressed, options.Pressed)
             && EqualityComparer<Func<InputKeyEvent, Task>>.Default.Equals(
                 Released,
                 options.Released

@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.Systems.ArtifactManagement.Model;
 using EventHorizon.Zone.Systems.ArtifactManagement.Trigger;
-
 using MediatR;
 
 public class TriggerZoneArtifactBackupCommandHandler
@@ -18,9 +16,7 @@ public class TriggerZoneArtifactBackupCommandHandler
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public TriggerZoneArtifactBackupCommandHandler(
-        ZoneAdminServices zoneAdminServices
-    )
+    public TriggerZoneArtifactBackupCommandHandler(ZoneAdminServices zoneAdminServices)
     {
         _zoneAdminServices = zoneAdminServices;
     }
@@ -30,10 +26,9 @@ public class TriggerZoneArtifactBackupCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var result =
-            await _zoneAdminServices.Api.ArtifactManagement.TriggerBackup(
-                cancellationToken
-            );
+        var result = await _zoneAdminServices.Api.ArtifactManagement.TriggerBackup(
+            cancellationToken
+        );
         if (result.Success.IsNotTrue() || result.Result.IsNull())
         {
             return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;

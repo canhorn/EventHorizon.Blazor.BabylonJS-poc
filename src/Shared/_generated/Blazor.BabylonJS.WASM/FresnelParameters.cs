@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<FresnelParameters>))]
@@ -40,13 +38,7 @@ public class FresnelParameters : CachedEntityObject
 
     public bool isEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isEnabled"); }
         set
         {
 
@@ -108,10 +100,7 @@ public class FresnelParameters : CachedEntityObject
 
     public decimal bias
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bias");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bias"); }
         set
         {
 
@@ -121,13 +110,7 @@ public class FresnelParameters : CachedEntityObject
 
     public decimal power
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "power"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "power"); }
         set
         {
 

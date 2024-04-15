@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IAnimationKey : ICachedEntity { }
@@ -36,13 +34,7 @@ public class IAnimationKeyCachedEntity : CachedEntityObject, IAnimationKey
 
     public decimal frame
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "frame"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "frame"); }
         set
         {
 
@@ -52,13 +44,7 @@ public class IAnimationKeyCachedEntity : CachedEntityObject, IAnimationKey
 
     public CachedEntity value
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "value"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "value"); }
         set
         {
 
@@ -68,13 +54,7 @@ public class IAnimationKeyCachedEntity : CachedEntityObject, IAnimationKey
 
     public CachedEntity inTangent
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "inTangent"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "inTangent"); }
         set
         {
 
@@ -84,13 +64,7 @@ public class IAnimationKeyCachedEntity : CachedEntityObject, IAnimationKey
 
     public CachedEntity outTangent
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "outTangent"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "outTangent"); }
         set
         {
 
@@ -100,13 +74,7 @@ public class IAnimationKeyCachedEntity : CachedEntityObject, IAnimationKey
 
     public int interpolation
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<int>(
-                this.___guid,
-                "interpolation"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<int>(this.___guid, "interpolation"); }
         set
         {
 

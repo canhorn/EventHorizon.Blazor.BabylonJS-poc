@@ -3,7 +3,6 @@
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class MessageFullDetailsModel : ComponentBase

@@ -58,17 +58,13 @@ public class StandardSelectModel : ComponentBase
         changeEventArgs.NullCheck(nameof(changeEventArgs));
 
         var newValue = changeEventArgs.Value?.ToString() ?? DefaultValue;
-        return ValueChanged.InvokeAsync(
-            Options.FirstOrDefault(option => option.Value == newValue)
-        );
+        return ValueChanged.InvokeAsync(Options.FirstOrDefault(option => option.Value == newValue));
     }
 
     protected Task HandleSelectedOptionChanged(StandardSelectOption option)
     {
         var newValue = option.Value?.ToString() ?? DefaultValue;
-        return ValueChanged.InvokeAsync(
-            Options.FirstOrDefault(option => option.Value == newValue)
-        );
+        return ValueChanged.InvokeAsync(Options.FirstOrDefault(option => option.Value == newValue));
     }
 }
 

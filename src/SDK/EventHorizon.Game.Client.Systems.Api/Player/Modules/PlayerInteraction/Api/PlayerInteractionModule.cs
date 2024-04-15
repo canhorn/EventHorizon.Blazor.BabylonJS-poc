@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.Api;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
 public interface PlayerInteractionModule : IModule

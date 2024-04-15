@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct FinishedPlayerZoneInfoReceivedEvent : INotification { }

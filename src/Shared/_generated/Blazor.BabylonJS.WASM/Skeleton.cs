@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Skeleton>))]
@@ -27,12 +25,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
     {
         return EventHorizonBlazorInterop.FuncClass<Skeleton>(
             entity => new Skeleton() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Skeleton", "Parse" },
-                parsedSkeleton,
-                scene
-            }
+            new object[] { new string[] { "BABYLON", "Skeleton", "Parse" }, parsedSkeleton, scene }
         );
     }
     #endregion
@@ -51,11 +44,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useTextureToStoreBoneMatrices",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useTextureToStoreBoneMatrices", value);
         }
     }
 
@@ -72,10 +61,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
                         "animationPropertiesOverride",
                         (entity) =>
                         {
-                            return new AnimationPropertiesOverride()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new AnimationPropertiesOverride() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -84,11 +70,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
         set
         {
             __animationPropertiesOverride = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "animationPropertiesOverride",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "animationPropertiesOverride", value);
         }
     }
 
@@ -96,22 +78,13 @@ public class Skeleton : CachedEntityObject, IAnimatable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isUsingTextureForMatrices"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isUsingTextureForMatrices");
         }
     }
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
     }
     #endregion
 
@@ -119,10 +92,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -132,10 +102,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
 
     public string id
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "id");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "id"); }
         set
         {
 
@@ -170,46 +137,31 @@ public class Skeleton : CachedEntityObject, IAnimatable
         {
             if (__dimensionsAtRest == null)
             {
-                __dimensionsAtRest =
-                    EventHorizonBlazorInterop.GetClass<Vector3>(
-                        this.___guid,
-                        "dimensionsAtRest",
-                        (entity) =>
-                        {
-                            return new Vector3() { ___guid = entity.___guid };
-                        }
-                    );
+                __dimensionsAtRest = EventHorizonBlazorInterop.GetClass<Vector3>(
+                    this.___guid,
+                    "dimensionsAtRest",
+                    (entity) =>
+                    {
+                        return new Vector3() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __dimensionsAtRest;
         }
         set
         {
             __dimensionsAtRest = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "dimensionsAtRest",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "dimensionsAtRest", value);
         }
     }
 
     public bool needInitialSkinMatrix
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "needInitialSkinMatrix"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "needInitialSkinMatrix"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "needInitialSkinMatrix",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "needInitialSkinMatrix", value);
         }
     }
 
@@ -220,18 +172,14 @@ public class Skeleton : CachedEntityObject, IAnimatable
         {
             if (__overrideMesh == null)
             {
-                __overrideMesh =
-                    EventHorizonBlazorInterop.GetClass<AbstractMesh>(
-                        this.___guid,
-                        "overrideMesh",
-                        (entity) =>
-                        {
-                            return new AbstractMesh()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __overrideMesh = EventHorizonBlazorInterop.GetClass<AbstractMesh>(
+                    this.___guid,
+                    "overrideMesh",
+                    (entity) =>
+                    {
+                        return new AbstractMesh() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __overrideMesh;
         }
@@ -264,21 +212,11 @@ public class Skeleton : CachedEntityObject, IAnimatable
 
     public bool doNotSerialize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "doNotSerialize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "doNotSerialize"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "doNotSerialize",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "doNotSerialize", value);
         }
     }
 
@@ -291,21 +229,14 @@ public class Skeleton : CachedEntityObject, IAnimatable
                 "inspectableCustomProperties",
                 (entity) =>
                 {
-                    return new IInspectableCachedEntity()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new IInspectableCachedEntity() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "inspectableCustomProperties",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "inspectableCustomProperties", value);
         }
     }
 
@@ -316,29 +247,23 @@ public class Skeleton : CachedEntityObject, IAnimatable
         {
             if (__onBeforeComputeObservable == null)
             {
-                __onBeforeComputeObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Skeleton>>(
-                        this.___guid,
-                        "onBeforeComputeObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Skeleton>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onBeforeComputeObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Skeleton>
+                >(
+                    this.___guid,
+                    "onBeforeComputeObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Skeleton>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onBeforeComputeObservable;
         }
         set
         {
             __onBeforeComputeObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onBeforeComputeObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onBeforeComputeObservable", value);
         }
     }
     #endregion
@@ -382,11 +307,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
     public decimal[] getTransformMatrices(AbstractMesh mesh)
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getTransformMatrices" },
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "getTransformMatrices" }, mesh }
         );
     }
 
@@ -394,11 +315,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
     {
         return EventHorizonBlazorInterop.FuncClass<RawTexture>(
             entity => new RawTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getTransformMatrixTexture" },
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "getTransformMatrixTexture" }, mesh }
         );
     }
 
@@ -413,42 +330,25 @@ public class Skeleton : CachedEntityObject, IAnimatable
     public string toString(System.Nullable<bool> fullDetails = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                fullDetails
-            }
+            new object[] { new string[] { this.___guid, "toString" }, fullDetails }
         );
     }
 
     public decimal getBoneIndexByName(string name)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getBoneIndexByName" },
-                name
-            }
+            new object[] { new string[] { this.___guid, "getBoneIndexByName" }, name }
         );
     }
 
     public void createAnimationRange(string name, decimal from, decimal to)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "createAnimationRange" },
-                name,
-                from,
-                to
-            }
+            new object[] { new string[] { this.___guid, "createAnimationRange" }, name, from, to }
         );
     }
 
-    public void deleteAnimationRange(
-        string name,
-        System.Nullable<bool> deleteFrames = null
-    )
+    public void deleteAnimationRange(string name, System.Nullable<bool> deleteFrames = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -464,11 +364,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
     {
         return EventHorizonBlazorInterop.FuncClass<AnimationRange>(
             entity => new AnimationRange() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAnimationRange" },
-                name
-            }
+            new object[] { new string[] { this.___guid, "getAnimationRange" }, name }
         );
     }
 
@@ -534,8 +430,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
     public IAnimatableCachedEntity[] getAnimatables()
     {
         return EventHorizonBlazorInterop.FuncArrayClass<IAnimatableCachedEntity>(
-            entity =>
-                new IAnimatableCachedEntity() { ___guid = entity.___guid },
+            entity => new IAnimatableCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getAnimatables" } }
         );
     }
@@ -551,11 +446,7 @@ public class Skeleton : CachedEntityObject, IAnimatable
     public void enableBlending(System.Nullable<decimal> blendingSpeed = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "enableBlending" },
-                blendingSpeed
-            }
+            new object[] { new string[] { this.___guid, "enableBlending" }, blendingSpeed }
         );
     }
 
@@ -573,16 +464,10 @@ public class Skeleton : CachedEntityObject, IAnimatable
         );
     }
 
-    public void computeAbsoluteTransforms(
-        System.Nullable<bool> forceUpdate = null
-    )
+    public void computeAbsoluteTransforms(System.Nullable<bool> forceUpdate = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "computeAbsoluteTransforms" },
-                forceUpdate
-            }
+            new object[] { new string[] { this.___guid, "computeAbsoluteTransforms" }, forceUpdate }
         );
     }
 

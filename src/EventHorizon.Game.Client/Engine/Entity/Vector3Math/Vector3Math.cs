@@ -2,7 +2,6 @@
 
 using System;
 using System.Numerics;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Entity.Model;
 
@@ -34,20 +33,10 @@ public static class Vector3Math
                 (
                     ((2.0m * value2.X) + ((-value1.X + value3.X) * amount))
                     + (
-                        (
-                            (
-                                ((2.0m * value1.X) - (5.0m * value2.X))
-                                + (4.0m * value3.X)
-                            ) - value4.X
-                        ) * squared
+                        ((((2.0m * value1.X) - (5.0m * value2.X)) + (4.0m * value3.X)) - value4.X)
+                        * squared
                     )
-                )
-                + (
-                    (
-                        ((-value1.X + (3.0m * value2.X)) - (3.0m * value3.X))
-                        + value4.X
-                    ) * cubed
-                )
+                ) + ((((-value1.X + (3.0m * value2.X)) - (3.0m * value3.X)) + value4.X) * cubed)
             );
 
         var y =
@@ -56,20 +45,10 @@ public static class Vector3Math
                 (
                     ((2.0m * value2.Y) + ((-value1.Y + value3.Y) * amount))
                     + (
-                        (
-                            (
-                                ((2.0m * value1.Y) - (5.0m * value2.Y))
-                                + (4.0m * value3.Y)
-                            ) - value4.Y
-                        ) * squared
+                        ((((2.0m * value1.Y) - (5.0m * value2.Y)) + (4.0m * value3.Y)) - value4.Y)
+                        * squared
                     )
-                )
-                + (
-                    (
-                        ((-value1.Y + (3.0m * value2.Y)) - (3.0m * value3.Y))
-                        + value4.Y
-                    ) * cubed
-                )
+                ) + ((((-value1.Y + (3.0m * value2.Y)) - (3.0m * value3.Y)) + value4.Y) * cubed)
             );
 
         var z =
@@ -78,20 +57,10 @@ public static class Vector3Math
                 (
                     ((2.0m * value2.Z) + ((-value1.Z + value3.Z) * amount))
                     + (
-                        (
-                            (
-                                ((2.0m * value1.Z) - (5.0m * value2.Z))
-                                + (4.0m * value3.Z)
-                            ) - value4.Z
-                        ) * squared
+                        ((((2.0m * value1.Z) - (5.0m * value2.Z)) + (4.0m * value3.Z)) - value4.Z)
+                        * squared
                     )
-                )
-                + (
-                    (
-                        ((-value1.Z + (3.0m * value2.Z)) - (3.0m * value3.Z))
-                        + value4.Z
-                    ) * cubed
-                )
+                ) + ((((-value1.Z + (3.0m * value2.Z)) - (3.0m * value3.Z)) + value4.Z) * cubed)
             );
 
         return new StandardVector3(x, y, z);
@@ -99,9 +68,6 @@ public static class Vector3Math
 
     public static double Dot(IVector3 facingDirection, IVector3 targetDirection)
     {
-        return Vector3.Dot(
-            facingDirection.ToNumerics(),
-            targetDirection.ToNumerics()
-        );
+        return Vector3.Dot(facingDirection.ToNumerics(), targetDirection.ToNumerics());
     }
 }

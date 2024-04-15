@@ -3,9 +3,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class ClientActionMessageFromCombatSystemEventObserverHandler
@@ -13,9 +11,7 @@ public class ClientActionMessageFromCombatSystemEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ClientActionMessageFromCombatSystemEventObserverHandler(
-        ObserverState observer
-    )
+    public ClientActionMessageFromCombatSystemEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

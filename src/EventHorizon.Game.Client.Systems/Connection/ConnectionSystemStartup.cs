@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Client.Systems.Connection.Core;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player;
-
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ConnectionSystemStartup

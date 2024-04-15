@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Engine.Gui.Api;
 
 public class GuiLayoutDataModel : IGuiLayoutData
@@ -11,8 +10,7 @@ public class GuiLayoutDataModel : IGuiLayoutData
     public int Sort { get; set; } = 0;
     public List<GuiLayoutControlDataModel> ControlList { get; set; } =
         new List<GuiLayoutControlDataModel>();
-    IEnumerable<IGuiLayoutControlData> IGuiLayoutData.ControlList =>
-        ControlList;
+    IEnumerable<IGuiLayoutControlData> IGuiLayoutData.ControlList => ControlList;
     public string InitializeScript { get; set; } = string.Empty;
     public string ActivateScript { get; set; } = string.Empty;
     public string DisposeScript { get; set; } = string.Empty;

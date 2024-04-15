@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Observable<CachedEntity>>))]
@@ -72,10 +70,8 @@ public class Observable<T> : CachedEntityObject
     #region Methods
     #region add TODO: Get Comments as metadata identification
     private bool _isAddEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<T, EventState, Task>
-    > _addActionMap = new Dictionary<string, Func<T, EventState, Task>>();
+    private readonly IDictionary<string, Func<T, EventState, Task>> _addActionMap =
+        new Dictionary<string, Func<T, EventState, Task>>();
 
     public string add(Func<T, EventState, Task> callback)
     {
@@ -98,12 +94,7 @@ public class Observable<T> : CachedEntityObject
         {
             return;
         }
-        EventHorizonBlazorInterop.FuncCallback(
-            this,
-            "add",
-            "CallAddActions",
-            _invokableReference
-        );
+        EventHorizonBlazorInterop.FuncCallback(this, "add", "CallAddActions", _invokableReference);
         _isAddEnabled = true;
     }
 
@@ -119,10 +110,8 @@ public class Observable<T> : CachedEntityObject
 
     #region addOnce TODO: Get Comments as metadata identification
     private bool _isAddOnceEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<T, EventState, Task>
-    > _addOnceActionMap = new Dictionary<string, Func<T, EventState, Task>>();
+    private readonly IDictionary<string, Func<T, EventState, Task>> _addOnceActionMap =
+        new Dictionary<string, Func<T, EventState, Task>>();
 
     public string addOnce(Func<T, EventState, Task> callback)
     {
@@ -173,10 +162,7 @@ public class Observable<T> : CachedEntityObject
 
     #region removeCallback TODO: Get Comments as metadata identification
     private bool _isRemoveCallbackEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<T, EventState, Task>
-    > _removeCallbackActionMap =
+    private readonly IDictionary<string, Func<T, EventState, Task>> _removeCallbackActionMap =
         new Dictionary<string, Func<T, EventState, Task>>();
 
     public string removeCallback(Func<T, EventState, Task> callback)
@@ -210,10 +196,7 @@ public class Observable<T> : CachedEntityObject
     }
 
     [JSInvokable]
-    public async Task CallRemoveCallbackActions(
-        T eventData,
-        EventState eventState
-    )
+    public async Task CallRemoveCallbackActions(T eventData, EventState eventState)
     {
         foreach (var action in _removeCallbackActionMap.Values)
         {
@@ -225,22 +208,14 @@ public class Observable<T> : CachedEntityObject
     public void makeObserverTopPriority(Observer<T> observer)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "makeObserverTopPriority" },
-                observer
-            }
+            new object[] { new string[] { this.___guid, "makeObserverTopPriority" }, observer }
         );
     }
 
     public void makeObserverBottomPriority(Observer<T> observer)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "makeObserverBottomPriority" },
-                observer
-            }
+            new object[] { new string[] { this.___guid, "makeObserverBottomPriority" }, observer }
         );
     }
 
@@ -324,11 +299,7 @@ public class Observable<T> : CachedEntityObject
     public bool hasSpecificMask(System.Nullable<decimal> mask = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "hasSpecificMask" },
-                mask
-            }
+            new object[] { new string[] { this.___guid, "hasSpecificMask" }, mask }
         );
     }
     #endregion

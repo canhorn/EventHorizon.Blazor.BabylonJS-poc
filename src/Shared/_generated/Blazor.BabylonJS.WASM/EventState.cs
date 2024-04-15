@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<EventState>))]
@@ -34,30 +32,17 @@ public class EventState : CachedEntityObject
 
     public bool skipNextObservers
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "skipNextObservers"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "skipNextObservers"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "skipNextObservers",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "skipNextObservers", value);
         }
     }
 
     public decimal mask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "mask");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "mask"); }
         set
         {
 
@@ -67,13 +52,7 @@ public class EventState : CachedEntityObject
 
     public CachedEntity target
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "target"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "target"); }
         set
         {
 
@@ -83,13 +62,7 @@ public class EventState : CachedEntityObject
 
     public CachedEntity currentTarget
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "currentTarget"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "currentTarget"); }
         set
         {
 
@@ -99,21 +72,11 @@ public class EventState : CachedEntityObject
 
     public CachedEntity lastReturnValue
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "lastReturnValue"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "lastReturnValue"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "lastReturnValue",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "lastReturnValue", value);
         }
     }
     #endregion

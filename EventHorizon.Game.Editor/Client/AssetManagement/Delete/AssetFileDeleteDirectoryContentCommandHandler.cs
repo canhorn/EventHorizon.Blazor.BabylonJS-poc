@@ -2,18 +2,13 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
-
 using MediatR;
 
 public class AssetFileDeleteDirectoryContentCommandHandler
-    : IRequestHandler<
-        AssetFileDeleteDirectoryContentCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<AssetFileDeleteDirectoryContentCommand, StandardCommandResult>
 {
     private readonly IMediator _mediator;
     private readonly AssetManagementState _assetManagementState;
@@ -37,10 +32,7 @@ public class AssetFileDeleteDirectoryContentCommandHandler
             cancellationToken
         );
 
-        await _mediator.Publish(
-            new AssetManagementStateChangedEvent(),
-            cancellationToken
-        );
+        await _mediator.Publish(new AssetManagementStateChangedEvent(), cancellationToken);
 
         return new();
     }

@@ -1,14 +1,11 @@
 namespace EventHorizon.Game.Client.Systems.ClientScripts.Services;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.I18n.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardScriptServices : ScriptServices
@@ -45,9 +42,7 @@ public class StandardScriptServices : ScriptServices
         return GameServiceProvider.GetService<T>();
     }
 
-    public void RegisterObserver(ObserverBase observer) =>
-        _observerState.Register(observer);
+    public void RegisterObserver(ObserverBase observer) => _observerState.Register(observer);
 
-    public void UnRegisterObserver(ObserverBase observer) =>
-        _observerState.Remove(observer);
+    public void UnRegisterObserver(ObserverBase observer) => _observerState.Remove(observer);
 }

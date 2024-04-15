@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Map.Api;
 using EventHorizon.Game.Client.Systems.Map.Model;
-
 using MediatR;
 
 public class ClientActionCoreMapLoadedToAllEventHandler
@@ -25,8 +23,6 @@ public class ClientActionCoreMapLoadedToAllEventHandler
     )
     {
         await _mapState.DisposeOfMap();
-        await _mapState.SetMap(
-            new BabylonJSMapMeshFromHeightMapEntity(notification.MapMesh)
-        );
+        await _mapState.SetMap(new BabylonJSMapMeshFromHeightMapEntity(notification.MapMesh));
     }
 }

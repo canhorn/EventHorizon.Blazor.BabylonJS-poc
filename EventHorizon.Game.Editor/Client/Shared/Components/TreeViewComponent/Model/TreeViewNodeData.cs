@@ -12,18 +12,14 @@ public class TreeViewNodeData
     public string IconCssClass { get; set; } = string.Empty;
     public bool IsExpanded { get; set; }
     public bool IsDisabled { get; set; }
-    public IList<TreeViewNodeData> Children { get; set; } =
-        new List<TreeViewNodeData>();
-    public TreeViewNodeContextMenu ContextMenu { get; set; } =
-        new TreeViewNodeContextMenu();
+    public IList<TreeViewNodeData> Children { get; set; } = new List<TreeViewNodeData>();
+    public TreeViewNodeContextMenu ContextMenu { get; set; } = new TreeViewNodeContextMenu();
     public object? Data { get; set; }
 
     #region Generated Equals/GetHashCode
     public override bool Equals(object? obj)
     {
-        return obj is TreeViewNodeData data
-            && Id == data.Id
-            && Name == data.Name;
+        return obj is TreeViewNodeData data && Id == data.Id && Name == data.Name;
     }
 
     public override int GetHashCode()
@@ -34,18 +30,12 @@ public class TreeViewNodeData
         return hash.ToHashCode();
     }
 
-    public static bool operator ==(
-        TreeViewNodeData? left,
-        TreeViewNodeData? right
-    )
+    public static bool operator ==(TreeViewNodeData? left, TreeViewNodeData? right)
     {
         return EqualityComparer<TreeViewNodeData>.Default.Equals(left, right);
     }
 
-    public static bool operator !=(
-        TreeViewNodeData? left,
-        TreeViewNodeData? right
-    )
+    public static bool operator !=(TreeViewNodeData? left, TreeViewNodeData? right)
     {
         return !(left == right);
     }

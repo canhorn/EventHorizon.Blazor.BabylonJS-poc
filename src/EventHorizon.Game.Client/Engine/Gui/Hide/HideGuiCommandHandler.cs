@@ -3,14 +3,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
-public class HideGuiCommandHandler
-    : IRequestHandler<HideGuiCommand, StandardCommandResult>
+public class HideGuiCommandHandler : IRequestHandler<HideGuiCommand, StandardCommandResult>
 {
     private readonly IGuiDefinitionState _state;
 

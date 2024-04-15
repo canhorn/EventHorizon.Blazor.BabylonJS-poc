@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ValueAndUnit>))]
@@ -51,32 +49,17 @@ public class ValueAndUnit : CachedEntityObject
 
     public bool isPercentage
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isPercentage"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPercentage"); }
     }
 
     public bool isPixel
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPixel");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPixel"); }
     }
 
     public decimal internalValue
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "internalValue"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "internalValue"); }
     }
     #endregion
 
@@ -84,10 +67,7 @@ public class ValueAndUnit : CachedEntityObject
 
     public decimal unit
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "unit");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "unit"); }
         set
         {
 
@@ -97,41 +77,21 @@ public class ValueAndUnit : CachedEntityObject
 
     public bool negativeValueAllowed
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "negativeValueAllowed"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "negativeValueAllowed"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "negativeValueAllowed",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "negativeValueAllowed", value);
         }
     }
 
     public bool ignoreAdaptiveScaling
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "ignoreAdaptiveScaling"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "ignoreAdaptiveScaling"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ignoreAdaptiveScaling",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ignoreAdaptiveScaling", value);
         }
     }
     #endregion
@@ -163,34 +123,18 @@ public class ValueAndUnit : CachedEntityObject
     #endregion
 
     #region Methods
-    public decimal getValueInPixel(
-        AdvancedDynamicTexture host,
-        decimal refValue
-    )
+    public decimal getValueInPixel(AdvancedDynamicTexture host, decimal refValue)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getValueInPixel" },
-                host,
-                refValue
-            }
+            new object[] { new string[] { this.___guid, "getValueInPixel" }, host, refValue }
         );
     }
 
-    public ValueAndUnit updateInPlace(
-        decimal value,
-        System.Nullable<decimal> unit = null
-    )
+    public ValueAndUnit updateInPlace(decimal value, System.Nullable<decimal> unit = null)
     {
         return EventHorizonBlazorInterop.FuncClass<ValueAndUnit>(
             entity => new ValueAndUnit() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "updateInPlace" },
-                value,
-                unit
-            }
+            new object[] { new string[] { this.___guid, "updateInPlace" }, value, unit }
         );
     }
 
@@ -201,18 +145,10 @@ public class ValueAndUnit : CachedEntityObject
         );
     }
 
-    public string toString(
-        AdvancedDynamicTexture host,
-        System.Nullable<decimal> decimals = null
-    )
+    public string toString(AdvancedDynamicTexture host, System.Nullable<decimal> decimals = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                host,
-                decimals
-            }
+            new object[] { new string[] { this.___guid, "toString" }, host, decimals }
         );
     }
 

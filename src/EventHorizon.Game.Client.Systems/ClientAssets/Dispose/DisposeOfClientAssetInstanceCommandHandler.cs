@@ -3,23 +3,16 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-
 using MediatR;
 
 public class DisposeOfClientAssetInstanceCommandHandler
-    : IRequestHandler<
-        DisposeOfClientAssetInstanceCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<DisposeOfClientAssetInstanceCommand, StandardCommandResult>
 {
     private readonly ClientAssetInstanceState _store;
 
-    public DisposeOfClientAssetInstanceCommandHandler(
-        ClientAssetInstanceState store
-    )
+    public DisposeOfClientAssetInstanceCommandHandler(ClientAssetInstanceState store)
     {
         _store = store;
     }

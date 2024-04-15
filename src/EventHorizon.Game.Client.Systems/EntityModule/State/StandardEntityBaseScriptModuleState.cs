@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 
 public class StandardEntityBaseScriptModuleState : EntityBaseScriptModuleState

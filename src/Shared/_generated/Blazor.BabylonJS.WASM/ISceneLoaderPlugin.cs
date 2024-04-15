@@ -5,18 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ISceneLoaderPlugin : ICachedEntity { }
 
 [JsonConverter(typeof(CachedEntityConverter<ISceneLoaderPluginCachedEntity>))]
-public class ISceneLoaderPluginCachedEntity
-    : CachedEntityObject,
-        ISceneLoaderPlugin
+public class ISceneLoaderPluginCachedEntity : CachedEntityObject, ISceneLoaderPlugin
 {
     #region Static Accessors
 
@@ -83,14 +79,7 @@ public class ISceneLoaderPluginCachedEntity
     )
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "load" },
-                scene,
-                data,
-                rootUrl,
-                onError
-            }
+            new object[] { new string[] { this.___guid, "load" }, scene, data, rootUrl, onError }
         );
     }
 

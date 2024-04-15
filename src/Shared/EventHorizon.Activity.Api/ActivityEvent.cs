@@ -2,9 +2,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public struct ActivityEvent : INotification
@@ -32,9 +30,7 @@ public struct ActivityEvent : INotification
         Category = category;
         Action = action;
         Tag = tag;
-        Data = new ReadOnlyDictionary<string, object>(
-            new Dictionary<string, object>()
-        );
+        Data = new ReadOnlyDictionary<string, object>(new Dictionary<string, object>());
     }
 }
 

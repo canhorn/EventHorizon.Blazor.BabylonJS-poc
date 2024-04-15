@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Analyser>))]
@@ -34,13 +32,7 @@ public class Analyser : CachedEntityObject
 
     public decimal SMOOTHING
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "SMOOTHING"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "SMOOTHING"); }
         set
         {
 
@@ -50,13 +42,7 @@ public class Analyser : CachedEntityObject
 
     public decimal FFT_SIZE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "FFT_SIZE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "FFT_SIZE"); }
         set
         {
 
@@ -66,61 +52,31 @@ public class Analyser : CachedEntityObject
 
     public decimal BARGRAPHAMPLITUDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "BARGRAPHAMPLITUDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "BARGRAPHAMPLITUDE"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "BARGRAPHAMPLITUDE",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "BARGRAPHAMPLITUDE", value);
         }
     }
 
     public CachedEntity DEBUGCANVASPOS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "DEBUGCANVASPOS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "DEBUGCANVASPOS"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "DEBUGCANVASPOS",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "DEBUGCANVASPOS", value);
         }
     }
 
     public CachedEntity DEBUGCANVASSIZE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "DEBUGCANVASSIZE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "DEBUGCANVASSIZE"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "DEBUGCANVASSIZE",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "DEBUGCANVASSIZE", value);
         }
     }
     #endregion
@@ -137,10 +93,7 @@ public class Analyser : CachedEntityObject
 
     public Analyser(Scene scene)
     {
-        var entity = EventHorizonBlazorInterop.New(
-            new string[] { "BABYLON", "Analyser" },
-            scene
-        );
+        var entity = EventHorizonBlazorInterop.New(new string[] { "BABYLON", "Analyser" }, scene);
         ___guid = entity.___guid;
     }
     #endregion
@@ -149,40 +102,28 @@ public class Analyser : CachedEntityObject
     public decimal getFrequencyBinCount()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getFrequencyBinCount" }
-            }
+            new object[] { new string[] { this.___guid, "getFrequencyBinCount" } }
         );
     }
 
     public decimal[] getByteFrequencyData()
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getByteFrequencyData" }
-            }
+            new object[] { new string[] { this.___guid, "getByteFrequencyData" } }
         );
     }
 
     public decimal[] getByteTimeDomainData()
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getByteTimeDomainData" }
-            }
+            new object[] { new string[] { this.___guid, "getByteTimeDomainData" } }
         );
     }
 
     public decimal[] getFloatFrequencyData()
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getFloatFrequencyData" }
-            }
+            new object[] { new string[] { this.___guid, "getFloatFrequencyData" } }
         );
     }
 
@@ -200,10 +141,7 @@ public class Analyser : CachedEntityObject
         );
     }
 
-    public void connectAudioNodes(
-        AudioNode inputAudioNode,
-        AudioNode outputAudioNode
-    )
+    public void connectAudioNodes(AudioNode inputAudioNode, AudioNode outputAudioNode)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]

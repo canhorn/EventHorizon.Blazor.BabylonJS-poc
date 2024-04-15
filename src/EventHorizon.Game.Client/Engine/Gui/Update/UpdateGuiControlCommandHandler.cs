@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
 public class UpdateGuiControlCommandHandler
@@ -24,15 +22,10 @@ public class UpdateGuiControlCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var controlResult = _state.Get(
-            request.GuiId,
-            request.Control.ControlId
-        );
+        var controlResult = _state.Get(request.GuiId, request.Control.ControlId);
         if (!controlResult.HasValue)
         {
-            return new StandardCommandResult(
-                "gui_control_was_not_found"
-            ).FromResult();
+            return new StandardCommandResult("gui_control_was_not_found").FromResult();
         }
         var control = controlResult.Value;
         if (request.Control.IsVisible.HasValue)

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<FreeCameraInputsManager>))]
@@ -56,32 +54,23 @@ public class FreeCameraInputsManager : CameraInputsManager<FreeCamera>
     public FreeCameraInputsManager addKeyboard()
     {
         return EventHorizonBlazorInterop.FuncClass<FreeCameraInputsManager>(
-            entity =>
-                new FreeCameraInputsManager() { ___guid = entity.___guid },
+            entity => new FreeCameraInputsManager() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "addKeyboard" } }
         );
     }
 
-    public FreeCameraInputsManager addMouse(
-        System.Nullable<bool> touchEnabled = null
-    )
+    public FreeCameraInputsManager addMouse(System.Nullable<bool> touchEnabled = null)
     {
         return EventHorizonBlazorInterop.FuncClass<FreeCameraInputsManager>(
-            entity =>
-                new FreeCameraInputsManager() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addMouse" },
-                touchEnabled
-            }
+            entity => new FreeCameraInputsManager() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "addMouse" }, touchEnabled }
         );
     }
 
     public FreeCameraInputsManager removeMouse()
     {
         return EventHorizonBlazorInterop.FuncClass<FreeCameraInputsManager>(
-            entity =>
-                new FreeCameraInputsManager() { ___guid = entity.___guid },
+            entity => new FreeCameraInputsManager() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "removeMouse" } }
         );
     }
@@ -89,8 +78,7 @@ public class FreeCameraInputsManager : CameraInputsManager<FreeCamera>
     public FreeCameraInputsManager addTouch()
     {
         return EventHorizonBlazorInterop.FuncClass<FreeCameraInputsManager>(
-            entity =>
-                new FreeCameraInputsManager() { ___guid = entity.___guid },
+            entity => new FreeCameraInputsManager() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "addTouch" } }
         );
     }

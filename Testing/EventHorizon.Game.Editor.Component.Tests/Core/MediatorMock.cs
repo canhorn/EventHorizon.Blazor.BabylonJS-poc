@@ -3,15 +3,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using MediatR;
 
 public class MediatorMock : IMediator
 {
-    public Task Publish(
-        object notification,
-        CancellationToken cancellationToken = default
-    )
+    public Task Publish(object notification, CancellationToken cancellationToken = default)
     {
         return Task.CompletedTask;
     }
@@ -37,27 +33,20 @@ public class MediatorMock : IMediator
         return Task.FromResult(default(TResponse)!);
     }
 
-    public Task<object?> Send(
-        object request,
-        CancellationToken cancellationToken = default
-    )
+    public Task<object?> Send(object request, CancellationToken cancellationToken = default)
     {
         _stubMap.TryGetValue(request, out var response);
         return Task.FromResult(response);
     }
 
-    private IDictionary<object, object> _stubMap =
-        new Dictionary<object, object>();
+    private IDictionary<object, object> _stubMap = new Dictionary<object, object>();
 
     public void Stub(object request, object response)
     {
         _stubMap.Add(request, response);
     }
 
-    public Task Send<TRequest>(
-        TRequest request,
-        CancellationToken cancellationToken = default
-    )
+    public Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = default)
         where TRequest : IRequest
     {
         throw new System.NotImplementedException();

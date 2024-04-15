@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
-
 using MediatR;
 
 public class UploadZoneServerImportFileCommandHandler
@@ -37,18 +35,13 @@ public class UploadZoneServerImportFileCommandHandler
             cancellationToken
         );
 
-        if (
-            result.ErrorCode
-            == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE
-        )
+        if (result.ErrorCode == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE)
         {
             return ZoneServerUploadErrorCodes.ZONE_SERVER_UPLOAD_PAYLOAD_TOO_LARGE;
         }
 
         await _publisher.Publish(
-            new SuccessfullyUploadedZoneServerImportFileEvent(
-                result.Result.Url
-            ),
+            new SuccessfullyUploadedZoneServerImportFileEvent(result.Result.Url),
             cancellationToken
         );
 

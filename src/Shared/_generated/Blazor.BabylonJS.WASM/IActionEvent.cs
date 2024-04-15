@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IActionEvent : ICachedEntity { }
@@ -36,13 +34,7 @@ public class IActionEventCachedEntity : CachedEntityObject, IActionEvent
 
     public CachedEntity source
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "source"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "source"); }
         set
         {
 
@@ -52,13 +44,7 @@ public class IActionEventCachedEntity : CachedEntityObject, IActionEvent
 
     public decimal pointerX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "pointerX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "pointerX"); }
         set
         {
 
@@ -68,13 +54,7 @@ public class IActionEventCachedEntity : CachedEntityObject, IActionEvent
 
     public decimal pointerY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "pointerY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "pointerY"); }
         set
         {
 
@@ -89,41 +69,27 @@ public class IActionEventCachedEntity : CachedEntityObject, IActionEvent
         {
             if (__meshUnderPointer == null)
             {
-                __meshUnderPointer =
-                    EventHorizonBlazorInterop.GetClass<AbstractMesh>(
-                        this.___guid,
-                        "meshUnderPointer",
-                        (entity) =>
-                        {
-                            return new AbstractMesh()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __meshUnderPointer = EventHorizonBlazorInterop.GetClass<AbstractMesh>(
+                    this.___guid,
+                    "meshUnderPointer",
+                    (entity) =>
+                    {
+                        return new AbstractMesh() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __meshUnderPointer;
         }
         set
         {
             __meshUnderPointer = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "meshUnderPointer",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "meshUnderPointer", value);
         }
     }
 
     public CachedEntity sourceEvent
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "sourceEvent"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "sourceEvent"); }
         set
         {
 
@@ -133,21 +99,11 @@ public class IActionEventCachedEntity : CachedEntityObject, IActionEvent
 
     public CachedEntity additionalData
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "additionalData"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "additionalData"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "additionalData",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "additionalData", value);
         }
     }
     #endregion

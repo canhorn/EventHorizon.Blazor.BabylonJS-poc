@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Engine.Systems.Mesh.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
 

@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Entity.Vector3Math;
@@ -13,8 +12,7 @@ using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Api;
 
 public class StandardSunlightModule : ModuleEntityBase, SunlightModule
 {
-    private readonly Queue<IVector3> _lightMovementVectorList =
-        new Queue<IVector3>();
+    private readonly Queue<IVector3> _lightMovementVectorList = new Queue<IVector3>();
     private readonly ILightEntity _entity;
     private readonly bool _inverse;
     private readonly Action<IVector3, decimal> _onLightMoved;
@@ -75,31 +73,11 @@ public class StandardSunlightModule : ModuleEntityBase, SunlightModule
         return Curve3.CreateCatmullRomSpline(
             new IVector3[]
             {
-                new StandardVector3(
-                    10 * multiplier,
-                    2 * multiplier,
-                    multiplier * 10
-                ),
-                new StandardVector3(
-                    5 * multiplier,
-                    15 * multiplier,
-                    multiplier * 10
-                ),
-                new StandardVector3(
-                    0 * multiplier,
-                    30 * multiplier,
-                    multiplier * 10
-                ),
-                new StandardVector3(
-                    -5 * multiplier,
-                    15 * multiplier,
-                    multiplier * 10
-                ),
-                new StandardVector3(
-                    -10 * multiplier,
-                    2 * multiplier,
-                    multiplier * 10
-                ),
+                new StandardVector3(10 * multiplier, 2 * multiplier, multiplier * 10),
+                new StandardVector3(5 * multiplier, 15 * multiplier, multiplier * 10),
+                new StandardVector3(0 * multiplier, 30 * multiplier, multiplier * 10),
+                new StandardVector3(-5 * multiplier, 15 * multiplier, multiplier * 10),
+                new StandardVector3(-10 * multiplier, 2 * multiplier, multiplier * 10),
 
                 // new Vector3(5 * multiplier, 25 * multiplier, -25 * multiplier),
                 // new Vector3(0 * multiplier, 30 * multiplier, -25 * multiplier),

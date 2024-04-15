@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Pages.Zone;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
@@ -10,7 +9,6 @@ using EventHorizon.Game.Editor.Zone.Services.Connection;
 using EventHorizon.Zone.Systems.ClientAssets.Delete;
 using EventHorizon.Zone.Systems.ClientAssets.Model;
 using EventHorizon.Zone.Systems.ClientAssets.Query;
-
 using Microsoft.AspNetCore.Components;
 
 public class AssetZoneManagementPageModel
@@ -64,17 +62,12 @@ public class AssetZoneManagementPageModel
 
     protected async Task HandleYesDelete()
     {
-        var deleteResult = await Mediator.Send(
-            new DeleteClientAssetCommand(DeleteModel.Id)
-        );
+        var deleteResult = await Mediator.Send(new DeleteClientAssetCommand(DeleteModel.Id));
         if (deleteResult)
         {
             await ShowMessage(
                 Localizer["Delete Game Asset Confirm"],
-                Localizer[
-                    "Successfully Delete Game Asset: {0}",
-                    DeleteModel.Name
-                ]
+                Localizer["Successfully Delete Game Asset: {0}", DeleteModel.Name]
             );
             HandleCloseDeletePrompt();
             await Setup();

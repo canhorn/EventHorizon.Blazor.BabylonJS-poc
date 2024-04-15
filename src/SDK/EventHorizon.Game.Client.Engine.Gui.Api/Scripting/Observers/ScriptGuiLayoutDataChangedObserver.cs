@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Gui.Activate;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Changed;
@@ -15,8 +14,7 @@ using EventHorizon.Game.Client.Engine.Scripting.Services;
 /// <summary>
 /// This Observer can be used with Scripts to make it easer to handle reloading a GUI from a Layout.
 /// </summary>
-public class ScriptGuiLayoutDataChangedObserver
-    : GuiLayoutDataChangedEventObserver
+public class ScriptGuiLayoutDataChangedObserver : GuiLayoutDataChangedEventObserver
 {
     /// <summary>
     /// Generate Key for usage with the ScriptData unique to this type of Observer.

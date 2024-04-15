@@ -1,16 +1,12 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.ZoneArtifactsManagement.Tests;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.ZoneArtifactsManagement.Pages;
-
 using NUnit.Framework;
-
 using Translations = Localization.ZoneServerBackupArtifactsPageTranslations;
 
-public class DisplayNewZoneArtifactExportInTableWhenZoneExportIsTriggered
-    : WebHost
+public class DisplayNewZoneArtifactExportInTableWhenZoneExportIsTriggered : WebHost
 {
     private const int Seconds_To_Wait_For_Backup_Creation = 30;
 
@@ -20,12 +16,10 @@ public class DisplayNewZoneArtifactExportInTableWhenZoneExportIsTriggered
     {
         this.Login<ZoneServerExportArtifactsPage>()
             .ArtifactTable.GetFirstRowReferenceId(out var referenceId)
-            .Toolbar.Children[
-            a => a.Content == Translations.EN_US.ToolbarZoneExportButton
-        ]
+            .Toolbar.Children[a => a.Content == Translations.EN_US.ToolbarZoneExportButton]
             .Click()
-            .ArtifactTable.Rows[0].ReferenceId.Should
-            .Within(Seconds_To_Wait_For_Backup_Creation)
+            .ArtifactTable.Rows[0]
+            .ReferenceId.Should.Within(Seconds_To_Wait_For_Backup_Creation)
             .Not.Equal(referenceId);
     }
 }

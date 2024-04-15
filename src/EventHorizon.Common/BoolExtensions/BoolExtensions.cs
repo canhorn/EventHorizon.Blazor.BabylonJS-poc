@@ -6,7 +6,5 @@ using System.Text;
 public static class BoolExtensions
 {
     public static string ToLower(this bool boolValue) =>
-        boolValue
-            .ToString(CultureInfo.CurrentCulture)
-            .ToLower(CultureInfo.CurrentCulture);
+        boolValue.ToString(CultureInfo.CurrentCulture).ToLower(CultureInfo.CurrentCulture);
 }

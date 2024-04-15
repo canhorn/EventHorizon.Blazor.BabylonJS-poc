@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IShadowGenerator : ICachedEntity { }
@@ -57,36 +55,21 @@ public class IShadowGeneratorCachedEntity : CachedEntityObject, IShadowGenerator
     public bool isReady(SubMesh subMesh, bool useInstances)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isReady" },
-                subMesh,
-                useInstances
-            }
+            new object[] { new string[] { this.___guid, "isReady" }, subMesh, useInstances }
         );
     }
 
     public void prepareDefines(MaterialDefines defines, decimal lightIndex)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "prepareDefines" },
-                defines,
-                lightIndex
-            }
+            new object[] { new string[] { this.___guid, "prepareDefines" }, defines, lightIndex }
         );
     }
 
     public void bindShadowLight(string lightIndex, Effect effect)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindShadowLight" },
-                lightIndex,
-                effect
-            }
+            new object[] { new string[] { this.___guid, "bindShadowLight" }, lightIndex, effect }
         );
     }
 
@@ -107,10 +90,7 @@ public class IShadowGeneratorCachedEntity : CachedEntityObject, IShadowGenerator
 
     #region forceCompilation TODO: Get Comments as metadata identification
     private bool _isForceCompilationEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<IShadowGenerator, Task>
-    > _forceCompilationActionMap =
+    private readonly IDictionary<string, Func<IShadowGenerator, Task>> _forceCompilationActionMap =
         new Dictionary<string, Func<IShadowGenerator, Task>>();
 
     public string forceCompilation(Func<IShadowGenerator, Task> callback)
@@ -144,9 +124,7 @@ public class IShadowGeneratorCachedEntity : CachedEntityObject, IShadowGenerator
     }
 
     [JSInvokable]
-    public async Task CallForceCompilationActions(
-        IShadowGeneratorCachedEntity generator
-    )
+    public async Task CallForceCompilationActions(IShadowGeneratorCachedEntity generator)
     {
         foreach (var action in _forceCompilationActionMap.Values)
         {
@@ -158,11 +136,7 @@ public class IShadowGeneratorCachedEntity : CachedEntityObject, IShadowGenerator
     public void forceCompilationAsync(object options = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "forceCompilationAsync" },
-                options
-            }
+            new object[] { new string[] { this.___guid, "forceCompilationAsync" }, options }
         );
     }
 

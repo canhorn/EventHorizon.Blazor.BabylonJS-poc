@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Collider>))]
@@ -30,13 +28,7 @@ public class Collider : CachedEntityObject
 
     public decimal collisionMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "collisionMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "collisionMask"); }
         set
         {
 
@@ -51,15 +43,14 @@ public class Collider : CachedEntityObject
         {
             if (__slidePlaneNormal == null)
             {
-                __slidePlaneNormal =
-                    EventHorizonBlazorInterop.GetClass<Vector3>(
-                        this.___guid,
-                        "slidePlaneNormal",
-                        (entity) =>
-                        {
-                            return new Vector3() { ___guid = entity.___guid };
-                        }
-                    );
+                __slidePlaneNormal = EventHorizonBlazorInterop.GetClass<Vector3>(
+                    this.___guid,
+                    "slidePlaneNormal",
+                    (entity) =>
+                    {
+                        return new Vector3() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __slidePlaneNormal;
         }
@@ -70,21 +61,11 @@ public class Collider : CachedEntityObject
 
     public bool collisionFound
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "collisionFound"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "collisionFound"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "collisionFound",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "collisionFound", value);
         }
     }
 
@@ -95,26 +76,21 @@ public class Collider : CachedEntityObject
         {
             if (__intersectionPoint == null)
             {
-                __intersectionPoint =
-                    EventHorizonBlazorInterop.GetClass<Vector3>(
-                        this.___guid,
-                        "intersectionPoint",
-                        (entity) =>
-                        {
-                            return new Vector3() { ___guid = entity.___guid };
-                        }
-                    );
+                __intersectionPoint = EventHorizonBlazorInterop.GetClass<Vector3>(
+                    this.___guid,
+                    "intersectionPoint",
+                    (entity) =>
+                    {
+                        return new Vector3() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __intersectionPoint;
         }
         set
         {
             __intersectionPoint = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "intersectionPoint",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "intersectionPoint", value);
         }
     }
 
@@ -125,18 +101,14 @@ public class Collider : CachedEntityObject
         {
             if (__collidedMesh == null)
             {
-                __collidedMesh =
-                    EventHorizonBlazorInterop.GetClass<AbstractMesh>(
-                        this.___guid,
-                        "collidedMesh",
-                        (entity) =>
-                        {
-                            return new AbstractMesh()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __collidedMesh = EventHorizonBlazorInterop.GetClass<AbstractMesh>(
+                    this.___guid,
+                    "collidedMesh",
+                    (entity) =>
+                    {
+                        return new AbstractMesh() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __collidedMesh;
         }

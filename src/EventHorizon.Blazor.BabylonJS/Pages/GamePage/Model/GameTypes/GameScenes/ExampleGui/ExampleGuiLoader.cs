@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Core.Exceptions;
@@ -17,20 +16,14 @@ using EventHorizon.Game.Client.Engine.Gui.Model;
 using EventHorizon.Game.Client.Engine.Gui.Register;
 using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
 using EventHorizon.Game.Client.Engine.Testing.Events;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class ExampleGuiLoader
 {
-    private readonly ILogger _logger = GameServiceProvider.GetService<
-        ILogger<ExampleGuiScene>
-    >();
-    private readonly HttpClient _http =
-        GameServiceProvider.GetService<HttpClient>();
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<ExampleGuiScene>>();
+    private readonly HttpClient _http = GameServiceProvider.GetService<HttpClient>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
 
     private string _mainMenuGuiId = string.Empty;
 
@@ -54,11 +47,7 @@ public class ExampleGuiLoader
             await _mediator.Send(new RegisterGuiLayoutDataCommand(mainMenuGui));
 
             await _mediator.Send(
-                new CreateGuiCommand(
-                    mainMenuGui.Id,
-                    mainMenuGui.Id,
-                    GetControlWithData()
-                )
+                new CreateGuiCommand(mainMenuGui.Id, mainMenuGui.Id, GetControlWithData())
             );
 
             await _mediator.Send(new ActivateGuiCommand(mainMenuGui.Id));
@@ -79,18 +68,12 @@ public class ExampleGuiLoader
                 new { }
             );
         Func<Task> AlertClickHandler = async () =>
-            await EventHorizonBlazorInterop.RunScript(
-                "alert",
-                "alert('Button Clicked!')",
-                new { }
-            );
+            await EventHorizonBlazorInterop.RunScript("alert", "alert('Button Clicked!')", new { });
         Func<Task> InitScriptHandler = async () =>
         {
             var scriptId = "Actions_TestActionScript";
             var scriptData = new Dictionary<string, object>();
-            await _mediator.Send(
-                new RunClientScriptCommand(scriptId, scriptId, scriptData)
-            );
+            await _mediator.Send(new RunClientScriptCommand(scriptId, scriptId, scriptData));
         };
         Func<Task> TriggerScriptObserverHandler = async () =>
         {
@@ -102,26 +85,17 @@ public class ExampleGuiLoader
             new GuiControlDataModel
             {
                 ControlId = "example-refresh_page-button",
-                Options = new GuiControlOptionsModel
-                {
-                    { "onClick", RefreshPageClickHandler },
-                },
+                Options = new GuiControlOptionsModel { { "onClick", RefreshPageClickHandler }, },
             },
             new GuiControlDataModel
             {
                 ControlId = "example-alert-button",
-                Options = new GuiControlOptionsModel
-                {
-                    { "onClick", AlertClickHandler },
-                },
+                Options = new GuiControlOptionsModel { { "onClick", AlertClickHandler }, },
             },
             new GuiControlDataModel
             {
                 ControlId = "example-init_script-button",
-                Options = new GuiControlOptionsModel
-                {
-                    { "onClick", InitScriptHandler },
-                },
+                Options = new GuiControlOptionsModel { { "onClick", InitScriptHandler }, },
             },
             new GuiControlDataModel
             {

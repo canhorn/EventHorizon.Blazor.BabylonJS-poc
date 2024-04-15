@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<DynamicTexture>))]
@@ -30,13 +28,7 @@ public class DynamicTexture : Texture
 
     public bool canRescale
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "canRescale"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "canRescale"); }
     }
     #endregion
 
@@ -92,23 +84,14 @@ public class DynamicTexture : Texture
     public void scaleTo(decimal width, decimal height)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "scaleTo" },
-                width,
-                height
-            }
+            new object[] { new string[] { this.___guid, "scaleTo" }, width, height }
         );
     }
 
     public CanvasRenderingContext2DCachedEntity getContext()
     {
         return EventHorizonBlazorInterop.FuncClass<CanvasRenderingContext2DCachedEntity>(
-            entity =>
-                new CanvasRenderingContext2DCachedEntity()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new CanvasRenderingContext2DCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getContext" } }
         );
     }
@@ -126,12 +109,7 @@ public class DynamicTexture : Texture
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "update" },
-                invertY,
-                premulAlpha
-            }
+            new object[] { new string[] { this.___guid, "update" }, invertY, premulAlpha }
         );
     }
 

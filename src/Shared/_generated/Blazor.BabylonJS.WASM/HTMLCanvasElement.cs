@@ -5,18 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface HTMLCanvasElement : ICachedEntity { }
 
 [JsonConverter(typeof(CachedEntityConverter<HTMLCanvasElementCachedEntity>))]
-public class HTMLCanvasElementCachedEntity
-    : CachedEntityObject,
-        HTMLCanvasElement
+public class HTMLCanvasElementCachedEntity : CachedEntityObject, HTMLCanvasElement
 {
     #region Static Accessors
 
@@ -38,13 +34,7 @@ public class HTMLCanvasElementCachedEntity
 
     public bool isRecording
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isRecording"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isRecording"); }
         set
         {
 
@@ -73,30 +63,21 @@ public class HTMLCanvasElementCachedEntity
     public void msRequestPointerLock()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "msRequestPointerLock" }
-            }
+            new object[] { new string[] { this.___guid, "msRequestPointerLock" } }
         );
     }
 
     public void mozRequestPointerLock()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "mozRequestPointerLock" }
-            }
+            new object[] { new string[] { this.___guid, "mozRequestPointerLock" } }
         );
     }
 
     public void webkitRequestPointerLock()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "webkitRequestPointerLock" }
-            }
+            new object[] { new string[] { this.___guid, "webkitRequestPointerLock" } }
         );
     }
 

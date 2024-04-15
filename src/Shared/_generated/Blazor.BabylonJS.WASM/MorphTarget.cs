@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<MorphTarget>))]
@@ -27,11 +25,7 @@ public class MorphTarget : CachedEntityObject, IAnimatable
     {
         return EventHorizonBlazorInterop.FuncClass<MorphTarget>(
             entity => new MorphTarget() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "MorphTarget", "Parse" },
-                serializationObject
-            }
+            new object[] { new string[] { "BABYLON", "MorphTarget", "Parse" }, serializationObject }
         );
     }
 
@@ -58,13 +52,7 @@ public class MorphTarget : CachedEntityObject, IAnimatable
 
     public decimal influence
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "influence"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "influence"); }
         set
         {
 
@@ -85,10 +73,7 @@ public class MorphTarget : CachedEntityObject, IAnimatable
                         "animationPropertiesOverride",
                         (entity) =>
                         {
-                            return new AnimationPropertiesOverride()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new AnimationPropertiesOverride() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -97,64 +82,33 @@ public class MorphTarget : CachedEntityObject, IAnimatable
         set
         {
             __animationPropertiesOverride = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "animationPropertiesOverride",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "animationPropertiesOverride", value);
         }
     }
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
     }
 
     public bool hasPositions
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasPositions"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasPositions"); }
     }
 
     public bool hasNormals
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasNormals"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasNormals"); }
     }
 
     public bool hasTangents
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasTangents"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasTangents"); }
     }
 
     public bool hasUVs
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasUVs");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasUVs"); }
     }
     #endregion
 
@@ -162,10 +116,7 @@ public class MorphTarget : CachedEntityObject, IAnimatable
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -198,10 +149,7 @@ public class MorphTarget : CachedEntityObject, IAnimatable
 
     public string id
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "id");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "id"); }
         set
         {
 
@@ -217,11 +165,7 @@ public class MorphTarget : CachedEntityObject, IAnimatable
     public MorphTarget(ICachedEntity entity)
         : base(entity) { }
 
-    public MorphTarget(
-        string name,
-        System.Nullable<decimal> influence = null,
-        Scene scene = null
-    )
+    public MorphTarget(string name, System.Nullable<decimal> influence = null, Scene scene = null)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(

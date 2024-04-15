@@ -2,19 +2,14 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Api;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Change;
 using EventHorizon.Zone.Systems.ArtifactManagement.Trigger;
-
 using MediatR;
 
 public class TriggerZoneServerArtifactImportCommandHandler
-    : IRequestHandler<
-        TriggerZoneServerArtifactImportCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<TriggerZoneServerArtifactImportCommand, StandardCommandResult>
 {
     private readonly ISender _sender;
     private readonly IPublisher _publisher;
@@ -47,10 +42,7 @@ public class TriggerZoneServerArtifactImportCommandHandler
         }
 
         _state.SetImportReferenceId(result.Result.ReferenceId);
-        await _publisher.Publish(
-            new ZoneArtifactManagementStateChangedEvent(),
-            cancellationToken
-        );
+        await _publisher.Publish(new ZoneArtifactManagementStateChangedEvent(), cancellationToken);
 
         return new();
     }

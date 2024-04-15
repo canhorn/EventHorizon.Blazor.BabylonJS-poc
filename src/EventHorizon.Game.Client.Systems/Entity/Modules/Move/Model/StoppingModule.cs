@@ -2,14 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
 using EventHorizon.Game.Client.Systems.Entity.ClientAction;
 using EventHorizon.Game.Client.Systems.Entity.Modules.Move.Api;
 using EventHorizon.Game.Client.Systems.Entity.Stopping;
 using EventHorizon.Observer.Register;
-
 using MediatR;
 
 public class StoppingModule

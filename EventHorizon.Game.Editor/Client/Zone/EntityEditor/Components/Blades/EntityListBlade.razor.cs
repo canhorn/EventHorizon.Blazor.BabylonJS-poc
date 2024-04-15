@@ -1,10 +1,8 @@
 namespace EventHorizon.Game.Editor.Client.Zone.EntityEditor.Components.Blades;
 
 using System;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Zone.Pages;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -28,17 +26,14 @@ public class EntityListBladeBase : EditorComponentBase, IDisposable
         NavigationManager.LocationChanged -= HandleLocationChange;
     }
 
-    private void HandleLocationChange(
-        object? sender,
-        LocationChangedEventArgs e
-    )
+    private void HandleLocationChange(object? sender, LocationChangedEventArgs e)
     {
         IsNotOnEditorPage = CheckIsNotOnEditorPage();
         InvokeAsync(StateHasChanged);
     }
 
     protected bool CheckIsNotOnEditorPage() =>
-        !NavigationManager.Uri
-            .Replace(NavigationManager.BaseUri, string.Empty)
+        !NavigationManager
+            .Uri.Replace(NavigationManager.BaseUri, string.Empty)
             .StartsWith(ZoneEntityListPage.Route[1..]);
 }

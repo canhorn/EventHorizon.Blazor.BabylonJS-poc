@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.MoveSelected.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
 using EventHorizon.Game.Client.Systems.Map.Hit;
@@ -10,7 +9,6 @@ using EventHorizon.Game.Client.Systems.Player.Action.Model.Send;
 using EventHorizon.Game.Client.Systems.Player.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.MoveSelected.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Api;
-
 using MediatR;
 
 public class StandardMoveSelectedModule
@@ -18,8 +16,7 @@ public class StandardMoveSelectedModule
         MoveSelectedModule,
         MapMeshHitEventObserver
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
     private readonly IPlayerEntity _entity;
 
     public override int Priority => 0;
@@ -48,10 +45,9 @@ public class StandardMoveSelectedModule
 
     public async Task Handle(MapMeshHitEvent args)
     {
-        var selectedCompanionTrackerModule =
-            _entity.GetModule<SelectedCompanionTrackerModule>(
-                SelectedCompanionTrackerModule.MODULE_NAME
-            );
+        var selectedCompanionTrackerModule = _entity.GetModule<SelectedCompanionTrackerModule>(
+            SelectedCompanionTrackerModule.MODULE_NAME
+        );
 
         if (
             selectedCompanionTrackerModule.IsNotNull()

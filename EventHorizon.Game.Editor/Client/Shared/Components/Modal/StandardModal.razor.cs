@@ -3,12 +3,10 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
 using EventHorizon.Game.Editor.Client.Shared.ClickCapture;
 using EventHorizon.Game.Editor.Client.Shared.Components.Modal.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class StandardModalModel : ComponentBase

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Particle.Modules.ParticleEmitter.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Particle.Create;
 using EventHorizon.Game.Client.Engine.Particle.Dispose;
 using EventHorizon.Game.Client.Engine.Particle.Model;
@@ -13,7 +12,6 @@ using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set;
 using EventHorizon.Game.Client.Systems.Particle.Changed;
 using EventHorizon.Game.Client.Systems.Particle.Model;
 using EventHorizon.Game.Client.Systems.Particle.Modules.ParticleEmitter.Api;
-
 using MediatR;
 
 public class StandardParticleEmitterModule
@@ -22,15 +20,11 @@ public class StandardParticleEmitterModule
         MeshSetEventObserver,
         ParticleTemplatesChangedEventObserver
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
     private readonly IObjectEntity _entity;
     private readonly ParticleEmitterOptions _options;
 
-    public StandardParticleEmitterModule(
-        IObjectEntity entity,
-        ParticleEmitterOptions options
-    )
+    public StandardParticleEmitterModule(IObjectEntity entity, ParticleEmitterOptions options)
     {
         _entity = entity;
         _options = options;
@@ -71,18 +65,14 @@ public class StandardParticleEmitterModule
 
     private async Task CreateParticle()
     {
-        var meshModule = _entity.GetModule<IMeshModule>(
-            IMeshModule.MODULE_NAME
-        );
+        var meshModule = _entity.GetModule<IMeshModule>(IMeshModule.MODULE_NAME);
         if (meshModule == null)
         {
             return;
         }
 
         // Dispose of any existing particles by _options.ParticleId
-        await _mediator.Send(
-            new DisposeOfParticleSystemCommand(_options.ParticleId)
-        );
+        await _mediator.Send(new DisposeOfParticleSystemCommand(_options.ParticleId));
 
         if (!_options.IgnoreMeshVisibility)
         {
@@ -101,9 +91,7 @@ public class StandardParticleEmitterModule
         );
         if (_options.StartAfterCreated)
         {
-            await _mediator.Send(
-                new StartParticleSystemCommand(_options.ParticleId)
-            );
+            await _mediator.Send(new StartParticleSystemCommand(_options.ParticleId));
         }
     }
 }

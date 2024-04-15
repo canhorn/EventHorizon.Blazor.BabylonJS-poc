@@ -49,9 +49,8 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapPlatformDetails(
-                options =>
-                    options.SetVersion(Configuration["APPLICATION_VERSION"])
+            endpoints.MapPlatformDetails(options =>
+                options.SetVersion(Configuration["APPLICATION_VERSION"])
             );
 
             endpoints.MapRazorPages();
@@ -60,9 +59,7 @@ public class Startup
         });
     }
 
-    private static StaticFileOptions GetStaticFileOptions(
-        IWebHostEnvironment env
-    )
+    private static StaticFileOptions GetStaticFileOptions(IWebHostEnvironment env)
     {
         var staticConfig = new StaticFileOptions
         {
@@ -81,8 +78,7 @@ public class Startup
                 OnPrepareResponse = context =>
                 {
                     // Set the Cache Control header to max-age = 0 for development
-                    context.Context.Response.Headers["Cache-Control"] =
-                        "public,max-age=0";
+                    context.Context.Response.Headers["Cache-Control"] = "public,max-age=0";
                 }
             };
         }

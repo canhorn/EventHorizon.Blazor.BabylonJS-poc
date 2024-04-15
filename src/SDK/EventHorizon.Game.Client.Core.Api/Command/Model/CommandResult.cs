@@ -29,9 +29,7 @@ public class CommandResult<T>
 
     public static implicit operator CommandResult<T>(T result) => new(result);
 
-    public static implicit operator CommandResult<T>(string errorCode) =>
-        new(errorCode);
+    public static implicit operator CommandResult<T>(string errorCode) => new(errorCode);
 
-    public static implicit operator bool(CommandResult<T> result) =>
-        result.Success;
+    public static implicit operator bool(CommandResult<T> result) => result.Success;
 }

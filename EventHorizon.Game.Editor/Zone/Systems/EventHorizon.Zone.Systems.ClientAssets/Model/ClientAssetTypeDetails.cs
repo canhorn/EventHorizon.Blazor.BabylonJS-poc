@@ -10,8 +10,7 @@ public class ClientAssetTypeDetails
 {
     public string Type { get; init; } = string.Empty;
     public string Name { get; init; } = string.Empty;
-    public IDictionary<string, string> Metadata { get; init; } =
-        new Dictionary<string, string>();
+    public IDictionary<string, string> Metadata { get; init; } = new Dictionary<string, string>();
     public Func<IDictionary<string, object>> DefaultValue { get; init; } =
         () => new Dictionary<string, object>();
 }

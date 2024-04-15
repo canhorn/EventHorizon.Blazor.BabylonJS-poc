@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ColorGradient>))]
@@ -34,13 +32,7 @@ public class ColorGradient : CachedEntityObject, IValueGradient
 
     public decimal gradient
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "gradient"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "gradient"); }
         set
         {
 
@@ -112,11 +104,7 @@ public class ColorGradient : CachedEntityObject, IValueGradient
     public void getColorToRef(Color4 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getColorToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "getColorToRef" }, result }
         );
     }
     #endregion

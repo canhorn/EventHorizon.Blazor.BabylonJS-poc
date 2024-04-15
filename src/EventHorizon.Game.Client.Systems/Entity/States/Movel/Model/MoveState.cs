@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Core.Api;
 using EventHorizon.Game.Client.Engine.Entity.Api;
@@ -19,7 +18,6 @@ using EventHorizon.Game.Client.Systems.Height.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Api;
-
 using MediatR;
 
 // TODO: Create StateBase on new IState
@@ -42,12 +40,7 @@ public class MoveState : ClientEntityBase, IState
     public bool Remove { get; private set; }
     public string Name { get; }
 
-    public MoveState(
-        IObjectEntity entity,
-        string name,
-        decimal distanceEpsilon,
-        IVector3[] path
-    )
+    public MoveState(IObjectEntity entity, string name, decimal distanceEpsilon, IVector3[] path)
         : base(GameServiceProvider.GetService<IIndexPool>().NextIndex())
     {
         _mediator = GameServiceProvider.GetService<IMediator>();
@@ -122,11 +115,8 @@ public class MoveState : ClientEntityBase, IState
 
     private void Move(IVector3 direction, long deltaTime)
     {
-        var moveMultiply =
-            deltaTime / (DEFAULT_MOVE_SPEED * (1m / _movementState.Speed));
-        var velocity = direction.Multiply(
-            new StandardVector3(moveMultiply, 0, moveMultiply)
-        );
+        var moveMultiply = deltaTime / (DEFAULT_MOVE_SPEED * (1m / _movementState.Speed));
+        var velocity = direction.Multiply(new StandardVector3(moveMultiply, 0, moveMultiply));
         var position = _entity.Transform.Position;
         position.AddInPlace(velocity);
 
@@ -141,16 +131,12 @@ public class MoveState : ClientEntityBase, IState
         {
             targetDirection = targetDirection.Normalize();
         }
-        var facingDirection = mesh.GetDirection(
-            StandardVector3.FORWARD_DIRECTION
-        );
+        var facingDirection = mesh.GetDirection(StandardVector3.FORWARD_DIRECTION);
         if (facingDirection.LengthSquared() > 0.0)
         {
             facingDirection = facingDirection.Normalize();
         }
-        var strafeDirection = mesh.GetDirection(
-            StandardVector3.RIGHT_DIRECTION
-        );
+        var strafeDirection = mesh.GetDirection(StandardVector3.RIGHT_DIRECTION);
         if (strafeDirection.LengthSquared() > 0.0)
         {
             strafeDirection = strafeDirection.Normalize();
@@ -166,9 +152,7 @@ public class MoveState : ClientEntityBase, IState
             angle = -angle;
         }
         var rotation = _entity.Transform.Rotation;
-        rotation.AddInPlace(
-            new StandardVector3(0, (decimal)angle * DEFAULT_ROTATION_SPEED, 0)
-        );
+        rotation.AddInPlace(new StandardVector3(0, (decimal)angle * DEFAULT_ROTATION_SPEED, 0));
         _transformModule.SetRotation(rotation);
     }
 }

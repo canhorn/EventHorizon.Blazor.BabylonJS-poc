@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<PostProcess>))]
@@ -30,13 +28,7 @@ public class PostProcess : CachedEntityObject
 
     public decimal samples
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "samples"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "samples"); }
         set
         {
 
@@ -51,18 +43,14 @@ public class PostProcess : CachedEntityObject
         {
             if (__inputTexture == null)
             {
-                __inputTexture =
-                    EventHorizonBlazorInterop.GetClass<InternalTexture>(
-                        this.___guid,
-                        "inputTexture",
-                        (entity) =>
-                        {
-                            return new InternalTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __inputTexture = EventHorizonBlazorInterop.GetClass<InternalTexture>(
+                    this.___guid,
+                    "inputTexture",
+                    (entity) =>
+                    {
+                        return new InternalTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __inputTexture;
         }
@@ -95,24 +83,12 @@ public class PostProcess : CachedEntityObject
 
     public bool isSupported
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isSupported"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isSupported"); }
     }
 
     public decimal aspectRatio
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "aspectRatio"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "aspectRatio"); }
     }
     #endregion
 
@@ -120,10 +96,7 @@ public class PostProcess : CachedEntityObject
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -133,13 +106,7 @@ public class PostProcess : CachedEntityObject
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
         set
         {
 
@@ -149,13 +116,7 @@ public class PostProcess : CachedEntityObject
 
     public decimal width
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "width"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "width"); }
         set
         {
 
@@ -165,13 +126,7 @@ public class PostProcess : CachedEntityObject
 
     public decimal height
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "height"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "height"); }
         set
         {
 
@@ -183,19 +138,12 @@ public class PostProcess : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "renderTargetSamplingMode"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "renderTargetSamplingMode");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderTargetSamplingMode",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderTargetSamplingMode", value);
         }
     }
 
@@ -226,13 +174,7 @@ public class PostProcess : CachedEntityObject
 
     public bool autoClear
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "autoClear"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "autoClear"); }
         set
         {
 
@@ -242,13 +184,7 @@ public class PostProcess : CachedEntityObject
 
     public decimal alphaMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alphaMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alphaMode"); }
         set
         {
 
@@ -277,11 +213,7 @@ public class PostProcess : CachedEntityObject
         set
         {
             __alphaConstants = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "alphaConstants",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "alphaConstants", value);
         }
     }
 
@@ -307,41 +239,21 @@ public class PostProcess : CachedEntityObject
 
     public bool enablePixelPerfectMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enablePixelPerfectMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enablePixelPerfectMode"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enablePixelPerfectMode",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enablePixelPerfectMode", value);
         }
     }
 
     public bool forceFullscreenViewport
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "forceFullscreenViewport"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "forceFullscreenViewport"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "forceFullscreenViewport",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "forceFullscreenViewport", value);
         }
     }
 
@@ -354,33 +266,20 @@ public class PostProcess : CachedEntityObject
                 "inspectableCustomProperties",
                 (entity) =>
                 {
-                    return new IInspectableCachedEntity()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new IInspectableCachedEntity() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "inspectableCustomProperties",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "inspectableCustomProperties", value);
         }
     }
 
     public decimal scaleMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "scaleMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "scaleMode"); }
         set
         {
 
@@ -390,21 +289,11 @@ public class PostProcess : CachedEntityObject
 
     public bool alwaysForcePOT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "alwaysForcePOT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "alwaysForcePOT"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "alwaysForcePOT",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "alwaysForcePOT", value);
         }
     }
 
@@ -412,19 +301,12 @@ public class PostProcess : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "adaptScaleToCurrentViewport"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "adaptScaleToCurrentViewport");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "adaptScaleToCurrentViewport",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "adaptScaleToCurrentViewport", value);
         }
     }
 
@@ -435,17 +317,12 @@ public class PostProcess : CachedEntityObject
         {
             if (__onActivateObservable == null)
             {
-                __onActivateObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Camera>
-                >(
+                __onActivateObservable = EventHorizonBlazorInterop.GetClass<Observable<Camera>>(
                     this.___guid,
                     "onActivateObservable",
                     (entity) =>
                     {
-                        return new Observable<Camera>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Camera>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -454,11 +331,7 @@ public class PostProcess : CachedEntityObject
         set
         {
             __onActivateObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onActivateObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onActivateObservable", value);
         }
     }
 
@@ -476,10 +349,7 @@ public class PostProcess : CachedEntityObject
                     "onSizeChangedObservable",
                     (entity) =>
                     {
-                        return new Observable<PostProcess>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<PostProcess>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -488,11 +358,7 @@ public class PostProcess : CachedEntityObject
         set
         {
             __onSizeChangedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onSizeChangedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onSizeChangedObservable", value);
         }
     }
 
@@ -503,17 +369,12 @@ public class PostProcess : CachedEntityObject
         {
             if (__onApplyObservable == null)
             {
-                __onApplyObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Effect>
-                >(
+                __onApplyObservable = EventHorizonBlazorInterop.GetClass<Observable<Effect>>(
                     this.___guid,
                     "onApplyObservable",
                     (entity) =>
                     {
-                        return new Observable<Effect>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Effect>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -522,11 +383,7 @@ public class PostProcess : CachedEntityObject
         set
         {
             __onApplyObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onApplyObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onApplyObservable", value);
         }
     }
 
@@ -537,17 +394,12 @@ public class PostProcess : CachedEntityObject
         {
             if (__onBeforeRenderObservable == null)
             {
-                __onBeforeRenderObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Effect>
-                >(
+                __onBeforeRenderObservable = EventHorizonBlazorInterop.GetClass<Observable<Effect>>(
                     this.___guid,
                     "onBeforeRenderObservable",
                     (entity) =>
                     {
-                        return new Observable<Effect>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Effect>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -556,11 +408,7 @@ public class PostProcess : CachedEntityObject
         set
         {
             __onBeforeRenderObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onBeforeRenderObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onBeforeRenderObservable", value);
         }
     }
 
@@ -571,17 +419,12 @@ public class PostProcess : CachedEntityObject
         {
             if (__onAfterRenderObservable == null)
             {
-                __onAfterRenderObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Effect>
-                >(
+                __onAfterRenderObservable = EventHorizonBlazorInterop.GetClass<Observable<Effect>>(
                     this.___guid,
                     "onAfterRenderObservable",
                     (entity) =>
                     {
-                        return new Observable<Effect>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Effect>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -590,11 +433,7 @@ public class PostProcess : CachedEntityObject
         set
         {
             __onAfterRenderObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAfterRenderObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAfterRenderObservable", value);
         }
     }
     #endregion
@@ -692,11 +531,7 @@ public class PostProcess : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<PostProcess>(
             entity => new PostProcess() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "shareOutputWith" },
-                postProcess
-            }
+            new object[] { new string[] { this.___guid, "shareOutputWith" }, postProcess }
         );
     }
 

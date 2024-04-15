@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class MovePlayerInDirectionEventObserverHandler
@@ -21,8 +19,8 @@ public class MovePlayerInDirectionEventObserverHandler
         MovePlayerInDirectionEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            MovePlayerInDirectionEventObserver,
-            MovePlayerInDirectionEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<MovePlayerInDirectionEventObserver, MovePlayerInDirectionEvent>(
+            notification,
+            cancellationToken
+        );
 }

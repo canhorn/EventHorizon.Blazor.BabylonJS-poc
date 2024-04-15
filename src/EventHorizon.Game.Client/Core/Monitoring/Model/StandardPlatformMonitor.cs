@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Core.Monitoring.Model;
 
 using System;
-
 using EventHorizon.Game.Client.Core.Monitoring.Api;
 
 public class StandardPlatformMonitor : IPlatformMonitor

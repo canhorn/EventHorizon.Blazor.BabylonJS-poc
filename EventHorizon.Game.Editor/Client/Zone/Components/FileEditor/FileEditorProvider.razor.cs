@@ -3,7 +3,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
 using EventHorizon.Game.Editor.Client.Zone.Api;
@@ -14,7 +13,6 @@ using EventHorizon.Game.Editor.Client.Zone.Model;
 using EventHorizon.Game.Editor.Client.Zone.Query;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Query;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Save;
-
 using Microsoft.AspNetCore.Components;
 
 public class FileEditorProviderModel
@@ -79,9 +77,7 @@ public class FileEditorProviderModel
         {
             return;
         }
-        else if (
-            !editorNodeResult && IsLoadingErrorCode(editorNodeResult.ErrorCode)
-        )
+        else if (!editorNodeResult && IsLoadingErrorCode(editorNodeResult.ErrorCode))
         {
             return;
         }
@@ -108,8 +104,8 @@ public class FileEditorProviderModel
         }
 
         var editorFileErrorDetails = new EditorFileErrorDetails(id).From(
-            ZoneState.ScriptErrorDetails.ScriptErrorDetailsList
-                ?.Where(a => id.Contains(a.ScriptId))
+            ZoneState
+                .ScriptErrorDetails.ScriptErrorDetailsList?.Where(a => id.Contains(a.ScriptId))
                 .FirstOrDefault()
         );
 
@@ -140,9 +136,7 @@ public class FileEditorProviderModel
         await InvokeAsync(StateHasChanged);
     }
 
-    public async Task Handle(
-        ServerScriptsSystemCompilingScriptsClientAction args
-    )
+    public async Task Handle(ServerScriptsSystemCompilingScriptsClientAction args)
     {
         IsCompiling = true;
         DisplayState = ComponentState.Loading;
@@ -150,9 +144,7 @@ public class FileEditorProviderModel
         await InvokeAsync(StateHasChanged);
     }
 
-    public async Task Handle(
-        ServerScriptsSystemFinishedScriptsCompileClientAction args
-    )
+    public async Task Handle(ServerScriptsSystemFinishedScriptsCompileClientAction args)
     {
         IsCompiling = false;
         DisplayState = ComponentState.Content;

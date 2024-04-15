@@ -10,10 +10,6 @@ public static class StandardVector3Extensions
         {
             return vector3.To<Vector3>();
         }
-        return new Vector3(
-            (float)vector3.X,
-            (float)vector3.Y,
-            (float)vector3.Z
-        );
+        return new Vector3((float)vector3.X, (float)vector3.Y, (float)vector3.Z);
     }
 }

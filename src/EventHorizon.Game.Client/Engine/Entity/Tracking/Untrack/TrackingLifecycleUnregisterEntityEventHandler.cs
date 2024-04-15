@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Unregister;
-
 using MediatR;
 
 public class TrackingLifecycleUnregisterEntityEventHandler
@@ -21,10 +19,7 @@ public class TrackingLifecycleUnregisterEntityEventHandler
         _serverEntityTrackingState = serverEntityTrackingState;
     }
 
-    public Task Handle(
-        UnregisterEntityEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(UnregisterEntityEvent notification, CancellationToken cancellationToken)
     {
         if (notification.Entity is ServerLifecycleEntityBase trackedEntity)
         {

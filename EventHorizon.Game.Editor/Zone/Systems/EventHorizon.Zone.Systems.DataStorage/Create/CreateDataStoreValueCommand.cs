@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Zone.Systems.DataStorage.Create;
 
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
 
 public struct CreateDataStoreValueCommand : IRequest<StandardCommandResult>

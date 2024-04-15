@@ -3,12 +3,10 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Dispose;
 using EventHorizon.Game.Client.Engine.Gui.Model;
-
 using MediatR;
 
 public class ClearGuiSystemDataCommandHandler
@@ -38,10 +36,7 @@ public class ClearGuiSystemDataCommandHandler
 
         foreach (var guiDefinition in _guiDefinitionState.All.ToList())
         {
-            await _sender.Send(
-                new DisposeOfGuiCommand(guiDefinition.GuiId),
-                cancellationToken
-            );
+            await _sender.Send(new DisposeOfGuiCommand(guiDefinition.GuiId), cancellationToken);
         }
 
         return new StandardCommandResult();

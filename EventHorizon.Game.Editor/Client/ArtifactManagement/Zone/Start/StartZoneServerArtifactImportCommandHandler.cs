@@ -2,17 +2,12 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Open;
-
 using MediatR;
 
 public class StartZoneServerArtifactImportCommandHandler
-    : IRequestHandler<
-        StartZoneServerArtifactImportCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<StartZoneServerArtifactImportCommand, StandardCommandResult>
 {
     private readonly IPublisher _publisher;
 
@@ -26,10 +21,7 @@ public class StartZoneServerArtifactImportCommandHandler
         CancellationToken cancellationToken
     )
     {
-        await _publisher.Publish(
-            new OpenZoneServerImportFileUploaderEvent(),
-            cancellationToken
-        );
+        await _publisher.Publish(new OpenZoneServerImportFileUploaderEvent(), cancellationToken);
 
         return new();
     }

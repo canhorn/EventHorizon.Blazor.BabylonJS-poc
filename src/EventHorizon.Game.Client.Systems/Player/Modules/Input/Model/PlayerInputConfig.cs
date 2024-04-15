@@ -27,19 +27,13 @@ public class PlayerInputConfig
         }
 
         public MoveDirection? Pressed =>
-            TryGet<int>("pressed", out var pressedResult)
-                ? (MoveDirection)pressedResult
-                : null;
+            TryGet<int>("pressed", out var pressedResult) ? (MoveDirection)pressedResult : null;
 
         public MoveDirection? Released =>
-            TryGet<int>("released", out var releasedResult)
-                ? (MoveDirection)releasedResult
-                : null;
+            TryGet<int>("released", out var releasedResult) ? (MoveDirection)releasedResult : null;
 
         public string? Camera =>
-            TryGet<string>("camera", out var cameraResult)
-                ? cameraResult
-                : null;
+            TryGet<string>("camera", out var cameraResult) ? cameraResult : null;
 
         public Option<T> Get<T>(string key)
         {

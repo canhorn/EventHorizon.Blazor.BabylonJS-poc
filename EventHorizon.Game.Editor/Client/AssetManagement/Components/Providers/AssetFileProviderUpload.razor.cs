@@ -2,7 +2,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.Open;
@@ -11,7 +10,6 @@ using EventHorizon.Game.Editor.Client.Authentication.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -36,11 +34,7 @@ public class AssetFileProviderUploadModel
     public IJSObjectReference? FileUploadClickModule { get; private set; }
     public InputFile UploadInputFile { get; set; } = null!;
     public TreeViewNodeData? FileUploadTreeViewNode { get; private set; }
-    public FileSystemDirectoryContent? FileUploadWorkingDirectory
-    {
-        get;
-        private set;
-    }
+    public FileSystemDirectoryContent? FileUploadWorkingDirectory { get; private set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -65,10 +59,7 @@ public class AssetFileProviderUploadModel
     {
         if (FileUploadClickModule.IsNotNull())
         {
-            await FileUploadClickModule.InvokeVoidAsync(
-                "openInputElement",
-                UploadFileId
-            );
+            await FileUploadClickModule.InvokeVoidAsync("openInputElement", UploadFileId);
         }
     }
 
@@ -81,9 +72,7 @@ public class AssetFileProviderUploadModel
 
     protected async Task HandleInputFileChange(InputFileChangeEventArgs args)
     {
-        if (
-            FileUploadTreeViewNode is null || FileUploadWorkingDirectory is null
-        )
+        if (FileUploadTreeViewNode is null || FileUploadWorkingDirectory is null)
         {
             await ShowMessage(
                 Localizer["Asset File Upload"],
@@ -93,11 +82,7 @@ public class AssetFileProviderUploadModel
             return;
         }
 
-        await UploadFrom(
-            args.File,
-            FileUploadTreeViewNode,
-            FileUploadWorkingDirectory
-        );
+        await UploadFrom(args.File, FileUploadTreeViewNode, FileUploadWorkingDirectory);
 
         FileUploadTreeViewNode = null;
         FileUploadWorkingDirectory = null;
@@ -117,25 +102,16 @@ public class AssetFileProviderUploadModel
         var result = await AssetFileManagement.Upload(
             AccessToken.AccessToken,
             file,
-            FileSystemDirectoryContent.BuildPath(
-                State.RootPath,
-                directoryContent
-            ),
+            FileSystemDirectoryContent.BuildPath(State.RootPath, directoryContent),
             CancellationToken.None
         );
 
         if (result.Success)
         {
             await Mediator.Send(
-                new AssetReloadToNodeAndDirectoryContentCommand(
-                    node,
-                    directoryContent
-                )
+                new AssetReloadToNodeAndDirectoryContentCommand(node, directoryContent)
             );
-            await ShowMessage(
-                Localizer["Asset File Upload"],
-                Localizer["Successfully Uploaded"]
-            );
+            await ShowMessage(Localizer["Asset File Upload"], Localizer["Successfully Uploaded"]);
             return;
         }
 

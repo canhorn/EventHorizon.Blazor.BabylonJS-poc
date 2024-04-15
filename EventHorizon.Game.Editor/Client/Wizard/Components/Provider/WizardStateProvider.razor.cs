@@ -1,13 +1,11 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Wizard.Components.Provider;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Wizard.Api;
 using EventHorizon.Game.Editor.Client.Zone.Services.Command.Response;
 using EventHorizon.Game.Editor.Zone.Services.Connection;
 using EventHorizon.Zone.Systems.Wizard.Query;
-
 using Microsoft.AspNetCore.Components;
 
 public class WizardStateProviderModel

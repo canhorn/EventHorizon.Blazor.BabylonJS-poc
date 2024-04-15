@@ -39,11 +39,8 @@ public class PropertiesDisplayModel : ComponentBase
     [Inject]
     public required Localizer<SharedResource> Localizer { get; set; }
 
-    protected IDictionary<string, PropertyDisplayType> DisplayProperties
-    {
-        get;
-        private set;
-    } = new Dictionary<string, PropertyDisplayType>();
+    protected IDictionary<string, PropertyDisplayType> DisplayProperties { get; private set; } =
+        new Dictionary<string, PropertyDisplayType>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,9 +66,7 @@ public class PropertiesDisplayModel : ComponentBase
     {
         args.NullCheck();
         Data[args.PropertyName] = args.Property;
-        await OnChanged.InvokeAsync(
-            new PropertiesDisplayChangedArgs(args.PropertyName, Data)
-        );
+        await OnChanged.InvokeAsync(new PropertiesDisplayChangedArgs(args.PropertyName, Data));
     }
 
     private void SetupProperties()

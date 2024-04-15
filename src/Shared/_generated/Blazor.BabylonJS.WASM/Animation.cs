@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Animation>))]
@@ -32,11 +30,7 @@ public class Animation : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "Animation.AllowMatricesInterpolation",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "Animation.AllowMatricesInterpolation", value);
         }
     }
 
@@ -220,12 +214,7 @@ public class Animation : CachedEntityObject
             entity => new Animatable() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Animation",
-                    "CreateAndStartAnimation"
-                },
+                new string[] { "BABYLON", "Animation", "CreateAndStartAnimation" },
                 name,
                 node,
                 targetProperty,
@@ -258,12 +247,7 @@ public class Animation : CachedEntityObject
             entity => new Animatable() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Animation",
-                    "CreateAndStartHierarchyAnimation"
-                },
+                new string[] { "BABYLON", "Animation", "CreateAndStartHierarchyAnimation" },
                 name,
                 node,
                 directDescendantsOnly,
@@ -296,12 +280,7 @@ public class Animation : CachedEntityObject
             entity => new Animatable() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Animation",
-                    "CreateMergeAndStartAnimation"
-                },
+                new string[] { "BABYLON", "Animation", "CreateMergeAndStartAnimation" },
                 name,
                 node,
                 targetProperty,
@@ -348,28 +327,16 @@ public class Animation : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Animation>(
             entity => new Animation() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Animation", "Parse" },
-                parsedAnimation
-            }
+            new object[] { new string[] { "BABYLON", "Animation", "Parse" }, parsedAnimation }
         );
     }
 
-    public static void AppendSerializedAnimations(
-        IAnimatable source,
-        object destination
-    )
+    public static void AppendSerializedAnimations(IAnimatable source, object destination)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Animation",
-                    "AppendSerializedAnimations"
-                },
+                new string[] { "BABYLON", "Animation", "AppendSerializedAnimations" },
                 source,
                 destination
             }
@@ -398,10 +365,7 @@ public class Animation : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasRunningRuntimeAnimations"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasRunningRuntimeAnimations");
         }
     }
     #endregion
@@ -410,10 +374,7 @@ public class Animation : CachedEntityObject
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -423,53 +384,27 @@ public class Animation : CachedEntityObject
 
     public string targetProperty
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "targetProperty"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "targetProperty"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "targetProperty",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "targetProperty", value);
         }
     }
 
     public decimal framePerSecond
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "framePerSecond"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "framePerSecond"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "framePerSecond",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "framePerSecond", value);
         }
     }
 
     public decimal dataType
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "dataType"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "dataType"); }
         set
         {
 
@@ -479,13 +414,7 @@ public class Animation : CachedEntityObject
 
     public decimal loopMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "loopMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "loopMode"); }
         set
         {
 
@@ -495,21 +424,11 @@ public class Animation : CachedEntityObject
 
     public bool enableBlending
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enableBlending"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enableBlending"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enableBlending",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enableBlending", value);
         }
     }
 
@@ -517,31 +436,18 @@ public class Animation : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.GetArray<string>(
-                this.___guid,
-                "targetPropertyPath"
-            );
+            return EventHorizonBlazorInterop.GetArray<string>(this.___guid, "targetPropertyPath");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "targetPropertyPath",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "targetPropertyPath", value);
         }
     }
 
     public decimal blendingSpeed
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "blendingSpeed"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "blendingSpeed"); }
         set
         {
 
@@ -586,11 +492,7 @@ public class Animation : CachedEntityObject
     public string toString(System.Nullable<bool> fullDetails = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                fullDetails
-            }
+            new object[] { new string[] { this.___guid, "toString" }, fullDetails }
         );
     }
 
@@ -604,11 +506,7 @@ public class Animation : CachedEntityObject
     public void removeEvents(decimal frame)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "removeEvents" },
-                frame
-            }
+            new object[] { new string[] { this.___guid, "removeEvents" }, frame }
         );
     }
 
@@ -623,28 +521,14 @@ public class Animation : CachedEntityObject
     public void createRange(string name, decimal from, decimal to)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "createRange" },
-                name,
-                from,
-                to
-            }
+            new object[] { new string[] { this.___guid, "createRange" }, name, from, to }
         );
     }
 
-    public void deleteRange(
-        string name,
-        System.Nullable<bool> deleteFrames = null
-    )
+    public void deleteRange(string name, System.Nullable<bool> deleteFrames = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "deleteRange" },
-                name,
-                deleteFrames
-            }
+            new object[] { new string[] { this.___guid, "deleteRange" }, name, deleteFrames }
         );
     }
 
@@ -659,8 +543,7 @@ public class Animation : CachedEntityObject
     public IAnimationKeyCachedEntity[] getKeys()
     {
         return EventHorizonBlazorInterop.FuncArrayClass<IAnimationKeyCachedEntity>(
-            entity =>
-                new IAnimationKeyCachedEntity() { ___guid = entity.___guid },
+            entity => new IAnimationKeyCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getKeys" } }
         );
     }
@@ -675,8 +558,7 @@ public class Animation : CachedEntityObject
     public IEasingFunctionCachedEntity getEasingFunction()
     {
         return EventHorizonBlazorInterop.FuncClass<IEasingFunctionCachedEntity>(
-            entity =>
-                new IEasingFunctionCachedEntity() { ___guid = entity.___guid },
+            entity => new IEasingFunctionCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getEasingFunction" } }
         );
     }
@@ -684,19 +566,11 @@ public class Animation : CachedEntityObject
     public void setEasingFunction(EasingFunction easingFunction)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setEasingFunction" },
-                easingFunction
-            }
+            new object[] { new string[] { this.___guid, "setEasingFunction" }, easingFunction }
         );
     }
 
-    public decimal floatInterpolateFunction(
-        decimal startValue,
-        decimal endValue,
-        decimal gradient
-    )
+    public decimal floatInterpolateFunction(decimal startValue, decimal endValue, decimal gradient)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]
@@ -720,11 +594,7 @@ public class Animation : CachedEntityObject
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "floatInterpolateFunctionWithTangents"
-                },
+                new string[] { this.___guid, "floatInterpolateFunctionWithTangents" },
                 startValue,
                 outTangent,
                 endValue,
@@ -764,11 +634,7 @@ public class Animation : CachedEntityObject
             entity => new Quaternion() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "quaternionInterpolateFunctionWithTangents"
-                },
+                new string[] { this.___guid, "quaternionInterpolateFunctionWithTangents" },
                 startValue,
                 outTangent,
                 endValue,
@@ -808,11 +674,7 @@ public class Animation : CachedEntityObject
             entity => new Vector3() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "vector3InterpolateFunctionWithTangents"
-                },
+                new string[] { this.___guid, "vector3InterpolateFunctionWithTangents" },
                 startValue,
                 outTangent,
                 endValue,
@@ -852,11 +714,7 @@ public class Animation : CachedEntityObject
             entity => new Vector2() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "vector2InterpolateFunctionWithTangents"
-                },
+                new string[] { this.___guid, "vector2InterpolateFunctionWithTangents" },
                 startValue,
                 outTangent,
                 endValue,
@@ -866,11 +724,7 @@ public class Animation : CachedEntityObject
         );
     }
 
-    public Size sizeInterpolateFunction(
-        Size startValue,
-        Size endValue,
-        decimal gradient
-    )
+    public Size sizeInterpolateFunction(Size startValue, Size endValue, decimal gradient)
     {
         return EventHorizonBlazorInterop.FuncClass<Size>(
             entity => new Size() { ___guid = entity.___guid },
@@ -884,11 +738,7 @@ public class Animation : CachedEntityObject
         );
     }
 
-    public Color3 color3InterpolateFunction(
-        Color3 startValue,
-        Color3 endValue,
-        decimal gradient
-    )
+    public Color3 color3InterpolateFunction(Color3 startValue, Color3 endValue, decimal gradient)
     {
         return EventHorizonBlazorInterop.FuncClass<Color3>(
             entity => new Color3() { ___guid = entity.___guid },
@@ -902,11 +752,7 @@ public class Animation : CachedEntityObject
         );
     }
 
-    public Color4 color4InterpolateFunction(
-        Color4 startValue,
-        Color4 endValue,
-        decimal gradient
-    )
+    public Color4 color4InterpolateFunction(Color4 startValue, Color4 endValue, decimal gradient)
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },

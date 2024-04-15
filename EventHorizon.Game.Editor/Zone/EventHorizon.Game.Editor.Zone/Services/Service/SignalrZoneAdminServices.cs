@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Connection.Shared;
 using EventHorizon.Connection.Shared.Unauthorized;
 using EventHorizon.Game.Client.Core.Command.Model;
@@ -15,9 +14,7 @@ using EventHorizon.Game.Editor.Services.Model.Command;
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Publish;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Game.Editor.Zone.Services.Connection;
-
 using MediatR;
-
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
@@ -26,17 +23,13 @@ public class SignalrZoneAdminServices : ZoneAdminServices
     private readonly ILogger _logger;
     private readonly IMediator _mediator;
 
-    public ZoneAdminApi Api { get; private set; } =
-        new SignalrZoneAdminApi(null);
+    public ZoneAdminApi Api { get; private set; } = new SignalrZoneAdminApi(null);
 
     private string _currentZoneId = string.Empty;
     private bool _initialized;
     private HubConnection? _connection;
 
-    public SignalrZoneAdminServices(
-        ILogger<SignalrZoneAdminServices> logger,
-        IMediator mediator
-    )
+    public SignalrZoneAdminServices(ILogger<SignalrZoneAdminServices> logger, IMediator mediator)
     {
         _logger = logger;
         _mediator = mediator;
@@ -78,8 +71,7 @@ public class SignalrZoneAdminServices : ZoneAdminServices
                     options =>
                     {
                         // options..LogLevel = SignalRLogLevel.Error;
-                        options.AccessTokenProvider = () =>
-                            Task.FromResult<string?>(accessToken);
+                        options.AccessTokenProvider = () => Task.FromResult<string?>(accessToken);
                     }
                 )
                 .Build();
@@ -136,36 +128,27 @@ public class SignalrZoneAdminServices : ZoneAdminServices
 
     private async Task HandleClosed(Exception? ex)
     {
-        await LogAndDispose(
-            ex,
-            "Connection Closed",
-            ZoneAdminConnectionCodes.CLOSED_BY_CONNECTION
-        );
+        await LogAndDispose(ex, "Connection Closed", ZoneAdminConnectionCodes.CLOSED_BY_CONNECTION);
     }
 
     private Task HandleReconnecting(Exception? ex)
     {
         _logger.LogWarning(ex, "Reconnecting triggered...");
-        return _mediator.Publish(
-            new ZoneAdminServiceReconnectingEvent(_currentZoneId)
-        );
+        return _mediator.Publish(new ZoneAdminServiceReconnectingEvent(_currentZoneId));
     }
 
     private Task HandleReconnected(
         string? _ // connectionId
     )
     {
-        return _mediator.Publish(
-            new ZoneAdminServiceReconnectedEvent(_currentZoneId)
-        );
+        return _mediator.Publish(new ZoneAdminServiceReconnectedEvent(_currentZoneId));
     }
 
     private void SetupEvents()
     {
         _connection?.On<AdminCommandResponse>(
             "AdminCommandResponse",
-            response =>
-                _mediator.Publish(new AdminCommandResponseEvent(response))
+            response => _mediator.Publish(new AdminCommandResponseEvent(response))
         );
 
         _connection?.On<string, IDictionary<string, object>>(
@@ -174,17 +157,11 @@ public class SignalrZoneAdminServices : ZoneAdminServices
             {
                 try
                 {
-                    await _mediator.Send(
-                        new PublishAdminClientActionCommand(actionName, data)
-                    );
+                    await _mediator.Send(new PublishAdminClientActionCommand(actionName, data));
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(
-                        ex,
-                        "Admin Client Action Error: {ClientAction}",
-                        actionName
-                    );
+                    _logger.LogError(ex, "Admin Client Action Error: {ClientAction}", actionName);
                 }
             }
         );
@@ -192,20 +169,12 @@ public class SignalrZoneAdminServices : ZoneAdminServices
 
     public async Task<StandardCommandResult> Disconnect()
     {
-        await LogAndDispose(
-            null,
-            "Disconnected request",
-            ZoneAdminConnectionCodes.EXPLICT_CLOSED
-        );
+        await LogAndDispose(null, "Disconnected request", ZoneAdminConnectionCodes.EXPLICT_CLOSED);
 
         return new();
     }
 
-    private async Task LogAndDispose(
-        Exception? ex,
-        string message,
-        string disposeReason
-    )
+    private async Task LogAndDispose(Exception? ex, string message, string disposeReason)
     {
         var currentZoneId = _currentZoneId;
         _logger.LogWarning(ex, message);
@@ -221,10 +190,7 @@ public class SignalrZoneAdminServices : ZoneAdminServices
         {
             // If _connection is not null, then it was closed by the connection
             await _mediator.Publish(
-                new ZoneAdminServiceDisconnectedEvent(
-                    currentZoneId,
-                    disposeReason
-                )
+                new ZoneAdminServiceDisconnectedEvent(currentZoneId, disposeReason)
             );
         }
     }

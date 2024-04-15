@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
@@ -21,7 +20,6 @@ using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Api;
 using EventHorizon.Game.Client.Systems.Entity.Modules.ModelLoader.Loaded;
 using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
 using EventHorizon.Observer.Register;
-
 using MediatR;
 
 public class ModelLoaderModule
@@ -71,9 +69,7 @@ public class ModelLoaderModule
             var mesh = meshInstance.Mesh;
             mesh.SystemType = MeshSystemType.ENTITY;
             mesh.OwnerEntityId = _entity.EntityId;
-            await _mediator.Publish(
-                new MeshLoadedEvent(_entity.ClientId, mesh)
-            );
+            await _mediator.Publish(new MeshLoadedEvent(_entity.ClientId, mesh));
 
             if (
                 mesh.MetaData.TryGetValue(
@@ -86,16 +82,10 @@ public class ModelLoaderModule
                     animationListRaw.To<IEnumerable<IAnimationGroup>>()
                     ?? new List<IAnimationGroup>();
                 await _mediator.Publish(
-                    new AnimationListLoadedEvent(
-                        _entity.ClientId,
-                        animationList
-                    )
+                    new AnimationListLoadedEvent(_entity.ClientId, animationList)
                 );
                 await _mediator.Publish(
-                    new PlayAnimationEvent(
-                        _entity.ClientId,
-                        AnimationConstants.DEFAULT_ANIMATION
-                    )
+                    new PlayAnimationEvent(_entity.ClientId, AnimationConstants.DEFAULT_ANIMATION)
                 );
             }
         }

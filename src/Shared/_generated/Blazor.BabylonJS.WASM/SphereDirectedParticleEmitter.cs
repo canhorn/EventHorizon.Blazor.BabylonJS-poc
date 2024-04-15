@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<SphereDirectedParticleEmitter>))]
@@ -127,11 +125,7 @@ public class SphereDirectedParticleEmitter : SphereParticleEmitter
     public SphereDirectedParticleEmitter clone()
     {
         return EventHorizonBlazorInterop.FuncClass<SphereDirectedParticleEmitter>(
-            entity =>
-                new SphereDirectedParticleEmitter()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new SphereDirectedParticleEmitter() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "clone" } }
         );
     }
@@ -139,11 +133,7 @@ public class SphereDirectedParticleEmitter : SphereParticleEmitter
     public void applyToShader(Effect effect)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "applyToShader" },
-                effect
-            }
+            new object[] { new string[] { this.___guid, "applyToShader" }, effect }
         );
     }
 
@@ -171,11 +161,7 @@ public class SphereDirectedParticleEmitter : SphereParticleEmitter
     public void parse(object serializationObject)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "parse" },
-                serializationObject
-            }
+            new object[] { new string[] { this.___guid, "parse" }, serializationObject }
         );
     }
     #endregion

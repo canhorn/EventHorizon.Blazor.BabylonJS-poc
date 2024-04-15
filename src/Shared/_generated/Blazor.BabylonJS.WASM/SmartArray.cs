@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<SmartArray<CachedEntity>>))]
@@ -55,13 +53,7 @@ public class SmartArray<T> : CachedEntityObject, ISmartArrayLike<T>
 
     public decimal length
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "length"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "length"); }
         set
         {
 

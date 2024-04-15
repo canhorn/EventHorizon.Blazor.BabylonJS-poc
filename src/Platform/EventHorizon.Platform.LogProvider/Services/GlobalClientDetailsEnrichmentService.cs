@@ -2,14 +2,11 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
-
 using EventHorizon.Platform.LogProvider.Api;
 
-public class GlobalClientDetailsEnrichmentService
-    : ClientDetailsEnrichmentService
+public class GlobalClientDetailsEnrichmentService : ClientDetailsEnrichmentService
 {
-    private readonly IDictionary<string, object> _values =
-        new Dictionary<string, object>();
+    private readonly IDictionary<string, object> _values = new Dictionary<string, object>();
 
     public void EnrichReference(IDictionary<string, object> data)
     {

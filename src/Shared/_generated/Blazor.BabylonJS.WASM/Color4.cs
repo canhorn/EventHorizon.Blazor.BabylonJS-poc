@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Color4>))]
@@ -27,11 +25,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Color4", "FromHexString" },
-                hex
-            }
+            new object[] { new string[] { "BABYLON", "Color4", "FromHexString" }, hex }
         );
     }
 
@@ -39,22 +33,11 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Color4", "Lerp" },
-                left,
-                right,
-                amount
-            }
+            new object[] { new string[] { "BABYLON", "Color4", "Lerp" }, left, right, amount }
         );
     }
 
-    public static void LerpToRef(
-        Color4 left,
-        Color4 right,
-        decimal amount,
-        Color4 result
-    )
+    public static void LerpToRef(Color4 left, Color4 right, decimal amount, Color4 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -68,35 +51,19 @@ public class Color4 : CachedEntityObject
         );
     }
 
-    public static Color4 FromColor3(
-        Color3 color3,
-        System.Nullable<decimal> alpha = null
-    )
+    public static Color4 FromColor3(Color3 color3, System.Nullable<decimal> alpha = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Color4", "FromColor3" },
-                color3,
-                alpha
-            }
+            new object[] { new string[] { "BABYLON", "Color4", "FromColor3" }, color3, alpha }
         );
     }
 
-    public static Color4 FromArray(
-        decimal[] array,
-        System.Nullable<decimal> offset = null
-    )
+    public static Color4 FromArray(decimal[] array, System.Nullable<decimal> offset = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Color4", "FromArray" },
-                array,
-                offset
-            }
+            new object[] { new string[] { "BABYLON", "Color4", "FromArray" }, array, offset }
         );
     }
 
@@ -104,26 +71,14 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Color4", "FromInts" },
-                r,
-                g,
-                b,
-                a
-            }
+            new object[] { new string[] { "BABYLON", "Color4", "FromInts" }, r, g, b, a }
         );
     }
 
     public static decimal[] CheckColors4(decimal[] colors, decimal count)
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Color4", "CheckColors4" },
-                colors,
-                count
-            }
+            new object[] { new string[] { "BABYLON", "Color4", "CheckColors4" }, colors, count }
         );
     }
     #endregion
@@ -136,10 +91,7 @@ public class Color4 : CachedEntityObject
 
     public decimal r
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "r");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "r"); }
         set
         {
 
@@ -149,10 +101,7 @@ public class Color4 : CachedEntityObject
 
     public decimal g
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "g");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "g"); }
         set
         {
 
@@ -162,10 +111,7 @@ public class Color4 : CachedEntityObject
 
     public decimal b
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "b");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "b"); }
         set
         {
 
@@ -175,10 +121,7 @@ public class Color4 : CachedEntityObject
 
     public decimal a
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "a");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "a"); }
         set
         {
 
@@ -231,19 +174,11 @@ public class Color4 : CachedEntityObject
         );
     }
 
-    public Color4 toArray(
-        decimal[] array,
-        System.Nullable<decimal> index = null
-    )
+    public Color4 toArray(decimal[] array, System.Nullable<decimal> index = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "toArray" },
-                array,
-                index
-            }
+            new object[] { new string[] { this.___guid, "toArray" }, array, index }
         );
     }
 
@@ -274,12 +209,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtractToRef" },
-                right,
-                result
-            }
+            new object[] { new string[] { this.___guid, "subtractToRef" }, right, result }
         );
     }
 
@@ -295,12 +225,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleToRef" },
-                scale,
-                result
-            }
+            new object[] { new string[] { this.___guid, "scaleToRef" }, scale, result }
         );
     }
 
@@ -308,12 +233,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleAndAddToRef" },
-                scale,
-                result
-            }
+            new object[] { new string[] { this.___guid, "scaleAndAddToRef" }, scale, result }
         );
     }
 
@@ -325,13 +245,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "clampToRef" },
-                min,
-                max,
-                result
-            }
+            new object[] { new string[] { this.___guid, "clampToRef" }, min, max, result }
         );
     }
 
@@ -347,12 +261,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyToRef" },
-                color,
-                result
-            }
+            new object[] { new string[] { this.___guid, "multiplyToRef" }, color, result }
         );
     }
 
@@ -397,14 +306,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "copyFromFloats" },
-                r,
-                g,
-                b,
-                a
-            }
+            new object[] { new string[] { this.___guid, "copyFromFloats" }, r, g, b, a }
         );
     }
 
@@ -435,11 +337,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "toLinearSpaceToRef" },
-                convertedColor
-            }
+            new object[] { new string[] { this.___guid, "toLinearSpaceToRef" }, convertedColor }
         );
     }
 
@@ -455,11 +353,7 @@ public class Color4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Color4>(
             entity => new Color4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "toGammaSpaceToRef" },
-                convertedColor
-            }
+            new object[] { new string[] { this.___guid, "toGammaSpaceToRef" }, convertedColor }
         );
     }
     #endregion

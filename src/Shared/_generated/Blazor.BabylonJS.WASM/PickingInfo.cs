@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<PickingInfo>))]
@@ -44,13 +42,7 @@ public class PickingInfo : CachedEntityObject
 
     public decimal distance
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "distance"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "distance"); }
         set
         {
 
@@ -110,10 +102,7 @@ public class PickingInfo : CachedEntityObject
 
     public decimal bu
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bu");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bu"); }
         set
         {
 
@@ -123,10 +112,7 @@ public class PickingInfo : CachedEntityObject
 
     public decimal bv
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bv");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bv"); }
         set
         {
 
@@ -136,13 +122,7 @@ public class PickingInfo : CachedEntityObject
 
     public decimal faceId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "faceId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "faceId"); }
         set
         {
 
@@ -152,13 +132,7 @@ public class PickingInfo : CachedEntityObject
 
     public decimal subMeshId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "subMeshId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "subMeshId"); }
         set
         {
 
@@ -275,10 +249,7 @@ public class PickingInfo : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getTextureCoordinates" }
-            }
+            new object[] { new string[] { this.___guid, "getTextureCoordinates" } }
         );
     }
     #endregion

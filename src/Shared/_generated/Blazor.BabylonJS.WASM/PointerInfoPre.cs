@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<PointerInfoPre>))]
@@ -83,21 +81,11 @@ public class PointerInfoPre : PointerInfoBase
 
     public bool skipOnPointerObservable
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "skipOnPointerObservable"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "skipOnPointerObservable"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "skipOnPointerObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "skipOnPointerObservable", value);
         }
     }
     #endregion
@@ -109,12 +97,7 @@ public class PointerInfoPre : PointerInfoBase
     public PointerInfoPre(ICachedEntity entity)
         : base(entity) { }
 
-    public PointerInfoPre(
-        decimal type,
-        PointerEvent @event,
-        decimal localX,
-        decimal localY
-    )
+    public PointerInfoPre(decimal type, PointerEvent @event, decimal localX, decimal localY)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(

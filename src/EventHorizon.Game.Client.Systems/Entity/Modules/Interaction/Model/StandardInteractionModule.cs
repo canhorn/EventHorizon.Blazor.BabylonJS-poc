@@ -2,7 +2,6 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
@@ -11,17 +10,14 @@ using EventHorizon.Game.Client.Systems.Entity.Modules.Interaction.Api;
 using EventHorizon.Game.Client.Systems.Entity.Properties.Interaction.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.WithIn;
 using EventHorizon.Game.Client.Systems.Player.Query;
-
 using MediatR;
 
 public class StandardInteractionModule : ModuleEntityBase, InteractionModule
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
-    private readonly IIntervalTimerService _playerCheckInterval =
-        GameServiceProvider
-            .GetService<IFactory<IIntervalTimerService>>()
-            .Create();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
+    private readonly IIntervalTimerService _playerCheckInterval = GameServiceProvider
+        .GetService<IFactory<IIntervalTimerService>>()
+        .Create();
 
     private readonly IObjectEntity _entity;
 
@@ -38,14 +34,10 @@ public class StandardInteractionModule : ModuleEntityBase, InteractionModule
 
     public override Task Initialize()
     {
-        var interactionStateOption =
-            _entity.GetPropertyAsOption<InteractionState>(
-                InteractionState.NAME
-            );
-        if (
-            !interactionStateOption.HasValue
-            || !interactionStateOption.Value.Active
-        )
+        var interactionStateOption = _entity.GetPropertyAsOption<InteractionState>(
+            InteractionState.NAME
+        );
+        if (!interactionStateOption.HasValue || !interactionStateOption.Value.Active)
         {
             return Task.CompletedTask;
         }
@@ -57,10 +49,7 @@ public class StandardInteractionModule : ModuleEntityBase, InteractionModule
             () => new InteractionConfiguration()
         );
 
-        _playerCheckInterval.Setup(
-            interactionConfig.CheckInterval,
-            CheckForPlayerInDistance
-        );
+        _playerCheckInterval.Setup(interactionConfig.CheckInterval, CheckForPlayerInDistance);
         _playerCheckInterval.Start();
 
         _interactionDistanceToPlayer =
@@ -102,10 +91,7 @@ public class StandardInteractionModule : ModuleEntityBase, InteractionModule
         if (distanceToPlayer <= _interactionDistanceToPlayer)
         {
             await _mediator.Publish(
-                new EntityWithinInteractionDistanceEvent(
-                    _entity,
-                    distanceToPlayer
-                )
+                new EntityWithinInteractionDistanceEvent(_entity, distanceToPlayer)
             );
             _inDistance = true;
             return;
@@ -113,9 +99,7 @@ public class StandardInteractionModule : ModuleEntityBase, InteractionModule
 
         if (_inDistance)
         {
-            await _mediator.Publish(
-                new EntityLeftInteractionDistanceEvent(_entity)
-            );
+            await _mediator.Publish(new EntityLeftInteractionDistanceEvent(_entity));
             _inDistance = false;
         }
     }

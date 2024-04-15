@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Cameras;
 using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Lights;
 using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Meshes;
@@ -26,13 +25,9 @@ public class MainGame : GameBase
     {
         await Register(new WorldCamera());
         await Register(new Block());
-        await Register(
-            new PointLightEntity(new LightSettings { Name = "TestingLight", })
-        );
+        await Register(new PointLightEntity(new LightSettings { Name = "TestingLight", }));
         await _mediator.Send(
-            new RegisterInputCommand(
-                new InputOptions("w", HandleKeyPressed, HandleKeyReleased)
-            )
+            new RegisterInputCommand(new InputOptions("w", HandleKeyPressed, HandleKeyReleased))
         );
     }
 

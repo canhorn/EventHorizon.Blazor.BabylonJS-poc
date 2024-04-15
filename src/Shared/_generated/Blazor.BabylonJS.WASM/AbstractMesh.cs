@@ -5,18 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AbstractMesh>))]
-public class AbstractMesh
-    : TransformNode,
-        _IDisposable,
-        ICullable,
-        IGetSetVerticesData
+public class AbstractMesh : TransformNode, _IDisposable, ICullable, IGetSetVerticesData
 {
     #region Static Accessors
 
@@ -101,11 +95,7 @@ public class AbstractMesh
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "AbstractMesh.OCCLUSION_TYPE_NONE",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "AbstractMesh.OCCLUSION_TYPE_NONE", value);
         }
     }
 
@@ -141,11 +131,7 @@ public class AbstractMesh
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "AbstractMesh.OCCLUSION_TYPE_STRICT",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "AbstractMesh.OCCLUSION_TYPE_STRICT", value);
         }
     }
 
@@ -242,32 +228,19 @@ public class AbstractMesh
 
     public decimal facetNb
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "facetNb"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "facetNb"); }
     }
 
     public decimal partitioningSubdivisions
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "partitioningSubdivisions"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "partitioningSubdivisions");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "partitioningSubdivisions",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "partitioningSubdivisions", value);
         }
     }
 
@@ -275,39 +248,22 @@ public class AbstractMesh
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "partitioningBBoxRatio"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "partitioningBBoxRatio");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "partitioningBBoxRatio",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "partitioningBBoxRatio", value);
         }
     }
 
     public bool mustDepthSortFacets
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "mustDepthSortFacets"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "mustDepthSortFacets"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "mustDepthSortFacets",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "mustDepthSortFacets", value);
         }
     }
 
@@ -318,49 +274,32 @@ public class AbstractMesh
         {
             if (__facetDepthSortFrom == null)
             {
-                __facetDepthSortFrom =
-                    EventHorizonBlazorInterop.GetClass<Vector3>(
-                        this.___guid,
-                        "facetDepthSortFrom",
-                        (entity) =>
-                        {
-                            return new Vector3() { ___guid = entity.___guid };
-                        }
-                    );
+                __facetDepthSortFrom = EventHorizonBlazorInterop.GetClass<Vector3>(
+                    this.___guid,
+                    "facetDepthSortFrom",
+                    (entity) =>
+                    {
+                        return new Vector3() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __facetDepthSortFrom;
         }
         set
         {
             __facetDepthSortFrom = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "facetDepthSortFrom",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "facetDepthSortFrom", value);
         }
     }
 
     public bool isFacetDataEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isFacetDataEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isFacetDataEnabled"); }
     }
 
     public decimal visibility
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "visibility"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "visibility"); }
         set
         {
 
@@ -395,61 +334,31 @@ public class AbstractMesh
 
     public bool receiveShadows
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "receiveShadows"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "receiveShadows"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "receiveShadows",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "receiveShadows", value);
         }
     }
 
     public bool hasVertexAlpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasVertexAlpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasVertexAlpha"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "hasVertexAlpha",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "hasVertexAlpha", value);
         }
     }
 
     public bool useVertexColors
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useVertexColors"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useVertexColors"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useVertexColors",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useVertexColors", value);
         }
     }
 
@@ -457,51 +366,28 @@ public class AbstractMesh
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "computeBonesUsingShaders"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "computeBonesUsingShaders");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "computeBonesUsingShaders",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "computeBonesUsingShaders", value);
         }
     }
 
     public decimal numBoneInfluencers
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "numBoneInfluencers"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "numBoneInfluencers"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "numBoneInfluencers",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "numBoneInfluencers", value);
         }
     }
 
     public bool applyFog
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "applyFog"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "applyFog"); }
         set
         {
 
@@ -511,13 +397,7 @@ public class AbstractMesh
 
     public decimal layerMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "layerMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "layerMask"); }
         set
         {
 
@@ -527,13 +407,7 @@ public class AbstractMesh
 
     public decimal collisionMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "collisionMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "collisionMask"); }
         set
         {
 
@@ -543,21 +417,11 @@ public class AbstractMesh
 
     public decimal collisionGroup
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "collisionGroup"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "collisionGroup"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "collisionGroup",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "collisionGroup", value);
         }
     }
 
@@ -628,65 +492,31 @@ public class AbstractMesh
 
     public bool isBlocked
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isBlocked"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isBlocked"); }
     }
 
     public bool useBones
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useBones"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useBones"); }
     }
 
     public bool isAnInstance
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isAnInstance"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isAnInstance"); }
     }
 
     public bool hasInstances
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasInstances"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasInstances"); }
     }
 
     public bool checkCollisions
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "checkCollisions"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "checkCollisions"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "checkCollisions",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "checkCollisions", value);
         }
     }
 
@@ -715,21 +545,11 @@ public class AbstractMesh
 
     public decimal cullingStrategy
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cullingStrategy"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cullingStrategy"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "cullingStrategy",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "cullingStrategy", value);
         }
     }
 
@@ -747,10 +567,7 @@ public class AbstractMesh
                     "onCollideObservable",
                     (entity) =>
                     {
-                        return new Observable<AbstractMesh>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<AbstractMesh>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -759,11 +576,7 @@ public class AbstractMesh
         set
         {
             __onCollideObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onCollideObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onCollideObservable", value);
         }
     }
 
@@ -774,18 +587,16 @@ public class AbstractMesh
         {
             if (__onCollisionPositionChangeObservable == null)
             {
-                __onCollisionPositionChangeObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Vector3>>(
-                        this.___guid,
-                        "onCollisionPositionChangeObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Vector3>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onCollisionPositionChangeObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Vector3>
+                >(
+                    this.___guid,
+                    "onCollisionPositionChangeObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Vector3>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onCollisionPositionChangeObservable;
         }
@@ -807,63 +618,39 @@ public class AbstractMesh
         {
             if (__onMaterialChangedObservable == null)
             {
-                __onMaterialChangedObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<AbstractMesh>
-                    >(
-                        this.___guid,
-                        "onMaterialChangedObservable",
-                        (entity) =>
-                        {
-                            return new Observable<AbstractMesh>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onMaterialChangedObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<AbstractMesh>
+                >(
+                    this.___guid,
+                    "onMaterialChangedObservable",
+                    (entity) =>
+                    {
+                        return new Observable<AbstractMesh>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onMaterialChangedObservable;
         }
         set
         {
             __onMaterialChangedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onMaterialChangedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onMaterialChangedObservable", value);
         }
     }
 
     public bool definedFacingForward
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "definedFacingForward"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "definedFacingForward"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "definedFacingForward",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "definedFacingForward", value);
         }
     }
 
     public decimal alphaIndex
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alphaIndex"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alphaIndex"); }
         set
         {
 
@@ -873,13 +660,7 @@ public class AbstractMesh
 
     public bool isVisible
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isVisible"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isVisible"); }
         set
         {
 
@@ -889,13 +670,7 @@ public class AbstractMesh
 
     public bool isPickable
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isPickable"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPickable"); }
         set
         {
 
@@ -907,31 +682,18 @@ public class AbstractMesh
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "showSubMeshesBoundingBox"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "showSubMeshesBoundingBox");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "showSubMeshesBoundingBox",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "showSubMeshesBoundingBox", value);
         }
     }
 
     public bool isBlocker
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isBlocker"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isBlocker"); }
         set
         {
 
@@ -941,41 +703,21 @@ public class AbstractMesh
 
     public bool enablePointerMoveEvents
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enablePointerMoveEvents"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enablePointerMoveEvents"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enablePointerMoveEvents",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enablePointerMoveEvents", value);
         }
     }
 
     public decimal renderingGroupId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "renderingGroupId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "renderingGroupId"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderingGroupId",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderingGroupId", value);
         }
     }
 
@@ -1006,13 +748,7 @@ public class AbstractMesh
 
     public decimal outlineWidth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "outlineWidth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "outlineWidth"); }
         set
         {
 
@@ -1047,13 +783,7 @@ public class AbstractMesh
 
     public decimal overlayAlpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "overlayAlpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "overlayAlpha"); }
         set
         {
 
@@ -1073,51 +803,27 @@ public class AbstractMesh
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useOctreeForRenderingSelection",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useOctreeForRenderingSelection", value);
         }
     }
 
     public bool useOctreeForPicking
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useOctreeForPicking"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useOctreeForPicking"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useOctreeForPicking",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useOctreeForPicking", value);
         }
     }
 
     public bool useOctreeForCollisions
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useOctreeForCollisions"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useOctreeForCollisions"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useOctreeForCollisions",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useOctreeForCollisions", value);
         }
     }
 
@@ -1125,39 +831,22 @@ public class AbstractMesh
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "alwaysSelectAsActiveMesh"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "alwaysSelectAsActiveMesh");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "alwaysSelectAsActiveMesh",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "alwaysSelectAsActiveMesh", value);
         }
     }
 
     public bool doNotSyncBoundingInfo
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "doNotSyncBoundingInfo"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "doNotSyncBoundingInfo"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "doNotSyncBoundingInfo",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "doNotSyncBoundingInfo", value);
         }
     }
 
@@ -1168,18 +857,14 @@ public class AbstractMesh
         {
             if (__actionManager == null)
             {
-                __actionManager =
-                    EventHorizonBlazorInterop.GetClass<AbstractActionManager>(
-                        this.___guid,
-                        "actionManager",
-                        (entity) =>
-                        {
-                            return new AbstractActionManager()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __actionManager = EventHorizonBlazorInterop.GetClass<AbstractActionManager>(
+                    this.___guid,
+                    "actionManager",
+                    (entity) =>
+                    {
+                        return new AbstractActionManager() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __actionManager;
         }
@@ -1236,23 +921,13 @@ public class AbstractMesh
         set
         {
             __ellipsoidOffset = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ellipsoidOffset",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ellipsoidOffset", value);
         }
     }
 
     public decimal edgesWidth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "edgesWidth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "edgesWidth"); }
         set
         {
 
@@ -1319,10 +994,7 @@ public class AbstractMesh
                     "onRebuildObservable",
                     (entity) =>
                     {
-                        return new Observable<AbstractMesh>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<AbstractMesh>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1331,11 +1003,7 @@ public class AbstractMesh
         set
         {
             __onRebuildObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onRebuildObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onRebuildObservable", value);
         }
     }
     #endregion
@@ -1370,11 +1038,7 @@ public class AbstractMesh
     public string toString(System.Nullable<bool> fullDetails = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                fullDetails
-            }
+            new object[] { new string[] { this.___guid, "toString" }, fullDetails }
         );
     }
 
@@ -1410,11 +1074,7 @@ public class AbstractMesh
     public decimal[] getVerticesData(string kind)
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getVerticesData" },
-                kind
-            }
+            new object[] { new string[] { this.___guid, "getVerticesData" }, kind }
         );
     }
 
@@ -1458,30 +1118,18 @@ public class AbstractMesh
         );
     }
 
-    public AbstractMesh setIndices(
-        decimal[] indices,
-        System.Nullable<decimal> totalVertices = null
-    )
+    public AbstractMesh setIndices(decimal[] indices, System.Nullable<decimal> totalVertices = null)
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setIndices" },
-                indices,
-                totalVertices
-            }
+            new object[] { new string[] { this.___guid, "setIndices" }, indices, totalVertices }
         );
     }
 
     public bool isVerticesDataPresent(string kind)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isVerticesDataPresent" },
-                kind
-            }
+            new object[] { new string[] { this.___guid, "isVerticesDataPresent" }, kind }
         );
     }
 
@@ -1515,11 +1163,7 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setBoundingInfo" },
-                boundingInfo
-            }
+            new object[] { new string[] { this.___guid, "setBoundingInfo" }, boundingInfo }
         );
     }
 
@@ -1531,11 +1175,7 @@ public class AbstractMesh
         );
     }
 
-    public AbstractMesh movePOV(
-        decimal amountRight,
-        decimal amountUp,
-        decimal amountForward
-    )
+    public AbstractMesh movePOV(decimal amountRight, decimal amountUp, decimal amountForward)
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
@@ -1549,11 +1189,7 @@ public class AbstractMesh
         );
     }
 
-    public Vector3 calcMovePOV(
-        decimal amountRight,
-        decimal amountUp,
-        decimal amountForward
-    )
+    public Vector3 calcMovePOV(decimal amountRight, decimal amountUp, decimal amountForward)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
@@ -1567,11 +1203,7 @@ public class AbstractMesh
         );
     }
 
-    public AbstractMesh rotatePOV(
-        decimal flipBack,
-        decimal twirlClockwise,
-        decimal tiltRight
-    )
+    public AbstractMesh rotatePOV(decimal flipBack, decimal twirlClockwise, decimal tiltRight)
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
@@ -1585,11 +1217,7 @@ public class AbstractMesh
         );
     }
 
-    public Vector3 calcRotatePOV(
-        decimal flipBack,
-        decimal twirlClockwise,
-        decimal tiltRight
-    )
+    public Vector3 calcRotatePOV(decimal flipBack, decimal twirlClockwise, decimal tiltRight)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
@@ -1603,39 +1231,25 @@ public class AbstractMesh
         );
     }
 
-    public AbstractMesh refreshBoundingInfo(
-        System.Nullable<bool> applySkeleton = null
-    )
+    public AbstractMesh refreshBoundingInfo(System.Nullable<bool> applySkeleton = null)
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "refreshBoundingInfo" },
-                applySkeleton
-            }
+            new object[] { new string[] { this.___guid, "refreshBoundingInfo" }, applySkeleton }
         );
     }
 
     public bool isInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isInFrustum" }, frustumPlanes }
         );
     }
 
     public bool isCompletelyInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isCompletelyInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isCompletelyInFrustum" }, frustumPlanes }
         );
     }
 
@@ -1659,11 +1273,7 @@ public class AbstractMesh
     public bool intersectsPoint(Vector3 point)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsPoint" },
-                point
-            }
+            new object[] { new string[] { this.___guid, "intersectsPoint" }, point }
         );
     }
 
@@ -1671,11 +1281,7 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "moveWithCollisions" },
-                displacement
-            }
+            new object[] { new string[] { this.___guid, "moveWithCollisions" }, displacement }
         );
     }
 
@@ -1766,10 +1372,7 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncArrayClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getFacetLocalNormals" }
-            }
+            new object[] { new string[] { this.___guid, "getFacetLocalNormals" } }
         );
     }
 
@@ -1777,10 +1380,7 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncArrayClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getFacetLocalPositions" }
-            }
+            new object[] { new string[] { this.___guid, "getFacetLocalPositions" } }
         );
     }
 
@@ -1790,11 +1390,7 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getFacetPosition" },
-                i
-            }
+            new object[] { new string[] { this.___guid, "getFacetPosition" }, i }
         );
     }
 
@@ -1802,12 +1398,7 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getFacetPositionToRef" },
-                i,
-                @ref
-            }
+            new object[] { new string[] { this.___guid, "getFacetPositionToRef" }, i, @ref }
         );
     }
 
@@ -1823,29 +1414,14 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getFacetNormalToRef" },
-                i,
-                @ref
-            }
+            new object[] { new string[] { this.___guid, "getFacetNormalToRef" }, i, @ref }
         );
     }
 
-    public decimal[] getFacetsAtLocalCoordinates(
-        decimal x,
-        decimal y,
-        decimal z
-    )
+    public decimal[] getFacetsAtLocalCoordinates(decimal x, decimal y, decimal z)
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getFacetsAtLocalCoordinates" },
-                x,
-                y,
-                z
-            }
+            new object[] { new string[] { this.___guid, "getFacetsAtLocalCoordinates" }, x, y, z }
         );
     }
 
@@ -1884,11 +1460,7 @@ public class AbstractMesh
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "getClosestFacetAtLocalCoordinates"
-                },
+                new string[] { this.___guid, "getClosestFacetAtLocalCoordinates" },
                 x,
                 y,
                 z,
@@ -1902,10 +1474,7 @@ public class AbstractMesh
     public CachedEntity getFacetDataParameters()
     {
         return EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getFacetDataParameters" }
-            }
+            new object[] { new string[] { this.___guid, "getFacetDataParameters" } }
         );
     }
 
@@ -1939,27 +1508,15 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "createNormals" },
-                updatable
-            }
+            new object[] { new string[] { this.___guid, "createNormals" }, updatable }
         );
     }
 
-    public AbstractMesh alignWithNormal(
-        Vector3 normal,
-        Vector3 upDirection = null
-    )
+    public AbstractMesh alignWithNormal(Vector3 normal, Vector3 upDirection = null)
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "alignWithNormal" },
-                normal,
-                upDirection
-            }
+            new object[] { new string[] { this.___guid, "alignWithNormal" }, normal, upDirection }
         );
     }
 
@@ -1967,10 +1524,7 @@ public class AbstractMesh
     {
         return EventHorizonBlazorInterop.FuncClass<AbstractMesh>(
             entity => new AbstractMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "disableEdgesRendering" }
-            }
+            new object[] { new string[] { this.___guid, "disableEdgesRendering" } }
         );
     }
 

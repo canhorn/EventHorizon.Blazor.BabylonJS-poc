@@ -5,16 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<StandardMaterialDefines>))]
-public class StandardMaterialDefines
-    : MaterialDefines,
-        IImageProcessingConfigurationDefines
+public class StandardMaterialDefines : MaterialDefines, IImageProcessingConfigurationDefines
 {
     #region Static Accessors
 
@@ -36,10 +32,7 @@ public class StandardMaterialDefines
 
     public bool MAINUV1
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MAINUV1");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MAINUV1"); }
         set
         {
 
@@ -49,10 +42,7 @@ public class StandardMaterialDefines
 
     public bool MAINUV2
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MAINUV2");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MAINUV2"); }
         set
         {
 
@@ -62,10 +52,7 @@ public class StandardMaterialDefines
 
     public bool DIFFUSE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "DIFFUSE");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "DIFFUSE"); }
         set
         {
 
@@ -75,30 +62,17 @@ public class StandardMaterialDefines
 
     public decimal DIFFUSEDIRECTUV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "DIFFUSEDIRECTUV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "DIFFUSEDIRECTUV"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "DIFFUSEDIRECTUV",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "DIFFUSEDIRECTUV", value);
         }
     }
 
     public bool AMBIENT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "AMBIENT");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "AMBIENT"); }
         set
         {
 
@@ -108,30 +82,17 @@ public class StandardMaterialDefines
 
     public decimal AMBIENTDIRECTUV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "AMBIENTDIRECTUV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "AMBIENTDIRECTUV"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "AMBIENTDIRECTUV",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "AMBIENTDIRECTUV", value);
         }
     }
 
     public bool OPACITY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "OPACITY");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "OPACITY"); }
         set
         {
 
@@ -141,33 +102,17 @@ public class StandardMaterialDefines
 
     public decimal OPACITYDIRECTUV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "OPACITYDIRECTUV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "OPACITYDIRECTUV"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "OPACITYDIRECTUV",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "OPACITYDIRECTUV", value);
         }
     }
 
     public bool OPACITYRGB
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "OPACITYRGB"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "OPACITYRGB"); }
         set
         {
 
@@ -177,13 +122,7 @@ public class StandardMaterialDefines
 
     public bool REFLECTION
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTION"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTION"); }
         set
         {
 
@@ -193,13 +132,7 @@ public class StandardMaterialDefines
 
     public bool EMISSIVE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "EMISSIVE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "EMISSIVE"); }
         set
         {
 
@@ -209,33 +142,17 @@ public class StandardMaterialDefines
 
     public decimal EMISSIVEDIRECTUV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "EMISSIVEDIRECTUV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "EMISSIVEDIRECTUV"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "EMISSIVEDIRECTUV",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "EMISSIVEDIRECTUV", value);
         }
     }
 
     public bool SPECULAR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "SPECULAR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "SPECULAR"); }
         set
         {
 
@@ -245,30 +162,17 @@ public class StandardMaterialDefines
 
     public decimal SPECULARDIRECTUV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "SPECULARDIRECTUV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "SPECULARDIRECTUV"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "SPECULARDIRECTUV",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "SPECULARDIRECTUV", value);
         }
     }
 
     public bool BUMP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "BUMP");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "BUMP"); }
         set
         {
 
@@ -278,13 +182,7 @@ public class StandardMaterialDefines
 
     public decimal BUMPDIRECTUV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "BUMPDIRECTUV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "BUMPDIRECTUV"); }
         set
         {
 
@@ -294,13 +192,7 @@ public class StandardMaterialDefines
 
     public bool PARALLAX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "PARALLAX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "PARALLAX"); }
         set
         {
 
@@ -310,53 +202,27 @@ public class StandardMaterialDefines
 
     public bool PARALLAXOCCLUSION
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "PARALLAXOCCLUSION"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "PARALLAXOCCLUSION"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "PARALLAXOCCLUSION",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "PARALLAXOCCLUSION", value);
         }
     }
 
     public bool SPECULAROVERALPHA
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "SPECULAROVERALPHA"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "SPECULAROVERALPHA"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "SPECULAROVERALPHA",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "SPECULAROVERALPHA", value);
         }
     }
 
     public bool CLIPPLANE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "CLIPPLANE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "CLIPPLANE"); }
         set
         {
 
@@ -366,13 +232,7 @@ public class StandardMaterialDefines
 
     public bool CLIPPLANE2
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "CLIPPLANE2"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "CLIPPLANE2"); }
         set
         {
 
@@ -382,13 +242,7 @@ public class StandardMaterialDefines
 
     public bool CLIPPLANE3
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "CLIPPLANE3"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "CLIPPLANE3"); }
         set
         {
 
@@ -398,13 +252,7 @@ public class StandardMaterialDefines
 
     public bool CLIPPLANE4
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "CLIPPLANE4"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "CLIPPLANE4"); }
         set
         {
 
@@ -414,13 +262,7 @@ public class StandardMaterialDefines
 
     public bool CLIPPLANE5
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "CLIPPLANE5"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "CLIPPLANE5"); }
         set
         {
 
@@ -430,13 +272,7 @@ public class StandardMaterialDefines
 
     public bool CLIPPLANE6
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "CLIPPLANE6"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "CLIPPLANE6"); }
         set
         {
 
@@ -446,13 +282,7 @@ public class StandardMaterialDefines
 
     public bool ALPHATEST
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "ALPHATEST"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "ALPHATEST"); }
         set
         {
 
@@ -462,13 +292,7 @@ public class StandardMaterialDefines
 
     public bool DEPTHPREPASS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "DEPTHPREPASS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "DEPTHPREPASS"); }
         set
         {
 
@@ -478,33 +302,17 @@ public class StandardMaterialDefines
 
     public bool ALPHAFROMDIFFUSE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "ALPHAFROMDIFFUSE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "ALPHAFROMDIFFUSE"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ALPHAFROMDIFFUSE",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ALPHAFROMDIFFUSE", value);
         }
     }
 
     public bool POINTSIZE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "POINTSIZE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "POINTSIZE"); }
         set
         {
 
@@ -524,13 +332,7 @@ public class StandardMaterialDefines
 
     public bool SPECULARTERM
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "SPECULARTERM"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "SPECULARTERM"); }
         set
         {
 
@@ -540,110 +342,57 @@ public class StandardMaterialDefines
 
     public bool DIFFUSEFRESNEL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "DIFFUSEFRESNEL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "DIFFUSEFRESNEL"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "DIFFUSEFRESNEL",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "DIFFUSEFRESNEL", value);
         }
     }
 
     public bool OPACITYFRESNEL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "OPACITYFRESNEL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "OPACITYFRESNEL"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "OPACITYFRESNEL",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "OPACITYFRESNEL", value);
         }
     }
 
     public bool REFLECTIONFRESNEL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONFRESNEL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONFRESNEL"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONFRESNEL",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONFRESNEL", value);
         }
     }
 
     public bool REFRACTIONFRESNEL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFRACTIONFRESNEL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFRACTIONFRESNEL"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFRACTIONFRESNEL",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFRACTIONFRESNEL", value);
         }
     }
 
     public bool EMISSIVEFRESNEL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "EMISSIVEFRESNEL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "EMISSIVEFRESNEL"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "EMISSIVEFRESNEL",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "EMISSIVEFRESNEL", value);
         }
     }
 
     public bool FRESNEL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "FRESNEL");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "FRESNEL"); }
         set
         {
 
@@ -653,10 +402,7 @@ public class StandardMaterialDefines
 
     public bool NORMAL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "NORMAL");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "NORMAL"); }
         set
         {
 
@@ -686,13 +432,7 @@ public class StandardMaterialDefines
 
     public bool VERTEXCOLOR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "VERTEXCOLOR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "VERTEXCOLOR"); }
         set
         {
 
@@ -702,13 +442,7 @@ public class StandardMaterialDefines
 
     public bool VERTEXALPHA
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "VERTEXALPHA"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "VERTEXALPHA"); }
         set
         {
 
@@ -718,33 +452,17 @@ public class StandardMaterialDefines
 
     public decimal NUM_BONE_INFLUENCERS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "NUM_BONE_INFLUENCERS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "NUM_BONE_INFLUENCERS"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "NUM_BONE_INFLUENCERS",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "NUM_BONE_INFLUENCERS", value);
         }
     }
 
     public decimal BonesPerMesh
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "BonesPerMesh"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "BonesPerMesh"); }
         set
         {
 
@@ -754,13 +472,7 @@ public class StandardMaterialDefines
 
     public bool BONETEXTURE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "BONETEXTURE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "BONETEXTURE"); }
         set
         {
 
@@ -770,13 +482,7 @@ public class StandardMaterialDefines
 
     public bool INSTANCES
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "INSTANCES"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "INSTANCES"); }
         set
         {
 
@@ -786,13 +492,7 @@ public class StandardMaterialDefines
 
     public bool GLOSSINESS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "GLOSSINESS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "GLOSSINESS"); }
         set
         {
 
@@ -802,13 +502,7 @@ public class StandardMaterialDefines
 
     public bool ROUGHNESS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "ROUGHNESS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "ROUGHNESS"); }
         set
         {
 
@@ -818,41 +512,21 @@ public class StandardMaterialDefines
 
     public bool EMISSIVEASILLUMINATION
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "EMISSIVEASILLUMINATION"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "EMISSIVEASILLUMINATION"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "EMISSIVEASILLUMINATION",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "EMISSIVEASILLUMINATION", value);
         }
     }
 
     public bool LINKEMISSIVEWITHDIFFUSE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "LINKEMISSIVEWITHDIFFUSE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "LINKEMISSIVEWITHDIFFUSE"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "LINKEMISSIVEWITHDIFFUSE",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "LINKEMISSIVEWITHDIFFUSE", value);
         }
     }
 
@@ -868,23 +542,13 @@ public class StandardMaterialDefines
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONFRESNELFROMSPECULAR",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONFRESNELFROMSPECULAR", value);
         }
     }
 
     public bool LIGHTMAP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "LIGHTMAP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "LIGHTMAP"); }
         set
         {
 
@@ -894,141 +558,71 @@ public class StandardMaterialDefines
 
     public decimal LIGHTMAPDIRECTUV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "LIGHTMAPDIRECTUV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "LIGHTMAPDIRECTUV"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "LIGHTMAPDIRECTUV",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "LIGHTMAPDIRECTUV", value);
         }
     }
 
     public bool OBJECTSPACE_NORMALMAP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "OBJECTSPACE_NORMALMAP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "OBJECTSPACE_NORMALMAP"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "OBJECTSPACE_NORMALMAP",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "OBJECTSPACE_NORMALMAP", value);
         }
     }
 
     public bool USELIGHTMAPASSHADOWMAP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "USELIGHTMAPASSHADOWMAP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "USELIGHTMAPASSHADOWMAP"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "USELIGHTMAPASSHADOWMAP",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "USELIGHTMAPASSHADOWMAP", value);
         }
     }
 
     public bool REFLECTIONMAP_3D
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONMAP_3D"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONMAP_3D"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONMAP_3D",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONMAP_3D", value);
         }
     }
 
     public bool REFLECTIONMAP_SPHERICAL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONMAP_SPHERICAL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONMAP_SPHERICAL"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONMAP_SPHERICAL",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONMAP_SPHERICAL", value);
         }
     }
 
     public bool REFLECTIONMAP_PLANAR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONMAP_PLANAR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONMAP_PLANAR"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONMAP_PLANAR",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONMAP_PLANAR", value);
         }
     }
 
     public bool REFLECTIONMAP_CUBIC
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONMAP_CUBIC"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONMAP_CUBIC"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONMAP_CUBIC",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONMAP_CUBIC", value);
         }
     }
 
@@ -1044,11 +638,7 @@ public class StandardMaterialDefines
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "USE_LOCAL_REFLECTIONMAP_CUBIC",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "USE_LOCAL_REFLECTIONMAP_CUBIC", value);
         }
     }
 
@@ -1056,59 +646,32 @@ public class StandardMaterialDefines
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONMAP_PROJECTION"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONMAP_PROJECTION");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONMAP_PROJECTION",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONMAP_PROJECTION", value);
         }
     }
 
     public bool REFLECTIONMAP_SKYBOX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONMAP_SKYBOX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONMAP_SKYBOX"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONMAP_SKYBOX",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONMAP_SKYBOX", value);
         }
     }
 
     public bool REFLECTIONMAP_EXPLICIT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONMAP_EXPLICIT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONMAP_EXPLICIT"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONMAP_EXPLICIT",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONMAP_EXPLICIT", value);
         }
     }
 
@@ -1124,11 +687,7 @@ public class StandardMaterialDefines
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONMAP_EQUIRECTANGULAR",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONMAP_EQUIRECTANGULAR", value);
         }
     }
 
@@ -1174,53 +733,27 @@ public class StandardMaterialDefines
 
     public bool INVERTCUBICMAP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "INVERTCUBICMAP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "INVERTCUBICMAP"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "INVERTCUBICMAP",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "INVERTCUBICMAP", value);
         }
     }
 
     public bool LOGARITHMICDEPTH
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "LOGARITHMICDEPTH"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "LOGARITHMICDEPTH"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "LOGARITHMICDEPTH",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "LOGARITHMICDEPTH", value);
         }
     }
 
     public bool REFRACTION
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFRACTION"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFRACTION"); }
         set
         {
 
@@ -1230,73 +763,37 @@ public class StandardMaterialDefines
 
     public bool REFRACTIONMAP_3D
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFRACTIONMAP_3D"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFRACTIONMAP_3D"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFRACTIONMAP_3D",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFRACTIONMAP_3D", value);
         }
     }
 
     public bool REFLECTIONOVERALPHA
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "REFLECTIONOVERALPHA"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "REFLECTIONOVERALPHA"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "REFLECTIONOVERALPHA",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "REFLECTIONOVERALPHA", value);
         }
     }
 
     public bool TWOSIDEDLIGHTING
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "TWOSIDEDLIGHTING"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "TWOSIDEDLIGHTING"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "TWOSIDEDLIGHTING",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "TWOSIDEDLIGHTING", value);
         }
     }
 
     public bool SHADOWFLOAT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "SHADOWFLOAT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "SHADOWFLOAT"); }
         set
         {
 
@@ -1306,13 +803,7 @@ public class StandardMaterialDefines
 
     public bool MORPHTARGETS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "MORPHTARGETS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MORPHTARGETS"); }
         set
         {
 
@@ -1322,61 +813,31 @@ public class StandardMaterialDefines
 
     public bool MORPHTARGETS_NORMAL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "MORPHTARGETS_NORMAL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MORPHTARGETS_NORMAL"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "MORPHTARGETS_NORMAL",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "MORPHTARGETS_NORMAL", value);
         }
     }
 
     public bool MORPHTARGETS_TANGENT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "MORPHTARGETS_TANGENT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MORPHTARGETS_TANGENT"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "MORPHTARGETS_TANGENT",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "MORPHTARGETS_TANGENT", value);
         }
     }
 
     public bool MORPHTARGETS_UV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "MORPHTARGETS_UV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MORPHTARGETS_UV"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "MORPHTARGETS_UV",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "MORPHTARGETS_UV", value);
         }
     }
 
@@ -1384,91 +845,48 @@ public class StandardMaterialDefines
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "NUM_MORPH_INFLUENCERS"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "NUM_MORPH_INFLUENCERS");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "NUM_MORPH_INFLUENCERS",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "NUM_MORPH_INFLUENCERS", value);
         }
     }
 
     public bool NONUNIFORMSCALING
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "NONUNIFORMSCALING"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "NONUNIFORMSCALING"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "NONUNIFORMSCALING",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "NONUNIFORMSCALING", value);
         }
     }
 
     public bool PREMULTIPLYALPHA
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "PREMULTIPLYALPHA"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "PREMULTIPLYALPHA"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "PREMULTIPLYALPHA",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "PREMULTIPLYALPHA", value);
         }
     }
 
     public bool IMAGEPROCESSING
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "IMAGEPROCESSING"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "IMAGEPROCESSING"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "IMAGEPROCESSING",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "IMAGEPROCESSING", value);
         }
     }
 
     public bool VIGNETTE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "VIGNETTE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "VIGNETTE"); }
         set
         {
 
@@ -1480,51 +898,28 @@ public class StandardMaterialDefines
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "VIGNETTEBLENDMODEMULTIPLY"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "VIGNETTEBLENDMODEMULTIPLY");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "VIGNETTEBLENDMODEMULTIPLY",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "VIGNETTEBLENDMODEMULTIPLY", value);
         }
     }
 
     public bool VIGNETTEBLENDMODEOPAQUE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "VIGNETTEBLENDMODEOPAQUE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "VIGNETTEBLENDMODEOPAQUE"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "VIGNETTEBLENDMODEOPAQUE",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "VIGNETTEBLENDMODEOPAQUE", value);
         }
     }
 
     public bool TONEMAPPING
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "TONEMAPPING"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "TONEMAPPING"); }
         set
         {
 
@@ -1534,33 +929,17 @@ public class StandardMaterialDefines
 
     public bool TONEMAPPING_ACES
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "TONEMAPPING_ACES"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "TONEMAPPING_ACES"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "TONEMAPPING_ACES",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "TONEMAPPING_ACES", value);
         }
     }
 
     public bool CONTRAST
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "CONTRAST"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "CONTRAST"); }
         set
         {
 
@@ -1570,13 +949,7 @@ public class StandardMaterialDefines
 
     public bool COLORCURVES
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "COLORCURVES"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "COLORCURVES"); }
         set
         {
 
@@ -1586,13 +959,7 @@ public class StandardMaterialDefines
 
     public bool COLORGRADING
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "COLORGRADING"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "COLORGRADING"); }
         set
         {
 
@@ -1602,61 +969,31 @@ public class StandardMaterialDefines
 
     public bool COLORGRADING3D
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "COLORGRADING3D"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "COLORGRADING3D"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "COLORGRADING3D",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "COLORGRADING3D", value);
         }
     }
 
     public bool SAMPLER3DGREENDEPTH
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "SAMPLER3DGREENDEPTH"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "SAMPLER3DGREENDEPTH"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "SAMPLER3DGREENDEPTH",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "SAMPLER3DGREENDEPTH", value);
         }
     }
 
     public bool SAMPLER3DBGRMAP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "SAMPLER3DBGRMAP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "SAMPLER3DBGRMAP"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "SAMPLER3DBGRMAP",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "SAMPLER3DBGRMAP", value);
         }
     }
 
@@ -1664,31 +1001,18 @@ public class StandardMaterialDefines
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "IMAGEPROCESSINGPOSTPROCESS"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "IMAGEPROCESSINGPOSTPROCESS");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "IMAGEPROCESSINGPOSTPROCESS",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "IMAGEPROCESSINGPOSTPROCESS", value);
         }
     }
 
     public bool MULTIVIEW
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "MULTIVIEW"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "MULTIVIEW"); }
         set
         {
 
@@ -1698,53 +1022,27 @@ public class StandardMaterialDefines
 
     public bool IS_REFLECTION_LINEAR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "IS_REFLECTION_LINEAR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "IS_REFLECTION_LINEAR"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "IS_REFLECTION_LINEAR",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "IS_REFLECTION_LINEAR", value);
         }
     }
 
     public bool IS_REFRACTION_LINEAR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "IS_REFRACTION_LINEAR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "IS_REFRACTION_LINEAR"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "IS_REFRACTION_LINEAR",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "IS_REFRACTION_LINEAR", value);
         }
     }
 
     public bool EXPOSURE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "EXPOSURE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "EXPOSURE"); }
         set
         {
 
@@ -1766,11 +1064,7 @@ public class StandardMaterialDefines
     public void setReflectionMode(string modeToEnable)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setReflectionMode" },
-                modeToEnable
-            }
+            new object[] { new string[] { this.___guid, "setReflectionMode" }, modeToEnable }
         );
     }
     #endregion

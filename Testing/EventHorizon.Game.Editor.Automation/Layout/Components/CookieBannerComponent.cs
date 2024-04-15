@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Layout.Components;
 
 using System;
-
 using Atata;
 
 public class CookieBannerComponent<TNavigateTo> : Control<TNavigateTo>

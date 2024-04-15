@@ -11,8 +11,7 @@ public class EditorNode
     public IList<string> Path { get; set; } = new List<string>();
     public string Type { get; set; } = string.Empty;
     public IList<EditorNode> Children { get; set; } = new List<EditorNode>();
-    public EditorNodeTypedProperties Properties { get; set; } =
-        new EditorNodeTypedProperties();
+    public EditorNodeTypedProperties Properties { get; set; } = new EditorNodeTypedProperties();
 }
 
 public class EditorNodeTypedProperties

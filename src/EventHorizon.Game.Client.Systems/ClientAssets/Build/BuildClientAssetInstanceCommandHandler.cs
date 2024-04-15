@@ -2,13 +2,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Model.Mesh;
 using EventHorizon.Game.Client.Systems.ClientAssets.Resolve;
-
 using MediatR;
 
 public class BuildClientAssetInstanceCommandHandler
@@ -53,9 +51,7 @@ public class BuildClientAssetInstanceCommandHandler
                             clientAsset,
                             request.Position
                         ),
-                        cachedClientAsset.Value.Clone(
-                            $"client_id-{request.AssetInstanceId}"
-                        )
+                        cachedClientAsset.Value.Clone($"client_id-{request.AssetInstanceId}")
                     ),
                     cancellationToken
                 );

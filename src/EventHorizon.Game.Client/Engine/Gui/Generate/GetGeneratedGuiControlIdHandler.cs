@@ -3,13 +3,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
-public class GetGeneratedGuiControlIdHandler
-    : IRequestHandler<GetGeneratedGuiControlId, string>
+public class GetGeneratedGuiControlIdHandler : IRequestHandler<GetGeneratedGuiControlId, string>
 {
     private readonly IGuiControlState _state;
 

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Container>))]
@@ -30,53 +28,27 @@ public class Container : Control
 
     public bool adaptHeightToChildren
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "adaptHeightToChildren"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "adaptHeightToChildren"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "adaptHeightToChildren",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "adaptHeightToChildren", value);
         }
     }
 
     public bool adaptWidthToChildren
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "adaptWidthToChildren"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "adaptWidthToChildren"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "adaptWidthToChildren",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "adaptWidthToChildren", value);
         }
     }
 
     public string background
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "background"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "background"); }
         set
         {
 
@@ -104,10 +76,7 @@ public class Container : Control
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -117,41 +86,21 @@ public class Container : Control
 
     public bool logLayoutCycleErrors
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "logLayoutCycleErrors"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "logLayoutCycleErrors"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "logLayoutCycleErrors",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "logLayoutCycleErrors", value);
         }
     }
 
     public decimal maxLayoutCycle
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "maxLayoutCycle"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "maxLayoutCycle"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "maxLayoutCycle",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "maxLayoutCycle", value);
         }
     }
     #endregion
@@ -179,11 +128,7 @@ public class Container : Control
     {
         return EventHorizonBlazorInterop.FuncClass<Control>(
             entity => new Control() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getChildByName" },
-                name
-            }
+            new object[] { new string[] { this.___guid, "getChildByName" }, name }
         );
     }
 
@@ -191,23 +136,14 @@ public class Container : Control
     {
         return EventHorizonBlazorInterop.FuncClass<Control>(
             entity => new Control() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getChildByType" },
-                name,
-                type
-            }
+            new object[] { new string[] { this.___guid, "getChildByType" }, name, type }
         );
     }
 
     public bool containsControl(Control control)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "containsControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "containsControl" }, control }
         );
     }
 
@@ -215,11 +151,7 @@ public class Container : Control
     {
         return EventHorizonBlazorInterop.FuncClass<Container>(
             entity => new Container() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "addControl" }, control }
         );
     }
 
@@ -235,11 +167,7 @@ public class Container : Control
     {
         return EventHorizonBlazorInterop.FuncClass<Container>(
             entity => new Container() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "removeControl" }, control }
         );
     }
 

@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
-
 using MediatR;
 
 public class SetupEntityModulesFromPlayerZoneInfoReceivedEventHandler
@@ -29,20 +27,12 @@ public class SetupEntityModulesFromPlayerZoneInfoReceivedEventHandler
         CancellationToken cancellationToken
     )
     {
-        foreach (
-            var baseModule in notification
-                .PlayerZoneInfo
-                .BaseEntityScriptModuleList
-        )
+        foreach (var baseModule in notification.PlayerZoneInfo.BaseEntityScriptModuleList)
         {
             _baseState.Set(baseModule);
         }
 
-        foreach (
-            var playerModule in notification
-                .PlayerZoneInfo
-                .PlayerEntityScriptModuleList
-        )
+        foreach (var playerModule in notification.PlayerZoneInfo.PlayerEntityScriptModuleList)
         {
             _playerState.Set(playerModule);
         }

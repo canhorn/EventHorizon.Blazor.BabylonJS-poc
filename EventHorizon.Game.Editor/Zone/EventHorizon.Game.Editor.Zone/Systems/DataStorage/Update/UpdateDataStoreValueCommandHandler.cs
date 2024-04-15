@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.Systems.DataStorage.Update;
-
 using MediatR;
 
 public class UpdateDataStoreValueCommandHandler
@@ -14,9 +12,7 @@ public class UpdateDataStoreValueCommandHandler
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public UpdateDataStoreValueCommandHandler(
-        ZoneAdminServices zoneAdminServices
-    )
+    public UpdateDataStoreValueCommandHandler(ZoneAdminServices zoneAdminServices)
     {
         _zoneAdminServices = zoneAdminServices;
     }

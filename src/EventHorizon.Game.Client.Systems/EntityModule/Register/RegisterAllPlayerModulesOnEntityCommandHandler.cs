@@ -2,24 +2,17 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 using EventHorizon.Game.Client.Systems.EntityModule.Model;
-
 using MediatR;
 
 public class RegisterAllPlayerModulesOnEntityCommandHandler
-    : IRequestHandler<
-        RegisterAllPlayerModulesOnEntityCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<RegisterAllPlayerModulesOnEntityCommand, StandardCommandResult>
 {
     private readonly EntityPlayerScriptModuleState _state;
 
-    public RegisterAllPlayerModulesOnEntityCommandHandler(
-        EntityPlayerScriptModuleState state
-    )
+    public RegisterAllPlayerModulesOnEntityCommandHandler(EntityPlayerScriptModuleState state)
     {
         _state = state;
     }

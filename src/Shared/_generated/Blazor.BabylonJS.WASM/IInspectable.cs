@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IInspectable : ICachedEntity { }
@@ -36,10 +34,7 @@ public class IInspectableCachedEntity : CachedEntityObject, IInspectable
 
     public string label
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "label");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "label"); }
         set
         {
 
@@ -49,13 +44,7 @@ public class IInspectableCachedEntity : CachedEntityObject, IInspectable
 
     public string propertyName
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "propertyName"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "propertyName"); }
         set
         {
 
@@ -75,10 +64,7 @@ public class IInspectableCachedEntity : CachedEntityObject, IInspectable
 
     public decimal min
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "min");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "min"); }
         set
         {
 
@@ -88,10 +74,7 @@ public class IInspectableCachedEntity : CachedEntityObject, IInspectable
 
     public decimal max
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "max");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "max"); }
         set
         {
 
@@ -101,10 +84,7 @@ public class IInspectableCachedEntity : CachedEntityObject, IInspectable
 
     public decimal step
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "step");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "step"); }
         set
         {
 

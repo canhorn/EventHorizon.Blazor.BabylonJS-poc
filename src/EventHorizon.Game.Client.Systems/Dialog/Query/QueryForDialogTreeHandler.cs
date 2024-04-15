@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Query.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Fetch;
 using EventHorizon.Game.Client.Systems.Dialog.Api;
-
 using MediatR;
 
 public class QueryForDialogTreeHandler

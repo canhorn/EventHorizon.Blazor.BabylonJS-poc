@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Texture>))]
@@ -22,21 +20,11 @@ public class Texture : BaseTexture
 
     public static bool SerializeBuffers
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                "BABYLON",
-                "Texture.SerializeBuffers"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>("BABYLON", "Texture.SerializeBuffers"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "Texture.SerializeBuffers",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "Texture.SerializeBuffers", value);
         }
     }
 
@@ -141,24 +129,12 @@ public class Texture : BaseTexture
 
     public static decimal NEAREST_LINEAR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.NEAREST_LINEAR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.NEAREST_LINEAR"); }
     }
 
     public static decimal NEAREST_NEAREST
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.NEAREST_NEAREST"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.NEAREST_NEAREST"); }
     }
 
     public static decimal LINEAR_NEAREST_MIPNEAREST
@@ -185,101 +161,47 @@ public class Texture : BaseTexture
 
     public static decimal LINEAR_LINEAR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.LINEAR_LINEAR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.LINEAR_LINEAR"); }
     }
 
     public static decimal LINEAR_NEAREST
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.LINEAR_NEAREST"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.LINEAR_NEAREST"); }
     }
 
     public static decimal EXPLICIT_MODE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.EXPLICIT_MODE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.EXPLICIT_MODE"); }
     }
 
     public static decimal SPHERICAL_MODE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.SPHERICAL_MODE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.SPHERICAL_MODE"); }
     }
 
     public static decimal PLANAR_MODE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.PLANAR_MODE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.PLANAR_MODE"); }
     }
 
     public static decimal CUBIC_MODE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.CUBIC_MODE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.CUBIC_MODE"); }
     }
 
     public static decimal PROJECTION_MODE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.PROJECTION_MODE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.PROJECTION_MODE"); }
     }
 
     public static decimal SKYBOX_MODE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.SKYBOX_MODE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.SKYBOX_MODE"); }
     }
 
     public static decimal INVCUBIC_MODE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.INVCUBIC_MODE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.INVCUBIC_MODE"); }
     }
 
     public static decimal EQUIRECTANGULAR_MODE
@@ -319,10 +241,7 @@ public class Texture : BaseTexture
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.CLAMP_ADDRESSMODE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.CLAMP_ADDRESSMODE");
         }
     }
 
@@ -330,10 +249,7 @@ public class Texture : BaseTexture
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.WRAP_ADDRESSMODE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.WRAP_ADDRESSMODE");
         }
     }
 
@@ -341,10 +257,7 @@ public class Texture : BaseTexture
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Texture.MIRROR_ADDRESSMODE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Texture.MIRROR_ADDRESSMODE");
         }
     }
 
@@ -352,29 +265,18 @@ public class Texture : BaseTexture
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                "BABYLON",
-                "Texture.UseSerializedUrlIfAny"
-            );
+            return EventHorizonBlazorInterop.Get<bool>("BABYLON", "Texture.UseSerializedUrlIfAny");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "Texture.UseSerializedUrlIfAny",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "Texture.UseSerializedUrlIfAny", value);
         }
     }
     #endregion
 
     #region Static Methods
-    public static BaseTexture Parse(
-        object parsedTexture,
-        Scene scene,
-        string rootUrl
-    )
+    public static BaseTexture Parse(object parsedTexture, Scene scene, string rootUrl)
     {
         return EventHorizonBlazorInterop.FuncClass<BaseTexture>(
             entity => new BaseTexture() { ___guid = entity.___guid },
@@ -455,24 +357,12 @@ public class Texture : BaseTexture
 
     public bool noMipmap
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "noMipmap"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "noMipmap"); }
     }
 
     public bool isBlocking
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isBlocking"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isBlocking"); }
         set
         {
 
@@ -482,21 +372,12 @@ public class Texture : BaseTexture
 
     public decimal samplingMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "samplingMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "samplingMode"); }
     }
 
     public bool invertY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "invertY");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "invertY"); }
     }
     #endregion
 
@@ -504,10 +385,7 @@ public class Texture : BaseTexture
 
     public string url
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "url");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "url"); }
         set
         {
 
@@ -517,13 +395,7 @@ public class Texture : BaseTexture
 
     public decimal uOffset
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uOffset"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uOffset"); }
         set
         {
 
@@ -533,13 +405,7 @@ public class Texture : BaseTexture
 
     public decimal vOffset
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vOffset"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vOffset"); }
         set
         {
 
@@ -549,13 +415,7 @@ public class Texture : BaseTexture
 
     public decimal uScale
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uScale"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uScale"); }
         set
         {
 
@@ -565,13 +425,7 @@ public class Texture : BaseTexture
 
     public decimal vScale
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vScale"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vScale"); }
         set
         {
 
@@ -581,10 +435,7 @@ public class Texture : BaseTexture
 
     public decimal uAng
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uAng");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uAng"); }
         set
         {
 
@@ -594,10 +445,7 @@ public class Texture : BaseTexture
 
     public decimal vAng
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vAng");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vAng"); }
         set
         {
 
@@ -607,10 +455,7 @@ public class Texture : BaseTexture
 
     public decimal wAng
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "wAng");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "wAng"); }
         set
         {
 
@@ -620,61 +465,31 @@ public class Texture : BaseTexture
 
     public decimal uRotationCenter
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uRotationCenter"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uRotationCenter"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "uRotationCenter",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "uRotationCenter", value);
         }
     }
 
     public decimal vRotationCenter
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vRotationCenter"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vRotationCenter"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "vRotationCenter",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "vRotationCenter", value);
         }
     }
 
     public decimal wRotationCenter
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "wRotationCenter"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "wRotationCenter"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "wRotationCenter",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "wRotationCenter", value);
         }
     }
 
@@ -687,21 +502,14 @@ public class Texture : BaseTexture
                 "inspectableCustomProperties",
                 (entity) =>
                 {
-                    return new IInspectableCachedEntity()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new IInspectableCachedEntity() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "inspectableCustomProperties",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "inspectableCustomProperties", value);
         }
     }
 
@@ -712,17 +520,12 @@ public class Texture : BaseTexture
         {
             if (__onLoadObservable == null)
             {
-                __onLoadObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Texture>
-                >(
+                __onLoadObservable = EventHorizonBlazorInterop.GetClass<Observable<Texture>>(
                     this.___guid,
                     "onLoadObservable",
                     (entity) =>
                     {
-                        return new Observable<Texture>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Texture>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -731,11 +534,7 @@ public class Texture : BaseTexture
         set
         {
             __onLoadObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onLoadObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onLoadObservable", value);
         }
     }
     #endregion
@@ -781,20 +580,10 @@ public class Texture : BaseTexture
     #endregion
 
     #region Methods
-    public void updateURL(
-        string url,
-        string buffer = null,
-        ActionCallback onLoad = null
-    )
+    public void updateURL(string url, string buffer = null, ActionCallback onLoad = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "updateURL" },
-                url,
-                buffer,
-                onLoad
-            }
+            new object[] { new string[] { this.___guid, "updateURL" }, url, buffer, onLoad }
         );
     }
 
@@ -809,11 +598,7 @@ public class Texture : BaseTexture
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getTextureMatrix" },
-                uBase
-            }
+            new object[] { new string[] { this.___guid, "getTextureMatrix" }, uBase }
         );
     }
 
@@ -821,10 +606,7 @@ public class Texture : BaseTexture
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getReflectionTextureMatrix" }
-            }
+            new object[] { new string[] { this.___guid, "getReflectionTextureMatrix" } }
         );
     }
 

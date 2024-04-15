@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Lighting.Model;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.Lighting.Api;
 
 public class LightDetailsModel : ILightDetails

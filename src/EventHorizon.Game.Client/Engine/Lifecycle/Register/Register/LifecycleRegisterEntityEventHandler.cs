@@ -2,13 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
-
 using MediatR;
 
-public class LifecycleRegisterEntityEventHandler
-    : INotificationHandler<RegisterEntityEvent>
+public class LifecycleRegisterEntityEventHandler : INotificationHandler<RegisterEntityEvent>
 {
     private readonly IRegisterInitializable _registerInitializable;
     private readonly IRegisterDisposable _registerDisposable;
@@ -22,10 +19,7 @@ public class LifecycleRegisterEntityEventHandler
         _registerDisposable = registerDisposable;
     }
 
-    public async Task Handle(
-        RegisterEntityEvent notification,
-        CancellationToken cancellationToken
-    )
+    public async Task Handle(RegisterEntityEvent notification, CancellationToken cancellationToken)
     {
         await _registerInitializable.Register(notification.Entity);
         await _registerDisposable.Register(notification.Entity);

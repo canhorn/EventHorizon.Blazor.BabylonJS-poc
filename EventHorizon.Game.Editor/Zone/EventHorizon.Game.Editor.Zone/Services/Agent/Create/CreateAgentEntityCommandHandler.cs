@@ -3,18 +3,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Editor.Zone.Services.Api;
-
 using MediatR;
 
 public class CreateAgentEntityCommandHandler
-    : IRequestHandler<
-        CreateAgentEntityCommand,
-        CommandResult<IObjectEntityDetails>
-    >
+    : IRequestHandler<CreateAgentEntityCommand, CommandResult<IObjectEntityDetails>>
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
@@ -28,9 +23,7 @@ public class CreateAgentEntityCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var result = await _zoneAdminServices.Api.Agent.CreateEntity(
-            request.Entity
-        );
+        var result = await _zoneAdminServices.Api.Agent.CreateEntity(request.Entity);
         if (result.Success.IsNotTrue() || result.AgentEntity.IsNull())
         {
             return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;

@@ -4,16 +4,13 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Connection.Shared;
 using EventHorizon.Connection.Shared.Unauthorized;
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Core.Services.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Connection;
-
 using MediatR;
-
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
@@ -39,10 +36,7 @@ public class SignalrZoneEditorServices : ZoneEditorServices
         _logger = logger;
         _mediator = mediator;
 
-        Api = new SignalrZoneEditorApi(
-            _loggerFactory.CreateLogger<SignalrZoneEditorApi>(),
-            null
-        );
+        Api = new SignalrZoneEditorApi(_loggerFactory.CreateLogger<SignalrZoneEditorApi>(), null);
     }
 
     public async Task<StandardCommandResult> Connect(
@@ -110,10 +104,7 @@ public class SignalrZoneEditorServices : ZoneEditorServices
         }
         catch (HttpRequestException ex)
         {
-            await LogAndDispose(
-                ex,
-                "Failed to start connection to Zone Editor."
-            );
+            await LogAndDispose(ex, "Failed to start connection to Zone Editor.");
             if (ex.Message.Contains("401 (Unauthorized)"))
             {
                 await _mediator.Publish(
@@ -148,10 +139,7 @@ public class SignalrZoneEditorServices : ZoneEditorServices
         _connection = null;
         _initialized = false;
         _currentZoneId = string.Empty;
-        Api = new SignalrZoneEditorApi(
-            _loggerFactory.CreateLogger<SignalrZoneEditorApi>(),
-            null
-        );
+        Api = new SignalrZoneEditorApi(_loggerFactory.CreateLogger<SignalrZoneEditorApi>(), null);
 
         return Task.CompletedTask;
     }

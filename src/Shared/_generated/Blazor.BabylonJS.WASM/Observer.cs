@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Observer<CachedEntity>>))]
@@ -35,10 +33,7 @@ public class Observer<T> : CachedEntityObject
 
     public decimal mask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "mask");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "mask"); }
         set
         {
 
@@ -48,13 +43,7 @@ public class Observer<T> : CachedEntityObject
 
     public CachedEntity scope
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "scope"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "scope"); }
         set
         {
 
@@ -64,21 +53,11 @@ public class Observer<T> : CachedEntityObject
 
     public bool unregisterOnNextCall
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "unregisterOnNextCall"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "unregisterOnNextCall"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "unregisterOnNextCall",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "unregisterOnNextCall", value);
         }
     }
     #endregion
@@ -93,11 +72,7 @@ public class Observer<T> : CachedEntityObject
         ___guid = entity.___guid;
     }
 
-    public Observer(
-        ActionCallback<T, EventState> callback,
-        decimal mask,
-        object scope = null
-    )
+    public Observer(ActionCallback<T, EventState> callback, decimal mask, object scope = null)
     {
         var entity = EventHorizonBlazorInterop.New(
             new string[] { "BABYLON", "Observer" },

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ISceneLike : ICachedEntity { }
@@ -46,10 +44,7 @@ public class ISceneLikeCachedEntity : CachedEntityObject, ISceneLike
                         "offlineProvider",
                         (entity) =>
                         {
-                            return new IOfflineProviderCachedEntity()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new IOfflineProviderCachedEntity() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -58,11 +53,7 @@ public class ISceneLikeCachedEntity : CachedEntityObject, ISceneLike
         set
         {
             __offlineProvider = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "offlineProvider",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "offlineProvider", value);
         }
     }
     #endregion

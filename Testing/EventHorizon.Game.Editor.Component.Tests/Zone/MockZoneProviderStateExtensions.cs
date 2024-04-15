@@ -8,9 +8,7 @@ using EventHorizon.Game.Client.Core.Timer.Model;
 using EventHorizon.Game.Editor.Client.Core;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Query;
-
 using Microsoft.Extensions.DependencyInjection;
-
 using Moq;
 
 public static class MockZoneProviderStateExtensions
@@ -27,9 +25,7 @@ public static class MockZoneProviderStateExtensions
             new StandardFactory<ITimerService>(() => new TimerService())
         );
         services.AddSingleton<IFactory<IIntervalTimerService>>(
-            new StandardFactory<IIntervalTimerService>(
-                () => new IntervalTimerService()
-            )
+            new StandardFactory<IIntervalTimerService>(() => new IntervalTimerService())
         );
 
         editorComponentBaseMocks.Mediator.Stub(

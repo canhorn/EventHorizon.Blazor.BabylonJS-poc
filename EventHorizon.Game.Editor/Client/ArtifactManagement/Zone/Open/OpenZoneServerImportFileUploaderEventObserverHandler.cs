@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class OpenZoneServerImportFileUploaderEventObserverHandler
@@ -12,9 +10,7 @@ public class OpenZoneServerImportFileUploaderEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public OpenZoneServerImportFileUploaderEventObserverHandler(
-        ObserverState observer
-    )
+    public OpenZoneServerImportFileUploaderEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

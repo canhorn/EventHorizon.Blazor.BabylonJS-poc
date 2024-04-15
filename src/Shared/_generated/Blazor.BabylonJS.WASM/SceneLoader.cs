@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<SceneLoader>))]
@@ -40,19 +38,12 @@ public class SceneLoader : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                "BABYLON",
-                "SceneLoader.ShowLoadingScreen"
-            );
+            return EventHorizonBlazorInterop.Get<bool>("BABYLON", "SceneLoader.ShowLoadingScreen");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "SceneLoader.ShowLoadingScreen",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "SceneLoader.ShowLoadingScreen", value);
         }
     }
 
@@ -60,19 +51,12 @@ public class SceneLoader : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "SceneLoader.loggingLevel"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "SceneLoader.loggingLevel");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "SceneLoader.loggingLevel",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "SceneLoader.loggingLevel", value);
         }
     }
 
@@ -88,11 +72,7 @@ public class SceneLoader : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "SceneLoader.CleanBoneMatrixWeights",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "SceneLoader.CleanBoneMatrixWeights", value);
         }
     }
     #endregion
@@ -101,23 +81,14 @@ public class SceneLoader : CachedEntityObject
 
     public static decimal NO_LOGGING
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "SceneLoader.NO_LOGGING"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "SceneLoader.NO_LOGGING"); }
     }
 
     public static decimal MINIMAL_LOGGING
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "SceneLoader.MINIMAL_LOGGING"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "SceneLoader.MINIMAL_LOGGING");
         }
     }
 
@@ -125,10 +96,7 @@ public class SceneLoader : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "SceneLoader.SUMMARY_LOGGING"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "SceneLoader.SUMMARY_LOGGING");
         }
     }
 
@@ -150,20 +118,19 @@ public class SceneLoader : CachedEntityObject
         {
             if (__OnPluginActivatedObservable == null)
             {
-                __OnPluginActivatedObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<ISceneLoaderPluginCachedEntity>
-                    >(
-                        "BABYLON",
-                        "SceneLoader.OnPluginActivatedObservable",
-                        (entity) =>
+                __OnPluginActivatedObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<ISceneLoaderPluginCachedEntity>
+                >(
+                    "BABYLON",
+                    "SceneLoader.OnPluginActivatedObservable",
+                    (entity) =>
+                    {
+                        return new Observable<ISceneLoaderPluginCachedEntity>()
                         {
-                            return new Observable<ISceneLoaderPluginCachedEntity>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                            ___guid = entity.___guid
+                        };
+                    }
+                );
             }
             return __OnPluginActivatedObservable;
         }
@@ -180,24 +147,13 @@ public class SceneLoader : CachedEntityObject
     #endregion
 
     #region Static Methods
-    public static ISceneLoaderPluginCachedEntity GetPluginForExtension(
-        string extension
-    )
+    public static ISceneLoaderPluginCachedEntity GetPluginForExtension(string extension)
     {
         return EventHorizonBlazorInterop.FuncClass<ISceneLoaderPluginCachedEntity>(
-            entity =>
-                new ISceneLoaderPluginCachedEntity()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new ISceneLoaderPluginCachedEntity() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "SceneLoader",
-                    "GetPluginForExtension"
-                },
+                new string[] { "BABYLON", "SceneLoader", "GetPluginForExtension" },
                 extension
             }
         );
@@ -208,12 +164,7 @@ public class SceneLoader : CachedEntityObject
         return EventHorizonBlazorInterop.Func<bool>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "SceneLoader",
-                    "IsPluginForExtensionAvailable"
-                },
+                new string[] { "BABYLON", "SceneLoader", "IsPluginForExtensionAvailable" },
                 extension
             }
         );
@@ -222,11 +173,7 @@ public class SceneLoader : CachedEntityObject
     public static void RegisterPlugin(ISceneLoaderPlugin plugin)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "SceneLoader", "RegisterPlugin" },
-                plugin
-            }
+            new object[] { new string[] { "BABYLON", "SceneLoader", "RegisterPlugin" }, plugin }
         );
     }
 
@@ -235,23 +182,15 @@ public class SceneLoader : CachedEntityObject
         string rootUrl,
         string sceneFilename = null,
         Scene scene = null,
-        ActionCallback<
-            AbstractMesh[],
-            IParticleSystem[],
-            Skeleton[],
-            AnimationGroup[]
-        > onSuccess = null,
+        ActionCallback<AbstractMesh[], IParticleSystem[], Skeleton[], AnimationGroup[]> onSuccess =
+            null,
         ActionCallback<SceneLoaderProgressEvent> onProgress = null,
         ActionCallback<Scene, string, CachedEntity> onError = null,
         string pluginExtension = null
     )
     {
         return EventHorizonBlazorInterop.FuncClass<ISceneLoaderPluginCachedEntity>(
-            entity =>
-                new ISceneLoaderPluginCachedEntity()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new ISceneLoaderPluginCachedEntity() { ___guid = entity.___guid },
             new object[]
             {
                 new string[] { "BABYLON", "SceneLoader", "ImportMesh" },
@@ -301,11 +240,7 @@ public class SceneLoader : CachedEntityObject
     )
     {
         return EventHorizonBlazorInterop.FuncClass<ISceneLoaderPluginCachedEntity>(
-            entity =>
-                new ISceneLoaderPluginCachedEntity()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new ISceneLoaderPluginCachedEntity() { ___guid = entity.___guid },
             new object[]
             {
                 new string[] { "BABYLON", "SceneLoader", "Load" },
@@ -352,11 +287,7 @@ public class SceneLoader : CachedEntityObject
     )
     {
         return EventHorizonBlazorInterop.FuncClass<ISceneLoaderPluginCachedEntity>(
-            entity =>
-                new ISceneLoaderPluginCachedEntity()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new ISceneLoaderPluginCachedEntity() { ___guid = entity.___guid },
             new object[]
             {
                 new string[] { "BABYLON", "SceneLoader", "Append" },
@@ -403,11 +334,7 @@ public class SceneLoader : CachedEntityObject
     )
     {
         return EventHorizonBlazorInterop.FuncClass<ISceneLoaderPluginCachedEntity>(
-            entity =>
-                new ISceneLoaderPluginCachedEntity()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new ISceneLoaderPluginCachedEntity() { ___guid = entity.___guid },
             new object[]
             {
                 new string[] { "BABYLON", "SceneLoader", "LoadAssetContainer" },
@@ -433,12 +360,7 @@ public class SceneLoader : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "SceneLoader",
-                    "LoadAssetContainerAsync"
-                },
+                new string[] { "BABYLON", "SceneLoader", "LoadAssetContainerAsync" },
                 rootUrl,
                 sceneFilename,
                 scene,
@@ -492,12 +414,7 @@ public class SceneLoader : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "SceneLoader",
-                    "ImportAnimationsAsync"
-                },
+                new string[] { "BABYLON", "SceneLoader", "ImportAnimationsAsync" },
                 rootUrl,
                 sceneFilename,
                 scene,

@@ -3,9 +3,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Input.Api;
-
 using MediatR;
 
 public class TriggerInputCommandHandler : IRequestHandler<TriggerInputCommand>
@@ -17,10 +15,7 @@ public class TriggerInputCommandHandler : IRequestHandler<TriggerInputCommand>
         _inputState = inputState;
     }
 
-    public async Task Handle(
-        TriggerInputCommand request,
-        CancellationToken cancellationToken
-    )
+    public async Task Handle(TriggerInputCommand request, CancellationToken cancellationToken)
     {
         var options = _inputState.Where(a => a.Key == request.Key);
         foreach (var option in options)

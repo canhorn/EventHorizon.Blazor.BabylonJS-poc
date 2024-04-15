@@ -1,16 +1,13 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Model;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
 
 public class ZoneEditorStateModel : ZoneEditorState
 {
-    private IDictionary<string, EditorNode> _map =
-        new Dictionary<string, EditorNode>();
+    private IDictionary<string, EditorNode> _map = new Dictionary<string, EditorNode>();
 
-    public EditorNodeList EditorNodeList { get; private set; } =
-        new EditorNodeList();
+    public EditorNodeList EditorNodeList { get; private set; } = new EditorNodeList();
     public ZoneEditorMetadata Metadata { get; private set; } =
         new ZoneEditorMetadata
         {
@@ -35,10 +32,7 @@ public class ZoneEditorStateModel : ZoneEditorState
         editorNodeList.NullCheck(nameof(editorNodeList));
         EditorNodeList = editorNodeList;
         // Flatten nodes into a map
-        _map = FlattenNodeInto(
-            new Dictionary<string, EditorNode>(),
-            EditorNodeList.Root
-        );
+        _map = FlattenNodeInto(new Dictionary<string, EditorNode>(), EditorNodeList.Root);
 
         return this;
     }

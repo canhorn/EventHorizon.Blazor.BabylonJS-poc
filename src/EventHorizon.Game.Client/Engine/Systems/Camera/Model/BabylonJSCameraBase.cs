@@ -2,9 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Canvas.Api;
 using EventHorizon.Game.Client.Engine.Core.Api;
 using EventHorizon.Game.Client.Engine.Entity.Model;
@@ -28,9 +26,7 @@ public class BabylonJSCameraBase<T> : ClientEntityBase, ICamera
     public void AttachControl()
     {
         _camera.attachControl(
-            GameServiceProvider
-                .GetService<ICanvas>()
-                .GetDrawingCanvas<Canvas>(),
+            GameServiceProvider.GetService<ICanvas>().GetDrawingCanvas<Canvas>(),
             true
         );
     }

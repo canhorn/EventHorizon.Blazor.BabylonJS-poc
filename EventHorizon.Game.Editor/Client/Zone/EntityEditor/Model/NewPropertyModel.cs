@@ -2,10 +2,8 @@
 
 public class NewPropertyModel
 {
-    public static string FIRST_CHARACTER_IS_NOT_LETTER { get; } =
-        "first_character_is_not_letter";
-    public static string FIRST_CHARACTER_IS_UPPERCASE { get; } =
-        "first_character_is_uppercase";
+    public static string FIRST_CHARACTER_IS_NOT_LETTER { get; } = "first_character_is_not_letter";
+    public static string FIRST_CHARACTER_IS_UPPERCASE { get; } = "first_character_is_uppercase";
     public static string LENGTH_ZERO { get; } = "length_zero";
 
     public bool IsValid { get; set; } = true;

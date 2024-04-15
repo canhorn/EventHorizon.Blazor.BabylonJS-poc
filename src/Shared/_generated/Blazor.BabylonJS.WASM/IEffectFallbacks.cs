@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IEffectFallbacks : ICachedEntity { }
@@ -36,21 +34,11 @@ public class IEffectFallbacksCachedEntity : CachedEntityObject, IEffectFallbacks
 
     public bool hasMoreFallbacks
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasMoreFallbacks"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasMoreFallbacks"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "hasMoreFallbacks",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "hasMoreFallbacks", value);
         }
     }
     #endregion
@@ -68,12 +56,7 @@ public class IEffectFallbacksCachedEntity : CachedEntityObject, IEffectFallbacks
     public string reduce(string currentDefines, Effect effect)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "reduce" },
-                currentDefines,
-                effect
-            }
+            new object[] { new string[] { this.___guid, "reduce" }, currentDefines, effect }
         );
     }
 

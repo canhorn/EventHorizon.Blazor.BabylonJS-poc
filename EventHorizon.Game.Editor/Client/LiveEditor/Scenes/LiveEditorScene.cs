@@ -2,23 +2,18 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Systems.Account.Api;
 using EventHorizon.Game.Client.Systems.Account.Changed;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Stop;
 using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class LiveEditorScene : GameSceneBase, AccountChangedEventObserver
 {
-    private readonly ILogger _logger = GameServiceProvider.GetService<
-        ILogger<LiveEditorScene>
-    >();
-    private readonly IAccountState _accountState =
-        GameServiceProvider.GetService<IAccountState>();
+    private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<LiveEditorScene>>();
+    private readonly IAccountState _accountState = GameServiceProvider.GetService<IAccountState>();
 
     private string _serverAddress = string.Empty;
 
@@ -36,9 +31,7 @@ public class LiveEditorScene : GameSceneBase, AccountChangedEventObserver
         GamePlatform.UnRegisterObserver(this);
         if (!string.IsNullOrEmpty(_serverAddress))
         {
-            await _mediator.Send(
-                new StopPlayerZoneConnectionCommand(_serverAddress)
-            );
+            await _mediator.Send(new StopPlayerZoneConnectionCommand(_serverAddress));
         }
         await base.Dispose();
     }
@@ -72,9 +65,7 @@ public class LiveEditorScene : GameSceneBase, AccountChangedEventObserver
         {
             _serverAddress = _accountState.User.Zone.ServerAddress;
             _logger.LogDebug($"Started Player Connection {DateTime.UtcNow}");
-            await _mediator.Send(
-                new StartPlayerZoneConnectionCommand(_serverAddress)
-            );
+            await _mediator.Send(new StartPlayerZoneConnectionCommand(_serverAddress));
         }
     }
 }

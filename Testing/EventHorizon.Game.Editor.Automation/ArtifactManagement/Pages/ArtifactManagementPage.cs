@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.ArtifactManagement.Pages;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Layout;
-
 using _ = ArtifactManagementPage;
 
 [Url("/artifact/management")]

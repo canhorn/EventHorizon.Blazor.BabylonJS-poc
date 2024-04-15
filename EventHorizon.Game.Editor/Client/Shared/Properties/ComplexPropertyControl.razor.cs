@@ -3,12 +3,9 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-
 using BlazorMonaco.Editor;
-
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Properties.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public partial class ComplexPropertyControl
@@ -22,9 +19,8 @@ public partial class ComplexPropertyControl
 
     protected override object Parse(object value)
     {
-        return JsonSerializer.Deserialize<Dictionary<string, object>>(
-                value?.ToString() ?? "{}"
-            ) ?? new Dictionary<string, object>();
+        return JsonSerializer.Deserialize<Dictionary<string, object>>(value?.ToString() ?? "{}")
+            ?? new Dictionary<string, object>();
     }
 
     public async Task HandleOpenEditor()
@@ -38,15 +34,11 @@ public partial class ComplexPropertyControl
 
     public async Task HandleSave()
     {
-        await HandleChange(
-            new ChangeEventArgs { Value = await MonacoEditor.GetValue() }
-        );
+        await HandleChange(new ChangeEventArgs { Value = await MonacoEditor.GetValue() });
         IsEditorOpen = false;
     }
 
-    public StandaloneEditorConstructionOptions BuildConstructionOptions(
-        StandaloneCodeEditor _
-    ) =>
+    public StandaloneEditorConstructionOptions BuildConstructionOptions(StandaloneCodeEditor _) =>
         new()
         {
             Theme = "vs-dark",

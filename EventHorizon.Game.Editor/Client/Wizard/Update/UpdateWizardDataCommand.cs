@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Zone.Systems.Wizard.Model;
-
 using MediatR;
 
 public struct UpdateWizardDataCommand : IRequest<StandardCommandResult>

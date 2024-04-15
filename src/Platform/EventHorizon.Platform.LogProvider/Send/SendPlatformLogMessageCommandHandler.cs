@@ -3,13 +3,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Platform.LogProvider.Connection.Api;
 using EventHorizon.Platform.LogProvider.Model;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class SendPlatformLogMessageCommandHandler
@@ -32,9 +29,6 @@ public class SendPlatformLogMessageCommandHandler
         CancellationToken cancellationToken
     )
     {
-        return _connection.LogMessage(
-            request.Message.ToClientLogMessage(),
-            cancellationToken
-        );
+        return _connection.LogMessage(request.Message.ToClientLogMessage(), cancellationToken);
     }
 }

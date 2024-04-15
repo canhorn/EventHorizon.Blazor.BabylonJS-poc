@@ -2,16 +2,13 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 
-public class StandardEntityLifeCycleModule
-    : ClientEntityBase,
-        IEntityLifeCycleModule
+public class StandardEntityLifeCycleModule : ClientEntityBase, IEntityLifeCycleModule
 {
     private readonly ScriptServices _scriptServices;
     private readonly Option<IClientScript> _initializeScript;
@@ -19,10 +16,8 @@ public class StandardEntityLifeCycleModule
     private readonly Option<IClientScript> _updateScript;
     private readonly ScriptData _scriptData;
 
-    private Func<ScriptServices, ScriptData, Task> _runnableUpdateScript = (
-        _,
-        __
-    ) => Task.CompletedTask;
+    private Func<ScriptServices, ScriptData, Task> _runnableUpdateScript = (_, __) =>
+        Task.CompletedTask;
 
     public string Name { get; }
     public bool IsInitializable => _initializeScript.HasValue;

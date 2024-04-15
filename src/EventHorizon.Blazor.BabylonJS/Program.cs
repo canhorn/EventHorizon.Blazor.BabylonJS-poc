@@ -34,17 +34,10 @@ public class Program
         // Setup Logging
         builder.Logging.AddPlatformLogger(new PlatformLoggerConfiguration());
 
-        builder
-            .Services
-            .AddTransient(
-                sp =>
-                    new HttpClient
-                    {
-                        BaseAddress = new Uri(
-                            builder.HostEnvironment.BaseAddress
-                        )
-                    }
-            );
+        builder.Services.AddTransient(sp => new HttpClient
+        {
+            BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+        });
 
         builder
             .Services
@@ -52,10 +45,7 @@ public class Program
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .Configure<RequestLocalizationOptions>(opts =>
             {
-                var supportedCultures = new List<CultureInfo>
-                {
-                    new CultureInfo("en-US"),
-                };
+                var supportedCultures = new List<CultureInfo> { new CultureInfo("en-US"), };
 
                 opts.DefaultRequestCulture = new RequestCulture("en-US");
                 // Formatting numbers, dates, etc.
@@ -69,58 +59,45 @@ public class Program
         // Add ExternalServices
         // Observer State Manager
         builder
-            .Services
-            .AddSingleton<GenericObserverState>()
-            .AddSingleton<ObserverState>(
-                services => services.GetRequiredService<GenericObserverState>()
+            .Services.AddSingleton<GenericObserverState>()
+            .AddSingleton<ObserverState>(services =>
+                services.GetRequiredService<GenericObserverState>()
             )
-            .AddSingleton<AdminObserverState>(
-                services => services.GetRequiredService<GenericObserverState>()
+            .AddSingleton<AdminObserverState>(services =>
+                services.GetRequiredService<GenericObserverState>()
             );
 
         // Add Authentication Configuration
-        builder
-            .Services
-            .AddOidcAuthentication(options =>
+        builder.Services.AddOidcAuthentication(options =>
+        {
+            builder.Configuration.Bind("Auth", options.ProviderOptions);
+            var authScopes = builder.Configuration["Auth:Scope"]?.Split(" ") ?? [];
+            foreach (var authScope in authScopes)
             {
-                builder.Configuration.Bind("Auth", options.ProviderOptions);
-                var authScopes =
-                    builder.Configuration["Auth:Scope"]?.Split(" ") ?? [];
-                foreach (var authScope in authScopes)
-                {
-                    options.ProviderOptions.DefaultScopes.Add(authScope);
-                }
-            });
+                options.ProviderOptions.DefaultScopes.Add(authScope);
+            }
+        });
 
         // Setup Solution Dependencies
-        builder
-            .Services
-            .AddClientServices()
-            .AddGameClient()
-            .AddGameServerServices();
+        builder.Services.AddClientServices().AddGameClient().AddGameServerServices();
 
-        builder
-            .Services
-            .AddMediatR(
-                config =>
-                    config.RegisterServicesFromAssemblies(
-                        new[]
-                        {
-                            typeof(Program).Assembly,
-                            typeof(ObserverState).Assembly,
-                            // Platform Services
-                            typeof(PlatformLoggerExtensions).Assembly,
-                            // Game Service Registration
-                            typeof(ClientExtensions).Assembly,
-                            typeof(GameServerStartup).Assembly,
-                        }
-                    )
-            );
+        builder.Services.AddMediatR(config =>
+            config.RegisterServicesFromAssemblies(
+                new[]
+                {
+                    typeof(Program).Assembly,
+                    typeof(ObserverState).Assembly,
+                    // Platform Services
+                    typeof(PlatformLoggerExtensions).Assembly,
+                    // Game Service Registration
+                    typeof(ClientExtensions).Assembly,
+                    typeof(GameServerStartup).Assembly,
+                }
+            )
+        );
 
         // Configure Logging
-        builder
-            .Logging
-            .AddConfiguration(builder.Configuration.GetSection("Logging"));
+        builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
         await builder.Build().RunAsync();
     }

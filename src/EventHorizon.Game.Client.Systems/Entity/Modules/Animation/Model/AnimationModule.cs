@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
@@ -17,7 +16,6 @@ using EventHorizon.Game.Client.Systems.Local.InView.Entering;
 using EventHorizon.Game.Client.Systems.Local.InView.Exiting;
 using EventHorizon.Observer.Register;
 using EventHorizon.Observer.Unregister;
-
 using MediatR;
 
 public class AnimationModule
@@ -45,9 +43,7 @@ public class AnimationModule
     public AnimationModule(IObjectEntity entity)
     {
         _mediator = GameServiceProvider.GetService<IMediator>();
-        _intervalTimer = GameServiceProvider
-            .GetService<IFactory<IIntervalTimerService>>()
-            .Create();
+        _intervalTimer = GameServiceProvider.GetService<IFactory<IIntervalTimerService>>().Create();
         _entity = entity;
     }
 
@@ -92,19 +88,11 @@ public class AnimationModule
 
     public Task Handle(PlayAnimationEvent args)
     {
-        if (
-            _entity.ClientId != args.ClientId
-            || _currentAnimation == args.Animation
-        )
+        if (_entity.ClientId != args.ClientId || _currentAnimation == args.Animation)
         {
             return Task.CompletedTask;
         }
-        if (
-            _animationList.TryGetValue(
-                _currentAnimation,
-                out var currentAnimation
-            )
-        )
+        if (_animationList.TryGetValue(_currentAnimation, out var currentAnimation))
         {
             currentAnimation.Pause();
         }
@@ -126,12 +114,7 @@ public class AnimationModule
             return Task.CompletedTask;
         }
 
-        if (
-            _animationList.TryGetValue(
-                _currentAnimation,
-                out var currentAnimation
-            )
-        )
+        if (_animationList.TryGetValue(_currentAnimation, out var currentAnimation))
         {
             currentAnimation.Pause();
         }
@@ -147,12 +130,7 @@ public class AnimationModule
             return Task.CompletedTask;
         }
 
-        if (
-            _animationList.TryGetValue(
-                _currentAnimation,
-                out var currentAnimation
-            )
-        )
+        if (_animationList.TryGetValue(_currentAnimation, out var currentAnimation))
         {
             currentAnimation.Play(true);
         }
@@ -178,12 +156,7 @@ public class AnimationModule
         {
             return;
         }
-        await Handle(
-            new PlayAnimationEvent(
-                _entity.ClientId,
-                animation: _setMovementAnimation
-            )
-        );
+        await Handle(new PlayAnimationEvent(_entity.ClientId, animation: _setMovementAnimation));
     }
 
     public Task Handle(EntityStoppingEvent args)

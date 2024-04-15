@@ -1,12 +1,9 @@
 namespace EventHorizon.Game.Editor.Automation.Home.Tests;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.Home.Pages;
-
 using NUnit.Framework;
-
 using Translations = Localization.HomePageTranslations;
 
 public class DisplaysLoginPageWhenOpeningHomePageOnFreshWindow : WebHost

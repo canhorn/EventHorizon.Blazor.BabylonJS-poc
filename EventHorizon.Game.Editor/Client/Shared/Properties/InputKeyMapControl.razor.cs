@@ -22,22 +22,13 @@ public class InputKeyMapControlModel : PropertyControlBase
     protected string AssetServerFullName = string.Empty;
 
     protected StandardSelectOption? SelectedAssetOption { get; private set; }
-    protected List<StandardSelectOption> AssetOptions { get; private set; } =
-        [];
+    protected List<StandardSelectOption> AssetOptions { get; private set; } = [];
 
     protected EditContext? KeyInputContext { get; private set; }
-    protected Dictionary<string, ControlKeyInput> ControlInputConfig
-    {
-        get;
-        private set;
-    } = [];
+    protected Dictionary<string, ControlKeyInput> ControlInputConfig { get; private set; } = [];
 
     public string NewKeyInput { get; set; } = string.Empty;
-    protected List<StandardSelectOption> InputActionTypeOptions
-    {
-        get;
-        private set;
-    } = [];
+    protected List<StandardSelectOption> InputActionTypeOptions { get; private set; } = [];
 
     protected override void OnInitialized()
     {
@@ -77,9 +68,7 @@ public class InputKeyMapControlModel : PropertyControlBase
         foreach (var (key, keyInput) in ControlInputConfig)
         {
             keyInput.OptionType =
-                InputActionTypeOptions.FirstOrDefault(a =>
-                    a.Value == keyInput.Type
-                ) ?? new();
+                InputActionTypeOptions.FirstOrDefault(a => a.Value == keyInput.Type) ?? new();
         }
 
         KeyInputContext = new EditContext(ControlInputConfig);
@@ -138,9 +127,7 @@ public class InputKeyMapControlModel : PropertyControlBase
         {
             Key = NewKeyInput,
             Type = KeyInputType.PlayerMove,
-            OptionType = InputActionTypeOptions.First(a =>
-                a.Value == KeyInputType.PlayerMove
-            ),
+            OptionType = InputActionTypeOptions.First(a => a.Value == KeyInputType.PlayerMove),
         };
         NewKeyInput = string.Empty;
 

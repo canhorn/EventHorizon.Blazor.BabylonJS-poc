@@ -1,16 +1,13 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ServerModule.State;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 using EventHorizon.Game.Client.Systems.ServerModule.Api;
 
 public class StandardServerModuleState : ServerModuleState
 {
-    private readonly IDictionary<
-        string,
-        IEntityLifeCycleModule
-    > _serverModules = new Dictionary<string, IEntityLifeCycleModule>();
+    private readonly IDictionary<string, IEntityLifeCycleModule> _serverModules =
+        new Dictionary<string, IEntityLifeCycleModule>();
 
     public IEnumerable<IEntityLifeCycleModule> All()
     {
@@ -31,16 +28,9 @@ public class StandardServerModuleState : ServerModuleState
         return new Option<IEntityLifeCycleModule>(null);
     }
 
-    public Option<IEntityLifeCycleModule> Set(
-        IEntityLifeCycleModule entityModule
-    )
+    public Option<IEntityLifeCycleModule> Set(IEntityLifeCycleModule entityModule)
     {
-        if (
-            _serverModules.TryGetValue(
-                entityModule.Name,
-                out var currentServerModule
-            )
-        )
+        if (_serverModules.TryGetValue(entityModule.Name, out var currentServerModule))
         {
             return currentServerModule.ToOption();
         }

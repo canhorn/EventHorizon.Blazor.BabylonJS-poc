@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
-
 using MediatR;
 
 public class StopPlayerZoneConnectionCommandHandler
@@ -14,9 +12,7 @@ public class StopPlayerZoneConnectionCommandHandler
 {
     private readonly IPlayerZoneConnectionState _state;
 
-    public StopPlayerZoneConnectionCommandHandler(
-        IPlayerZoneConnectionState state
-    )
+    public StopPlayerZoneConnectionCommandHandler(IPlayerZoneConnectionState state)
     {
         _state = state;
     }

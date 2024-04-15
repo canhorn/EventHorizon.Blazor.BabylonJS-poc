@@ -1,12 +1,10 @@
 ﻿namespace EventHorizon.Game.Client;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Configuration;
 using EventHorizon.Game.Client.Engine;
 using EventHorizon.Game.Client.Engine.Services.Api;
 using EventHorizon.Game.Client.Engine.Systems.Player.Api;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -66,10 +64,7 @@ public class Startup : IStartup
         Configuration.SetConfig("ACCOUNT_LOGIN_URL", accountLoginUrl);
         Configuration.SetConfig("CORE_SERVER_URL", coreServerUrl);
         Configuration.SetConfig("ASSET_SERVER", assetServerUrl);
-        Configuration.SetConfig(
-            "APPLICATION_INSIGHTS_INSTRUMENTATION_KEY",
-            applicationInsightsKey
-        );
+        Configuration.SetConfig("APPLICATION_INSIGHTS_INSTRUMENTATION_KEY", applicationInsightsKey);
         _logger.LogInformation("Finished Invoking Setup");
     }
 

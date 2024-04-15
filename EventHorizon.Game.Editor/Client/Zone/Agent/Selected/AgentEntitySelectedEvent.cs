@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct AgentEntitySelectedEvent : INotification
@@ -20,8 +18,7 @@ public struct AgentEntitySelectedEvent : INotification
     }
 }
 
-public interface AgentEntitySelectedEventObserver
-    : ArgumentObserver<AgentEntitySelectedEvent> { }
+public interface AgentEntitySelectedEventObserver : ArgumentObserver<AgentEntitySelectedEvent> { }
 
 public class AgentEntitySelectedEventObserverHandler
     : INotificationHandler<AgentEntitySelectedEvent>
@@ -37,8 +34,8 @@ public class AgentEntitySelectedEventObserverHandler
         AgentEntitySelectedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            AgentEntitySelectedEventObserver,
-            AgentEntitySelectedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<AgentEntitySelectedEventObserver, AgentEntitySelectedEvent>(
+            notification,
+            cancellationToken
+        );
 }

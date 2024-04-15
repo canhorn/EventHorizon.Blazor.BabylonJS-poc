@@ -7,10 +7,7 @@ public class FileSystemDirectoryContent
 {
     public const string PATH_SEPARATOR = "/";
 
-    public static string BuildPath(
-        string rootPath,
-        FileSystemDirectoryContent directoryContent
-    )
+    public static string BuildPath(string rootPath, FileSystemDirectoryContent directoryContent)
     {
         var filterPath = directoryContent.FilterPath;
         if (directoryContent.IsFile)
@@ -102,25 +99,16 @@ public class FileSystemDirectoryContent
             && FilterId == content.FilterId
             && ParentId == content.ParentId
             && TargetPath == content.TargetPath
-            && EqualityComparer<string[]>.Default.Equals(
-                RenameFiles,
-                content.RenameFiles
-            )
+            && EqualityComparer<string[]>.Default.Equals(RenameFiles, content.RenameFiles)
             && CaseSensitive == content.CaseSensitive
             && SearchString == content.SearchString
             && ShowHiddenItems == content.ShowHiddenItems
-            && EqualityComparer<FileSystemDirectoryContent[]>.Default.Equals(
-                Data,
-                content.Data
-            )
+            && EqualityComparer<FileSystemDirectoryContent[]>.Default.Equals(Data, content.Data)
             && EqualityComparer<FileSystemDirectoryContent>.Default.Equals(
                 TargetData,
                 content.TargetData
             )
-            && EqualityComparer<AccessPermission>.Default.Equals(
-                Permission,
-                content.Permission
-            );
+            && EqualityComparer<AccessPermission>.Default.Equals(Permission, content.Permission);
     }
 
     public override int GetHashCode()
@@ -158,10 +146,7 @@ public class FileSystemDirectoryContent
         FileSystemDirectoryContent? right
     )
     {
-        return EqualityComparer<FileSystemDirectoryContent>.Default.Equals(
-            left,
-            right
-        );
+        return EqualityComparer<FileSystemDirectoryContent>.Default.Equals(left, right);
     }
 
     public static bool operator !=(

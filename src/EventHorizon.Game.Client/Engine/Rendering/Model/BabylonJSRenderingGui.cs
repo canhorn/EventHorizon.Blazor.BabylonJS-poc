@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Canvas;

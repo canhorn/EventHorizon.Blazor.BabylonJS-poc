@@ -3,8 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 
-public interface IRegisterInitializable
-    : IRegisterBase<IInitializableEntity> { }
+public interface IRegisterInitializable : IRegisterBase<IInitializableEntity> { }

@@ -4,12 +4,10 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.ClientScripts.Set;
 using EventHorizon.Game.Client.Systems.ServerModule.Api;
 using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
 using EventHorizon.Game.Client.Systems.ServerModule.Register;
-
 using MediatR;
 
 public class ReloadServerModuleOnClientScriptsAssemblySetEventHandler
@@ -48,9 +46,7 @@ public class ReloadServerModuleOnClientScriptsAssemblySetEventHandler
         foreach (var serverModuleScripts in _serverModuleScriptsState.All())
         {
             await _mediator.Send(
-                new RegisterNewServerModuleFromScriptCommand(
-                    serverModuleScripts
-                ),
+                new RegisterNewServerModuleFromScriptCommand(serverModuleScripts),
                 cancellationToken
             );
         }

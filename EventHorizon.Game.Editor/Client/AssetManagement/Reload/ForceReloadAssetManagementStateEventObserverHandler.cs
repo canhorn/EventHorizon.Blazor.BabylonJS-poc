@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class ForceReloadAssetManagementStateEventObserverHandler
@@ -12,9 +10,7 @@ public class ForceReloadAssetManagementStateEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ForceReloadAssetManagementStateEventObserverHandler(
-        ObserverState observer
-    )
+    public ForceReloadAssetManagementStateEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

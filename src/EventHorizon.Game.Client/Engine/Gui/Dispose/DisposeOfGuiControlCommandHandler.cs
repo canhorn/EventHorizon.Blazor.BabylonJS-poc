@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
 public class DisposeOfGuiControlCommandHandler
@@ -15,10 +13,7 @@ public class DisposeOfGuiControlCommandHandler
     private readonly IMediator _mediator;
     private readonly IGuiControlState _controlState;
 
-    public DisposeOfGuiControlCommandHandler(
-        IMediator mediator,
-        IGuiControlState controlState
-    )
+    public DisposeOfGuiControlCommandHandler(IMediator mediator, IGuiControlState controlState)
     {
         _mediator = mediator;
         _controlState = controlState;

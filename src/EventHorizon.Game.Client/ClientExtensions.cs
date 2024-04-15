@@ -19,14 +19,11 @@ using EventHorizon.Game.Client.Engine.Settings.Model;
 using EventHorizon.Game.Client.Engine.Systems;
 using EventHorizon.Game.Client.Engine.Window.Api;
 using EventHorizon.Game.Client.Engine.Window.Model;
-
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ClientExtensions
 {
-    public static IServiceCollection AddGameClient(
-        this IServiceCollection services
-    ) =>
+    public static IServiceCollection AddGameClient(this IServiceCollection services) =>
         services
             .AddCoreServices()
             .AddEngineSystemServices()

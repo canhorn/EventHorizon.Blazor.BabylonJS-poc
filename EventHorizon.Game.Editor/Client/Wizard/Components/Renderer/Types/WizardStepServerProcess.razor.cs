@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Wizard.Invalidate;
 using EventHorizon.Game.Editor.Client.Wizard.Processing;
 using EventHorizon.Game.Editor.Client.Wizard.Update;
@@ -43,9 +42,7 @@ public class WizardStepServerProcessBase : WizardStepCommonBase
                 ErrorMessage = Localizer["Error Code: {0}", result.ErrorCode];
             }
 
-            await Mediator.Send(
-                new SetWizardToInvalidCommand(result.ErrorCode)
-            );
+            await Mediator.Send(new SetWizardToInvalidCommand(result.ErrorCode));
         }
 
         await Mediator.Send(new SetProcessingOnWizardCommand(false));
@@ -76,14 +73,8 @@ public class WizardStepServerProcessBase : WizardStepCommonBase
                 ];
 
                 if (
-                    Step.Details.TryGetValue(
-                        "Processor:AutoNext",
-                        out var autoNext
-                    )
-                    && autoNext.Equals(
-                        "true",
-                        StringComparison.InvariantCultureIgnoreCase
-                    )
+                    Step.Details.TryGetValue("Processor:AutoNext", out var autoNext)
+                    && autoNext.Equals("true", StringComparison.InvariantCultureIgnoreCase)
                 )
                 {
                     await State.Next();

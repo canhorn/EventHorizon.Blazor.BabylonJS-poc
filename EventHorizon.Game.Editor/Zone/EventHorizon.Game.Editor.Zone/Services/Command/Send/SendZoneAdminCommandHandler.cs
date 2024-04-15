@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
-
 using MediatR;
 
 public class SendZoneAdminCommandHandler
@@ -24,10 +22,7 @@ public class SendZoneAdminCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var result = await _zoneAdminServices.Api.Command.Send(
-            request.Command,
-            request.Data
-        );
+        var result = await _zoneAdminServices.Api.Command.Send(request.Command, request.Data);
         if (result.Success.IsNotTrue())
         {
             return new(result.ErrorCode);

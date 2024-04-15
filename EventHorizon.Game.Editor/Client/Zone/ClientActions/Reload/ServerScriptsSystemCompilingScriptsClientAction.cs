@@ -2,23 +2,16 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Attributes;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
-[AdminClientAction(
-    "SERVER_SCRIPTS_SYSTEM_COMPILING_SCRIPTS_CLIENT_ACTION_EVENT"
-)]
-public struct ServerScriptsSystemCompilingScriptsClientAction
-    : IAdminClientAction
+[AdminClientAction("SERVER_SCRIPTS_SYSTEM_COMPILING_SCRIPTS_CLIENT_ACTION_EVENT")]
+public struct ServerScriptsSystemCompilingScriptsClientAction : IAdminClientAction
 {
-    public ServerScriptsSystemCompilingScriptsClientAction(
-        IAdminClientActionDataResolver _
-    ) { }
+    public ServerScriptsSystemCompilingScriptsClientAction(IAdminClientActionDataResolver _) { }
 }
 
 public interface ServerScriptsSystemCompilingScriptsClientActionObserver
@@ -29,9 +22,7 @@ public class ServerScriptsSystemCompilingScriptsClientActionObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ServerScriptsSystemCompilingScriptsClientActionObserverHandler(
-        ObserverState observer
-    )
+    public ServerScriptsSystemCompilingScriptsClientActionObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

@@ -2,10 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.ClickCapture;
 using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class TreeViewNodeModel : ComponentBase, IDisposable
@@ -60,9 +58,7 @@ public class TreeViewNodeModel : ComponentBase, IDisposable
 
     protected string GetNodeHref()
     {
-        return !string.IsNullOrWhiteSpace(Node.Href)
-            ? Node.Href
-            : "javascript:;";
+        return !string.IsNullOrWhiteSpace(Node.Href) ? Node.Href : "javascript:;";
     }
 
     protected string GetIconClass()
@@ -110,12 +106,8 @@ public class TreeViewNodeModel : ComponentBase, IDisposable
             {
                 if (ContextMenu.Enabled)
                 {
-                    ClickCapture.OffMouseClick(
-                        ContextMenu.HandleCloseContextMenu
-                    );
-                    ClickCapture.OffContextMenu(
-                        ContextMenu.HandleCloseContextMenu
-                    );
+                    ClickCapture.OffMouseClick(ContextMenu.HandleCloseContextMenu);
+                    ClickCapture.OffContextMenu(ContextMenu.HandleCloseContextMenu);
                 }
             }
 

@@ -18,15 +18,11 @@ class Program
         var app = appBuilder.Build();
 
         // customize window
-        app.MainWindow.SetIconFile("favicon.ico")
-            .SetTitle("Photino Hello World");
+        app.MainWindow.SetIconFile("favicon.ico").SetTitle("Photino Hello World");
 
         AppDomain.CurrentDomain.UnhandledException += (sender, error) =>
         {
-            app.MainWindow.ShowMessage(
-                "Fatal exception",
-                error.ExceptionObject.ToString()
-            );
+            app.MainWindow.ShowMessage("Fatal exception", error.ExceptionObject.ToString());
         };
 
         app.Run();

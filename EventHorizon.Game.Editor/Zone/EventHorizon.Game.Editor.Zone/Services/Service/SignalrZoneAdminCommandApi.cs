@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalrZoneAdminCommandApi : ZoneAdminCommandApi

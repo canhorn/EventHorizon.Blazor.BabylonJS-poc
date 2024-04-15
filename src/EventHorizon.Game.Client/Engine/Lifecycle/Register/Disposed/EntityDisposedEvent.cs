@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct EntityDisposedEvent : INotification
@@ -19,11 +17,9 @@ public struct EntityDisposedEvent : INotification
     }
 }
 
-public interface EntityDisposedEventObserver
-    : ArgumentObserver<EntityDisposedEvent> { }
+public interface EntityDisposedEventObserver : ArgumentObserver<EntityDisposedEvent> { }
 
-public class EntityDisposedEventHandler
-    : INotificationHandler<EntityDisposedEvent>
+public class EntityDisposedEventHandler : INotificationHandler<EntityDisposedEvent>
 {
     private readonly ObserverState _observer;
 
@@ -32,10 +28,7 @@ public class EntityDisposedEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        EntityDisposedEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(EntityDisposedEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<EntityDisposedEventObserver, EntityDisposedEvent>(
             notification,
             cancellationToken

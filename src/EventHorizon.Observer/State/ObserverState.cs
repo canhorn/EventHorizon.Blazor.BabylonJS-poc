@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 
 public interface ObserverState
@@ -15,10 +14,7 @@ public interface ObserverState
 
     void Remove(ObserverBase observer);
 
-    Task Trigger<TInstance, TArgs>(
-        TArgs args,
-        CancellationToken cancellationToken = default
-    )
+    Task Trigger<TInstance, TArgs>(TArgs args, CancellationToken cancellationToken = default)
         where TInstance : ArgumentObserver<TArgs>;
 
     Task Trigger(

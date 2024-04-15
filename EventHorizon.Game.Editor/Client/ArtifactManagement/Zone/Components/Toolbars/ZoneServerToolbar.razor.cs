@@ -1,7 +1,6 @@
 namespace EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Components.Toolbars;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Start;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Trigger;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Triggered;
@@ -14,9 +13,7 @@ public class ZoneServerToolbarBase
 {
     protected async Task HandleTriggerExportClicked()
     {
-        var result = await Sender.Send(
-            new TriggerZoneServerArtifactExportCommand()
-        );
+        var result = await Sender.Send(new TriggerZoneServerArtifactExportCommand());
         if (!result)
         {
             await ShowMessage(
@@ -38,9 +35,7 @@ public class ZoneServerToolbarBase
 
     protected async Task HandleImportClicked()
     {
-        var result = await Sender.Send(
-            new StartZoneServerArtifactImportCommand()
-        );
+        var result = await Sender.Send(new StartZoneServerArtifactImportCommand());
 
         if (!result)
         {
@@ -57,9 +52,7 @@ public class ZoneServerToolbarBase
 
     protected async Task HandleBackupClicked()
     {
-        var result = await Sender.Send(
-            new TriggerZoneServerArtifactBackupCommand()
-        );
+        var result = await Sender.Send(new TriggerZoneServerArtifactBackupCommand());
         if (!result)
         {
             await ShowMessage(
@@ -85,10 +78,7 @@ public class ZoneServerToolbarBase
         {
             await ShowMessage(
                 Localizer["Zone Server Import"],
-                Localizer[
-                    "Failed to Trigger Zone Server Import. ErrorCode = {0}",
-                    args.ErrorCode
-                ],
+                Localizer["Failed to Trigger Zone Server Import. ErrorCode = {0}", args.ErrorCode],
                 MessageLevel.Error
             );
             return;

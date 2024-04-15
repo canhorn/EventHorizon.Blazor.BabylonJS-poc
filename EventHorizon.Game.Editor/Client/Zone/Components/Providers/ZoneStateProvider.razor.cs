@@ -1,14 +1,12 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Change;
 using EventHorizon.Game.Editor.Client.Zone.Query;
 using EventHorizon.Game.Editor.Zone.Services.Connection;
-
 using Microsoft.AspNetCore.Components;
 
 public class ZoneStateProviderModel

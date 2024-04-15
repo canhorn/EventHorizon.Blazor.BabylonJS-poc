@@ -2,13 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using Blazored.LocalStorage;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Authentication.Api;
 using EventHorizon.Game.Editor.Client.Authentication.Model;
-
 using MediatR;
 
 public class FillSessionValuesCommandHandler
@@ -31,10 +28,9 @@ public class FillSessionValuesCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var sessionValues =
-            await _localStorage.GetItemAsync<SessionValuesModel>(
-                SessionValuesModel.SESSION_VALUES_KEY
-            );
+        var sessionValues = await _localStorage.GetItemAsync<SessionValuesModel>(
+            SessionValuesModel.SESSION_VALUES_KEY
+        );
         if (sessionValues.IsNotNull())
         {
             _state.SetSessionValues(sessionValues);

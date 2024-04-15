@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.ArtifactManagement.Components;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Server.Asset.Connection;
 using EventHorizon.Game.Server.Asset.Finished;

@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
-
 using MediatR;
 
 public class ResetEntityModuleOnDisposeOfEngineEventHandler
@@ -23,10 +21,7 @@ public class ResetEntityModuleOnDisposeOfEngineEventHandler
         _playerScriptModuleState = playerScriptModuleState;
     }
 
-    public Task Handle(
-        DisposeOfEngineEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(DisposeOfEngineEvent notification, CancellationToken cancellationToken)
     {
         _baseScriptModuleState.Reset();
         _playerScriptModuleState.Reset();

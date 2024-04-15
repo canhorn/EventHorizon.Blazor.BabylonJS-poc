@@ -3,7 +3,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 
 public interface AssetServerAdminService
@@ -16,8 +15,5 @@ public interface AssetServerAdminService
 
     AssetServerFileManagementAdminApi FileManagementApi { get; }
 
-    Task<StandardCommandResult> Connect(
-        string accessToken,
-        CancellationToken cancellationToken
-    );
+    Task<StandardCommandResult> Connect(string accessToken, CancellationToken cancellationToken);
 }

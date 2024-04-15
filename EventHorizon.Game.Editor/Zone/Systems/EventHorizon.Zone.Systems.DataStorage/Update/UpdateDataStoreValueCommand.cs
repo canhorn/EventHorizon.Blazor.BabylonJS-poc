@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Zone.Systems.DataStorage.Update;
 
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
 
 public struct UpdateDataStoreValueCommand : IRequest<StandardCommandResult>

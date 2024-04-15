@@ -4,12 +4,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
 using EventHorizon.Game.Client.Systems.ServerModule.Register;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class SetupServerModuleFromPlayerZoneInfoReceivedEventHandler
@@ -32,9 +29,7 @@ public class SetupServerModuleFromPlayerZoneInfoReceivedEventHandler
         CancellationToken cancellationToken
     )
     {
-        var serverModuleScriptsList = notification
-            .PlayerZoneInfo
-            .ServerModuleScriptList;
+        var serverModuleScriptsList = notification.PlayerZoneInfo.ServerModuleScriptList;
 
         _logger.LogInformation(
             "ServerModuleScripts Count: {ScriptCount}",
@@ -43,9 +38,7 @@ public class SetupServerModuleFromPlayerZoneInfoReceivedEventHandler
         foreach (var serverModuleScript in serverModuleScriptsList)
         {
             var result = await _mediator.Send(
-                new RegisterNewServerModuleFromScriptCommand(
-                    serverModuleScript
-                ),
+                new RegisterNewServerModuleFromScriptCommand(serverModuleScript),
                 cancellationToken
             );
             if (!result.Success)

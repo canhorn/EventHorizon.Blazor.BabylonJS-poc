@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using BabylonJS.GUI;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Model;
@@ -34,11 +32,7 @@ public class BabylonJSGuiPanel : IBabylonJSGuiControl
 
     public Control Control => _control;
 
-    public BabylonJSGuiPanel(
-        string id,
-        IGuiControlOptions options,
-        IGuiGridLocation? gridLocation
-    )
+    public BabylonJSGuiPanel(string id, IGuiControlOptions options, IGuiGridLocation? gridLocation)
     {
         Id = id;
         Options = options;
@@ -84,35 +78,20 @@ public class BabylonJSGuiPanel : IBabylonJSGuiControl
         return stackPanelControl;
     }
 
-    IList<string> IGNORE_PROPERTY_LIST = new List<string>
-    {
-        "animation",
-        "onClick",
-    };
+    IList<string> IGNORE_PROPERTY_LIST = new List<string> { "animation", "onClick", };
 
-    private void SetPropertyOnControl(
-        Control control,
-        string property,
-        object value
-    )
+    private void SetPropertyOnControl(Control control, string property, object value)
     {
         EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }
 
-    private void Update(
-        IGuiControlOptions options,
-        StackPanel stackPanelControl
-    )
+    private void Update(IGuiControlOptions options, StackPanel stackPanelControl)
     {
         foreach (var option in options)
         {
             if (!IGNORE_PROPERTY_LIST.Contains(option.Key))
             {
-                SetPropertyOnControl(
-                    stackPanelControl,
-                    option.Key,
-                    option.Value
-                );
+                SetPropertyOnControl(stackPanelControl, option.Key, option.Value);
             }
         }
     }

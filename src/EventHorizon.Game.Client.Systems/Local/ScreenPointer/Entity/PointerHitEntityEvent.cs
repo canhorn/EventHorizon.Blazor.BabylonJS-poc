@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct PointerHitEntityEvent : INotification
@@ -18,11 +16,9 @@ public struct PointerHitEntityEvent : INotification
     }
 }
 
-public interface PointerHitEntityEventObserver
-    : ArgumentObserver<PointerHitEntityEvent> { }
+public interface PointerHitEntityEventObserver : ArgumentObserver<PointerHitEntityEvent> { }
 
-public class PointerHitEntityEventHandler
-    : INotificationHandler<PointerHitEntityEvent>
+public class PointerHitEntityEventHandler : INotificationHandler<PointerHitEntityEvent>
 {
     private readonly ObserverState _observer;
 
@@ -31,10 +27,7 @@ public class PointerHitEntityEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        PointerHitEntityEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(PointerHitEntityEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<PointerHitEntityEventObserver, PointerHitEntityEvent>(
             notification,
             cancellationToken

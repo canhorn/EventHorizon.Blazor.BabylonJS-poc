@@ -3,19 +3,14 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.Systems.Wizard.Model;
 using EventHorizon.Zone.Systems.Wizard.Query;
-
 using MediatR;
 
 public class QueryForAllZoneWizardsHandler
-    : IRequestHandler<
-        QueryForAllZoneWizards,
-        CommandResult<IEnumerable<WizardMetadata>>
-    >
+    : IRequestHandler<QueryForAllZoneWizards, CommandResult<IEnumerable<WizardMetadata>>>
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 

@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
-
 using MediatR;
 
 public class CreateGameSceneOrchestratorCommand : IRequest

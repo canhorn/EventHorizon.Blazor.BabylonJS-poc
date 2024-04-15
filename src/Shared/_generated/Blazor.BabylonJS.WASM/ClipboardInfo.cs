@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ClipboardInfo>))]
@@ -28,12 +26,7 @@ public class ClipboardInfo : CachedEntityObject
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "ClipboardInfo",
-                    "GetTypeFromCharacter"
-                },
+                new string[] { "BABYLON", "ClipboardInfo", "GetTypeFromCharacter" },
                 keyCode
             }
         );
@@ -48,10 +41,7 @@ public class ClipboardInfo : CachedEntityObject
 
     public decimal type
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type"); }
         set
         {
 
@@ -71,10 +61,7 @@ public class ClipboardInfo : CachedEntityObject
                     "event",
                     (entity) =>
                     {
-                        return new ClipboardEvent()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new ClipboardEvent() { ___guid = entity.___guid };
                     }
                 );
             }

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.ClickCapture;
 
 using System;
-
 using Microsoft.AspNetCore.Components;
 
 public class ClickCaptureProviderModel : ComponentBase

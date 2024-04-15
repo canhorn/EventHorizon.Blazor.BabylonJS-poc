@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Input.Api;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Input.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 

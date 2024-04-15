@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
@@ -14,14 +13,10 @@ using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer.Model;
 using EventHorizon.Game.Editor.Client.Zone.Pages;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Query;
-
 using MediatR;
 
 public class QueryForActiveEditorNodeTreeViewHandler
-    : IRequestHandler<
-        QueryForActiveEditorNodeTreeView,
-        CommandResult<TreeViewNodeData>
-    >
+    : IRequestHandler<QueryForActiveEditorNodeTreeView, CommandResult<TreeViewNodeData>>
 {
     private readonly IMediator _mediator;
     private readonly Localizer<SharedResource> _localizer;
@@ -40,10 +35,7 @@ public class QueryForActiveEditorNodeTreeViewHandler
         CancellationToken cancellationToken
     )
     {
-        var result = await _mediator.Send(
-            new QueryForActiveEditorNodeList(),
-            cancellationToken
-        );
+        var result = await _mediator.Send(new QueryForActiveEditorNodeList(), cancellationToken);
         if (!result.Success)
         {
             return new(result.ErrorCode);
@@ -53,9 +45,11 @@ public class QueryForActiveEditorNodeTreeViewHandler
                 request.ExistingTreeView,
                 request.OnContextMenuClick,
                 result.Result,
-                request.ExpandedList.Select(
-                    a => new TreeViewNodeData { Id = a, IsExpanded = true, }
-                )
+                request.ExpandedList.Select(a => new TreeViewNodeData
+                {
+                    Id = a,
+                    IsExpanded = true,
+                })
             )
         );
     }
@@ -73,15 +67,9 @@ public class QueryForActiveEditorNodeTreeViewHandler
             Name = "zone-editor__root",
             Text = _localizer["Zone Editor"],
             IsExpanded = true,
-            Children = editorNodeList.Root
-                .Select(
-                    node =>
-                        BuildEditorTreeViewNode(
-                            exitingTreeView,
-                            onContextMenuClick,
-                            node,
-                            expandedList
-                        )
+            Children = editorNodeList
+                .Root.Select(node =>
+                    BuildEditorTreeViewNode(exitingTreeView, onContextMenuClick, node, expandedList)
                 )
                 .OrderBy(a => a.Text)
                 .ToList()
@@ -101,22 +89,17 @@ public class QueryForActiveEditorNodeTreeViewHandler
             Name = node.Name,
             Text = node.Name,
             Href = !node.IsFolder ? BuildHrefForNode(node) : string.Empty,
-            IsDisabled =
-                node.IsFolder
-                && (node.Children == null || node.Children.Count == 0),
-            IconCssClass =
-                "--icon oi oi-" + (node.IsFolder ? "folder" : "file"),
+            IsDisabled = node.IsFolder && (node.Children == null || node.Children.Count == 0),
+            IconCssClass = "--icon oi oi-" + (node.IsFolder ? "folder" : "file"),
             Children =
-                node.Children
-                    ?.Select(
-                        childNode =>
-                            BuildEditorTreeViewNode(
-                                existingTreeView,
-                                onContextMenuClick,
-                                childNode,
-                                expandedList
-                            )
+                node.Children?.Select(childNode =>
+                    BuildEditorTreeViewNode(
+                        existingTreeView,
+                        onContextMenuClick,
+                        childNode,
+                        expandedList
                     )
+                )
                     .OrderBy(a => a.Text)
                     .ToList() ?? new List<TreeViewNodeData>(),
             ContextMenu = BuildContextMenuForNode(node, onContextMenuClick),
@@ -148,32 +131,17 @@ public class QueryForActiveEditorNodeTreeViewHandler
             new TreeViewNodeContextMenuItem
             {
                 Text = _localizer["Add Folder"],
-                OnClick = () =>
-                    onContextMenuClick(
-                        node,
-                        EditorFileModalType.AddFolder,
-                        true,
-                        false
-                    )
+                OnClick = () => onContextMenuClick(node, EditorFileModalType.AddFolder, true, false)
             },
             // Add "Add File" context item
             new TreeViewNodeContextMenuItem
             {
                 Text = _localizer["Add File"],
-                OnClick = () =>
-                    onContextMenuClick(
-                        node,
-                        EditorFileModalType.AddFile,
-                        true,
-                        false
-                    )
+                OnClick = () => onContextMenuClick(node, EditorFileModalType.AddFile, true, false)
             }
         };
         // Add "Delete" context item
-        if (
-            node.Properties.SupportDelete == null
-            || (bool)node.Properties.SupportDelete
-        )
+        if (node.Properties.SupportDelete == null || (bool)node.Properties.SupportDelete)
         {
             items.Add(
                 new TreeViewNodeContextMenuItem
@@ -207,10 +175,7 @@ public class QueryForActiveEditorNodeTreeViewHandler
             }
             if (nodeData.Children != null && nodeData.Children.Count > 0)
             {
-                var result = GetExistingValueOrDefault(
-                    nodeData.Children,
-                    nodeDataId
-                );
+                var result = GetExistingValueOrDefault(nodeData.Children, nodeDataId);
                 if (result)
                 {
                     return true;

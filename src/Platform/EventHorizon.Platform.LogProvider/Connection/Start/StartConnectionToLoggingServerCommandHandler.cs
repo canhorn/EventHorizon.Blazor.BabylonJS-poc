@@ -2,23 +2,16 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Platform.LogProvider.Connection.Api;
-
 using MediatR;
 
 public class StartConnectionToLoggingServerCommandHandler
-    : IRequestHandler<
-        StartConnectionToLoggingServerCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<StartConnectionToLoggingServerCommand, StandardCommandResult>
 {
     private readonly PlatformLoggerConnection _connection;
 
-    public StartConnectionToLoggingServerCommandHandler(
-        PlatformLoggerConnection connection
-    )
+    public StartConnectionToLoggingServerCommandHandler(PlatformLoggerConnection connection)
     {
         _connection = connection;
     }

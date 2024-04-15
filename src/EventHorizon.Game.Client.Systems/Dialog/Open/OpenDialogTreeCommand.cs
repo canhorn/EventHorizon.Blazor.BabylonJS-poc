@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Dialog.Open;
 
 using System;
-
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
 
 public class OpenDialogTreeCommand : IRequest<StandardCommandResult>

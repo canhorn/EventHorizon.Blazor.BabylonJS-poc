@@ -2,11 +2,9 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Wizard.Api;
 using EventHorizon.Zone.Systems.Wizard.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public abstract class WizardStepCommonBase : ObservableComponentBase
@@ -37,10 +35,7 @@ public abstract class WizardStepCommonBase : ObservableComponentBase
 
         if (
             Step.Details.TryGetValue("AutoNext", out var autoNext)
-            && autoNext.Equals(
-                "true",
-                StringComparison.InvariantCultureIgnoreCase
-            )
+            && autoNext.Equals("true", StringComparison.InvariantCultureIgnoreCase)
         )
         {
             await State.Next();

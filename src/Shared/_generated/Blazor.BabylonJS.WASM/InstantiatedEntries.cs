@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<InstantiatedEntries>))]
@@ -88,11 +86,7 @@ public class InstantiatedEntries : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "animationGroups",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "animationGroups", value);
         }
     }
     #endregion

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<SubMesh>))]
@@ -78,13 +76,7 @@ public class SubMesh : BaseSubMesh, ICullable
 
     public bool IsGlobal
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "IsGlobal"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "IsGlobal"); }
     }
     #endregion
 
@@ -92,13 +84,7 @@ public class SubMesh : BaseSubMesh, ICullable
 
     public decimal materialIndex
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "materialIndex"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "materialIndex"); }
         set
         {
 
@@ -108,13 +94,7 @@ public class SubMesh : BaseSubMesh, ICullable
 
     public decimal verticesStart
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "verticesStart"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "verticesStart"); }
         set
         {
 
@@ -124,13 +104,7 @@ public class SubMesh : BaseSubMesh, ICullable
 
     public decimal verticesCount
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "verticesCount"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "verticesCount"); }
         set
         {
 
@@ -140,13 +114,7 @@ public class SubMesh : BaseSubMesh, ICullable
 
     public decimal indexStart
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "indexStart"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "indexStart"); }
         set
         {
 
@@ -156,13 +124,7 @@ public class SubMesh : BaseSubMesh, ICullable
 
     public decimal indexCount
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "indexCount"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "indexCount"); }
         set
         {
 
@@ -218,11 +180,7 @@ public class SubMesh : BaseSubMesh, ICullable
     {
         return EventHorizonBlazorInterop.FuncClass<SubMesh>(
             entity => new SubMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setBoundingInfo" },
-                boundingInfo
-            }
+            new object[] { new string[] { this.___guid, "setBoundingInfo" }, boundingInfo }
         );
     }
 
@@ -254,11 +212,7 @@ public class SubMesh : BaseSubMesh, ICullable
     {
         return EventHorizonBlazorInterop.FuncClass<SubMesh>(
             entity => new SubMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "refreshBoundingInfo" },
-                data
-            }
+            new object[] { new string[] { this.___guid, "refreshBoundingInfo" }, data }
         );
     }
 
@@ -266,33 +220,21 @@ public class SubMesh : BaseSubMesh, ICullable
     {
         return EventHorizonBlazorInterop.FuncClass<SubMesh>(
             entity => new SubMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "updateBoundingInfo" },
-                world
-            }
+            new object[] { new string[] { this.___guid, "updateBoundingInfo" }, world }
         );
     }
 
     public bool isInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isInFrustum" }, frustumPlanes }
         );
     }
 
     public bool isCompletelyInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isCompletelyInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isCompletelyInFrustum" }, frustumPlanes }
         );
     }
 
@@ -300,11 +242,7 @@ public class SubMesh : BaseSubMesh, ICullable
     {
         return EventHorizonBlazorInterop.FuncClass<SubMesh>(
             entity => new SubMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "render" },
-                enableAlphaMode
-            }
+            new object[] { new string[] { this.___guid, "render" }, enableAlphaMode }
         );
     }
 
@@ -341,12 +279,7 @@ public class SubMesh : BaseSubMesh, ICullable
     {
         return EventHorizonBlazorInterop.FuncClass<SubMesh>(
             entity => new SubMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "clone" },
-                newMesh,
-                newRenderingMesh
-            }
+            new object[] { new string[] { this.___guid, "clone" }, newMesh, newRenderingMesh }
         );
     }
 

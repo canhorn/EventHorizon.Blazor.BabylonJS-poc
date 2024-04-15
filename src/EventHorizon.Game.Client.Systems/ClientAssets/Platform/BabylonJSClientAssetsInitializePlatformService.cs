@@ -2,14 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Model.ConfigTypes;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Register;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Register;
-
 using MediatR;
 
 public class BabylonJSClientAssetsInitializePlatformService : IServiceEntity
@@ -32,16 +30,10 @@ public class BabylonJSClientAssetsInitializePlatformService : IServiceEntity
     private async Task RegisterLoaders()
     {
         await _mediator.Send(
-            new RegisterClientAssetLoaderCommand(
-                "MESH:BOX",
-                new BabylonJSBoxMeshLoader()
-            )
+            new RegisterClientAssetLoaderCommand("MESH:BOX", new BabylonJSBoxMeshLoader())
         );
         await _mediator.Send(
-            new RegisterClientAssetLoaderCommand(
-                "MESH:GLTF",
-                new BabylonJSGLTFMeshLoader()
-            )
+            new RegisterClientAssetLoaderCommand("MESH:GLTF", new BabylonJSGLTFMeshLoader())
         );
         await _mediator.Send(
             new RegisterClientAssetLoaderCommand(
@@ -50,10 +42,7 @@ public class BabylonJSClientAssetsInitializePlatformService : IServiceEntity
             )
         );
         await _mediator.Send(
-            new RegisterClientAssetLoaderCommand(
-                "MESH:SPHERE",
-                new BabylonJSSphereMeshLoader()
-            )
+            new RegisterClientAssetLoaderCommand("MESH:SPHERE", new BabylonJSSphereMeshLoader())
         );
     }
 

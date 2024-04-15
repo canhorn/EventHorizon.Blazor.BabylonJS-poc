@@ -2,31 +2,20 @@
 
 using System;
 using System.Collections.Generic;
-
 using BabylonJS;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Particle.Api;
 using EventHorizon.Game.Client.Engine.Particle.Model;
 using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class BabylonJSParticleSettingsIntoParticleSystemMapper
     : ParticleSettingsIntoParticleSystemMapper
 {
-    private static IList<string> IGNORE_PROPERTY_LIST =>
-        new List<string> { "name", "capacity", };
+    private static IList<string> IGNORE_PROPERTY_LIST => new List<string> { "name", "capacity", };
     private static IList<string> VECTOR3_PROPERTY_LIST =>
-        new List<string>
-        {
-            "minEmitBox",
-            "maxEmitBox",
-            "direction1",
-            "direction2",
-            "gravity",
-        };
+        new List<string> { "minEmitBox", "maxEmitBox", "direction1", "direction2", "gravity", };
     private static IList<string> COLOR4_PROPERTY_LIST =>
         new List<string> { "color1", "color2", "colorDead", };
 
@@ -52,21 +41,15 @@ public class BabylonJSParticleSettingsIntoParticleSystemMapper
                 {
                     if (
                         setting.Value.IsNull()
-                        || (
-                            setting.Value is string textureUrl
-                            && textureUrl.IsNullOrEmpty()
-                        )
+                        || (setting.Value is string textureUrl && textureUrl.IsNullOrEmpty())
                     )
                     {
-                        particleSystem.Value.particleTexture =
-                            CreateMissingTexture();
+                        particleSystem.Value.particleTexture = CreateMissingTexture();
                         continue;
                     }
                     particleSystem.Value.particleTexture = new Texture(
                         null!,
-                        AssetServer.CreateAssetLocationUrl(
-                            setting.Value.To(() => string.Empty)
-                        )
+                        AssetServer.CreateAssetLocationUrl(setting.Value.To(() => string.Empty))
                     );
                     continue;
                 }
@@ -108,39 +91,19 @@ public class BabylonJSParticleSettingsIntoParticleSystemMapper
         catch (Exception ex)
         {
             GameServiceProvider
-                .GetService<
-                    ILogger<BabylonJSParticleSettingsIntoParticleSystemMapper>
-                >()
-                .LogError(
-                    ex,
-                    "Failed to Map Settings into BabylonJS Particle System."
-                );
+                .GetService<ILogger<BabylonJSParticleSettingsIntoParticleSystemMapper>>()
+                .LogError(ex, "Failed to Map Settings into BabylonJS Particle System.");
         }
     }
 
     private static DynamicTexture CreateMissingTexture()
     {
-        var dynamicTexture = new DynamicTexture(
-            null!,
-            new { Width = 32, Height = 32, },
-            true
-        );
-        dynamicTexture.drawText(
-            "X",
-            "24",
-            "white",
-            "red",
-            invertY: true,
-            update: true
-        );
+        var dynamicTexture = new DynamicTexture(null!, new { Width = 32, Height = 32, }, true);
+        dynamicTexture.drawText("X", "24", "white", "red", invertY: true, update: true);
         return dynamicTexture;
     }
 
-    private static void SetPropertyOnParticleSystem(
-        string guid,
-        string property,
-        object value
-    )
+    private static void SetPropertyOnParticleSystem(string guid, string property, object value)
     {
         EventHorizonBlazorInterop.Set(guid, property, value);
     }

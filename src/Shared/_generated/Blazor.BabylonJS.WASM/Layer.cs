@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Layer>))]
@@ -34,10 +32,7 @@ public class Layer : CachedEntityObject
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -72,13 +67,7 @@ public class Layer : CachedEntityObject
 
     public bool isBackground
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isBackground"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isBackground"); }
         set
         {
 
@@ -163,33 +152,17 @@ public class Layer : CachedEntityObject
 
     public decimal alphaBlendingMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alphaBlendingMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alphaBlendingMode"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "alphaBlendingMode",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "alphaBlendingMode", value);
         }
     }
 
     public bool alphaTest
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "alphaTest"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "alphaTest"); }
         set
         {
 
@@ -199,13 +172,7 @@ public class Layer : CachedEntityObject
 
     public decimal layerMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "layerMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "layerMask"); }
         set
         {
 
@@ -222,21 +189,14 @@ public class Layer : CachedEntityObject
                 "renderTargetTextures",
                 (entity) =>
                 {
-                    return new RenderTargetTexture()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new RenderTargetTexture() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderTargetTextures",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderTargetTextures", value);
         }
     }
 
@@ -252,11 +212,7 @@ public class Layer : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderOnlyInRenderTargetTextures",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderOnlyInRenderTargetTextures", value);
         }
     }
 
@@ -267,17 +223,12 @@ public class Layer : CachedEntityObject
         {
             if (__onDisposeObservable == null)
             {
-                __onDisposeObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Layer>
-                >(
+                __onDisposeObservable = EventHorizonBlazorInterop.GetClass<Observable<Layer>>(
                     this.___guid,
                     "onDisposeObservable",
                     (entity) =>
                     {
-                        return new Observable<Layer>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Layer>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -286,11 +237,7 @@ public class Layer : CachedEntityObject
         set
         {
             __onDisposeObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onDisposeObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onDisposeObservable", value);
         }
     }
 
@@ -301,17 +248,12 @@ public class Layer : CachedEntityObject
         {
             if (__onBeforeRenderObservable == null)
             {
-                __onBeforeRenderObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Layer>
-                >(
+                __onBeforeRenderObservable = EventHorizonBlazorInterop.GetClass<Observable<Layer>>(
                     this.___guid,
                     "onBeforeRenderObservable",
                     (entity) =>
                     {
-                        return new Observable<Layer>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Layer>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -320,11 +262,7 @@ public class Layer : CachedEntityObject
         set
         {
             __onBeforeRenderObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onBeforeRenderObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onBeforeRenderObservable", value);
         }
     }
 
@@ -335,17 +273,12 @@ public class Layer : CachedEntityObject
         {
             if (__onAfterRenderObservable == null)
             {
-                __onAfterRenderObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Layer>
-                >(
+                __onAfterRenderObservable = EventHorizonBlazorInterop.GetClass<Observable<Layer>>(
                     this.___guid,
                     "onAfterRenderObservable",
                     (entity) =>
                     {
-                        return new Observable<Layer>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Layer>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -354,11 +287,7 @@ public class Layer : CachedEntityObject
         set
         {
             __onAfterRenderObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAfterRenderObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAfterRenderObservable", value);
         }
     }
     #endregion

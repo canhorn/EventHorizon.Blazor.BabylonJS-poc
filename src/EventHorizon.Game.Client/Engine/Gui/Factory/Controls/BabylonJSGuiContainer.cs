@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using BabylonJS.GUI;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Model;
@@ -85,10 +83,7 @@ public class BabylonJSGuiContainer : IBabylonJSGuiControl
         return containerControl;
     }
 
-    private static IList<string> IGNORE_PROPERTY_LIST = new List<string>
-    {
-        "animation",
-    };
+    private static IList<string> IGNORE_PROPERTY_LIST = new List<string> { "animation", };
 
     private void Update(IGuiControlOptions options, Rectangle buttonControl)
     {
@@ -101,11 +96,7 @@ public class BabylonJSGuiContainer : IBabylonJSGuiControl
         }
     }
 
-    private void SetPropertyOnControl(
-        Control control,
-        string property,
-        object value
-    )
+    private void SetPropertyOnControl(Control control, string property, object value)
     {
         EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }

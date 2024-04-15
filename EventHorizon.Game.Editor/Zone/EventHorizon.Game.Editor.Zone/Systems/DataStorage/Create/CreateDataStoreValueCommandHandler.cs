@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.Systems.DataStorage.Create;
-
 using MediatR;
 
 public class CreateDataStoreValueCommandHandler
@@ -14,9 +12,7 @@ public class CreateDataStoreValueCommandHandler
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public CreateDataStoreValueCommandHandler(
-        ZoneAdminServices zoneAdminServices
-    )
+    public CreateDataStoreValueCommandHandler(ZoneAdminServices zoneAdminServices)
     {
         _zoneAdminServices = zoneAdminServices;
     }

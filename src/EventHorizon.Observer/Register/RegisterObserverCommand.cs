@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Observer.Register;
 
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public class RegisterObserverCommand : IRequest

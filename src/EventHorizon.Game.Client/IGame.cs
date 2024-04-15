@@ -3,16 +3,13 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Unregister;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -87,8 +84,7 @@ public interface IGame
 
 public abstract class GameBase : IGame
 {
-    protected readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    protected readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
 
     public async Task Register(LifecycleEntityBase entity)
     {

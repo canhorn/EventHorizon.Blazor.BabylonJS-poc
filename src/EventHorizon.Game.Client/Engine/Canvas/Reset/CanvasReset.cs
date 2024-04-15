@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct CanvasReset : INotification { }
@@ -21,12 +19,6 @@ public class CanvasResetHandler : INotificationHandler<CanvasReset>
         _observer = observer;
     }
 
-    public Task Handle(
-        CanvasReset notification,
-        CancellationToken cancellationToken
-    ) =>
-        _observer.Trigger<CanvasResetObserver, CanvasReset>(
-            notification,
-            cancellationToken
-        );
+    public Task Handle(CanvasReset notification, CancellationToken cancellationToken) =>
+        _observer.Trigger<CanvasResetObserver, CanvasReset>(notification, cancellationToken);
 }

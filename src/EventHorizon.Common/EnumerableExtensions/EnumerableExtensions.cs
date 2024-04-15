@@ -13,10 +13,7 @@ public static class EnumerableExtensions
     /// <param name="enumerable"></param>
     /// <param name="item"></param>
     /// <returns></returns>
-    public static IEnumerable<T> AddItem<T>(
-        this IEnumerable<T> enumerable,
-        T item
-    )
+    public static IEnumerable<T> AddItem<T>(this IEnumerable<T> enumerable, T item)
     {
         var newList = enumerable.ToList();
         newList.Add(item);
@@ -31,11 +28,7 @@ public static class EnumerableExtensions
     /// <param name="index"></param>
     /// <param name="item"></param>
     /// <returns></returns>
-    public static IEnumerable<T> InsertItem<T>(
-        this IEnumerable<T> enumerable,
-        int index,
-        T item
-    )
+    public static IEnumerable<T> InsertItem<T>(this IEnumerable<T> enumerable, int index, T item)
     {
         var newList = enumerable.ToList();
         newList.Insert(index, item);
@@ -49,10 +42,7 @@ public static class EnumerableExtensions
     /// <param name="enumerable"></param>
     /// <param name="item"></param>
     /// <returns></returns>
-    public static IEnumerable<T> RemoveItem<T>(
-        this IEnumerable<T> enumerable,
-        T item
-    )
+    public static IEnumerable<T> RemoveItem<T>(this IEnumerable<T> enumerable, T item)
     {
         var newList = enumerable.ToList();
         newList.Remove(item);

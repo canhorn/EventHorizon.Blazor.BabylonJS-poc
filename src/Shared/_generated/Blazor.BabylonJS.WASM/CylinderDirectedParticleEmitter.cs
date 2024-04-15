@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<CylinderDirectedParticleEmitter>))]
@@ -131,11 +129,7 @@ public class CylinderDirectedParticleEmitter : CylinderParticleEmitter
     public CylinderDirectedParticleEmitter clone()
     {
         return EventHorizonBlazorInterop.FuncClass<CylinderDirectedParticleEmitter>(
-            entity =>
-                new CylinderDirectedParticleEmitter()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new CylinderDirectedParticleEmitter() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "clone" } }
         );
     }
@@ -143,11 +137,7 @@ public class CylinderDirectedParticleEmitter : CylinderParticleEmitter
     public void applyToShader(Effect effect)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "applyToShader" },
-                effect
-            }
+            new object[] { new string[] { this.___guid, "applyToShader" }, effect }
         );
     }
 
@@ -175,11 +165,7 @@ public class CylinderDirectedParticleEmitter : CylinderParticleEmitter
     public void parse(object serializationObject)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "parse" },
-                serializationObject
-            }
+            new object[] { new string[] { this.___guid, "parse" }, serializationObject }
         );
     }
     #endregion

@@ -2,7 +2,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.Services.Model;
 using EventHorizon.Game.Editor.Zone.Systems.ArtifactManagement.Model;
 

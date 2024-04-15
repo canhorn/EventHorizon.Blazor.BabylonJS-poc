@@ -2,7 +2,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Authentication.Query;
 using EventHorizon.Game.Editor.Client.Zone.Api;
@@ -12,7 +11,6 @@ using EventHorizon.Game.Editor.Zone.Editor.Services.Query;
 using EventHorizon.Game.Editor.Zone.Services.Connect;
 using EventHorizon.Game.Editor.Zone.Services.Query;
 using EventHorizon.Zone.System.Server.Scripts.Query;
-
 using MediatR;
 
 public class GetZoneStateCommandHandler
@@ -52,16 +50,11 @@ public class GetZoneStateCommandHandler
         );
         if (!connectionStartResult.Success)
         {
-            return new CommandResult<ZoneState>(
-                connectionStartResult.ErrorCode
-            );
+            return new CommandResult<ZoneState>(connectionStartResult.ErrorCode);
         }
 
         // Get the Current ZoneInfo
-        var zoneInfoResult = await _mediator.Send(
-            new QueryForZoneInfo(),
-            cancellationToken
-        );
+        var zoneInfoResult = await _mediator.Send(new QueryForZoneInfo(), cancellationToken);
         if (!zoneInfoResult.Success)
         {
             return new CommandResult<ZoneState>(zoneInfoResult.ErrorCode);
@@ -70,10 +63,7 @@ public class GetZoneStateCommandHandler
 
         // Start Connection to ZoneEditor Server for ZoneCoreDetails
         var editorResult = await _mediator.Send(
-            new StartConnectionToZoneEditorServerCommand(
-                accessToken,
-                zoneDetails
-            ),
+            new StartConnectionToZoneEditorServerCommand(accessToken, zoneDetails),
             cancellationToken
         );
         if (!editorResult.Success)

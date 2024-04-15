@@ -4,10 +4,7 @@ using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 
 public abstract class ServerLifecycleEntityBase : LifecycleEntityBase
 {
-    public ServerLifecycleEntityBase(
-        long clientId,
-        IObjectEntityDetails details
-    )
+    public ServerLifecycleEntityBase(long clientId, IObjectEntityDetails details)
         : base(clientId, details) { }
 
     public ServerLifecycleEntityBase(IObjectEntityDetails details)

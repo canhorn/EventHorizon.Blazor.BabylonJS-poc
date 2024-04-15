@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.ApplicationDetails.Component.State;
 
 using System;
-
 using EventHorizon.ApplicationDetails.Component.Api;
 
 public class StandardApplicationDetailsState : ApplicationDetailsState

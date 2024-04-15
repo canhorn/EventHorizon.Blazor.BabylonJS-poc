@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Entity.Api;
 
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Entity.Model;
 
 public static class BabylonJSVector3Extensions

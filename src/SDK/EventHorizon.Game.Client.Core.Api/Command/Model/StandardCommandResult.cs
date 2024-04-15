@@ -2,8 +2,7 @@
 
 using System;
 
-public class StandardCommandResult
-    : CommandResult<StandardCommandResult.EmptyResult>
+public class StandardCommandResult : CommandResult<StandardCommandResult.EmptyResult>
 {
     public StandardCommandResult()
         : base(new EmptyResult()) { }
@@ -13,6 +12,5 @@ public class StandardCommandResult
 
     public class EmptyResult { }
 
-    public static implicit operator StandardCommandResult(string errorCode) =>
-        new(errorCode);
+    public static implicit operator StandardCommandResult(string errorCode) => new(errorCode);
 }

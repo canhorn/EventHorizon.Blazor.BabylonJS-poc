@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Input.Trigger;
 
 using EventHorizon.Game.Client.Engine.Input.Model;
-
 using MediatR;
 
 public struct TriggerInputCommand : IRequest

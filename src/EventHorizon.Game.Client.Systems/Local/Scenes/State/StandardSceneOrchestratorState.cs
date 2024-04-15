@@ -3,20 +3,17 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Disposed;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
 using EventHorizon.Game.Client.Systems.Local.Scenes.Api;
 using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
-
 using MediatR;
 
 public class StandardSceneOrchestratorState : ISceneOrchestratorState
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
     private readonly IDictionary<string, Func<GameSceneBase>> _scenes =
         new Dictionary<string, Func<GameSceneBase>>();
 
@@ -31,10 +28,7 @@ public class StandardSceneOrchestratorState : ISceneOrchestratorState
         _scenes.Clear();
     }
 
-    public void Setup(
-        string defaultSceneId,
-        IDictionary<string, Func<GameSceneBase>> scenes
-    )
+    public void Setup(string defaultSceneId, IDictionary<string, Func<GameSceneBase>> scenes)
     {
         // Validate that Scenes contains the default
         if (!scenes.ContainsKey(defaultSceneId))

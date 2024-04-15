@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Query.Model;
 using EventHorizon.Game.Client.Systems.Player.Api;
-
 using MediatR;
 
 public class QueryForCurrentPlayerHandler
@@ -29,8 +27,6 @@ public class QueryForCurrentPlayerHandler
         {
             return new QueryResult<IPlayerEntity>(player.Value).FromResult();
         }
-        return new QueryResult<IPlayerEntity>(
-            "current_player_not_found"
-        ).FromResult();
+        return new QueryResult<IPlayerEntity>("current_player_not_found").FromResult();
     }
 }

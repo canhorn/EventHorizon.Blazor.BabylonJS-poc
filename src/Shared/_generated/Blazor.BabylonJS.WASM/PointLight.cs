@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<PointLight>))]
@@ -30,13 +28,7 @@ public class PointLight : ShadowLight
 
     public decimal shadowAngle
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "shadowAngle"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "shadowAngle"); }
         set
         {
 
@@ -120,11 +112,7 @@ public class PointLight : ShadowLight
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getShadowDirection" },
-                faceIndex
-            }
+            new object[] { new string[] { this.___guid, "getShadowDirection" }, faceIndex }
         );
     }
 
@@ -132,19 +120,11 @@ public class PointLight : ShadowLight
     {
         return EventHorizonBlazorInterop.FuncClass<PointLight>(
             entity => new PointLight() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "transferToEffect" },
-                effect,
-                lightIndex
-            }
+            new object[] { new string[] { this.___guid, "transferToEffect" }, effect, lightIndex }
         );
     }
 
-    public PointLight transferToNodeMaterialEffect(
-        Effect effect,
-        string lightDataUniformName
-    )
+    public PointLight transferToNodeMaterialEffect(Effect effect, string lightDataUniformName)
     {
         return EventHorizonBlazorInterop.FuncClass<PointLight>(
             entity => new PointLight() { ___guid = entity.___guid },

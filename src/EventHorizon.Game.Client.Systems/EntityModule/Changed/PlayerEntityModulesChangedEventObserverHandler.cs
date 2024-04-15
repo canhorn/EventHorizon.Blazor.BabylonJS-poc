@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class PlayerEntityModulesChangedEventObserverHandler
@@ -12,9 +10,7 @@ public class PlayerEntityModulesChangedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public PlayerEntityModulesChangedEventObserverHandler(
-        ObserverState observer
-    )
+    public PlayerEntityModulesChangedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -23,8 +19,8 @@ public class PlayerEntityModulesChangedEventObserverHandler
         PlayerEntityModulesChangedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            PlayerEntityModulesChangedEventObserver,
-            PlayerEntityModulesChangedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<PlayerEntityModulesChangedEventObserver, PlayerEntityModulesChangedEvent>(
+            notification,
+            cancellationToken
+        );
 }

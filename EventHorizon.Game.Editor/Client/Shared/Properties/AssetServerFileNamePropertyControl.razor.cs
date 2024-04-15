@@ -3,13 +3,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
 using EventHorizon.Game.Server.Asset.Query;
-
 using Microsoft.AspNetCore.Components;
 
 public class AssetServerFileNamePropertyControlModel : PropertyControlBase
@@ -52,26 +50,21 @@ public class AssetServerFileNamePropertyControlModel : PropertyControlBase
             return;
         }
 
-        var options = result.Result.FileList
-            .GroupBy(a => a.Name)
+        var options = result
+            .Result.FileList.GroupBy(a => a.Name)
             .Select(a => a.First())
-            .Select(
-                clientAsset =>
-                    new StandardSelectOption
-                    {
-                        Value = clientAsset.Name,
-                        Text = clientAsset.Name,
-                    }
-            )
+            .Select(clientAsset => new StandardSelectOption
+            {
+                Value = clientAsset.Name,
+                Text = clientAsset.Name,
+            })
             .OrderBy(a => a.Text)
             .InsertItem(
                 0,
                 new StandardSelectOption
                 {
                     Value = "none",
-                    Text = Localizer[
-                        "Select an File Name from Asset Server..."
-                    ],
+                    Text = Localizer["Select an File Name from Asset Server..."],
                     Disabled = true,
                     Hidden = true,
                 }
@@ -86,9 +79,7 @@ public class AssetServerFileNamePropertyControlModel : PropertyControlBase
     {
         if (AssetOptions.Exists(a => a.Value == AssetServerFullName))
         {
-            SelectedAssetOption = AssetOptions.First(
-                a => a.Value == AssetServerFullName
-            );
+            SelectedAssetOption = AssetOptions.First(a => a.Value == AssetServerFullName);
         }
         else
         {

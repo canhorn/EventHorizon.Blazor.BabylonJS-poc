@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Map.Model;
 
 using BabylonJS;
-
 using EventHorizon.Game.Client.Systems.Height.Api;
 
 public class BabylonJSHeightCoordinates : IHeightCoordinates

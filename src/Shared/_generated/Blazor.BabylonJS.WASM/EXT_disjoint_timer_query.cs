@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface EXT_disjoint_timer_query : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<EXT_disjoint_timer_queryCachedEntity>)
-)]
-public class EXT_disjoint_timer_queryCachedEntity
-    : CachedEntityObject,
-        EXT_disjoint_timer_query
+[JsonConverter(typeof(CachedEntityConverter<EXT_disjoint_timer_queryCachedEntity>))]
+public class EXT_disjoint_timer_queryCachedEntity : CachedEntityObject, EXT_disjoint_timer_query
 {
     #region Static Accessors
 
@@ -42,51 +36,28 @@ public class EXT_disjoint_timer_queryCachedEntity
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "QUERY_COUNTER_BITS_EXT"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "QUERY_COUNTER_BITS_EXT");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "QUERY_COUNTER_BITS_EXT",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "QUERY_COUNTER_BITS_EXT", value);
         }
     }
 
     public decimal TIME_ELAPSED_EXT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "TIME_ELAPSED_EXT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "TIME_ELAPSED_EXT"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "TIME_ELAPSED_EXT",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "TIME_ELAPSED_EXT", value);
         }
     }
 
     public decimal TIMESTAMP_EXT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "TIMESTAMP_EXT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "TIMESTAMP_EXT"); }
         set
         {
 
@@ -96,41 +67,21 @@ public class EXT_disjoint_timer_queryCachedEntity
 
     public decimal GPU_DISJOINT_EXT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "GPU_DISJOINT_EXT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "GPU_DISJOINT_EXT"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "GPU_DISJOINT_EXT",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "GPU_DISJOINT_EXT", value);
         }
     }
 
     public decimal QUERY_RESULT_EXT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "QUERY_RESULT_EXT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "QUERY_RESULT_EXT"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "QUERY_RESULT_EXT",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "QUERY_RESULT_EXT", value);
         }
     }
 
@@ -146,11 +97,7 @@ public class EXT_disjoint_timer_queryCachedEntity
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "QUERY_RESULT_AVAILABLE_EXT",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "QUERY_RESULT_AVAILABLE_EXT", value);
         }
     }
     #endregion
@@ -168,12 +115,7 @@ public class EXT_disjoint_timer_queryCachedEntity
     public void queryCounterEXT(WebGLQuery query, decimal target)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "queryCounterEXT" },
-                query,
-                target
-            }
+            new object[] { new string[] { this.___guid, "queryCounterEXT" }, query, target }
         );
     }
 
@@ -188,46 +130,28 @@ public class EXT_disjoint_timer_queryCachedEntity
     public void beginQueryEXT(decimal target, WebGLQuery query)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "beginQueryEXT" },
-                target,
-                query
-            }
+            new object[] { new string[] { this.___guid, "beginQueryEXT" }, target, query }
         );
     }
 
     public void endQueryEXT(decimal target)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "endQueryEXT" },
-                target
-            }
+            new object[] { new string[] { this.___guid, "endQueryEXT" }, target }
         );
     }
 
     public CachedEntity getQueryObjectEXT(WebGLQuery query, decimal target)
     {
         return EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getQueryObjectEXT" },
-                query,
-                target
-            }
+            new object[] { new string[] { this.___guid, "getQueryObjectEXT" }, query, target }
         );
     }
 
     public void deleteQueryEXT(WebGLQuery query)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "deleteQueryEXT" },
-                query
-            }
+            new object[] { new string[] { this.___guid, "deleteQueryEXT" }, query }
         );
     }
     #endregion

@@ -2,27 +2,20 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Server.Asset.Api;
 using EventHorizon.Game.Server.Asset.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
-public class SignalrAssetServerFileManagementAdminApi
-    : AssetServerFileManagementAdminApi
+public class SignalrAssetServerFileManagementAdminApi : AssetServerFileManagementAdminApi
 {
     private readonly HubConnection? _hubConnection;
 
-    internal SignalrAssetServerFileManagementAdminApi(
-        HubConnection? hubConnection
-    )
+    internal SignalrAssetServerFileManagementAdminApi(HubConnection? hubConnection)
     {
         _hubConnection = hubConnection;
     }
 
-    public async Task<ApiResponse<FileManagementAssets>> Assets(
-        CancellationToken cancellationToken
-    )
+    public async Task<ApiResponse<FileManagementAssets>> Assets(CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -33,8 +26,9 @@ public class SignalrAssetServerFileManagementAdminApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<
-            ApiResponse<FileManagementAssets>
-        >("FileManagement_Assets", cancellationToken: cancellationToken);
+        return await _hubConnection.InvokeAsync<ApiResponse<FileManagementAssets>>(
+            "FileManagement_Assets",
+            cancellationToken: cancellationToken
+        );
     }
 }

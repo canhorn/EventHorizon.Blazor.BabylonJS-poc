@@ -2,23 +2,16 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
-
 using MediatR;
 
 public class StartConnectionToZoneEditorServerCommandHandler
-    : IRequestHandler<
-        StartConnectionToZoneEditorServerCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<StartConnectionToZoneEditorServerCommand, StandardCommandResult>
 {
     private readonly ZoneEditorServices _zoneEditorServices;
 
-    public StartConnectionToZoneEditorServerCommandHandler(
-        ZoneEditorServices zoneEditorServices
-    )
+    public StartConnectionToZoneEditorServerCommandHandler(ZoneEditorServices zoneEditorServices)
     {
         _zoneEditorServices = zoneEditorServices;
     }

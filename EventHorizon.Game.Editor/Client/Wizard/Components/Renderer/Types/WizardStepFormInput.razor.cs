@@ -17,12 +17,10 @@ using static EventHorizon.Game.Editor.Client.Shared.Properties.InputKeyMapContro
 
 public class WizardStepFormInputBase : WizardStepCommonBase
 {
-    public Dictionary<string, string> PropertyLabelMap { get; private set; } =
-        [];
+    public Dictionary<string, string> PropertyLabelMap { get; private set; } = [];
     public Dictionary<string, int> PropertySortMap { get; private set; } = [];
     public Dictionary<string, object> PropertiesData { get; private set; } = [];
-    public PropertiesMetadataModel PropertiesMetadata { get; private set; } =
-        [];
+    public PropertiesMetadataModel PropertiesMetadata { get; private set; } = [];
 
     protected override void OnInitializing()
     {
@@ -35,10 +33,7 @@ public class WizardStepFormInputBase : WizardStepCommonBase
         {
             var propertyKey = property.Key.Replace("property:", string.Empty);
             PropertiesMetadata[propertyKey] = property.Value;
-            PropertiesData[propertyKey] = ParseDataValue(
-                propertyKey,
-                property.Value
-            );
+            PropertiesData[propertyKey] = ParseDataValue(propertyKey, property.Value);
             PropertyLabelMap[propertyKey] = GetLabel(propertyKey);
             PropertySortMap[propertyKey] = GetSortValue(propertyKey);
             Data[property.Key] = property.Value;
@@ -58,10 +53,7 @@ public class WizardStepFormInputBase : WizardStepCommonBase
 
     private int GetSortValue(string propertyKey)
     {
-        return int.TryParse(
-            Step.Details[$"property:{propertyKey}:sort"],
-            out var sortValue
-        )
+        return int.TryParse(Step.Details[$"property:{propertyKey}:sort"], out var sortValue)
             ? sortValue
             : 0;
     }
@@ -94,11 +86,7 @@ public class WizardStepFormInputBase : WizardStepCommonBase
                 Mediator.Publish(
                     new ShowMessageEvent(
                         Localizer["Wizard Input Form Issue"],
-                        Localizer[
-                            "'{0}' is an invalid Property Type used for {1}.",
-                            keyType,
-                            key
-                        ],
+                        Localizer["'{0}' is an invalid Property Type used for {1}.", keyType, key],
                         MessageLevel.Warning
                     )
                 );
@@ -125,28 +113,16 @@ public class WizardStepFormInputBase : WizardStepCommonBase
             {
                 Key = data[$"{parentKey}:{key}:key"],
                 Type = data[$"{parentKey}:{key}:type"],
-                Camera = data.TryGetValue(
-                    $"{parentKey}:{key}:camera",
-                    out var camera
-                )
+                Camera = data.TryGetValue($"{parentKey}:{key}:camera", out var camera)
                     ? camera
                     : null,
-                Pressed = data.TryGetValue(
-                    $"{parentKey}:{key}:pressed",
-                    out var pressed
-                )
+                Pressed = data.TryGetValue($"{parentKey}:{key}:pressed", out var pressed)
                     ? Enum.TryParse<MoveDirection>(pressed, out var pressedEnum)
                         ? pressedEnum
                         : null
                     : null,
-                Released = data.TryGetValue(
-                    $"{parentKey}:{key}:released",
-                    out var released
-                )
-                    ? Enum.TryParse<MoveDirection>(
-                        released,
-                        out var releasedEnum
-                    )
+                Released = data.TryGetValue($"{parentKey}:{key}:released", out var released)
+                    ? Enum.TryParse<MoveDirection>(released, out var releasedEnum)
                         ? releasedEnum
                         : null
                     : null,
@@ -154,10 +130,7 @@ public class WizardStepFormInputBase : WizardStepCommonBase
             inputKeyMap[key] = keyInput;
         }
 
-        return JsonSerializer.Serialize(
-            inputKeyMap,
-            JsonExtensions.DEFAULT_OPTIONS
-        );
+        return JsonSerializer.Serialize(inputKeyMap, JsonExtensions.DEFAULT_OPTIONS);
     }
 
     public static object GetDefaultProperty(string propertyType)
@@ -191,8 +164,7 @@ public class WizardStepFormInputBase : WizardStepCommonBase
         }
         else
         {
-            Data[propertyKey] =
-                PropertiesData[propertyKey]?.ToString() ?? string.Empty;
+            Data[propertyKey] = PropertiesData[propertyKey]?.ToString() ?? string.Empty;
         }
 
         return Task.CompletedTask;
@@ -214,13 +186,11 @@ public class WizardStepFormInputBase : WizardStepCommonBase
             }
             if (control.Pressed.HasValue)
             {
-                data[$"{propertyKey}:{key}:pressed"] =
-                    ((int?)control.Pressed).ToString() ?? "0";
+                data[$"{propertyKey}:{key}:pressed"] = ((int?)control.Pressed).ToString() ?? "0";
             }
             if (control.Released.HasValue)
             {
-                data[$"{propertyKey}:{key}:released"] =
-                    ((int?)control.Released).ToString() ?? "0";
+                data[$"{propertyKey}:{key}:released"] = ((int?)control.Released).ToString() ?? "0";
             }
         }
 
@@ -231,17 +201,12 @@ public class WizardStepFormInputBase : WizardStepCommonBase
         var keysToRemove = data
             .Keys.Where(a =>
                 a.StartsWith($"{propertyKey}:")
-                && a.Split(":", StringSplitOptions.RemoveEmptyEntries).Length
-                    > 2
+                && a.Split(":", StringSplitOptions.RemoveEmptyEntries).Length > 2
                 && !inputKeyMap.ContainsKey(
-                    a.Split(":", StringSplitOptions.RemoveEmptyEntries)
-                        .Skip(2)
-                        .First()
+                    a.Split(":", StringSplitOptions.RemoveEmptyEntries).Skip(2).First()
                 )
             )
-            .Select(a =>
-                a.Split(":", StringSplitOptions.RemoveEmptyEntries).Take(3)
-            )
+            .Select(a => a.Split(":", StringSplitOptions.RemoveEmptyEntries).Take(3))
             .Select(a => string.Join(":", a))
             .ToList();
 
@@ -257,15 +222,11 @@ public class WizardStepFormInputBase : WizardStepCommonBase
         return data;
     }
 
-    public class PropertiesMetadataModel
-        : Dictionary<string, string>,
-            PropertiesMetadata
+    public class PropertiesMetadataModel : Dictionary<string, string>, PropertiesMetadata
     {
         public string GetPropertyType(string key, object _)
         {
-            return TryGetValue(key, out var value)
-                ? value
-                : PropertyType.String;
+            return TryGetValue(key, out var value) ? value : PropertyType.String;
         }
 
         public object GetDefaultValueForPropertyType(string propertyType)

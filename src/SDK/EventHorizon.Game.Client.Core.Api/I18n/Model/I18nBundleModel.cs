@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.I18n.Api;
 
 public class I18nBundleModel : Dictionary<string, string>, II18nBundle

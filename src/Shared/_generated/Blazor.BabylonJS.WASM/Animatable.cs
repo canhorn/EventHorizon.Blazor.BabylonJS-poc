@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Animatable>))]
@@ -49,24 +47,12 @@ public class Animatable : CachedEntityObject
 
     public decimal masterFrame
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "masterFrame"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "masterFrame"); }
     }
 
     public decimal weight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "weight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "weight"); }
         set
         {
 
@@ -76,13 +62,7 @@ public class Animatable : CachedEntityObject
 
     public decimal speedRatio
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "speedRatio"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "speedRatio"); }
         set
         {
 
@@ -95,13 +75,7 @@ public class Animatable : CachedEntityObject
 
     public CachedEntity target
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "target"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "target"); }
         set
         {
 
@@ -111,13 +85,7 @@ public class Animatable : CachedEntityObject
 
     public decimal fromFrame
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "fromFrame"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "fromFrame"); }
         set
         {
 
@@ -127,13 +95,7 @@ public class Animatable : CachedEntityObject
 
     public decimal toFrame
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "toFrame"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "toFrame"); }
         set
         {
 
@@ -143,13 +105,7 @@ public class Animatable : CachedEntityObject
 
     public bool loopAnimation
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "loopAnimation"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "loopAnimation"); }
         set
         {
 
@@ -159,13 +115,7 @@ public class Animatable : CachedEntityObject
 
     public bool disposeOnEnd
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "disposeOnEnd"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "disposeOnEnd"); }
         set
         {
 
@@ -175,21 +125,11 @@ public class Animatable : CachedEntityObject
 
     public bool animationStarted
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "animationStarted"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "animationStarted"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "animationStarted",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "animationStarted", value);
         }
     }
 
@@ -207,10 +147,7 @@ public class Animatable : CachedEntityObject
                     "onAnimationEndObservable",
                     (entity) =>
                     {
-                        return new Observable<Animatable>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Animatable>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -219,11 +156,7 @@ public class Animatable : CachedEntityObject
         set
         {
             __onAnimationEndObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAnimationEndObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAnimationEndObservable", value);
         }
     }
 
@@ -234,29 +167,23 @@ public class Animatable : CachedEntityObject
         {
             if (__onAnimationLoopObservable == null)
             {
-                __onAnimationLoopObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Animatable>>(
-                        this.___guid,
-                        "onAnimationLoopObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Animatable>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAnimationLoopObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Animatable>
+                >(
+                    this.___guid,
+                    "onAnimationLoopObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Animatable>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAnimationLoopObservable;
         }
         set
         {
             __onAnimationLoopObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAnimationLoopObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAnimationLoopObservable", value);
         }
     }
     #endregion
@@ -409,12 +336,7 @@ public class Animatable : CachedEntityObject
     public void appendAnimations(object target, Animation[] animations)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "appendAnimations" },
-                target,
-                animations
-            }
+            new object[] { new string[] { this.___guid, "appendAnimations" }, target, animations }
         );
     }
 
@@ -422,11 +344,7 @@ public class Animatable : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Animation>(
             entity => new Animation() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAnimationByTargetProperty" },
-                property
-            }
+            new object[] { new string[] { this.___guid, "getAnimationByTargetProperty" }, property }
         );
     }
 
@@ -436,11 +354,7 @@ public class Animatable : CachedEntityObject
             entity => new RuntimeAnimation() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "getRuntimeAnimationByTargetProperty"
-                },
+                new string[] { this.___guid, "getRuntimeAnimationByTargetProperty" },
                 property
             }
         );
@@ -456,11 +370,7 @@ public class Animatable : CachedEntityObject
     public void enableBlending(decimal blendingSpeed)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "enableBlending" },
-                blendingSpeed
-            }
+            new object[] { new string[] { this.___guid, "enableBlending" }, blendingSpeed }
         );
     }
 
@@ -492,18 +402,10 @@ public class Animatable : CachedEntityObject
         );
     }
 
-    public void stop(
-        string animationName = null,
-        ActionCallback<object> targetMask = null
-    )
+    public void stop(string animationName = null, ActionCallback<object> targetMask = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "stop" },
-                animationName,
-                targetMask
-            }
+            new object[] { new string[] { this.___guid, "stop" }, animationName, targetMask }
         );
     }
 

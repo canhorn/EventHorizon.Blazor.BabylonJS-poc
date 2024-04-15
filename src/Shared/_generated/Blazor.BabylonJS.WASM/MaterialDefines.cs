@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<MaterialDefines>))]
@@ -30,10 +28,7 @@ public class MaterialDefines : CachedEntityObject
 
     public bool isDirty
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty"); }
     }
     #endregion
 
@@ -78,41 +73,28 @@ public class MaterialDefines : CachedEntityObject
     public void markAsImageProcessingDirty()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "markAsImageProcessingDirty" }
-            }
+            new object[] { new string[] { this.___guid, "markAsImageProcessingDirty" } }
         );
     }
 
     public void markAsLightDirty(System.Nullable<bool> disposed = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "markAsLightDirty" },
-                disposed
-            }
+            new object[] { new string[] { this.___guid, "markAsLightDirty" }, disposed }
         );
     }
 
     public void markAsAttributesDirty()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "markAsAttributesDirty" }
-            }
+            new object[] { new string[] { this.___guid, "markAsAttributesDirty" } }
         );
     }
 
     public void markAsTexturesDirty()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "markAsTexturesDirty" }
-            }
+            new object[] { new string[] { this.___guid, "markAsTexturesDirty" } }
         );
     }
 

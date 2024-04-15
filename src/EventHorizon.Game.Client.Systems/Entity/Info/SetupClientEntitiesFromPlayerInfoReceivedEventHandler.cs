@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Register;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaded;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
-
 using MediatR;
 
 public class SetupClientEntitiesFromPlayerInfoReceivedEventHandler
@@ -14,9 +12,7 @@ public class SetupClientEntitiesFromPlayerInfoReceivedEventHandler
 {
     private readonly IMediator _mediator;
 
-    public SetupClientEntitiesFromPlayerInfoReceivedEventHandler(
-        IMediator mediator
-    )
+    public SetupClientEntitiesFromPlayerInfoReceivedEventHandler(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -26,16 +22,9 @@ public class SetupClientEntitiesFromPlayerInfoReceivedEventHandler
         CancellationToken cancellationToken
     )
     {
-        foreach (
-            var clientEntityDetails in notification
-                .PlayerZoneInfo
-                .ClientEntityList
-        )
+        foreach (var clientEntityDetails in notification.PlayerZoneInfo.ClientEntityList)
         {
-            await _mediator.Send(
-                new RegisterClientEntity(clientEntityDetails),
-                cancellationToken
-            );
+            await _mediator.Send(new RegisterClientEntity(clientEntityDetails), cancellationToken);
         }
     }
 }

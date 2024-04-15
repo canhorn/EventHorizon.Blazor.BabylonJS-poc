@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<IntersectionInfo>))]
@@ -34,10 +32,7 @@ public class IntersectionInfo : CachedEntityObject
 
     public decimal bu
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bu");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bu"); }
         set
         {
 
@@ -47,10 +42,7 @@ public class IntersectionInfo : CachedEntityObject
 
     public decimal bv
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bv");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "bv"); }
         set
         {
 
@@ -60,13 +52,7 @@ public class IntersectionInfo : CachedEntityObject
 
     public decimal distance
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "distance"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "distance"); }
         set
         {
 
@@ -76,13 +62,7 @@ public class IntersectionInfo : CachedEntityObject
 
     public decimal faceId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "faceId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "faceId"); }
         set
         {
 
@@ -92,13 +72,7 @@ public class IntersectionInfo : CachedEntityObject
 
     public decimal subMeshId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "subMeshId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "subMeshId"); }
         set
         {
 

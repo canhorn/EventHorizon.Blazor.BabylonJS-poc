@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<MorphTargetManager>))]
@@ -23,10 +21,7 @@ public class MorphTargetManager : CachedEntityObject
     #endregion
 
     #region Static Methods
-    public static MorphTargetManager Parse(
-        object serializationObject,
-        Scene scene
-    )
+    public static MorphTargetManager Parse(object serializationObject, Scene scene)
     {
         return EventHorizonBlazorInterop.FuncClass<MorphTargetManager>(
             entity => new MorphTargetManager() { ___guid = entity.___guid },
@@ -44,90 +39,42 @@ public class MorphTargetManager : CachedEntityObject
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
     }
 
     public decimal vertexCount
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vertexCount"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vertexCount"); }
     }
 
     public bool supportsNormals
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "supportsNormals"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "supportsNormals"); }
     }
 
     public bool supportsTangents
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "supportsTangents"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "supportsTangents"); }
     }
 
     public bool supportsUVs
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "supportsUVs"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "supportsUVs"); }
     }
 
     public decimal numTargets
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "numTargets"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "numTargets"); }
     }
 
     public decimal numInfluencers
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "numInfluencers"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "numInfluencers"); }
     }
 
     public decimal[] influences
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "influences"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "influences"); }
     }
     #endregion
 
@@ -135,61 +82,31 @@ public class MorphTargetManager : CachedEntityObject
 
     public bool enableNormalMorphing
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enableNormalMorphing"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enableNormalMorphing"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enableNormalMorphing",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enableNormalMorphing", value);
         }
     }
 
     public bool enableTangentMorphing
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enableTangentMorphing"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enableTangentMorphing"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enableTangentMorphing",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enableTangentMorphing", value);
         }
     }
 
     public bool enableUVMorphing
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enableUVMorphing"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enableUVMorphing"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enableUVMorphing",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enableUVMorphing", value);
         }
     }
     #endregion
@@ -219,11 +136,7 @@ public class MorphTargetManager : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<MorphTarget>(
             entity => new MorphTarget() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getActiveTarget" },
-                index
-            }
+            new object[] { new string[] { this.___guid, "getActiveTarget" }, index }
         );
     }
 
@@ -245,11 +158,7 @@ public class MorphTargetManager : CachedEntityObject
     public void removeTarget(MorphTarget target)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "removeTarget" },
-                target
-            }
+            new object[] { new string[] { this.___guid, "removeTarget" }, target }
         );
     }
 

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Load;
 
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
 
 public struct LoadAssetServerFilterPathCommand : IRequest<StandardCommandResult>

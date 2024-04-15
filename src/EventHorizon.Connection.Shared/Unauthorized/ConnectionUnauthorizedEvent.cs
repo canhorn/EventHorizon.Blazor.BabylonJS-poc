@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Connection.Shared.Unauthorized;
 
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public struct ConnectionUnauthorizedEvent : INotification

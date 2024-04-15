@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<BoundingSphere>))]
@@ -23,10 +21,7 @@ public class BoundingSphere : CachedEntityObject
     #endregion
 
     #region Static Methods
-    public static bool Intersects(
-        BoundingSphere sphere0,
-        BoundingSphere sphere1
-    )
+    public static bool Intersects(BoundingSphere sphere0, BoundingSphere sphere1)
     {
         return EventHorizonBlazorInterop.Func<bool>(
             new object[]
@@ -66,13 +61,7 @@ public class BoundingSphere : CachedEntityObject
 
     public decimal radius
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "radius"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "radius"); }
         set
         {
 
@@ -102,13 +91,7 @@ public class BoundingSphere : CachedEntityObject
 
     public decimal radiusWorld
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "radiusWorld"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "radiusWorld"); }
         set
         {
 
@@ -183,13 +166,7 @@ public class BoundingSphere : CachedEntityObject
     public void reConstruct(Vector3 min, Vector3 max, Matrix worldMatrix = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "reConstruct" },
-                min,
-                max,
-                worldMatrix
-            }
+            new object[] { new string[] { this.___guid, "reConstruct" }, min, max, worldMatrix }
         );
     }
 
@@ -212,33 +189,21 @@ public class BoundingSphere : CachedEntityObject
     public bool isInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isInFrustum" }, frustumPlanes }
         );
     }
 
     public bool isCenterInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isCenterInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isCenterInFrustum" }, frustumPlanes }
         );
     }
 
     public bool intersectsPoint(Vector3 point)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsPoint" },
-                point
-            }
+            new object[] { new string[] { this.___guid, "intersectsPoint" }, point }
         );
     }
     #endregion

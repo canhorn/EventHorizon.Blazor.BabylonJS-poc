@@ -23,27 +23,20 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
     [Parameter]
     public EventCallback OnCancel { get; set; }
 
-    protected ComponentState MessageState { get; private set; } =
-        ComponentState.Loading;
+    protected ComponentState MessageState { get; private set; } = ComponentState.Loading;
     protected string Message { get; private set; } = string.Empty;
 
     #region Client Asset Edit Fields
     protected string AssetName { get; set; } = string.Empty;
-    protected StandardSelectOption AssetTypeOption { get; private set; } =
-        new();
-    protected IDictionary<string, object> TypeData { get; set; } =
-        new Dictionary<string, object>();
+    protected StandardSelectOption AssetTypeOption { get; private set; } = new();
+    protected IDictionary<string, object> TypeData { get; set; } = new Dictionary<string, object>();
     #endregion
 
     #region Edit Field Data
     protected List<StandardSelectOption> AssetTypeOptions { get; set; } = new();
-    protected ComponentState TypeDataState { get; private set; } =
-        ComponentState.Loading;
-    protected ClientAssetPropertiesMetadata TypePropertiesMetadata
-    {
-        get;
-        private set;
-    } = new ClientAssetPropertiesMetadata();
+    protected ComponentState TypeDataState { get; private set; } = ComponentState.Loading;
+    protected ClientAssetPropertiesMetadata TypePropertiesMetadata { get; private set; } =
+        new ClientAssetPropertiesMetadata();
     #endregion
 
     private IEnumerable<ClientAssetTypeDetails> _clientAssetTypeDetails =
@@ -108,14 +101,11 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
     {
         AssetName = Model.Name;
         AssetTypeOption =
-            AssetTypeOptions.FirstOrDefault(a => a.Value == Model.Type)
-            ?? AssetTypeOptions.First();
+            AssetTypeOptions.FirstOrDefault(a => a.Value == Model.Type) ?? AssetTypeOptions.First();
 
         SetDataValue(
             new Dictionary<string, object>(
-                Model.Data.Where(
-                    ClientAssetPropertiesMetadata.FilterOutMetadata
-                )
+                Model.Data.Where(ClientAssetPropertiesMetadata.FilterOutMetadata)
             )
         );
     }
@@ -131,9 +121,7 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
     {
         MessageState = ComponentState.Loading;
 
-        var result = await Mediator.Send(
-            new QueryForAllClientAssetTypeDetails()
-        );
+        var result = await Mediator.Send(new QueryForAllClientAssetTypeDetails());
         if (!result)
         {
             return;
@@ -141,14 +129,11 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
 
         _clientAssetTypeDetails = result.Result;
         AssetTypeOptions = result
-            .Result.Select(
-                details =>
-                    new StandardSelectOption
-                    {
-                        Value = details.Type,
-                        Text = Localizer[details.Name],
-                    }
-            )
+            .Result.Select(details => new StandardSelectOption
+            {
+                Value = details.Type,
+                Text = Localizer[details.Name],
+            })
             .OrderBy(option => option.Text)
             .InsertItem(
                 0,
@@ -164,16 +149,13 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
 
         AssetName = Model.Name;
         AssetTypeOption =
-            AssetTypeOptions.FirstOrDefault(a => a.Value == Model.Type)
-            ?? AssetTypeOptions.First();
+            AssetTypeOptions.FirstOrDefault(a => a.Value == Model.Type) ?? AssetTypeOptions.First();
 
         MessageState = ComponentState.Content;
 
         SetDataValue(
             new Dictionary<string, object>(
-                Model.Data.Where(
-                    ClientAssetPropertiesMetadata.FilterOutMetadata
-                )
+                Model.Data.Where(ClientAssetPropertiesMetadata.FilterOutMetadata)
             )
         );
     }
@@ -190,8 +172,8 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
             return;
         }
 
-        var typeDetails = _clientAssetTypeDetails.FirstOrDefault(
-            asset => asset.Type.Equals(AssetTypeOption.Value)
+        var typeDetails = _clientAssetTypeDetails.FirstOrDefault(asset =>
+            asset.Type.Equals(AssetTypeOption.Value)
         );
 
         if (typeDetails.IsNull())
@@ -200,12 +182,8 @@ public class EditZoneGameAssetFormModel : EditorComponentBase
             return;
         }
 
-        TypePropertiesMetadata = new ClientAssetPropertiesMetadata(
-            typeDetails.Metadata
-        );
-        TypeData = new Dictionary<string, object>(
-            modelData ?? typeDetails.DefaultValue()
-        );
+        TypePropertiesMetadata = new ClientAssetPropertiesMetadata(typeDetails.Metadata);
+        TypeData = new Dictionary<string, object>(modelData ?? typeDetails.DefaultValue());
 
         TypeDataState = ComponentState.Content;
     }

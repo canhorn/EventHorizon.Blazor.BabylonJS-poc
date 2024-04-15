@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
 using EventHorizon.Game.Client.Systems.Lighting.Model;
-
 using MediatR;
 
 public class CreateLightCommandHandler : IRequestHandler<CreateLightCommand>
@@ -18,10 +16,7 @@ public class CreateLightCommandHandler : IRequestHandler<CreateLightCommand>
         _mediator = mediator;
     }
 
-    public async Task Handle(
-        CreateLightCommand request,
-        CancellationToken cancellationToken
-    )
+    public async Task Handle(CreateLightCommand request, CancellationToken cancellationToken)
     {
         var details = request.LightDetailsModel;
 
@@ -29,16 +24,12 @@ public class CreateLightCommandHandler : IRequestHandler<CreateLightCommand>
         {
             case "point":
                 await _mediator.Publish(
-                    new RegisterEntityEvent(
-                        new BabylonJSPointLightEntity(details)
-                    )
+                    new RegisterEntityEvent(new BabylonJSPointLightEntity(details))
                 );
                 break;
             case "hemispheric":
                 await _mediator.Publish(
-                    new RegisterEntityEvent(
-                        new BabylonJSHemisphericLightEntity(details)
-                    )
+                    new RegisterEntityEvent(new BabylonJSHemisphericLightEntity(details))
                 );
                 break;
             default:

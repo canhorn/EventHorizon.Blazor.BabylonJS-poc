@@ -3,7 +3,6 @@
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Wizard.Api;
 using EventHorizon.Zone.Systems.Wizard.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class WizardStepNullBase : EditorComponentBase

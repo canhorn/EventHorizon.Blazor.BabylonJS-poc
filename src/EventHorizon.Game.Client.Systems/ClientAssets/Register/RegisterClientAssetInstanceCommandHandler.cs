@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Dispose;
-
 using MediatR;
 
 public class RegisterClientAssetInstanceCommandHandler
@@ -30,9 +28,7 @@ public class RegisterClientAssetInstanceCommandHandler
     )
     {
         await _mediator.Send(
-            new DisposeOfClientAssetInstanceCommand(
-                request.Instance.AssetInstanceId
-            ),
+            new DisposeOfClientAssetInstanceCommand(request.Instance.AssetInstanceId),
             cancellationToken
         );
 

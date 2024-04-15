@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -17,14 +16,11 @@ using Microsoft.CodeAnalysis.Text;
 [Generator]
 public class QueryWithEasyCachingResponseGenerator : ISourceGenerator
 {
-    private const string GenerateCacheAttributeName =
-        "EventHorizon.Cache.GenerateCacheAttribute";
+    private const string GenerateCacheAttributeName = "EventHorizon.Cache.GenerateCacheAttribute";
 
     public void Execute(GeneratorExecutionContext context)
     {
-        var attributeSymbol = context.Compilation.GetTypeByMetadataName(
-            GenerateCacheAttributeName
-        );
+        var attributeSymbol = context.Compilation.GetTypeByMetadataName(GenerateCacheAttributeName);
         //#if DEBUG
         //            if (!Debugger.IsAttached)
         //            {
@@ -32,35 +28,21 @@ public class QueryWithEasyCachingResponseGenerator : ISourceGenerator
         //            }
         //#endif
 
-        var classWithAttributes = context.Compilation.SyntaxTrees.Where(
-            st =>
-                st.GetRoot()
-                    .DescendantNodes()
-                    .OfType<ClassDeclarationSyntax>()
-                    .Any(
-                        p => p.DescendantNodes().OfType<AttributeSyntax>().Any()
-                    )
+        var classWithAttributes = context.Compilation.SyntaxTrees.Where(st =>
+            st.GetRoot()
+                .DescendantNodes()
+                .OfType<ClassDeclarationSyntax>()
+                .Any(p => p.DescendantNodes().OfType<AttributeSyntax>().Any())
         );
-        Generate<ClassDeclarationSyntax>(
-            context,
-            attributeSymbol,
-            classWithAttributes
-        );
+        Generate<ClassDeclarationSyntax>(context, attributeSymbol, classWithAttributes);
 
-        var structWithAttributes = context.Compilation.SyntaxTrees.Where(
-            st =>
-                st.GetRoot()
-                    .DescendantNodes()
-                    .OfType<StructDeclarationSyntax>()
-                    .Any(
-                        p => p.DescendantNodes().OfType<AttributeSyntax>().Any()
-                    )
+        var structWithAttributes = context.Compilation.SyntaxTrees.Where(st =>
+            st.GetRoot()
+                .DescendantNodes()
+                .OfType<StructDeclarationSyntax>()
+                .Any(p => p.DescendantNodes().OfType<AttributeSyntax>().Any())
         );
-        Generate<StructDeclarationSyntax>(
-            context,
-            attributeSymbol,
-            structWithAttributes
-        );
+        Generate<StructDeclarationSyntax>(context, attributeSymbol, structWithAttributes);
     }
 
     private static void Generate<T>(
@@ -78,28 +60,22 @@ public class QueryWithEasyCachingResponseGenerator : ISourceGenerator
                 var declaredClass in tree.GetRoot()
                     .DescendantNodes()
                     .OfType<T>()
-                    .Where(
-                        cd =>
-                            cd.DescendantNodes().OfType<AttributeSyntax>().Any()
-                    )
+                    .Where(cd => cd.DescendantNodes().OfType<AttributeSyntax>().Any())
             )
             {
                 // Check for existing GenerateCacheAttributeName Attribute on <T>
                 var nodes = declaredClass
                     .DescendantNodes()
                     .OfType<AttributeSyntax>()
-                    .FirstOrDefault(
-                        a =>
-                            a.DescendantTokens()
-                                .Any(
-                                    dt =>
-                                        dt.IsKind(SyntaxKind.IdentifierToken)
-                                        && dt.Parent != null
-                                        && attributeSymbol != null
-                                        && semanticModel
-                                            .GetTypeInfo(dt.Parent)
-                                            .Type?.Name == attributeSymbol.Name
-                                )
+                    .FirstOrDefault(a =>
+                        a.DescendantTokens()
+                            .Any(dt =>
+                                dt.IsKind(SyntaxKind.IdentifierToken)
+                                && dt.Parent != null
+                                && attributeSymbol != null
+                                && semanticModel.GetTypeInfo(dt.Parent).Type?.Name
+                                    == attributeSymbol.Name
+                            )
                     )
                     ?.DescendantTokens()
                     ?.Where(dt => dt.IsKind(SyntaxKind.IdentifierToken))
@@ -110,23 +86,20 @@ public class QueryWithEasyCachingResponseGenerator : ISourceGenerator
                     continue;
                 }
 
-                if (
-                    declaredClass.Parent
-                    is not NamespaceDeclarationSyntax classNamespace
-                )
+                if (declaredClass.Parent is not NamespaceDeclarationSyntax classNamespace)
                 {
                     // Ignored, dont care about non-namespaced
                     continue;
                 }
 
                 var responseNamespace = classNamespace.Name.ToString();
-                var responseUsingNamespace = classNamespace.Usings
-                    .ToString()
+                var responseUsingNamespace = classNamespace
+                    .Usings.ToString()
                     .Replace("using EventHorizon.Cache;", string.Empty)
                     .Replace("using MediatR;", string.Empty);
                 var requestType = declaredClass.Identifier.ToString();
-                var responseType = declaredClass.BaseList?.Types
-                    .Select(a => a.ToString())
+                var responseType = declaredClass
+                    .BaseList?.Types.Select(a => a.ToString())
                     .FirstOrDefault(a => a.StartsWith("IRequest<"));
                 if (responseType == null || string.IsNullOrEmpty(responseType))
                 {
@@ -136,8 +109,7 @@ public class QueryWithEasyCachingResponseGenerator : ISourceGenerator
                 responseType = responseType.Replace("IRequest<", string.Empty);
                 responseType = responseType.Substring(
 #pragma warning disable IDE0057 // Use range operator
-                    0,
-                    responseType.Length - 1
+                    0, responseType.Length - 1
 #pragma warning restore IDE0057 // Use range operator
                 );
 

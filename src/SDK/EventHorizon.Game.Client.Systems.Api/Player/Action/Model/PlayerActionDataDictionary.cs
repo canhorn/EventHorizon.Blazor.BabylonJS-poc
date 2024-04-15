@@ -2,9 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.Player.Action.Api;
 
-public class PlayerActionDataDictionary
-    : Dictionary<string, object>,
-        IPlayerActionData { }
+public class PlayerActionDataDictionary : Dictionary<string, object>, IPlayerActionData { }

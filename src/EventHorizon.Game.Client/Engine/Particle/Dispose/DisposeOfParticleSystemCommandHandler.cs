@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Particle.Api;
-
 using MediatR;
 
 public class DisposeOfParticleSystemCommandHandler
@@ -13,9 +11,7 @@ public class DisposeOfParticleSystemCommandHandler
 {
     private readonly ParticleLifecycleService _particleLifecycleService;
 
-    public DisposeOfParticleSystemCommandHandler(
-        ParticleLifecycleService particleLifecycleService
-    )
+    public DisposeOfParticleSystemCommandHandler(ParticleLifecycleService particleLifecycleService)
     {
         _particleLifecycleService = particleLifecycleService;
     }

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Rectangle>))]
@@ -30,13 +28,7 @@ public class Rectangle : Container
 
     public decimal thickness
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "thickness"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "thickness"); }
         set
         {
 
@@ -46,13 +38,7 @@ public class Rectangle : Container
 
     public decimal cornerRadius
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cornerRadius"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cornerRadius"); }
         set
         {
 
@@ -65,10 +51,7 @@ public class Rectangle : Container
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 

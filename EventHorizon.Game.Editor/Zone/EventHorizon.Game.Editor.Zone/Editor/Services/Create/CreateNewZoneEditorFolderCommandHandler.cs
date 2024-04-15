@@ -30,9 +30,7 @@ public class CreateNewZoneEditorFolderCommandHandler
     {
         try
         {
-            return _zoneEditorServices
-                .Api
-                .CreateEditorFolder(request.Path, request.FolderName);
+            return _zoneEditorServices.Api.CreateEditorFolder(request.Path, request.FolderName);
         }
         catch (Exception ex)
         {

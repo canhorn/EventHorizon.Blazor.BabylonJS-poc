@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.Open;
@@ -9,7 +8,6 @@ using EventHorizon.Game.Editor.Client.AssetManagement.Reload;
 using EventHorizon.Game.Editor.Client.Authentication.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -27,8 +25,7 @@ public class AssetImportFileUploadProviderModel
     [Inject]
     public AssetServerService AssetServerService { get; set; } = null!;
 
-    public string UploadFileId { get; } =
-        "asset-server-import-upload-input-file";
+    public string UploadFileId { get; } = "asset-server-import-upload-input-file";
     public IJSObjectReference? FileUploadClickModule { get; private set; }
     public InputFile UploadInputFile { get; set; } = null!;
 
@@ -55,10 +52,7 @@ public class AssetImportFileUploadProviderModel
     {
         if (FileUploadClickModule.IsNotNull())
         {
-            await FileUploadClickModule.InvokeVoidAsync(
-                "openInputElement",
-                UploadFileId
-            );
+            await FileUploadClickModule.InvokeVoidAsync("openInputElement", UploadFileId);
         }
     }
 
@@ -95,10 +89,7 @@ public class AssetImportFileUploadProviderModel
             );
             return;
         }
-        else if (
-            result.ErrorCode
-            == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE
-        )
+        else if (result.ErrorCode == AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE)
         {
             await ShowMessage(
                 Localizer["Asset Server Import"],
@@ -113,10 +104,7 @@ public class AssetImportFileUploadProviderModel
 
         await ShowMessage(
             Localizer["Asset Server Import"],
-            Localizer[
-                "Failed to Import Assets: ErrorCode = {0}",
-                result.ErrorCode
-            ],
+            Localizer["Failed to Import Assets: ErrorCode = {0}", result.ErrorCode],
             MessageLevel.Error
         );
     }

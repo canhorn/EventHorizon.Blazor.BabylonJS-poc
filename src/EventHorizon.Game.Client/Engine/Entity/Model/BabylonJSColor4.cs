@@ -2,7 +2,6 @@
 
 using System;
 using System.Text.Json.Serialization;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Entity.Api;
 

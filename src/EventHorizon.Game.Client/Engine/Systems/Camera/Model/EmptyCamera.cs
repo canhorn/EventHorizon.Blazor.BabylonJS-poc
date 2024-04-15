@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Camera.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Mesh.Api;
 
 internal class EmptyCamera : ICamera

@@ -5,12 +5,10 @@ using System.IO;
 using System.Runtime.Loader;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 using EventHorizon.Game.Client.Systems.ClientScripts.Api;
 using EventHorizon.Game.Client.Systems.ClientScripts.Run;
-
 using MediatR;
 
 public class SetClientScriptsAssemblyCommandHandler
@@ -54,15 +52,9 @@ public class SetClientScriptsAssemblyCommandHandler
         _clientActionState.LoadExternalClientActions(assembly);
 
         // Run All Startup Script
-        await _mediator.Send(
-            new RunStartupScripts(_state.StartupScripts),
-            cancellationToken
-        );
+        await _mediator.Send(new RunStartupScripts(_state.StartupScripts), cancellationToken);
 
-        await _mediator.Publish(
-            new ClientScriptsAssemblySetEvent(),
-            cancellationToken
-        );
+        await _mediator.Publish(new ClientScriptsAssemblySetEvent(), cancellationToken);
 
         return new StandardCommandResult();
     }

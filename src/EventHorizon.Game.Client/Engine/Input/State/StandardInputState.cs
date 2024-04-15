@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Input.Api;
 
 public class StandardInputState : IRegisterInput, IUnregisterInput, IInputState

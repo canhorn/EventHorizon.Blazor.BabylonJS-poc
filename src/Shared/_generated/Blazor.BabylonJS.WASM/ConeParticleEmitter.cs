@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ConeParticleEmitter>))]
@@ -30,13 +28,7 @@ public class ConeParticleEmitter : CachedEntityObject, IParticleEmitterType
 
     public decimal radius
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "radius"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "radius"); }
         set
         {
 
@@ -46,13 +38,7 @@ public class ConeParticleEmitter : CachedEntityObject, IParticleEmitterType
 
     public decimal angle
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "angle"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "angle"); }
         set
         {
 
@@ -65,33 +51,17 @@ public class ConeParticleEmitter : CachedEntityObject, IParticleEmitterType
 
     public decimal directionRandomizer
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "directionRandomizer"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "directionRandomizer"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "directionRandomizer",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "directionRandomizer", value);
         }
     }
 
     public decimal radiusRange
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "radiusRange"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "radiusRange"); }
         set
         {
 
@@ -101,13 +71,7 @@ public class ConeParticleEmitter : CachedEntityObject, IParticleEmitterType
 
     public decimal heightRange
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "heightRange"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "heightRange"); }
         set
         {
 
@@ -117,21 +81,11 @@ public class ConeParticleEmitter : CachedEntityObject, IParticleEmitterType
 
     public bool emitFromSpawnPointOnly
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "emitFromSpawnPointOnly"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "emitFromSpawnPointOnly"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "emitFromSpawnPointOnly",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "emitFromSpawnPointOnly", value);
         }
     }
     #endregion
@@ -210,11 +164,7 @@ public class ConeParticleEmitter : CachedEntityObject, IParticleEmitterType
     public void applyToShader(Effect effect)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "applyToShader" },
-                effect
-            }
+            new object[] { new string[] { this.___guid, "applyToShader" }, effect }
         );
     }
 
@@ -242,11 +192,7 @@ public class ConeParticleEmitter : CachedEntityObject, IParticleEmitterType
     public void parse(object serializationObject)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "parse" },
-                serializationObject
-            }
+            new object[] { new string[] { this.___guid, "parse" }, serializationObject }
         );
     }
     #endregion

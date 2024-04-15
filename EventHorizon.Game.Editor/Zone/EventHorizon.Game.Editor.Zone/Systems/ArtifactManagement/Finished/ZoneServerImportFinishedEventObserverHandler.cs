@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
 using EventHorizon.Zone.Systems.ArtifactManagement.Finished;
-
 using MediatR;
 
 public class ZoneServerImportFinishedEventObserverHandler
@@ -22,8 +20,8 @@ public class ZoneServerImportFinishedEventObserverHandler
         ZoneServerImportFinishedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ZoneServerImportFinishedEventObserver,
-            ZoneServerImportFinishedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ZoneServerImportFinishedEventObserver, ZoneServerImportFinishedEvent>(
+            notification,
+            cancellationToken
+        );
 }

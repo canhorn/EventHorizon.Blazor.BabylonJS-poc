@@ -2,20 +2,15 @@
 
 using System;
 using System.Linq;
-
 using Atata;
 using Atata.WebDriverSetup;
-
 using EventHorizon.Game.Editor.Automation.Core.Browser.Api;
 using EventHorizon.Game.Editor.Automation.Core.Browser.Model;
 using EventHorizon.Game.Editor.Automation.Core.Config;
-
 using Microsoft.Edge.SeleniumTools;
 using Microsoft.Extensions.Configuration;
-
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -37,8 +32,7 @@ public class WebHost
         AtataContext.Current?.CleanUp();
     }
 
-    private static readonly WebHostSettings Settings =
-        new WebHostSettingsModel();
+    private static readonly WebHostSettings Settings = new WebHostSettingsModel();
 
     static WebHost()
     {
@@ -48,18 +42,15 @@ public class WebHost
     [OneTimeSetUp]
     public void GlobalSetUp()
     {
-        AtataContext.GlobalConfiguration
-            .UseBaseUrl(Settings.BaseUrl)
+        AtataContext
+            .GlobalConfiguration.UseBaseUrl(Settings.BaseUrl)
             .UseCulture(Settings.Culture)
             .UseAllNUnitFeatures()
             .UseDriver(() =>
             {
                 if (Settings.Driver.IsRemote)
                 {
-                    return new RemoteWebDriver(
-                        new Uri(Settings.Driver.Url),
-                        GetDriverOptions()
-                    );
+                    return new RemoteWebDriver(new Uri(Settings.Driver.Url), GetDriverOptions());
                 }
                 else if (Settings.Driver.Type == "edge")
                 {
@@ -85,10 +76,7 @@ public class WebHost
         if (Settings.SlowMo)
         {
             AtataContext.GlobalConfiguration.Attributes.Global.Add(
-                new WaitSecondsAttribute(Settings.SlowMoDelay)
-                {
-                    On = TriggerEvents.BeforeAccess,
-                }
+                new WaitSecondsAttribute(Settings.SlowMoDelay) { On = TriggerEvents.BeforeAccess, }
             );
         }
     }
@@ -110,9 +98,7 @@ public class WebHost
     {
         var options = new EdgeOptions { UseChromium = true, };
         options.AddArguments(
-            Settings.Driver.Options.Arguments.Where(
-                a => !string.IsNullOrWhiteSpace(a)
-            )
+            Settings.Driver.Options.Arguments.Where(a => !string.IsNullOrWhiteSpace(a))
         );
 
         return options;
@@ -122,9 +108,7 @@ public class WebHost
     {
         var options = new ChromeOptions { };
         options.AddArguments(
-            Settings.Driver.Options.Arguments.Where(
-                a => !string.IsNullOrWhiteSpace(a)
-            )
+            Settings.Driver.Options.Arguments.Where(a => !string.IsNullOrWhiteSpace(a))
         );
 
         return options;
@@ -134,9 +118,7 @@ public class WebHost
     {
         var options = new FirefoxOptions { };
         options.AddArguments(
-            Settings.Driver.Options.Arguments.Where(
-                a => !string.IsNullOrWhiteSpace(a)
-            )
+            Settings.Driver.Options.Arguments.Where(a => !string.IsNullOrWhiteSpace(a))
         );
 
         return options;

@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
@@ -13,8 +12,7 @@ public class GuiInitializePlatformService : IServiceEntity
 
     public Task Initialize()
     {
-        var templateState =
-            GameServiceProvider.GetService<IGuiControlTemplateState>();
+        var templateState = GameServiceProvider.GetService<IGuiControlTemplateState>();
 
         // Create Platform Bar Template
         templateState.Set(

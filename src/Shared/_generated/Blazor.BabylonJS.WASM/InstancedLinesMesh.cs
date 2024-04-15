@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<InstancedLinesMesh>))]
@@ -36,19 +34,12 @@ public class InstancedLinesMesh : InstancedMesh
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "intersectionThreshold"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "intersectionThreshold");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "intersectionThreshold",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "intersectionThreshold", value);
         }
     }
     #endregion

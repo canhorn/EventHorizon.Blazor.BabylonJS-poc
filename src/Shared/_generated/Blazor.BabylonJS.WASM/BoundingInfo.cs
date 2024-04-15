@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<BoundingInfo>))]
@@ -69,13 +67,7 @@ public class BoundingInfo : CachedEntityObject, ICullable
 
     public bool isLocked
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isLocked"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isLocked"); }
         set
         {
 
@@ -85,13 +77,7 @@ public class BoundingInfo : CachedEntityObject, ICullable
 
     public decimal diagonalLength
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "diagonalLength"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "diagonalLength"); }
     }
     #endregion
 
@@ -123,18 +109,14 @@ public class BoundingInfo : CachedEntityObject, ICullable
         {
             if (__boundingSphere == null)
             {
-                __boundingSphere =
-                    EventHorizonBlazorInterop.GetClass<BoundingSphere>(
-                        this.___guid,
-                        "boundingSphere",
-                        (entity) =>
-                        {
-                            return new BoundingSphere()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __boundingSphere = EventHorizonBlazorInterop.GetClass<BoundingSphere>(
+                    this.___guid,
+                    "boundingSphere",
+                    (entity) =>
+                    {
+                        return new BoundingSphere() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __boundingSphere;
         }
@@ -148,11 +130,7 @@ public class BoundingInfo : CachedEntityObject, ICullable
     public BoundingInfo(ICachedEntity entity)
         : base(entity) { }
 
-    public BoundingInfo(
-        Vector3 minimum,
-        Vector3 maximum,
-        Matrix worldMatrix = null
-    )
+    public BoundingInfo(Vector3 minimum, Vector3 maximum, Matrix worldMatrix = null)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(
@@ -169,13 +147,7 @@ public class BoundingInfo : CachedEntityObject, ICullable
     public void reConstruct(Vector3 min, Vector3 max, Matrix worldMatrix = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "reConstruct" },
-                min,
-                max,
-                worldMatrix
-            }
+            new object[] { new string[] { this.___guid, "reConstruct" }, min, max, worldMatrix }
         );
     }
 
@@ -190,12 +162,7 @@ public class BoundingInfo : CachedEntityObject, ICullable
     {
         return EventHorizonBlazorInterop.FuncClass<BoundingInfo>(
             entity => new BoundingInfo() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "centerOn" },
-                center,
-                extend
-            }
+            new object[] { new string[] { this.___guid, "centerOn" }, center, extend }
         );
     }
 
@@ -207,52 +174,31 @@ public class BoundingInfo : CachedEntityObject, ICullable
         );
     }
 
-    public bool isInFrustum(
-        Plane[] frustumPlanes,
-        System.Nullable<decimal> strategy = null
-    )
+    public bool isInFrustum(Plane[] frustumPlanes, System.Nullable<decimal> strategy = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isInFrustum" },
-                frustumPlanes,
-                strategy
-            }
+            new object[] { new string[] { this.___guid, "isInFrustum" }, frustumPlanes, strategy }
         );
     }
 
     public bool isCompletelyInFrustum(Plane[] frustumPlanes)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isCompletelyInFrustum" },
-                frustumPlanes
-            }
+            new object[] { new string[] { this.___guid, "isCompletelyInFrustum" }, frustumPlanes }
         );
     }
 
     public bool intersectsPoint(Vector3 point)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsPoint" },
-                point
-            }
+            new object[] { new string[] { this.___guid, "intersectsPoint" }, point }
         );
     }
 
     public bool intersects(BoundingInfo boundingInfo, bool precise)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "intersects" },
-                boundingInfo,
-                precise
-            }
+            new object[] { new string[] { this.___guid, "intersects" }, boundingInfo, precise }
         );
     }
     #endregion

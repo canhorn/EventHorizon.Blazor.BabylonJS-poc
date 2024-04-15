@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.IdentityServer.Pages;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Layout.Components;
-
 using _ = IdentityServerLoginPage;
 
 public class IdentityServerLoginPage : Page<_>

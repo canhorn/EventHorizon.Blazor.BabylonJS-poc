@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<VertexData>))]
@@ -22,46 +20,22 @@ public class VertexData : CachedEntityObject
 
     public static decimal FRONTSIDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexData.FRONTSIDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexData.FRONTSIDE"); }
     }
 
     public static decimal BACKSIDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexData.BACKSIDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexData.BACKSIDE"); }
     }
 
     public static decimal DOUBLESIDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexData.DOUBLESIDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexData.DOUBLESIDE"); }
     }
 
     public static decimal DEFAULTSIDE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexData.DEFAULTSIDE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexData.DEFAULTSIDE"); }
     }
     #endregion
 
@@ -106,11 +80,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateRibbon" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateRibbon" }, options }
         );
     }
 
@@ -118,11 +88,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateBox" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateBox" }, options }
         );
     }
 
@@ -130,11 +96,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateTiledBox" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateTiledBox" }, options }
         );
     }
 
@@ -142,11 +104,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateTiledPlane" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateTiledPlane" }, options }
         );
     }
 
@@ -154,11 +112,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateSphere" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateSphere" }, options }
         );
     }
 
@@ -166,11 +120,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateCylinder" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateCylinder" }, options }
         );
     }
 
@@ -178,11 +128,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateTorus" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateTorus" }, options }
         );
     }
 
@@ -190,11 +136,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateLineSystem" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateLineSystem" }, options }
         );
     }
 
@@ -202,11 +144,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateDashedLines" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateDashedLines" }, options }
         );
     }
 
@@ -214,11 +152,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateGround" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateGround" }, options }
         );
     }
 
@@ -226,11 +160,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateTiledGround" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateTiledGround" }, options }
         );
     }
 
@@ -240,12 +170,7 @@ public class VertexData : CachedEntityObject
             entity => new VertexData() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "VertexData",
-                    "CreateGroundFromHeightMap"
-                },
+                new string[] { "BABYLON", "VertexData", "CreateGroundFromHeightMap" },
                 options
             }
         );
@@ -255,11 +180,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreatePlane" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreatePlane" }, options }
         );
     }
 
@@ -267,11 +188,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateDisc" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateDisc" }, options }
         );
     }
 
@@ -303,11 +220,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateIcoSphere" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateIcoSphere" }, options }
         );
     }
 
@@ -315,11 +228,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreatePolyhedron" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreatePolyhedron" }, options }
         );
     }
 
@@ -327,11 +236,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexData", "CreateTorusKnot" },
-                options
-            }
+            new object[] { new string[] { "BABYLON", "VertexData", "CreateTorusKnot" }, options }
         );
     }
 
@@ -354,10 +259,7 @@ public class VertexData : CachedEntityObject
         );
     }
 
-    public static void ImportVertexData(
-        object parsedVertexData,
-        Geometry geometry
-    )
+    public static void ImportVertexData(object parsedVertexData, Geometry geometry)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -378,13 +280,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] positions
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "positions"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "positions"); }
         set
         {
 
@@ -394,13 +290,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] normals
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "normals"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "normals"); }
         set
         {
 
@@ -410,13 +300,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] tangents
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "tangents"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "tangents"); }
         set
         {
 
@@ -426,13 +310,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] uvs
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "uvs"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "uvs"); }
         set
         {
 
@@ -442,13 +320,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] uvs2
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "uvs2"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "uvs2"); }
         set
         {
 
@@ -458,13 +330,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] uvs3
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "uvs3"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "uvs3"); }
         set
         {
 
@@ -474,13 +340,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] uvs4
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "uvs4"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "uvs4"); }
         set
         {
 
@@ -490,13 +350,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] uvs5
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "uvs5"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "uvs5"); }
         set
         {
 
@@ -506,13 +360,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] uvs6
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "uvs6"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "uvs6"); }
         set
         {
 
@@ -522,13 +370,7 @@ public class VertexData : CachedEntityObject
 
     public decimal[] colors
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "colors"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "colors"); }
         set
         {
 
@@ -538,41 +380,21 @@ public class VertexData : CachedEntityObject
 
     public decimal[] matricesIndices
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "matricesIndices"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "matricesIndices"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "matricesIndices",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "matricesIndices", value);
         }
     }
 
     public decimal[] matricesWeights
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "matricesWeights"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "matricesWeights"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "matricesWeights",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "matricesWeights", value);
         }
     }
 
@@ -588,11 +410,7 @@ public class VertexData : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "matricesIndicesExtra",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "matricesIndicesExtra", value);
         }
     }
 
@@ -608,23 +426,13 @@ public class VertexData : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "matricesWeightsExtra",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "matricesWeightsExtra", value);
         }
     }
 
     public decimal[] indices
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "indices"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "indices"); }
         set
         {
 
@@ -653,35 +461,19 @@ public class VertexData : CachedEntityObject
         );
     }
 
-    public VertexData applyToMesh(
-        Mesh mesh,
-        System.Nullable<bool> updatable = null
-    )
+    public VertexData applyToMesh(Mesh mesh, System.Nullable<bool> updatable = null)
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "applyToMesh" },
-                mesh,
-                updatable
-            }
+            new object[] { new string[] { this.___guid, "applyToMesh" }, mesh, updatable }
         );
     }
 
-    public VertexData applyToGeometry(
-        Geometry geometry,
-        System.Nullable<bool> updatable = null
-    )
+    public VertexData applyToGeometry(Geometry geometry, System.Nullable<bool> updatable = null)
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "applyToGeometry" },
-                geometry,
-                updatable
-            }
+            new object[] { new string[] { this.___guid, "applyToGeometry" }, geometry, updatable }
         );
     }
 
@@ -697,11 +489,7 @@ public class VertexData : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "updateGeometry" },
-                geometry
-            }
+            new object[] { new string[] { this.___guid, "updateGeometry" }, geometry }
         );
     }
 
@@ -713,19 +501,11 @@ public class VertexData : CachedEntityObject
         );
     }
 
-    public VertexData merge(
-        VertexData other,
-        System.Nullable<bool> use32BitsIndices = null
-    )
+    public VertexData merge(VertexData other, System.Nullable<bool> use32BitsIndices = null)
     {
         return EventHorizonBlazorInterop.FuncClass<VertexData>(
             entity => new VertexData() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "merge" },
-                other,
-                use32BitsIndices
-            }
+            new object[] { new string[] { this.___guid, "merge" }, other, use32BitsIndices }
         );
     }
 

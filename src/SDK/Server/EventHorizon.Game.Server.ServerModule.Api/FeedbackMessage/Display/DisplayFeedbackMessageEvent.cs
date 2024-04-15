@@ -35,9 +35,9 @@
             DisplayFeedbackMessageEvent notification,
             CancellationToken cancellationToken
         ) =>
-            _observer.Trigger<
-                DisplayFeedbackMessageEventObserver,
-                DisplayFeedbackMessageEvent
-            >(notification, cancellationToken);
+            _observer.Trigger<DisplayFeedbackMessageEventObserver, DisplayFeedbackMessageEvent>(
+                notification,
+                cancellationToken
+            );
     }
 }

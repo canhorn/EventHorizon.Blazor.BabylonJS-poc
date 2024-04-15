@@ -2,29 +2,21 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Core.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Get;
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 using EventHorizon.Game.Client.Systems.EntityModule.Model;
-
 using MediatR;
 
 public class CreateEntityLifeCycleModuleCommandHandler
-    : IRequestHandler<
-        CreateEntityLifeCycleModuleCommand,
-        CommandResult<IEntityLifeCycleModule>
-    >
+    : IRequestHandler<CreateEntityLifeCycleModuleCommand, CommandResult<IEntityLifeCycleModule>>
 {
     private readonly IMediator _mediator;
     private readonly IIndexPool _indexPool;
 
-    public CreateEntityLifeCycleModuleCommandHandler(
-        IMediator mediator,
-        IIndexPool indexPool
-    )
+    public CreateEntityLifeCycleModuleCommandHandler(IMediator mediator, IIndexPool indexPool)
     {
         _mediator = mediator;
         _indexPool = indexPool;
@@ -59,9 +51,7 @@ public class CreateEntityLifeCycleModuleCommandHandler
         {
             return default;
         }
-        var queryResult = await _mediator.Send(
-            new QueryForClientScriptById(scriptId)
-        );
+        var queryResult = await _mediator.Send(new QueryForClientScriptById(scriptId));
         if (!queryResult.Success)
         {
             return default;

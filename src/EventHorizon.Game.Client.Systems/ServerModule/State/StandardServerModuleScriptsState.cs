@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ServerModule.State;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.ServerModule.Api;
 
 public class StandardServerModuleScriptsState : ServerModuleScriptsState

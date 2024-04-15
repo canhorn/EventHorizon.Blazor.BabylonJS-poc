@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Zone.Model;
 using EventHorizon.Game.Editor.Client.Zone.Reload;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using MediatR;
 
 public class QueryForEditorNodeByIdHandler
@@ -25,10 +23,7 @@ public class QueryForEditorNodeByIdHandler
         CancellationToken cancellationToken
     )
     {
-        var zoneStateResult = await _mediator.Send(
-            new QueryForActiveZone(),
-            cancellationToken
-        );
+        var zoneStateResult = await _mediator.Send(new QueryForActiveZone(), cancellationToken);
         if (!zoneStateResult)
         {
             return zoneStateResult.ErrorCode;
@@ -47,10 +42,7 @@ public class QueryForEditorNodeByIdHandler
         var editorNode = zoneState.EditorState.GetNode(request.Id);
         if (editorNode.IsNull())
         {
-            await _mediator.Send(
-                new ReloadPendingZoneStateCommand(),
-                cancellationToken
-            );
+            await _mediator.Send(new ReloadPendingZoneStateCommand(), cancellationToken);
 
             return ZoneClientEditorErrorCodes.EDITOR_NODE_NOT_FOUND;
         }

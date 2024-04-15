@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AlphaState>))]
@@ -30,21 +28,12 @@ public class AlphaState : CachedEntityObject
 
     public bool isDirty
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty"); }
     }
 
     public bool alphaBlend
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "alphaBlend"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "alphaBlend"); }
         set
         {
 
@@ -70,22 +59,10 @@ public class AlphaState : CachedEntityObject
     #endregion
 
     #region Methods
-    public void setAlphaBlendConstants(
-        decimal r,
-        decimal g,
-        decimal b,
-        decimal a
-    )
+    public void setAlphaBlendConstants(decimal r, decimal g, decimal b, decimal a)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setAlphaBlendConstants" },
-                r,
-                g,
-                b,
-                a
-            }
+            new object[] { new string[] { this.___guid, "setAlphaBlendConstants" }, r, g, b, a }
         );
     }
 
@@ -99,11 +76,7 @@ public class AlphaState : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "setAlphaBlendFunctionParameters"
-                },
+                new string[] { this.___guid, "setAlphaBlendFunctionParameters" },
                 value0,
                 value1,
                 value2,
@@ -115,12 +88,7 @@ public class AlphaState : CachedEntityObject
     public void setAlphaEquationParameters(decimal rgb, decimal alpha)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setAlphaEquationParameters" },
-                rgb,
-                alpha
-            }
+            new object[] { new string[] { this.___guid, "setAlphaEquationParameters" }, rgb, alpha }
         );
     }
 

@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Triggered;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Upload;
-
 using MediatR;
 
 public class TriggerImportOnSuccessfullyUploadedZoneServerImportFileEventHandler
@@ -34,10 +32,7 @@ public class TriggerImportOnSuccessfullyUploadedZoneServerImportFileEventHandler
         );
 
         await _publisher.Publish(
-            new TriggredZoneServerArtifactImportEvent(
-                result.Success,
-                result.ErrorCode
-            ),
+            new TriggredZoneServerArtifactImportEvent(result.Success, result.ErrorCode),
             cancellationToken
         );
     }

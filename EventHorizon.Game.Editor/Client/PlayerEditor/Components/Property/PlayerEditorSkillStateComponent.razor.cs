@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Components;
 
 public class PlayerEditorSkillStateComponentBase : EditorComponentBase
 {
-    private static readonly JsonSerializerOptions JsonOptions =
-        new() { WriteIndented = true, };
+    private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true, };
 
     [Parameter]
     public required object Data { get; set; }
@@ -44,9 +43,7 @@ public class PlayerEditorSkillStateComponentBase : EditorComponentBase
         IsEditorOpen = false;
     }
 
-    public StandaloneEditorConstructionOptions BuildConstructionOptions(
-        StandaloneCodeEditor _
-    ) =>
+    public StandaloneEditorConstructionOptions BuildConstructionOptions(StandaloneCodeEditor _) =>
         new()
         {
             Theme = "vs-dark",

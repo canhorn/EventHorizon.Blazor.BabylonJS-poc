@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Systems.Account.Setup;
 using EventHorizon.Game.Client.Systems.Connection.Core.Start;

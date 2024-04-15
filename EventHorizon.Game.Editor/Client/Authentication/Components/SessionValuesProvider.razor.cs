@@ -1,18 +1,14 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Authentication.Components;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Authentication.Api;
 using EventHorizon.Game.Editor.Client.Authentication.Fill;
 using EventHorizon.Game.Editor.Client.Authentication.Model;
 using EventHorizon.Game.Editor.Client.Authentication.Query;
 using EventHorizon.Game.Editor.Client.Shared.Components;
-
 using Microsoft.AspNetCore.Components;
 
-public class SessionValuesProviderModel
-    : ObservableComponentBase,
-        SessionValueSetEventObserver
+public class SessionValuesProviderModel : ObservableComponentBase, SessionValueSetEventObserver
 {
     [Parameter]
     public RenderFragment ChildContent { get; set; } = null!;

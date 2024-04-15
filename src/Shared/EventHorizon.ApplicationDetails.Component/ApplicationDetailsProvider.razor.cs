@@ -2,10 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.ApplicationDetails.Component.Api;
 using EventHorizon.ApplicationDetails.Component.State;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
@@ -21,8 +19,7 @@ public class ApplicationDetailsProviderModel : ComponentBase
     [Inject]
     public ILogger<ApplicationDetailsProvider> Logger { get; set; } = null!;
 
-    public ApplicationDetailsState State { get; set; } =
-        new StandardApplicationDetailsState();
+    public ApplicationDetailsState State { get; set; } = new StandardApplicationDetailsState();
 
     protected override async Task OnInitializedAsync()
     {
@@ -36,9 +33,7 @@ public class ApplicationDetailsProviderModel : ComponentBase
 
             State = new StandardApplicationDetailsState
             {
-                ApplicationVersion = await moduleTask.InvokeAsync<string>(
-                    "APPLICATION_VERSION"
-                )
+                ApplicationVersion = await moduleTask.InvokeAsync<string>("APPLICATION_VERSION")
             };
         }
         catch (Exception ex)

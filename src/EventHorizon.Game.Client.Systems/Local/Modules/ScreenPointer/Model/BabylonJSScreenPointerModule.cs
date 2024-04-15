@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Model;
 
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
@@ -12,12 +10,9 @@ using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Api;
 using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
 using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Mesh;
 using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Model;
-
 using MediatR;
 
-public class BabylonJSScreenPointerModule
-    : ModuleEntityBase,
-        ScreenPointerModule
+public class BabylonJSScreenPointerModule : ModuleEntityBase, ScreenPointerModule
 {
     private readonly IMediator _mediator;
     private readonly IRenderingScene _renderingScene;
@@ -45,9 +40,7 @@ public class BabylonJSScreenPointerModule
 
     public override Task Dispose()
     {
-        _renderingScene
-            .GetBabylonJSScene()
-            .Scene.onPointerObservable.add_Remove(_addHandler);
+        _renderingScene.GetBabylonJSScene().Scene.onPointerObservable.add_Remove(_addHandler);
         return Task.CompletedTask;
     }
 
@@ -56,10 +49,7 @@ public class BabylonJSScreenPointerModule
         return Task.CompletedTask;
     }
 
-    private async Task HandlePointerObservable(
-        PointerInfo pointerInfo,
-        EventState eventState
-    )
+    private async Task HandlePointerObservable(PointerInfo pointerInfo, EventState eventState)
     {
         if (pointerInfo.type == BabylonJSPointerEventTypes.POINTERUP)
         {
@@ -72,9 +62,7 @@ public class BabylonJSScreenPointerModule
         var ownerEntityId = pickInfo.pickedMesh.GetOwnerEntityId();
         if (ownerEntityId != null)
         {
-            await _mediator.Publish(
-                new PointerHitEntityEvent((long)ownerEntityId)
-            );
+            await _mediator.Publish(new PointerHitEntityEvent((long)ownerEntityId));
         }
         else
         {

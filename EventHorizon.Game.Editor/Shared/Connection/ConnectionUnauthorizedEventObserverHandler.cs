@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Connection.Shared.Unauthorized;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class ConnectionUnauthorizedEventObserverHandler
@@ -22,8 +20,8 @@ public class ConnectionUnauthorizedEventObserverHandler
         ConnectionUnauthorizedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ConnectionUnauthorizedEventObserver,
-            ConnectionUnauthorizedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ConnectionUnauthorizedEventObserver, ConnectionUnauthorizedEvent>(
+            notification,
+            cancellationToken
+        );
 }

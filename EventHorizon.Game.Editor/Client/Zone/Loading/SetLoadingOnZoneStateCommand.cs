@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Loading;
 
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
 
 public struct SetLoadingOnZoneStateCommand : IRequest<StandardCommandResult>

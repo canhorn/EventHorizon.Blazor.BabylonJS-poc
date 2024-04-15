@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 
@@ -31,8 +30,7 @@ public class BabylonJSRenderingScene : IRenderingScene
 
     public Task Initialize()
     {
-        var engine =
-            _renderingEngine.GetEngine<BabylonJSEngineImplementation>();
+        var engine = _renderingEngine.GetEngine<BabylonJSEngineImplementation>();
         if (engine.IsNull())
         {
             throw new GameRuntimeException(
@@ -58,10 +56,7 @@ public class BabylonJSRenderingScene : IRenderingScene
 #if DEBUG
         if (_scene == null)
         {
-            throw new GameRuntimeException(
-                "scene_is_null",
-                "The Scene was null."
-            );
+            throw new GameRuntimeException("scene_is_null", "The Scene was null.");
         }
 #endif
         return _scene.RegisterAfterRender(action);
@@ -72,10 +67,7 @@ public class BabylonJSRenderingScene : IRenderingScene
 #if DEBUG
         if (_scene == null)
         {
-            throw new GameRuntimeException(
-                "scene_is_null",
-                "The Scene was null."
-            );
+            throw new GameRuntimeException("scene_is_null", "The Scene was null.");
         }
 #endif
         return _scene.RegisterBeforeRender(action);
@@ -86,10 +78,7 @@ public class BabylonJSRenderingScene : IRenderingScene
 #if DEBUG
         if (_scene == null)
         {
-            throw new GameRuntimeException(
-                "scene_is_null",
-                "The Scene was null."
-            );
+            throw new GameRuntimeException("scene_is_null", "The Scene was null.");
         }
 #endif
         _scene.Render();

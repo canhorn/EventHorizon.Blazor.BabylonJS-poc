@@ -2,12 +2,9 @@
 
 using System;
 using System.Threading.Tasks;
-
 using Blazored.LocalStorage;
-
 using BlazorMonaco;
 using BlazorMonaco.Editor;
-
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Editor.Client.Shared.Components;
@@ -16,12 +13,9 @@ using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Save;
-
 using Microsoft.AspNetCore.Components;
 
-public class ZoneFileEditorComponentModel
-    : EditorComponentBase,
-        IAsyncDisposable
+public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposable
 {
     private static string ZoneFileEditorPendingValueKey(string id) =>
         $"ZoneFileEditorComponent:{id}:PendingValue";
@@ -36,8 +30,7 @@ public class ZoneFileEditorComponentModel
     public ILocalStorageService LocalStorage { get; set; } = null!;
 
     [Inject]
-    public IFactory<IIntervalTimerService> IntervalTimerServiceFactory { get; set; } =
-        null!;
+    public IFactory<IIntervalTimerService> IntervalTimerServiceFactory { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -96,10 +89,7 @@ public class ZoneFileEditorComponentModel
         {
             await ShowMessage(
                 Localizer["File Save Status"],
-                Localizer[
-                    "File failed to save, Error Code of '{0}'",
-                    result.ErrorCode
-                ],
+                Localizer["File failed to save, Error Code of '{0}'", result.ErrorCode],
                 MessageLevel.Error
             );
             return;
@@ -108,18 +98,14 @@ public class ZoneFileEditorComponentModel
         await LocalStorage.RemoveItemAsync(
             ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id)
         );
-        await ShowMessage(
-            Localizer["File Save Status"],
-            Localizer["File was Successfully Saved"]
-        );
+        await ShowMessage(Localizer["File Save Status"], Localizer["File was Successfully Saved"]);
     }
 
     #region Pending Changes
     private IIntervalTimerService? _savePendingChangesIntervalTimerService;
     private string _pendingSaveValue = string.Empty;
 
-    protected ComponentState FileChangesPendingDisplayState { get; set; } =
-        ComponentState.Loading;
+    protected ComponentState FileChangesPendingDisplayState { get; set; } = ComponentState.Loading;
 
     private async Task HandleSavePendingChanges()
     {
@@ -171,9 +157,7 @@ public class ZoneFileEditorComponentModel
             _pendingSaveValue =
                 (
                     await LocalStorage.GetItemAsync<EditorFilePendingContent>(
-                        ZoneFileEditorPendingValueKey(
-                            FileEditorState.EditorNode.Id
-                        )
+                        ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id)
                     )
                 )?.Content ?? string.Empty;
         }
@@ -196,9 +180,7 @@ public class ZoneFileEditorComponentModel
         return value;
     }
 
-    public StandaloneEditorConstructionOptions BuildConstructionOptions(
-        StandaloneCodeEditor _
-    )
+    public StandaloneEditorConstructionOptions BuildConstructionOptions(StandaloneCodeEditor _)
     {
         return new StandaloneEditorConstructionOptions
         {
@@ -225,8 +207,7 @@ public class ZoneFileEditorComponentModel
     #endregion
 
     #region File Error Details
-    public ComponentState FileErrorDetailsDisplayState { get; set; } =
-        ComponentState.Loading;
+    public ComponentState FileErrorDetailsDisplayState { get; set; } = ComponentState.Loading;
     public bool IsErrorDetailsModalOpen { get; set; }
 
     public void HandleOpenErrorDetails()
@@ -241,8 +222,7 @@ public class ZoneFileEditorComponentModel
     #endregion
 
     #region Compiler Errors
-    public ComponentState CompilerErrorsDisplayState { get; set; } =
-        ComponentState.Loading;
+    public ComponentState CompilerErrorsDisplayState { get; set; } = ComponentState.Loading;
     public bool IsCompilerErrorsModalOpen { get; set; }
 
     public void HandleOpenCompilerErrors()

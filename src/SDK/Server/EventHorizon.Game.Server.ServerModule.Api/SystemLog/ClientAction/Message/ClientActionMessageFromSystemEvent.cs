@@ -13,9 +13,7 @@
 
     // TODO: [ClientAction] : Finish Implementation
     //[ClientAction("MessageFromSystem")]
-    public struct ClientActionMessageFromSystemEvent
-        : INotification,
-            IClientAction
+    public struct ClientActionMessageFromSystemEvent : INotification, IClientAction
     {
         public string Message { get; }
         public IGuiControlOptions SenderControlOptions { get; }
@@ -24,12 +22,8 @@
         public ClientActionMessageFromSystemEvent(IClientActionDataResolver _)
         {
             Message = _.Resolve<string>("message");
-            SenderControlOptions = _.Resolve<GuiControlOptionsModel>(
-                "senderControlOptions"
-            );
-            MessageControlOptions = _.Resolve<GuiControlOptionsModel>(
-                "messageControlOptions"
-            );
+            SenderControlOptions = _.Resolve<GuiControlOptionsModel>("senderControlOptions");
+            MessageControlOptions = _.Resolve<GuiControlOptionsModel>("messageControlOptions");
         }
 
         // TODO: Check to make sure this can be triggered

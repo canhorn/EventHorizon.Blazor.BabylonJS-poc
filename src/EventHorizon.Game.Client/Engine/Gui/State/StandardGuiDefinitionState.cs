@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.State;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 

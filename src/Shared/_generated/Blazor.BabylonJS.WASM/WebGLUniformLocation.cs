@@ -5,18 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface WebGLUniformLocation : ICachedEntity { }
 
 [JsonConverter(typeof(CachedEntityConverter<WebGLUniformLocationCachedEntity>))]
-public class WebGLUniformLocationCachedEntity
-    : CachedEntityObject,
-        WebGLUniformLocation
+public class WebGLUniformLocationCachedEntity : CachedEntityObject, WebGLUniformLocation
 {
     #region Static Accessors
 

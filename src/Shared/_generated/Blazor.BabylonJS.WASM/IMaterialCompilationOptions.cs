@@ -5,17 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IMaterialCompilationOptions : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<IMaterialCompilationOptionsCachedEntity>)
-)]
+[JsonConverter(typeof(CachedEntityConverter<IMaterialCompilationOptionsCachedEntity>))]
 public class IMaterialCompilationOptionsCachedEntity
     : CachedEntityObject,
         IMaterialCompilationOptions
@@ -40,13 +36,7 @@ public class IMaterialCompilationOptionsCachedEntity
 
     public bool clipPlane
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "clipPlane"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "clipPlane"); }
         set
         {
 
@@ -56,13 +46,7 @@ public class IMaterialCompilationOptionsCachedEntity
 
     public bool useInstances
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useInstances"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useInstances"); }
         set
         {
 

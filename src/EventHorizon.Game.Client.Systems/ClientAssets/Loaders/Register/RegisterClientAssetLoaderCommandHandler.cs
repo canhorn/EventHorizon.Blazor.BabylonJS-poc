@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api;
-
 using MediatR;
 
 public class RegisterClientAssetLoaderCommandHandler

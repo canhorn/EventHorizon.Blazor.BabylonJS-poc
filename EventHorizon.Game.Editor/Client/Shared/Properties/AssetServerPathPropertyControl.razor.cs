@@ -3,12 +3,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
 using EventHorizon.Game.Server.Asset.Query;
-
 using Microsoft.AspNetCore.Components;
 
 public class AssetServerPathPropertyControlModel : PropertyControlBase
@@ -51,15 +49,12 @@ public class AssetServerPathPropertyControlModel : PropertyControlBase
             return;
         }
 
-        var options = result.Result.PathList
-            .Select(
-                clientAsset =>
-                    new StandardSelectOption
-                    {
-                        Value = clientAsset.FullName,
-                        Text = clientAsset.FullName,
-                    }
-            )
+        var options = result
+            .Result.PathList.Select(clientAsset => new StandardSelectOption
+            {
+                Value = clientAsset.FullName,
+                Text = clientAsset.FullName,
+            })
             .OrderBy(a => a.Text)
             .InsertItem(
                 0,
@@ -81,9 +76,7 @@ public class AssetServerPathPropertyControlModel : PropertyControlBase
     {
         if (AssetOptions.Exists(a => a.Value == AssetServerFullName))
         {
-            SelectedAssetOption = AssetOptions.First(
-                a => a.Value == AssetServerFullName
-            );
+            SelectedAssetOption = AssetOptions.First(a => a.Value == AssetServerFullName);
         }
         else
         {

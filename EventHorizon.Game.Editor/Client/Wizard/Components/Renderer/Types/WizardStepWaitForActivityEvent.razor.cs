@@ -1,12 +1,9 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Activity;
 
-public class WizardStepWaitForActivityEventBase
-    : WizardStepCommonBase,
-        ActivityEventObserver
+public class WizardStepWaitForActivityEventBase : WizardStepCommonBase, ActivityEventObserver
 {
     private string _category = string.Empty;
     private string _action = string.Empty;
@@ -21,11 +18,7 @@ public class WizardStepWaitForActivityEventBase
 
     public async Task Handle(ActivityEvent args)
     {
-        if (
-            args.Category == _category
-            && args.Action == _action
-            && args.Tag == _tag
-        )
+        if (args.Category == _category && args.Action == _action && args.Tag == _tag)
         {
             await State.Next();
         }

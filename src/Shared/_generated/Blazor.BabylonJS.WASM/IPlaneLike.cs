@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IPlaneLike : ICachedEntity { }
@@ -40,18 +38,14 @@ public class IPlaneLikeCachedEntity : CachedEntityObject, IPlaneLike
         {
             if (__normal == null)
             {
-                __normal =
-                    EventHorizonBlazorInterop.GetClass<IVector3LikeCachedEntity>(
-                        this.___guid,
-                        "normal",
-                        (entity) =>
-                        {
-                            return new IVector3LikeCachedEntity()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __normal = EventHorizonBlazorInterop.GetClass<IVector3LikeCachedEntity>(
+                    this.___guid,
+                    "normal",
+                    (entity) =>
+                    {
+                        return new IVector3LikeCachedEntity() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __normal;
         }
@@ -64,10 +58,7 @@ public class IPlaneLikeCachedEntity : CachedEntityObject, IPlaneLike
 
     public decimal d
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "d");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "d"); }
         set
         {
 

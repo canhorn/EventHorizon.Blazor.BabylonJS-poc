@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.Account.Api;
-
 using MediatR;
 
 public class QueryForAccountInfoHandler
@@ -27,9 +25,7 @@ public class QueryForAccountInfoHandler
         var user = _state.User;
         if (user == null)
         {
-            return new CommandResult<IAccountInfo>(
-                "user_account_info_not_found"
-            ).FromResult();
+            return new CommandResult<IAccountInfo>("user_account_info_not_found").FromResult();
         }
         return new CommandResult<IAccountInfo>(user).FromResult();
     }

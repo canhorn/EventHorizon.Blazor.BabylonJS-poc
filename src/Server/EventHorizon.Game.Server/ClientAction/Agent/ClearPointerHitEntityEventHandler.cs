@@ -2,13 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
-public class ClearPointerHitEntityEventHandler
-    : INotificationHandler<ClearPointerHitEntityEvent>
+public class ClearPointerHitEntityEventHandler : INotificationHandler<ClearPointerHitEntityEvent>
 {
     private readonly ObserverState _observer;
 
@@ -21,8 +18,8 @@ public class ClearPointerHitEntityEventHandler
         ClearPointerHitEntityEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ClearPointerHitEntityEventObserver,
-            ClearPointerHitEntityEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ClearPointerHitEntityEventObserver, ClearPointerHitEntityEvent>(
+            notification,
+            cancellationToken
+        );
 }

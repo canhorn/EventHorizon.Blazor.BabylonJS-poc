@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<EasingFunction>))]
@@ -79,11 +77,7 @@ public class EasingFunction : CachedEntityObject, IEasingFunction
     public void setEasingMode(decimal easingMode)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setEasingMode" },
-                easingMode
-            }
+            new object[] { new string[] { this.___guid, "setEasingMode" }, easingMode }
         );
     }
 
@@ -97,11 +91,7 @@ public class EasingFunction : CachedEntityObject, IEasingFunction
     public decimal easeInCore(decimal gradient)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "easeInCore" },
-                gradient
-            }
+            new object[] { new string[] { this.___guid, "easeInCore" }, gradient }
         );
     }
 

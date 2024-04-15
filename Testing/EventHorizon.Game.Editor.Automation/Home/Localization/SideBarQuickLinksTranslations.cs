@@ -12,8 +12,7 @@ public static class SideBarQuickLinksTranslations
         public const string DataStorageText = "Data Storage";
         public const string LiveEditorText = "Live Editor";
         public const string WizardText = "Wizard";
-        public const string ZoneArtifactManagementText =
-            "Zone Artifacts Management";
+        public const string ZoneArtifactManagementText = "Zone Artifacts Management";
         public const string ZoneCommandsText = "Zone Commands";
 
         public const string BladeSelectionTitle = "Editor Blade";

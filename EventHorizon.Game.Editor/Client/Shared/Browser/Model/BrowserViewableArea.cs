@@ -4,8 +4,6 @@ using EventHorizon.Blazor.Interop;
 
 public class BrowserViewableArea : ViewableArea
 {
-    public int InnerWidth =>
-        EventHorizonBlazorInterop.Get<int>("window", "innerWidth");
-    public int InnerHeight =>
-        EventHorizonBlazorInterop.Get<int>("window", "innerHeight");
+    public int InnerWidth => EventHorizonBlazorInterop.Get<int>("window", "innerWidth");
+    public int InnerHeight => EventHorizonBlazorInterop.Get<int>("window", "innerHeight");
 }

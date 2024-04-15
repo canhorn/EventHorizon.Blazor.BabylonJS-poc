@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Light>))]
@@ -22,78 +20,39 @@ public class Light : Node
 
     public static decimal FALLOFF_DEFAULT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Light.FALLOFF_DEFAULT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Light.FALLOFF_DEFAULT"); }
     }
 
     public static decimal FALLOFF_PHYSICAL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Light.FALLOFF_PHYSICAL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Light.FALLOFF_PHYSICAL"); }
     }
 
     public static decimal FALLOFF_GLTF
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Light.FALLOFF_GLTF"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Light.FALLOFF_GLTF"); }
     }
 
     public static decimal FALLOFF_STANDARD
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Light.FALLOFF_STANDARD"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Light.FALLOFF_STANDARD"); }
     }
 
     public static decimal LIGHTMAP_DEFAULT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Light.LIGHTMAP_DEFAULT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Light.LIGHTMAP_DEFAULT"); }
     }
 
     public static decimal LIGHTMAP_SPECULAR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Light.LIGHTMAP_SPECULAR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Light.LIGHTMAP_SPECULAR"); }
     }
 
     public static decimal LIGHTMAP_SHADOWSONLY
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Light.LIGHTMAP_SHADOWSONLY"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Light.LIGHTMAP_SHADOWSONLY");
         }
     }
 
@@ -178,10 +137,7 @@ public class Light : Node
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Light.LIGHTTYPEID_SPOTLIGHT"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Light.LIGHTTYPEID_SPOTLIGHT");
         }
     }
 
@@ -201,20 +157,11 @@ public class Light : Node
     public static decimal CompareLightsPriority(Light a, Light b)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Light", "CompareLightsPriority" },
-                a,
-                b
-            }
+            new object[] { new string[] { "BABYLON", "Light", "CompareLightsPriority" }, a, b }
         );
     }
 
-    public static ActionCallback GetConstructorFromName(
-        decimal type,
-        string name,
-        Scene scene
-    )
+    public static ActionCallback GetConstructorFromName(decimal type, string name, Scene scene)
     {
         return EventHorizonBlazorInterop.Func<ActionCallback>(
             new object[]
@@ -231,12 +178,7 @@ public class Light : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Light>(
             entity => new Light() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Light", "Parse" },
-                parsedLight,
-                scene
-            }
+            new object[] { new string[] { "BABYLON", "Light", "Parse" }, parsedLight, scene }
         );
     }
     #endregion
@@ -245,13 +187,7 @@ public class Light : Node
 
     public decimal range
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "range"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "range"); }
         set
         {
 
@@ -261,13 +197,7 @@ public class Light : Node
 
     public decimal intensityMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "intensityMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "intensityMode"); }
         set
         {
 
@@ -277,13 +207,7 @@ public class Light : Node
 
     public decimal radius
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "radius"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "radius"); }
         set
         {
 
@@ -293,13 +217,7 @@ public class Light : Node
 
     public bool shadowEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "shadowEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "shadowEnabled"); }
         set
         {
 
@@ -323,11 +241,7 @@ public class Light : Node
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "includedOnlyMeshes",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "includedOnlyMeshes", value);
         }
     }
 
@@ -347,31 +261,17 @@ public class Light : Node
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "excludedMeshes",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "excludedMeshes", value);
         }
     }
 
     public decimal excludeWithLayerMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "excludeWithLayerMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "excludeWithLayerMask"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "excludeWithLayerMask",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "excludeWithLayerMask", value);
         }
     }
 
@@ -379,31 +279,18 @@ public class Light : Node
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "includeOnlyWithLayerMask"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "includeOnlyWithLayerMask");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "includeOnlyWithLayerMask",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "includeOnlyWithLayerMask", value);
         }
     }
 
     public decimal lightmapMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "lightmapMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "lightmapMode"); }
         set
         {
 
@@ -465,13 +352,7 @@ public class Light : Node
 
     public decimal falloffType
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "falloffType"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "falloffType"); }
         set
         {
 
@@ -481,13 +362,7 @@ public class Light : Node
 
     public decimal intensity
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "intensity"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "intensity"); }
         set
         {
 
@@ -497,21 +372,11 @@ public class Light : Node
 
     public decimal renderPriority
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "renderPriority"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "renderPriority"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderPriority",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderPriority", value);
         }
     }
     #endregion
@@ -540,12 +405,7 @@ public class Light : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Light>(
             entity => new Light() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "transferToEffect" },
-                effect,
-                lightIndex
-            }
+            new object[] { new string[] { this.___guid, "transferToEffect" }, effect, lightIndex }
         );
     }
 
@@ -562,10 +422,7 @@ public class Light : Node
         );
     }
 
-    public Light transferToNodeMaterialEffect(
-        Effect effect,
-        string lightDataUniformName
-    )
+    public Light transferToNodeMaterialEffect(Effect effect, string lightDataUniformName)
     {
         return EventHorizonBlazorInterop.FuncClass<Light>(
             entity => new Light() { ___guid = entity.___guid },
@@ -588,11 +445,7 @@ public class Light : Node
     public string toString(System.Nullable<bool> fullDetails = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                fullDetails
-            }
+            new object[] { new string[] { this.___guid, "toString" }, fullDetails }
         );
     }
 
@@ -606,8 +459,7 @@ public class Light : Node
     public IShadowGeneratorCachedEntity getShadowGenerator()
     {
         return EventHorizonBlazorInterop.FuncClass<IShadowGeneratorCachedEntity>(
-            entity =>
-                new IShadowGeneratorCachedEntity() { ___guid = entity.___guid },
+            entity => new IShadowGeneratorCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getShadowGenerator" } }
         );
     }
@@ -616,21 +468,14 @@ public class Light : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAbsolutePosition" }
-            }
+            new object[] { new string[] { this.___guid, "getAbsolutePosition" } }
         );
     }
 
     public bool canAffectMesh(AbstractMesh mesh)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "canAffectMesh" },
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "canAffectMesh" }, mesh }
         );
     }
 

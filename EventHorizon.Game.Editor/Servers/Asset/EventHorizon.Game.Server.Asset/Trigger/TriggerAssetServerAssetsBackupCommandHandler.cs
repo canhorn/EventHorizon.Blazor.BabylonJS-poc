@@ -2,24 +2,17 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Server.Asset.Api;
 using EventHorizon.Game.Server.Asset.Model;
-
 using MediatR;
 
 public class TriggerAssetServerAssetsBackupCommandHandler
-    : IRequestHandler<
-        TriggerAssetServerAssetsBackupCommand,
-        CommandResult<BackupTriggerResult>
-    >
+    : IRequestHandler<TriggerAssetServerAssetsBackupCommand, CommandResult<BackupTriggerResult>>
 {
     private readonly AssetServerAdminService _service;
 
-    public TriggerAssetServerAssetsBackupCommandHandler(
-        AssetServerAdminService service
-    )
+    public TriggerAssetServerAssetsBackupCommandHandler(AssetServerAdminService service)
     {
         _service = service;
     }
@@ -33,10 +26,7 @@ public class TriggerAssetServerAssetsBackupCommandHandler
 
         if (!apiResult.Success || apiResult.Result.IsNull())
         {
-            return new(
-                apiResult.ErrorCode
-                    ?? AssetServerAdminErrorCodes.BAD_API_REQUEST
-            );
+            return new(apiResult.ErrorCode ?? AssetServerAdminErrorCodes.BAD_API_REQUEST);
         }
 
         return new(apiResult.Result);

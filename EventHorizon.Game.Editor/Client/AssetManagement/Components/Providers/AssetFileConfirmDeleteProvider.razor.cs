@@ -1,12 +1,10 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Delete;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class AssetFileConfirmDeleteProviderModel
@@ -58,10 +56,7 @@ public class AssetFileConfirmDeleteProviderModel
         {
             await ShowMessage(
                 Localizer["Asset Management - Delete"],
-                Localizer[
-                    "Failed to delete Directory Content. (Code = [{0}])",
-                    result.ErrorCode
-                ],
+                Localizer["Failed to delete Directory Content. (Code = [{0}])", result.ErrorCode],
                 MessageLevel.Error
             );
             return;
@@ -69,10 +64,7 @@ public class AssetFileConfirmDeleteProviderModel
 
         await ShowMessage(
             Localizer["Asset Management - Delete"],
-            Localizer[
-                "Successfully Deleted the Directory Content '{0}'.",
-                _directoryContent.Name
-            ]
+            Localizer["Successfully Deleted the Directory Content '{0}'.", _directoryContent.Name]
         );
         IsOpen = false;
         _directoryContent = null;

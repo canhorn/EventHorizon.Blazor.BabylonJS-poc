@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
@@ -30,13 +29,11 @@ using EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.State.Model;
 using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Model;
-
 using MediatR;
 
 public class StandardServerEntity : ServerLifecycleEntityBase
 {
-    protected readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    protected readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
 
     public StandardServerEntity(IObjectEntityDetails details)
         : base(details) { }
@@ -45,17 +42,11 @@ public class StandardServerEntity : ServerLifecycleEntityBase
     {
         SetProperty("resolveHeight", true);
 
-        RegisterModule(
-            DetailsModule.MODULE_NAME,
-            new StandardDetailsModule(this)
-        );
+        RegisterModule(DetailsModule.MODULE_NAME, new StandardDetailsModule(this));
 
         RegisterModule(ITransformModule.MODULE_NAME, new TransformModule(this));
         RegisterModule(IStateModule.MODULE_NAME, new StateModule(this));
-        RegisterModule(
-            IModelLoaderModule.MODULE_NAME,
-            new ModelLoaderModule(this)
-        );
+        RegisterModule(IModelLoaderModule.MODULE_NAME, new ModelLoaderModule(this));
         RegisterModule(
             IMeshModule.MODULE_NAME,
             new MeshModule(this, new MeshModuleOptions(false, false))
@@ -68,10 +59,7 @@ public class StandardServerEntity : ServerLifecycleEntityBase
         );
         RegisterModule(IAnimationModule.MODULE_NAME, new AnimationModule(this));
         RegisterModule(IInViewModule.MODULE_NAME, new InViewModule(this));
-        RegisterModule(
-            InteractionModule.MODULE_NAME,
-            new StandardInteractionModule(this)
-        );
+        RegisterModule(InteractionModule.MODULE_NAME, new StandardInteractionModule(this));
         RegisterModule(
             InteractionIndicatorModule.MODULE_NAME,
             new StandardInteractionIndicatorModule(this)

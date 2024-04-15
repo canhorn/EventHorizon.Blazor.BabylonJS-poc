@@ -2,25 +2,18 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.Systems.Wizard.Model;
 using EventHorizon.Zone.Systems.Wizard.Run;
-
 using MediatR;
 
 public class RunWizardScriptProcessorCommandHandler
-    : IRequestHandler<
-        RunWizardScriptProcessorCommand,
-        CommandResult<WizardData>
-    >
+    : IRequestHandler<RunWizardScriptProcessorCommand, CommandResult<WizardData>>
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public RunWizardScriptProcessorCommandHandler(
-        ZoneAdminServices zoneAdminServices
-    )
+    public RunWizardScriptProcessorCommandHandler(ZoneAdminServices zoneAdminServices)
     {
         _zoneAdminServices = zoneAdminServices;
     }

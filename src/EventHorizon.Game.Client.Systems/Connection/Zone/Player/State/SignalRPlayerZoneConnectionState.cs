@@ -5,16 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Api;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Disconnected;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Model;
-
 using MediatR;
-
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
@@ -25,8 +22,7 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
     private readonly ILogger _logger;
     private readonly IMediator _mediator;
 
-    public bool IsConnected =>
-        _connection?.State == HubConnectionState.Connected;
+    public bool IsConnected => _connection?.State == HubConnectionState.Connected;
 
     public SignalRPlayerZoneConnectionState(
         ILogger<SignalRPlayerZoneConnectionState> logger,
@@ -60,15 +56,12 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
                     new Uri($"{serverUrl}/playerHub"),
                     options =>
                     {
-                        options.AccessTokenProvider = () =>
-                            accessToken.FromResult<string?>();
+                        options.AccessTokenProvider = () => accessToken.FromResult<string?>();
                     }
                 )
                 .ConfigureLogging(builder =>
                 {
-                    builder.AddProvider(
-                        GameServiceProvider.GetService<ILoggerProvider>()
-                    );
+                    builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
                 })
                 .Build();
 
@@ -79,10 +72,7 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
                 {
                     try
                     {
-                        _logger.LogDebug(
-                            "ZoneInfo Received {Now}",
-                            DateTime.UtcNow
-                        );
+                        _logger.LogDebug("ZoneInfo Received {Now}", DateTime.UtcNow);
                         // TODO: [DEBUGGING] : Track Debugging Object Command
                         //await _mediator.Send(
                         //    new TrackDebuggingObjectCommand(
@@ -90,20 +80,13 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
                         //        accountInfo
                         //    )
                         //);
-                        await _mediator.Publish(
-                            new PlayerZoneInfoReceivedEvent(zoneInfo)
-                        );
+                        await _mediator.Publish(new PlayerZoneInfoReceivedEvent(zoneInfo));
 
                         // Published that the PlayerZoneInfoReceivedEvent has finished and setup to receive events.
                         // TODO: [CLEANUP] : Replaces "gameLoadedEvent" & "createZoneLoadedEvent"
-                        await _mediator.Publish(
-                            new FinishedPlayerZoneInfoReceivedEvent()
-                        );
+                        await _mediator.Publish(new FinishedPlayerZoneInfoReceivedEvent());
 
-                        _logger.LogDebug(
-                            "ZoneInfo Finished {Now}",
-                            DateTime.UtcNow
-                        );
+                        _logger.LogDebug("ZoneInfo Finished {Now}", DateTime.UtcNow);
 
                         if (!clientActionRegistered)
                         {
@@ -115,10 +98,7 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
                                     try
                                     {
                                         await _mediator.Send(
-                                            new PublishClientActionCommand(
-                                                actionName,
-                                                data
-                                            )
+                                            new PublishClientActionCommand(actionName, data)
                                         );
                                     }
                                     catch (Exception ex)
@@ -136,10 +116,7 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(
-                            ex,
-                            "Player Zone Connection ZoneInfo Failed"
-                        );
+                        _logger.LogError(ex, "Player Zone Connection ZoneInfo Failed");
                     }
                 }
             );
@@ -163,20 +140,16 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
         var code = "closed";
         if (ex.IsNotNull())
         {
-            _logger.LogError(ex,"Core Bus Closed, with Exception");
+            _logger.LogError(ex, "Core Bus Closed, with Exception");
             code = "exception";
         }
 
         _connection = null;
 
-        return _mediator.Publish(
-            new PlayerZoneConnectionDisconnectedEvent(code, ex)
-        );
+        return _mediator.Publish(new PlayerZoneConnectionDisconnectedEvent(code, ex));
     }
 
-    public async Task StopConnection(
-        CancellationToken cancellationToken = default
-    )
+    public async Task StopConnection(CancellationToken cancellationToken = default)
     {
         if (_connection == null)
         {
@@ -195,10 +168,7 @@ public class SignalRPlayerZoneConnectionState : IPlayerZoneConnectionState
         await _connection.InvokeCoreAsync(methodName, data.ToArray());
     }
 
-    public Task<T> InvokeMethodWithResult<T>(
-        string methodName,
-        IList<object> data
-    )
+    public Task<T> InvokeMethodWithResult<T>(string methodName, IList<object> data)
         where T : class
     {
         if (_connection?.State != HubConnectionState.Connected)

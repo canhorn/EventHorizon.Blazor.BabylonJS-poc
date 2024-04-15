@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Editor.Services.Delete;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using MediatR;
 
 public struct DeleteZoneEditorFolderCommand : IRequest<EditorResponse>

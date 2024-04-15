@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Properties.Interaction.Api;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.Entity.Properties.Interaction.Model;
 
 public interface InteractionState

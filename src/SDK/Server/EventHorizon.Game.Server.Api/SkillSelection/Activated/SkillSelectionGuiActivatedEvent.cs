@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct SkillSelectionGuiActivatedEvent : INotification { }
@@ -28,8 +26,8 @@ public class SkillSelectionGuiActivatedEventHandler
         SkillSelectionGuiActivatedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            SkillSelectionGuiActivatedEventObserver,
-            SkillSelectionGuiActivatedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<SkillSelectionGuiActivatedEventObserver, SkillSelectionGuiActivatedEvent>(
+            notification,
+            cancellationToken
+        );
 }

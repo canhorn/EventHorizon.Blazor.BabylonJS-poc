@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.Create;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
 public struct CreateGuiCommand : IRequest<StandardCommandResult>

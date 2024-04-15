@@ -18,9 +18,7 @@ public sealed class SignalrZoneAdminWizardApi : ZoneAdminWizardApi
         _hubConnection = hubConnection;
     }
 
-    public async Task<ApiResponse<List<WizardMetadata>>> All(
-        CancellationToken cancellationToken
-    )
+    public async Task<ApiResponse<List<WizardMetadata>>> All(CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -31,9 +29,10 @@ public sealed class SignalrZoneAdminWizardApi : ZoneAdminWizardApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<
-            ApiResponse<List<WizardMetadata>>
-        >("Wizard_All", cancellationToken);
+        return await _hubConnection.InvokeAsync<ApiResponse<List<WizardMetadata>>>(
+            "Wizard_All",
+            cancellationToken
+        );
     }
 
     public async Task<WizardApiResponse> RunScriptProcessor(

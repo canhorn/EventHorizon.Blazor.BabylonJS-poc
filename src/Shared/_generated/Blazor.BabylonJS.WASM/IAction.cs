@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IAction : ICachedEntity { }
@@ -36,13 +34,7 @@ public class IActionCachedEntity : CachedEntityObject, IAction
 
     public decimal trigger
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "trigger"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "trigger"); }
         set
         {
 
@@ -52,21 +44,11 @@ public class IActionCachedEntity : CachedEntityObject, IAction
 
     public CachedEntity triggerOptions
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "triggerOptions"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "triggerOptions"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "triggerOptions",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "triggerOptions", value);
         }
     }
     #endregion
@@ -84,10 +66,7 @@ public class IActionCachedEntity : CachedEntityObject, IAction
     public CachedEntity getTriggerParameter()
     {
         return EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getTriggerParameter" }
-            }
+            new object[] { new string[] { this.___guid, "getTriggerParameter" } }
         );
     }
 

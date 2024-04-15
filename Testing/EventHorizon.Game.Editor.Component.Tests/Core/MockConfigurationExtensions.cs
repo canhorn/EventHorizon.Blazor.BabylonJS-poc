@@ -1,7 +1,6 @@
 ﻿namespace Microsoft.Extensions.DependencyInjection;
 
 using System.Collections.Generic;
-
 using Microsoft.Extensions.Configuration;
 
 public static class MockConfigurationExtensions
@@ -11,9 +10,7 @@ public static class MockConfigurationExtensions
         Dictionary<string, string?> configValues
     )
     {
-        var configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(configValues)
-            .Build();
+        var configuration = new ConfigurationBuilder().AddInMemoryCollection(configValues).Build();
 
         return services.AddSingleton<IConfiguration>(configuration);
     }

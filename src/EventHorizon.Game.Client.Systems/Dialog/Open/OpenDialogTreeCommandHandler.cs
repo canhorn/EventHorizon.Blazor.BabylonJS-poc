@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Core.I18n.Api;
 using EventHorizon.Game.Client.Engine.Entity.Tag;
@@ -25,9 +24,7 @@ using EventHorizon.Game.Client.Systems.Dialog.Api;
 using EventHorizon.Game.Client.Systems.Dialog.Query;
 using EventHorizon.Game.Client.Systems.Player.Api;
 using EventHorizon.Game.Client.Systems.Player.Query;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class OpenDialogTreeCommandHandler
@@ -54,20 +51,14 @@ public class OpenDialogTreeCommandHandler
     )
     {
         var guiId = "gui_dialog";
-        var (success, dialogTreeOption, playerOption, npcOption) =
-            await ValidateParameters(
-                request.PlayerId,
-                request.NpcId,
-                request.DialogTreeId,
-                cancellationToken
-            );
+        var (success, dialogTreeOption, playerOption, npcOption) = await ValidateParameters(
+            request.PlayerId,
+            request.NpcId,
+            request.DialogTreeId,
+            cancellationToken
+        );
 
-        if (
-            !success
-            || !dialogTreeOption.HasValue
-            || !playerOption.HasValue
-            || !npcOption.HasValue
-        )
+        if (!success || !dialogTreeOption.HasValue || !playerOption.HasValue || !npcOption.HasValue)
         {
             return new StandardCommandResult("failed_to_open_dialog_tree");
         }
@@ -168,11 +159,7 @@ public class OpenDialogTreeCommandHandler
                         if (!string.IsNullOrEmpty(action.NextNodeKey))
                         {
                             await _mediator.Send(
-                                new OpenDialogTreeCommand(
-                                    action.NextNodeKey,
-                                    playerId,
-                                    npcId
-                                )
+                                new OpenDialogTreeCommand(action.NextNodeKey, playerId, npcId)
                             );
                         }
                         break;
@@ -215,9 +202,7 @@ public class OpenDialogTreeCommandHandler
                                             "text",
                                             _localizer.Template(
                                                 action.TextKey,
-                                                action.TextData.Merge(
-                                                    templateData
-                                                )
+                                                action.TextData.Merge(templateData)
                                             )
                                         }
                                     }
@@ -230,10 +215,7 @@ public class OpenDialogTreeCommandHandler
                 cancellationToken
             );
 
-            await _mediator.Send(
-                new ActivateGuiCommand(newActionGuiId),
-                cancellationToken
-            );
+            await _mediator.Send(new ActivateGuiCommand(newActionGuiId), cancellationToken);
 
             index++;
         }
@@ -252,10 +234,7 @@ public class OpenDialogTreeCommandHandler
     )
     {
         // Validate Player
-        var playerResult = await _mediator.Send(
-            new QueryForCurrentPlayer(),
-            cancellationToken
-        );
+        var playerResult = await _mediator.Send(new QueryForCurrentPlayer(), cancellationToken);
         if (!playerResult.Success || playerResult.Result.EntityId != playerId)
         {
             _logger.LogWarning(
@@ -275,11 +254,7 @@ public class OpenDialogTreeCommandHandler
             new QueryForEntity(TagBuilder.CreateEntityIdTag(npcId.ToString())),
             cancellationToken
         );
-        if (
-            !npcResult.Success
-            || npcResult.Result.IsNull()
-            || !npcResult.Result.Any()
-        )
+        if (!npcResult.Success || npcResult.Result.IsNull() || !npcResult.Result.Any())
         {
             _logger.LogWarning(
                 "Failed to Validate NPC: {NpcId} | {ErrorCode}",

@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct SetEntityScalingEvent : INotification
@@ -22,11 +20,9 @@ public struct SetEntityScalingEvent : INotification
     }
 }
 
-public interface SetEntityScalingEventObserver
-    : ArgumentObserver<SetEntityScalingEvent> { }
+public interface SetEntityScalingEventObserver : ArgumentObserver<SetEntityScalingEvent> { }
 
-public class SetEntityScalingEventHandler
-    : INotificationHandler<SetEntityScalingEvent>
+public class SetEntityScalingEventHandler : INotificationHandler<SetEntityScalingEvent>
 {
     private readonly ObserverState _observer;
 
@@ -35,10 +31,7 @@ public class SetEntityScalingEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        SetEntityScalingEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(SetEntityScalingEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<SetEntityScalingEventObserver, SetEntityScalingEvent>(
             notification,
             cancellationToken

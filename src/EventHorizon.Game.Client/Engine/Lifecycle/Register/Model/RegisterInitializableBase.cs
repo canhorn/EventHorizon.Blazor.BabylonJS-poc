@@ -3,20 +3,15 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Initialized;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
-public class RegisterInitializableBase
-    : RegisterBase<IInitializableEntity>,
-        IRegisterInitializable
+public class RegisterInitializableBase : RegisterBase<IInitializableEntity>, IRegisterInitializable
 {
     private readonly ILogger _logger;
     private readonly IMediator _mediator;
@@ -46,11 +41,7 @@ public class RegisterInitializableBase
             }
             catch (Exception ex)
             {
-                _logger.LogError(
-                    ex,
-                    "Failed to Initialize Entity: {ClientId}",
-                    entity.ClientId
-                );
+                _logger.LogError(ex, "Failed to Initialize Entity: {ClientId}", entity.ClientId);
             }
         }
         foreach (var entity in list)

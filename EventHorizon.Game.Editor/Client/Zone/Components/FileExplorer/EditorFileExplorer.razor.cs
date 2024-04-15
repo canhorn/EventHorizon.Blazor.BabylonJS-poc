@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Authentication.Api;
 using EventHorizon.Game.Editor.Client.Authentication.Set;
 using EventHorizon.Game.Editor.Client.Localization;
@@ -16,9 +15,7 @@ using EventHorizon.Game.Editor.Client.Zone.Reload;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Create;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Delete;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Components;
 
 public class EditorFileExplorerModel : ComponentBase
@@ -37,8 +34,7 @@ public class EditorFileExplorerModel : ComponentBase
 
     public bool IsEnabled { get; set; }
 
-    public TreeViewNodeData EditorTreeView { get; set; } =
-        new TreeViewNodeData();
+    public TreeViewNodeData EditorTreeView { get; set; } = new TreeViewNodeData();
 
     public EditorFileExplorerModalState ModalState { get; set; } =
         new EditorFileExplorerModalState();
@@ -59,17 +55,11 @@ public class EditorFileExplorerModel : ComponentBase
         var expandedList = new List<string>();
         FillExpandedList(EditorTreeView, ref expandedList);
         await Mediator.Send(
-            new SetSessionValueCommand(
-                "editorFileExplorer",
-                string.Join(',', expandedList)
-            )
+            new SetSessionValueCommand("editorFileExplorer", string.Join(',', expandedList))
         );
     }
 
-    private void FillExpandedList(
-        TreeViewNodeData editorTreeView,
-        ref List<string> expandedList
-    )
+    private void FillExpandedList(TreeViewNodeData editorTreeView, ref List<string> expandedList)
     {
         if (editorTreeView.IsExpanded)
         {
@@ -83,9 +73,7 @@ public class EditorFileExplorerModel : ComponentBase
 
     private async Task HandleZoneStateChange()
     {
-        var expandedList = SessionValues
-            .Get("editorFileExplorer", "")
-            .Split(",");
+        var expandedList = SessionValues.Get("editorFileExplorer", "").Split(",");
 
         var result = await Mediator.Send(
             new QueryForActiveEditorNodeTreeView(
@@ -159,9 +147,7 @@ public class EditorFileExplorerModel : ComponentBase
         var fileName = ModalState.TextInput;
 
         await ValidateResponse(
-            await Mediator.Send(
-                new CreateNewZoneEditorFileCommand(fileName, path)
-            )
+            await Mediator.Send(new CreateNewZoneEditorFileCommand(fileName, path))
         );
     }
 
@@ -206,9 +192,7 @@ public class EditorFileExplorerModel : ComponentBase
         if (response.Successful)
         {
             ModalState.IsOpen = false;
-            var result = await Mediator.Send(
-                new ReloadActiveZoneStateCommand()
-            );
+            var result = await Mediator.Send(new ReloadActiveZoneStateCommand());
             if (!result.Success)
             {
                 ModalState.ErrorMessage = Localizer[

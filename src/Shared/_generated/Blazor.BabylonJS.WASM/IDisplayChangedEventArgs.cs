@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IDisplayChangedEventArgs : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<IDisplayChangedEventArgsCachedEntity>)
-)]
-public class IDisplayChangedEventArgsCachedEntity
-    : CachedEntityObject,
-        IDisplayChangedEventArgs
+[JsonConverter(typeof(CachedEntityConverter<IDisplayChangedEventArgsCachedEntity>))]
+public class IDisplayChangedEventArgsCachedEntity : CachedEntityObject, IDisplayChangedEventArgs
 {
     #region Static Accessors
 
@@ -40,13 +34,7 @@ public class IDisplayChangedEventArgsCachedEntity
 
     public CachedEntity vrDisplay
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "vrDisplay"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "vrDisplay"); }
         set
         {
 
@@ -56,13 +44,7 @@ public class IDisplayChangedEventArgsCachedEntity
 
     public bool vrSupported
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "vrSupported"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "vrSupported"); }
         set
         {
 

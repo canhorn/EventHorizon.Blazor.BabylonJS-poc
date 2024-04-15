@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.State;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 
 internal class StandardClientAssetInstanceState : ClientAssetInstanceState

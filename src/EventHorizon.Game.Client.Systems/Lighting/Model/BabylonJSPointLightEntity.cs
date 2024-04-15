@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Entity.Tag;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
@@ -41,8 +39,8 @@ public class BabylonJSPointLightEntity : ServerLifecycleEntityBase, ILightEntity
                     },
                 },
                 Type = $"LIGHT_{details.Type}",
-                TagList = details.Tags
-                    .Concat(
+                TagList = details
+                    .Tags.Concat(
                         new List<string>
                         {
                             TagBuilder.CreateTypeTag("light"),
@@ -58,10 +56,7 @@ public class BabylonJSPointLightEntity : ServerLifecycleEntityBase, ILightEntity
 
     public override Task Initialize()
     {
-        var scene = GameServiceProvider
-            .GetService<IRenderingScene>()
-            .GetBabylonJSScene()
-            .Scene;
+        var scene = GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene;
         Light = new PointLight(Name, Transform.Position.ToBabylonJS(), scene);
         if (_lightDetails.EnableDayNightCycle)
         {

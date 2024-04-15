@@ -3,18 +3,14 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Systems.Account.Query;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Stop;
 using EventHorizon.Game.Server.ServerModule.BackToMenu.Reload;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
-public class TriggerPageReloadCommandHandler
-    : IRequestHandler<TriggerPageReloadCommand>
+public class TriggerPageReloadCommandHandler : IRequestHandler<TriggerPageReloadCommand>
 {
     private readonly ILogger _logger;
     private readonly IMediator _mediator;
@@ -28,23 +24,14 @@ public class TriggerPageReloadCommandHandler
         _mediator = mediator;
     }
 
-    public async Task Handle(
-        TriggerPageReloadCommand request,
-        CancellationToken cancellationToken
-    )
+    public async Task Handle(TriggerPageReloadCommand request, CancellationToken cancellationToken)
     {
         // Disconnect from any Connections
-        var result = await _mediator.Send(
-            new QueryForZoneDetails(),
-            cancellationToken
-        );
+        var result = await _mediator.Send(new QueryForZoneDetails(), cancellationToken);
         if (result.Success)
         {
             var serverAddress = result.Result.ServerAddress;
-            _logger.LogDebug(
-                "Stopping Player Connection: {DateTimeTriggered}",
-                DateTime.UtcNow
-            );
+            _logger.LogDebug("Stopping Player Connection: {DateTimeTriggered}", DateTime.UtcNow);
             await _mediator.Send(
                 new StopPlayerZoneConnectionCommand(serverAddress),
                 cancellationToken

@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using BabylonJS.GUI;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Model;
@@ -86,35 +84,20 @@ public class BabylonJSGuiScrollViewer : IBabylonJSGuiControl
         return scrollViewerControl;
     }
 
-    IList<string> IGNORE_PROPERTY_LIST = new List<string>
-    {
-        "animation",
-        "onClick",
-    };
+    IList<string> IGNORE_PROPERTY_LIST = new List<string> { "animation", "onClick", };
 
-    private void SetPropertyOnControl(
-        Control control,
-        string property,
-        object value
-    )
+    private void SetPropertyOnControl(Control control, string property, object value)
     {
         EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }
 
-    private void Update(
-        IGuiControlOptions options,
-        ScrollViewer scrollViewerControl
-    )
+    private void Update(IGuiControlOptions options, ScrollViewer scrollViewerControl)
     {
         foreach (var option in options)
         {
             if (!IGNORE_PROPERTY_LIST.Contains(option.Key))
             {
-                SetPropertyOnControl(
-                    scrollViewerControl,
-                    option.Key,
-                    option.Value
-                );
+                SetPropertyOnControl(scrollViewerControl, option.Key, option.Value);
             }
         }
     }

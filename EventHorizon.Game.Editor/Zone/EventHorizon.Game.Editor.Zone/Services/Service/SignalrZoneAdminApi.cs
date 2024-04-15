@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public sealed class SignalrZoneAdminApi : ZoneAdminApi
@@ -27,9 +25,7 @@ public sealed class SignalrZoneAdminApi : ZoneAdminApi
 
         Agent = new SignalrZoneAdminAgentApi(hubConnection);
         Player = new SignalrZoneAdminPlayerApi(hubConnection);
-        ArtifactManagement = new SignalrZoneAdminArtifactManagementApi(
-            hubConnection
-        );
+        ArtifactManagement = new SignalrZoneAdminArtifactManagementApi(hubConnection);
         ClientAssets = new SignalrZoneAdminClientAssetsApi(hubConnection);
         ClientEntity = new SignalrZoneAdminClientEntityApi(hubConnection);
         Command = new SignalrZoneAdminCommandApi(hubConnection);

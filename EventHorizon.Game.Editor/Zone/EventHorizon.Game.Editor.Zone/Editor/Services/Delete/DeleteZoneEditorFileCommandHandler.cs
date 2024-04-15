@@ -30,9 +30,7 @@ public class DeleteZoneEditorFileCommandHandler
     {
         try
         {
-            return _zoneEditorServices
-                .Api
-                .DeleteEditorFile(request.Path, request.FileName);
+            return _zoneEditorServices.Api.DeleteEditorFile(request.Path, request.FileName);
         }
         catch (Exception ex)
         {

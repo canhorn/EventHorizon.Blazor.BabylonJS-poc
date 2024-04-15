@@ -1,20 +1,14 @@
 ﻿namespace EventHorizon.Game.Client.Systems;
 
 using MediatR;
-
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ClientSystemsStartup
 {
-    public static IServiceCollection AddClientSystemsServices(
-        this IServiceCollection services
-    ) =>
+    public static IServiceCollection AddClientSystemsServices(this IServiceCollection services) =>
         services
-            .AddMediatR(
-                config =>
-                    config.RegisterServicesFromAssembly(
-                        typeof(ClientSystemsStartup).Assembly
-                    )
+            .AddMediatR(config =>
+                config.RegisterServicesFromAssembly(typeof(ClientSystemsStartup).Assembly)
             )
             // Local Systems
             .AddClientScenesServices()

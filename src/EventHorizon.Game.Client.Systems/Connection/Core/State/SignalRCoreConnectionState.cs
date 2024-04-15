@@ -17,8 +17,7 @@ public class SignalRCoreConnectionState : CoreConnectionState
     private readonly ILogger _logger;
     private readonly IMediator _mediator;
 
-    public bool IsConnected =>
-        _connection?.State == HubConnectionState.Connected;
+    public bool IsConnected => _connection?.State == HubConnectionState.Connected;
 
     public SignalRCoreConnectionState(
         ILogger<SignalRCoreConnectionState> logger,
@@ -52,22 +51,16 @@ public class SignalRCoreConnectionState : CoreConnectionState
                     new Uri($"{serverUrl}/coreBus"),
                     options =>
                     {
-                        options.AccessTokenProvider = () =>
-                            accessToken.FromResult<string?>();
+                        options.AccessTokenProvider = () => accessToken.FromResult<string?>();
                     }
                 )
                 .ConfigureLogging(builder =>
                 {
-                    builder.AddProvider(
-                        GameServiceProvider.GetService<ILoggerProvider>()
-                    );
+                    builder.AddProvider(GameServiceProvider.GetService<ILoggerProvider>());
                 })
                 .Build();
 
-            _connection.On<AccountInfoModel>(
-                "AccountConnected",
-                HandleAccountConnected
-            );
+            _connection.On<AccountInfoModel>("AccountConnected", HandleAccountConnected);
 
             _connection.Closed += HandleConnectionClosed;
 

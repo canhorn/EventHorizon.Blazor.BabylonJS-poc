@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.Camera.Model;
 
 using System;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 using EventHorizon.Game.Client.Engine.Systems.Camera.Model;
@@ -18,10 +16,7 @@ public class BabylonJSUniversalCamera : BabylonJSCameraBase<UniversalCamera>
             new UniversalCamera(
                 name,
                 new BabylonJSVector3(0, 10, -30),
-                GameServiceProvider
-                    .GetService<IRenderingScene>()
-                    .GetBabylonJSScene()
-                    .Scene
+                GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene
             )
         )
     {

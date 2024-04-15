@@ -2,16 +2,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
-public record TriggredZoneServerArtifactImportEvent(
-    bool Success,
-    string ErrorCode
-) : INotification;
+public record TriggredZoneServerArtifactImportEvent(bool Success, string ErrorCode) : INotification;
 
 public interface TriggredZoneServerArtifactImportEventObserver
     : ArgumentObserver<TriggredZoneServerArtifactImportEvent> { }
@@ -21,9 +16,7 @@ public class TriggredZoneServerArtifactImportEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public TriggredZoneServerArtifactImportEventObserverHandler(
-        ObserverState observer
-    )
+    public TriggredZoneServerArtifactImportEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

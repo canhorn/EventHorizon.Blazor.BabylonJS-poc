@@ -2,11 +2,9 @@
 
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Zone.Systems.Wizard.Model;
-
 using MediatR;
 
-public struct RunWizardScriptProcessorCommand
-    : IRequest<CommandResult<WizardData>>
+public struct RunWizardScriptProcessorCommand : IRequest<CommandResult<WizardData>>
 {
     public string WizardId { get; }
     public string WizardStepId { get; }

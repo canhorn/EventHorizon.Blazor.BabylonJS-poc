@@ -4,10 +4,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
 using EventHorizon.Game.Client.Systems.Player.Register;
-
 using MediatR;
 
 public class SetupPlayerFromPlayerZoneInfoRecivedEventHandler

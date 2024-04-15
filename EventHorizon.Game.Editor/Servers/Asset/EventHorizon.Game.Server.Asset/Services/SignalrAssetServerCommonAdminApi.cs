@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Server.Asset.Api;
 using EventHorizon.Game.Server.Asset.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalrAssetServerCommonAdminApi : AssetServerCommonAdminApi
@@ -30,8 +28,9 @@ public class SignalrAssetServerCommonAdminApi : AssetServerCommonAdminApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<
-            ApiResponse<ArtifactListResult>
-        >("ArtifactList", cancellationToken: cancellationToken);
+        return await _hubConnection.InvokeAsync<ApiResponse<ArtifactListResult>>(
+            "ArtifactList",
+            cancellationToken: cancellationToken
+        );
     }
 }

@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct GuiLayoutDataChangedEvent : INotification
@@ -18,11 +16,9 @@ public struct GuiLayoutDataChangedEvent : INotification
     }
 }
 
-public interface GuiLayoutDataChangedEventObserver
-    : ArgumentObserver<GuiLayoutDataChangedEvent> { }
+public interface GuiLayoutDataChangedEventObserver : ArgumentObserver<GuiLayoutDataChangedEvent> { }
 
-public class GuiLayoutDataChangedEventHandler
-    : INotificationHandler<GuiLayoutDataChangedEvent>
+public class GuiLayoutDataChangedEventHandler : INotificationHandler<GuiLayoutDataChangedEvent>
 {
     private readonly ObserverState _observer;
 
@@ -35,8 +31,8 @@ public class GuiLayoutDataChangedEventHandler
         GuiLayoutDataChangedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            GuiLayoutDataChangedEventObserver,
-            GuiLayoutDataChangedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<GuiLayoutDataChangedEventObserver, GuiLayoutDataChangedEvent>(
+            notification,
+            cancellationToken
+        );
 }

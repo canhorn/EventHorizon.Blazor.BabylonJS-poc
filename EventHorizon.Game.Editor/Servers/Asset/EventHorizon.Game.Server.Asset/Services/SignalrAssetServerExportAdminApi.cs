@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Server.Asset.Api;
 using EventHorizon.Game.Server.Asset.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalrAssetServerExportAdminApi : AssetServerExportAdminApi
@@ -17,9 +15,7 @@ public class SignalrAssetServerExportAdminApi : AssetServerExportAdminApi
         _hubConnection = hubConnection;
     }
 
-    public async Task<ApiResponse<ExportTriggerResult>> Trigger(
-        CancellationToken cancellationToken
-    )
+    public async Task<ApiResponse<ExportTriggerResult>> Trigger(CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -30,8 +26,9 @@ public class SignalrAssetServerExportAdminApi : AssetServerExportAdminApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<
-            ApiResponse<ExportTriggerResult>
-        >("Asset_Export_Trigger", cancellationToken: cancellationToken);
+        return await _hubConnection.InvokeAsync<ApiResponse<ExportTriggerResult>>(
+            "Asset_Export_Trigger",
+            cancellationToken: cancellationToken
+        );
     }
 }

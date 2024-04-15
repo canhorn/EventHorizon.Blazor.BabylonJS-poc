@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 
 public class BeforeRenderingBase : IBeforeRendering

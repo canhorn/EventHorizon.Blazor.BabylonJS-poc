@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
 using MediatR;
 
 public interface ICommandService

@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Tag;
 using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
@@ -13,9 +12,7 @@ using EventHorizon.Game.Client.Systems.Dialog.Open;
 using EventHorizon.Game.Client.Systems.Dialog.Query;
 using EventHorizon.Game.Client.Systems.Player.Api;
 using EventHorizon.Game.Client.Systems.Player.Query;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class ClientActionOpenDialogTreeEventHandler
@@ -48,10 +45,7 @@ public class ClientActionOpenDialogTreeEventHandler
         );
         if (!result.Success)
         {
-            _logger.LogError(
-                "Failed to Open Dialog Tree, Reason: {ErrorCode}",
-                result.ErrorCode
-            );
+            _logger.LogError("Failed to Open Dialog Tree, Reason: {ErrorCode}", result.ErrorCode);
         }
     }
 }

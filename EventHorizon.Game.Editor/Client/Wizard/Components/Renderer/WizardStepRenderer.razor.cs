@@ -2,11 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types;
 using EventHorizon.Zone.Systems.Wizard.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class WizardStepRendererBase : EditorComponentBase
@@ -21,13 +19,9 @@ public class WizardStepRendererBase : EditorComponentBase
     protected IDictionary<string, object> ComponentParameters { get; } =
         new Dictionary<string, object>();
 
-    private readonly IDictionary<string, Type> _stepTypes = new Dictionary<
-        string,
-        Type
-    >
+    private readonly IDictionary<string, Type> _stepTypes = new Dictionary<string, Type>
     {
-        [WizardStepTypes.CaptureCurrentLocation] =
-            typeof(WizardStepCaptureCurrentLocation),
+        [WizardStepTypes.CaptureCurrentLocation] = typeof(WizardStepCaptureCurrentLocation),
         [WizardStepTypes.FormInput] = typeof(WizardStepFormInput),
         [WizardStepTypes.InfoText] = typeof(WizardStepInfoText),
         [WizardStepTypes.LocationNavigate] = typeof(WizardStepLocationNavigate),
@@ -35,10 +29,8 @@ public class WizardStepRendererBase : EditorComponentBase
         [WizardStepTypes.Null] = typeof(WizardStepNull),
         [WizardStepTypes.ServerProcess] = typeof(WizardStepServerProcess),
         [WizardStepTypes.TextInput] = typeof(WizardStepTextInput),
-        [WizardStepTypes.TriggerReloadingStateEvent] =
-            typeof(WizardStepTriggerReloadingStateEvent),
-        [WizardStepTypes.WaitForActivityEvent] =
-            typeof(WizardStepWaitForActivityEvent),
+        [WizardStepTypes.TriggerReloadingStateEvent] = typeof(WizardStepTriggerReloadingStateEvent),
+        [WizardStepTypes.WaitForActivityEvent] = typeof(WizardStepWaitForActivityEvent),
     };
 
     protected override void OnInitialized()

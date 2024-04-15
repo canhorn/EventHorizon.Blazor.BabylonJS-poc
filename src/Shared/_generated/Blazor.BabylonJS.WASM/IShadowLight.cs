@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IShadowLight : ICachedEntity { }
@@ -36,10 +34,7 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
 
     public string id
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "id");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "id"); }
         set
         {
 
@@ -104,26 +99,21 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
         {
             if (__transformedPosition == null)
             {
-                __transformedPosition =
-                    EventHorizonBlazorInterop.GetClass<Vector3>(
-                        this.___guid,
-                        "transformedPosition",
-                        (entity) =>
-                        {
-                            return new Vector3() { ___guid = entity.___guid };
-                        }
-                    );
+                __transformedPosition = EventHorizonBlazorInterop.GetClass<Vector3>(
+                    this.___guid,
+                    "transformedPosition",
+                    (entity) =>
+                    {
+                        return new Vector3() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __transformedPosition;
         }
         set
         {
             __transformedPosition = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "transformedPosition",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "transformedPosition", value);
         }
     }
 
@@ -134,35 +124,27 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
         {
             if (__transformedDirection == null)
             {
-                __transformedDirection =
-                    EventHorizonBlazorInterop.GetClass<Vector3>(
-                        this.___guid,
-                        "transformedDirection",
-                        (entity) =>
-                        {
-                            return new Vector3() { ___guid = entity.___guid };
-                        }
-                    );
+                __transformedDirection = EventHorizonBlazorInterop.GetClass<Vector3>(
+                    this.___guid,
+                    "transformedDirection",
+                    (entity) =>
+                    {
+                        return new Vector3() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __transformedDirection;
         }
         set
         {
             __transformedDirection = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "transformedDirection",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "transformedDirection", value);
         }
     }
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -172,13 +154,7 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
 
     public decimal shadowMinZ
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "shadowMinZ"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "shadowMinZ"); }
         set
         {
 
@@ -188,13 +164,7 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
 
     public decimal shadowMaxZ
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "shadowMaxZ"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "shadowMaxZ"); }
         set
         {
 
@@ -216,10 +186,7 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
     public bool computeTransformedInformation()
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "computeTransformedInformation" }
-            }
+            new object[] { new string[] { this.___guid, "computeTransformedInformation" } }
         );
     }
 
@@ -233,10 +200,7 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
 
     #region customProjectionMatrixBuilder TODO: Get Comments as metadata identification
     private bool _isCustomProjectionMatrixBuilderEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _customProjectionMatrixBuilderActionMap =
+    private readonly IDictionary<string, Func<Task>> _customProjectionMatrixBuilderActionMap =
         new Dictionary<string, Func<Task>>();
 
     public string customProjectionMatrixBuilder(Func<Task> callback)
@@ -286,8 +250,7 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
     )
     {
         return EventHorizonBlazorInterop.FuncClass<IShadowLightCachedEntity>(
-            entity =>
-                new IShadowLightCachedEntity() { ___guid = entity.___guid },
+            entity => new IShadowLightCachedEntity() { ___guid = entity.___guid },
             new object[]
             {
                 new string[] { this.___guid, "setShadowProjectionMatrix" },
@@ -315,20 +278,14 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
     public bool needProjectionMatrixCompute()
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "needProjectionMatrixCompute" }
-            }
+            new object[] { new string[] { this.___guid, "needProjectionMatrixCompute" } }
         );
     }
 
     public void forceProjectionMatrixCompute()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "forceProjectionMatrixCompute" }
-            }
+            new object[] { new string[] { this.___guid, "forceProjectionMatrixCompute" } }
         );
     }
 
@@ -336,33 +293,21 @@ public class IShadowLightCachedEntity : CachedEntityObject, IShadowLight
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getShadowDirection" },
-                faceIndex
-            }
+            new object[] { new string[] { this.___guid, "getShadowDirection" }, faceIndex }
         );
     }
 
     public decimal getDepthMinZ(Camera activeCamera)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getDepthMinZ" },
-                activeCamera
-            }
+            new object[] { new string[] { this.___guid, "getDepthMinZ" }, activeCamera }
         );
     }
 
     public decimal getDepthMaxZ(Camera activeCamera)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getDepthMaxZ" },
-                activeCamera
-            }
+            new object[] { new string[] { this.___guid, "getDepthMaxZ" }, activeCamera }
         );
     }
     #endregion

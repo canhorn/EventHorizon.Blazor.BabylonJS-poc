@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ActiveZoneStateChangedEvent : INotification
@@ -35,8 +33,8 @@ public class ActiveZoneStateChangedEventObserverHandler
         ActiveZoneStateChangedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ActiveZoneStateChangedEventObserver,
-            ActiveZoneStateChangedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ActiveZoneStateChangedEventObserver, ActiveZoneStateChangedEvent>(
+            notification,
+            cancellationToken
+        );
 }

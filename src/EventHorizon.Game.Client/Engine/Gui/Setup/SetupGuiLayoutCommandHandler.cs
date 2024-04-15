@@ -5,11 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
-
 using MediatR;
 
 public class SetupGuiLayoutCommandHandler
@@ -18,10 +16,7 @@ public class SetupGuiLayoutCommandHandler
     private readonly IRenderingGui _renderingGui;
     private readonly IGuiControlState _controlState;
 
-    public SetupGuiLayoutCommandHandler(
-        IRenderingGui renderingGui,
-        IGuiControlState controlState
-    )
+    public SetupGuiLayoutCommandHandler(IRenderingGui renderingGui, IGuiControlState controlState)
     {
         _renderingGui = renderingGui;
         _controlState = controlState;
@@ -34,9 +29,7 @@ public class SetupGuiLayoutCommandHandler
     {
         var parent = _controlState.Get(request.ParentControlId ?? string.Empty);
 
-        foreach (
-            var layoutControl in request.Layout.ControlList.OrderBy(a => a.Sort)
-        )
+        foreach (var layoutControl in request.Layout.ControlList.OrderBy(a => a.Sort))
         {
             AddControlToLayout(request.GuiId, layoutControl, parent);
         }

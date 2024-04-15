@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.ZoneArtifactsManagement.Pages;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Layout;
-
 using _ = ZoneArtifactsManagementPage;
 
 [Url("/artifacts/zone")]

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Viewport>))]
@@ -34,10 +32,7 @@ public class Viewport : CachedEntityObject
 
     public decimal x
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "x");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "x"); }
         set
         {
 
@@ -47,10 +42,7 @@ public class Viewport : CachedEntityObject
 
     public decimal y
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "y");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "y"); }
         set
         {
 
@@ -60,13 +52,7 @@ public class Viewport : CachedEntityObject
 
     public decimal width
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "width"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "width"); }
         set
         {
 
@@ -76,13 +62,7 @@ public class Viewport : CachedEntityObject
 
     public decimal height
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "height"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "height"); }
         set
         {
 
@@ -119,20 +99,11 @@ public class Viewport : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Viewport>(
             entity => new Viewport() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "toGlobal" },
-                renderWidth,
-                renderHeight
-            }
+            new object[] { new string[] { this.___guid, "toGlobal" }, renderWidth, renderHeight }
         );
     }
 
-    public Viewport toGlobalToRef(
-        decimal renderWidth,
-        decimal renderHeight,
-        Viewport @ref
-    )
+    public Viewport toGlobalToRef(decimal renderWidth, decimal renderHeight, Viewport @ref)
     {
         return EventHorizonBlazorInterop.FuncClass<Viewport>(
             entity => new Viewport() { ___guid = entity.___guid },

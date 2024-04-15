@@ -2,18 +2,13 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
-
 using MediatR;
 
 public class AssetReloadToNodeAndDirectoryContentCommandHandler
-    : IRequestHandler<
-        AssetReloadToNodeAndDirectoryContentCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<AssetReloadToNodeAndDirectoryContentCommand, StandardCommandResult>
 {
     private readonly IMediator _mediator;
     private readonly AssetManagementState _state;
@@ -38,10 +33,7 @@ public class AssetReloadToNodeAndDirectoryContentCommandHandler
             cancellationToken
         );
 
-        await _mediator.Publish(
-            new AssetManagementStateChangedEvent(),
-            cancellationToken
-        );
+        await _mediator.Publish(new AssetManagementStateChangedEvent(), cancellationToken);
 
         return new();
     }

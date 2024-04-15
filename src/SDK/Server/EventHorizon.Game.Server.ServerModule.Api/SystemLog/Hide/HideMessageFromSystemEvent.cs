@@ -27,9 +27,9 @@
             HideMessageFromSystemEvent notification,
             CancellationToken cancellationToken
         ) =>
-            _observer.Trigger<
-                HideMessageFromSystemEventObserver,
-                HideMessageFromSystemEvent
-            >(notification, cancellationToken);
+            _observer.Trigger<HideMessageFromSystemEventObserver, HideMessageFromSystemEvent>(
+                notification,
+                cancellationToken
+            );
     }
 }

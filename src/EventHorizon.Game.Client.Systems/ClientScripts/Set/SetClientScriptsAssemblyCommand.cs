@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientScripts.Set;
 
 using System;
-
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
 
 public struct SetClientScriptsAssemblyCommand : IRequest<StandardCommandResult>

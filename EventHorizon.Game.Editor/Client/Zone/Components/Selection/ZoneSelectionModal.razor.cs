@@ -2,10 +2,8 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Core.Services.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class ZoneSelectionModalBase : EditorComponentBase

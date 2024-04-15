@@ -11,19 +11,14 @@ using EventHorizon.Game.Editor.Client.Zone.Services.Command.Response;
 using EventHorizon.Game.Editor.Client.Zone.Services.Command.Send;
 using Microsoft.AspNetCore.Components;
 
-public class ZoneQuickCommandsModel
-    : ObservableComponentBase,
-        AdminCommandResponseEventObserver
+public class ZoneQuickCommandsModel : ObservableComponentBase, AdminCommandResponseEventObserver
 {
     [CascadingParameter]
     public ZoneState ZoneState { get; set; } = null!;
 
     public StandardSelectOption SelectedCommand { get; set; } = null!;
-    public IList<StandardSelectOption> QuickCommandOptions
-    {
-        get;
-        private set;
-    } = new List<StandardSelectOption>();
+    public IList<StandardSelectOption> QuickCommandOptions { get; private set; } =
+        new List<StandardSelectOption>();
 
     public bool IsDisabled { get; set; }
     public IList<string> QuickCommands { get; set; } =
@@ -39,14 +34,7 @@ public class ZoneQuickCommandsModel
             Hidden = true,
         };
         var options = QuickCommands
-            .Select(
-                command =>
-                    new StandardSelectOption
-                    {
-                        Value = command,
-                        Text = command,
-                    }
-            )
+            .Select(command => new StandardSelectOption { Value = command, Text = command, })
             .ToList();
         options.Insert(0, SelectedCommand);
         QuickCommandOptions = options;

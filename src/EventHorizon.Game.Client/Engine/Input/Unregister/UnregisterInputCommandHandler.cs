@@ -2,13 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Input.Api;
-
 using MediatR;
 
-public class UnregisterInputCommandHandler
-    : IRequestHandler<UnregisterInputCommand>
+public class UnregisterInputCommandHandler : IRequestHandler<UnregisterInputCommand>
 {
     private readonly IUnregisterInput _unregister;
 
@@ -17,10 +14,7 @@ public class UnregisterInputCommandHandler
         _unregister = unregister;
     }
 
-    public Task Handle(
-        UnregisterInputCommand request,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(UnregisterInputCommand request, CancellationToken cancellationToken)
     {
         _unregister.Unregister(request.Handle);
 

@@ -2,13 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.Dialog.Api;
 
 public class StandardDialogState : DialogState
 {
-    private readonly IDictionary<string, DialogTree> _map =
-        new Dictionary<string, DialogTree>();
+    private readonly IDictionary<string, DialogTree> _map = new Dictionary<string, DialogTree>();
 
     public void Clear()
     {

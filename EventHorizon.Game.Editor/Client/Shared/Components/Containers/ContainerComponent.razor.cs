@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
-
 using Microsoft.AspNetCore.Components;
 
 public partial class ContainerComponent : ComponentBase

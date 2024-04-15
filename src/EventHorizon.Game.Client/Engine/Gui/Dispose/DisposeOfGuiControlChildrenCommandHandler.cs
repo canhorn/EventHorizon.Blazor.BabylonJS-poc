@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
 public class DisposeOfGuiControlChildrenCommandHandler
@@ -32,10 +30,7 @@ public class DisposeOfGuiControlChildrenCommandHandler
         var children = _state.GetChildren(request.ControlId);
         foreach (var childGuiId in children)
         {
-            await _mediator.Send(
-                new DisposeOfGuiCommand(childGuiId),
-                cancellationToken
-            );
+            await _mediator.Send(new DisposeOfGuiCommand(childGuiId), cancellationToken);
         }
 
         return new StandardCommandResult();

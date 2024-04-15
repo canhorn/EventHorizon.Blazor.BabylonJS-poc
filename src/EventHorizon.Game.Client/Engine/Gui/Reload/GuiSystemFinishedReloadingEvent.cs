@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct GuiSystemFinishedReloadingEvent : INotification { }
@@ -19,9 +17,7 @@ public class GuiSystemFinishedReloadingEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public GuiSystemFinishedReloadingEventObserverHandler(
-        ObserverState observer
-    )
+    public GuiSystemFinishedReloadingEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -30,8 +26,8 @@ public class GuiSystemFinishedReloadingEventObserverHandler
         GuiSystemFinishedReloadingEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            GuiSystemFinishedReloadingEventObserver,
-            GuiSystemFinishedReloadingEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<GuiSystemFinishedReloadingEventObserver, GuiSystemFinishedReloadingEvent>(
+            notification,
+            cancellationToken
+        );
 }

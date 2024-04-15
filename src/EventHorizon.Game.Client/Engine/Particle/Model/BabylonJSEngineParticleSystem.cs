@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Particle.Model;
 
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Particle.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 
@@ -21,10 +19,7 @@ public class BabylonJSEngineParticleSystem : EngineParticleSystem
         ParticleSystem = new ParticleSystem(
             settings.Name,
             settings.Capacity,
-            GameServiceProvider
-                .GetService<IRenderingScene>()
-                .GetBabylonJSScene()
-                .Scene
+            GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene
         );
         _mapper.Map(this, settings);
     }

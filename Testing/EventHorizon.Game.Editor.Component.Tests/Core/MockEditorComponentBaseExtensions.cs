@@ -19,9 +19,7 @@ public static class MockEditorComponentBaseExtensions
             new PublisherMock()
         );
 
-        services.AddSingleton<Localizer<SharedResource>>(
-            editorComponentBaseMocks.Localizer
-        );
+        services.AddSingleton<Localizer<SharedResource>>(editorComponentBaseMocks.Localizer);
         services.AddSingleton<IMediator>(editorComponentBaseMocks.Mediator);
         services.AddSingleton<ISender>(editorComponentBaseMocks.Sender);
         services.AddSingleton<IPublisher>(editorComponentBaseMocks.Publisher);

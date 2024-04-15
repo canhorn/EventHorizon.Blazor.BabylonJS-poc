@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IColor4Like : ICachedEntity { }
@@ -36,10 +34,7 @@ public class IColor4LikeCachedEntity : CachedEntityObject, IColor4Like
 
     public decimal r
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "r");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "r"); }
         set
         {
 
@@ -49,10 +44,7 @@ public class IColor4LikeCachedEntity : CachedEntityObject, IColor4Like
 
     public decimal g
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "g");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "g"); }
         set
         {
 
@@ -62,10 +54,7 @@ public class IColor4LikeCachedEntity : CachedEntityObject, IColor4Like
 
     public decimal b
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "b");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "b"); }
         set
         {
 
@@ -75,10 +64,7 @@ public class IColor4LikeCachedEntity : CachedEntityObject, IColor4Like
 
     public decimal a
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "a");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "a"); }
         set
         {
 

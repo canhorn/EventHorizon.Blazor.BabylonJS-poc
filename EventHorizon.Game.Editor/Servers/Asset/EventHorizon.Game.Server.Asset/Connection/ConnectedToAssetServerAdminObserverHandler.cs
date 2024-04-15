@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class ConnectedToAssetServerAdminObserverHandler
@@ -21,8 +19,8 @@ public class ConnectedToAssetServerAdminObserverHandler
         ConnectedToAssetServerAdmin notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ConnectedToAssetServerAdminObserver,
-            ConnectedToAssetServerAdmin
-        >(notification, cancellationToken);
+        _observer.Trigger<ConnectedToAssetServerAdminObserver, ConnectedToAssetServerAdmin>(
+            notification,
+            cancellationToken
+        );
 }

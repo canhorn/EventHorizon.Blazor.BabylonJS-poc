@@ -2,14 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 
 public class StandardGuiControlState : IGuiControlState
 {
-    private readonly IDictionary<string, IGuiControl> _map =
-        new Dictionary<string, IGuiControl>();
+    private readonly IDictionary<string, IGuiControl> _map = new Dictionary<string, IGuiControl>();
 
     public string GenerateId(string guiId, string controlId)
     {
@@ -39,10 +37,7 @@ public class StandardGuiControlState : IGuiControlState
     {
         if (control == null)
         {
-            throw new GameException(
-                "gui_control_null",
-                "Cannot set NULL GUI Control into State"
-            );
+            throw new GameException("gui_control_null", "Cannot set NULL GUI Control into State");
         }
         _map[GenerateId(guiId, control.Id)] = control;
     }

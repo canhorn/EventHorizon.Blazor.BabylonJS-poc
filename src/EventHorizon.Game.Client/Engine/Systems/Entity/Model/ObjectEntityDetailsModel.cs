@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 
 public class ObjectEntityDetailsModel : IObjectEntityDetails
@@ -13,9 +12,7 @@ public class ObjectEntityDetailsModel : IObjectEntityDetails
     public ServerTransform Transform { get; set; } = new ServerTransform();
     IServerTransform IObjectEntityDetails.Transform => Transform;
     public IList<string> TagList { get; set; } = new List<string>();
-    public IDictionary<string, object> Data { get; set; } =
-        new Dictionary<string, object>();
-    public IDictionary<string, object> RawData { get; set; } =
-        new Dictionary<string, object>();
+    public IDictionary<string, object> Data { get; set; } = new Dictionary<string, object>();
+    public IDictionary<string, object> RawData { get; set; } = new Dictionary<string, object>();
     public bool IsReadOnly { get; set; }
 }

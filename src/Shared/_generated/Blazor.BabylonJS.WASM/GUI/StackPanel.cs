@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<StackPanel>))]
@@ -30,13 +28,7 @@ public class StackPanel : Container
 
     public bool isVertical
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isVertical"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isVertical"); }
         set
         {
 
@@ -46,10 +38,7 @@ public class StackPanel : Container
 
     public string width
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "width");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "width"); }
         set
         {
 
@@ -59,13 +48,7 @@ public class StackPanel : Container
 
     public string height
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "height"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "height"); }
         set
         {
 
@@ -78,10 +61,7 @@ public class StackPanel : Container
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -91,21 +71,11 @@ public class StackPanel : Container
 
     public bool ignoreLayoutWarnings
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "ignoreLayoutWarnings"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "ignoreLayoutWarnings"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ignoreLayoutWarnings",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ignoreLayoutWarnings", value);
         }
     }
     #endregion

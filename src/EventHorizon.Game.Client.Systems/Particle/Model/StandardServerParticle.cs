@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Particle.Dispose;
@@ -13,22 +12,17 @@ using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Client.Systems.Particle.Api;
 using EventHorizon.Game.Client.Systems.Particle.Modules.ParticleEmitter.Api;
 using EventHorizon.Game.Client.Systems.Particle.Modules.ParticleEmitter.Model;
-
 using MediatR;
 
 public class StandardServerParticle : ClientLifecycleEntityBase, ParticleEmitter
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
     private readonly IObjectEntity _entity;
     private readonly ParticleEmitterOptions _options;
 
     public bool IsActive { get; private set; }
 
-    public StandardServerParticle(
-        IObjectEntity entity,
-        ParticleEmitterOptions options
-    )
+    public StandardServerParticle(IObjectEntity entity, ParticleEmitterOptions options)
         : base(
             new ObjectEntityDetailsModel
             {
@@ -54,9 +48,7 @@ public class StandardServerParticle : ClientLifecycleEntityBase, ParticleEmitter
 
     public override async Task Dispose()
     {
-        await _mediator.Send(
-            new DisposeOfParticleSystemCommand(_options.ParticleId)
-        );
+        await _mediator.Send(new DisposeOfParticleSystemCommand(_options.ParticleId));
         await base.Dispose();
     }
 
@@ -67,17 +59,13 @@ public class StandardServerParticle : ClientLifecycleEntityBase, ParticleEmitter
 
     public async Task Start()
     {
-        await _mediator.Send(
-            new StartParticleSystemCommand(_options.ParticleId)
-        );
+        await _mediator.Send(new StartParticleSystemCommand(_options.ParticleId));
         IsActive = true;
     }
 
     public async Task Stop()
     {
-        await _mediator.Send(
-            new StopParticleSystemCommand(_options.ParticleId)
-        );
+        await _mediator.Send(new StopParticleSystemCommand(_options.ParticleId));
         IsActive = false;
     }
 

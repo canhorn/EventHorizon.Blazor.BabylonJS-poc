@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Platform.LogProvider.State;
 
 using System.Collections.Concurrent;
-
 using EventHorizon.Platform.LogProvider.Api;
 using EventHorizon.Platform.LogProvider.Model;
 

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<TextBlock>))]
@@ -30,24 +28,12 @@ public class TextBlock : Control
 
     public CachedEntity[] lines
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<CachedEntity>(
-                this.___guid,
-                "lines"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<CachedEntity>(this.___guid, "lines"); }
     }
 
     public bool resizeToFit
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "resizeToFit"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "resizeToFit"); }
         set
         {
 
@@ -57,13 +43,7 @@ public class TextBlock : Control
 
     public int textWrapping
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<int>(
-                this.___guid,
-                "textWrapping"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<int>(this.___guid, "textWrapping"); }
         set
         {
 
@@ -73,10 +53,7 @@ public class TextBlock : Control
 
     public string text
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "text");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "text"); }
         set
         {
 
@@ -88,19 +65,12 @@ public class TextBlock : Control
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "textHorizontalAlignment"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "textHorizontalAlignment");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "textHorizontalAlignment",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "textHorizontalAlignment", value);
         }
     }
 
@@ -108,31 +78,18 @@ public class TextBlock : Control
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "textVerticalAlignment"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "textVerticalAlignment");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "textVerticalAlignment",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "textVerticalAlignment", value);
         }
     }
 
     public string lineSpacing
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "lineSpacing"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "lineSpacing"); }
         set
         {
 
@@ -142,13 +99,7 @@ public class TextBlock : Control
 
     public decimal outlineWidth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "outlineWidth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "outlineWidth"); }
         set
         {
 
@@ -158,13 +109,7 @@ public class TextBlock : Control
 
     public string outlineColor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "outlineColor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "outlineColor"); }
         set
         {
 
@@ -177,10 +122,7 @@ public class TextBlock : Control
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -202,10 +144,7 @@ public class TextBlock : Control
                     "onTextChangedObservable",
                     (entity) =>
                     {
-                        return new Observable<TextBlock>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<TextBlock>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -214,11 +153,7 @@ public class TextBlock : Control
         set
         {
             __onTextChangedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onTextChangedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onTextChangedObservable", value);
         }
     }
 
@@ -236,10 +171,7 @@ public class TextBlock : Control
                     "onLinesReadyObservable",
                     (entity) =>
                     {
-                        return new Observable<TextBlock>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<TextBlock>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -248,11 +180,7 @@ public class TextBlock : Control
         set
         {
             __onLinesReadyObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onLinesReadyObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onLinesReadyObservable", value);
         }
     }
     #endregion
@@ -280,10 +208,7 @@ public class TextBlock : Control
     public decimal computeExpectedHeight()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "computeExpectedHeight" }
-            }
+            new object[] { new string[] { this.___guid, "computeExpectedHeight" } }
         );
     }
 

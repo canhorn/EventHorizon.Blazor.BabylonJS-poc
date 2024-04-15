@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AssetContainer>))]
@@ -78,10 +76,7 @@ public class AssetContainer : AbstractScene
     #region Methods
     #region instantiateModelsToScene TODO: Get Comments as metadata identification
     private bool _isInstantiateModelsToSceneEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<string, Task>
-    > _instantiateModelsToSceneActionMap =
+    private readonly IDictionary<string, Func<string, Task>> _instantiateModelsToSceneActionMap =
         new Dictionary<string, Func<string, Task>>();
 
     public string instantiateModelsToScene(Func<string, Task> callback)
@@ -148,11 +143,7 @@ public class AssetContainer : AbstractScene
     public void moveAllFromScene(KeepAssets keepAssets = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "moveAllFromScene" },
-                keepAssets
-            }
+            new object[] { new string[] { this.___guid, "moveAllFromScene" }, keepAssets }
         );
     }
 

@@ -13,9 +13,7 @@ public class ClientAssetPropertiesMetadata : PropertiesMetadata
 
     private readonly Dictionary<string, string>? _metadata = new();
 
-    public ClientAssetPropertiesMetadata(
-        IDictionary<string, string>? metadata = null
-    )
+    public ClientAssetPropertiesMetadata(IDictionary<string, string>? metadata = null)
     {
         if (metadata is not null)
         {
@@ -25,9 +23,7 @@ public class ClientAssetPropertiesMetadata : PropertiesMetadata
 
     public string GetPropertyType(string name, object value)
     {
-        var type =
-            _metadata?.FirstOrDefault(prop => name == prop.Key).Value
-            ?? PropertyType.String;
+        var type = _metadata?.FirstOrDefault(prop => name == prop.Key).Value ?? PropertyType.String;
 
         if (type == PropertyType.String && IsComplexPropertyType(value))
         {
@@ -65,13 +61,11 @@ public class ClientAssetPropertiesMetadata : PropertiesMetadata
         return merged;
     }
 
-    public static bool FilterOutMetadata(
-        KeyValuePair<string, object> dataValue
-    ) => !dataValue.Key.StartsWith(METADATA_KEY_PREFIX);
+    public static bool FilterOutMetadata(KeyValuePair<string, object> dataValue) =>
+        !dataValue.Key.StartsWith(METADATA_KEY_PREFIX);
 
-    public static bool FilerOnlyMetadata(
-        KeyValuePair<string, object> dataValue
-    ) => dataValue.Key.StartsWith(METADATA_KEY_PREFIX);
+    public static bool FilerOnlyMetadata(KeyValuePair<string, object> dataValue) =>
+        dataValue.Key.StartsWith(METADATA_KEY_PREFIX);
 
     private static bool IsComplexPropertyType(object propertyValue)
     {
@@ -82,10 +76,7 @@ public class ClientAssetPropertiesMetadata : PropertiesMetadata
         {
             return true;
         }
-        else if (
-            propertyValue is JObject jObject
-            && jObject.Type == JTokenType.Object
-        )
+        else if (propertyValue is JObject jObject && jObject.Type == JTokenType.Object)
         {
             return true;
         }

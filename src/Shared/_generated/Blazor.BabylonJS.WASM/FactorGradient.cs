@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<FactorGradient>))]
@@ -34,13 +32,7 @@ public class FactorGradient : CachedEntityObject, IValueGradient
 
     public decimal gradient
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "gradient"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "gradient"); }
         set
         {
 
@@ -50,13 +42,7 @@ public class FactorGradient : CachedEntityObject, IValueGradient
 
     public decimal factor1
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "factor1"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "factor1"); }
         set
         {
 
@@ -66,13 +52,7 @@ public class FactorGradient : CachedEntityObject, IValueGradient
 
     public decimal factor2
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "factor2"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "factor2"); }
         set
         {
 

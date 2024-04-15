@@ -5,12 +5,10 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Model;
-
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
 
@@ -62,18 +60,10 @@ public class RemoteAssetServerService : AssetServerService
     )
     {
         var url = $"{_baseApiUrl}/api/Import/{service}/Upload";
-        return await UploadFileToAssetServer(
-            accessToken,
-            file,
-            service,
-            url,
-            cancellationToken
-        );
+        return await UploadFileToAssetServer(accessToken, file, service, url, cancellationToken);
     }
 
-    private async Task<
-        CommandResult<UploadImportFileResult>
-    > UploadFileToAssetServer(
+    private async Task<CommandResult<UploadImportFileResult>> UploadFileToAssetServer(
         string accessToken,
         IBrowserFile file,
         string service,
@@ -91,9 +81,7 @@ public class RemoteAssetServerService : AssetServerService
                     AssetServerConstants.MAX_FILE_SIZE_IN_BYTES,
                     service
                 );
-                return new(
-                    AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE
-                );
+                return new(AssetServerErrorCodes.ASSET_SERVER_PAYLOAD_TOO_LARGE);
             }
 
             using var content = new MultipartFormDataContent();
@@ -104,11 +92,7 @@ public class RemoteAssetServerService : AssetServerService
                 )
             );
 
-            content.Add(
-                content: fileContent,
-                name: "\"file\"",
-                fileName: file.Name
-            );
+            content.Add(content: fileContent, name: "\"file\"", fileName: file.Name);
 
             using var httpMessage = new HttpRequestMessage(HttpMethod.Post, url)
             {
@@ -116,17 +100,13 @@ public class RemoteAssetServerService : AssetServerService
             };
             AddAuthorizationHeader(httpMessage, accessToken);
 
-            using var response = await _httpClient.SendAsync(
-                httpMessage,
-                cancellationToken
-            );
+            using var response = await _httpClient.SendAsync(httpMessage, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
-                var successResult =
-                    await response.Content.ReadFromJsonAsync<UploadImportFileModel>(
-                        cancellationToken: cancellationToken
-                    );
+                var successResult = await response.Content.ReadFromJsonAsync<UploadImportFileModel>(
+                    cancellationToken: cancellationToken
+                );
                 if (successResult.IsNull())
                 {
                     return AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR;
@@ -139,19 +119,15 @@ public class RemoteAssetServerService : AssetServerService
                     )
                 );
             }
-            else if (
-                response.StatusCode == System.Net.HttpStatusCode.Unauthorized
-            )
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return AssetServerErrorCodes.ASSET_SERVER_NOT_AUTHORIZED;
             }
 
-            var errorResult =
-                await response.Content.ReadFromJsonAsync<ErrorDetails>(
-                    cancellationToken: cancellationToken
-                );
-            return errorResult?.ErrorCode
-                ?? AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR;
+            var errorResult = await response.Content.ReadFromJsonAsync<ErrorDetails>(
+                cancellationToken: cancellationToken
+            );
+            return errorResult?.ErrorCode ?? AssetServerErrorCodes.ASSET_SERVER_GENERAL_ERROR;
         }
         catch (HttpRequestException ex)
         {
@@ -165,14 +141,8 @@ public class RemoteAssetServerService : AssetServerService
         }
     }
 
-    private static void AddAuthorizationHeader(
-        HttpRequestMessage httpMessage,
-        string accessToken
-    )
+    private static void AddAuthorizationHeader(HttpRequestMessage httpMessage, string accessToken)
     {
-        httpMessage.Headers.Authorization = new AuthenticationHeaderValue(
-            "Bearer",
-            accessToken
-        );
+        httpMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
     }
 }

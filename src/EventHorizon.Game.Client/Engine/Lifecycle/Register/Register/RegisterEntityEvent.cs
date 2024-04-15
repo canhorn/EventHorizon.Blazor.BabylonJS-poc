@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct RegisterEntityEvent : INotification
@@ -19,11 +17,9 @@ public struct RegisterEntityEvent : INotification
     }
 }
 
-public interface RegisterEntityEventObserver
-    : ArgumentObserver<RegisterEntityEvent> { }
+public interface RegisterEntityEventObserver : ArgumentObserver<RegisterEntityEvent> { }
 
-public class RegisterEntityEventHandler
-    : INotificationHandler<RegisterEntityEvent>
+public class RegisterEntityEventHandler : INotificationHandler<RegisterEntityEvent>
 {
     private readonly ObserverState _observer;
 
@@ -32,10 +28,7 @@ public class RegisterEntityEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        RegisterEntityEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(RegisterEntityEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<RegisterEntityEventObserver, RegisterEntityEvent>(
             notification,
             cancellationToken

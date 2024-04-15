@@ -5,17 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface Behavior<T> : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<BehaviorCachedEntity<CachedEntity>>)
-)]
+[JsonConverter(typeof(CachedEntityConverter<BehaviorCachedEntity<CachedEntity>>))]
 public class BehaviorCachedEntity<T> : CachedEntityObject, Behavior<T>
     where T : CachedEntity, new()
 {
@@ -39,10 +35,7 @@ public class BehaviorCachedEntity<T> : CachedEntityObject, Behavior<T>
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 

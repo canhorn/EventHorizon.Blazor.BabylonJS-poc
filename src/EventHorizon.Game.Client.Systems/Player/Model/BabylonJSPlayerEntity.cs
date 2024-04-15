@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Entity.Model;
 using EventHorizon.Game.Client.Systems.EntityModule.Register;
 using EventHorizon.Game.Client.Systems.Local.Modules.ScreenPointer.Api;
@@ -35,23 +34,11 @@ public class BabylonJSPlayerEntity : StandardServerEntity, IPlayerEntity
     {
         await base.Initialize();
 
-        RegisterModule(
-            CameraModule.MODULE_NAME,
-            new BabylonJSCameraModule(this)
-        );
+        RegisterModule(CameraModule.MODULE_NAME, new BabylonJSCameraModule(this));
         RegisterModule(InputModule.MODULE_NAME, new StandardInputModule(this));
-        RegisterModule(
-            ScreenPointerModule.MODULE_NAME,
-            new BabylonJSScreenPointerModule(this)
-        );
-        RegisterModule(
-            SelectedTrackerModule.MODULE_NAME,
-            new StandardSelectedTrackerModule(this)
-        );
-        RegisterModule(
-            MoveSelectedModule.MODULE_NAME,
-            new StandardMoveSelectedModule(this)
-        );
+        RegisterModule(ScreenPointerModule.MODULE_NAME, new BabylonJSScreenPointerModule(this));
+        RegisterModule(SelectedTrackerModule.MODULE_NAME, new StandardSelectedTrackerModule(this));
+        RegisterModule(MoveSelectedModule.MODULE_NAME, new StandardMoveSelectedModule(this));
         RegisterModule(
             SelectedCompanionTrackerModule.MODULE_NAME,
             new StandardSelectedCompanionTrackerModule(this)

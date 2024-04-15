@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Changed;
 
 using System;
-
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public struct EntityChangedSuccessfullyEvent : INotification

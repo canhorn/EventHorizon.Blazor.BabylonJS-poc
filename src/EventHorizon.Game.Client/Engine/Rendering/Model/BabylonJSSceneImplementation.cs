@@ -2,9 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 
 public class BabylonJSSceneImplementation : ISceneImplementation

@@ -3,9 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using BabylonJS.GUI;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
@@ -36,11 +34,7 @@ public class BabylonJSGuiButton : IBabylonJSGuiControl
 
     public Control Control => _control;
 
-    public BabylonJSGuiButton(
-        string id,
-        IGuiControlOptions options,
-        IGuiGridLocation? gridLocation
-    )
+    public BabylonJSGuiButton(string id, IGuiControlOptions options, IGuiGridLocation? gridLocation)
     {
         Id = id;
         Options = options;
@@ -61,21 +55,15 @@ public class BabylonJSGuiButton : IBabylonJSGuiControl
     {
         if (!string.IsNullOrEmpty(_onPointerEnterObserverHandler))
         {
-            _control.onPointerEnterObservable.add_Remove(
-                _onPointerEnterObserverHandler
-            );
+            _control.onPointerEnterObservable.add_Remove(_onPointerEnterObserverHandler);
         }
         if (!string.IsNullOrEmpty(_onPointerOutObserverHandler))
         {
-            _control.onPointerOutObservable.add_Remove(
-                _onPointerOutObserverHandler
-            );
+            _control.onPointerOutObservable.add_Remove(_onPointerOutObserverHandler);
         }
         if (!string.IsNullOrEmpty(_onClickObserverHandler))
         {
-            _control.onPointerClickObservable.add_Remove(
-                _onClickObserverHandler
-            );
+            _control.onPointerClickObservable.add_Remove(_onClickObserverHandler);
         }
         Control.dispose();
     }
@@ -99,10 +87,7 @@ public class BabylonJSGuiButton : IBabylonJSGuiControl
     private string _onPointerEnterObserverHandler = string.Empty;
     private string _onPointerOutObserverHandler = string.Empty;
 
-    private (Button, TextBlock) CreateControl(
-        string id,
-        IGuiControlOptions options
-    )
+    private (Button, TextBlock) CreateControl(string id, IGuiControlOptions options)
     {
         //var buttonControl = new Rectangle(
         //    $"{id}_button"
@@ -122,60 +107,58 @@ public class BabylonJSGuiButton : IBabylonJSGuiControl
         buttonControl.addControl(textControl);
 
         // Hover Observer Setup
-        _onPointerEnterObserverHandler =
-            buttonControl.onPointerEnterObservable.add(
-                (_, __) =>
+        _onPointerEnterObserverHandler = buttonControl.onPointerEnterObservable.add(
+            (_, __) =>
+            {
+                if (_control.isEnabled)
                 {
-                    if (_control.isEnabled)
-                    {
-                        options.HasValueCallback<string>(
-                            "hoverColor",
-                            value =>
-                            {
-                                buttonControl.background = value;
-                            }
-                        );
-                    }
-                    else
-                    {
-                        options.HasValueCallback<string>(
-                            "disabledHoverColor",
-                            value =>
-                            {
-                                buttonControl.background = value;
-                            }
-                        );
-                    }
-                    return Task.CompletedTask;
+                    options.HasValueCallback<string>(
+                        "hoverColor",
+                        value =>
+                        {
+                            buttonControl.background = value;
+                        }
+                    );
                 }
-            );
-        _onPointerOutObserverHandler =
-            buttonControl.onPointerEnterObservable.add(
-                (_, __) =>
+                else
                 {
-                    if (_control.isEnabled)
-                    {
-                        options.HasValueCallback<string>(
-                            "background",
-                            value =>
-                            {
-                                buttonControl.background = value;
-                            }
-                        );
-                    }
-                    else
-                    {
-                        options.HasValueCallback<string>(
-                            "disabledColor",
-                            value =>
-                            {
-                                buttonControl.background = value;
-                            }
-                        );
-                    }
-                    return Task.CompletedTask;
+                    options.HasValueCallback<string>(
+                        "disabledHoverColor",
+                        value =>
+                        {
+                            buttonControl.background = value;
+                        }
+                    );
                 }
-            );
+                return Task.CompletedTask;
+            }
+        );
+        _onPointerOutObserverHandler = buttonControl.onPointerEnterObservable.add(
+            (_, __) =>
+            {
+                if (_control.isEnabled)
+                {
+                    options.HasValueCallback<string>(
+                        "background",
+                        value =>
+                        {
+                            buttonControl.background = value;
+                        }
+                    );
+                }
+                else
+                {
+                    options.HasValueCallback<string>(
+                        "disabledColor",
+                        value =>
+                        {
+                            buttonControl.background = value;
+                        }
+                    );
+                }
+                return Task.CompletedTask;
+            }
+        );
 
         return (buttonControl, textControl);
     }
@@ -187,11 +170,7 @@ public class BabylonJSGuiButton : IBabylonJSGuiControl
         "onClick",
     };
 
-    private void Update(
-        IGuiControlOptions options,
-        Rectangle buttonControl,
-        TextBlock textControl
-    )
+    private void Update(IGuiControlOptions options, Rectangle buttonControl, TextBlock textControl)
     {
         foreach (var option in options)
         {
@@ -201,16 +180,10 @@ public class BabylonJSGuiButton : IBabylonJSGuiControl
             }
             else if (option.Key == "textBlockOptions")
             {
-                var textBlockOptions = option.Value.To(
-                    () => new GuiControlOptionsModel()
-                );
+                var textBlockOptions = option.Value.To(() => new GuiControlOptionsModel());
                 foreach (var textBlockOption in textBlockOptions)
                 {
-                    SetPropertyOnControl(
-                        textControl,
-                        textBlockOption.Key,
-                        textBlockOption.Value
-                    );
+                    SetPropertyOnControl(textControl, textBlockOption.Key, textBlockOption.Value);
                 }
             }
         }
@@ -258,23 +231,16 @@ public class BabylonJSGuiButton : IBabylonJSGuiControl
             {
                 if (!string.IsNullOrEmpty(_onClickObserverHandler))
                 {
-                    buttonControl.onPointerEnterObservable.add_Remove(
-                        _onClickObserverHandler
-                    );
+                    buttonControl.onPointerEnterObservable.add_Remove(_onClickObserverHandler);
                 }
-                _onClickObserverHandler =
-                    buttonControl.onPointerClickObservable.add(
-                        (_, __) => value()
-                    );
+                _onClickObserverHandler = buttonControl.onPointerClickObservable.add(
+                    (_, __) => value()
+                );
             }
         );
     }
 
-    private static void SetPropertyOnControl(
-        Control control,
-        string property,
-        object value
-    )
+    private static void SetPropertyOnControl(Control control, string property, object value)
     {
         EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }

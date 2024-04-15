@@ -3,12 +3,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.ClientScripts.Api;
 using EventHorizon.Game.Client.Systems.ClientScripts.Fetch;
 using EventHorizon.Game.Client.Systems.ClientScripts.Scripting.ClientAction;
 using EventHorizon.Game.Client.Systems.ClientScripts.Set;
-
 using MediatR;
 
 public class ClientActionClientScriptsAssemblyChangedEventHandler
@@ -33,10 +31,7 @@ public class ClientActionClientScriptsAssemblyChangedEventHandler
     {
         if (notification.Hash != _state.Hash)
         {
-            var result = await _mediator.Send(
-                new FetchClientScriptsAssembly(),
-                cancellationToken
-            );
+            var result = await _mediator.Send(new FetchClientScriptsAssembly(), cancellationToken);
             if (result.Success)
             {
                 await _mediator.Send(

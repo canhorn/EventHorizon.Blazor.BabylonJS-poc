@@ -2,24 +2,18 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Particle.Api;
 using EventHorizon.Game.Client.Engine.Particle.Model;
 using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class BabylonJSParticleState : ParticleState, ParticleLifecycleService
 {
     private readonly ILogger _logger = GamePlatform.Logger<ParticleState>();
-    private readonly IDictionary<
-        long,
-        EngineParticleSystem
-    > _particleSystemList = new Dictionary<long, EngineParticleSystem>();
-    private readonly IDictionary<
-        string,
-        ParticleTemplate
-    > _particleTemplateList = new Dictionary<string, ParticleTemplate>();
+    private readonly IDictionary<long, EngineParticleSystem> _particleSystemList =
+        new Dictionary<long, EngineParticleSystem>();
+    private readonly IDictionary<string, ParticleTemplate> _particleTemplateList =
+        new Dictionary<string, ParticleTemplate>();
 
     public int Priority => 0;
 
@@ -47,11 +41,7 @@ public class BabylonJSParticleState : ParticleState, ParticleLifecycleService
         return Task.CompletedTask;
     }
 
-    public Task CreateFromTemplate(
-        long id,
-        string templateId,
-        ParticleSettings settings
-    )
+    public Task CreateFromTemplate(long id, string templateId, ParticleSettings settings)
     {
         if (
             !_particleTemplateList.ContainsKey(templateId)
@@ -66,8 +56,7 @@ public class BabylonJSParticleState : ParticleState, ParticleLifecycleService
                     GetGeneratedSettings(settings)
                 )
             );
-            _particleSystemList[defaultParticleSystem.Id] =
-                defaultParticleSystem;
+            _particleSystemList[defaultParticleSystem.Id] = defaultParticleSystem;
 
             _logger.LogPlatformWarning(
                 nameof(ParticleState),
@@ -103,9 +92,7 @@ public class BabylonJSParticleState : ParticleState, ParticleLifecycleService
         return Task.CompletedTask;
     }
 
-    private static ParticleSettings GetGeneratedSettings(
-        ParticleSettings settings
-    )
+    private static ParticleSettings GetGeneratedSettings(ParticleSettings settings)
     {
         var result = new ParticleSettingsModel();
 

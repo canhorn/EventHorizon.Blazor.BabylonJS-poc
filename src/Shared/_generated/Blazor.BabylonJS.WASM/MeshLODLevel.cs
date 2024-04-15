@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<MeshLODLevel>))]
@@ -34,13 +32,7 @@ public class MeshLODLevel : CachedEntityObject
 
     public decimal distance
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "distance"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "distance"); }
         set
         {
 

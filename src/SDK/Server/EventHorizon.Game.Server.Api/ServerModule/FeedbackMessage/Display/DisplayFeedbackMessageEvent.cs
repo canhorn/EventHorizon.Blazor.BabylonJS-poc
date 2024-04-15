@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Server.ServerModule.FeedbackMessage.Display;
 
 using System;
-
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public struct DisplayFeedbackMessageEvent : INotification

@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
 using EventHorizon.Game.Client.Systems.Entity.Changed;
@@ -10,7 +9,6 @@ using EventHorizon.Game.Client.Systems.Entity.ClientAction;
 using EventHorizon.Game.Client.Systems.Entity.Modules.Details.Api;
 using EventHorizon.Observer.Register;
 using EventHorizon.Observer.Unregister;
-
 using MediatR;
 
 public class StandardDetailsModule
@@ -55,8 +53,6 @@ public class StandardDetailsModule
             return;
         }
         _entity.UpdateDetails(args.Details);
-        await _mediator.Publish(
-            new EntityChangedSuccessfullyEvent(_entity.EntityId)
-        );
+        await _mediator.Publish(new EntityChangedSuccessfullyEvent(_entity.EntityId));
     }
 }

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<RenderTargetCreationOptions>))]
@@ -34,70 +32,37 @@ public class RenderTargetCreationOptions : CachedEntityObject
 
     public bool generateMipMaps
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "generateMipMaps"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "generateMipMaps"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "generateMipMaps",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "generateMipMaps", value);
         }
     }
 
     public bool generateDepthBuffer
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "generateDepthBuffer"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "generateDepthBuffer"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "generateDepthBuffer",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "generateDepthBuffer", value);
         }
     }
 
     public bool generateStencilBuffer
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "generateStencilBuffer"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "generateStencilBuffer"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "generateStencilBuffer",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "generateStencilBuffer", value);
         }
     }
 
     public decimal type
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type"); }
         set
         {
 
@@ -107,13 +72,7 @@ public class RenderTargetCreationOptions : CachedEntityObject
 
     public decimal samplingMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "samplingMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "samplingMode"); }
         set
         {
 
@@ -123,13 +82,7 @@ public class RenderTargetCreationOptions : CachedEntityObject
 
     public decimal format
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "format"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "format"); }
         set
         {
 

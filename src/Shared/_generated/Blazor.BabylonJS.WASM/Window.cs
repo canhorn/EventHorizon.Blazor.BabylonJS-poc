@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface Window : ICachedEntity { }
@@ -65,29 +63,21 @@ public class WindowCachedEntity : CachedEntityObject, Window
         {
             if (__webkitIndexedDB == null)
             {
-                __webkitIndexedDB =
-                    EventHorizonBlazorInterop.GetClass<IDBFactory>(
-                        this.___guid,
-                        "webkitIndexedDB",
-                        (entity) =>
-                        {
-                            return new IDBFactory()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __webkitIndexedDB = EventHorizonBlazorInterop.GetClass<IDBFactory>(
+                    this.___guid,
+                    "webkitIndexedDB",
+                    (entity) =>
+                    {
+                        return new IDBFactory() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __webkitIndexedDB;
         }
         set
         {
             __webkitIndexedDB = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "webkitIndexedDB",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "webkitIndexedDB", value);
         }
     }
 
@@ -166,11 +156,7 @@ public class WindowCachedEntity : CachedEntityObject, Window
         set
         {
             __WebGLRenderingContext = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "WebGLRenderingContext",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "WebGLRenderingContext", value);
         }
     }
 
@@ -201,13 +187,7 @@ public class WindowCachedEntity : CachedEntityObject, Window
 
     public CachedEntity CANNON
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "CANNON"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "CANNON"); }
         set
         {
 
@@ -222,18 +202,14 @@ public class WindowCachedEntity : CachedEntityObject, Window
         {
             if (__AudioContext == null)
             {
-                __AudioContext =
-                    EventHorizonBlazorInterop.GetClass<AudioContext>(
-                        this.___guid,
-                        "AudioContext",
-                        (entity) =>
-                        {
-                            return new AudioContext()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __AudioContext = EventHorizonBlazorInterop.GetClass<AudioContext>(
+                    this.___guid,
+                    "AudioContext",
+                    (entity) =>
+                    {
+                        return new AudioContext() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __AudioContext;
         }
@@ -251,41 +227,27 @@ public class WindowCachedEntity : CachedEntityObject, Window
         {
             if (__webkitAudioContext == null)
             {
-                __webkitAudioContext =
-                    EventHorizonBlazorInterop.GetClass<AudioContext>(
-                        this.___guid,
-                        "webkitAudioContext",
-                        (entity) =>
-                        {
-                            return new AudioContext()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __webkitAudioContext = EventHorizonBlazorInterop.GetClass<AudioContext>(
+                    this.___guid,
+                    "webkitAudioContext",
+                    (entity) =>
+                    {
+                        return new AudioContext() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __webkitAudioContext;
         }
         set
         {
             __webkitAudioContext = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "webkitAudioContext",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "webkitAudioContext", value);
         }
     }
 
     public CachedEntity PointerEvent
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "PointerEvent"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "PointerEvent"); }
         set
         {
 
@@ -305,10 +267,7 @@ public class WindowCachedEntity : CachedEntityObject, Window
                     "Math",
                     (entity) =>
                     {
-                        return new MathCachedEntity()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new MathCachedEntity() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -328,18 +287,14 @@ public class WindowCachedEntity : CachedEntityObject, Window
         {
             if (__Uint8Array == null)
             {
-                __Uint8Array =
-                    EventHorizonBlazorInterop.GetClass<Uint8ArrayConstructor>(
-                        this.___guid,
-                        "Uint8Array",
-                        (entity) =>
-                        {
-                            return new Uint8ArrayConstructor()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __Uint8Array = EventHorizonBlazorInterop.GetClass<Uint8ArrayConstructor>(
+                    this.___guid,
+                    "Uint8Array",
+                    (entity) =>
+                    {
+                        return new Uint8ArrayConstructor() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __Uint8Array;
         }
@@ -357,18 +312,14 @@ public class WindowCachedEntity : CachedEntityObject, Window
         {
             if (__Float32Array == null)
             {
-                __Float32Array =
-                    EventHorizonBlazorInterop.GetClass<Float32ArrayConstructor>(
-                        this.___guid,
-                        "Float32Array",
-                        (entity) =>
-                        {
-                            return new Float32ArrayConstructor()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __Float32Array = EventHorizonBlazorInterop.GetClass<Float32ArrayConstructor>(
+                    this.___guid,
+                    "Float32Array",
+                    (entity) =>
+                    {
+                        return new Float32ArrayConstructor() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __Float32Array;
         }
@@ -431,13 +382,7 @@ public class WindowCachedEntity : CachedEntityObject, Window
 
     public CachedEntity VRFrameData
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "VRFrameData"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "VRFrameData"); }
         set
         {
 
@@ -449,19 +394,12 @@ public class WindowCachedEntity : CachedEntityObject, Window
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "DracoDecoderModule"
-            );
+            return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "DracoDecoderModule");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "DracoDecoderModule",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "DracoDecoderModule", value);
         }
     }
     #endregion
@@ -479,31 +417,20 @@ public class WindowCachedEntity : CachedEntityObject, Window
     public decimal mozRequestAnimationFrame(FrameRequestCallback callback)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "mozRequestAnimationFrame" },
-                callback
-            }
+            new object[] { new string[] { this.___guid, "mozRequestAnimationFrame" }, callback }
         );
     }
 
     public decimal oRequestAnimationFrame(FrameRequestCallback callback)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "oRequestAnimationFrame" },
-                callback
-            }
+            new object[] { new string[] { this.___guid, "oRequestAnimationFrame" }, callback }
         );
     }
 
     #region setImmediate TODO: Get Comments as metadata identification
     private bool _isSetImmediateEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<CachedEntity[], Task>
-    > _setImmediateActionMap =
+    private readonly IDictionary<string, Func<CachedEntity[], Task>> _setImmediateActionMap =
         new Dictionary<string, Func<CachedEntity[], Task>>();
 
     public string setImmediate(Func<CachedEntity[], Task> callback)

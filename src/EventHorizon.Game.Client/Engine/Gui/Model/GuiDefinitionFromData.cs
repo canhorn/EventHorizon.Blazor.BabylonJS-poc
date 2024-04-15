@@ -20,10 +20,8 @@ using MediatR;
 
 public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
-    private readonly ILocalizer _localizer =
-        GameServiceProvider.GetService<ILocalizer>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
+    private readonly ILocalizer _localizer = GameServiceProvider.GetService<ILocalizer>();
     private readonly IGuiControlChildrenState _guiControlChildrenState =
         GameServiceProvider.GetService<IGuiControlChildrenState>();
     private readonly ScriptServices _scriptServices =
@@ -34,8 +32,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
     private readonly string? _parentControlId;
     private bool _initialized = false;
     private bool _runActivate = false;
-    private IList<IGuiLayoutControlData> _flattenedControlList =
-        new List<IGuiLayoutControlData>();
+    private IList<IGuiLayoutControlData> _flattenedControlList = new List<IGuiLayoutControlData>();
     private Func<Task> _handleUpdateScript;
     private Func<Task> _handleDrawScript;
     private readonly ScriptData _scriptData;
@@ -78,15 +75,13 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
         var updateScript = await GetClientScript(_layout.UpdateScript);
         if (updateScript.IsNotNull())
         {
-            _handleUpdateScript = () =>
-                updateScript.Run(_scriptServices, _scriptData);
+            _handleUpdateScript = () => updateScript.Run(_scriptServices, _scriptData);
         }
 
         var drawScript = await GetClientScript(_layout.DrawScript);
         if (drawScript.IsNotNull())
         {
-            _handleDrawScript = () =>
-                drawScript.Run(_scriptServices, _scriptData);
+            _handleDrawScript = () => drawScript.Run(_scriptServices, _scriptData);
         }
     }
 
@@ -100,9 +95,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
 
         foreach (var control in _flattenedControlList)
         {
-            await _mediator.Send(
-                new DisposeOfGuiControlCommand(GuiId, control.Id)
-            );
+            await _mediator.Send(new DisposeOfGuiControlCommand(GuiId, control.Id));
         }
 
         await base.Dispose();
@@ -132,9 +125,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
         {
             await _mediator.Send(new RegisterGuiControlCommand(GuiId, control));
         }
-        await _mediator.Send(
-            new SetupGuiLayoutCommand(GuiId, _layout, _parentControlId)
-        );
+        await _mediator.Send(new SetupGuiLayoutCommand(GuiId, _layout, _parentControlId));
 
         // Setup LinkWith
         foreach (var control in _flattenedControlList)
@@ -142,11 +133,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
             await _mediator.Send(
                 new UpdateGuiControlCommand(
                     GuiId,
-                    new GuiControlDataModel
-                    {
-                        ControlId = control.Id,
-                        LinkWith = control.LinkWith,
-                    }
+                    new GuiControlDataModel { ControlId = control.Id, LinkWith = control.LinkWith, }
                 )
             );
         }
@@ -154,10 +141,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
         // Track GUI to Parent
         if (!string.IsNullOrEmpty(_parentControlId))
         {
-            _guiControlChildrenState.AddChildGuiToControl(
-                _parentControlId,
-                GuiId
-            );
+            _guiControlChildrenState.AddChildGuiToControl(_parentControlId, GuiId);
         }
 
         var activateScript = await GetClientScript(_layout.ActivateScript);
@@ -174,11 +158,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
             await _mediator.Send(
                 new UpdateGuiControlCommand(
                     GuiId,
-                    new GuiControlDataModel
-                    {
-                        ControlId = control.Id,
-                        IsVisible = false,
-                    }
+                    new GuiControlDataModel { ControlId = control.Id, IsVisible = false, }
                 )
             );
         }
@@ -191,11 +171,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
             await _mediator.Send(
                 new UpdateGuiControlCommand(
                     GuiId,
-                    new GuiControlDataModel
-                    {
-                        ControlId = control.Id,
-                        IsVisible = true,
-                    }
+                    new GuiControlDataModel { ControlId = control.Id, IsVisible = true, }
                 )
             );
         }
@@ -208,11 +184,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
             await _mediator.Send(
                 new UpdateGuiControlCommand(
                     GuiId,
-                    new GuiControlDataModel
-                    {
-                        ControlId = control.Id,
-                        LinkWith = linkWith,
-                    }
+                    new GuiControlDataModel { ControlId = control.Id, LinkWith = linkWith, }
                 )
             );
         }
@@ -220,10 +192,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
 
     private Task<IList<IGuiLayoutControlData>> GetFlattenedControls()
     {
-        return FlattenControlListInto(
-            new List<IGuiLayoutControlData>(),
-            _layout.ControlList
-        );
+        return FlattenControlListInto(new List<IGuiLayoutControlData>(), _layout.ControlList);
     }
 
     private async Task<IList<IGuiLayoutControlData>> FlattenControlListInto(
@@ -240,29 +209,18 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
             );
             // Add the current Control into the Accumulator list
             var accumulatorControl = new GuiLayoutControlDataModel(control);
-            var optionsFromData = GetControlOptionsForControl(
-                accumulatorControl.Id
+            var optionsFromData = GetControlOptionsForControl(accumulatorControl.Id);
+            accumulatorControl.Options = GuiControlOptionsModel.MergeControlOptions(
+                SanitizeControlOptions(accumulatorControl.Options ?? new GuiControlOptionsModel()),
+                await GetGeneratedOptions(
+                    GuiId,
+                    _layout,
+                    accumulatorControl.Options,
+                    accumulatorControl
+                ),
+                optionsFromData,
+                await GetGeneratedOptions(GuiId, _layout, optionsFromData, accumulatorControl)
             );
-            accumulatorControl.Options =
-                GuiControlOptionsModel.MergeControlOptions(
-                    SanitizeControlOptions(
-                        accumulatorControl.Options
-                            ?? new GuiControlOptionsModel()
-                    ),
-                    await GetGeneratedOptions(
-                        GuiId,
-                        _layout,
-                        accumulatorControl.Options,
-                        accumulatorControl
-                    ),
-                    optionsFromData,
-                    await GetGeneratedOptions(
-                        GuiId,
-                        _layout,
-                        optionsFromData,
-                        accumulatorControl
-                    )
-                );
 
             accumulatorControl.LinkWith =
                 GetControlDataForControl(accumulatorControl.Id)?.LinkWith
@@ -291,12 +249,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
         {
             options["text"] = text;
         }
-        var onClick = await OptionOnClickFromOnClick(
-            guiId,
-            layout,
-            control,
-            controlOptions
-        );
+        var onClick = await OptionOnClickFromOnClick(guiId, layout, control, controlOptions);
         if (onClick != null)
         {
             options["onClick"] = onClick;
@@ -318,9 +271,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
         return options;
     }
 
-    private static IGuiControlOptions SanitizeControlOptions(
-        GuiControlOptionsModel controlOptions
-    )
+    private static IGuiControlOptions SanitizeControlOptions(GuiControlOptionsModel controlOptions)
     {
         var metadata = GetMetadata(controlOptions);
         foreach (var modelOption in metadata.ModelOptions)
@@ -344,9 +295,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
     {
         if (
             controlOptions.TryGetValue(
-                GuiControlOptionsModel
-                    .GuiControlMetadataOptionModel
-                    .OPTION_NAME,
+                GuiControlOptionsModel.GuiControlMetadataOptionModel.OPTION_NAME,
                 out var metadataObject
             )
         )
@@ -374,9 +323,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
         var onClickScript = options.GetValue<string>("onClickScript");
         if (onClickScript.HasValue)
         {
-            var onClickClientScript = await GetClientScript(
-                onClickScript.Value
-            );
+            var onClickClientScript = await GetClientScript(onClickScript.Value);
             if (onClickClientScript.IsNotNull())
             {
                 var onClickData = new ScriptData(
@@ -387,8 +334,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
                         { "control", control },
                     }
                 );
-                return () =>
-                    onClickClientScript.Run(_scriptServices, onClickData);
+                return () => onClickClientScript.Run(_scriptServices, onClickData);
             }
         }
         return null;
@@ -396,8 +342,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
 
     private IGuiControlOptions GetControlOptionsForControl(string controlId)
     {
-        return GetControlDataForControl(controlId)?.Options
-            ?? new GuiControlOptionsModel();
+        return GetControlDataForControl(controlId)?.Options ?? new GuiControlOptionsModel();
     }
 
     private IGuiControlData? GetControlDataForControl(string controlId)
@@ -428,9 +373,7 @@ public class GuiDefinitionFromData : ClientLifecycleEntityBase, IGuiDefinition
         {
             return default;
         }
-        var queryResult = await _mediator.Send(
-            new QueryForClientScriptById(scriptId)
-        );
+        var queryResult = await _mediator.Send(new QueryForClientScriptById(scriptId));
         if (!queryResult.Success)
         {
             return default;

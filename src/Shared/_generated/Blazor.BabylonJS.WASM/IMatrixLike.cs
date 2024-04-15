@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IMatrixLike : ICachedEntity { }
@@ -36,13 +34,7 @@ public class IMatrixLikeCachedEntity : CachedEntityObject, IMatrixLike
 
     public int updateFlag
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<int>(
-                this.___guid,
-                "updateFlag"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<int>(this.___guid, "updateFlag"); }
         set
         {
 

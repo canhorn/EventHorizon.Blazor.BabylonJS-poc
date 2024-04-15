@@ -1,11 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Build;
 
 using System;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
-
 using MediatR;
 
 public class BuildClientAssetInstanceCommand : IRequest<StandardCommandResult>

@@ -28,10 +28,8 @@ public class ObjectEntityEditorModel
     [CascadingParameter]
     public IObjectEntityDetails Entity { get; set; } = null!;
 
-    public ObjectEntityDetailsModel EditEntity { get; set; } =
-        new ObjectEntityDetailsModel();
-    public NewPropertyModel NewPropertyModel { get; set; } =
-        new NewPropertyModel();
+    public ObjectEntityDetailsModel EditEntity { get; set; } = new ObjectEntityDetailsModel();
+    public NewPropertyModel NewPropertyModel { get; set; } = new NewPropertyModel();
 
     public bool IsPendingChange { get; set; }
 
@@ -55,9 +53,7 @@ public class ObjectEntityEditorModel
         {
             return;
         }
-        var result = await Mediator.Send(
-            new CloneObjectEntityDetailsCommand(Entity)
-        );
+        var result = await Mediator.Send(new CloneObjectEntityDetailsCommand(Entity));
         if (result.Success.IsNotTrue())
         {
             await Mediator.Send(
@@ -104,23 +100,16 @@ public class ObjectEntityEditorModel
                 EditEntity.Name = args.Property.To(() => string.Empty);
                 break;
             case nameof(EditEntity.Transform.Position):
-                EditEntity.Transform.Position = args.Property.To(
-                    () => ServerVector3.Zero()
-                );
+                EditEntity.Transform.Position = args.Property.To(() => ServerVector3.Zero());
                 break;
             case nameof(EditEntity.Transform.Rotation):
-                EditEntity.Transform.Rotation = args.Property.To(
-                    () => ServerVector3.Zero()
-                );
+                EditEntity.Transform.Rotation = args.Property.To(() => ServerVector3.Zero());
                 break;
             case nameof(EditEntity.Transform.Scaling):
-                EditEntity.Transform.Scaling = args.Property.To(
-                    () => ServerVector3.One()
-                );
+                EditEntity.Transform.Scaling = args.Property.To(() => ServerVector3.One());
                 break;
             case nameof(EditEntity.Transform.ScalingDeterminant):
-                EditEntity.Transform.ScalingDeterminant =
-                    args.Property.To<decimal>();
+                EditEntity.Transform.ScalingDeterminant = args.Property.To<decimal>();
                 break;
         }
         await Mediator.Publish(new ObjectEntityDetailsEditedEvent(EditEntity));
@@ -153,17 +142,13 @@ public class ObjectEntityEditorModel
         if (EditEntity.Data.ContainsKey(NewPropertyModel.Name))
         {
             NewPropertyModel.IsValid = false;
-            NewPropertyModel.ErrorMessage = Localizer[
-                "property_already_exists"
-            ];
+            NewPropertyModel.ErrorMessage = Localizer["property_already_exists"];
             return;
         }
         IsPendingChange = true;
         EditEntity.Data.Add(
             NewPropertyModel.Name,
-            ZoneState.EditorState.Metadata.GetDefaultValueForPropertyName(
-                NewPropertyModel.Name
-            )
+            ZoneState.EditorState.Metadata.GetDefaultValueForPropertyName(NewPropertyModel.Name)
         );
         NewPropertyModel.Name = string.Empty;
         await Mediator.Publish(new ObjectEntityDetailsEditedEvent(EditEntity));
@@ -179,9 +164,7 @@ public class ObjectEntityEditorModel
         if (EditEntity.Data.ContainsKey(NewPropertyModel.Name))
         {
             NewPropertyModel.IsValid = false;
-            NewPropertyModel.ErrorMessage = Localizer[
-                "property_already_exists"
-            ];
+            NewPropertyModel.ErrorMessage = Localizer["property_already_exists"];
             return;
         }
         IsPendingChange = true;
@@ -202,9 +185,7 @@ public class ObjectEntityEditorModel
             // Mostly likely triggered from here. ;)
             return;
         }
-        var result = await Mediator.Send(
-            new CloneObjectEntityDetailsCommand(args.Entity)
-        );
+        var result = await Mediator.Send(new CloneObjectEntityDetailsCommand(args.Entity));
         if (result.Success.IsNotTrue())
         {
             await Mediator.Publish(

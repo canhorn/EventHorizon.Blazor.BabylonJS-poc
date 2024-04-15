@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
-
 using MediatR;
 
 public struct QueryForClientScriptById : IRequest<CommandResult<IClientScript>>

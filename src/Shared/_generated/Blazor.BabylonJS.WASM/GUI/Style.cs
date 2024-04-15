@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Style>))]
@@ -30,13 +28,7 @@ public class Style : CachedEntityObject, _IDisposable
 
     public string fontSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "fontSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "fontSize"); }
         set
         {
 
@@ -46,13 +38,7 @@ public class Style : CachedEntityObject, _IDisposable
 
     public string fontFamily
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "fontFamily"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "fontFamily"); }
         set
         {
 
@@ -62,13 +48,7 @@ public class Style : CachedEntityObject, _IDisposable
 
     public string fontStyle
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "fontStyle"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "fontStyle"); }
         set
         {
 
@@ -78,13 +58,7 @@ public class Style : CachedEntityObject, _IDisposable
 
     public string fontWeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "fontWeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "fontWeight"); }
         set
         {
 
@@ -101,17 +75,12 @@ public class Style : CachedEntityObject, _IDisposable
         {
             if (__onChangedObservable == null)
             {
-                __onChangedObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Style>
-                >(
+                __onChangedObservable = EventHorizonBlazorInterop.GetClass<Observable<Style>>(
                     this.___guid,
                     "onChangedObservable",
                     (entity) =>
                     {
-                        return new Observable<Style>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Style>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -120,11 +89,7 @@ public class Style : CachedEntityObject, _IDisposable
         set
         {
             __onChangedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onChangedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onChangedObservable", value);
         }
     }
     #endregion

@@ -2,15 +2,12 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
-
 using MediatR;
 
-class TrackingLifecycleRegisterEntityEventHandler
-    : INotificationHandler<RegisterEntityEvent>
+class TrackingLifecycleRegisterEntityEventHandler : INotificationHandler<RegisterEntityEvent>
 {
     private readonly IServerEntityTrackingState _serverEntityTrackingState;
 
@@ -21,10 +18,7 @@ class TrackingLifecycleRegisterEntityEventHandler
         _serverEntityTrackingState = serverEntityTrackingState;
     }
 
-    public Task Handle(
-        RegisterEntityEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(RegisterEntityEvent notification, CancellationToken cancellationToken)
     {
         if (notification.Entity is ServerLifecycleEntityBase trackedEntity)
         {

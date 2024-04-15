@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class AssetManagementStateChangedEventObserverHandler
@@ -12,9 +10,7 @@ public class AssetManagementStateChangedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public AssetManagementStateChangedEventObserverHandler(
-        ObserverState observer
-    )
+    public AssetManagementStateChangedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

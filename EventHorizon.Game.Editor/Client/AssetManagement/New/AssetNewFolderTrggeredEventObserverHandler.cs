@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class AssetNewFolderTrggeredEventObserverHandler
@@ -21,8 +19,8 @@ public class AssetNewFolderTrggeredEventObserverHandler
         AssetNewFolderTrggeredEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            AssetNewFolderTrggeredEventObserver,
-            AssetNewFolderTrggeredEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<AssetNewFolderTrggeredEventObserver, AssetNewFolderTrggeredEvent>(
+            notification,
+            cancellationToken
+        );
 }

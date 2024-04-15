@@ -3,14 +3,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.ServerModule.Api;
 using EventHorizon.Game.Client.Systems.ServerModule.ClientAction;
 using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
 using EventHorizon.Game.Client.Systems.ServerModule.Register;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class ClientActionServerModuleSystemReloadedEventHandler
@@ -55,14 +52,10 @@ public class ClientActionServerModuleSystemReloadedEventHandler
         _scriptsState.Clear();
 
         // Register new ServerModule
-        foreach (
-            var newServerModuleScripts in notification.ServerModuleScriptsList
-        )
+        foreach (var newServerModuleScripts in notification.ServerModuleScriptsList)
         {
             var result = await _mediator.Send(
-                new RegisterNewServerModuleFromScriptCommand(
-                    newServerModuleScripts
-                ),
+                new RegisterNewServerModuleFromScriptCommand(newServerModuleScripts),
                 cancellationToken
             );
             if (!result.Success)

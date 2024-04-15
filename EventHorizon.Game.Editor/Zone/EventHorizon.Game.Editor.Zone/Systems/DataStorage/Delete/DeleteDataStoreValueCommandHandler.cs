@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.Systems.DataStorage.Delete;
-
 using MediatR;
 
 public class DeleteDataStoreValueCommandHandler
@@ -15,9 +13,7 @@ public class DeleteDataStoreValueCommandHandler
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public DeleteDataStoreValueCommandHandler(
-        ZoneAdminServices zoneAdminServices
-    )
+    public DeleteDataStoreValueCommandHandler(ZoneAdminServices zoneAdminServices)
     {
         _zoneAdminServices = zoneAdminServices;
     }

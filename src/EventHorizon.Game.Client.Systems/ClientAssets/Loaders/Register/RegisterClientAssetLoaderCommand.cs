@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Register;
 
 using System;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api;
-
 using MediatR;
 
 public struct RegisterClientAssetLoaderCommand : IRequest<StandardCommandResult>

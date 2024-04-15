@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
-
 using MediatR;
 
 public class BabylonJSOpenDebugLayerEnableEngineDebuggingEventHandler
@@ -13,27 +11,17 @@ public class BabylonJSOpenDebugLayerEnableEngineDebuggingEventHandler
 {
     private readonly IRenderingScene _scene;
 
-    public BabylonJSOpenDebugLayerEnableEngineDebuggingEventHandler(
-        IRenderingScene scene
-    )
+    public BabylonJSOpenDebugLayerEnableEngineDebuggingEventHandler(IRenderingScene scene)
     {
         _scene = scene;
     }
 
-    public Task Handle(
-        EnableEngineDebuggingEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(EnableEngineDebuggingEvent notification, CancellationToken cancellationToken)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    _scene.GetBabylonJSScene().Scene.___guid,
-                    "debugLayer",
-                    "show"
-                },
+                new string[] { _scene.GetBabylonJSScene().Scene.___guid, "debugLayer", "show" },
                 new { embedMode = true }
             }
         );

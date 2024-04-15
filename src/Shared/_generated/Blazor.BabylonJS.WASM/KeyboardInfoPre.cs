@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<KeyboardInfoPre>))]
@@ -34,10 +32,7 @@ public class KeyboardInfoPre : KeyboardInfo
 
     public decimal type
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type"); }
         set
         {
 
@@ -72,21 +67,11 @@ public class KeyboardInfoPre : KeyboardInfo
 
     public bool skipOnPointerObservable
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "skipOnPointerObservable"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "skipOnPointerObservable"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "skipOnPointerObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "skipOnPointerObservable", value);
         }
     }
     #endregion

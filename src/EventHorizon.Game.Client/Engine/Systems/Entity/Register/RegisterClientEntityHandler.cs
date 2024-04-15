@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-
 using MediatR;
 
 public class RegisterClientEntityHandler
@@ -14,10 +12,7 @@ public class RegisterClientEntityHandler
     private readonly IMediator _mediator;
     private readonly IEntityDetailsState _state;
 
-    public RegisterClientEntityHandler(
-        IMediator mediator,
-        IEntityDetailsState state
-    )
+    public RegisterClientEntityHandler(IMediator mediator, IEntityDetailsState state)
     {
         _mediator = mediator;
         _state = state;

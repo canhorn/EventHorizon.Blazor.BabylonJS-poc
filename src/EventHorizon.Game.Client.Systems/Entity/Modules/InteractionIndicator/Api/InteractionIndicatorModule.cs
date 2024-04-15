@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Api;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
 public interface InteractionIndicatorModule : IModule

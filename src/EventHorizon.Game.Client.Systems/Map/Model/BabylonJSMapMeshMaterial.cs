@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Map.Model;
 
 using System.Text.Json.Serialization;
-
 using BabylonJS;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Systems.AssetServer.Model;
 using EventHorizon.Game.Client.Systems.Map.Api;

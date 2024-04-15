@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Model;
 

@@ -5,10 +5,7 @@ public struct DataValueModalSubmitArgs
     public DataValueModalSubmitType Type { get; }
     public DataValueEditModalModel Model { get; }
 
-    public DataValueModalSubmitArgs(
-        DataValueModalSubmitType type,
-        DataValueEditModalModel model
-    )
+    public DataValueModalSubmitArgs(DataValueModalSubmitType type, DataValueEditModalModel model)
     {
         Type = type;
         Model = model;

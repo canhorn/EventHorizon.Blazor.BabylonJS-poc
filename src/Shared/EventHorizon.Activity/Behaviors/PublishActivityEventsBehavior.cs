@@ -3,9 +3,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class PublishActivityEventsBehavior<TRequest, TResponse>
@@ -67,10 +65,7 @@ public class PublishActivityEventsBehavior<TRequest, TResponse>
         return result;
     }
 
-    private async Task IgnoreException(
-        ActivityEvent activity,
-        CancellationToken cancellationToken
-    )
+    private async Task IgnoreException(ActivityEvent activity, CancellationToken cancellationToken)
     {
         try
         {
@@ -78,11 +73,7 @@ public class PublishActivityEventsBehavior<TRequest, TResponse>
         }
         catch (Exception ex)
         {
-            _logger.LogError(
-                ex,
-                "Failed to Publish Activity Event: {@ActivityEvent}",
-                activity
-            );
+            _logger.LogError(ex, "Failed to Publish Activity Event: {@ActivityEvent}", activity);
         }
     }
 }

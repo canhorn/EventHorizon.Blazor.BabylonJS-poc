@@ -4,12 +4,10 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Tag;
 using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
 using EventHorizon.Game.Client.Engine.Systems.Entity.ClientAction;
-
 using MediatR;
 
 public class ClientActionEntityUnregisteredEventHandler
@@ -28,9 +26,7 @@ public class ClientActionEntityUnregisteredEventHandler
     )
     {
         var entitiesResult = await _mediator.Send(
-            new QueryForEntity(
-                TagBuilder.CreateEntityIdTag(notification.EntityId.ToString())
-            ),
+            new QueryForEntity(TagBuilder.CreateEntityIdTag(notification.EntityId.ToString())),
             cancellationToken
         );
         if (entitiesResult.Success && entitiesResult.Result.Any())

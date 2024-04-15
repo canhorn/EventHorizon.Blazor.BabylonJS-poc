@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.State;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 
@@ -28,10 +27,7 @@ public class StandardGuiLayoutDataState : IGuiLayoutDataState
     {
         if (layout == null)
         {
-            throw new GameException(
-                "gui_layout_null",
-                "Cannot set Null GUI Layout into State"
-            );
+            throw new GameException("gui_layout_null", "Cannot set Null GUI Layout into State");
         }
         _map[layout.Id] = layout;
     }

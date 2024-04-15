@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ServerModule.Api;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 
 public interface ServerModuleState

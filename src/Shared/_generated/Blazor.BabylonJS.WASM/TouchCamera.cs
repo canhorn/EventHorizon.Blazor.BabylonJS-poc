@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<TouchCamera>))]
@@ -32,39 +30,22 @@ public class TouchCamera : FreeCamera
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "touchAngularSensibility"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "touchAngularSensibility");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "touchAngularSensibility",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "touchAngularSensibility", value);
         }
     }
 
     public decimal touchMoveSensibility
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "touchMoveSensibility"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "touchMoveSensibility"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "touchMoveSensibility",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "touchMoveSensibility", value);
         }
     }
     #endregion

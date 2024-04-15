@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class AssetFileDeleteTriggeredEventObserverHandler
@@ -21,8 +19,8 @@ public class AssetFileDeleteTriggeredEventObserverHandler
         AssetFileDeleteTriggeredEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            AssetFileDeleteTriggeredEventObserver,
-            AssetFileDeleteTriggeredEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<AssetFileDeleteTriggeredEventObserver, AssetFileDeleteTriggeredEvent>(
+            notification,
+            cancellationToken
+        );
 }

@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
 public struct RegisterGuiLayoutDataCommand : IRequest<StandardCommandResult>

@@ -2,7 +2,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
@@ -13,7 +12,6 @@ using EventHorizon.Game.Editor.Client.Zone.Pages;
 using EventHorizon.Game.Editor.Client.Zone.Reload;
 using EventHorizon.Game.Editor.Zone.Services.Agent.Delete;
 using EventHorizon.Game.Editor.Zone.Services.Agent.Save;
-
 using Microsoft.AspNetCore.Components;
 
 public class AgentEntityProviderModel : EditorComponentBase
@@ -38,10 +36,7 @@ public class AgentEntityProviderModel : EditorComponentBase
 
     private async Task HandleSave(IObjectEntityDetails entity)
     {
-        await ShowMessage(
-            Localizer["Agent Entity"],
-            Localizer["Saving Agent Entity..."]
-        );
+        await ShowMessage(Localizer["Agent Entity"], Localizer["Saving Agent Entity..."]);
         // Copy all Data into Raw data for the Agent
         if (entity is ObjectEntityDetailsModel objectEntity)
         {
@@ -73,13 +68,8 @@ public class AgentEntityProviderModel : EditorComponentBase
 
     private async Task HandleDelete(IObjectEntityDetails entity)
     {
-        await ShowMessage(
-            Localizer["Agent Entity"],
-            Localizer["Deleting Agent Entity..."]
-        );
-        var result = await Mediator.Send(
-            new DeleteAgentEntityCommand(entity.GlobalId)
-        );
+        await ShowMessage(Localizer["Agent Entity"], Localizer["Deleting Agent Entity..."]);
+        var result = await Mediator.Send(new DeleteAgentEntityCommand(entity.GlobalId));
         if (result.Success.IsNotTrue())
         {
             await ShowMessage(

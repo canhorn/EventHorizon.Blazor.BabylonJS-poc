@@ -4,17 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Scripts.SDK;
 using EventHorizon.Game.Client.Systems.ClientScripts.Api;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardClientScriptsState : ClientScriptsState
 {
-    private static readonly IList<Assembly> ASSEMBLIES =
-        GameClientSDKRoot.ASSEMBLIES;
+    private static readonly IList<Assembly> ASSEMBLIES = GameClientSDKRoot.ASSEMBLIES;
 
     private readonly ILogger _logger;
     private readonly IDictionary<string, IClientScript> _scripts =
@@ -25,12 +22,9 @@ public class StandardClientScriptsState : ClientScriptsState
     private Assembly? _scriptAssembly;
 
     public string Hash { get; private set; } = string.Empty;
-    public IEnumerable<IStartupClientScript> StartupScripts =>
-        _startupScripts.Values;
+    public IEnumerable<IStartupClientScript> StartupScripts => _startupScripts.Values;
 
-    public StandardClientScriptsState(
-        ILogger<StandardClientScriptsState> logger
-    )
+    public StandardClientScriptsState(ILogger<StandardClientScriptsState> logger)
     {
         _logger = logger;
     }
@@ -68,10 +62,7 @@ public class StandardClientScriptsState : ClientScriptsState
         // Get script from Assembly
         try
         {
-            if (
-                _scriptAssembly.CreateInstance($"css_root+{id}")
-                is IClientScript assemblyScript
-            )
+            if (_scriptAssembly.CreateInstance($"css_root+{id}") is IClientScript assemblyScript)
             {
                 _scripts.Add(id, assemblyScript);
                 return assemblyScript.ToOption();
@@ -121,11 +112,7 @@ public class StandardClientScriptsState : ClientScriptsState
             _scriptAssembly
                 .GetTypes()
                 .Where(a => a.FullName?.StartsWith("css_root+") ?? false)
-                .Select(
-                    a =>
-                        a.FullName?.Replace("css_root+", string.Empty)
-                        ?? string.Empty
-                )
+                .Select(a => a.FullName?.Replace("css_root+", string.Empty) ?? string.Empty)
         );
         _logger.LogInformation(
             "Currently Supported Script Names: \n\r\t{ScriptNames}",

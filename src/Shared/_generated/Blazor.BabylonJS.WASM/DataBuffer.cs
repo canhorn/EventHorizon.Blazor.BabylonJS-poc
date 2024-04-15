@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<DataBuffer>))]
@@ -32,10 +30,7 @@ public class DataBuffer : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "underlyingResource"
-            );
+            return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "underlyingResource");
         }
     }
     #endregion
@@ -44,13 +39,7 @@ public class DataBuffer : CachedEntityObject
 
     public decimal references
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "references"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "references"); }
         set
         {
 
@@ -60,13 +49,7 @@ public class DataBuffer : CachedEntityObject
 
     public decimal capacity
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "capacity"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "capacity"); }
         set
         {
 
@@ -76,13 +59,7 @@ public class DataBuffer : CachedEntityObject
 
     public bool is32Bits
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "is32Bits"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "is32Bits"); }
         set
         {
 

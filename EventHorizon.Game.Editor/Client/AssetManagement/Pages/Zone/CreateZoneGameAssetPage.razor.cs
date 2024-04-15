@@ -1,12 +1,10 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Pages.Zone;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Zone.Systems.ClientAssets.Create;
 using EventHorizon.Zone.Systems.ClientAssets.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class CreateZoneGameAssetPageModel : EditorComponentBase
@@ -31,9 +29,7 @@ public class CreateZoneGameAssetPageModel : EditorComponentBase
 
         await ShowMessage(
             Localizer["Game Asset Update"],
-            Localizer[
-                "Successfully created Game Asset, navigating back to Asset List Page."
-            ]
+            Localizer["Successfully created Game Asset, navigating back to Asset List Page."]
         );
         NavigationManager.NavigateTo(AssetZoneManagementPage.Route);
     }

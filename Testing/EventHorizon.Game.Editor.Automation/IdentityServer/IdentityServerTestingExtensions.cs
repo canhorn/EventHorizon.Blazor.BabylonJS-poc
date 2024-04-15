@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Core.Browser;
 
 using System;
-
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Authentication.Pages;
 using EventHorizon.Game.Editor.Automation.IdentityServer.Data;
 using EventHorizon.Game.Editor.Automation.IdentityServer.Models;
@@ -12,10 +10,7 @@ using EventHorizon.Game.Editor.Automation.Layout;
 
 public static class IdentityServerTestingExtensions
 {
-    public static TOwner Login<TOwner>(
-        this WebHost _,
-        IdentityServerUser user = null
-    )
+    public static TOwner Login<TOwner>(this WebHost _, IdentityServerUser user = null)
         where TOwner : MainLayoutPage<TOwner>
     {
         if (user == null)
@@ -78,10 +73,7 @@ public static class IdentityServerTestingExtensions
         return Go.To<TOwner>();
     }
 
-    public static TOwner NewUserRegister<TOwner>(
-        this WebHost _,
-        out IdentityServerUser user
-    )
+    public static TOwner NewUserRegister<TOwner>(this WebHost _, out IdentityServerUser user)
         where TOwner : MainLayoutPage<TOwner>
     {
         var userId = Guid.NewGuid();

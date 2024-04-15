@@ -3,12 +3,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EventHorizon.Game.Client.Engine.Gui.Api;
 
-public class GuiControlOptionsModel
-    : Dictionary<string, object>,
-        IGuiControlOptions
+public class GuiControlOptionsModel : Dictionary<string, object>, IGuiControlOptions
 {
     public class GuiControlMetadataOptionModel
     {
@@ -17,9 +14,7 @@ public class GuiControlOptionsModel
         public List<string> ModelOptions { get; set; } = new List<string>();
     }
 
-    public static GuiControlOptionsModel MergeControlOptions(
-        params IGuiControlOptions[] options
-    )
+    public static GuiControlOptionsModel MergeControlOptions(params IGuiControlOptions[] options)
     {
         var value = options
             .SelectMany(x => x)
@@ -36,12 +31,7 @@ public class GuiControlOptionsModel
                         // For IGuiControlOptions, merge these into a single option
                         value = MergeControlOptions(
                             y.Select(guiKeyValue => guiKeyValue.Value)
-                                .Select(
-                                    a =>
-                                        new GuiControlOptionsModel(
-                                            a as IGuiControlOptions
-                                        )
-                                )
+                                .Select(a => new GuiControlOptionsModel(a as IGuiControlOptions))
                                 .ToArray()
                         );
                     }

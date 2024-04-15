@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Canvas.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
@@ -43,10 +42,7 @@ public class BabylonJSRenderingEngine : IRenderingEngine
         var canvas = _canvas.GetDrawingCanvas<Html.Interop.Canvas>();
         if (canvas.IsNull())
         {
-            throw new GameRuntimeException(
-                "invalid_drawing_canvas",
-                "Drawing Canvas was null."
-            );
+            throw new GameRuntimeException("invalid_drawing_canvas", "Drawing Canvas was null.");
         }
         _engine = new BabylonJSEngineImplementation(canvas, true, true);
         // TODO: Implement Resize Event Listener on _engineImplementation

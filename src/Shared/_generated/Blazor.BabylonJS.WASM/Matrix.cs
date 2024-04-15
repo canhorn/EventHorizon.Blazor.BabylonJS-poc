@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Matrix>))]
@@ -41,27 +39,15 @@ public class Matrix : CachedEntityObject
     #endregion
 
     #region Static Methods
-    public static Matrix FromArray(
-        decimal[] array,
-        System.Nullable<decimal> offset = null
-    )
+    public static Matrix FromArray(decimal[] array, System.Nullable<decimal> offset = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "FromArray" },
-                array,
-                offset
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "FromArray" }, array, offset }
         );
     }
 
-    public static void FromArrayToRef(
-        decimal[] array,
-        decimal offset,
-        Matrix result
-    )
+    public static void FromArrayToRef(decimal[] array, decimal offset, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -84,12 +70,7 @@ public class Matrix : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Matrix",
-                    "FromFloat32ArrayToRefScaled"
-                },
+                new string[] { "BABYLON", "Matrix", "FromFloat32ArrayToRefScaled" },
                 array,
                 offset,
                 scale,
@@ -187,11 +168,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static Matrix Compose(
-        Vector3 scale,
-        Quaternion rotation,
-        Vector3 translation
-    )
+    public static Matrix Compose(Vector3 scale, Quaternion rotation, Vector3 translation)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
@@ -235,11 +212,7 @@ public class Matrix : CachedEntityObject
     public static void IdentityToRef(Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "IdentityToRef" },
-                result
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "IdentityToRef" }, result }
         );
     }
 
@@ -255,11 +228,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "RotationX" },
-                angle
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "RotationX" }, angle }
         );
     }
 
@@ -267,23 +236,14 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "Invert" },
-                source
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "Invert" }, source }
         );
     }
 
     public static void RotationXToRef(decimal angle, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "RotationXToRef" },
-                angle,
-                result
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "RotationXToRef" }, angle, result }
         );
     }
 
@@ -291,23 +251,14 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "RotationY" },
-                angle
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "RotationY" }, angle }
         );
     }
 
     public static void RotationYToRef(decimal angle, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "RotationYToRef" },
-                angle,
-                result
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "RotationYToRef" }, angle, result }
         );
     }
 
@@ -315,23 +266,14 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "RotationZ" },
-                angle
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "RotationZ" }, angle }
         );
     }
 
     public static void RotationZToRef(decimal angle, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "RotationZToRef" },
-                angle,
-                result
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "RotationZToRef" }, angle, result }
         );
     }
 
@@ -339,20 +281,11 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "RotationAxis" },
-                axis,
-                angle
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "RotationAxis" }, axis, angle }
         );
     }
 
-    public static void RotationAxisToRef(
-        Vector3 axis,
-        decimal angle,
-        Matrix result
-    )
+    public static void RotationAxisToRef(Vector3 axis, decimal angle, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -365,11 +298,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static void RotationAlignToRef(
-        Vector3 from,
-        Vector3 to,
-        Matrix result
-    )
+    public static void RotationAlignToRef(Vector3 from, Vector3 to, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -382,11 +311,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static Matrix RotationYawPitchRoll(
-        decimal yaw,
-        decimal pitch,
-        decimal roll
-    )
+    public static Matrix RotationYawPitchRoll(decimal yaw, decimal pitch, decimal roll)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
@@ -410,12 +335,7 @@ public class Matrix : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Matrix",
-                    "RotationYawPitchRollToRef"
-                },
+                new string[] { "BABYLON", "Matrix", "RotationYawPitchRollToRef" },
                 yaw,
                 pitch,
                 roll,
@@ -428,32 +348,14 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "Scaling" },
-                x,
-                y,
-                z
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "Scaling" }, x, y, z }
         );
     }
 
-    public static void ScalingToRef(
-        decimal x,
-        decimal y,
-        decimal z,
-        Matrix result
-    )
+    public static void ScalingToRef(decimal x, decimal y, decimal z, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "ScalingToRef" },
-                x,
-                y,
-                z,
-                result
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "ScalingToRef" }, x, y, z, result }
         );
     }
 
@@ -461,22 +363,11 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "Translation" },
-                x,
-                y,
-                z
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "Translation" }, x, y, z }
         );
     }
 
-    public static void TranslationToRef(
-        decimal x,
-        decimal y,
-        decimal z,
-        Matrix result
-    )
+    public static void TranslationToRef(decimal x, decimal y, decimal z, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -490,11 +381,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static Matrix Lerp(
-        Matrix startValue,
-        Matrix endValue,
-        decimal gradient
-    )
+    public static Matrix Lerp(Matrix startValue, Matrix endValue, decimal gradient)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
@@ -527,11 +414,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static Matrix DecomposeLerp(
-        Matrix startValue,
-        Matrix endValue,
-        decimal gradient
-    )
+    public static Matrix DecomposeLerp(Matrix startValue, Matrix endValue, decimal gradient)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
@@ -568,22 +451,11 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "LookAtLH" },
-                eye,
-                target,
-                up
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "LookAtLH" }, eye, target, up }
         );
     }
 
-    public static void LookAtLHToRef(
-        Vector3 eye,
-        Vector3 target,
-        Vector3 up,
-        Matrix result
-    )
+    public static void LookAtLHToRef(Vector3 eye, Vector3 target, Vector3 up, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -601,22 +473,11 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "LookAtRH" },
-                eye,
-                target,
-                up
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "LookAtRH" }, eye, target, up }
         );
     }
 
-    public static void LookAtRHToRef(
-        Vector3 eye,
-        Vector3 target,
-        Vector3 up,
-        Matrix result
-    )
+    public static void LookAtRHToRef(Vector3 eye, Vector3 target, Vector3 up, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -630,12 +491,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static Matrix OrthoLH(
-        decimal width,
-        decimal height,
-        decimal znear,
-        decimal zfar
-    )
+    public static Matrix OrthoLH(decimal width, decimal height, decimal znear, decimal zfar)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
@@ -769,12 +625,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static Matrix PerspectiveLH(
-        decimal width,
-        decimal height,
-        decimal znear,
-        decimal zfar
-    )
+    public static Matrix PerspectiveLH(decimal width, decimal height, decimal znear, decimal zfar)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
@@ -789,12 +640,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static Matrix PerspectiveFovLH(
-        decimal fov,
-        decimal aspect,
-        decimal znear,
-        decimal zfar
-    )
+    public static Matrix PerspectiveFovLH(decimal fov, decimal aspect, decimal znear, decimal zfar)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
@@ -844,12 +690,7 @@ public class Matrix : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Matrix",
-                    "PerspectiveFovReverseLHToRef"
-                },
+                new string[] { "BABYLON", "Matrix", "PerspectiveFovReverseLHToRef" },
                 fov,
                 aspect,
                 znear,
@@ -860,12 +701,7 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public static Matrix PerspectiveFovRH(
-        decimal fov,
-        decimal aspect,
-        decimal znear,
-        decimal zfar
-    )
+    public static Matrix PerspectiveFovRH(decimal fov, decimal aspect, decimal znear, decimal zfar)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
@@ -915,12 +751,7 @@ public class Matrix : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Matrix",
-                    "PerspectiveFovReverseRHToRef"
-                },
+                new string[] { "BABYLON", "Matrix", "PerspectiveFovReverseRHToRef" },
                 fov,
                 aspect,
                 znear,
@@ -942,12 +773,7 @@ public class Matrix : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Matrix",
-                    "PerspectiveFovWebVRToRef"
-                },
+                new string[] { "BABYLON", "Matrix", "PerspectiveFovWebVRToRef" },
                 fov,
                 znear,
                 zfar,
@@ -984,22 +810,14 @@ public class Matrix : CachedEntityObject
     public static decimal[] GetAsMatrix2x2(Matrix matrix)
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "GetAsMatrix2x2" },
-                matrix
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "GetAsMatrix2x2" }, matrix }
         );
     }
 
     public static decimal[] GetAsMatrix3x3(Matrix matrix)
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "GetAsMatrix3x3" },
-                matrix
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "GetAsMatrix3x3" }, matrix }
         );
     }
 
@@ -1007,23 +825,14 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "Transpose" },
-                matrix
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "Transpose" }, matrix }
         );
     }
 
     public static void TransposeToRef(Matrix matrix, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "TransposeToRef" },
-                matrix,
-                result
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "TransposeToRef" }, matrix, result }
         );
     }
 
@@ -1031,32 +840,18 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "Reflection" },
-                plane
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "Reflection" }, plane }
         );
     }
 
     public static void ReflectionToRef(IPlaneLike plane, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Matrix", "ReflectionToRef" },
-                plane,
-                result
-            }
+            new object[] { new string[] { "BABYLON", "Matrix", "ReflectionToRef" }, plane, result }
         );
     }
 
-    public static void FromXYZAxesToRef(
-        Vector3 xaxis,
-        Vector3 yaxis,
-        Vector3 zaxis,
-        Matrix result
-    )
+    public static void FromXYZAxesToRef(Vector3 xaxis, Vector3 yaxis, Vector3 zaxis, Matrix result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -1087,13 +882,7 @@ public class Matrix : CachedEntityObject
 
     public decimal[] m
     {
-        get
-        {
-            return EventHorizonBlazorInterop.GetArray<decimal>(
-                this.___guid,
-                "m"
-            );
-        }
+        get { return EventHorizonBlazorInterop.GetArray<decimal>(this.___guid, "m"); }
     }
     #endregion
 
@@ -1101,13 +890,7 @@ public class Matrix : CachedEntityObject
 
     public decimal updateFlag
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "updateFlag"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "updateFlag"); }
         set
         {
 
@@ -1192,12 +975,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addToRef" },
-                other,
-                result
-            }
+            new object[] { new string[] { this.___guid, "addToRef" }, other, result }
         );
     }
 
@@ -1221,12 +999,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addAtIndex" },
-                index,
-                value
-            }
+            new object[] { new string[] { this.___guid, "addAtIndex" }, index, value }
         );
     }
 
@@ -1234,12 +1007,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyAtIndex" },
-                index,
-                value
-            }
+            new object[] { new string[] { this.___guid, "multiplyAtIndex" }, index, value }
         );
     }
 
@@ -1247,13 +1015,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setTranslationFromFloats" },
-                x,
-                y,
-                z
-            }
+            new object[] { new string[] { this.___guid, "setTranslationFromFloats" }, x, y, z }
         );
     }
 
@@ -1261,13 +1023,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addTranslationFromFloats" },
-                x,
-                y,
-                z
-            }
+            new object[] { new string[] { this.___guid, "addTranslationFromFloats" }, x, y, z }
         );
     }
 
@@ -1275,11 +1031,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setTranslation" },
-                vector3
-            }
+            new object[] { new string[] { this.___guid, "setTranslation" }, vector3 }
         );
     }
 
@@ -1295,11 +1047,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getTranslationToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "getTranslationToRef" }, result }
         );
     }
 
@@ -1307,10 +1055,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeRotationAndScaling" }
-            }
+            new object[] { new string[] { this.___guid, "removeRotationAndScaling" } }
         );
     }
 
@@ -1330,19 +1075,11 @@ public class Matrix : CachedEntityObject
         );
     }
 
-    public Matrix copyToArray(
-        decimal[] array,
-        System.Nullable<decimal> offset = null
-    )
+    public Matrix copyToArray(decimal[] array, System.Nullable<decimal> offset = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "copyToArray" },
-                array,
-                offset
-            }
+            new object[] { new string[] { this.___guid, "copyToArray" }, array, offset }
         );
     }
 
@@ -1350,30 +1087,15 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyToRef" },
-                other,
-                result
-            }
+            new object[] { new string[] { this.___guid, "multiplyToRef" }, other, result }
         );
     }
 
-    public Matrix multiplyToArray(
-        Matrix other,
-        decimal[] result,
-        decimal offset
-    )
+    public Matrix multiplyToArray(Matrix other, decimal[] result, decimal offset)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyToArray" },
-                other,
-                result,
-                offset
-            }
+            new object[] { new string[] { this.___guid, "multiplyToArray" }, other, result, offset }
         );
     }
 
@@ -1451,33 +1173,15 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "transposeToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "transposeToRef" }, result }
         );
     }
 
-    public Matrix setRowFromFloats(
-        decimal index,
-        decimal x,
-        decimal y,
-        decimal z,
-        decimal w
-    )
+    public Matrix setRowFromFloats(decimal index, decimal x, decimal y, decimal z, decimal w)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setRowFromFloats" },
-                index,
-                x,
-                y,
-                z,
-                w
-            }
+            new object[] { new string[] { this.___guid, "setRowFromFloats" }, index, x, y, z, w }
         );
     }
 
@@ -1493,12 +1197,7 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleToRef" },
-                scale,
-                result
-            }
+            new object[] { new string[] { this.___guid, "scaleToRef" }, scale, result }
         );
     }
 
@@ -1506,23 +1205,14 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleAndAddToRef" },
-                scale,
-                result
-            }
+            new object[] { new string[] { this.___guid, "scaleAndAddToRef" }, scale, result }
         );
     }
 
     public void toNormalMatrix(Matrix @ref)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "toNormalMatrix" },
-                @ref
-            }
+            new object[] { new string[] { this.___guid, "toNormalMatrix" }, @ref }
         );
     }
 
@@ -1538,35 +1228,21 @@ public class Matrix : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getRotationMatrixToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "getRotationMatrixToRef" }, result }
         );
     }
 
     public void toggleModelMatrixHandInPlace()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "toggleModelMatrixHandInPlace" }
-            }
+            new object[] { new string[] { this.___guid, "toggleModelMatrixHandInPlace" } }
         );
     }
 
     public void toggleProjectionMatrixHandInPlace()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[]
-                {
-                    this.___guid,
-                    "toggleProjectionMatrixHandInPlace"
-                }
-            }
+            new object[] { new string[] { this.___guid, "toggleProjectionMatrixHandInPlace" } }
         );
     }
     #endregion

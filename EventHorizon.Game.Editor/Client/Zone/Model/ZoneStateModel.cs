@@ -14,6 +14,5 @@ public class ZoneStateModel : ZoneState
     public CoreZoneDetails Zone { get; set; } = null!;
     public ZoneInfo ZoneInfo { get; set; } = null!;
     public ZoneEditorState EditorState { get; set; } = null!;
-    public ServerScriptsErrorDetailsResponse ScriptErrorDetails { get; set; } =
-        null!;
+    public ServerScriptsErrorDetailsResponse ScriptErrorDetails { get; set; } = null!;
 }

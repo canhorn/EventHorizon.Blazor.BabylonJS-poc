@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
-
 using MediatR;
 
 public class StopZoneServerConnectionCommandHandler
@@ -13,9 +11,7 @@ public class StopZoneServerConnectionCommandHandler
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public StopZoneServerConnectionCommandHandler(
-        ZoneAdminServices zoneAdminServices
-    )
+    public StopZoneServerConnectionCommandHandler(ZoneAdminServices zoneAdminServices)
     {
         _zoneAdminServices = zoneAdminServices;
     }

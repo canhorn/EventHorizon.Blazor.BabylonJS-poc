@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Entity.Dispose;
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 using EventHorizon.Game.Client.Systems.EntityModule.Register;
-
 using MediatR;
 
 public class ClientActionEntityModuleSystemReloadedEventHandler
@@ -35,18 +33,14 @@ public class ClientActionEntityModuleSystemReloadedEventHandler
         foreach (var baseModule in _baseScriptModuleState.All())
         {
             await _publisher.Publish(
-                new DisposeOfAndRemoveRegisteredEntityModuleEvent(
-                    baseModule.Name
-                ),
+                new DisposeOfAndRemoveRegisteredEntityModuleEvent(baseModule.Name),
                 cancellationToken
             );
         }
         foreach (var baseModule in _playerScriptModuleState.All())
         {
             await _publisher.Publish(
-                new DisposeOfAndRemoveRegisteredEntityModuleEvent(
-                    baseModule.Name
-                ),
+                new DisposeOfAndRemoveRegisteredEntityModuleEvent(baseModule.Name),
                 cancellationToken
             );
         }
@@ -63,13 +57,7 @@ public class ClientActionEntityModuleSystemReloadedEventHandler
             _playerScriptModuleState.Set(playerModule);
         }
 
-        await _publisher.Publish(
-            new BaseEntityModulesChangedEvent(),
-            cancellationToken
-        );
-        await _publisher.Publish(
-            new PlayerEntityModulesChangedEvent(),
-            cancellationToken
-        );
+        await _publisher.Publish(new BaseEntityModulesChangedEvent(), cancellationToken);
+        await _publisher.Publish(new PlayerEntityModulesChangedEvent(), cancellationToken);
     }
 }

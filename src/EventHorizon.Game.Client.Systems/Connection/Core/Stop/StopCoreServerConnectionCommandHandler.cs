@@ -3,12 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.Connection.Core.Api;
-
 using MediatR;
-
 using Newtonsoft.Json.Serialization;
 
 public class StopCoreServerConnectionCommandHandler

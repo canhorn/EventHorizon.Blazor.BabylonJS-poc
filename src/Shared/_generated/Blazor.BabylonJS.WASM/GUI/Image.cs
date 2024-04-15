@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Image>))]
@@ -22,34 +20,19 @@ public class Image : Control
 
     public static decimal STRETCH_NONE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "GUI.Image.STRETCH_NONE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "GUI.Image.STRETCH_NONE"); }
     }
 
     public static decimal STRETCH_FILL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "GUI.Image.STRETCH_FILL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "GUI.Image.STRETCH_FILL"); }
     }
 
     public static decimal STRETCH_UNIFORM
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "GUI.Image.STRETCH_UNIFORM"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "GUI.Image.STRETCH_UNIFORM");
         }
     }
 
@@ -57,10 +40,7 @@ public class Image : Control
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "GUI.Image.STRETCH_EXTEND"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "GUI.Image.STRETCH_EXTEND");
         }
     }
 
@@ -84,13 +64,7 @@ public class Image : Control
 
     public bool isLoaded
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isLoaded"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isLoaded"); }
     }
 
     public bool populateNinePatchSlicesFromImage
@@ -105,11 +79,7 @@ public class Image : Control
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "populateNinePatchSlicesFromImage",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "populateNinePatchSlicesFromImage", value);
         }
     }
 
@@ -117,31 +87,18 @@ public class Image : Control
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "detectPointerOnOpaqueOnly"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "detectPointerOnOpaqueOnly");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "detectPointerOnOpaqueOnly",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "detectPointerOnOpaqueOnly", value);
         }
     }
 
     public decimal sliceLeft
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sliceLeft"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sliceLeft"); }
         set
         {
 
@@ -151,13 +108,7 @@ public class Image : Control
 
     public decimal sliceRight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sliceRight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sliceRight"); }
         set
         {
 
@@ -167,13 +118,7 @@ public class Image : Control
 
     public decimal sliceTop
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sliceTop"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sliceTop"); }
         set
         {
 
@@ -183,13 +128,7 @@ public class Image : Control
 
     public decimal sliceBottom
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sliceBottom"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sliceBottom"); }
         set
         {
 
@@ -199,13 +138,7 @@ public class Image : Control
 
     public decimal sourceLeft
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sourceLeft"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sourceLeft"); }
         set
         {
 
@@ -215,13 +148,7 @@ public class Image : Control
 
     public decimal sourceTop
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sourceTop"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sourceTop"); }
         set
         {
 
@@ -231,13 +158,7 @@ public class Image : Control
 
     public decimal sourceWidth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sourceWidth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sourceWidth"); }
         set
         {
 
@@ -247,13 +168,7 @@ public class Image : Control
 
     public decimal sourceHeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "sourceHeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "sourceHeight"); }
         set
         {
 
@@ -263,10 +178,7 @@ public class Image : Control
 
     public bool isSVG
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isSVG");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isSVG"); }
     }
 
     public bool svgAttributesComputationCompleted
@@ -282,13 +194,7 @@ public class Image : Control
 
     public bool autoScale
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "autoScale"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "autoScale"); }
         set
         {
 
@@ -298,13 +204,7 @@ public class Image : Control
 
     public decimal stretch
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "stretch"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "stretch"); }
         set
         {
 
@@ -319,18 +219,14 @@ public class Image : Control
         {
             if (__domImage == null)
             {
-                __domImage =
-                    EventHorizonBlazorInterop.GetClass<HTMLImageElement>(
-                        this.___guid,
-                        "domImage",
-                        (entity) =>
-                        {
-                            return new HTMLImageElement()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __domImage = EventHorizonBlazorInterop.GetClass<HTMLImageElement>(
+                    this.___guid,
+                    "domImage",
+                    (entity) =>
+                    {
+                        return new HTMLImageElement() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __domImage;
         }
@@ -343,13 +239,7 @@ public class Image : Control
 
     public decimal cellWidth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cellWidth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cellWidth"); }
         set
         {
 
@@ -359,13 +249,7 @@ public class Image : Control
 
     public decimal cellHeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cellHeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cellHeight"); }
         set
         {
 
@@ -375,13 +259,7 @@ public class Image : Control
 
     public decimal cellId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cellId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cellId"); }
         set
         {
 
@@ -394,10 +272,7 @@ public class Image : Control
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -412,17 +287,12 @@ public class Image : Control
         {
             if (__onImageLoadedObservable == null)
             {
-                __onImageLoadedObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Image>
-                >(
+                __onImageLoadedObservable = EventHorizonBlazorInterop.GetClass<Observable<Image>>(
                     this.___guid,
                     "onImageLoadedObservable",
                     (entity) =>
                     {
-                        return new Observable<Image>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Image>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -431,11 +301,7 @@ public class Image : Control
         set
         {
             __onImageLoadedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onImageLoadedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onImageLoadedObservable", value);
         }
     }
 
@@ -446,29 +312,23 @@ public class Image : Control
         {
             if (__onSVGAttributesComputedObservable == null)
             {
-                __onSVGAttributesComputedObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Image>>(
-                        this.___guid,
-                        "onSVGAttributesComputedObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Image>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onSVGAttributesComputedObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Image>
+                >(
+                    this.___guid,
+                    "onSVGAttributesComputedObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Image>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onSVGAttributesComputedObservable;
         }
         set
         {
             __onSVGAttributesComputedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onSVGAttributesComputedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onSVGAttributesComputedObservable", value);
         }
     }
     #endregion
@@ -503,10 +363,7 @@ public class Image : Control
     public void synchronizeSizeWithContent()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "synchronizeSizeWithContent" }
-            }
+            new object[] { new string[] { this.___guid, "synchronizeSizeWithContent" } }
         );
     }
 

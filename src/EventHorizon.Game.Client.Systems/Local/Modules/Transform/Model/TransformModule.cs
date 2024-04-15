@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
@@ -79,9 +78,7 @@ public class TransformModule
         {
             return Task.CompletedTask;
         }
-        var meshModule = _entity.GetModule<IMeshModule>(
-            IMeshModule.MODULE_NAME
-        );
+        var meshModule = _entity.GetModule<IMeshModule>(IMeshModule.MODULE_NAME);
         if (meshModule != null)
         {
             this.Reset(meshModule.Mesh.Position);
@@ -99,10 +96,7 @@ public class TransformModule
         var yPosition = newPosition.Y;
         if (_entity.GetProperty<bool>("resolveHeight"))
         {
-            yPosition = _heightResolver.FindHeight(
-                newPosition.X,
-                newPosition.Z
-            );
+            yPosition = _heightResolver.FindHeight(newPosition.X, newPosition.Z);
         }
 
         var heightOffset = _entity.GetProperty<decimal?>("heightOffset");
@@ -115,9 +109,7 @@ public class TransformModule
         newPosition.Set(newPosition.X, yPosition, newPosition.Z);
 
         // Set Mesh to Position
-        var meshModule = _entity.GetModule<IMeshModule>(
-            IMeshModule.MODULE_NAME
-        );
+        var meshModule = _entity.GetModule<IMeshModule>(IMeshModule.MODULE_NAME);
         if (meshModule != null)
         {
             meshModule.Mesh.Position.Set(newPosition);
@@ -131,9 +123,7 @@ public class TransformModule
     {
         _entity.Transform.Rotation.Set(rotation);
         // Set Mesh to Rotation
-        var meshModule = _entity.GetModule<IMeshModule>(
-            IMeshModule.MODULE_NAME
-        );
+        var meshModule = _entity.GetModule<IMeshModule>(IMeshModule.MODULE_NAME);
         if (meshModule != null)
         {
             meshModule.Mesh.Rotation.Set(rotation);

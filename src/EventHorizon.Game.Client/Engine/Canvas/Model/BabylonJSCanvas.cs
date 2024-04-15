@@ -2,13 +2,11 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Canvas.Api;
 using EventHorizon.Game.Client.Engine.Canvas.Initialized;
 using EventHorizon.Game.Client.Engine.Canvas.Reset;
 using EventHorizon.Game.Client.Engine.Settings.Api;
-
 using MediatR;
 
 public class BabylonJSCanvas : ICanvas, CanvasResetObserver
@@ -33,10 +31,7 @@ public class BabylonJSCanvas : ICanvas, CanvasResetObserver
         {
             return typedCanvas;
         }
-        throw new GameRuntimeException(
-            "canvas_not_initialized",
-            "Canvas is not Initialized"
-        );
+        throw new GameRuntimeException("canvas_not_initialized", "Canvas is not Initialized");
     }
 
     public async Task Initialize()

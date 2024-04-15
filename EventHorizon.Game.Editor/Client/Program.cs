@@ -65,11 +65,7 @@ public class Program
         // Caching Services
         builder.Services.AddEasyCaching(option =>
         {
-            option.UseInMemory(
-                builder.Configuration,
-                "DefaultInMemory",
-                "EasyCaching:InMemory"
-            );
+            option.UseInMemory(builder.Configuration, "DefaultInMemory", "EasyCaching:InMemory");
         });
 
         // Setup Blazor Services
@@ -79,23 +75,16 @@ public class Program
         builder.Services.AddSingleton(
             new GamePlatformServiceSettings()
             {
-                CoreServer =
-                    builder.Configuration["Game:CoreServer"] ?? string.Empty,
-                AssetServer =
-                    builder.Configuration["Game:AssetServer"] ?? string.Empty,
+                CoreServer = builder.Configuration["Game:CoreServer"] ?? string.Empty,
+                AssetServer = builder.Configuration["Game:AssetServer"] ?? string.Empty,
             }
         );
 
         // Game Client Services
-        builder
-            .Services.AddClientSystemsServices()
-            .AddGameClient()
-            .AddGameServerServices();
+        builder.Services.AddClientSystemsServices().AddGameClient().AddGameServerServices();
 
         // Artifact Management Services
-        builder
-            .Services.AddArtifactManagementServices()
-            .AddZoneArtifactManagementServices();
+        builder.Services.AddArtifactManagementServices().AddZoneArtifactManagementServices();
 
         // Asset Management Services
         builder.Services.AddAssetManagementServices();
@@ -112,25 +101,16 @@ public class Program
         // Zone Services
         builder
             .Services.AddSingleton<ZoneStateCache, InMemoryZoneStateCache>()
-            .AddSingleton<
-                IBuilder<ZoneStateModel, ZoneState>,
-                ZoneStateModelFromZoneStateBuilder
-            >()
+            .AddSingleton<IBuilder<ZoneStateModel, ZoneState>, ZoneStateModelFromZoneStateBuilder>()
             .AddEditorZoneServices();
 
         // I18n Services
         builder
-            .Services.AddScoped(
-                typeof(Localizer<>),
-                typeof(StringBasedLocalizer<>)
-            )
+            .Services.AddScoped(typeof(Localizer<>), typeof(StringBasedLocalizer<>))
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .Configure<RequestLocalizationOptions>(opts =>
             {
-                var supportedCultures = new List<CultureInfo>
-                {
-                    new CultureInfo("en-US"),
-                };
+                var supportedCultures = new List<CultureInfo> { new CultureInfo("en-US"), };
 
                 opts.DefaultRequestCulture = new RequestCulture("en-US");
                 // Formatting numbers, dates, etc.
@@ -152,9 +132,7 @@ public class Program
         builder.Services.AddOidcAuthentication(options =>
         {
             builder.Configuration.Bind("Auth", options.ProviderOptions);
-            var authScopes = (
-                builder.Configuration["Auth:Scope"] ?? string.Empty
-            ).Split(" ");
+            var authScopes = (builder.Configuration["Auth:Scope"] ?? string.Empty).Split(" ");
             foreach (var authScope in authScopes)
             {
                 options.ProviderOptions.DefaultScopes.Add(authScope);
@@ -202,9 +180,7 @@ public class Program
         );
 
         // Configure Logging
-        builder.Logging.AddConfiguration(
-            builder.Configuration.GetSection("Logging")
-        );
+        builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
         await builder.Build().RunAsync();
     }

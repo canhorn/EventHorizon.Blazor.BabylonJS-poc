@@ -3,17 +3,12 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
-
 using MediatR;
 
 public class RegisterClientAssetConfigTypeBuilderCommandHandler
-    : IRequestHandler<
-        RegisterClientAssetConfigTypeBuilderCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<RegisterClientAssetConfigTypeBuilderCommand, StandardCommandResult>
 {
     private readonly IMediator _mediator;
     private readonly ClientAssetConfigBuilderState _state;
@@ -34,10 +29,7 @@ public class RegisterClientAssetConfigTypeBuilderCommandHandler
     {
         _state.Set(request.Type, request.Builder);
 
-        await _mediator.Publish(
-            new ClientAssetConfigTypeRegistered(),
-            cancellationToken
-        );
+        await _mediator.Publish(new ClientAssetConfigTypeRegistered(), cancellationToken);
 
         return new StandardCommandResult();
     }

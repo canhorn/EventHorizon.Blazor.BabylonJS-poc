@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.GameTypes.GameScenes.ExampleGui;
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Systems.Account.Api;
@@ -10,16 +9,12 @@ using EventHorizon.Game.Client.Systems.Account.Changed;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Start;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Stop;
 using EventHorizon.Game.Client.Systems.Local.Scenes.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class ZoneScene : GameSceneBase, AccountChangedEventObserver
 {
-    private readonly IAccountState _accountState =
-        GameServiceProvider.GetService<IAccountState>();
-    private readonly ILogger _logger = GameServiceProvider.GetService<
-        ILogger<ZoneScene>
-    >();
+    private readonly IAccountState _accountState = GameServiceProvider.GetService<IAccountState>();
+    private readonly ILogger _logger = GameServiceProvider.GetService<ILogger<ZoneScene>>();
     private readonly ExampleGuiLoader _exampleGui = new ExampleGuiLoader();
 
     private string _serverAddress = string.Empty;
@@ -53,9 +48,7 @@ public class ZoneScene : GameSceneBase, AccountChangedEventObserver
         GamePlatform.UnRegisterObserver(this);
         if (!string.IsNullOrEmpty(_serverAddress))
         {
-            await _mediator.Send(
-                new StopPlayerZoneConnectionCommand(_serverAddress)
-            );
+            await _mediator.Send(new StopPlayerZoneConnectionCommand(_serverAddress));
         }
         await base.Dispose();
     }
@@ -89,9 +82,7 @@ public class ZoneScene : GameSceneBase, AccountChangedEventObserver
         {
             _serverAddress = _accountState.User.Zone.ServerAddress;
             _logger.LogDebug($"Started Player Connection {DateTime.UtcNow}");
-            await _mediator.Send(
-                new StartPlayerZoneConnectionCommand(_serverAddress)
-            );
+            await _mediator.Send(new StartPlayerZoneConnectionCommand(_serverAddress));
         }
     }
 }

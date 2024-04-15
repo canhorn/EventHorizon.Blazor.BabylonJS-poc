@@ -2,16 +2,13 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct CoreAdminServiceConnected : INotification { }
 
-public interface CoreAdminServiceConnectedObserver
-    : ArgumentObserver<CoreAdminServiceConnected> { }
+public interface CoreAdminServiceConnectedObserver : ArgumentObserver<CoreAdminServiceConnected> { }
 
 public class CoreAdminServiceConnectedObserverHandler
     : INotificationHandler<CoreAdminServiceConnected>
@@ -27,8 +24,8 @@ public class CoreAdminServiceConnectedObserverHandler
         CoreAdminServiceConnected notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            CoreAdminServiceConnectedObserver,
-            CoreAdminServiceConnected
-        >(notification, cancellationToken);
+        _observer.Trigger<CoreAdminServiceConnectedObserver, CoreAdminServiceConnected>(
+            notification,
+            cancellationToken
+        );
 }

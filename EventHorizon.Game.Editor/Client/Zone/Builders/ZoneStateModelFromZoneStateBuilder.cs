@@ -4,8 +4,7 @@ using EventHorizon.Game.Client.Core.Builder.Api;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Model;
 
-public class ZoneStateModelFromZoneStateBuilder
-    : IBuilder<ZoneStateModel, ZoneState>
+public class ZoneStateModelFromZoneStateBuilder : IBuilder<ZoneStateModel, ZoneState>
 {
     public ZoneStateModel Build(ZoneState details) =>
         new()

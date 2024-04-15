@@ -2,13 +2,11 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.DataStorage.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
 using EventHorizon.Game.Editor.Client.Shared.Properties;
-
 using Microsoft.AspNetCore.Components;
 
 public class DataValueEditModalBase : EditorComponentBase
@@ -71,9 +69,7 @@ public class DataValueEditModalBase : EditorComponentBase
 
     public void HandleDataNameChanged(ChangeEventArgs args)
     {
-        EditingModel = EditingModel.UpdateName(
-            args.Value?.ToString() ?? string.Empty
-        );
+        EditingModel = EditingModel.UpdateName(args.Value?.ToString() ?? string.Empty);
 
         CheckMessageState();
     }
@@ -91,19 +87,14 @@ public class DataValueEditModalBase : EditorComponentBase
 
     public void HandlePropertyChanged(PropertyChangedArgs args)
     {
-        EditingModel = EditingModel.UpdateValue(
-            args.PropertyName,
-            args.Property
-        );
+        EditingModel = EditingModel.UpdateValue(args.PropertyName, args.Property);
 
         CheckMessageState();
     }
 
     public async Task HandleSubmit(DataValueModalSubmitType type)
     {
-        await OnSubmit.InvokeAsync(
-            new DataValueModalSubmitArgs(type, EditingModel)
-        );
+        await OnSubmit.InvokeAsync(new DataValueModalSubmitArgs(type, EditingModel));
     }
 
     private void CheckMessageState()
@@ -131,23 +122,16 @@ public class DataValueEditModalBase : EditorComponentBase
             case DataValueErrorCodes.InvalidDataName:
                 Message = Localizer["A Name is required for the Data Value."];
                 DataTypeCssModifier = "--disabled";
-                DataTypeTitle = Localizer[
-                    "Please correct the Data Value Name."
-                ];
+                DataTypeTitle = Localizer["Please correct the Data Value Name."];
                 DataTypeDisabled = true;
                 DisplayPropertyEditState = ComponentState.Error;
                 break;
             default:
                 if (!string.IsNullOrWhiteSpace(EditingModel.MessageCode))
                 {
-                    Message = Localizer[
-                        "Received Message Code of '{0}'",
-                        EditingModel.MessageCode
-                    ];
+                    Message = Localizer["Received Message Code of '{0}'", EditingModel.MessageCode];
                     DataTypeCssModifier = "--disabled";
-                    DataTypeTitle = Localizer[
-                        "Please check the Message Code for more details."
-                    ];
+                    DataTypeTitle = Localizer["Please check the Message Code for more details."];
                     DataTypeDisabled = true;
                     DisplayPropertyEditState = ComponentState.Error;
                 }

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.DataStorage.Components.Modal;
 
 using System;
-
 using Microsoft.AspNetCore.Components;
 
 public class DataValueModalSubmitBase : ComponentBase

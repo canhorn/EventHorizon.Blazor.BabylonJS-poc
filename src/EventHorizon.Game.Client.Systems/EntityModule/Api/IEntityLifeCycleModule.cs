@@ -2,10 +2,7 @@
 
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 
-public interface IEntityLifeCycleModule
-    : IInitializableEntity,
-        IDisposableEntity,
-        IUpdatableEntity
+public interface IEntityLifeCycleModule : IInitializableEntity, IDisposableEntity, IUpdatableEntity
 {
     string Name { get; }
 

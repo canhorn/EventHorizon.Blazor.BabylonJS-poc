@@ -2,13 +2,11 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Authentication.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Components.Providers;
 using EventHorizon.Game.Editor.Core.Services.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class ZoneSelectionButtonBase : EditorComponentBase

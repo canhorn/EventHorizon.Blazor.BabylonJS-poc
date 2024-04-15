@@ -1,12 +1,10 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Dialog.Platform;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Register;
 using EventHorizon.Game.Client.Systems.Dialog.Model;
-
 using MediatR;
 
 public class DialogInitializePlatformService : IServiceEntity
@@ -25,9 +23,7 @@ public class DialogInitializePlatformService : IServiceEntity
         await _mediator.Send(
             new RegisterClientAssetConfigTypeBuilderCommand(
                 DialogTreeModel.CLIENT_ASSET_TYPE,
-                new StandardClientAssetConfigTypeBuilder(
-                    (data) => new DialogTreeModel(data)
-                )
+                new StandardClientAssetConfigTypeBuilder((data) => new DialogTreeModel(data))
             )
         );
     }

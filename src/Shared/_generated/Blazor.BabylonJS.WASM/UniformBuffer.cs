@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<UniformBuffer>))]
@@ -30,18 +28,12 @@ public class UniformBuffer : CachedEntityObject
 
     public bool useUbo
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useUbo");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useUbo"); }
     }
 
     public bool isSync
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isSync");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isSync"); }
     }
     #endregion
 
@@ -59,11 +51,7 @@ public class UniformBuffer : CachedEntityObject
         ___guid = entity.___guid;
     }
 
-    public UniformBuffer(
-        Engine engine,
-        decimal[] data = null,
-        System.Nullable<bool> dynamic = null
-    )
+    public UniformBuffer(Engine engine, decimal[] data = null, System.Nullable<bool> dynamic = null)
     {
         var entity = EventHorizonBlazorInterop.New(
             new string[] { "BABYLON", "UniformBuffer" },
@@ -596,88 +584,49 @@ public class UniformBuffer : CachedEntityObject
     public void addUniform(string name, decimal size)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addUniform" },
-                name,
-                size
-            }
+            new object[] { new string[] { this.___guid, "addUniform" }, name, size }
         );
     }
 
     public void addMatrix(string name, Matrix mat)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addMatrix" },
-                name,
-                mat
-            }
+            new object[] { new string[] { this.___guid, "addMatrix" }, name, mat }
         );
     }
 
     public void addFloat2(string name, decimal x, decimal y)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addFloat2" },
-                name,
-                x,
-                y
-            }
+            new object[] { new string[] { this.___guid, "addFloat2" }, name, x, y }
         );
     }
 
     public void addFloat3(string name, decimal x, decimal y, decimal z)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addFloat3" },
-                name,
-                x,
-                y,
-                z
-            }
+            new object[] { new string[] { this.___guid, "addFloat3" }, name, x, y, z }
         );
     }
 
     public void addColor3(string name, Color3 color)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addColor3" },
-                name,
-                color
-            }
+            new object[] { new string[] { this.___guid, "addColor3" }, name, color }
         );
     }
 
     public void addColor4(string name, Color3 color, decimal alpha)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addColor4" },
-                name,
-                color,
-                alpha
-            }
+            new object[] { new string[] { this.___guid, "addColor4" }, name, color, alpha }
         );
     }
 
     public void addVector3(string name, Vector3 vector)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "addVector3" },
-                name,
-                vector
-            }
+            new object[] { new string[] { this.___guid, "addVector3" }, name, vector }
         );
     }
 
@@ -712,25 +661,14 @@ public class UniformBuffer : CachedEntityObject
     public void updateUniform(string uniformName, decimal[] data, decimal size)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "updateUniform" },
-                uniformName,
-                data,
-                size
-            }
+            new object[] { new string[] { this.___guid, "updateUniform" }, uniformName, data, size }
         );
     }
 
     public void setTexture(string name, BaseTexture texture)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setTexture" },
-                name,
-                texture
-            }
+            new object[] { new string[] { this.___guid, "setTexture" }, name, texture }
         );
     }
 
@@ -749,12 +687,7 @@ public class UniformBuffer : CachedEntityObject
     public void bindToEffect(Effect effect, string name)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindToEffect" },
-                effect,
-                name
-            }
+            new object[] { new string[] { this.___guid, "bindToEffect" }, effect, name }
         );
     }
 

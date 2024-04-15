@@ -1,16 +1,12 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.AssetManagement.Tests;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.AssetManagement.Pages.Artifacts;
 using EventHorizon.Game.Editor.Automation.Core.Browser;
-
 using NUnit.Framework;
-
 using Translations = Localization.Artifacts.AssetBackupArtifactsPageTranslations;
 
-public class DisplaysNewRowInArtifactsTableWhenAssetBackupButtonIsClicked
-    : WebHost
+public class DisplaysNewRowInArtifactsTableWhenAssetBackupButtonIsClicked : WebHost
 {
     private const int Seconds_To_Wait_For_Backup_Creation = 30;
 
@@ -21,12 +17,10 @@ public class DisplaysNewRowInArtifactsTableWhenAssetBackupButtonIsClicked
         this.Login<AssetBackupArtifactsPage>()
             .Header.Should.Equal(Translations.EN_US.Header)
             .ArtifactTable.GetFirstRowReferenceId(out var referenceId)
-            .Toolbar.Children[
-            a => a.Content == Translations.EN_US.ToolbarBackupButton
-        ]
+            .Toolbar.Children[a => a.Content == Translations.EN_US.ToolbarBackupButton]
             .Click()
-            .ArtifactTable.Rows[0].ReferenceId.Should
-            .Within(Seconds_To_Wait_For_Backup_Creation)
+            .ArtifactTable.Rows[0]
+            .ReferenceId.Should.Within(Seconds_To_Wait_For_Backup_Creation)
             .Not.Equal(referenceId);
     }
 }

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AnimationRange>))]
@@ -34,10 +32,7 @@ public class AnimationRange : CachedEntityObject
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -47,10 +42,7 @@ public class AnimationRange : CachedEntityObject
 
     public decimal from
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "from");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "from"); }
         set
         {
 
@@ -60,10 +52,7 @@ public class AnimationRange : CachedEntityObject
 
     public decimal to
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "to");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "to"); }
         set
         {
 

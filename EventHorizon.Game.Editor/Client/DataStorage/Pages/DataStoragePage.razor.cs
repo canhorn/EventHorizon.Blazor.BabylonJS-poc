@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.DataStorage.Components.Modal;
 using EventHorizon.Game.Editor.Client.DataStorage.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
@@ -15,13 +14,10 @@ using EventHorizon.Zone.Systems.DataStorage.Create;
 using EventHorizon.Zone.Systems.DataStorage.Delete;
 using EventHorizon.Zone.Systems.DataStorage.Query;
 using EventHorizon.Zone.Systems.DataStorage.Update;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
-public class DataStoragePageModel
-    : ObservableComponentBase,
-        ZoneAdminServiceConnectedEventObserver
+public class DataStoragePageModel : ObservableComponentBase, ZoneAdminServiceConnectedEventObserver
 {
     [Inject]
     public ILogger<DataStoragePageModel> Logger { get; set; } = null!;
@@ -67,9 +63,7 @@ public class DataStoragePageModel
                 Value = ZoneEditorPropertyType.PropertyComplex,
             },
         };
-        propertyTypeOptions = propertyTypeOptions
-            .OrderBy(option => option.Text)
-            .ToList();
+        propertyTypeOptions = propertyTypeOptions.OrderBy(option => option.Text).ToList();
         propertyTypeOptions.Insert(
             0,
             new StandardSelectOption
@@ -104,18 +98,13 @@ public class DataStoragePageModel
 
     private async Task Setup()
     {
-        var dataValuesResult = await Mediator.Send(
-            new QueryForAllDataStoreValues()
-        );
+        var dataValuesResult = await Mediator.Send(new QueryForAllDataStoreValues());
         if (!dataValuesResult)
         {
             await Mediator.Publish(
                 new ShowMessageEvent(
                     Localizer["Data Value Error"],
-                    Localizer[
-                        "Failed with error code: {0}",
-                        dataValuesResult.ErrorCode
-                    ]
+                    Localizer["Failed with error code: {0}", dataValuesResult.ErrorCode]
                 )
             );
             return;
@@ -136,9 +125,8 @@ public class DataStoragePageModel
         }
     }
 
-    public static bool FilterDataValues(
-        KeyValuePair<string, object> dataValue
-    ) => dataValue.Key != DataStorePropertiesMetadata.DATA_STORE_SCHEMA_KEY;
+    public static bool FilterDataValues(KeyValuePair<string, object> dataValue) =>
+        dataValue.Key != DataStorePropertiesMetadata.DATA_STORE_SCHEMA_KEY;
 
     public void HandleNewDataValueClicked()
     {
@@ -184,9 +172,7 @@ public class DataStoragePageModel
                 );
                 if (!updateResult.Success)
                 {
-                    EditModalModel = EditModalModel.UpdateErrorCode(
-                        updateResult.ErrorCode
-                    );
+                    EditModalModel = EditModalModel.UpdateErrorCode(updateResult.ErrorCode);
                     return;
                 }
                 IsEditOpen = false;
@@ -203,9 +189,7 @@ public class DataStoragePageModel
                 );
                 if (!createResult.Success)
                 {
-                    EditModalModel = EditModalModel.UpdateErrorCode(
-                        createResult.ErrorCode
-                    );
+                    EditModalModel = EditModalModel.UpdateErrorCode(createResult.ErrorCode);
                     return;
                 }
                 IsEditOpen = false;
@@ -236,9 +220,7 @@ public class DataStoragePageModel
 
         if (!deleteResult.Success)
         {
-            EditModalModel = EditModalModel.UpdateErrorCode(
-                deleteResult.ErrorCode
-            );
+            EditModalModel = EditModalModel.UpdateErrorCode(deleteResult.ErrorCode);
             return;
         }
 

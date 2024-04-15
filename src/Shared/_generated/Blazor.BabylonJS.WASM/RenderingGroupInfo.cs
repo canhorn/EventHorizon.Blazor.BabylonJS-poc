@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<RenderingGroupInfo>))]
@@ -83,21 +81,11 @@ public class RenderingGroupInfo : CachedEntityObject
 
     public decimal renderingGroupId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "renderingGroupId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "renderingGroupId"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderingGroupId",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderingGroupId", value);
         }
     }
     #endregion

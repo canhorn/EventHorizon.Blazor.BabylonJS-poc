@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Mesh.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct MeshLoadedEvent : INotification
@@ -33,10 +31,7 @@ public class MeshLoadedEventHandler : INotificationHandler<MeshLoadedEvent>
         _observer = observer;
     }
 
-    public Task Handle(
-        MeshLoadedEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(MeshLoadedEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<MeshLoadedEventObserver, MeshLoadedEvent>(
             notification,
             cancellationToken

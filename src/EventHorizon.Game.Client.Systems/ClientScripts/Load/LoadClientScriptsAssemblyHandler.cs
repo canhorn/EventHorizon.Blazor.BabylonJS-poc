@@ -5,13 +5,11 @@ using System.IO;
 using System.Runtime.Loader;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.ClientScripts.Api;
 using EventHorizon.Game.Client.Systems.ClientScripts.Fetch;
 using EventHorizon.Game.Client.Systems.ClientScripts.Set;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Invoke;
-
 using MediatR;
 
 public class LoadClientScriptsAssemblyHandler
@@ -20,10 +18,7 @@ public class LoadClientScriptsAssemblyHandler
     private readonly IMediator _mediator;
     private readonly ClientScriptsState _state;
 
-    public LoadClientScriptsAssemblyHandler(
-        IMediator mediator,
-        ClientScriptsState state
-    )
+    public LoadClientScriptsAssemblyHandler(IMediator mediator, ClientScriptsState state)
     {
         _mediator = mediator;
         _state = state;
@@ -38,30 +33,20 @@ public class LoadClientScriptsAssemblyHandler
         if (_state.Hash != request.Hash)
         {
             // If diff, Load new Assembly from Server
-            var assemblyFetchResult = await _mediator.Send(
-                new FetchClientScriptsAssembly()
-            );
+            var assemblyFetchResult = await _mediator.Send(new FetchClientScriptsAssembly());
             if (assemblyFetchResult.Success)
             {
                 var assemblyHash = assemblyFetchResult.Result.Hash;
-                var scriptAssemblyString = assemblyFetchResult
-                    .Result
-                    .ScriptAssembly;
+                var scriptAssemblyString = assemblyFetchResult.Result.ScriptAssembly;
                 if (
-                    string.IsNullOrEmpty(scriptAssemblyString)
-                    || string.IsNullOrEmpty(assemblyHash)
+                    string.IsNullOrEmpty(scriptAssemblyString) || string.IsNullOrEmpty(assemblyHash)
                 )
                 {
                     // Either script or hash are invalid, return ErrorCode
-                    return new StandardCommandResult(
-                        "script_assembly_invalid_from_fetch"
-                    );
+                    return new StandardCommandResult("script_assembly_invalid_from_fetch");
                 }
                 return await _mediator.Send(
-                    new SetClientScriptsAssemblyCommand(
-                        assemblyHash,
-                        scriptAssemblyString
-                    ),
+                    new SetClientScriptsAssemblyCommand(assemblyHash, scriptAssemblyString),
                     cancellationToken
                 );
             }

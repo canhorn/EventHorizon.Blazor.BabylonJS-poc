@@ -7,8 +7,7 @@ public class StandardEditorAuthenticationState : EditorAuthenticationState
 {
     public string AccessToken { get; private set; } = string.Empty;
 
-    public SessionValues Session { get; private set; } =
-        new SessionValuesModel();
+    public SessionValues Session { get; private set; } = new SessionValuesModel();
 
     public void SetAccessToken(string accessToken)
     {

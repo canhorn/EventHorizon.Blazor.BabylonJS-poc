@@ -2,9 +2,7 @@
 
 using EventHorizon.Game.Client.Core.I18n.Api;
 using EventHorizon.Observer.Model;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public interface ScriptServices

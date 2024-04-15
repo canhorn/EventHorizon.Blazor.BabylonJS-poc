@@ -3,13 +3,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
 using EventHorizon.Game.Client.Engine.Particle.Add;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
 using EventHorizon.Game.Client.Systems.Particle.Model;
-
 using MediatR;
 
 public class SetupParticleFromPlayerZoneInfoReceivedEventHandler
@@ -17,9 +15,7 @@ public class SetupParticleFromPlayerZoneInfoReceivedEventHandler
 {
     private readonly IMediator _mediator;
 
-    public SetupParticleFromPlayerZoneInfoReceivedEventHandler(
-        IMediator mediator
-    )
+    public SetupParticleFromPlayerZoneInfoReceivedEventHandler(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -29,11 +25,7 @@ public class SetupParticleFromPlayerZoneInfoReceivedEventHandler
         CancellationToken cancellationToken
     )
     {
-        foreach (
-            var particleTemplate in notification
-                .PlayerZoneInfo
-                .ParticleTemplateList
-        )
+        foreach (var particleTemplate in notification.PlayerZoneInfo.ParticleTemplateList)
         {
             await _mediator.Send(
                 new AddParticleTemplateCommand(particleTemplate),

@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Input.Api;
-
 using MediatR;
 
 public class RegisterInputCommandHandler
@@ -21,9 +19,5 @@ public class RegisterInputCommandHandler
     public Task<CommandResult<string>> Handle(
         RegisterInputCommand request,
         CancellationToken cancellationToken
-    ) =>
-        new CommandResult<string>(
-            true,
-            _register.Register(request.InputOptions)
-        ).FromResult();
+    ) => new CommandResult<string>(true, _register.Register(request.InputOptions)).FromResult();
 }

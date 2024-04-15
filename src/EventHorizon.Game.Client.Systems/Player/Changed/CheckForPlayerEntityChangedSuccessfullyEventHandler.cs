@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Entity.Changed;
 using EventHorizon.Game.Client.Systems.Player.Api;
-
 using MediatR;
 
 public class CheckForPlayerEntityChangedSuccessfullyEventHandler
@@ -29,15 +27,9 @@ public class CheckForPlayerEntityChangedSuccessfullyEventHandler
         CancellationToken cancellationToken
     )
     {
-        if (
-            _state.Player.HasValue
-            && notification.EntityId == _state.Player.Value.EntityId
-        )
+        if (_state.Player.HasValue && notification.EntityId == _state.Player.Value.EntityId)
         {
-            await _mediator.Publish(
-                new PlayerDetailsChangedEvent(),
-                cancellationToken
-            );
+            await _mediator.Publish(new PlayerDetailsChangedEvent(), cancellationToken);
         }
     }
 }

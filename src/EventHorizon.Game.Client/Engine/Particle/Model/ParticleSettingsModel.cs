@@ -3,12 +3,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EventHorizon.Game.Client.Engine.Particle.Api;
 
-public class ParticleSettingsModel
-    : Dictionary<string, object>,
-        ParticleSettings
+public class ParticleSettingsModel : Dictionary<string, object>, ParticleSettings
 {
     public static ParticleSettingsModel Merge(params ParticleSettings[] options)
     {
@@ -25,10 +22,7 @@ public class ParticleSettingsModel
         : base(dictionary ?? new Dictionary<string, object>()) { }
 
     public string Name =>
-        TryGetValue("name", out var value)
-            ? value.To(() => string.Empty)
-            : string.Empty;
+        TryGetValue("name", out var value) ? value.To(() => string.Empty) : string.Empty;
 
-    public decimal Capacity =>
-        TryGetValue("capacity", out var value) ? value.To<decimal>() : 0;
+    public decimal Capacity => TryGetValue("capacity", out var value) ? value.To<decimal>() : 0;
 }

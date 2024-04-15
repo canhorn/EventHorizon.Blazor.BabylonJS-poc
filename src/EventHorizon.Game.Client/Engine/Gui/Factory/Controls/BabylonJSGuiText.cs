@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using BabylonJS.GUI;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
@@ -35,11 +33,7 @@ public class BabylonJSGuiText : IBabylonJSGuiControl
 
     public Control Control => _control;
 
-    public BabylonJSGuiText(
-        string id,
-        IGuiControlOptions options,
-        IGuiGridLocation? gridLocation
-    )
+    public BabylonJSGuiText(string id, IGuiControlOptions options, IGuiGridLocation? gridLocation)
     {
         Id = id;
         Options = options;
@@ -86,17 +80,9 @@ public class BabylonJSGuiText : IBabylonJSGuiControl
         return textControl;
     }
 
-    IList<string> IGNORE_PROPERTY_LIST = new List<string>
-    {
-        "animation",
-        "onClick",
-    };
+    IList<string> IGNORE_PROPERTY_LIST = new List<string> { "animation", "onClick", };
 
-    private void SetPropertyOnControl(
-        Control control,
-        string property,
-        object value
-    )
+    private void SetPropertyOnControl(Control control, string property, object value)
     {
         EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }

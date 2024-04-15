@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Particle>))]
@@ -38,38 +36,27 @@ public class Particle : CachedEntityObject
         {
             if (__particleSystem == null)
             {
-                __particleSystem =
-                    EventHorizonBlazorInterop.GetClass<ParticleSystem>(
-                        this.___guid,
-                        "particleSystem",
-                        (entity) =>
-                        {
-                            return new ParticleSystem()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __particleSystem = EventHorizonBlazorInterop.GetClass<ParticleSystem>(
+                    this.___guid,
+                    "particleSystem",
+                    (entity) =>
+                    {
+                        return new ParticleSystem() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __particleSystem;
         }
         set
         {
             __particleSystem = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "particleSystem",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "particleSystem", value);
         }
     }
 
     public decimal id
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "id");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "id"); }
         set
         {
 
@@ -179,13 +166,7 @@ public class Particle : CachedEntityObject
 
     public decimal lifeTime
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "lifeTime"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "lifeTime"); }
         set
         {
 
@@ -195,10 +176,7 @@ public class Particle : CachedEntityObject
 
     public decimal age
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "age");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "age"); }
         set
         {
 
@@ -208,10 +186,7 @@ public class Particle : CachedEntityObject
 
     public decimal size
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "size");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "size"); }
         set
         {
 
@@ -246,13 +221,7 @@ public class Particle : CachedEntityObject
 
     public decimal angle
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "angle"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "angle"); }
         set
         {
 
@@ -262,13 +231,7 @@ public class Particle : CachedEntityObject
 
     public decimal angularSpeed
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "angularSpeed"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "angularSpeed"); }
         set
         {
 
@@ -278,13 +241,7 @@ public class Particle : CachedEntityObject
 
     public decimal cellIndex
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cellIndex"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cellIndex"); }
         set
         {
 

@@ -4,12 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 // TODO: Look at making this just a Client Action
@@ -19,9 +17,7 @@ public class ClientActionServerInteractionEvent : IClientAction
     public string CommandType { get; }
     public IDictionary<string, object> Data { get; }
 
-    public ClientActionServerInteractionEvent(
-        IClientActionDataResolver resolver
-    )
+    public ClientActionServerInteractionEvent(IClientActionDataResolver resolver)
     {
         CommandType = resolver.Resolve<string>("commandType");
         Data = resolver.Resolve<Dictionary<string, object>>("data");

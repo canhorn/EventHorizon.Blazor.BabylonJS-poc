@@ -3,15 +3,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Core.Mapper.Api;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Execptions;
 using EventHorizon.Observer.State;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class PublishClientActionCommandHandler
@@ -49,10 +46,7 @@ public class PublishClientActionCommandHandler
         }
 
         // Send Script Client Action
-        var externalActionOption = _state.GetExternal(
-            request.ActionName,
-            request.Data
-        );
+        var externalActionOption = _state.GetExternal(request.ActionName, request.Data);
         if (externalActionOption.HasValue)
         {
             var externalAction = externalActionOption.Value;

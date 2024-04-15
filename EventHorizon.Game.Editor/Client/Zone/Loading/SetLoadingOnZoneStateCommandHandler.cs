@@ -2,7 +2,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Builder.Api;
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Zone.Active;
@@ -10,7 +9,6 @@ using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Change;
 using EventHorizon.Game.Editor.Client.Zone.Model;
 using EventHorizon.Game.Editor.Client.Zone.Query;
-
 using MediatR;
 
 public class SetLoadingOnZoneStateCommandHandler
@@ -33,10 +31,7 @@ public class SetLoadingOnZoneStateCommandHandler
         CancellationToken cancellationToken
     )
     {
-        var zoneStateResult = await _mediator.Send(
-            new QueryForActiveZone(),
-            cancellationToken
-        );
+        var zoneStateResult = await _mediator.Send(new QueryForActiveZone(), cancellationToken);
         if (!zoneStateResult)
         {
             return zoneStateResult.ErrorCode;

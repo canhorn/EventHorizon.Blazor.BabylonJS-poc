@@ -9,8 +9,7 @@ using Microsoft.Extensions.Logging;
 
 public class PlatformConsoleLogger : ILogger
 {
-    private static readonly JsonSerializerOptions JSON_OPTIONS =
-        new() { WriteIndented = true };
+    private static readonly JsonSerializerOptions JSON_OPTIONS = new() { WriteIndented = true };
 
     private readonly string _name;
     private readonly PlatformLoggerConfiguration _config;
@@ -87,9 +86,7 @@ public class PlatformConsoleLogger : ILogger
             {
                 Console.WriteLine(exception.ToString());
             }
-            Console.WriteLine(
-                JsonSerializer.Serialize(stateAsDictionary, JSON_OPTIONS)
-            );
+            Console.WriteLine(JsonSerializer.Serialize(stateAsDictionary, JSON_OPTIONS));
             Console.WriteLine();
         }
     }

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<BaseSubMesh>))]
@@ -34,29 +32,21 @@ public class BaseSubMesh : CachedEntityObject
         {
             if (__materialDefines == null)
             {
-                __materialDefines =
-                    EventHorizonBlazorInterop.GetClass<MaterialDefines>(
-                        this.___guid,
-                        "materialDefines",
-                        (entity) =>
-                        {
-                            return new MaterialDefines()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __materialDefines = EventHorizonBlazorInterop.GetClass<MaterialDefines>(
+                    this.___guid,
+                    "materialDefines",
+                    (entity) =>
+                    {
+                        return new MaterialDefines() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __materialDefines;
         }
         set
         {
             __materialDefines = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "materialDefines",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "materialDefines", value);
         }
     }
 
@@ -101,12 +91,7 @@ public class BaseSubMesh : CachedEntityObject
     public void setEffect(Effect effect, MaterialDefines defines = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setEffect" },
-                effect,
-                defines
-            }
+            new object[] { new string[] { this.___guid, "setEffect" }, effect, defines }
         );
     }
     #endregion

@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class MeshSetEventObserverHandler : INotificationHandler<MeshSetEvent>
@@ -16,12 +14,6 @@ public class MeshSetEventObserverHandler : INotificationHandler<MeshSetEvent>
         _observer = observer;
     }
 
-    public Task Handle(
-        MeshSetEvent notification,
-        CancellationToken cancellationToken
-    ) =>
-        _observer.Trigger<MeshSetEventObserver, MeshSetEvent>(
-            notification,
-            cancellationToken
-        );
+    public Task Handle(MeshSetEvent notification, CancellationToken cancellationToken) =>
+        _observer.Trigger<MeshSetEventObserver, MeshSetEvent>(notification, cancellationToken);
 }

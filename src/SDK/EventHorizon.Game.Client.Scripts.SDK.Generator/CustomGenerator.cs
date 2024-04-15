@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
@@ -33,8 +32,8 @@ public class CustomGenerator : ISourceGenerator
 
     public void Execute(GeneratorExecutionContext context)
     {
-        var assemblyNames = context.Compilation.ReferencedAssemblyNames
-            .Select(a => a.Name)
+        var assemblyNames = context
+            .Compilation.ReferencedAssemblyNames.Select(a => a.Name)
             .ToList();
         foreach (var solutionAssembly in GetSolutionAssemblies())
         {
@@ -44,10 +43,9 @@ public class CustomGenerator : ISourceGenerator
         var diagnostics = context.Compilation.GetDiagnostics();
         foreach (var diagnostic in diagnostics)
         {
-            var AssemblyIdentities =
-                context.Compilation.GetUnreferencedAssemblyIdentities(
-                    diagnostic
-                );
+            var AssemblyIdentities = context.Compilation.GetUnreferencedAssemblyIdentities(
+                diagnostic
+            );
             foreach (var assemblyIdentity in AssemblyIdentities)
             {
                 assemblyNames.Add(assemblyIdentity.Name);

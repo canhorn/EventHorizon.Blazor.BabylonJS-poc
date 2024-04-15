@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
 
 using System.Collections.Generic;
-
 using BabylonJS;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Entity.Model;
@@ -33,11 +31,7 @@ public class BabylonJSEngineMesh : IEngineMesh
     }
     public IDictionary<string, object> MetaData { get; }
 
-    public BabylonJSEngineMesh(
-        Mesh mesh,
-        MeshSystemType meshSystemType,
-        long ownerEntityId
-    )
+    public BabylonJSEngineMesh(Mesh mesh, MeshSystemType meshSystemType, long ownerEntityId)
     {
         Mesh = mesh;
         Position = new BabylonJSVector3(Mesh.position);
@@ -66,8 +60,7 @@ public class BabylonJSEngineMesh : IEngineMesh
 
     public void SetVisible(bool visible) => Mesh.isVisible = visible;
 
-    public IEngineMesh Clone(string identifier) =>
-        new BabylonJSEngineMesh(Mesh.clone(identifier));
+    public IEngineMesh Clone(string identifier) => new BabylonJSEngineMesh(Mesh.clone(identifier));
 
     public IVector3 GetDirection(IVector3 localAxis)
     {
@@ -76,11 +69,7 @@ public class BabylonJSEngineMesh : IEngineMesh
 
     private void SetOwnerEntityId(long entityId)
     {
-        EventHorizonBlazorInterop.Set(
-            Mesh.___guid,
-            OWNER_ENTITY_ID_NAME,
-            entityId
-        );
+        EventHorizonBlazorInterop.Set(Mesh.___guid, OWNER_ENTITY_ID_NAME, entityId);
         _ownerEntityId = entityId;
     }
 }

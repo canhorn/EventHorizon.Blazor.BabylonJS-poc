@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ISpriteManager : ICachedEntity { }
@@ -36,13 +34,7 @@ public class ISpriteManagerCachedEntity : CachedEntityObject, ISpriteManager
 
     public decimal layerMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "layerMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "layerMask"); }
         set
         {
 
@@ -52,13 +44,7 @@ public class ISpriteManagerCachedEntity : CachedEntityObject, ISpriteManager
 
     public bool isPickable
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isPickable"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPickable"); }
         set
         {
 
@@ -68,21 +54,11 @@ public class ISpriteManagerCachedEntity : CachedEntityObject, ISpriteManager
 
     public decimal renderingGroupId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "renderingGroupId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "renderingGroupId"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderingGroupId",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderingGroupId", value);
         }
     }
 

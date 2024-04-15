@@ -2,20 +2,16 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Attributes;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 [AdminClientAction("SERVER_SCRIPTS_SYSTEM_RELOADED_CLIENT_ACTION_EVENT")]
 public struct ServerScriptsSystemReloadedAdminClientAction : IAdminClientAction
 {
-    public ServerScriptsSystemReloadedAdminClientAction(
-        IAdminClientActionDataResolver _
-    ) { }
+    public ServerScriptsSystemReloadedAdminClientAction(IAdminClientActionDataResolver _) { }
 }
 
 public interface ServerScriptsSystemReloadedAdminClientActionObserver
@@ -26,9 +22,7 @@ public class ServerScriptsSystemReloadedAdminClientActionObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ServerScriptsSystemReloadedAdminClientActionObserverHandler(
-        ObserverState observer
-    )
+    public ServerScriptsSystemReloadedAdminClientActionObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

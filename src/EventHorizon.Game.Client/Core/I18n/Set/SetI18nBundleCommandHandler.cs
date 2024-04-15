@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Core.I18n.Api;
-
 using MediatR;
 
 public class SetI18nBundleCommandHandler

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.InView.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
@@ -13,7 +12,6 @@ using EventHorizon.Game.Client.Systems.Local.InView.Entering;
 using EventHorizon.Game.Client.Systems.Local.InView.Exiting;
 using EventHorizon.Game.Client.Systems.Local.Modules.InView.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
-
 using MediatR;
 
 public class InViewModule : ModuleEntityBase, IInViewModule
@@ -42,9 +40,7 @@ public class InViewModule : ModuleEntityBase, IInViewModule
         _mediator = GameServiceProvider.GetService<IMediator>();
         _renderingScene = GameServiceProvider.GetService<IRenderingScene>();
 
-        var factory = GameServiceProvider.GetService<
-            IFactory<IIntervalTimerService>
-        >();
+        var factory = GameServiceProvider.GetService<IFactory<IIntervalTimerService>>();
         _checkForInViewIntervalTimer = factory.Create();
         _checkForInViewIntervalTimer.Setup(250, HandleCheckForEntityInView);
         _checkForInViewIntervalTimer.Start();

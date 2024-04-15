@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Authentication.Model;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Editor.Client.Authentication.Api;
 
 public class SessionValuesModel : Dictionary<string, string>, SessionValues

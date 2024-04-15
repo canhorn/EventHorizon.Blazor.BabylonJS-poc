@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using BabylonJS.GUI;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
@@ -35,11 +33,7 @@ public class BabylonJSGuiLabel : IBabylonJSGuiControl
 
     public Control Control => _control;
 
-    public BabylonJSGuiLabel(
-        string id,
-        IGuiControlOptions options,
-        IGuiGridLocation? gridLocation
-    )
+    public BabylonJSGuiLabel(string id, IGuiControlOptions options, IGuiGridLocation? gridLocation)
     {
         Id = id;
         Options = options;
@@ -76,10 +70,7 @@ public class BabylonJSGuiLabel : IBabylonJSGuiControl
         Options = GuiControlOptionsModel.MergeControlOptions(Options, options);
     }
 
-    private static (Rectangle, TextBlock) CreateControl(
-        string id,
-        IGuiControlOptions options
-    )
+    private static (Rectangle, TextBlock) CreateControl(string id, IGuiControlOptions options)
     {
         var labelBoxControl = new Rectangle($"{id}_box");
         var textControl = new TextBlock($"{id}_text");
@@ -93,8 +84,11 @@ public class BabylonJSGuiLabel : IBabylonJSGuiControl
         return (labelBoxControl, textControl);
     }
 
-    private static readonly IList<string> IGNORE_PROPERTY_LIST =
-        new List<string> { "animation", "textOptions" };
+    private static readonly IList<string> IGNORE_PROPERTY_LIST = new List<string>
+    {
+        "animation",
+        "textOptions"
+    };
 
     private static void Update(
         IGuiControlOptions options,
@@ -110,26 +104,16 @@ public class BabylonJSGuiLabel : IBabylonJSGuiControl
             }
             else if (option.Key == "textOptions")
             {
-                var textBlockOptions = option.Value.To<GuiControlOptionsModel>(
-                    () => new()
-                );
+                var textBlockOptions = option.Value.To<GuiControlOptionsModel>(() => new());
                 foreach (var textBlockOption in textBlockOptions)
                 {
-                    SetPropertyOnControl(
-                        textControl,
-                        textBlockOption.Key,
-                        textBlockOption.Value
-                    );
+                    SetPropertyOnControl(textControl, textBlockOption.Key, textBlockOption.Value);
                 }
             }
         }
     }
 
-    private static void SetPropertyOnControl(
-        Control control,
-        string property,
-        object value
-    )
+    private static void SetPropertyOnControl(Control control, string property, object value)
     {
         EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }

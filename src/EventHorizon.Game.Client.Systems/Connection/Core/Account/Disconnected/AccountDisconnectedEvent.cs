@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct AccountDisconnectedEvent : INotification
@@ -21,11 +19,9 @@ public struct AccountDisconnectedEvent : INotification
     }
 }
 
-public interface AccountDisconnectedEventObserver
-    : ArgumentObserver<AccountDisconnectedEvent> { }
+public interface AccountDisconnectedEventObserver : ArgumentObserver<AccountDisconnectedEvent> { }
 
-public class AccountDisconnectedEventHandler
-    : INotificationHandler<AccountDisconnectedEvent>
+public class AccountDisconnectedEventHandler : INotificationHandler<AccountDisconnectedEvent>
 {
     private readonly ObserverState _observer;
 
@@ -38,8 +34,8 @@ public class AccountDisconnectedEventHandler
         AccountDisconnectedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            AccountDisconnectedEventObserver,
-            AccountDisconnectedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<AccountDisconnectedEventObserver, AccountDisconnectedEvent>(
+            notification,
+            cancellationToken
+        );
 }

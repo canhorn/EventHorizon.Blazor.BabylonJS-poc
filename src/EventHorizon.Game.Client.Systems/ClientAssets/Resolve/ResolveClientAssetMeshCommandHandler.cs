@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
 using EventHorizon.Game.Client.Systems.ClientAssets.Model.Mesh;
 using EventHorizon.Game.Client.Systems.ClientAssets.Register;
-
 using MediatR;
 
 public class ResolveClientAssetMeshCommandHandler
@@ -16,10 +14,7 @@ public class ResolveClientAssetMeshCommandHandler
     private readonly IMediator _mediator;
     private readonly ClientAssetMeshCache _cache;
 
-    public ResolveClientAssetMeshCommandHandler(
-        ClientAssetMeshCache cache,
-        IMediator mediator
-    )
+    public ResolveClientAssetMeshCommandHandler(ClientAssetMeshCache cache, IMediator mediator)
     {
         _cache = cache;
         _mediator = mediator;
@@ -31,10 +26,7 @@ public class ResolveClientAssetMeshCommandHandler
     )
     {
         var mesh = request.Mesh;
-        if (
-            !request.Details.SkipCaching
-            && !_cache.Cached(request.Details.ClientAsset.Id)
-        )
+        if (!request.Details.SkipCaching && !_cache.Cached(request.Details.ClientAsset.Id))
         {
             // Cache Mesh
             _cache.Set(request.Details.ClientAsset.Id, request.Mesh);

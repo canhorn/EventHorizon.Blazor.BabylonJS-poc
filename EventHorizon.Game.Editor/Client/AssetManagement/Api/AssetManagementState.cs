@@ -3,7 +3,6 @@
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
 
@@ -29,10 +28,7 @@ public interface AssetManagementState
 
     Task LoadFilterPath(string filterPath, CancellationToken cancellationToken);
 
-    Task SetFileNode(
-        TreeViewNodeData node,
-        CancellationToken cancellationToken
-    );
+    Task SetFileNode(TreeViewNodeData node, CancellationToken cancellationToken);
 
     Task SetFileDirectoryContent(
         FileSystemDirectoryContent directoryContent,

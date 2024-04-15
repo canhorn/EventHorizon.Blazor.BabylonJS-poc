@@ -2,7 +2,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-
 using EventHorizon.Game.Client.Engine.Gui.Model;
 
 public interface IGuiControl

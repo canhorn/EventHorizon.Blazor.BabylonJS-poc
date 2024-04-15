@@ -1,7 +1,6 @@
 ﻿namespace BabylonJS;
 
 using System;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
 

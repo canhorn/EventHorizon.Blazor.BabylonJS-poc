@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<TransformNode>))]
@@ -32,11 +30,7 @@ public class TransformNode : Node
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "TransformNode.BILLBOARDMODE_NONE",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "TransformNode.BILLBOARDMODE_NONE", value);
         }
     }
 
@@ -52,11 +46,7 @@ public class TransformNode : Node
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "TransformNode.BILLBOARDMODE_X",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "TransformNode.BILLBOARDMODE_X", value);
         }
     }
 
@@ -72,11 +62,7 @@ public class TransformNode : Node
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "TransformNode.BILLBOARDMODE_Y",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "TransformNode.BILLBOARDMODE_Y", value);
         }
     }
 
@@ -92,11 +78,7 @@ public class TransformNode : Node
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "TransformNode.BILLBOARDMODE_Z",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "TransformNode.BILLBOARDMODE_Z", value);
         }
     }
 
@@ -112,11 +94,7 @@ public class TransformNode : Node
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "TransformNode.BILLBOARDMODE_ALL",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "TransformNode.BILLBOARDMODE_ALL", value);
         }
     }
 
@@ -142,11 +120,7 @@ public class TransformNode : Node
     #endregion
 
     #region Static Methods
-    public static TransformNode Parse(
-        object parsedTransformNode,
-        Scene scene,
-        string rootUrl
-    )
+    public static TransformNode Parse(object parsedTransformNode, Scene scene, string rootUrl)
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
@@ -165,13 +139,7 @@ public class TransformNode : Node
 
     public decimal billboardMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "billboardMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "billboardMode"); }
         set
         {
 
@@ -201,21 +169,11 @@ public class TransformNode : Node
 
     public bool infiniteDistance
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "infiniteDistance"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "infiniteDistance"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "infiniteDistance",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "infiniteDistance", value);
         }
     }
 
@@ -301,29 +259,21 @@ public class TransformNode : Node
         {
             if (__rotationQuaternion == null)
             {
-                __rotationQuaternion =
-                    EventHorizonBlazorInterop.GetClass<Quaternion>(
-                        this.___guid,
-                        "rotationQuaternion",
-                        (entity) =>
-                        {
-                            return new Quaternion()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __rotationQuaternion = EventHorizonBlazorInterop.GetClass<Quaternion>(
+                    this.___guid,
+                    "rotationQuaternion",
+                    (entity) =>
+                    {
+                        return new Quaternion() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __rotationQuaternion;
         }
         set
         {
             __rotationQuaternion = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "rotationQuaternion",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "rotationQuaternion", value);
         }
     }
 
@@ -394,15 +344,14 @@ public class TransformNode : Node
         {
             if (__absolutePosition == null)
             {
-                __absolutePosition =
-                    EventHorizonBlazorInterop.GetClass<Vector3>(
-                        this.___guid,
-                        "absolutePosition",
-                        (entity) =>
-                        {
-                            return new Vector3() { ___guid = entity.___guid };
-                        }
-                    );
+                __absolutePosition = EventHorizonBlazorInterop.GetClass<Vector3>(
+                    this.___guid,
+                    "absolutePosition",
+                    (entity) =>
+                    {
+                        return new Vector3() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __absolutePosition;
         }
@@ -435,18 +384,14 @@ public class TransformNode : Node
         {
             if (__absoluteRotationQuaternion == null)
             {
-                __absoluteRotationQuaternion =
-                    EventHorizonBlazorInterop.GetClass<Quaternion>(
-                        this.___guid,
-                        "absoluteRotationQuaternion",
-                        (entity) =>
-                        {
-                            return new Quaternion()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __absoluteRotationQuaternion = EventHorizonBlazorInterop.GetClass<Quaternion>(
+                    this.___guid,
+                    "absoluteRotationQuaternion",
+                    (entity) =>
+                    {
+                        return new Quaternion() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __absoluteRotationQuaternion;
         }
@@ -454,24 +399,12 @@ public class TransformNode : Node
 
     public bool isWorldMatrixFrozen
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isWorldMatrixFrozen"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isWorldMatrixFrozen"); }
     }
 
     public bool nonUniformScaling
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "nonUniformScaling"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "nonUniformScaling"); }
     }
     #endregion
 
@@ -479,41 +412,21 @@ public class TransformNode : Node
 
     public decimal scalingDeterminant
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "scalingDeterminant"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "scalingDeterminant"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "scalingDeterminant",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "scalingDeterminant", value);
         }
     }
 
     public bool ignoreNonUniformScaling
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "ignoreNonUniformScaling"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "ignoreNonUniformScaling"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ignoreNonUniformScaling",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ignoreNonUniformScaling", value);
         }
     }
 
@@ -544,20 +457,16 @@ public class TransformNode : Node
         {
             if (__onAfterWorldMatrixUpdateObservable == null)
             {
-                __onAfterWorldMatrixUpdateObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<TransformNode>
-                    >(
-                        this.___guid,
-                        "onAfterWorldMatrixUpdateObservable",
-                        (entity) =>
-                        {
-                            return new Observable<TransformNode>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAfterWorldMatrixUpdateObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<TransformNode>
+                >(
+                    this.___guid,
+                    "onAfterWorldMatrixUpdateObservable",
+                    (entity) =>
+                    {
+                        return new Observable<TransformNode>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAfterWorldMatrixUpdateObservable;
         }
@@ -580,11 +489,7 @@ public class TransformNode : Node
     public TransformNode(ICachedEntity entity)
         : base(entity) { }
 
-    public TransformNode(
-        string name,
-        Scene scene = null,
-        System.Nullable<bool> isPure = null
-    )
+    public TransformNode(string name, Scene scene = null, System.Nullable<bool> isPure = null)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(
@@ -609,11 +514,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "updatePoseMatrix" },
-                matrix
-            }
+            new object[] { new string[] { this.___guid, "updatePoseMatrix" }, matrix }
         );
     }
 
@@ -629,11 +530,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "markAsDirty" },
-                property
-            }
+            new object[] { new string[] { this.___guid, "markAsDirty" }, property }
         );
     }
 
@@ -641,11 +538,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setPreTransformMatrix" },
-                matrix
-            }
+            new object[] { new string[] { this.___guid, "setPreTransformMatrix" }, matrix }
         );
     }
 
@@ -695,11 +588,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "freezeWorldMatrix" },
-                newWorldMatrix
-            }
+            new object[] { new string[] { this.___guid, "freezeWorldMatrix" }, newWorldMatrix }
         );
     }
 
@@ -707,10 +596,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "unfreezeWorldMatrix" }
-            }
+            new object[] { new string[] { this.___guid, "unfreezeWorldMatrix" } }
         );
     }
 
@@ -718,10 +604,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAbsolutePosition" }
-            }
+            new object[] { new string[] { this.___guid, "getAbsolutePosition" } }
         );
     }
 
@@ -729,11 +612,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setAbsolutePosition" },
-                absolutePosition
-            }
+            new object[] { new string[] { this.___guid, "setAbsolutePosition" }, absolutePosition }
         );
     }
 
@@ -741,11 +620,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setPositionWithLocalVector" },
-                vector3
-            }
+            new object[] { new string[] { this.___guid, "setPositionWithLocalVector" }, vector3 }
         );
     }
 
@@ -753,14 +628,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[]
-                {
-                    this.___guid,
-                    "getPositionExpressedInLocalSpace"
-                }
-            }
+            new object[] { new string[] { this.___guid, "getPositionExpressedInLocalSpace" } }
         );
     }
 
@@ -768,11 +636,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "locallyTranslate" },
-                vector3
-            }
+            new object[] { new string[] { this.___guid, "locallyTranslate" }, vector3 }
         );
     }
 
@@ -802,11 +666,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getDirection" },
-                localAxis
-            }
+            new object[] { new string[] { this.___guid, "getDirection" }, localAxis }
         );
     }
 
@@ -814,12 +674,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getDirectionToRef" },
-                localAxis,
-                result
-            }
+            new object[] { new string[] { this.___guid, "getDirectionToRef" }, localAxis, result }
         );
     }
 
@@ -843,19 +698,11 @@ public class TransformNode : Node
         );
     }
 
-    public TransformNode setPivotPoint(
-        Vector3 point,
-        System.Nullable<int> space = null
-    )
+    public TransformNode setPivotPoint(Vector3 point, System.Nullable<int> space = null)
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setPivotPoint" },
-                point,
-                space
-            }
+            new object[] { new string[] { this.___guid, "setPivotPoint" }, point, space }
         );
     }
 
@@ -871,11 +718,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getPivotPointToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "getPivotPointToRef" }, result }
         );
     }
 
@@ -883,10 +726,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAbsolutePivotPoint" }
-            }
+            new object[] { new string[] { this.___guid, "getAbsolutePivotPoint" } }
         );
     }
 
@@ -894,11 +734,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAbsolutePivotPointToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "getAbsolutePivotPointToRef" }, result }
         );
     }
 
@@ -910,10 +746,7 @@ public class TransformNode : Node
         );
     }
 
-    public TransformNode attachToBone(
-        Bone bone,
-        TransformNode affectedTransformNode
-    )
+    public TransformNode attachToBone(Bone bone, TransformNode affectedTransformNode)
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
@@ -934,39 +767,19 @@ public class TransformNode : Node
         );
     }
 
-    public TransformNode rotate(
-        Vector3 axis,
-        decimal amount,
-        System.Nullable<int> space = null
-    )
+    public TransformNode rotate(Vector3 axis, decimal amount, System.Nullable<int> space = null)
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "rotate" },
-                axis,
-                amount,
-                space
-            }
+            new object[] { new string[] { this.___guid, "rotate" }, axis, amount, space }
         );
     }
 
-    public TransformNode rotateAround(
-        Vector3 point,
-        Vector3 axis,
-        decimal amount
-    )
+    public TransformNode rotateAround(Vector3 point, Vector3 axis, decimal amount)
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "rotateAround" },
-                point,
-                axis,
-                amount
-            }
+            new object[] { new string[] { this.___guid, "rotateAround" }, point, axis, amount }
         );
     }
 
@@ -978,13 +791,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "translate" },
-                axis,
-                distance,
-                space
-            }
+            new object[] { new string[] { this.___guid, "translate" }, axis, distance, space }
         );
     }
 
@@ -992,13 +799,7 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<TransformNode>(
             entity => new TransformNode() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addRotation" },
-                x,
-                y,
-                z
-            }
+            new object[] { new string[] { this.___guid, "addRotation" }, x, y, z }
         );
     }
 
@@ -1006,17 +807,11 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "computeWorldMatrix" },
-                force
-            }
+            new object[] { new string[] { this.___guid, "computeWorldMatrix" }, force }
         );
     }
 
-    public void resetLocalMatrix(
-        System.Nullable<bool> independentOfChildren = null
-    )
+    public void resetLocalMatrix(System.Nullable<bool> independentOfChildren = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -1035,9 +830,7 @@ public class TransformNode : Node
     > _registerAfterWorldMatrixUpdateActionMap =
         new Dictionary<string, Func<TransformNode, Task>>();
 
-    public string registerAfterWorldMatrixUpdate(
-        Func<TransformNode, Task> callback
-    )
+    public string registerAfterWorldMatrixUpdate(Func<TransformNode, Task> callback)
     {
         SetupRegisterAfterWorldMatrixUpdateLoop();
 
@@ -1068,9 +861,7 @@ public class TransformNode : Node
     }
 
     [JSInvokable]
-    public async Task CallRegisterAfterWorldMatrixUpdateActions(
-        TransformNode mesh
-    )
+    public async Task CallRegisterAfterWorldMatrixUpdateActions(TransformNode mesh)
     {
         foreach (var action in _registerAfterWorldMatrixUpdateActionMap.Values)
         {
@@ -1087,9 +878,7 @@ public class TransformNode : Node
     > _unregisterAfterWorldMatrixUpdateActionMap =
         new Dictionary<string, Func<TransformNode, Task>>();
 
-    public string unregisterAfterWorldMatrixUpdate(
-        Func<TransformNode, Task> callback
-    )
+    public string unregisterAfterWorldMatrixUpdate(Func<TransformNode, Task> callback)
     {
         SetupUnregisterAfterWorldMatrixUpdateLoop();
 
@@ -1120,13 +909,9 @@ public class TransformNode : Node
     }
 
     [JSInvokable]
-    public async Task CallUnregisterAfterWorldMatrixUpdateActions(
-        TransformNode mesh
-    )
+    public async Task CallUnregisterAfterWorldMatrixUpdateActions(TransformNode mesh)
     {
-        foreach (
-            var action in _unregisterAfterWorldMatrixUpdateActionMap.Values
-        )
+        foreach (var action in _unregisterAfterWorldMatrixUpdateActionMap.Values)
         {
             await action(mesh);
         }
@@ -1137,22 +922,14 @@ public class TransformNode : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getPositionInCameraSpace" },
-                camera
-            }
+            new object[] { new string[] { this.___guid, "getPositionInCameraSpace" }, camera }
         );
     }
 
     public decimal getDistanceToCamera(Camera camera = null)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getDistanceToCamera" },
-                camera
-            }
+            new object[] { new string[] { this.___guid, "getDistanceToCamera" }, camera }
         );
     }
 
@@ -1177,11 +954,7 @@ public class TransformNode : Node
     public CachedEntity serialize(object currentSerializationObject = null)
     {
         return EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "serialize" },
-                currentSerializationObject
-            }
+            new object[] { new string[] { this.___guid, "serialize" }, currentSerializationObject }
         );
     }
 

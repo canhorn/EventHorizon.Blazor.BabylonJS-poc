@@ -1,11 +1,9 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Layouts.Components;
 
 using System;
-
 using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Editor.Client.Shared.Components;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -22,8 +20,7 @@ public class AnimateOnLocationChangedBase : EditorComponentBase, IDisposable
     [Inject]
     public IFactory<ITimerService> TimerServiceFactory { get; set; } = null!;
 
-    protected string AnimationCSS { get; private set; } =
-        "animate__animated animate__fadeIn";
+    protected string AnimationCSS { get; private set; } = "animate__animated animate__fadeIn";
 
     protected override void OnInitialized()
     {
@@ -39,10 +36,7 @@ public class AnimateOnLocationChangedBase : EditorComponentBase, IDisposable
         InvokeAsync(StateHasChanged);
     }
 
-    private void HandleNavigationLocationChanged(
-        object? sender,
-        LocationChangedEventArgs e
-    )
+    private void HandleNavigationLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         AnimationCSS = "--animated-display-none";
         InvokeAsync(StateHasChanged);

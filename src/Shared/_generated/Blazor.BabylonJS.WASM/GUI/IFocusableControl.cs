@@ -5,18 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IFocusableControl : ICachedEntity { }
 
 [JsonConverter(typeof(CachedEntityConverter<IFocusableControlCachedEntity>))]
-public class IFocusableControlCachedEntity
-    : CachedEntityObject,
-        IFocusableControl
+public class IFocusableControlCachedEntity : CachedEntityObject, IFocusableControl
 {
     #region Static Accessors
 
@@ -65,11 +61,7 @@ public class IFocusableControlCachedEntity
     public void processKeyboard(KeyboardEvent evt)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "processKeyboard" },
-                evt
-            }
+            new object[] { new string[] { this.___guid, "processKeyboard" }, evt }
         );
     }
 

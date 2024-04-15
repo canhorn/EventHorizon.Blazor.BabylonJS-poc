@@ -4,18 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Query.Model;
 using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
-
 using MediatR;
 
 public class QueryForEntityHandler
-    : IRequestHandler<
-        QueryForEntity,
-        QueryResult<IEnumerable<ILifecycleEntity>>
-    >
+    : IRequestHandler<QueryForEntity, QueryResult<IEnumerable<ILifecycleEntity>>>
 {
     private readonly IServerEntityTrackingState _state;
 

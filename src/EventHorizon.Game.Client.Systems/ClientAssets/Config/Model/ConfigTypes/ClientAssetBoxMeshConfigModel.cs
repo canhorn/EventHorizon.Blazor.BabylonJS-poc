@@ -1,12 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model.ConfigTypes;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
 
-public class ClientAssetBoxMeshConfigModel
-    : ClientAssetConfigBase,
-        ClientAssetBoxMeshConfig
+public class ClientAssetBoxMeshConfigModel : ClientAssetConfigBase, ClientAssetBoxMeshConfig
 {
     public int Size { get; set; }
 

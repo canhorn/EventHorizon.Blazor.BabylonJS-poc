@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public struct AssetFileNodeClickedEvent : INotification
@@ -15,5 +14,4 @@ public struct AssetFileNodeClickedEvent : INotification
     }
 }
 
-public interface AssetFileNodeClickedEventObserver
-    : ArgumentObserver<AssetFileNodeClickedEvent> { }
+public interface AssetFileNodeClickedEventObserver : ArgumentObserver<AssetFileNodeClickedEvent> { }

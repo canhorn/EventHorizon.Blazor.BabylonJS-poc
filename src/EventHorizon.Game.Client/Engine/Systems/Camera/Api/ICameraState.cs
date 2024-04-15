@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Camera.Api;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Camera.Model;
 
 public interface ICameraState

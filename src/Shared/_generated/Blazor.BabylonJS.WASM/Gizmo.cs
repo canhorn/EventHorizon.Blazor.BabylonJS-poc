@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Gizmo>))]
@@ -34,18 +32,14 @@ public class Gizmo : CachedEntityObject, _IDisposable
         {
             if (__attachedMesh == null)
             {
-                __attachedMesh =
-                    EventHorizonBlazorInterop.GetClass<AbstractMesh>(
-                        this.___guid,
-                        "attachedMesh",
-                        (entity) =>
-                        {
-                            return new AbstractMesh()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __attachedMesh = EventHorizonBlazorInterop.GetClass<AbstractMesh>(
+                    this.___guid,
+                    "attachedMesh",
+                    (entity) =>
+                    {
+                        return new AbstractMesh() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __attachedMesh;
         }
@@ -65,18 +59,14 @@ public class Gizmo : CachedEntityObject, _IDisposable
         {
             if (__gizmoLayer == null)
             {
-                __gizmoLayer =
-                    EventHorizonBlazorInterop.GetClass<UtilityLayerRenderer>(
-                        this.___guid,
-                        "gizmoLayer",
-                        (entity) =>
-                        {
-                            return new UtilityLayerRenderer()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __gizmoLayer = EventHorizonBlazorInterop.GetClass<UtilityLayerRenderer>(
+                    this.___guid,
+                    "gizmoLayer",
+                    (entity) =>
+                    {
+                        return new UtilityLayerRenderer() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __gizmoLayer;
         }
@@ -89,13 +79,7 @@ public class Gizmo : CachedEntityObject, _IDisposable
 
     public decimal scaleRatio
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "scaleRatio"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "scaleRatio"); }
         set
         {
 
@@ -145,13 +129,7 @@ public class Gizmo : CachedEntityObject, _IDisposable
 
     public bool updateScale
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "updateScale"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "updateScale"); }
         set
         {
 
@@ -170,10 +148,7 @@ public class Gizmo : CachedEntityObject, _IDisposable
     public Gizmo(UtilityLayerRenderer gizmoLayer = null)
         : base()
     {
-        var entity = EventHorizonBlazorInterop.New(
-            new string[] { "BABYLON", "Gizmo" },
-            gizmoLayer
-        );
+        var entity = EventHorizonBlazorInterop.New(new string[] { "BABYLON", "Gizmo" }, gizmoLayer);
         ___guid = entity.___guid;
     }
     #endregion
@@ -182,11 +157,7 @@ public class Gizmo : CachedEntityObject, _IDisposable
     public void setCustomMesh(Mesh mesh)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setCustomMesh" },
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "setCustomMesh" }, mesh }
         );
     }
 

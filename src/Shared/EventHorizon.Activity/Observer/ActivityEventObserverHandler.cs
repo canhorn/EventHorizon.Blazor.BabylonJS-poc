@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class ActivityEventObserverHandler : INotificationHandler<ActivityEvent>
@@ -16,12 +14,6 @@ public class ActivityEventObserverHandler : INotificationHandler<ActivityEvent>
         _observer = observer;
     }
 
-    public Task Handle(
-        ActivityEvent notification,
-        CancellationToken cancellationToken
-    ) =>
-        _observer.Trigger<ActivityEventObserver, ActivityEvent>(
-            notification,
-            cancellationToken
-        );
+    public Task Handle(ActivityEvent notification, CancellationToken cancellationToken) =>
+        _observer.Trigger<ActivityEventObserver, ActivityEvent>(notification, cancellationToken);
 }

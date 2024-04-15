@@ -5,18 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IGetSetVerticesData : ICachedEntity { }
 
 [JsonConverter(typeof(CachedEntityConverter<IGetSetVerticesDataCachedEntity>))]
-public class IGetSetVerticesDataCachedEntity
-    : CachedEntityObject,
-        IGetSetVerticesData
+public class IGetSetVerticesDataCachedEntity : CachedEntityObject, IGetSetVerticesData
 {
     #region Static Accessors
 
@@ -51,11 +47,7 @@ public class IGetSetVerticesDataCachedEntity
     public bool isVerticesDataPresent(string kind)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isVerticesDataPresent" },
-                kind
-            }
+            new object[] { new string[] { this.___guid, "isVerticesDataPresent" }, kind }
         );
     }
 
@@ -82,25 +74,14 @@ public class IGetSetVerticesDataCachedEntity
     )
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getIndices" },
-                copyWhenShared,
-                forceCopy
-            }
+            new object[] { new string[] { this.___guid, "getIndices" }, copyWhenShared, forceCopy }
         );
     }
 
     public void setVerticesData(string kind, decimal[] data, bool updatable)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setVerticesData" },
-                kind,
-                data,
-                updatable
-            }
+            new object[] { new string[] { this.___guid, "setVerticesData" }, kind, data, updatable }
         );
     }
 

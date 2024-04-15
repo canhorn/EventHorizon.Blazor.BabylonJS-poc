@@ -5,16 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<HemisphericParticleEmitter>))]
-public class HemisphericParticleEmitter
-    : CachedEntityObject,
-        IParticleEmitterType
+public class HemisphericParticleEmitter : CachedEntityObject, IParticleEmitterType
 {
     #region Static Accessors
 
@@ -36,13 +32,7 @@ public class HemisphericParticleEmitter
 
     public decimal radius
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "radius"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "radius"); }
         set
         {
 
@@ -52,13 +42,7 @@ public class HemisphericParticleEmitter
 
     public decimal radiusRange
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "radiusRange"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "radiusRange"); }
         set
         {
 
@@ -68,21 +52,11 @@ public class HemisphericParticleEmitter
 
     public decimal directionRandomizer
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "directionRandomizer"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "directionRandomizer"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "directionRandomizer",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "directionRandomizer", value);
         }
     }
     #endregion
@@ -153,8 +127,7 @@ public class HemisphericParticleEmitter
     public HemisphericParticleEmitter clone()
     {
         return EventHorizonBlazorInterop.FuncClass<HemisphericParticleEmitter>(
-            entity =>
-                new HemisphericParticleEmitter() { ___guid = entity.___guid },
+            entity => new HemisphericParticleEmitter() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "clone" } }
         );
     }
@@ -162,11 +135,7 @@ public class HemisphericParticleEmitter
     public void applyToShader(Effect effect)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "applyToShader" },
-                effect
-            }
+            new object[] { new string[] { this.___guid, "applyToShader" }, effect }
         );
     }
 
@@ -194,11 +163,7 @@ public class HemisphericParticleEmitter
     public void parse(object serializationObject)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "parse" },
-                serializationObject
-            }
+            new object[] { new string[] { this.___guid, "parse" }, serializationObject }
         );
     }
     #endregion

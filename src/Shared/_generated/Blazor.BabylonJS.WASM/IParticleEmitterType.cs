@@ -5,18 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IParticleEmitterType : ICachedEntity { }
 
 [JsonConverter(typeof(CachedEntityConverter<IParticleEmitterTypeCachedEntity>))]
-public class IParticleEmitterTypeCachedEntity
-    : CachedEntityObject,
-        IParticleEmitterType
+public class IParticleEmitterTypeCachedEntity : CachedEntityObject, IParticleEmitterType
 {
     #region Static Accessors
 
@@ -89,11 +85,7 @@ public class IParticleEmitterTypeCachedEntity
     public IParticleEmitterTypeCachedEntity clone()
     {
         return EventHorizonBlazorInterop.FuncClass<IParticleEmitterTypeCachedEntity>(
-            entity =>
-                new IParticleEmitterTypeCachedEntity()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new IParticleEmitterTypeCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "clone" } }
         );
     }
@@ -101,11 +93,7 @@ public class IParticleEmitterTypeCachedEntity
     public void applyToShader(Effect effect)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "applyToShader" },
-                effect
-            }
+            new object[] { new string[] { this.___guid, "applyToShader" }, effect }
         );
     }
 
@@ -133,12 +121,7 @@ public class IParticleEmitterTypeCachedEntity
     public void parse(object serializationObject, Scene scene)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "parse" },
-                serializationObject,
-                scene
-            }
+            new object[] { new string[] { this.___guid, "parse" }, serializationObject, scene }
         );
     }
     #endregion

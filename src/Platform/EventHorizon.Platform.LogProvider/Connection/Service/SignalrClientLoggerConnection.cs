@@ -35,8 +35,7 @@ public class SignalrClientLoggerConnection : PlatformLoggerConnection
     {
         _logger = logger;
         _mediator = mediator;
-        _loggingServerUrl =
-            configuration["Platform:Logging:Server"] ?? string.Empty;
+        _loggingServerUrl = configuration["Platform:Logging:Server"] ?? string.Empty;
     }
 
     public async Task<StandardCommandResult> Connect(
@@ -69,8 +68,7 @@ public class SignalrClientLoggerConnection : PlatformLoggerConnection
                     options =>
                     {
                         // options..LogLevel = SignalRLogLevel.Error;
-                        options.AccessTokenProvider = () =>
-                            Task.FromResult<string?>(accessToken);
+                        options.AccessTokenProvider = () => Task.FromResult<string?>(accessToken);
                     }
                 )
                 .Build();
@@ -84,10 +82,7 @@ public class SignalrClientLoggerConnection : PlatformLoggerConnection
         }
         catch (HttpRequestException ex)
         {
-            await LogAndDispose(
-                ex,
-                "Failed to start connection to Logging Service."
-            );
+            await LogAndDispose(ex, "Failed to start connection to Logging Service.");
             if (ex.Message.Contains("401 (Unauthorized)"))
             {
                 await _mediator.Publish(
@@ -100,18 +95,12 @@ public class SignalrClientLoggerConnection : PlatformLoggerConnection
         }
         catch (InvalidOperationException ex)
         {
-            await LogAndDispose(
-                ex,
-                "Operation Exception starting connection to Logging Service."
-            );
+            await LogAndDispose(ex, "Operation Exception starting connection to Logging Service.");
             return new(ConnectionErrorTypes.Operational);
         }
         catch (Exception ex)
         {
-            await LogAndDispose(
-                ex,
-                "Generic Exception starting connection to Logging Service."
-            );
+            await LogAndDispose(ex, "Generic Exception starting connection to Logging Service.");
             return new(ConnectionErrorTypes.Unknown);
         }
     }

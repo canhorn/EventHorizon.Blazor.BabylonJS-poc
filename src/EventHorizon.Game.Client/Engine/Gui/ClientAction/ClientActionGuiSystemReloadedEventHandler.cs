@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Gui.Clear;
 using EventHorizon.Game.Client.Engine.Gui.Register;
 using EventHorizon.Game.Client.Engine.Gui.Reload;
-
 using MediatR;
 
 public class ClientActionGuiSystemReloadedEventHandler
@@ -24,22 +22,13 @@ public class ClientActionGuiSystemReloadedEventHandler
         CancellationToken cancellationToken
     )
     {
-        await _mediator.Send(
-            new ClearGuiSystemDataCommand(),
-            cancellationToken
-        );
+        await _mediator.Send(new ClearGuiSystemDataCommand(), cancellationToken);
 
         foreach (var guiLayout in notification.GuiLayoutList)
         {
-            await _mediator.Send(
-                new RegisterGuiLayoutDataCommand(guiLayout),
-                cancellationToken
-            );
+            await _mediator.Send(new RegisterGuiLayoutDataCommand(guiLayout), cancellationToken);
         }
 
-        await _mediator.Publish(
-            new GuiSystemFinishedReloadingEvent(),
-            cancellationToken
-        );
+        await _mediator.Publish(new GuiSystemFinishedReloadingEvent(), cancellationToken);
     }
 }

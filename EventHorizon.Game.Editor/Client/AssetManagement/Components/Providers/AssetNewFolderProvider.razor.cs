@@ -2,7 +2,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.New;
@@ -11,7 +10,6 @@ using EventHorizon.Game.Editor.Client.Authentication.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -100,10 +98,7 @@ public class AssetNewFolderProviderModel
 
         var result = await AssetFileManagement.CreateDirectory(
             AccessToken.AccessToken,
-            FileSystemDirectoryContent.BuildPath(
-                State.RootPath,
-                _directoryContent
-            ),
+            FileSystemDirectoryContent.BuildPath(State.RootPath, _directoryContent),
             FolderName,
             CancellationToken.None
         );
@@ -111,10 +106,7 @@ public class AssetNewFolderProviderModel
         if (result.Error.IsNull())
         {
             await Mediator.Send(
-                new AssetReloadToNodeAndDirectoryContentCommand(
-                    _node,
-                    _directoryContent
-                )
+                new AssetReloadToNodeAndDirectoryContentCommand(_node, _directoryContent)
             );
             await ShowMessage(
                 Localizer["New Asset Folder"],

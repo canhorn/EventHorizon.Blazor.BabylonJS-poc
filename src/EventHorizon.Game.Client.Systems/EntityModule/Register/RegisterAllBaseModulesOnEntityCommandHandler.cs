@@ -2,24 +2,17 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 using EventHorizon.Game.Client.Systems.EntityModule.Model;
-
 using MediatR;
 
 public class RegisterAllBaseModulesOnEntityCommandHandler
-    : IRequestHandler<
-        RegisterAllBaseModulesOnEntityCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<RegisterAllBaseModulesOnEntityCommand, StandardCommandResult>
 {
     private readonly EntityBaseScriptModuleState _state;
 
-    public RegisterAllBaseModulesOnEntityCommandHandler(
-        EntityBaseScriptModuleState state
-    )
+    public RegisterAllBaseModulesOnEntityCommandHandler(EntityBaseScriptModuleState state)
     {
         _state = state;
     }

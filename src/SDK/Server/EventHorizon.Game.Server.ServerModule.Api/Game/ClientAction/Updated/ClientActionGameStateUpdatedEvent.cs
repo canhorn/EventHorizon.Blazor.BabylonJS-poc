@@ -11,13 +11,10 @@
     // TODO: [ClientAction] : Finish Implementation
     // TODO: [Game] : Finish Implementation
     //[ClientAction("CLIENT_ACTION_GAME_STATE_UPDATED")]
-    public struct ClientActionGameStateUpdatedEvent
-        : INotification,
-            IClientAction
+    public struct ClientActionGameStateUpdatedEvent : INotification, IClientAction
     {
         // public GameState GameState { get; }
-        public ClientActionGameStateUpdatedEvent(IClientActionDataResolver _)
-        { }
+        public ClientActionGameStateUpdatedEvent(IClientActionDataResolver _) { }
     }
 
     public interface ClientActionGameStateUpdatedEventObserver

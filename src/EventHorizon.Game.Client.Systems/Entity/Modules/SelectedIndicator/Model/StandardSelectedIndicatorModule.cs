@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.SelectedIndicator.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Core.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
@@ -11,7 +10,6 @@ using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
 using EventHorizon.Game.Client.Systems.Particle.Api;
 using EventHorizon.Game.Client.Systems.Particle.Model;
 using EventHorizon.Game.Server.ClientAction.Agent;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardSelectedIndicatorModule
@@ -34,17 +32,11 @@ public class StandardSelectedIndicatorModule
         _entity = entity;
         var particleTemplateId = string.Empty;
 
-        var selectedStateOption = _entity.GetPropertyAsOption<SelectionState>(
-            SelectionState.NAME
-        );
+        var selectedStateOption = _entity.GetPropertyAsOption<SelectionState>(SelectionState.NAME);
         if (selectedStateOption.HasValue)
         {
-            particleTemplateId = selectedStateOption
-                .Value
-                .SelectedParticleTemplate;
-            if (
-                selectedStateOption.Value.SelectedParticleTemplate.IsNullOrEmpty()
-            )
+            particleTemplateId = selectedStateOption.Value.SelectedParticleTemplate;
+            if (selectedStateOption.Value.SelectedParticleTemplate.IsNullOrEmpty())
             {
                 _logger.LogPropertyMissing(
                     nameof(IObjectEntity),

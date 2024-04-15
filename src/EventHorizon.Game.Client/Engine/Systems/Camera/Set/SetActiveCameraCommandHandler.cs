@@ -3,13 +3,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Systems.Camera.Api;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class SetActiveCameraCommandHandler

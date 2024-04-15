@@ -6,8 +6,7 @@ using System.Text;
 
 public static class Configuration
 {
-    public static IDictionary<string, object> VALUES =
-        new Dictionary<string, object>();
+    public static IDictionary<string, object> VALUES = new Dictionary<string, object>();
 
     public static void SetConfig(string key, object value)
     {

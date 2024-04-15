@@ -4,9 +4,7 @@ using System;
 using System.Collections.Generic;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 
-public class ObjectEntityConfigurationModel
-    : Dictionary<string, object>,
-        ObjectEntityConfiguration
+public class ObjectEntityConfigurationModel : Dictionary<string, object>, ObjectEntityConfiguration
 {
     public Option<T> Get<T>(string key)
     {

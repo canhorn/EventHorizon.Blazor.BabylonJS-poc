@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
 public interface IAnimationModule : IModule

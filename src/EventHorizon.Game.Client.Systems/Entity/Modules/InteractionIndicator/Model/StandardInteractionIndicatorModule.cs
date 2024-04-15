@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Core.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
@@ -11,7 +10,6 @@ using EventHorizon.Game.Client.Systems.Entity.Modules.InteractionIndicator.Show;
 using EventHorizon.Game.Client.Systems.Entity.Properties.Interaction.Api;
 using EventHorizon.Game.Client.Systems.Particle.Api;
 using EventHorizon.Game.Client.Systems.Particle.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardInteractionIndicatorModule
@@ -20,8 +18,7 @@ public class StandardInteractionIndicatorModule
         ShowInteractionIndicatorEventObserver,
         ClearInteractionIndicatorEventObserver
 {
-    private readonly ILogger _logger =
-        GamePlatform.Logger<StandardInteractionIndicatorModule>();
+    private readonly ILogger _logger = GamePlatform.Logger<StandardInteractionIndicatorModule>();
 
     private readonly IObjectEntity _entity;
     private ParticleEmitter? _particle;
@@ -35,14 +32,10 @@ public class StandardInteractionIndicatorModule
 
     public override async Task Initialize()
     {
-        var interactionStateOption =
-            _entity.GetPropertyAsOption<InteractionState>(
-                InteractionState.NAME
-            );
-        if (
-            !interactionStateOption.HasValue
-            || !interactionStateOption.Value.Active
-        )
+        var interactionStateOption = _entity.GetPropertyAsOption<InteractionState>(
+            InteractionState.NAME
+        );
+        if (!interactionStateOption.HasValue || !interactionStateOption.Value.Active)
         {
             return;
         }

@@ -39,10 +39,7 @@ public partial class QuickLinks
             Id = "quick-link-pages",
             Name = "pages",
             Text = Localizer["Quick Links"],
-            IsExpanded = (
-                SessionValues.Get("quickLinks_IsExpanded", string.Empty)
-                == "true"
-            ),
+            IsExpanded = (SessionValues.Get("quickLinks_IsExpanded", string.Empty) == "true"),
             Children =
             [
                 new()

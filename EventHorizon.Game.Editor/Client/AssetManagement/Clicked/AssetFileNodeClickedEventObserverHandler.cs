@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class AssetFileNodeClickedEventObserverHandler
@@ -21,8 +19,8 @@ public class AssetFileNodeClickedEventObserverHandler
         AssetFileNodeClickedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            AssetFileNodeClickedEventObserver,
-            AssetFileNodeClickedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<AssetFileNodeClickedEventObserver, AssetFileNodeClickedEvent>(
+            notification,
+            cancellationToken
+        );
 }

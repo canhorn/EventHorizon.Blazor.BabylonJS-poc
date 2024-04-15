@@ -1,13 +1,11 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Components.Providers;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
 using EventHorizon.Game.Editor.Client.AssetManagement.Reload;
 using EventHorizon.Game.Editor.Client.Authentication.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
-
 using Microsoft.AspNetCore.Components;
 
 public class AssetManagementProviderModel

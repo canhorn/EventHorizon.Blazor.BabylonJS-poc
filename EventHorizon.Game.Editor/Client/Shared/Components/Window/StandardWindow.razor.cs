@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Window;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -40,8 +38,7 @@ public partial class StandardWindowModel : ComponentBase
     /// 900x300
     /// </summary>
     [Parameter]
-    public WindowLocationType Location { get; set; } =
-        WindowLocationType.MiddleCenter;
+    public WindowLocationType Location { get; set; } = WindowLocationType.MiddleCenter;
 
     [Parameter]
     public EventCallback OnCloseTriggered { get; set; }
@@ -82,11 +79,7 @@ public partial class StandardWindowModel : ComponentBase
     private void SetupSize()
     {
         _widthSizeInPixels = SizeInPixels(WidthSize, ViewableArea.InnerWidth);
-        _heightSizeInPixels = SizeInPixels(
-            HeightSize,
-            ViewableArea.InnerHeight,
-            IsCollapsed
-        );
+        _heightSizeInPixels = SizeInPixels(HeightSize, ViewableArea.InnerHeight, IsCollapsed);
     }
 
     private static double SizeInPixels(

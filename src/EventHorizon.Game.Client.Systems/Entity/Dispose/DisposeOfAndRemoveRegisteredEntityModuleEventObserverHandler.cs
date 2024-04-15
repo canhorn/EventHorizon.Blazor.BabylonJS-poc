@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class DisposeOfAndRemoveRegisteredEntityModuleEventObserverHandler
@@ -12,9 +10,7 @@ public class DisposeOfAndRemoveRegisteredEntityModuleEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public DisposeOfAndRemoveRegisteredEntityModuleEventObserverHandler(
-        ObserverState observer
-    )
+    public DisposeOfAndRemoveRegisteredEntityModuleEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

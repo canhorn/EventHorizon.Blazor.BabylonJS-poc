@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ImageProcessingConfiguration>))]
@@ -73,12 +71,7 @@ public class ImageProcessingConfiguration : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "ImageProcessingConfiguration",
-                    "PrepareUniforms"
-                },
+                new string[] { "BABYLON", "ImageProcessingConfiguration", "PrepareUniforms" },
                 uniforms,
                 defines
             }
@@ -93,12 +86,7 @@ public class ImageProcessingConfiguration : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "ImageProcessingConfiguration",
-                    "PrepareSamplers"
-                },
+                new string[] { "BABYLON", "ImageProcessingConfiguration", "PrepareSamplers" },
                 samplersList,
                 defines
             }
@@ -108,16 +96,10 @@ public class ImageProcessingConfiguration : CachedEntityObject
     public static ImageProcessingConfiguration Parse(object source)
     {
         return EventHorizonBlazorInterop.FuncClass<ImageProcessingConfiguration>(
-            entity =>
-                new ImageProcessingConfiguration() { ___guid = entity.___guid },
+            entity => new ImageProcessingConfiguration() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "ImageProcessingConfiguration",
-                    "Parse"
-                },
+                new string[] { "BABYLON", "ImageProcessingConfiguration", "Parse" },
                 source
             }
         );
@@ -128,21 +110,11 @@ public class ImageProcessingConfiguration : CachedEntityObject
 
     public bool colorCurvesEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "colorCurvesEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "colorCurvesEnabled"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "colorCurvesEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "colorCurvesEnabled", value);
         }
     }
 
@@ -153,49 +125,31 @@ public class ImageProcessingConfiguration : CachedEntityObject
         {
             if (__colorGradingTexture == null)
             {
-                __colorGradingTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "colorGradingTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __colorGradingTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "colorGradingTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __colorGradingTexture;
         }
         set
         {
             __colorGradingTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "colorGradingTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "colorGradingTexture", value);
         }
     }
 
     public bool colorGradingEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "colorGradingEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "colorGradingEnabled"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "colorGradingEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "colorGradingEnabled", value);
         }
     }
 
@@ -203,51 +157,28 @@ public class ImageProcessingConfiguration : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "colorGradingWithGreenDepth"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "colorGradingWithGreenDepth");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "colorGradingWithGreenDepth",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "colorGradingWithGreenDepth", value);
         }
     }
 
     public bool colorGradingBGR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "colorGradingBGR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "colorGradingBGR"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "colorGradingBGR",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "colorGradingBGR", value);
         }
     }
 
     public decimal exposure
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "exposure"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "exposure"); }
         set
         {
 
@@ -257,53 +188,27 @@ public class ImageProcessingConfiguration : CachedEntityObject
 
     public bool toneMappingEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "toneMappingEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "toneMappingEnabled"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "toneMappingEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "toneMappingEnabled", value);
         }
     }
 
     public decimal toneMappingType
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "toneMappingType"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "toneMappingType"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "toneMappingType",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "toneMappingType", value);
         }
     }
 
     public decimal contrast
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "contrast"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "contrast"); }
         set
         {
 
@@ -313,73 +218,37 @@ public class ImageProcessingConfiguration : CachedEntityObject
 
     public decimal vignetteBlendMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vignetteBlendMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vignetteBlendMode"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "vignetteBlendMode",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "vignetteBlendMode", value);
         }
     }
 
     public bool vignetteEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "vignetteEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "vignetteEnabled"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "vignetteEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "vignetteEnabled", value);
         }
     }
 
     public bool applyByPostProcess
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "applyByPostProcess"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "applyByPostProcess"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "applyByPostProcess",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "applyByPostProcess", value);
         }
     }
 
     public bool isEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isEnabled"); }
         set
         {
 
@@ -416,81 +285,41 @@ public class ImageProcessingConfiguration : CachedEntityObject
 
     public decimal vignetteStretch
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vignetteStretch"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vignetteStretch"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "vignetteStretch",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "vignetteStretch", value);
         }
     }
 
     public decimal vignetteCentreX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vignetteCentreX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vignetteCentreX"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "vignetteCentreX",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "vignetteCentreX", value);
         }
     }
 
     public decimal vignetteCentreY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vignetteCentreY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vignetteCentreY"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "vignetteCentreY",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "vignetteCentreY", value);
         }
     }
 
     public decimal vignetteWeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vignetteWeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vignetteWeight"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "vignetteWeight",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "vignetteWeight", value);
         }
     }
 
@@ -521,21 +350,11 @@ public class ImageProcessingConfiguration : CachedEntityObject
 
     public decimal vignetteCameraFov
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "vignetteCameraFov"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "vignetteCameraFov"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "vignetteCameraFov",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "vignetteCameraFov", value);
         }
     }
 
@@ -565,11 +384,7 @@ public class ImageProcessingConfiguration : CachedEntityObject
         set
         {
             __onUpdateParameters = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onUpdateParameters",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onUpdateParameters", value);
         }
     }
     #endregion
@@ -616,26 +431,17 @@ public class ImageProcessingConfiguration : CachedEntityObject
         );
     }
 
-    public void bind(
-        Effect effect,
-        System.Nullable<decimal> overrideAspectRatio = null
-    )
+    public void bind(Effect effect, System.Nullable<decimal> overrideAspectRatio = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bind" },
-                effect,
-                overrideAspectRatio
-            }
+            new object[] { new string[] { this.___guid, "bind" }, effect, overrideAspectRatio }
         );
     }
 
     public ImageProcessingConfiguration clone()
     {
         return EventHorizonBlazorInterop.FuncClass<ImageProcessingConfiguration>(
-            entity =>
-                new ImageProcessingConfiguration() { ___guid = entity.___guid },
+            entity => new ImageProcessingConfiguration() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "clone" } }
         );
     }

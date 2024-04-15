@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<HemisphericLight>))]
@@ -114,19 +112,14 @@ public class HemisphericLight : Light
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setDirectionToTarget" },
-                target
-            }
+            new object[] { new string[] { this.___guid, "setDirectionToTarget" }, target }
         );
     }
 
     public IShadowGeneratorCachedEntity getShadowGenerator()
     {
         return EventHorizonBlazorInterop.FuncClass<IShadowGeneratorCachedEntity>(
-            entity =>
-                new IShadowGeneratorCachedEntity() { ___guid = entity.___guid },
+            entity => new IShadowGeneratorCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getShadowGenerator" } }
         );
     }
@@ -135,19 +128,11 @@ public class HemisphericLight : Light
     {
         return EventHorizonBlazorInterop.FuncClass<HemisphericLight>(
             entity => new HemisphericLight() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "transferToEffect" },
-                effect,
-                lightIndex
-            }
+            new object[] { new string[] { this.___guid, "transferToEffect" }, effect, lightIndex }
         );
     }
 
-    public HemisphericLight transferToNodeMaterialEffect(
-        Effect effect,
-        string lightDataUniformName
-    )
+    public HemisphericLight transferToNodeMaterialEffect(Effect effect, string lightDataUniformName)
     {
         return EventHorizonBlazorInterop.FuncClass<HemisphericLight>(
             entity => new HemisphericLight() { ___guid = entity.___guid },

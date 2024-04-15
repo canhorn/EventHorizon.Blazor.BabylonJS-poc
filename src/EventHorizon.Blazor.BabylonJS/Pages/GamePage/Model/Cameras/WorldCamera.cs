@@ -1,15 +1,13 @@
 ﻿namespace EventHorizon.Blazor.BabylonJS.Pages.GamePage.Model.Cameras;
 
 using System.Threading.Tasks;
-
+using global::BabylonJS;
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Engine.Canvas.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Html.Interop;
-
-using global::BabylonJS;
 
 public class WorldCamera : ClientLifecycleEntityBase
 {

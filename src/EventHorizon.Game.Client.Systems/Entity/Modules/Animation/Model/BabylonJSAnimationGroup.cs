@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Model;
 
 using System;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Api;
 
 public class BabylonJSAnimationGroup : IAnimationGroup

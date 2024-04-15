@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
 using EventHorizon.Game.Client.Systems.Local.ScreenPointer.Entity;
 using EventHorizon.Game.Client.Systems.Player.Api;

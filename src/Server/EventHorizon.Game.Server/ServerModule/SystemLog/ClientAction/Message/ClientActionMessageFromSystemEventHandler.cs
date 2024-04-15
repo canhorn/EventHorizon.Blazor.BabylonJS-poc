@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class ClientActionMessageFromSystemEventObserverHandler
@@ -13,9 +11,7 @@ public class ClientActionMessageFromSystemEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ClientActionMessageFromSystemEventObserverHandler(
-        ObserverState observer
-    )
+    public ClientActionMessageFromSystemEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

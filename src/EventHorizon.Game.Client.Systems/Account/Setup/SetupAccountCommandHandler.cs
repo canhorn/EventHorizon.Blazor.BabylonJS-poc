@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Settings.Api;
 using EventHorizon.Game.Client.Systems.Account.Api;
-
 using MediatR;
 
 public class SetupAccountCommandHandler : IRequestHandler<SetupAccountCommand>
@@ -13,19 +11,13 @@ public class SetupAccountCommandHandler : IRequestHandler<SetupAccountCommand>
     private readonly IGameSettings _settings;
     private readonly IAccountState _state;
 
-    public SetupAccountCommandHandler(
-        IGameSettings settings,
-        IAccountState state
-    )
+    public SetupAccountCommandHandler(IGameSettings settings, IAccountState state)
     {
         _settings = settings;
         _state = state;
     }
 
-    public Task Handle(
-        SetupAccountCommand request,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(SetupAccountCommand request, CancellationToken cancellationToken)
     {
         _state.Setup(
             _settings.GetProperty(

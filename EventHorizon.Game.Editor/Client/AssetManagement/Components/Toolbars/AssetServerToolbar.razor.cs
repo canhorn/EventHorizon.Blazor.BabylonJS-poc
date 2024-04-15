@@ -1,7 +1,6 @@
 namespace EventHorizon.Game.Editor.Client.AssetManagement.Components.Toolbars;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Open;
 using EventHorizon.Game.Editor.Client.AssetManagement.Trigger;
 using EventHorizon.Game.Editor.Client.Shared.Components;

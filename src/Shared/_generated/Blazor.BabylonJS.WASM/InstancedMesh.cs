@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<InstancedMesh>))]
@@ -45,13 +43,7 @@ public class InstancedMesh : AbstractMesh
 
     public bool receiveShadows
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "receiveShadows"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "receiveShadows"); }
     }
 
     private Material __material;
@@ -76,13 +68,7 @@ public class InstancedMesh : AbstractMesh
 
     public decimal visibility
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "visibility"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "visibility"); }
     }
 
     private Skeleton __skeleton;
@@ -107,21 +93,11 @@ public class InstancedMesh : AbstractMesh
 
     public decimal renderingGroupId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "renderingGroupId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "renderingGroupId"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "renderingGroupId",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "renderingGroupId", value);
         }
     }
 
@@ -147,13 +123,7 @@ public class InstancedMesh : AbstractMesh
 
     public bool isAnInstance
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isAnInstance"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isAnInstance"); }
     }
     #endregion
 
@@ -205,26 +175,14 @@ public class InstancedMesh : AbstractMesh
     public bool isReady(System.Nullable<bool> completeCheck = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isReady" },
-                completeCheck
-            }
+            new object[] { new string[] { this.___guid, "isReady" }, completeCheck }
         );
     }
 
-    public decimal[] getVerticesData(
-        string kind,
-        System.Nullable<bool> copyWhenShared = null
-    )
+    public decimal[] getVerticesData(string kind, System.Nullable<bool> copyWhenShared = null)
     {
         return EventHorizonBlazorInterop.FuncArray<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getVerticesData" },
-                kind,
-                copyWhenShared
-            }
+            new object[] { new string[] { this.___guid, "getVerticesData" }, kind, copyWhenShared }
         );
     }
 
@@ -268,30 +226,18 @@ public class InstancedMesh : AbstractMesh
         );
     }
 
-    public Mesh setIndices(
-        decimal[] indices,
-        System.Nullable<decimal> totalVertices = null
-    )
+    public Mesh setIndices(decimal[] indices, System.Nullable<decimal> totalVertices = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setIndices" },
-                indices,
-                totalVertices
-            }
+            new object[] { new string[] { this.___guid, "setIndices" }, indices, totalVertices }
         );
     }
 
     public bool isVerticesDataPresent(string kind)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isVerticesDataPresent" },
-                kind
-            }
+            new object[] { new string[] { this.___guid, "isVerticesDataPresent" }, kind }
         );
     }
 
@@ -302,17 +248,11 @@ public class InstancedMesh : AbstractMesh
         );
     }
 
-    public InstancedMesh refreshBoundingInfo(
-        System.Nullable<bool> applySkeleton = null
-    )
+    public InstancedMesh refreshBoundingInfo(System.Nullable<bool> applySkeleton = null)
     {
         return EventHorizonBlazorInterop.FuncClass<InstancedMesh>(
             entity => new InstancedMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "refreshBoundingInfo" },
-                applySkeleton
-            }
+            new object[] { new string[] { this.___guid, "refreshBoundingInfo" }, applySkeleton }
         );
     }
 

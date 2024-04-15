@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.Update;
 
 using System;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
-
 using MediatR;
 
 public class UpdateGuiControlCommand : IRequest<StandardCommandResult>

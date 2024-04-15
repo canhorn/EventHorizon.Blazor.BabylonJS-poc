@@ -4,7 +4,6 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Connection.Shared;
 using EventHorizon.Connection.Shared.Unauthorized;
 using EventHorizon.Game.Client.Core.Command.Model;
@@ -12,15 +11,11 @@ using EventHorizon.Game.Editor.Model;
 using EventHorizon.Game.Server.Asset.Api;
 using EventHorizon.Game.Server.Asset.Connection;
 using EventHorizon.Game.Server.Asset.Finished;
-
 using MediatR;
-
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
-public class SignalrAssetServerAdminService
-    : AssetServerAdminService,
-        IAsyncDisposable
+public class SignalrAssetServerAdminService : AssetServerAdminService, IAsyncDisposable
 {
     private readonly ILogger _logger;
     private readonly IMediator _mediator;
@@ -34,11 +29,8 @@ public class SignalrAssetServerAdminService
         new SignalrAssetServerCommonAdminApi(null);
     public AssetServerExportAdminApi ExportApi { get; private set; } =
         new SignalrAssetServerExportAdminApi(null);
-    public AssetServerFileManagementAdminApi FileManagementApi
-    {
-        get;
-        private set;
-    } = new SignalrAssetServerFileManagementAdminApi(null);
+    public AssetServerFileManagementAdminApi FileManagementApi { get; private set; } =
+        new SignalrAssetServerFileManagementAdminApi(null);
     public AssetServerBackupAdminApi BackupApi { get; private set; } =
         new SignalrAssetServerBackupAdminApi(null);
 
@@ -85,8 +77,7 @@ public class SignalrAssetServerAdminService
                     options =>
                     {
                         // options.LogLevel = SignalRLogLevel.Error;
-                        options.AccessTokenProvider = () =>
-                            Task.FromResult<string?>(accessToken);
+                        options.AccessTokenProvider = () => Task.FromResult<string?>(accessToken);
                     }
                 )
                 .Build();
@@ -99,18 +90,12 @@ public class SignalrAssetServerAdminService
             _initializing = false;
             _initialized = true;
 
-            await _mediator.Publish(
-                new ConnectedToAssetServerAdmin(),
-                cancellationToken
-            );
+            await _mediator.Publish(new ConnectedToAssetServerAdmin(), cancellationToken);
             return new();
         }
         catch (HttpRequestException ex)
         {
-            await LogAndDispose(
-                ex,
-                "Failed to start connection to Asset Server Admin Service."
-            );
+            await LogAndDispose(ex, "Failed to start connection to Asset Server Admin Service.");
             if (ex.Message.Contains("401 (Unauthorized)"))
             {
                 await _mediator.Publish(
@@ -141,77 +126,37 @@ public class SignalrAssetServerAdminService
 
     private void SetupEvents(HubConnection connection)
     {
-        connection.On<string, string>(
-            "BackupUploadFinished",
-            HandleCommonBackupUploadFinished
-        );
-        connection.On<string, string>(
-            "ExportUploadFinished",
-            HandleCommonExportUploadFinished
-        );
-        connection.On<string, string>(
-            "ImportUploadFinished",
-            HandleCommonImportUploadFinished
-        );
+        connection.On<string, string>("BackupUploadFinished", HandleCommonBackupUploadFinished);
+        connection.On<string, string>("ExportUploadFinished", HandleCommonExportUploadFinished);
+        connection.On<string, string>("ImportUploadFinished", HandleCommonImportUploadFinished);
 
-        connection.On<string, string>(
-            "AssetBackupFinished",
-            HandleAssetBackupFinished
-        );
-        connection.On<string, string>(
-            "AssetExportFinished",
-            HandleAssetExportFinished
-        );
+        connection.On<string, string>("AssetBackupFinished", HandleAssetBackupFinished);
+        connection.On<string, string>("AssetExportFinished", HandleAssetExportFinished);
     }
 
-    private async Task HandleCommonBackupUploadFinished(
-        string service,
-        string exportPath
-    )
+    private async Task HandleCommonBackupUploadFinished(string service, string exportPath)
     {
-        await _mediator.Publish(
-            new AssetServerBackupUploadedEvent(service, exportPath)
-        );
+        await _mediator.Publish(new AssetServerBackupUploadedEvent(service, exportPath));
     }
 
-    private async Task HandleCommonExportUploadFinished(
-        string service,
-        string exportPath
-    )
+    private async Task HandleCommonExportUploadFinished(string service, string exportPath)
     {
-        await _mediator.Publish(
-            new AssetServerExportUploadedEvent(service, exportPath)
-        );
+        await _mediator.Publish(new AssetServerExportUploadedEvent(service, exportPath));
     }
 
-    private async Task HandleCommonImportUploadFinished(
-        string service,
-        string exportPath
-    )
+    private async Task HandleCommonImportUploadFinished(string service, string exportPath)
     {
-        await _mediator.Publish(
-            new AssetServerImportUploadedEvent(service, exportPath)
-        );
+        await _mediator.Publish(new AssetServerImportUploadedEvent(service, exportPath));
     }
 
-    private async Task HandleAssetBackupFinished(
-        string referenceId,
-        string backupPath
-    )
+    private async Task HandleAssetBackupFinished(string referenceId, string backupPath)
     {
-        await _mediator.Publish(
-            new AssetServerBackupFinishedEvent(referenceId, backupPath)
-        );
+        await _mediator.Publish(new AssetServerBackupFinishedEvent(referenceId, backupPath));
     }
 
-    private async Task HandleAssetExportFinished(
-        string referenceId,
-        string exportPath
-    )
+    private async Task HandleAssetExportFinished(string referenceId, string exportPath)
     {
-        await _mediator.Publish(
-            new AssetServerExportFinishedEvent(referenceId, exportPath)
-        );
+        await _mediator.Publish(new AssetServerExportFinishedEvent(referenceId, exportPath));
     }
 
     private void SetupApi(HubConnection connection)
@@ -219,9 +164,7 @@ public class SignalrAssetServerAdminService
         CommonApi = new SignalrAssetServerCommonAdminApi(connection);
         BackupApi = new SignalrAssetServerBackupAdminApi(connection);
         ExportApi = new SignalrAssetServerExportAdminApi(connection);
-        FileManagementApi = new SignalrAssetServerFileManagementAdminApi(
-            connection
-        );
+        FileManagementApi = new SignalrAssetServerFileManagementAdminApi(connection);
     }
 
     private async Task LogAndDispose(Exception ex, string message)
@@ -238,9 +181,7 @@ public class SignalrAssetServerAdminService
             CommonApi = new SignalrAssetServerCommonAdminApi(null);
             BackupApi = new SignalrAssetServerBackupAdminApi(null);
             ExportApi = new SignalrAssetServerExportAdminApi(null);
-            FileManagementApi = new SignalrAssetServerFileManagementAdminApi(
-                null
-            );
+            FileManagementApi = new SignalrAssetServerFileManagementAdminApi(null);
 
             _connection = null;
         }

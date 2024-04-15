@@ -1,16 +1,13 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Model.Mesh;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Client.Engine.Systems.Mesh.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
 
-public class StandardClientAssetMeshInstance
-    : ClientLifecycleEntityBase,
-        ClientAssetMeshInstance
+public class StandardClientAssetMeshInstance : ClientLifecycleEntityBase, ClientAssetMeshInstance
 {
     public string AssetInstanceId { get; }
     public IEngineMesh Mesh { get; }

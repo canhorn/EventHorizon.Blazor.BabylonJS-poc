@@ -21,35 +21,27 @@ public class WizardStepFormInputTests
         {
             ["playerInput:keyInputMap:w:key"] = "w",
             ["playerInput:keyInputMap:w:type"] = "PlayerMove",
-            ["playerInput:keyInputMap:w:@Comment.pressed"] =
-                "MoveDirection.Forward",
+            ["playerInput:keyInputMap:w:@Comment.pressed"] = "MoveDirection.Forward",
             ["playerInput:keyInputMap:w:pressed"] = "4",
-            ["playerInput:keyInputMap:w:@Comment.released"] =
-                "MoveDirection.Stop",
+            ["playerInput:keyInputMap:w:@Comment.released"] = "MoveDirection.Stop",
             ["playerInput:keyInputMap:w:released"] = "0",
             ["playerInput:keyInputMap:a:key"] = "a",
             ["playerInput:keyInputMap:a:type"] = "PlayerMove",
-            ["playerInput:keyInputMap:a:@Comment.pressed"] =
-                "MoveDirection.Left",
+            ["playerInput:keyInputMap:a:@Comment.pressed"] = "MoveDirection.Left",
             ["playerInput:keyInputMap:a:pressed"] = "1",
-            ["playerInput:keyInputMap:a:@Comment.released"] =
-                "MoveDirection.Stop",
+            ["playerInput:keyInputMap:a:@Comment.released"] = "MoveDirection.Stop",
             ["playerInput:keyInputMap:a:released"] = "0",
             ["playerInput:keyInputMap:s:key"] = "s",
             ["playerInput:keyInputMap:s:type"] = "PlayerMove",
-            ["playerInput:keyInputMap:s:@Comment.pressed"] =
-                "MoveDirection.Backwards",
+            ["playerInput:keyInputMap:s:@Comment.pressed"] = "MoveDirection.Backwards",
             ["playerInput:keyInputMap:s:pressed"] = "3",
-            ["playerInput:keyInputMap:s:@Comment.released"] =
-                "MoveDirection.Stop",
+            ["playerInput:keyInputMap:s:@Comment.released"] = "MoveDirection.Stop",
             ["playerInput:keyInputMap:s:released"] = "0",
             ["playerInput:keyInputMap:d:key"] = "d",
             ["playerInput:keyInputMap:d:type"] = "PlayerMove",
-            ["playerInput:keyInputMap:d:@Comment.pressed"] =
-                "MoveDirection.Right",
+            ["playerInput:keyInputMap:d:@Comment.pressed"] = "MoveDirection.Right",
             ["playerInput:keyInputMap:d:pressed"] = "2",
-            ["playerInput:keyInputMap:d:@Comment.released"] =
-                "MoveDirection.Stop",
+            ["playerInput:keyInputMap:d:@Comment.released"] = "MoveDirection.Stop",
             ["playerInput:keyInputMap:d:released"] = "0",
             ["playerInput:keyInputMap:1:key"] = "1",
             ["playerInput:keyInputMap:1:type"] = "SetActiveCamera",
@@ -61,10 +53,7 @@ public class WizardStepFormInputTests
             ["playerInput:keyInputMap:f:type"] = "RunInteraction",
         };
 
-        var expectedList = new Dictionary<
-            string,
-            InputKeyMapControlModel.ControlKeyInput
-        >
+        var expectedList = new Dictionary<string, InputKeyMapControlModel.ControlKeyInput>
         {
             ["w"] = new()
             {
@@ -116,16 +105,10 @@ public class WizardStepFormInputTests
             },
             ["f"] = new() { Key = "f", Type = "RunInteraction", },
         };
-        var expected = JsonSerializer.Serialize(
-            expectedList,
-            JsonExtensions.DEFAULT_OPTIONS
-        );
+        var expected = JsonSerializer.Serialize(expectedList, JsonExtensions.DEFAULT_OPTIONS);
 
         // When
-        var actual = WizardStepFormInputBase.GetInputKeyMap(
-            "playerInput:keyInputMap",
-            data
-        );
+        var actual = WizardStepFormInputBase.GetInputKeyMap("playerInput:keyInputMap", data);
 
         // Then
         actual.Should().Be(expected);
@@ -135,10 +118,7 @@ public class WizardStepFormInputTests
     public void FlattenPlayerInputItemMapIntoWizardData()
     {
         // Given
-        var inputKeyMap = new Dictionary<
-            string,
-            InputKeyMapControlModel.ControlKeyInput
-        >
+        var inputKeyMap = new Dictionary<string, InputKeyMapControlModel.ControlKeyInput>
         {
             ["w"] = new()
             {

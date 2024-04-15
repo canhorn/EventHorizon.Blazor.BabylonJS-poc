@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<VertexBuffer>))]
@@ -22,189 +20,99 @@ public class VertexBuffer : CachedEntityObject
 
     public static decimal BYTE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexBuffer.BYTE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexBuffer.BYTE"); }
     }
 
     public static decimal UNSIGNED_BYTE
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexBuffer.UNSIGNED_BYTE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexBuffer.UNSIGNED_BYTE");
         }
     }
 
     public static decimal SHORT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexBuffer.SHORT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexBuffer.SHORT"); }
     }
 
     public static decimal UNSIGNED_SHORT
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexBuffer.UNSIGNED_SHORT"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexBuffer.UNSIGNED_SHORT");
         }
     }
 
     public static decimal INT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexBuffer.INT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexBuffer.INT"); }
     }
 
     public static decimal UNSIGNED_INT
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexBuffer.UNSIGNED_INT"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexBuffer.UNSIGNED_INT");
         }
     }
 
     public static decimal FLOAT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "VertexBuffer.FLOAT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "VertexBuffer.FLOAT"); }
     }
 
     public static string PositionKind
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.PositionKind"
-            );
+            return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.PositionKind");
         }
     }
 
     public static string NormalKind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.NormalKind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.NormalKind"); }
     }
 
     public static string TangentKind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.TangentKind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.TangentKind"); }
     }
 
     public static string UVKind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.UVKind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.UVKind"); }
     }
 
     public static string UV2Kind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.UV2Kind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.UV2Kind"); }
     }
 
     public static string UV3Kind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.UV3Kind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.UV3Kind"); }
     }
 
     public static string UV4Kind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.UV4Kind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.UV4Kind"); }
     }
 
     public static string UV5Kind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.UV5Kind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.UV5Kind"); }
     }
 
     public static string UV6Kind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.UV6Kind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.UV6Kind"); }
     }
 
     public static string ColorKind
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "VertexBuffer.ColorKind"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "VertexBuffer.ColorKind"); }
     }
 
     public static string MatricesIndicesKind
@@ -256,22 +164,14 @@ public class VertexBuffer : CachedEntityObject
     public static decimal DeduceStride(string kind)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexBuffer", "DeduceStride" },
-                kind
-            }
+            new object[] { new string[] { "BABYLON", "VertexBuffer", "DeduceStride" }, kind }
         );
     }
 
     public static decimal GetTypeByteLength(decimal type)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "VertexBuffer", "GetTypeByteLength" },
-                type
-            }
+            new object[] { new string[] { "BABYLON", "VertexBuffer", "GetTypeByteLength" }, type }
         );
     }
 
@@ -307,21 +207,11 @@ public class VertexBuffer : CachedEntityObject
 
     public decimal instanceDivisor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "instanceDivisor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "instanceDivisor"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "instanceDivisor",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "instanceDivisor", value);
         }
     }
     #endregion
@@ -330,43 +220,22 @@ public class VertexBuffer : CachedEntityObject
 
     public decimal byteStride
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "byteStride"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "byteStride"); }
     }
 
     public decimal byteOffset
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "byteOffset"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "byteOffset"); }
     }
 
     public bool normalized
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "normalized"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "normalized"); }
     }
 
     public decimal type
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "type"); }
     }
     #endregion
 
@@ -503,13 +372,7 @@ public class VertexBuffer : CachedEntityObject
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "updateDirectly" },
-                data,
-                offset,
-                useBytes
-            }
+            new object[] { new string[] { this.___guid, "updateDirectly" }, data, offset, useBytes }
         );
     }
 
@@ -520,18 +383,10 @@ public class VertexBuffer : CachedEntityObject
         );
     }
 
-    public void forEach(
-        decimal count,
-        ActionCallback<decimal, decimal> callback
-    )
+    public void forEach(decimal count, ActionCallback<decimal, decimal> callback)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "forEach" },
-                count,
-                callback
-            }
+            new object[] { new string[] { this.___guid, "forEach" }, count, callback }
         );
     }
     #endregion

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AbstractScene>))]
@@ -26,12 +24,7 @@ public class AbstractScene : CachedEntityObject
     public static void AddParser(string name, BabylonFileParser parser)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "AbstractScene", "AddParser" },
-                name,
-                parser
-            }
+            new object[] { new string[] { "BABYLON", "AbstractScene", "AddParser" }, name, parser }
         );
     }
 
@@ -39,28 +32,16 @@ public class AbstractScene : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<BabylonFileParser>(
             entity => new BabylonFileParser() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "AbstractScene", "GetParser" },
-                name
-            }
+            new object[] { new string[] { "BABYLON", "AbstractScene", "GetParser" }, name }
         );
     }
 
-    public static void AddIndividualParser(
-        string name,
-        IndividualBabylonFileParser parser
-    )
+    public static void AddIndividualParser(string name, IndividualBabylonFileParser parser)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "AbstractScene",
-                    "AddIndividualParser"
-                },
+                new string[] { "BABYLON", "AbstractScene", "AddIndividualParser" },
                 name,
                 parser
             }
@@ -70,27 +51,16 @@ public class AbstractScene : CachedEntityObject
     public static IndividualBabylonFileParser GetIndividualParser(string name)
     {
         return EventHorizonBlazorInterop.FuncClass<IndividualBabylonFileParser>(
-            entity =>
-                new IndividualBabylonFileParser() { ___guid = entity.___guid },
+            entity => new IndividualBabylonFileParser() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "AbstractScene",
-                    "GetIndividualParser"
-                },
+                new string[] { "BABYLON", "AbstractScene", "GetIndividualParser" },
                 name
             }
         );
     }
 
-    public static void Parse(
-        object jsonData,
-        Scene scene,
-        AssetContainer container,
-        string rootUrl
-    )
+    public static void Parse(object jsonData, Scene scene, AssetContainer container, string rootUrl)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -220,21 +190,14 @@ public class AbstractScene : CachedEntityObject
                 "particleSystems",
                 (entity) =>
                 {
-                    return new IParticleSystemCachedEntity()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new IParticleSystemCachedEntity() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "particleSystems",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "particleSystems", value);
         }
     }
 
@@ -274,11 +237,7 @@ public class AbstractScene : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "animationGroups",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "animationGroups", value);
         }
     }
 
@@ -298,11 +257,7 @@ public class AbstractScene : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "multiMaterials",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "multiMaterials", value);
         }
     }
 
@@ -335,21 +290,14 @@ public class AbstractScene : CachedEntityObject
                 "morphTargetManagers",
                 (entity) =>
                 {
-                    return new MorphTargetManager()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new MorphTargetManager() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "morphTargetManagers",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "morphTargetManagers", value);
         }
     }
 
@@ -389,11 +337,7 @@ public class AbstractScene : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "transformNodes",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "transformNodes", value);
         }
     }
 
@@ -406,21 +350,14 @@ public class AbstractScene : CachedEntityObject
                 "actionManagers",
                 (entity) =>
                 {
-                    return new AbstractActionManager()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new AbstractActionManager() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "actionManagers",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "actionManagers", value);
         }
     }
 
@@ -451,29 +388,21 @@ public class AbstractScene : CachedEntityObject
         {
             if (__environmentTexture == null)
             {
-                __environmentTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "environmentTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __environmentTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "environmentTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __environmentTexture;
         }
         set
         {
             __environmentTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "environmentTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "environmentTexture", value);
         }
     }
     #endregion

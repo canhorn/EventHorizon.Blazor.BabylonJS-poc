@@ -5,17 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IRenderingManagerAutoClearSetup : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<IRenderingManagerAutoClearSetupCachedEntity>)
-)]
+[JsonConverter(typeof(CachedEntityConverter<IRenderingManagerAutoClearSetupCachedEntity>))]
 public class IRenderingManagerAutoClearSetupCachedEntity
     : CachedEntityObject,
         IRenderingManagerAutoClearSetup
@@ -40,13 +36,7 @@ public class IRenderingManagerAutoClearSetupCachedEntity
 
     public bool autoClear
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "autoClear"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "autoClear"); }
         set
         {
 
@@ -56,10 +46,7 @@ public class IRenderingManagerAutoClearSetupCachedEntity
 
     public bool depth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "depth");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "depth"); }
         set
         {
 
@@ -69,10 +56,7 @@ public class IRenderingManagerAutoClearSetupCachedEntity
 
     public bool stencil
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "stencil");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "stencil"); }
         set
         {
 

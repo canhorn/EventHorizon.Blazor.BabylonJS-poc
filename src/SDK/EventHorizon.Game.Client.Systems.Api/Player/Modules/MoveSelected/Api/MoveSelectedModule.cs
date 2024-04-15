@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Player.Modules.MoveSelected.Api;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
 public interface MoveSelectedModule : IModule

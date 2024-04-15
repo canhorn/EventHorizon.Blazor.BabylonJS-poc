@@ -2,13 +2,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Connection.Shared;
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Platform.LogProvider.Api;
 using EventHorizon.Platform.LogProvider.Connection.Api;
 using EventHorizon.Platform.LogProvider.Model;
-
 using MediatR;
 
 public class ProcesssPlatformLogMessageCommandHandler
@@ -42,10 +40,7 @@ public class ProcesssPlatformLogMessageCommandHandler
         {
             if (_pendingLogQueue.TryDequeue(out var result))
             {
-                await _connection.LogMessage(
-                    result.ToClientLogMessage(),
-                    cancellationToken
-                );
+                await _connection.LogMessage(result.ToClientLogMessage(), cancellationToken);
                 continue;
             }
             break;

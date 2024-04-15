@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Modules.SelectedCompanionIndicator.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Core.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
@@ -11,7 +10,6 @@ using EventHorizon.Game.Client.Systems.Entity.Properties.Selection.Api;
 using EventHorizon.Game.Client.Systems.Particle.Api;
 using EventHorizon.Game.Client.Systems.Particle.Model;
 using EventHorizon.Game.Server.ClientAction.Agent;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardSelectedCompanionIndicatorModule
@@ -34,17 +32,11 @@ public class StandardSelectedCompanionIndicatorModule
         _entity = entity;
         var particleTemplateId = string.Empty;
 
-        var selectedStateOption = _entity.GetPropertyAsOption<SelectionState>(
-            SelectionState.NAME
-        );
+        var selectedStateOption = _entity.GetPropertyAsOption<SelectionState>(SelectionState.NAME);
         if (selectedStateOption.HasValue)
         {
-            particleTemplateId = selectedStateOption
-                .Value
-                .SelectedCompanionParticleTemplate;
-            if (
-                selectedStateOption.Value.SelectedCompanionParticleTemplate.IsNullOrEmpty()
-            )
+            particleTemplateId = selectedStateOption.Value.SelectedCompanionParticleTemplate;
+            if (selectedStateOption.Value.SelectedCompanionParticleTemplate.IsNullOrEmpty())
             {
                 _logger.LogPropertyMissing(
                     nameof(IObjectEntity),

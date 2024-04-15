@@ -1,11 +1,9 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer.Modals;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
 using EventHorizon.Game.Editor.Client.Zone.Components.FileExplorer.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class EditorFileExplorerModalModel : ComponentBase

@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.ArtifactManagement.Pages;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.ArtifactManagement.Components;
 using EventHorizon.Game.Editor.Automation.Layout;
-
 using _ = BackupArtifactsPage;
 
 [Url("/artifact/management/backups")]

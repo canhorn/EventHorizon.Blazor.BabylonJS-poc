@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct PointerHitMeshEvent : INotification
@@ -21,11 +19,9 @@ public struct PointerHitMeshEvent : INotification
     }
 }
 
-public interface PointerHitMeshEventObserver
-    : ArgumentObserver<PointerHitMeshEvent> { }
+public interface PointerHitMeshEventObserver : ArgumentObserver<PointerHitMeshEvent> { }
 
-public class PointerHitMeshEventHandler
-    : INotificationHandler<PointerHitMeshEvent>
+public class PointerHitMeshEventHandler : INotificationHandler<PointerHitMeshEvent>
 {
     private readonly ObserverState _observer;
 
@@ -34,10 +30,7 @@ public class PointerHitMeshEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        PointerHitMeshEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(PointerHitMeshEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<PointerHitMeshEventObserver, PointerHitMeshEvent>(
             notification,
             cancellationToken

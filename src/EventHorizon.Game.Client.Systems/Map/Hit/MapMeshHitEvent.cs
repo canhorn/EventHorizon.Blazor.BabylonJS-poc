@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct MapMeshHitEvent : INotification
@@ -30,10 +28,7 @@ public class MapMeshHitEventHandler : INotificationHandler<MapMeshHitEvent>
         _observer = observer;
     }
 
-    public Task Handle(
-        MapMeshHitEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(MapMeshHitEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<MapMeshHitEventObserver, MapMeshHitEvent>(
             notification,
             cancellationToken

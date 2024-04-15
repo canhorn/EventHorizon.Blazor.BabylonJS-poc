@@ -10,9 +10,7 @@ public struct ClientActionPlayerSystemReloadedEvent : IClientAction
 {
     public ObjectEntityConfigurationModel PlayerConfiguration { get; }
 
-    public ClientActionPlayerSystemReloadedEvent(
-        IClientActionDataResolver resolver
-    )
+    public ClientActionPlayerSystemReloadedEvent(IClientActionDataResolver resolver)
     {
         PlayerConfiguration = resolver.Resolve<ObjectEntityConfigurationModel>(
             "playerConfiguration"

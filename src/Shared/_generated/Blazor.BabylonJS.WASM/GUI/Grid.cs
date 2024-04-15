@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Grid>))]
@@ -30,24 +28,12 @@ public class Grid : Container
 
     public decimal columnCount
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "columnCount"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "columnCount"); }
     }
 
     public decimal rowCount
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "rowCount"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "rowCount"); }
     }
 
     public Control[] children
@@ -67,13 +53,7 @@ public class Grid : Container
 
     public CachedEntity cells
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "cells"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "cells"); }
     }
     #endregion
 
@@ -81,10 +61,7 @@ public class Grid : Container
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -103,10 +80,7 @@ public class Grid : Container
     public Grid(string name = null)
         : base()
     {
-        var entity = EventHorizonBlazorInterop.New(
-            new string[] { "BABYLON", "GUI", "Grid" },
-            name
-        );
+        var entity = EventHorizonBlazorInterop.New(new string[] { "BABYLON", "GUI", "Grid" }, name);
         ___guid = entity.___guid;
     }
     #endregion
@@ -116,11 +90,7 @@ public class Grid : Container
     {
         return EventHorizonBlazorInterop.FuncClass<ValueAndUnit>(
             entity => new ValueAndUnit() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getRowDefinition" },
-                index
-            }
+            new object[] { new string[] { this.___guid, "getRowDefinition" }, index }
         );
     }
 
@@ -128,43 +98,23 @@ public class Grid : Container
     {
         return EventHorizonBlazorInterop.FuncClass<ValueAndUnit>(
             entity => new ValueAndUnit() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getColumnDefinition" },
-                index
-            }
+            new object[] { new string[] { this.___guid, "getColumnDefinition" }, index }
         );
     }
 
-    public Grid addRowDefinition(
-        decimal height,
-        System.Nullable<bool> isPixel = null
-    )
+    public Grid addRowDefinition(decimal height, System.Nullable<bool> isPixel = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Grid>(
             entity => new Grid() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addRowDefinition" },
-                height,
-                isPixel
-            }
+            new object[] { new string[] { this.___guid, "addRowDefinition" }, height, isPixel }
         );
     }
 
-    public Grid addColumnDefinition(
-        decimal width,
-        System.Nullable<bool> isPixel = null
-    )
+    public Grid addColumnDefinition(decimal width, System.Nullable<bool> isPixel = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Grid>(
             entity => new Grid() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addColumnDefinition" },
-                width,
-                isPixel
-            }
+            new object[] { new string[] { this.___guid, "addColumnDefinition" }, width, isPixel }
         );
     }
 
@@ -208,23 +158,14 @@ public class Grid : Container
     {
         return EventHorizonBlazorInterop.FuncArrayClass<Control>(
             entity => new Control() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getChildrenAt" },
-                row,
-                column
-            }
+            new object[] { new string[] { this.___guid, "getChildrenAt" }, row, column }
         );
     }
 
     public string getChildCellInfo(Control child)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "getChildCellInfo" },
-                child
-            }
+            new object[] { new string[] { this.___guid, "getChildCellInfo" }, child }
         );
     }
 
@@ -232,11 +173,7 @@ public class Grid : Container
     {
         return EventHorizonBlazorInterop.FuncClass<Grid>(
             entity => new Grid() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeColumnDefinition" },
-                index
-            }
+            new object[] { new string[] { this.___guid, "removeColumnDefinition" }, index }
         );
     }
 
@@ -244,11 +181,7 @@ public class Grid : Container
     {
         return EventHorizonBlazorInterop.FuncClass<Grid>(
             entity => new Grid() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeRowDefinition" },
-                index
-            }
+            new object[] { new string[] { this.___guid, "removeRowDefinition" }, index }
         );
     }
 
@@ -260,13 +193,7 @@ public class Grid : Container
     {
         return EventHorizonBlazorInterop.FuncClass<Grid>(
             entity => new Grid() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addControl" },
-                control,
-                row,
-                column
-            }
+            new object[] { new string[] { this.___guid, "addControl" }, control, row, column }
         );
     }
 
@@ -274,11 +201,7 @@ public class Grid : Container
     {
         return EventHorizonBlazorInterop.FuncClass<Container>(
             entity => new Container() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeControl" },
-                control
-            }
+            new object[] { new string[] { this.___guid, "removeControl" }, control }
         );
     }
 

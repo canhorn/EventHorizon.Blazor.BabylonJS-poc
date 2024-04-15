@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IPipelineContext : ICachedEntity { }
@@ -36,10 +34,7 @@ public class IPipelineContextCachedEntity : CachedEntityObject, IPipelineContext
 
     public bool isAsync
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isAsync");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isAsync"); }
         set
         {
 
@@ -49,10 +44,7 @@ public class IPipelineContextCachedEntity : CachedEntityObject, IPipelineContext
 
     public bool isReady
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isReady");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isReady"); }
         set
         {
 

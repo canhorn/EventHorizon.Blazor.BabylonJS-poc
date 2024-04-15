@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
 using EventHorizon.Game.Client.Systems.Map.Api;
 using EventHorizon.Game.Client.Systems.Map.Model;
-
 using MediatR;
 
 public class SetupMapFromPlayerZoneInfoReceivedEventHandler
@@ -26,9 +24,7 @@ public class SetupMapFromPlayerZoneInfoReceivedEventHandler
     {
         await _mapState.DisposeOfMap();
         await _mapState.SetMap(
-            new BabylonJSMapMeshFromHeightMapEntity(
-                notification.PlayerZoneInfo.MapMesh
-            )
+            new BabylonJSMapMeshFromHeightMapEntity(notification.PlayerZoneInfo.MapMesh)
         );
     }
 }

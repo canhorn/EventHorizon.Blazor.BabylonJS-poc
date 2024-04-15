@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Node>))]
@@ -23,10 +21,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     #endregion
 
     #region Static Methods
-    public static void AddNodeConstructor(
-        string type,
-        NodeConstructor constructorFunc
-    )
+    public static void AddNodeConstructor(string type, NodeConstructor constructorFunc)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -57,11 +52,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
         );
     }
 
-    public static void ParseAnimationRanges(
-        Node node,
-        object parsedNode,
-        Scene scene
-    )
+    public static void ParseAnimationRanges(Node node, object parsedNode, Scene scene)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -79,21 +70,11 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
 
     public bool doNotSerialize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "doNotSerialize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "doNotSerialize"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "doNotSerialize",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "doNotSerialize", value);
         }
     }
 
@@ -135,10 +116,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
                         "animationPropertiesOverride",
                         (entity) =>
                         {
-                            return new AnimationPropertiesOverride()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new AnimationPropertiesOverride() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -147,11 +125,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
         set
         {
             __animationPropertiesOverride = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "animationPropertiesOverride",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "animationPropertiesOverride", value);
         }
     }
 
@@ -159,17 +133,12 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     {
         get
         {
-            return EventHorizonBlazorInterop.GetArrayClass<
-                BehaviorCachedEntity<Node>
-            >(
+            return EventHorizonBlazorInterop.GetArrayClass<BehaviorCachedEntity<Node>>(
                 this.___guid,
                 "behaviors",
                 (entity) =>
                 {
-                    return new BehaviorCachedEntity<Node>()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new BehaviorCachedEntity<Node>() { ___guid = entity.___guid };
                 }
             );
         }
@@ -182,15 +151,14 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
         {
             if (__worldMatrixFromCache == null)
             {
-                __worldMatrixFromCache =
-                    EventHorizonBlazorInterop.GetClass<Matrix>(
-                        this.___guid,
-                        "worldMatrixFromCache",
-                        (entity) =>
-                        {
-                            return new Matrix() { ___guid = entity.___guid };
-                        }
-                    );
+                __worldMatrixFromCache = EventHorizonBlazorInterop.GetClass<Matrix>(
+                    this.___guid,
+                    "worldMatrixFromCache",
+                    (entity) =>
+                    {
+                        return new Matrix() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __worldMatrixFromCache;
         }
@@ -201,10 +169,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -214,10 +179,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
 
     public string id
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "id");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "id"); }
         set
         {
 
@@ -227,13 +189,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
         set
         {
 
@@ -243,10 +199,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
 
     public string state
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "state");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "state"); }
         set
         {
 
@@ -256,13 +209,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
 
     public CachedEntity metadata
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "metadata"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "metadata"); }
         set
         {
 
@@ -274,19 +221,12 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "reservedDataStore"
-            );
+            return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "reservedDataStore");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "reservedDataStore",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "reservedDataStore", value);
         }
     }
 
@@ -299,21 +239,14 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
                 "inspectableCustomProperties",
                 (entity) =>
                 {
-                    return new IInspectableCachedEntity()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new IInspectableCachedEntity() { ___guid = entity.___guid };
                 }
             );
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "inspectableCustomProperties",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "inspectableCustomProperties", value);
         }
     }
 
@@ -339,13 +272,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
 
     public ActionCallback<Node> onReady
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<ActionCallback<Node>>(
-                this.___guid,
-                "onReady"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<ActionCallback<Node>>(this.___guid, "onReady"); }
         set
         {
 
@@ -360,17 +287,12 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
         {
             if (__onDisposeObservable == null)
             {
-                __onDisposeObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Node>
-                >(
+                __onDisposeObservable = EventHorizonBlazorInterop.GetClass<Observable<Node>>(
                     this.___guid,
                     "onDisposeObservable",
                     (entity) =>
                     {
-                        return new Observable<Node>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Node>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -379,11 +301,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
         set
         {
             __onDisposeObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onDisposeObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onDisposeObservable", value);
         }
     }
     #endregion
@@ -398,11 +316,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     public Node(string name, Scene scene = null)
         : base()
     {
-        var entity = EventHorizonBlazorInterop.New(
-            new string[] { "BABYLON", "Node" },
-            name,
-            scene
-        );
+        var entity = EventHorizonBlazorInterop.New(new string[] { "BABYLON", "Node" }, name, scene);
         ___guid = entity.___guid;
     }
     #endregion
@@ -438,10 +352,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
         );
     }
 
-    public Node addBehavior(
-        Behavior<Node> behavior,
-        System.Nullable<bool> attachImmediately = null
-    )
+    public Node addBehavior(Behavior<Node> behavior, System.Nullable<bool> attachImmediately = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Node>(
             entity => new Node() { ___guid = entity.___guid },
@@ -458,24 +369,15 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     {
         return EventHorizonBlazorInterop.FuncClass<Node>(
             entity => new Node() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeBehavior" },
-                behavior
-            }
+            new object[] { new string[] { this.___guid, "removeBehavior" }, behavior }
         );
     }
 
     public BehaviorCachedEntity<Node> getBehaviorByName(string name)
     {
         return EventHorizonBlazorInterop.FuncClass<BehaviorCachedEntity<Node>>(
-            entity =>
-                new BehaviorCachedEntity<Node>() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getBehaviorByName" },
-                name
-            }
+            entity => new BehaviorCachedEntity<Node>() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "getBehaviorByName" }, name }
         );
     }
 
@@ -497,10 +399,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     public bool isSynchronizedWithParent()
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isSynchronizedWithParent" }
-            }
+            new object[] { new string[] { this.___guid, "isSynchronizedWithParent" } }
         );
     }
 
@@ -514,22 +413,14 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     public bool isReady(System.Nullable<bool> completeCheck = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isReady" },
-                completeCheck
-            }
+            new object[] { new string[] { this.___guid, "isReady" }, completeCheck }
         );
     }
 
     public bool isEnabled(System.Nullable<bool> checkAncestors = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isEnabled" },
-                checkAncestors
-            }
+            new object[] { new string[] { this.___guid, "isEnabled" }, checkAncestors }
         );
     }
 
@@ -543,11 +434,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     public bool isDescendantOf(Node ancestor)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isDescendantOf" },
-                ancestor
-            }
+            new object[] { new string[] { this.___guid, "isDescendantOf" }, ancestor }
         );
     }
 
@@ -585,10 +472,8 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
 
     #region getChildren TODO: Get Comments as metadata identification
     private bool _isGetChildrenEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Node, Task>
-    > _getChildrenActionMap = new Dictionary<string, Func<Node, Task>>();
+    private readonly IDictionary<string, Func<Node, Task>> _getChildrenActionMap =
+        new Dictionary<string, Func<Node, Task>>();
 
     public string getChildren(Func<Node, Task> callback)
     {
@@ -634,31 +519,18 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     {
         return EventHorizonBlazorInterop.FuncClass<Animation>(
             entity => new Animation() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAnimationByName" },
-                name
-            }
+            new object[] { new string[] { this.___guid, "getAnimationByName" }, name }
         );
     }
 
     public void createAnimationRange(string name, decimal from, decimal to)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "createAnimationRange" },
-                name,
-                from,
-                to
-            }
+            new object[] { new string[] { this.___guid, "createAnimationRange" }, name, from, to }
         );
     }
 
-    public void deleteAnimationRange(
-        string name,
-        System.Nullable<bool> deleteFrames = null
-    )
+    public void deleteAnimationRange(string name, System.Nullable<bool> deleteFrames = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -674,11 +546,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     {
         return EventHorizonBlazorInterop.FuncClass<AnimationRange>(
             entity => new AnimationRange() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAnimationRange" },
-                name
-            }
+            new object[] { new string[] { this.___guid, "getAnimationRange" }, name }
         );
     }
 
@@ -713,10 +581,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     public CachedEntity serializeAnimationRanges()
     {
         return EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "serializeAnimationRanges" }
-            }
+            new object[] { new string[] { this.___guid, "serializeAnimationRanges" } }
         );
     }
 
@@ -724,11 +589,7 @@ public class Node : CachedEntityObject, IBehaviorAware<Node>
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "computeWorldMatrix" },
-                force
-            }
+            new object[] { new string[] { this.___guid, "computeWorldMatrix" }, force }
         );
     }
 

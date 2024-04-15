@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
-
 using MediatR;
 
 public class DisposeOfGuiCommandHandler
@@ -16,10 +14,7 @@ public class DisposeOfGuiCommandHandler
     private readonly IMediator _mediator;
     private readonly IGuiDefinitionState _state;
 
-    public DisposeOfGuiCommandHandler(
-        IMediator mediator,
-        IGuiDefinitionState state
-    )
+    public DisposeOfGuiCommandHandler(IMediator mediator, IGuiDefinitionState state)
     {
         _mediator = mediator;
         _state = state;
@@ -33,10 +28,7 @@ public class DisposeOfGuiCommandHandler
         var gui = _state.Get(request.GuiId);
         if (gui.HasValue)
         {
-            await _mediator.Send(
-                new DisposeOfEntityCommand(gui.Value),
-                cancellationToken
-            );
+            await _mediator.Send(new DisposeOfEntityCommand(gui.Value), cancellationToken);
             _state.Remove(gui.Value.GuiId);
         }
 

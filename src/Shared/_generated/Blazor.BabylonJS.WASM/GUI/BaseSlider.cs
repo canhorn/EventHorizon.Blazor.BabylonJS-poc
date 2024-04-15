@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<BaseSlider>))]
@@ -30,13 +28,7 @@ public class BaseSlider : Control
 
     public bool displayThumb
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "displayThumb"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "displayThumb"); }
         set
         {
 
@@ -46,10 +38,7 @@ public class BaseSlider : Control
 
     public decimal step
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "step");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "step"); }
         set
         {
 
@@ -59,13 +48,7 @@ public class BaseSlider : Control
 
     public string barOffset
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "barOffset"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "barOffset"); }
         set
         {
 
@@ -75,24 +58,12 @@ public class BaseSlider : Control
 
     public decimal barOffsetInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "barOffsetInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "barOffsetInPixels"); }
     }
 
     public string thumbWidth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "thumbWidth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "thumbWidth"); }
         set
         {
 
@@ -102,24 +73,12 @@ public class BaseSlider : Control
 
     public decimal thumbWidthInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "thumbWidthInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "thumbWidthInPixels"); }
     }
 
     public decimal minimum
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "minimum"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "minimum"); }
         set
         {
 
@@ -129,13 +88,7 @@ public class BaseSlider : Control
 
     public decimal maximum
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "maximum"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "maximum"); }
         set
         {
 
@@ -145,13 +98,7 @@ public class BaseSlider : Control
 
     public decimal value
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "value"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "value"); }
         set
         {
 
@@ -161,13 +108,7 @@ public class BaseSlider : Control
 
     public bool isVertical
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isVertical"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isVertical"); }
         set
         {
 
@@ -177,21 +118,11 @@ public class BaseSlider : Control
 
     public bool isThumbClamped
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isThumbClamped"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isThumbClamped"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "isThumbClamped",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "isThumbClamped", value);
         }
     }
     #endregion
@@ -200,10 +131,7 @@ public class BaseSlider : Control
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 

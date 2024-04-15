@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Gui.Generate;
 
 using System;
-
 using MediatR;
 
 public struct GetGeneratedGuiControlId : IRequest<string>

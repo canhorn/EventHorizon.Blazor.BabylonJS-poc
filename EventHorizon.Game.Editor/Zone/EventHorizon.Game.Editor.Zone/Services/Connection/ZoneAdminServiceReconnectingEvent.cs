@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ZoneAdminServiceReconnectingEvent : INotification
@@ -27,9 +25,7 @@ public class ZoneAdminServiceReconnectingEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ZoneAdminServiceReconnectingEventObserverHandler(
-        ObserverState observer
-    )
+    public ZoneAdminServiceReconnectingEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

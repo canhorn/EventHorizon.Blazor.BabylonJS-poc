@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
-
 using Microsoft.AspNetCore.Components.Forms;
 
 public interface AssetFileManagement

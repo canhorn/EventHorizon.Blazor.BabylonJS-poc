@@ -1,11 +1,9 @@
 ﻿namespace EventHorizon.Platform.LogProvider.Services;
 
 using System.Collections.Concurrent;
-
 using EventHorizon.Platform.LogProvider.Api;
 using EventHorizon.Platform.LogProvider.Logger;
 using EventHorizon.Platform.LogProvider.Model;
-
 using Microsoft.Extensions.Logging;
 
 public sealed class StandardPlatformConsoleLoggerProvider : ILoggerProvider
@@ -14,10 +12,7 @@ public sealed class StandardPlatformConsoleLoggerProvider : ILoggerProvider
     private readonly ClientDetailsEnrichmentService _logEnrichmentService;
     private readonly PendingLogQueue _pendingLogQueue;
 
-    private readonly ConcurrentDictionary<
-        string,
-        PlatformConsoleLogger
-    > _loggers = new();
+    private readonly ConcurrentDictionary<string, PlatformConsoleLogger> _loggers = new();
 
     public StandardPlatformConsoleLoggerProvider(
         PlatformLoggerConfiguration config,
@@ -33,13 +28,12 @@ public sealed class StandardPlatformConsoleLoggerProvider : ILoggerProvider
     public ILogger CreateLogger(string categoryName) =>
         _loggers.GetOrAdd(
             categoryName,
-            name =>
-                new PlatformConsoleLogger(
-                    name,
-                    _config,
-                    _pendingLogQueue,
-                    _logEnrichmentService
-                )
+            name => new PlatformConsoleLogger(
+                name,
+                _config,
+                _pendingLogQueue,
+                _logEnrichmentService
+            )
         );
 
     public void Dispose() => _loggers.Clear();

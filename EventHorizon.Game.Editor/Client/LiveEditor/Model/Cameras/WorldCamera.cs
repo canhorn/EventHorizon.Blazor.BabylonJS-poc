@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Client.LiveEditor.Model.Cameras;
 
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Engine.Canvas.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;

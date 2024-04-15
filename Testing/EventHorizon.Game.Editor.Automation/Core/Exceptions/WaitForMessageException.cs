@@ -14,9 +14,6 @@ public class WaitForMessageException : Exception
     public WaitForMessageException(string message, Exception inner)
         : base(message, inner) { }
 
-    protected WaitForMessageException(
-        SerializationInfo info,
-        StreamingContext context
-    )
+    protected WaitForMessageException(SerializationInfo info, StreamingContext context)
         : base(info, context) { }
 }

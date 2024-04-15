@@ -10,9 +10,7 @@ public struct ZoneServerExportFinishedEvent : IAdminClientAction
     public string ReferenceId { get; }
     public string ExportUrl { get; }
 
-    public ZoneServerExportFinishedEvent(
-        IAdminClientActionDataResolver resolver
-    )
+    public ZoneServerExportFinishedEvent(IAdminClientActionDataResolver resolver)
     {
         ReferenceId = resolver.Resolve<string>("referenceId");
         ExportUrl = resolver.Resolve<string>("exportUrl");

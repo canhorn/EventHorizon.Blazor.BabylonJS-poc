@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.System.Server.Scripts.Model;
 using EventHorizon.Zone.System.Server.Scripts.Query;
-
 using MediatR;
 
 public class QueryForServerScriptsErrorDetailsHandler
@@ -18,9 +16,7 @@ public class QueryForServerScriptsErrorDetailsHandler
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public QueryForServerScriptsErrorDetailsHandler(
-        ZoneAdminServices zoneAdminServices
-    )
+    public QueryForServerScriptsErrorDetailsHandler(ZoneAdminServices zoneAdminServices)
     {
         _zoneAdminServices = zoneAdminServices;
     }
@@ -30,9 +26,7 @@ public class QueryForServerScriptsErrorDetailsHandler
         CancellationToken cancellationToken
     )
     {
-        var result = await _zoneAdminServices.Api.ServerScripts.GetErrorDetails(
-            cancellationToken
-        );
+        var result = await _zoneAdminServices.Api.ServerScripts.GetErrorDetails(cancellationToken);
         if (result.Success.IsNotTrue() || result.Result.IsNull())
         {
             return result.ErrorCode ?? ZoneAdminErrorCodes.BAD_API_REQUEST;

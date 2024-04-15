@@ -5,7 +5,6 @@ using EventHorizon.Game.Client.Core.Mapper.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.State;
-
 using Microsoft.Extensions.DependencyInjection;
 
 public static class EngineEntitySystemStartup
@@ -21,9 +20,6 @@ public static class EngineEntitySystemStartup
             >()
             .AddSingleton<
                 IMapper<ObjectEntityConfiguration>,
-                StandardMapper<
-                    ObjectEntityConfiguration,
-                    ObjectEntityConfigurationModel
-                >
+                StandardMapper<ObjectEntityConfiguration, ObjectEntityConfigurationModel>
             >();
 }

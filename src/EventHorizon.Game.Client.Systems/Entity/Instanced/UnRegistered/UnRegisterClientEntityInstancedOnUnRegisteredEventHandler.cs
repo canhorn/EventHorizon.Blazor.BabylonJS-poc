@@ -3,14 +3,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Entity.Tag;
 using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Unregister;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class UnRegisterClientEntityInstancedOnUnRegisteredEventHandler
@@ -18,9 +15,7 @@ public class UnRegisterClientEntityInstancedOnUnRegisteredEventHandler
 {
     private readonly IMediator _mediator;
 
-    public UnRegisterClientEntityInstancedOnUnRegisteredEventHandler(
-        IMediator mediator
-    )
+    public UnRegisterClientEntityInstancedOnUnRegisteredEventHandler(IMediator mediator)
     {
         _mediator = mediator;
     }
@@ -31,9 +26,7 @@ public class UnRegisterClientEntityInstancedOnUnRegisteredEventHandler
     )
     {
         var result = await _mediator.Send(
-            new QueryForEntity(
-                TagBuilder.CreateGlobalIdTag(notification.GlobalId)
-            ),
+            new QueryForEntity(TagBuilder.CreateGlobalIdTag(notification.GlobalId)),
             cancellationToken
         );
         GamePlatform

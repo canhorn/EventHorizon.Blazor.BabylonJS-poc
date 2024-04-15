@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class AssetServerExportFinishedEventObserverHandler
@@ -21,8 +19,8 @@ public class AssetServerExportFinishedEventObserverHandler
         AssetServerExportFinishedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            AssetServerExportFinishedEventObserver,
-            AssetServerExportFinishedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<AssetServerExportFinishedEventObserver, AssetServerExportFinishedEvent>(
+            notification,
+            cancellationToken
+        );
 }

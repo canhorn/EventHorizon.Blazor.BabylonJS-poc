@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ScrollBar>))]
@@ -30,13 +28,7 @@ public class ScrollBar : BaseSlider
 
     public string borderColor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "borderColor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "borderColor"); }
         set
         {
 
@@ -46,13 +38,7 @@ public class ScrollBar : BaseSlider
 
     public string background
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "background"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "background"); }
         set
         {
 
@@ -65,10 +51,7 @@ public class ScrollBar : BaseSlider
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 

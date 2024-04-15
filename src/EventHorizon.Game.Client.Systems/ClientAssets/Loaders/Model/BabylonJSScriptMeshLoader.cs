@@ -3,9 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
@@ -16,7 +14,6 @@ using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Model.Mesh;
 using EventHorizon.Game.Client.Systems.ClientAssets.Resolve;
 using EventHorizon.Game.Client.Systems.Scripting.TESTING_SCRIPTS;
-
 using MediatR;
 
 public class BabylonJSScriptMeshLoader : ClientAssetLoader
@@ -36,11 +33,7 @@ public class BabylonJSScriptMeshLoader : ClientAssetLoader
         IVector3 position
     )
     {
-        return new ClientAssetMeshDetails(
-            assetInstanceId,
-            clientAsset,
-            position
-        );
+        return new ClientAssetMeshDetails(assetInstanceId, clientAsset, position);
     }
 
     public async Task Load(ClientAssetDetails details, ClientAsset clientAsset)
@@ -65,16 +58,10 @@ public class BabylonJSScriptMeshLoader : ClientAssetLoader
                 )
             );
             // TODO: [TESTING] Move this into the Script when Moving into Server script
-            if (
-                mesh.IsNotNull()
-                && details is ClientAssetMeshDetails typedDetails
-            )
+            if (mesh.IsNotNull() && details is ClientAssetMeshDetails typedDetails)
             {
                 await _mediator.Send(
-                    new ResolveClientAssetMeshCommand(
-                        typedDetails,
-                        new BabylonJSEngineMesh(mesh)
-                    )
+                    new ResolveClientAssetMeshCommand(typedDetails, new BabylonJSEngineMesh(mesh))
                 );
             }
         }

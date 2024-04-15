@@ -10,18 +10,13 @@ public struct ClientActionMessageFromCombatSystemEvent : IClientAction
     public string Message { get; set; }
     public string? MessageCode { get; set; }
 
-    public ClientActionMessageFromCombatSystemEvent(
-        IClientActionDataResolver resolver
-    )
+    public ClientActionMessageFromCombatSystemEvent(IClientActionDataResolver resolver)
     {
         Message = resolver.Resolve<string>("message");
         MessageCode = resolver.ResolveNullable<string>("messageCode");
     }
 
-    public ClientActionMessageFromCombatSystemEvent(
-        string message,
-        string messageCode = ""
-    )
+    public ClientActionMessageFromCombatSystemEvent(string message, string messageCode = "")
     {
         Message = message;
         MessageCode = messageCode;

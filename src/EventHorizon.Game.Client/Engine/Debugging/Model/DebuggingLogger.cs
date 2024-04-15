@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 
 public static class DebuggingLogger

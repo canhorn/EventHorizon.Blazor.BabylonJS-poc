@@ -3,14 +3,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Changed;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class RegisterGuiLayoutDataCommandHandler
@@ -19,10 +16,7 @@ public class RegisterGuiLayoutDataCommandHandler
     private readonly IMediator _mediator;
     private readonly IGuiLayoutDataState _state;
 
-    public RegisterGuiLayoutDataCommandHandler(
-        IMediator mediator,
-        IGuiLayoutDataState state
-    )
+    public RegisterGuiLayoutDataCommandHandler(IMediator mediator, IGuiLayoutDataState state)
     {
         _mediator = mediator;
         _state = state;
@@ -37,9 +31,7 @@ public class RegisterGuiLayoutDataCommandHandler
         {
             _state.Set(request.LayoutData);
 
-            await _mediator.Publish(
-                new GuiLayoutDataChangedEvent(request.LayoutData.Id)
-            );
+            await _mediator.Publish(new GuiLayoutDataChangedEvent(request.LayoutData.Id));
 
             return new StandardCommandResult();
         }

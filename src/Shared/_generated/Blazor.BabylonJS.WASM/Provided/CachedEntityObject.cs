@@ -1,15 +1,11 @@
 using System.Collections.Generic;
-
 using EventHorizon.Blazor.Interop;
-
 using Microsoft.JSInterop;
 
 public class CachedEntityObject : CachedEntity
 {
-    protected static readonly IDictionary<
-        string,
-        ICachedEntity
-    > CachedEntityMap = new Dictionary<string, ICachedEntity>();
+    protected static readonly IDictionary<string, ICachedEntity> CachedEntityMap =
+        new Dictionary<string, ICachedEntity>();
     protected readonly DotNetObjectReference<CachedEntityObject> _invokableReference;
     protected IDictionary<string, ICachedEntity> _cachedEntityMap =
         new Dictionary<string, ICachedEntity>();

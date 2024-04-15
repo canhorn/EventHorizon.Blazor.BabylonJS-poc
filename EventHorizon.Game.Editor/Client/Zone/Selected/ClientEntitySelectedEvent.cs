@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ClientEntitySelectedEvent : INotification
@@ -19,8 +17,7 @@ public struct ClientEntitySelectedEvent : INotification
     }
 }
 
-public interface ClientEntitySelectedEventObserver
-    : ArgumentObserver<ClientEntitySelectedEvent> { }
+public interface ClientEntitySelectedEventObserver : ArgumentObserver<ClientEntitySelectedEvent> { }
 
 public class ClientEntitySelectedEventObserverHandler
     : INotificationHandler<ClientEntitySelectedEvent>
@@ -36,8 +33,8 @@ public class ClientEntitySelectedEventObserverHandler
         ClientEntitySelectedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ClientEntitySelectedEventObserver,
-            ClientEntitySelectedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ClientEntitySelectedEventObserver, ClientEntitySelectedEvent>(
+            notification,
+            cancellationToken
+        );
 }

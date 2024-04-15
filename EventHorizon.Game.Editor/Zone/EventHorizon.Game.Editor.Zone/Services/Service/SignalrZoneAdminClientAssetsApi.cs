@@ -3,11 +3,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
 using EventHorizon.Zone.Systems.ClientAssets.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalrZoneAdminClientAssetsApi : ZoneAdminClientAssetsApi
@@ -19,9 +17,7 @@ public class SignalrZoneAdminClientAssetsApi : ZoneAdminClientAssetsApi
         _hubConnection = hubConnection;
     }
 
-    public async Task<ApiResponse<List<ClientAsset>>> All(
-        CancellationToken cancellationToken
-    )
+    public async Task<ApiResponse<List<ClientAsset>>> All(CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -38,10 +34,7 @@ public class SignalrZoneAdminClientAssetsApi : ZoneAdminClientAssetsApi
         );
     }
 
-    public async Task<ApiResponse<ClientAsset>> Get(
-        string id,
-        CancellationToken cancellationToken
-    )
+    public async Task<ApiResponse<ClientAsset>> Get(string id, CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -76,10 +69,7 @@ public class SignalrZoneAdminClientAssetsApi : ZoneAdminClientAssetsApi
         );
     }
 
-    public async Task<StandardApiResponse> Delete(
-        string id,
-        CancellationToken cancellationToken
-    )
+    public async Task<StandardApiResponse> Delete(string id, CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -111,9 +101,5 @@ public class SignalrZoneAdminClientAssetsApi : ZoneAdminClientAssetsApi
     }
 
     private static StandardApiResponse NotConnectedResponse() =>
-        new()
-        {
-            Success = false,
-            ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
-        };
+        new() { Success = false, ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED, };
 }

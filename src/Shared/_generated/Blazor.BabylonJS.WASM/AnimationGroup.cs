@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AnimationGroup>))]
@@ -41,51 +39,27 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
 
     public decimal from
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "from");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "from"); }
     }
 
     public decimal to
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "to");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "to"); }
     }
 
     public bool isStarted
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isStarted"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isStarted"); }
     }
 
     public bool isPlaying
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isPlaying"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPlaying"); }
     }
 
     public decimal speedRatio
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "speedRatio"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "speedRatio"); }
         set
         {
 
@@ -95,13 +69,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
 
     public bool loopAnimation
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "loopAnimation"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "loopAnimation"); }
         set
         {
 
@@ -144,10 +112,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -157,13 +122,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
         set
         {
 
@@ -185,10 +144,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
                     "onAnimationEndObservable",
                     (entity) =>
                     {
-                        return new Observable<TargetedAnimation>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<TargetedAnimation>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -197,11 +153,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
         set
         {
             __onAnimationEndObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAnimationEndObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAnimationEndObservable", value);
         }
     }
 
@@ -212,31 +164,23 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
         {
             if (__onAnimationLoopObservable == null)
             {
-                __onAnimationLoopObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<TargetedAnimation>
-                    >(
-                        this.___guid,
-                        "onAnimationLoopObservable",
-                        (entity) =>
-                        {
-                            return new Observable<TargetedAnimation>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAnimationLoopObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<TargetedAnimation>
+                >(
+                    this.___guid,
+                    "onAnimationLoopObservable",
+                    (entity) =>
+                    {
+                        return new Observable<TargetedAnimation>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAnimationLoopObservable;
         }
         set
         {
             __onAnimationLoopObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAnimationLoopObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAnimationLoopObservable", value);
         }
     }
 
@@ -247,31 +191,23 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
         {
             if (__onAnimationGroupLoopObservable == null)
             {
-                __onAnimationGroupLoopObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<AnimationGroup>
-                    >(
-                        this.___guid,
-                        "onAnimationGroupLoopObservable",
-                        (entity) =>
-                        {
-                            return new Observable<AnimationGroup>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAnimationGroupLoopObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<AnimationGroup>
+                >(
+                    this.___guid,
+                    "onAnimationGroupLoopObservable",
+                    (entity) =>
+                    {
+                        return new Observable<AnimationGroup>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAnimationGroupLoopObservable;
         }
         set
         {
             __onAnimationGroupLoopObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAnimationGroupLoopObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAnimationGroupLoopObservable", value);
         }
     }
 
@@ -282,31 +218,23 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
         {
             if (__onAnimationGroupEndObservable == null)
             {
-                __onAnimationGroupEndObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<AnimationGroup>
-                    >(
-                        this.___guid,
-                        "onAnimationGroupEndObservable",
-                        (entity) =>
-                        {
-                            return new Observable<AnimationGroup>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAnimationGroupEndObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<AnimationGroup>
+                >(
+                    this.___guid,
+                    "onAnimationGroupEndObservable",
+                    (entity) =>
+                    {
+                        return new Observable<AnimationGroup>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAnimationGroupEndObservable;
         }
         set
         {
             __onAnimationGroupEndObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAnimationGroupEndObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAnimationGroupEndObservable", value);
         }
     }
 
@@ -317,31 +245,23 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
         {
             if (__onAnimationGroupPauseObservable == null)
             {
-                __onAnimationGroupPauseObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<AnimationGroup>
-                    >(
-                        this.___guid,
-                        "onAnimationGroupPauseObservable",
-                        (entity) =>
-                        {
-                            return new Observable<AnimationGroup>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAnimationGroupPauseObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<AnimationGroup>
+                >(
+                    this.___guid,
+                    "onAnimationGroupPauseObservable",
+                    (entity) =>
+                    {
+                        return new Observable<AnimationGroup>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAnimationGroupPauseObservable;
         }
         set
         {
             __onAnimationGroupPauseObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAnimationGroupPauseObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAnimationGroupPauseObservable", value);
         }
     }
 
@@ -352,31 +272,23 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
         {
             if (__onAnimationGroupPlayObservable == null)
             {
-                __onAnimationGroupPlayObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<AnimationGroup>
-                    >(
-                        this.___guid,
-                        "onAnimationGroupPlayObservable",
-                        (entity) =>
-                        {
-                            return new Observable<AnimationGroup>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAnimationGroupPlayObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<AnimationGroup>
+                >(
+                    this.___guid,
+                    "onAnimationGroupPlayObservable",
+                    (entity) =>
+                    {
+                        return new Observable<AnimationGroup>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAnimationGroupPlayObservable;
         }
         set
         {
             __onAnimationGroupPlayObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAnimationGroupPlayObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAnimationGroupPlayObservable", value);
         }
     }
     #endregion
@@ -401,10 +313,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
     #endregion
 
     #region Methods
-    public TargetedAnimation addTargetedAnimation(
-        Animation animation,
-        object target
-    )
+    public TargetedAnimation addTargetedAnimation(Animation animation, object target)
     {
         return EventHorizonBlazorInterop.FuncClass<TargetedAnimation>(
             entity => new TargetedAnimation() { ___guid = entity.___guid },
@@ -424,12 +333,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<AnimationGroup>(
             entity => new AnimationGroup() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "normalize" },
-                beginFrame,
-                endFrame
-            }
+            new object[] { new string[] { this.___guid, "normalize" }, beginFrame, endFrame }
         );
     }
 
@@ -442,14 +346,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<AnimationGroup>(
             entity => new AnimationGroup() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "start" },
-                loop,
-                speedRatio,
-                from,
-                to
-            }
+            new object[] { new string[] { this.___guid, "start" }, loop, speedRatio, from, to }
         );
     }
 
@@ -497,11 +394,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<AnimationGroup>(
             entity => new AnimationGroup() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setWeightForAllAnimatables" },
-                weight
-            }
+            new object[] { new string[] { this.___guid, "setWeightForAllAnimatables" }, weight }
         );
     }
 
@@ -509,11 +402,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<AnimationGroup>(
             entity => new AnimationGroup() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "syncAllAnimationsWith" },
-                root
-            }
+            new object[] { new string[] { this.___guid, "syncAllAnimationsWith" }, root }
         );
     }
 
@@ -532,19 +421,11 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
         );
     }
 
-    public AnimationGroup clone(
-        string newName,
-        ActionCallback<object> targetConverter = null
-    )
+    public AnimationGroup clone(string newName, ActionCallback<object> targetConverter = null)
     {
         return EventHorizonBlazorInterop.FuncClass<AnimationGroup>(
             entity => new AnimationGroup() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "clone" },
-                newName,
-                targetConverter
-            }
+            new object[] { new string[] { this.___guid, "clone" }, newName, targetConverter }
         );
     }
 
@@ -565,11 +446,7 @@ public class AnimationGroup : CachedEntityObject, _IDisposable
     public string toString(System.Nullable<bool> fullDetails = null)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "toString" },
-                fullDetails
-            }
+            new object[] { new string[] { this.___guid, "toString" }, fullDetails }
         );
     }
     #endregion

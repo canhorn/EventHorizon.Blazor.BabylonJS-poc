@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Sprite>))]
@@ -30,10 +28,7 @@ public class Sprite : CachedEntityObject
 
     public decimal size
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "size");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "size"); }
         set
         {
 
@@ -46,10 +41,7 @@ public class Sprite : CachedEntityObject
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -109,13 +101,7 @@ public class Sprite : CachedEntityObject
 
     public decimal width
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "width"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "width"); }
         set
         {
 
@@ -125,13 +111,7 @@ public class Sprite : CachedEntityObject
 
     public decimal height
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "height"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "height"); }
         set
         {
 
@@ -141,13 +121,7 @@ public class Sprite : CachedEntityObject
 
     public decimal angle
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "angle"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "angle"); }
         set
         {
 
@@ -157,13 +131,7 @@ public class Sprite : CachedEntityObject
 
     public decimal cellIndex
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cellIndex"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cellIndex"); }
         set
         {
 
@@ -173,13 +141,7 @@ public class Sprite : CachedEntityObject
 
     public string cellRef
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "cellRef"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "cellRef"); }
         set
         {
 
@@ -189,13 +151,7 @@ public class Sprite : CachedEntityObject
 
     public decimal invertU
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "invertU"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "invertU"); }
         set
         {
 
@@ -205,13 +161,7 @@ public class Sprite : CachedEntityObject
 
     public decimal invertV
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "invertV"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "invertV"); }
         set
         {
 
@@ -231,11 +181,7 @@ public class Sprite : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "disposeWhenFinishedAnimating",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "disposeWhenFinishedAnimating", value);
         }
     }
 
@@ -261,13 +207,7 @@ public class Sprite : CachedEntityObject
 
     public bool isPickable
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isPickable"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPickable"); }
         set
         {
 
@@ -282,18 +222,14 @@ public class Sprite : CachedEntityObject
         {
             if (__actionManager == null)
             {
-                __actionManager =
-                    EventHorizonBlazorInterop.GetClass<ActionManager>(
-                        this.___guid,
-                        "actionManager",
-                        (entity) =>
-                        {
-                            return new ActionManager()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __actionManager = EventHorizonBlazorInterop.GetClass<ActionManager>(
+                    this.___guid,
+                    "actionManager",
+                    (entity) =>
+                    {
+                        return new ActionManager() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __actionManager;
         }
@@ -306,13 +242,7 @@ public class Sprite : CachedEntityObject
 
     public bool isVisible
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isVisible"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isVisible"); }
         set
         {
 

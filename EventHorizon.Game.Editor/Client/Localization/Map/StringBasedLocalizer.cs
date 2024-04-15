@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Localization.Map;
 
 using EventHorizon.Game.Editor.Client.Localization.Api;
-
 using Microsoft.Extensions.Localization;
 
 public class StringBasedLocalizer<T> : Localizer<T>

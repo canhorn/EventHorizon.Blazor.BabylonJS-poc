@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using MediatR;
 
 public class SenderMock : ISender
@@ -32,18 +31,12 @@ public class SenderMock : ISender
         return Task.FromResult(default(TResponse)!);
     }
 
-    public Task<object?> Send(
-        object request,
-        CancellationToken cancellationToken = default
-    )
+    public Task<object?> Send(object request, CancellationToken cancellationToken = default)
     {
         return Task.FromResult(default(object));
     }
 
-    public Task Send<TRequest>(
-        TRequest request,
-        CancellationToken cancellationToken = default
-    )
+    public Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = default)
         where TRequest : IRequest
     {
         throw new System.NotImplementedException();

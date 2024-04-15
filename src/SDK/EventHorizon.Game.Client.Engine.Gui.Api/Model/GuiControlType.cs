@@ -6,9 +6,7 @@ public class GuiControlType
 {
     public static GuiControlType EMPTY = new GuiControlType("EMPTY");
     public static GuiControlType PANEL = new GuiControlType("Panel");
-    public static GuiControlType SCROLL_VIEWER = new GuiControlType(
-        "ScrollViewer"
-    );
+    public static GuiControlType SCROLL_VIEWER = new GuiControlType("ScrollViewer");
     public static GuiControlType LABEL = new GuiControlType("Label");
     public static GuiControlType BUTTON = new GuiControlType("Button");
     public static GuiControlType BAR = new GuiControlType("Bar");

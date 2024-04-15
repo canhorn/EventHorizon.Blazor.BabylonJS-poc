@@ -2,15 +2,11 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.Register;
 using EventHorizon.Observer.Unregister;
 
-public abstract class ObservableComponentBase
-    : EditorComponentBase,
-        ObserverBase,
-        IAsyncDisposable
+public abstract class ObservableComponentBase : EditorComponentBase, ObserverBase, IAsyncDisposable
 {
     protected bool _isRegistered;
 

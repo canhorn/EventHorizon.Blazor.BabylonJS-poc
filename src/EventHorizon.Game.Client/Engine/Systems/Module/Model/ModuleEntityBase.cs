@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Module.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Core.Api;
 using EventHorizon.Game.Client.Engine.Entity.Model;
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;

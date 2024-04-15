@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<MeshBuilder>))]
@@ -23,11 +21,7 @@ public class MeshBuilder : CachedEntityObject
     #endregion
 
     #region Static Methods
-    public static Mesh CreateBox(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateBox(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -41,11 +35,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateTiledBox(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateTiledBox(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -59,11 +49,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateSphere(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateSphere(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -77,11 +63,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateDisc(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateDisc(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -95,11 +77,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateIcoSphere(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateIcoSphere(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -113,11 +91,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateRibbon(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateRibbon(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -131,11 +105,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateCylinder(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateCylinder(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -149,11 +119,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateTorus(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateTorus(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -167,11 +133,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateTorusKnot(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateTorusKnot(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -185,11 +147,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static LinesMesh CreateLineSystem(
-        string name,
-        object options,
-        Scene scene
-    )
+    public static LinesMesh CreateLineSystem(string name, object options, Scene scene)
     {
         return EventHorizonBlazorInterop.FuncClass<LinesMesh>(
             entity => new LinesMesh() { ___guid = entity.___guid },
@@ -203,11 +161,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static LinesMesh CreateLines(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static LinesMesh CreateLines(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<LinesMesh>(
             entity => new LinesMesh() { ___guid = entity.___guid },
@@ -221,11 +175,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static LinesMesh CreateDashedLines(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static LinesMesh CreateDashedLines(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<LinesMesh>(
             entity => new LinesMesh() { ___guid = entity.___guid },
@@ -239,11 +189,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh ExtrudeShape(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh ExtrudeShape(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -257,11 +203,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh ExtrudeShapeCustom(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh ExtrudeShapeCustom(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -275,11 +217,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateLathe(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateLathe(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -293,11 +231,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateTiledPlane(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateTiledPlane(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -311,11 +245,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreatePlane(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreatePlane(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -329,11 +259,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateGround(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateGround(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -347,11 +273,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateTiledGround(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateTiledGround(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -376,12 +298,7 @@ public class MeshBuilder : CachedEntityObject
             entity => new GroundMesh() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "MeshBuilder",
-                    "CreateGroundFromHeightMap"
-                },
+                new string[] { "BABYLON", "MeshBuilder", "CreateGroundFromHeightMap" },
                 name,
                 url,
                 options,
@@ -430,11 +347,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateTube(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreateTube(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -448,11 +361,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreatePolyhedron(
-        string name,
-        object options,
-        Scene scene = null
-    )
+    public static Mesh CreatePolyhedron(string name, object options, Scene scene = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },
@@ -466,11 +375,7 @@ public class MeshBuilder : CachedEntityObject
         );
     }
 
-    public static Mesh CreateDecal(
-        string name,
-        AbstractMesh sourceMesh,
-        object options
-    )
+    public static Mesh CreateDecal(string name, AbstractMesh sourceMesh, object options)
     {
         return EventHorizonBlazorInterop.FuncClass<Mesh>(
             entity => new Mesh() { ___guid = entity.___guid },

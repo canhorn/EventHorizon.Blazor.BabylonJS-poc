@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Ray>))]
@@ -57,11 +55,7 @@ public class Ray : CachedEntityObject
         );
     }
 
-    public static Ray CreateNewFromTo(
-        Vector3 origin,
-        Vector3 end,
-        Matrix world = null
-    )
+    public static Ray CreateNewFromTo(Vector3 origin, Vector3 end, Matrix world = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Ray>(
             entity => new Ray() { ___guid = entity.___guid },
@@ -79,12 +73,7 @@ public class Ray : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Ray>(
             entity => new Ray() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Ray", "Transform" },
-                ray,
-                matrix
-            }
+            new object[] { new string[] { "BABYLON", "Ray", "Transform" }, ray, matrix }
         );
     }
 
@@ -159,13 +148,7 @@ public class Ray : CachedEntityObject
 
     public decimal length
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "length"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "length"); }
         set
         {
 
@@ -184,11 +167,7 @@ public class Ray : CachedEntityObject
         ___guid = entity.___guid;
     }
 
-    public Ray(
-        Vector3 origin,
-        Vector3 direction,
-        System.Nullable<decimal> length = null
-    )
+    public Ray(Vector3 origin, Vector3 direction, System.Nullable<decimal> length = null)
     {
         var entity = EventHorizonBlazorInterop.New(
             new string[] { "BABYLON", "Ray" },
@@ -218,10 +197,7 @@ public class Ray : CachedEntityObject
         );
     }
 
-    public bool intersectsBox(
-        BoundingBox box,
-        System.Nullable<decimal> intersectionTreshold = null
-    )
+    public bool intersectsBox(BoundingBox box, System.Nullable<decimal> intersectionTreshold = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
             new object[]
@@ -248,11 +224,7 @@ public class Ray : CachedEntityObject
         );
     }
 
-    public IntersectionInfo intersectsTriangle(
-        Vector3 vertex0,
-        Vector3 vertex1,
-        Vector3 vertex2
-    )
+    public IntersectionInfo intersectsTriangle(Vector3 vertex0, Vector3 vertex1, Vector3 vertex2)
     {
         return EventHorizonBlazorInterop.FuncClass<IntersectionInfo>(
             entity => new IntersectionInfo() { ___guid = entity.___guid },
@@ -269,43 +241,23 @@ public class Ray : CachedEntityObject
     public decimal intersectsPlane(Plane plane)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsPlane" },
-                plane
-            }
+            new object[] { new string[] { this.___guid, "intersectsPlane" }, plane }
         );
     }
 
-    public Vector3 intersectsAxis(
-        string axis,
-        System.Nullable<decimal> offset = null
-    )
+    public Vector3 intersectsAxis(string axis, System.Nullable<decimal> offset = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsAxis" },
-                axis,
-                offset
-            }
+            new object[] { new string[] { this.___guid, "intersectsAxis" }, axis, offset }
         );
     }
 
-    public PickingInfo intersectsMesh(
-        AbstractMesh mesh,
-        System.Nullable<bool> fastCheck = null
-    )
+    public PickingInfo intersectsMesh(AbstractMesh mesh, System.Nullable<bool> fastCheck = null)
     {
         return EventHorizonBlazorInterop.FuncClass<PickingInfo>(
             entity => new PickingInfo() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "intersectsMesh" },
-                mesh,
-                fastCheck
-            }
+            new object[] { new string[] { this.___guid, "intersectsMesh" }, mesh, fastCheck }
         );
     }
 
@@ -327,11 +279,7 @@ public class Ray : CachedEntityObject
         );
     }
 
-    public decimal intersectionSegment(
-        Vector3 sega,
-        Vector3 segb,
-        decimal threshold
-    )
+    public decimal intersectionSegment(Vector3 sega, Vector3 segb, decimal threshold)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]

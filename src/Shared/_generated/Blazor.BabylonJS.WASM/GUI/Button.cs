@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Button>))]
@@ -23,23 +21,13 @@ public class Button : Rectangle
     #endregion
 
     #region Static Methods
-    public static Button CreateImageButton(
-        string name,
-        string text,
-        string imageUrl
-    )
+    public static Button CreateImageButton(string name, string text, string imageUrl)
     {
         return EventHorizonBlazorInterop.FuncClass<Button>(
             entity => new Button() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "GUI",
-                    "Button",
-                    "CreateImageButton"
-                },
+                new string[] { "BABYLON", "GUI", "Button", "CreateImageButton" },
                 name,
                 text,
                 imageUrl
@@ -53,13 +41,7 @@ public class Button : Rectangle
             entity => new Button() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "GUI",
-                    "Button",
-                    "CreateImageOnlyButton"
-                },
+                new string[] { "BABYLON", "GUI", "Button", "CreateImageOnlyButton" },
                 name,
                 imageUrl
             }
@@ -72,36 +54,20 @@ public class Button : Rectangle
             entity => new Button() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "GUI",
-                    "Button",
-                    "CreateSimpleButton"
-                },
+                new string[] { "BABYLON", "GUI", "Button", "CreateSimpleButton" },
                 name,
                 text
             }
         );
     }
 
-    public static Button CreateImageWithCenterTextButton(
-        string name,
-        string text,
-        string imageUrl
-    )
+    public static Button CreateImageWithCenterTextButton(string name, string text, string imageUrl)
     {
         return EventHorizonBlazorInterop.FuncClass<Button>(
             entity => new Button() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "GUI",
-                    "Button",
-                    "CreateImageWithCenterTextButton"
-                },
+                new string[] { "BABYLON", "GUI", "Button", "CreateImageWithCenterTextButton" },
                 name,
                 text,
                 imageUrl
@@ -156,10 +122,7 @@ public class Button : Rectangle
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -171,19 +134,12 @@ public class Button : Rectangle
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "delegatePickingToChildren"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "delegatePickingToChildren");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "delegatePickingToChildren",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "delegatePickingToChildren", value);
         }
     }
     #endregion
@@ -209,10 +165,8 @@ public class Button : Rectangle
     #region Methods
     #region pointerEnterAnimation TODO: Get Comments as metadata identification
     private bool _isPointerEnterAnimationEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _pointerEnterAnimationActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _pointerEnterAnimationActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string pointerEnterAnimation(Func<Task> callback)
     {
@@ -256,10 +210,8 @@ public class Button : Rectangle
 
     #region pointerOutAnimation TODO: Get Comments as metadata identification
     private bool _isPointerOutAnimationEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _pointerOutAnimationActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _pointerOutAnimationActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string pointerOutAnimation(Func<Task> callback)
     {
@@ -303,10 +255,8 @@ public class Button : Rectangle
 
     #region pointerDownAnimation TODO: Get Comments as metadata identification
     private bool _isPointerDownAnimationEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _pointerDownAnimationActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _pointerDownAnimationActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string pointerDownAnimation(Func<Task> callback)
     {
@@ -350,10 +300,8 @@ public class Button : Rectangle
 
     #region pointerUpAnimation TODO: Get Comments as metadata identification
     private bool _isPointerUpAnimationEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _pointerUpAnimationActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _pointerUpAnimationActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string pointerUpAnimation(Func<Task> callback)
     {

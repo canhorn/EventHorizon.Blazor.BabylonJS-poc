@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ZoneEditorServiceConnectedEvent : INotification
@@ -26,9 +24,7 @@ public class ZoneEditorServiceConnectedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ZoneEditorServiceConnectedEventObserverHandler(
-        ObserverState observer
-    )
+    public ZoneEditorServiceConnectedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -37,8 +33,8 @@ public class ZoneEditorServiceConnectedEventObserverHandler
         ZoneEditorServiceConnectedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ZoneEditorServiceConnectedEventObserver,
-            ZoneEditorServiceConnectedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ZoneEditorServiceConnectedEventObserver, ZoneEditorServiceConnectedEvent>(
+            notification,
+            cancellationToken
+        );
 }

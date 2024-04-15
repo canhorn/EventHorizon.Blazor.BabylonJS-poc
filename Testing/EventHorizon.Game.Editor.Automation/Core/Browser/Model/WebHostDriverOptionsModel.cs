@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Core.Browser.Model;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Editor.Automation.Core.Browser.Api;
 
 public class WebHostDriverOptionsModel : WebHostDriverOptions

@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
-
 using MediatR;
 
 public class StartConnectionToZoneServerCommandHandler
@@ -14,9 +12,7 @@ public class StartConnectionToZoneServerCommandHandler
 {
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public StartConnectionToZoneServerCommandHandler(
-        ZoneAdminServices zoneAdminServices
-    )
+    public StartConnectionToZoneServerCommandHandler(ZoneAdminServices zoneAdminServices)
     {
         _zoneAdminServices = zoneAdminServices;
     }

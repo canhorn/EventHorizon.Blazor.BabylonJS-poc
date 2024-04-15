@@ -2,15 +2,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using MediatR;
 
 public class PublisherMock : IPublisher
 {
-    public Task Publish(
-        object notification,
-        CancellationToken cancellationToken = default
-    )
+    public Task Publish(object notification, CancellationToken cancellationToken = default)
     {
         return Task.CompletedTask;
     }

@@ -1,12 +1,9 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model.ConfigTypes;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api.ConfigTypes;
 
-public class ClientAssetScriptConfigModel
-    : ClientAssetConfigBase,
-        ClientAssetScriptConfig
+public class ClientAssetScriptConfigModel : ClientAssetConfigBase, ClientAssetScriptConfig
 {
     public string Script { get; }
 

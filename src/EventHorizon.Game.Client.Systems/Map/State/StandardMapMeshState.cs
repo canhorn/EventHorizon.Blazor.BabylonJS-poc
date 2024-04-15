@@ -2,11 +2,9 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
 using EventHorizon.Game.Client.Systems.Map.Api;
-
 using MediatR;
 
 public class StandardMapMeshState : IMapState

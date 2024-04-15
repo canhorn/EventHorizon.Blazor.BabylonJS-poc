@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Mesh.Model;
@@ -19,7 +18,6 @@ using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.Transform.Model;
 using EventHorizon.Observer.Register;
 using EventHorizon.Observer.Unregister;
-
 using MediatR;
 
 public class ClientEntityInstanced
@@ -51,10 +49,7 @@ public class ClientEntityInstanced
         );
 
         RegisterModule(ITransformModule.MODULE_NAME, new TransformModule(this));
-        RegisterModule(
-            IModelLoaderModule.MODULE_NAME,
-            new ModelLoaderModule(this)
-        );
+        RegisterModule(IModelLoaderModule.MODULE_NAME, new ModelLoaderModule(this));
         RegisterModule(
             IMeshModule.MODULE_NAME,
             new MeshModule(this, new MeshModuleOptions(true, true))
@@ -103,9 +98,7 @@ public class ClientEntityInstanced
             mesh.MetaData.Add("entity.clientId", this.ClientId);
             mesh.MetaData.Add("clientEntity", this._details);
 
-            await _mediator.Publish(
-                new ClientEntityInstanceFinishedCreationEvent(this)
-            );
+            await _mediator.Publish(new ClientEntityInstanceFinishedCreationEvent(this));
         }
     }
 }

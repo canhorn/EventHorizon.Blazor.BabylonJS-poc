@@ -4,8 +4,5 @@ using System.Collections.Generic;
 
 public interface AdminClientActionState
 {
-    Option<IAdminClientAction> Get(
-        string actionName,
-        IDictionary<string, object> data
-    );
+    Option<IAdminClientAction> Get(string actionName, IDictionary<string, object> data);
 }

@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Change;
-
 using MediatR;
 
 public class SetZoneAsActiveCommandHandler
@@ -16,10 +14,7 @@ public class SetZoneAsActiveCommandHandler
     private readonly IMediator _mediator;
     private readonly ZoneStateCache _cache;
 
-    public SetZoneAsActiveCommandHandler(
-        IMediator mediator,
-        ZoneStateCache cache
-    )
+    public SetZoneAsActiveCommandHandler(IMediator mediator, ZoneStateCache cache)
     {
         _mediator = mediator;
         _cache = cache;

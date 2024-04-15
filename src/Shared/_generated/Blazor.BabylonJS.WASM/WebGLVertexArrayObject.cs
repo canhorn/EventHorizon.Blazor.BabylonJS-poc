@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface WebGLVertexArrayObject : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<WebGLVertexArrayObjectCachedEntity>)
-)]
-public class WebGLVertexArrayObjectCachedEntity
-    : CachedEntityObject,
-        WebGLVertexArrayObject
+[JsonConverter(typeof(CachedEntityConverter<WebGLVertexArrayObjectCachedEntity>))]
+public class WebGLVertexArrayObjectCachedEntity : CachedEntityObject, WebGLVertexArrayObject
 {
     #region Static Accessors
 

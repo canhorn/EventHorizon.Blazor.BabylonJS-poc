@@ -3,7 +3,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
@@ -13,7 +12,6 @@ using EventHorizon.Game.Editor.Client.Zone.Change;
 using EventHorizon.Game.Editor.Client.Zone.Get;
 using EventHorizon.Game.Editor.Client.Zone.Loading;
 using EventHorizon.Game.Editor.Client.Zone.Query;
-
 using MediatR;
 
 public class ReloadActiveZoneStateCommandHandler
@@ -38,10 +36,7 @@ public class ReloadActiveZoneStateCommandHandler
     {
         var guid = Guid.NewGuid().ToString();
 
-        var activeZoneResult = await _mediator.Send(
-            new QueryForActiveZone(),
-            cancellationToken
-        );
+        var activeZoneResult = await _mediator.Send(new QueryForActiveZone(), cancellationToken);
         if (activeZoneResult.Success.IsNotTrue())
         {
             return new("NO_ACTIVE_ZONE");
@@ -54,14 +49,8 @@ public class ReloadActiveZoneStateCommandHandler
             ),
             cancellationToken
         );
-        await _mediator.Send(
-            new SetReloadOnZoneStateCommand(false),
-            cancellationToken
-        );
-        await _mediator.Send(
-            new SetLoadingOnZoneStateCommand(true),
-            cancellationToken
-        );
+        await _mediator.Send(new SetReloadOnZoneStateCommand(false), cancellationToken);
+        await _mediator.Send(new SetLoadingOnZoneStateCommand(true), cancellationToken);
 
         var zoneStateResult = await _mediator.Send(
             new GetZoneStateCommand(activeZoneResult.Result.Zone),
@@ -82,10 +71,7 @@ public class ReloadActiveZoneStateCommandHandler
             return setActiveZoneResult;
         }
 
-        await _mediator.Send(
-            new SetLoadingOnZoneStateCommand(false),
-            cancellationToken
-        );
+        await _mediator.Send(new SetLoadingOnZoneStateCommand(false), cancellationToken);
 
         await _mediator.Publish(
             new ActiveZoneStateChangedEvent(zoneStateResult.Result.Zone.Id),

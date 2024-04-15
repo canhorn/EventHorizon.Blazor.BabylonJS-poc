@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IBehaviorAware<T> : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<IBehaviorAwareCachedEntity<CachedEntity>>)
-)]
-public class IBehaviorAwareCachedEntity<T>
-    : CachedEntityObject,
-        IBehaviorAware<T>
+[JsonConverter(typeof(CachedEntityConverter<IBehaviorAwareCachedEntity<CachedEntity>>))]
+public class IBehaviorAwareCachedEntity<T> : CachedEntityObject, IBehaviorAware<T>
     where T : CachedEntity, new()
 {
     #region Static Accessors
@@ -55,11 +49,7 @@ public class IBehaviorAwareCachedEntity<T>
     {
         return EventHorizonBlazorInterop.FuncClass<T>(
             entity => new T() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addBehavior" },
-                behavior
-            }
+            new object[] { new string[] { this.___guid, "addBehavior" }, behavior }
         );
     }
 
@@ -67,24 +57,15 @@ public class IBehaviorAwareCachedEntity<T>
     {
         return EventHorizonBlazorInterop.FuncClass<T>(
             entity => new T() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "removeBehavior" },
-                behavior
-            }
+            new object[] { new string[] { this.___guid, "removeBehavior" }, behavior }
         );
     }
 
     public BehaviorCachedEntity<T> getBehaviorByName(string name)
     {
         return EventHorizonBlazorInterop.FuncClass<BehaviorCachedEntity<T>>(
-            entity =>
-                new BehaviorCachedEntity<T>() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getBehaviorByName" },
-                name
-            }
+            entity => new BehaviorCachedEntity<T>() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "getBehaviorByName" }, name }
         );
     }
     #endregion

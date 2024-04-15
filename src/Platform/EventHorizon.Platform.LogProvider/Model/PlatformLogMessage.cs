@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Platform.LogProvider.Model;
 
 using System.Collections.Generic;
-
 using EventHorizon.Platform.LogProvider.Connection.Model;
 
 public struct PlatformLogMessage
@@ -13,9 +12,7 @@ public struct PlatformLogMessage
 
 public static class PlatformLogMessageExtensions
 {
-    public static ClientLogMessage ToClientLogMessage(
-        this PlatformLogMessage platformMessage
-    )
+    public static ClientLogMessage ToClientLogMessage(this PlatformLogMessage platformMessage)
     {
         return new ClientLogMessage
         {

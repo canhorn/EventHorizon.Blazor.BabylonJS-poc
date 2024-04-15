@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Effect>))]
@@ -22,21 +20,11 @@ public class Effect : CachedEntityObject, _IDisposable
 
     public static string ShadersRepository
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "Effect.ShadersRepository"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "Effect.ShadersRepository"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "Effect.ShadersRepository",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "Effect.ShadersRepository", value);
         }
     }
 
@@ -44,19 +32,12 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                "BABYLON",
-                "Effect.ShadersStore"
-            );
+            return EventHorizonBlazorInterop.Get<CachedEntity>("BABYLON", "Effect.ShadersStore");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "Effect.ShadersStore",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "Effect.ShadersStore", value);
         }
     }
 
@@ -72,11 +53,7 @@ public class Effect : CachedEntityObject, _IDisposable
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "Effect.IncludesShadersStore",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "Effect.IncludesShadersStore", value);
         }
     }
     #endregion
@@ -115,17 +92,12 @@ public class Effect : CachedEntityObject, _IDisposable
         {
             if (__onBindObservable == null)
             {
-                __onBindObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Effect>
-                >(
+                __onBindObservable = EventHorizonBlazorInterop.GetClass<Observable<Effect>>(
                     this.___guid,
                     "onBindObservable",
                     (entity) =>
                     {
-                        return new Observable<Effect>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Effect>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -135,21 +107,12 @@ public class Effect : CachedEntityObject, _IDisposable
 
     public string key
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "key");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "key"); }
     }
 
     public bool isSupported
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isSupported"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isSupported"); }
     }
     #endregion
 
@@ -157,13 +120,7 @@ public class Effect : CachedEntityObject, _IDisposable
 
     public CachedEntity name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "name"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "name"); }
         set
         {
 
@@ -173,13 +130,7 @@ public class Effect : CachedEntityObject, _IDisposable
 
     public string defines
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "defines"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "defines"); }
         set
         {
 
@@ -207,9 +158,10 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<
-                ActionCallback<Effect, string>
-            >(this.___guid, "onError");
+            return EventHorizonBlazorInterop.Get<ActionCallback<Effect, string>>(
+                this.___guid,
+                "onError"
+            );
         }
         set
         {
@@ -222,10 +174,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<ActionCallback<Effect>>(
-                this.___guid,
-                "onBind"
-            );
+            return EventHorizonBlazorInterop.Get<ActionCallback<Effect>>(this.___guid, "onBind");
         }
         set
         {
@@ -236,13 +185,7 @@ public class Effect : CachedEntityObject, _IDisposable
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
         set
         {
 
@@ -257,17 +200,12 @@ public class Effect : CachedEntityObject, _IDisposable
         {
             if (__onCompileObservable == null)
             {
-                __onCompileObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Effect>
-                >(
+                __onCompileObservable = EventHorizonBlazorInterop.GetClass<Observable<Effect>>(
                     this.___guid,
                     "onCompileObservable",
                     (entity) =>
                     {
-                        return new Observable<Effect>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Effect>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -276,11 +214,7 @@ public class Effect : CachedEntityObject, _IDisposable
         set
         {
             __onCompileObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onCompileObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onCompileObservable", value);
         }
     }
 
@@ -291,17 +225,12 @@ public class Effect : CachedEntityObject, _IDisposable
         {
             if (__onErrorObservable == null)
             {
-                __onErrorObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Effect>
-                >(
+                __onErrorObservable = EventHorizonBlazorInterop.GetClass<Observable<Effect>>(
                     this.___guid,
                     "onErrorObservable",
                     (entity) =>
                     {
-                        return new Observable<Effect>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Effect>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -310,11 +239,7 @@ public class Effect : CachedEntityObject, _IDisposable
         set
         {
             __onErrorObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onErrorObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onErrorObservable", value);
         }
     }
     #endregion
@@ -376,8 +301,7 @@ public class Effect : CachedEntityObject, _IDisposable
     public IPipelineContextCachedEntity getPipelineContext()
     {
         return EventHorizonBlazorInterop.FuncClass<IPipelineContextCachedEntity>(
-            entity =>
-                new IPipelineContextCachedEntity() { ___guid = entity.___guid },
+            entity => new IPipelineContextCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getPipelineContext" } }
         );
     }
@@ -392,22 +316,14 @@ public class Effect : CachedEntityObject, _IDisposable
     public decimal getAttributeLocation(decimal index)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getAttributeLocation" },
-                index
-            }
+            new object[] { new string[] { this.___guid, "getAttributeLocation" }, index }
         );
     }
 
     public decimal getAttributeLocationByName(string name)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getAttributeLocationByName" },
-                name
-            }
+            new object[] { new string[] { this.___guid, "getAttributeLocationByName" }, name }
         );
     }
 
@@ -421,27 +337,15 @@ public class Effect : CachedEntityObject, _IDisposable
     public decimal getUniformIndex(string uniformName)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getUniformIndex" },
-                uniformName
-            }
+            new object[] { new string[] { this.___guid, "getUniformIndex" }, uniformName }
         );
     }
 
     public WebGLUniformLocationCachedEntity getUniform(string uniformName)
     {
         return EventHorizonBlazorInterop.FuncClass<WebGLUniformLocationCachedEntity>(
-            entity =>
-                new WebGLUniformLocationCachedEntity()
-                {
-                    ___guid = entity.___guid
-                },
-            new object[]
-            {
-                new string[] { this.___guid, "getUniform" },
-                uniformName
-            }
+            entity => new WebGLUniformLocationCachedEntity() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "getUniform" }, uniformName }
         );
     }
 
@@ -455,29 +359,20 @@ public class Effect : CachedEntityObject, _IDisposable
     public string getCompilationError()
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "getCompilationError" }
-            }
+            new object[] { new string[] { this.___guid, "getCompilationError" } }
         );
     }
 
     public bool allFallbacksProcessed()
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "allFallbacksProcessed" }
-            }
+            new object[] { new string[] { this.___guid, "allFallbacksProcessed" } }
         );
     }
 
     #region executeWhenCompiled TODO: Get Comments as metadata identification
     private bool _isExecuteWhenCompiledEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Effect, Task>
-    > _executeWhenCompiledActionMap =
+    private readonly IDictionary<string, Func<Effect, Task>> _executeWhenCompiledActionMap =
         new Dictionary<string, Func<Effect, Task>>();
 
     public string executeWhenCompiled(Func<Effect, Task> callback)
@@ -523,19 +418,11 @@ public class Effect : CachedEntityObject, _IDisposable
     public void setTexture(string channel, BaseTexture texture)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setTexture" },
-                channel,
-                texture
-            }
+            new object[] { new string[] { this.___guid, "setTexture" }, channel, texture }
         );
     }
 
-    public void setDepthStencilTexture(
-        string channel,
-        RenderTargetTexture texture
-    )
+    public void setDepthStencilTexture(string channel, RenderTargetTexture texture)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -550,19 +437,11 @@ public class Effect : CachedEntityObject, _IDisposable
     public void setTextureArray(string channel, BaseTexture[] textures)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setTextureArray" },
-                channel,
-                textures
-            }
+            new object[] { new string[] { this.___guid, "setTextureArray" }, channel, textures }
         );
     }
 
-    public void setTextureFromPostProcess(
-        string channel,
-        PostProcess postProcess
-    )
+    public void setTextureFromPostProcess(string channel, PostProcess postProcess)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -574,19 +453,12 @@ public class Effect : CachedEntityObject, _IDisposable
         );
     }
 
-    public void setTextureFromPostProcessOutput(
-        string channel,
-        PostProcess postProcess
-    )
+    public void setTextureFromPostProcessOutput(string channel, PostProcess postProcess)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "setTextureFromPostProcessOutput"
-                },
+                new string[] { this.___guid, "setTextureFromPostProcessOutput" },
                 channel,
                 postProcess
             }
@@ -596,24 +468,14 @@ public class Effect : CachedEntityObject, _IDisposable
     public void bindUniformBuffer(DataBuffer buffer, string name)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindUniformBuffer" },
-                buffer,
-                name
-            }
+            new object[] { new string[] { this.___guid, "bindUniformBuffer" }, buffer, name }
         );
     }
 
     public void bindUniformBlock(string blockName, decimal index)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindUniformBlock" },
-                blockName,
-                index
-            }
+            new object[] { new string[] { this.___guid, "bindUniformBlock" }, blockName, index }
         );
     }
 
@@ -621,12 +483,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setInt" },
-                uniformName,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setInt" }, uniformName, value }
         );
     }
 
@@ -634,12 +491,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setIntArray" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setIntArray" }, uniformName, array }
         );
     }
 
@@ -647,12 +499,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setIntArray2" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setIntArray2" }, uniformName, array }
         );
     }
 
@@ -660,12 +507,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setIntArray3" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setIntArray3" }, uniformName, array }
         );
     }
 
@@ -673,12 +515,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setIntArray4" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setIntArray4" }, uniformName, array }
         );
     }
 
@@ -686,12 +523,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloatArray" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setFloatArray" }, uniformName, array }
         );
     }
 
@@ -699,12 +531,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloatArray2" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setFloatArray2" }, uniformName, array }
         );
     }
 
@@ -712,12 +539,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloatArray3" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setFloatArray3" }, uniformName, array }
         );
     }
 
@@ -725,12 +547,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloatArray4" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setFloatArray4" }, uniformName, array }
         );
     }
 
@@ -738,12 +555,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setArray" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setArray" }, uniformName, array }
         );
     }
 
@@ -751,12 +563,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setArray2" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setArray2" }, uniformName, array }
         );
     }
 
@@ -764,12 +571,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setArray3" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setArray3" }, uniformName, array }
         );
     }
 
@@ -777,12 +579,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setArray4" },
-                uniformName,
-                array
-            }
+            new object[] { new string[] { this.___guid, "setArray4" }, uniformName, array }
         );
     }
 
@@ -790,12 +587,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setMatrices" },
-                uniformName,
-                matrices
-            }
+            new object[] { new string[] { this.___guid, "setMatrices" }, uniformName, matrices }
         );
     }
 
@@ -803,12 +595,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setMatrix" },
-                uniformName,
-                matrix
-            }
+            new object[] { new string[] { this.___guid, "setMatrix" }, uniformName, matrix }
         );
     }
 
@@ -816,12 +603,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setMatrix3x3" },
-                uniformName,
-                matrix
-            }
+            new object[] { new string[] { this.___guid, "setMatrix3x3" }, uniformName, matrix }
         );
     }
 
@@ -829,12 +611,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setMatrix2x2" },
-                uniformName,
-                matrix
-            }
+            new object[] { new string[] { this.___guid, "setMatrix2x2" }, uniformName, matrix }
         );
     }
 
@@ -842,12 +619,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloat" },
-                uniformName,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setFloat" }, uniformName, value }
         );
     }
 
@@ -855,12 +627,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setBool" },
-                uniformName,
-                @bool
-            }
+            new object[] { new string[] { this.___guid, "setBool" }, uniformName, @bool }
         );
     }
 
@@ -868,12 +635,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setVector2" },
-                uniformName,
-                vector2
-            }
+            new object[] { new string[] { this.___guid, "setVector2" }, uniformName, vector2 }
         );
     }
 
@@ -881,13 +643,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloat2" },
-                uniformName,
-                x,
-                y
-            }
+            new object[] { new string[] { this.___guid, "setFloat2" }, uniformName, x, y }
         );
     }
 
@@ -895,12 +651,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setVector3" },
-                uniformName,
-                vector3
-            }
+            new object[] { new string[] { this.___guid, "setVector3" }, uniformName, vector3 }
         );
     }
 
@@ -908,14 +659,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloat3" },
-                uniformName,
-                x,
-                y,
-                z
-            }
+            new object[] { new string[] { this.___guid, "setFloat3" }, uniformName, x, y, z }
         );
     }
 
@@ -923,34 +667,15 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setVector4" },
-                uniformName,
-                vector4
-            }
+            new object[] { new string[] { this.___guid, "setVector4" }, uniformName, vector4 }
         );
     }
 
-    public Effect setFloat4(
-        string uniformName,
-        decimal x,
-        decimal y,
-        decimal z,
-        decimal w
-    )
+    public Effect setFloat4(string uniformName, decimal x, decimal y, decimal z, decimal w)
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloat4" },
-                uniformName,
-                x,
-                y,
-                z,
-                w
-            }
+            new object[] { new string[] { this.___guid, "setFloat4" }, uniformName, x, y, z, w }
         );
     }
 
@@ -958,30 +683,15 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setColor3" },
-                uniformName,
-                color3
-            }
+            new object[] { new string[] { this.___guid, "setColor3" }, uniformName, color3 }
         );
     }
 
-    public Effect setColor4(
-        string uniformName,
-        IColor3Like color3,
-        decimal alpha
-    )
+    public Effect setColor4(string uniformName, IColor3Like color3, decimal alpha)
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setColor4" },
-                uniformName,
-                color3,
-                alpha
-            }
+            new object[] { new string[] { this.___guid, "setColor4" }, uniformName, color3, alpha }
         );
     }
 
@@ -989,12 +699,7 @@ public class Effect : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<Effect>(
             entity => new Effect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setDirectColor4" },
-                uniformName,
-                color4
-            }
+            new object[] { new string[] { this.___guid, "setDirectColor4" }, uniformName, color4 }
         );
     }
 

@@ -4,11 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Api;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
@@ -34,11 +32,7 @@ public class SignalrZoneEditorApi : ZoneEditorApi
             {
                 return new(ZoneEditorErrorCodes.NOT_CONNECTED);
             }
-            return new(
-                await _hubConnection.InvokeAsync<EditorNodeList>(
-                    "GetEditorState"
-                )
-            );
+            return new(await _hubConnection.InvokeAsync<EditorNodeList>("GetEditorState"));
         }
         catch (Exception ex)
         {
@@ -51,10 +45,7 @@ public class SignalrZoneEditorApi : ZoneEditorApi
         }
     }
 
-    public async Task<EditorFile?> GetEditorFileContent(
-        IList<string> path,
-        string fileName
-    )
+    public async Task<EditorFile?> GetEditorFileContent(IList<string> path, string fileName)
     {
         try
         {
@@ -101,17 +92,10 @@ public class SignalrZoneEditorApi : ZoneEditorApi
                 }
         );
 
-    public Task<EditorResponse> CreateEditorFile(
-        IList<string> path,
-        string fileName
-    ) =>
+    public Task<EditorResponse> CreateEditorFile(IList<string> path, string fileName) =>
         LogOnError(
             action: async (hubConnection) =>
-                await hubConnection.InvokeAsync<EditorResponse>(
-                    "CreateEditorFile",
-                    path,
-                    fileName
-                ),
+                await hubConnection.InvokeAsync<EditorResponse>("CreateEditorFile", path, fileName),
             onError: () =>
                 new EditorResponse
                 {
@@ -120,10 +104,7 @@ public class SignalrZoneEditorApi : ZoneEditorApi
                 }
         );
 
-    public Task<EditorResponse> CreateEditorFolder(
-        IList<string> path,
-        string folderName
-    ) =>
+    public Task<EditorResponse> CreateEditorFolder(IList<string> path, string folderName) =>
         LogOnError(
             action: async (hubConnection) =>
                 await hubConnection.InvokeAsync<EditorResponse>(
@@ -139,17 +120,10 @@ public class SignalrZoneEditorApi : ZoneEditorApi
                 }
         );
 
-    public Task<EditorResponse> DeleteEditorFile(
-        IList<string> path,
-        string fileName
-    ) =>
+    public Task<EditorResponse> DeleteEditorFile(IList<string> path, string fileName) =>
         LogOnError(
             action: async (hubConnection) =>
-                await hubConnection.InvokeAsync<EditorResponse>(
-                    "DeleteEditorFile",
-                    path,
-                    fileName
-                ),
+                await hubConnection.InvokeAsync<EditorResponse>("DeleteEditorFile", path, fileName),
             onError: () =>
                 new EditorResponse
                 {
@@ -158,10 +132,7 @@ public class SignalrZoneEditorApi : ZoneEditorApi
                 }
         );
 
-    public Task<EditorResponse> DeleteEditorFolder(
-        IList<string> path,
-        string folderName
-    ) =>
+    public Task<EditorResponse> DeleteEditorFolder(IList<string> path, string folderName) =>
         LogOnError(
             action: async (hubConnection) =>
                 await hubConnection.InvokeAsync<EditorResponse>(
@@ -198,11 +169,7 @@ public class SignalrZoneEditorApi : ZoneEditorApi
         }
         catch (Exception ex)
         {
-            _logger.LogError(
-                ex,
-                "Failed Zone Editor API Call: {ActionName}",
-                actionName
-            );
+            _logger.LogError(ex, "Failed Zone Editor API Call: {ActionName}", actionName);
             return onError();
         }
     }

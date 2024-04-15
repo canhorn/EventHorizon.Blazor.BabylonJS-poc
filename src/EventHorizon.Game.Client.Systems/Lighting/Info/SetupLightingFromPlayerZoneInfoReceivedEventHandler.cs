@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
 using EventHorizon.Game.Client.Systems.Lighting.Create;
 using EventHorizon.Game.Client.Systems.Lighting.Model;
-
 using MediatR;
 
 public class SetupLightingFromPlayerZoneInfoReceivedEventHandler
@@ -15,9 +13,7 @@ public class SetupLightingFromPlayerZoneInfoReceivedEventHandler
 {
     private readonly IMediator _mediator;
 
-    public SetupLightingFromPlayerZoneInfoReceivedEventHandler(
-        IMediator mediator
-    )
+    public SetupLightingFromPlayerZoneInfoReceivedEventHandler(IMediator mediator)
     {
         _mediator = mediator;
     }

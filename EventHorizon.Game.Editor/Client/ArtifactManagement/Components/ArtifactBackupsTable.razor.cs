@@ -3,12 +3,10 @@ namespace EventHorizon.Game.Editor.Client.ArtifactManagement.Components;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Components.Model;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Query;
 using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class ArtifactBackupsTableBase : ArtifactComponentBase
@@ -16,8 +14,7 @@ public class ArtifactBackupsTableBase : ArtifactComponentBase
     [Parameter]
     public string ServiceFilter { get; set; } = string.Empty;
 
-    protected ComponentState DisplayState { get; set; } =
-        ComponentState.Loading;
+    protected ComponentState DisplayState { get; set; } = ComponentState.Loading;
     protected IEnumerable<ArtifactViewModel> ArtifactList { get; set; } =
         new List<ArtifactViewModel>();
 

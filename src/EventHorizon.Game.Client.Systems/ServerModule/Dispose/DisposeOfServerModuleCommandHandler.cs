@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
 using EventHorizon.Game.Client.Systems.ServerModule.Api;
-
 using MediatR;
 
 public class DisposeOfServerModuleCommandHandler

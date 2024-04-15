@@ -3,11 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class ClientActionRunSkillActionEventHandler
@@ -37,11 +34,7 @@ public class ClientActionRunSkillActionEventHandler
         );
 
         await _mediator.Send(
-            new RunClientScriptCommand(
-                notification.Action,
-                notification.Action,
-                notification.Data
-            ),
+            new RunClientScriptCommand(notification.Action, notification.Action, notification.Data),
             cancellationToken
         );
     }

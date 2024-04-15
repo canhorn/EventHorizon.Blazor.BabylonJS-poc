@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<DepthCullingState>))]
@@ -30,21 +28,12 @@ public class DepthCullingState : CachedEntityObject
 
     public bool isDirty
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty"); }
     }
 
     public decimal zOffset
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "zOffset"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "zOffset"); }
         set
         {
 
@@ -54,13 +43,7 @@ public class DepthCullingState : CachedEntityObject
 
     public decimal cullFace
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cullFace"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cullFace"); }
         set
         {
 
@@ -70,10 +53,7 @@ public class DepthCullingState : CachedEntityObject
 
     public bool cull
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "cull");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "cull"); }
         set
         {
 
@@ -83,13 +63,7 @@ public class DepthCullingState : CachedEntityObject
 
     public decimal depthFunc
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "depthFunc"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "depthFunc"); }
         set
         {
 
@@ -99,13 +73,7 @@ public class DepthCullingState : CachedEntityObject
 
     public bool depthMask
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "depthMask"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "depthMask"); }
         set
         {
 
@@ -115,13 +83,7 @@ public class DepthCullingState : CachedEntityObject
 
     public bool depthTest
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "depthTest"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "depthTest"); }
         set
         {
 
@@ -131,13 +93,7 @@ public class DepthCullingState : CachedEntityObject
 
     public decimal frontFace
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "frontFace"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "frontFace"); }
         set
         {
 

@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class OpenAssetServerImportFileUploaderEventObserverHandler
@@ -12,9 +10,7 @@ public class OpenAssetServerImportFileUploaderEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public OpenAssetServerImportFileUploaderEventObserverHandler(
-        ObserverState observer
-    )
+    public OpenAssetServerImportFileUploaderEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

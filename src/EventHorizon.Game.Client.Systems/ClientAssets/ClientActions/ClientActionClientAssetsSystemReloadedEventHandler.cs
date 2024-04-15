@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Loaded;
 using EventHorizon.Game.Client.Systems.ClientAssets.Reload;
-
 using MediatR;
 
 public class ClientActionClientAssetsSystemReloadedEventHandler
@@ -36,24 +34,16 @@ public class ClientActionClientAssetsSystemReloadedEventHandler
         CancellationToken cancellationToken
     )
     {
-        await _publisher.Publish(
-            new ReloadingClientAssetsEvent(),
-            cancellationToken
-        );
+        await _publisher.Publish(new ReloadingClientAssetsEvent(), cancellationToken);
 
         _clientAssetState.Reset();
 
         foreach (var clientAsset in notification.ClientAssetList)
         {
-            clientAsset.SetConfig(
-                _builderState.Get(clientAsset.Type).Build(clientAsset.Data)
-            );
+            clientAsset.SetConfig(_builderState.Get(clientAsset.Type).Build(clientAsset.Data));
             _clientAssetState.Set(clientAsset);
         }
 
-        await _publisher.Publish(
-            new ClientAssetsLoadedEvent(),
-            cancellationToken
-        );
+        await _publisher.Publish(new ClientAssetsLoadedEvent(), cancellationToken);
     }
 }

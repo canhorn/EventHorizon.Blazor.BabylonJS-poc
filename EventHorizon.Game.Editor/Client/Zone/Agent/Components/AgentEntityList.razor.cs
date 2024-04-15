@@ -4,15 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Editor.Client.Zone.Agent.Selected;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Interaction;
 using EventHorizon.Game.Editor.Client.Zone.Model;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Components;
 
 public class AgentEntityListModel : ComponentBase

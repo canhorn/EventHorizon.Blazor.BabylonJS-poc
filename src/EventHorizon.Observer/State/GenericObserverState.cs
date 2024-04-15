@@ -5,11 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Admin.Model;
 using EventHorizon.Observer.Admin.State;
 using EventHorizon.Observer.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class GenericObserverState : ObserverState, AdminObserverState
@@ -19,8 +17,7 @@ public class GenericObserverState : ObserverState, AdminObserverState
 
     private readonly ILogger _logger;
 
-    private IEnumerable<AdminObserverBase> _adminList =
-        new List<AdminObserverBase>().AsReadOnly();
+    private IEnumerable<AdminObserverBase> _adminList = new List<AdminObserverBase>().AsReadOnly();
 
     public GenericObserverState(ILogger<GenericObserverState> logger)
     {
@@ -53,8 +50,7 @@ public class GenericObserverState : ObserverState, AdminObserverState
         where TInstance : ArgumentObserver<TArgs>
     {
         var typeOf = typeof(TInstance);
-        var list = List.Where(a => typeOf.IsAssignableFrom(a.GetType()))
-            .ToList();
+        var list = List.Where(a => typeOf.IsAssignableFrom(a.GetType())).ToList();
         var shouldRunOnce = ShouldRunOnce(typeOf);
         var exceptionListToRemove = new List<ObserverBase>();
         foreach (var observer in list)
@@ -69,10 +65,7 @@ public class GenericObserverState : ObserverState, AdminObserverState
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(
-                    ex,
-                    "Exception thrown while triggering observer."
-                );
+                _logger.LogWarning(ex, "Exception thrown while triggering observer.");
                 exceptionListToRemove.Add(observer);
             }
         }
@@ -94,10 +87,7 @@ public class GenericObserverState : ObserverState, AdminObserverState
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(
-                    ex,
-                    "Exception thrown while triggering observer."
-                );
+                _logger.LogWarning(ex, "Exception thrown while triggering observer.");
                 adminExceptionListToRemove.Add(observer);
             }
         }
@@ -111,13 +101,9 @@ public class GenericObserverState : ObserverState, AdminObserverState
     {
         return observerType
             .GetInterfaces()
-            .Any(
-                i =>
-                    i.IsGenericType
-                    && (
-                        i.GetGenericTypeDefinition()
-                        == typeof(SingleArgumentBasedObserver<>)
-                    )
+            .Any(i =>
+                i.IsGenericType
+                && (i.GetGenericTypeDefinition() == typeof(SingleArgumentBasedObserver<>))
             );
     }
 
@@ -148,8 +134,7 @@ public class GenericObserverState : ObserverState, AdminObserverState
         CancellationToken cancellationToken = default
     )
     {
-        var list = List.Where(a => instanceType.IsAssignableFrom(a.GetType()))
-            .ToList();
+        var list = List.Where(a => instanceType.IsAssignableFrom(a.GetType())).ToList();
         var shouldRunOnce = ShouldRunOnce(argsType);
         var exceptionListToRemove = new List<ObserverBase>();
         foreach (var observer in list)
@@ -168,10 +153,7 @@ public class GenericObserverState : ObserverState, AdminObserverState
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(
-                    ex,
-                    "Exception thrown while triggering non-generic observer."
-                );
+                _logger.LogWarning(ex, "Exception thrown while triggering non-generic observer.");
                 exceptionListToRemove.Add(observer);
             }
         }
@@ -193,10 +175,7 @@ public class GenericObserverState : ObserverState, AdminObserverState
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(
-                    ex,
-                    "Exception thrown while triggering non-generic observer."
-                );
+                _logger.LogWarning(ex, "Exception thrown while triggering non-generic observer.");
                 adminExceptionListToRemove.Add(observer);
             }
         }

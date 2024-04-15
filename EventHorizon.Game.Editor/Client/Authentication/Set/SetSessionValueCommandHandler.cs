@@ -2,14 +2,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using Blazored.LocalStorage;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Authentication.Api;
 using EventHorizon.Game.Editor.Client.Authentication.Fill;
 using EventHorizon.Game.Editor.Client.Authentication.Model;
-
 using MediatR;
 
 public class SetSessionValueCommandHandler
@@ -39,16 +36,10 @@ public class SetSessionValueCommandHandler
         _state.Session[request.Key] = request.Value;
 
         // Save to LocalStorage
-        await _localStorage.SetItemAsync(
-            SessionValuesModel.SESSION_VALUES_KEY,
-            _state.Session
-        );
+        await _localStorage.SetItemAsync(SessionValuesModel.SESSION_VALUES_KEY, _state.Session);
 
         // Publish Session Value Set Event
-        await _mediator.Publish(
-            new SessionValueSetEvent(request.Key),
-            cancellationToken
-        );
+        await _mediator.Publish(new SessionValueSetEvent(request.Key), cancellationToken);
 
         return new();
     }

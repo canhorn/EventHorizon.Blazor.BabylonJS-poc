@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Entity.Model;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 
 public class StandardColor4 : IColor4

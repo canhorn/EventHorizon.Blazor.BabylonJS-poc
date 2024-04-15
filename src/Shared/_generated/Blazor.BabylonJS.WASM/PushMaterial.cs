@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<PushMaterial>))]
@@ -34,21 +32,11 @@ public class PushMaterial : Material
 
     public bool allowShaderHotSwapping
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "allowShaderHotSwapping"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "allowShaderHotSwapping"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "allowShaderHotSwapping",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "allowShaderHotSwapping", value);
         }
     }
     #endregion
@@ -81,40 +69,24 @@ public class PushMaterial : Material
         );
     }
 
-    public bool isReady(
-        AbstractMesh mesh = null,
-        System.Nullable<bool> useInstances = null
-    )
+    public bool isReady(AbstractMesh mesh = null, System.Nullable<bool> useInstances = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isReady" },
-                mesh,
-                useInstances
-            }
+            new object[] { new string[] { this.___guid, "isReady" }, mesh, useInstances }
         );
     }
 
     public void bindOnlyWorldMatrix(Matrix world)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindOnlyWorldMatrix" },
-                world
-            }
+            new object[] { new string[] { this.___guid, "bindOnlyWorldMatrix" }, world }
         );
     }
 
     public void bindOnlyNormalMatrix(Matrix normalMatrix)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindOnlyNormalMatrix" },
-                normalMatrix
-            }
+            new object[] { new string[] { this.___guid, "bindOnlyNormalMatrix" }, normalMatrix }
         );
     }
 

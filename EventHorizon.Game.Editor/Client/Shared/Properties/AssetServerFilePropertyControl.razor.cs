@@ -3,12 +3,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
 using EventHorizon.Game.Server.Asset.Query;
-
 using Microsoft.AspNetCore.Components;
 
 public class AssetServerFilePropertyControlModel : PropertyControlBase
@@ -51,19 +49,12 @@ public class AssetServerFilePropertyControlModel : PropertyControlBase
             return;
         }
 
-        var options = result.Result.FileList
-            .Select(
-                clientAsset =>
-                    new StandardSelectOption
-                    {
-                        Value = clientAsset.FullName,
-                        Text = Localizer[
-                            "{0} ({1})",
-                            clientAsset.Name,
-                            clientAsset.ParentPath
-                        ],
-                    }
-            )
+        var options = result
+            .Result.FileList.Select(clientAsset => new StandardSelectOption
+            {
+                Value = clientAsset.FullName,
+                Text = Localizer["{0} ({1})", clientAsset.Name, clientAsset.ParentPath],
+            })
             .OrderBy(a => a.Text)
             .InsertItem(
                 0,
@@ -85,9 +76,7 @@ public class AssetServerFilePropertyControlModel : PropertyControlBase
     {
         if (AssetOptions.Exists(a => a.Value == AssetServerFullName))
         {
-            SelectedAssetOption = AssetOptions.First(
-                a => a.Value == AssetServerFullName
-            );
+            SelectedAssetOption = AssetOptions.First(a => a.Value == AssetServerFullName);
         }
         else
         {

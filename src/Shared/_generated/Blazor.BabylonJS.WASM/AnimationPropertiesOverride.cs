@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AnimationPropertiesOverride>))]
@@ -34,33 +32,17 @@ public class AnimationPropertiesOverride : CachedEntityObject
 
     public bool enableBlending
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enableBlending"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enableBlending"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enableBlending",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enableBlending", value);
         }
     }
 
     public decimal blendingSpeed
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "blendingSpeed"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "blendingSpeed"); }
         set
         {
 
@@ -70,13 +52,7 @@ public class AnimationPropertiesOverride : CachedEntityObject
 
     public decimal loopMode
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "loopMode"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "loopMode"); }
         set
         {
 

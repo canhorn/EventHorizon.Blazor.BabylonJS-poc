@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface WebGLRenderingContext : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<WebGLRenderingContextCachedEntity>)
-)]
-public class WebGLRenderingContextCachedEntity
-    : CachedEntityObject,
-        WebGLRenderingContext
+[JsonConverter(typeof(CachedEntityConverter<WebGLRenderingContextCachedEntity>))]
+public class WebGLRenderingContextCachedEntity : CachedEntityObject, WebGLRenderingContext
 {
     #region Static Accessors
 
@@ -40,13 +34,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal MAX_SAMPLES
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "MAX_SAMPLES"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "MAX_SAMPLES"); }
         set
         {
 
@@ -56,13 +44,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RGBA8
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "RGBA8"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RGBA8"); }
         set
         {
 
@@ -72,93 +54,47 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal READ_FRAMEBUFFER
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "READ_FRAMEBUFFER"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "READ_FRAMEBUFFER"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "READ_FRAMEBUFFER",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "READ_FRAMEBUFFER", value);
         }
     }
 
     public decimal DRAW_FRAMEBUFFER
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "DRAW_FRAMEBUFFER"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "DRAW_FRAMEBUFFER"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "DRAW_FRAMEBUFFER",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "DRAW_FRAMEBUFFER", value);
         }
     }
 
     public decimal UNIFORM_BUFFER
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "UNIFORM_BUFFER"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "UNIFORM_BUFFER"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "UNIFORM_BUFFER",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "UNIFORM_BUFFER", value);
         }
     }
 
     public decimal HALF_FLOAT_OES
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "HALF_FLOAT_OES"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "HALF_FLOAT_OES"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "HALF_FLOAT_OES",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "HALF_FLOAT_OES", value);
         }
     }
 
     public decimal RGBA16F
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "RGBA16F"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RGBA16F"); }
         set
         {
 
@@ -168,13 +104,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RGBA32F
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "RGBA32F"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RGBA32F"); }
         set
         {
 
@@ -184,10 +114,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal R32F
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "R32F");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "R32F"); }
         set
         {
 
@@ -197,13 +124,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RG32F
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "RG32F"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RG32F"); }
         set
         {
 
@@ -213,13 +134,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RGB32F
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "RGB32F"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RGB32F"); }
         set
         {
 
@@ -229,10 +144,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal R16F
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "R16F");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "R16F"); }
         set
         {
 
@@ -242,13 +154,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RG16F
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "RG16F"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RG16F"); }
         set
         {
 
@@ -258,13 +164,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RGB16F
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "RGB16F"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RGB16F"); }
         set
         {
 
@@ -274,10 +174,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RED
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RED");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RED"); }
         set
         {
 
@@ -287,10 +184,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RG
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RG");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RG"); }
         set
         {
 
@@ -300,10 +194,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal R8
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "R8");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "R8"); }
         set
         {
 
@@ -313,10 +204,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal RG8
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RG8");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "RG8"); }
         set
         {
 
@@ -326,50 +214,27 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal UNSIGNED_INT_24_8
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "UNSIGNED_INT_24_8"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "UNSIGNED_INT_24_8"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "UNSIGNED_INT_24_8",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "UNSIGNED_INT_24_8", value);
         }
     }
 
     public decimal DEPTH24_STENCIL8
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "DEPTH24_STENCIL8"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "DEPTH24_STENCIL8"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "DEPTH24_STENCIL8",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "DEPTH24_STENCIL8", value);
         }
     }
 
     public decimal MIN
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "MIN");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "MIN"); }
         set
         {
 
@@ -379,10 +244,7 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal MAX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "MAX");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "MAX"); }
         set
         {
 
@@ -392,46 +254,22 @@ public class WebGLRenderingContextCachedEntity
 
     public decimal COLOR_ATTACHMENT0
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "COLOR_ATTACHMENT0"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "COLOR_ATTACHMENT0"); }
     }
 
     public decimal COLOR_ATTACHMENT1
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "COLOR_ATTACHMENT1"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "COLOR_ATTACHMENT1"); }
     }
 
     public decimal COLOR_ATTACHMENT2
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "COLOR_ATTACHMENT2"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "COLOR_ATTACHMENT2"); }
     }
 
     public decimal COLOR_ATTACHMENT3
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "COLOR_ATTACHMENT3"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "COLOR_ATTACHMENT3"); }
     }
 
     public decimal ANY_SAMPLES_PASSED_CONSERVATIVE
@@ -446,31 +284,17 @@ public class WebGLRenderingContextCachedEntity
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ANY_SAMPLES_PASSED_CONSERVATIVE",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ANY_SAMPLES_PASSED_CONSERVATIVE", value);
         }
     }
 
     public decimal ANY_SAMPLES_PASSED
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "ANY_SAMPLES_PASSED"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "ANY_SAMPLES_PASSED"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ANY_SAMPLES_PASSED",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ANY_SAMPLES_PASSED", value);
         }
     }
 
@@ -478,31 +302,18 @@ public class WebGLRenderingContextCachedEntity
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "QUERY_RESULT_AVAILABLE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "QUERY_RESULT_AVAILABLE");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "QUERY_RESULT_AVAILABLE",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "QUERY_RESULT_AVAILABLE", value);
         }
     }
 
     public decimal QUERY_RESULT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "QUERY_RESULT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "QUERY_RESULT"); }
         set
         {
 
@@ -521,12 +332,7 @@ public class WebGLRenderingContextCachedEntity
     #endregion
 
     #region Methods
-    public void drawArraysInstanced(
-        decimal mode,
-        decimal first,
-        decimal count,
-        decimal primcount
-    )
+    public void drawArraysInstanced(decimal mode, decimal first, decimal count, decimal primcount)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -564,12 +370,7 @@ public class WebGLRenderingContextCachedEntity
     public void vertexAttribDivisor(decimal index, decimal divisor)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "vertexAttribDivisor" },
-                index,
-                divisor
-            }
+            new object[] { new string[] { this.___guid, "vertexAttribDivisor" }, index, divisor }
         );
     }
 
@@ -583,22 +384,14 @@ public class WebGLRenderingContextCachedEntity
     public void bindVertexArray(WebGLVertexArrayObject vao = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindVertexArray" },
-                vao
-            }
+            new object[] { new string[] { this.___guid, "bindVertexArray" }, vao }
         );
     }
 
     public void deleteVertexArray(WebGLVertexArrayObject vao)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "deleteVertexArray" },
-                vao
-            }
+            new object[] { new string[] { this.___guid, "deleteVertexArray" }, vao }
         );
     }
 
@@ -654,27 +447,14 @@ public class WebGLRenderingContextCachedEntity
         );
     }
 
-    public void bindBufferBase(
-        decimal target,
-        decimal index,
-        WebGLBuffer buffer = null
-    )
+    public void bindBufferBase(decimal target, decimal index, WebGLBuffer buffer = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindBufferBase" },
-                target,
-                index,
-                buffer
-            }
+            new object[] { new string[] { this.___guid, "bindBufferBase" }, target, index, buffer }
         );
     }
 
-    public decimal getUniformBlockIndex(
-        WebGLProgram program,
-        string uniformBlockName
-    )
+    public decimal getUniformBlockIndex(WebGLProgram program, string uniformBlockName)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]
@@ -721,12 +501,7 @@ public class WebGLRenderingContextCachedEntity
     public void beginQuery(decimal target, WebGLQuery query)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "beginQuery" },
-                target,
-                query
-            }
+            new object[] { new string[] { this.___guid, "beginQuery" }, target, query }
         );
     }
 
@@ -740,35 +515,21 @@ public class WebGLRenderingContextCachedEntity
     public CachedEntity getQueryParameter(WebGLQuery query, decimal pname)
     {
         return EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getQueryParameter" },
-                query,
-                pname
-            }
+            new object[] { new string[] { this.___guid, "getQueryParameter" }, query, pname }
         );
     }
 
     public CachedEntity getQuery(decimal target, decimal pname)
     {
         return EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getQuery" },
-                target,
-                pname
-            }
+            new object[] { new string[] { this.___guid, "getQuery" }, target, pname }
         );
     }
 
     public void drawBuffers(decimal[] buffers)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "drawBuffers" },
-                buffers
-            }
+            new object[] { new string[] { this.___guid, "drawBuffers" }, buffers }
         );
     }
 

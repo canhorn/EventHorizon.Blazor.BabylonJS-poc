@@ -3,14 +3,12 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Dispose;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
 using EventHorizon.Game.Client.Systems.Player.Api;
 using EventHorizon.Game.Client.Systems.Player.Changed;
 using EventHorizon.Game.Client.Systems.Player.Model;
-
 using MediatR;
 
 public class RegisterPlayerCommandHandler
@@ -19,10 +17,7 @@ public class RegisterPlayerCommandHandler
     private readonly IMediator _mediator;
     private readonly IPlayerState _state;
 
-    public RegisterPlayerCommandHandler(
-        IMediator mediator,
-        IPlayerState playerState
-    )
+    public RegisterPlayerCommandHandler(IMediator mediator, IPlayerState playerState)
     {
         _mediator = mediator;
         _state = playerState;
@@ -42,17 +37,11 @@ public class RegisterPlayerCommandHandler
         }
         var player = new BabylonJSPlayerEntity(request.Player);
 
-        await _mediator.Publish(
-            new RegisterEntityEvent(player),
-            cancellationToken
-        );
+        await _mediator.Publish(new RegisterEntityEvent(player), cancellationToken);
 
         _state.Set(player);
 
-        await _mediator.Publish(
-            new PlayerDetailsChangedEvent(),
-            cancellationToken
-        );
+        await _mediator.Publish(new PlayerDetailsChangedEvent(), cancellationToken);
 
         return new StandardCommandResult();
     }

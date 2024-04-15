@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Wizard.Components.Renderer.Types;
 
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Components;
 
 public class WizardStepTextInputBase : WizardStepCommonBase

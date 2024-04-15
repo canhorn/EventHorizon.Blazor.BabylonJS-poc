@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.Authentication.Api;
-
 using MediatR;
 
 public class QueryForCurrentAccessTokenHandler

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Systems.Player.Model;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Player.Api;
 
 public class StandardPlayerDetails : IPlayerDetails

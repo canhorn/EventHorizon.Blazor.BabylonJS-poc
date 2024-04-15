@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Observer.Admin.Unregister;
 
 using EventHorizon.Observer.Admin.Model;
-
 using MediatR;
 
 public class UnregisterAdminObserverCommand : IRequest

@@ -2,9 +2,7 @@
 
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
-
 using Microsoft.AspNetCore.Components;
 
 public abstract class PropertyControlBase : EditorComponentBase
@@ -24,8 +22,7 @@ public abstract class PropertyControlBase : EditorComponentBase
     [Parameter]
     public EventCallback<string> OnRemove { get; set; }
 
-    public string LabelText =>
-        string.IsNullOrWhiteSpace(Label) ? PropertyName : Label;
+    public string LabelText => string.IsNullOrWhiteSpace(Label) ? PropertyName : Label;
     public bool ShowRemove => OnRemove.HasDelegate;
 
     protected async Task HandleChange(ChangeEventArgs args)
@@ -33,11 +30,7 @@ public abstract class PropertyControlBase : EditorComponentBase
         args.NullCheck();
         args.Value.NullCheck();
         await OnChange.InvokeAsync(
-            new PropertyChangedArgs
-            {
-                PropertyName = PropertyName,
-                Property = Parse(args.Value)
-            }
+            new PropertyChangedArgs { PropertyName = PropertyName, Property = Parse(args.Value) }
         );
     }
 

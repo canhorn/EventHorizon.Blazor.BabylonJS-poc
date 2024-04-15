@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class ReloadingClientAssetsEventObserverHandler
@@ -21,8 +19,8 @@ public class ReloadingClientAssetsEventObserverHandler
         ReloadingClientAssetsEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ReloadingClientAssetsEventObserver,
-            ReloadingClientAssetsEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ReloadingClientAssetsEventObserver, ReloadingClientAssetsEvent>(
+            notification,
+            cancellationToken
+        );
 }

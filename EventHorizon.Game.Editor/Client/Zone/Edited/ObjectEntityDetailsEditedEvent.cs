@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ObjectEntityDetailsEditedEvent : INotification
@@ -36,8 +34,8 @@ public class ObjectEntityDetailsEditedEventObserverHandler
         ObjectEntityDetailsEditedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ObjectEntityDetailsEditedEventObserver,
-            ObjectEntityDetailsEditedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ObjectEntityDetailsEditedEventObserver, ObjectEntityDetailsEditedEvent>(
+            notification,
+            cancellationToken
+        );
 }

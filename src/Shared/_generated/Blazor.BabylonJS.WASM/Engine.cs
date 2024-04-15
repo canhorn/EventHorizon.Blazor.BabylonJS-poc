@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Engine>))]
@@ -18,24 +16,12 @@ public class Engine : ThinEngine
 
     public static string NpmPackage
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "Engine.NpmPackage"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "Engine.NpmPackage"); }
     }
 
     public static string Version
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                "BABYLON",
-                "Engine.Version"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>("BABYLON", "Engine.Version"); }
     }
 
     public static Engine[] Instances
@@ -60,15 +46,14 @@ public class Engine : ThinEngine
         {
             if (__LastCreatedEngine == null)
             {
-                __LastCreatedEngine =
-                    EventHorizonBlazorInterop.GetClass<Engine>(
-                        "BABYLON",
-                        "Engine.LastCreatedEngine",
-                        (entity) =>
-                        {
-                            return new Engine() { ___guid = entity.___guid };
-                        }
-                    );
+                __LastCreatedEngine = EventHorizonBlazorInterop.GetClass<Engine>(
+                    "BABYLON",
+                    "Engine.LastCreatedEngine",
+                    (entity) =>
+                    {
+                        return new Engine() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __LastCreatedEngine;
         }
@@ -99,89 +84,44 @@ public class Engine : ThinEngine
 
     public static decimal ALPHA_DISABLE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_DISABLE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_DISABLE"); }
     }
 
     public static decimal ALPHA_ADD
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_ADD"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_ADD"); }
     }
 
     public static decimal ALPHA_COMBINE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_COMBINE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_COMBINE"); }
     }
 
     public static decimal ALPHA_SUBTRACT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_SUBTRACT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_SUBTRACT"); }
     }
 
     public static decimal ALPHA_MULTIPLY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_MULTIPLY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_MULTIPLY"); }
     }
 
     public static decimal ALPHA_MAXIMIZED
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_MAXIMIZED"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_MAXIMIZED"); }
     }
 
     public static decimal ALPHA_ONEONE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_ONEONE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_ONEONE"); }
     }
 
     public static decimal ALPHA_PREMULTIPLIED
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_PREMULTIPLIED"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_PREMULTIPLIED");
         }
     }
 
@@ -200,32 +140,20 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_INTERPOLATE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_INTERPOLATE");
         }
     }
 
     public static decimal ALPHA_SCREENMODE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALPHA_SCREENMODE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALPHA_SCREENMODE"); }
     }
 
     public static decimal DELAYLOADSTATE_NONE
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.DELAYLOADSTATE_NONE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.DELAYLOADSTATE_NONE");
         }
     }
 
@@ -264,167 +192,77 @@ public class Engine : ThinEngine
 
     public static decimal NEVER
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.NEVER"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.NEVER"); }
     }
 
     public static decimal ALWAYS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.ALWAYS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.ALWAYS"); }
     }
 
     public static decimal LESS
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.LESS"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.LESS"); }
     }
 
     public static decimal EQUAL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.EQUAL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.EQUAL"); }
     }
 
     public static decimal LEQUAL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.LEQUAL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.LEQUAL"); }
     }
 
     public static decimal GREATER
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.GREATER"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.GREATER"); }
     }
 
     public static decimal GEQUAL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.GEQUAL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.GEQUAL"); }
     }
 
     public static decimal NOTEQUAL
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.NOTEQUAL"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.NOTEQUAL"); }
     }
 
     public static decimal KEEP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.KEEP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.KEEP"); }
     }
 
     public static decimal REPLACE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.REPLACE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.REPLACE"); }
     }
 
     public static decimal INCR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.INCR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.INCR"); }
     }
 
     public static decimal DECR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.DECR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.DECR"); }
     }
 
     public static decimal INVERT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.INVERT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.INVERT"); }
     }
 
     public static decimal INCR_WRAP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.INCR_WRAP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.INCR_WRAP"); }
     }
 
     public static decimal DECR_WRAP
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.DECR_WRAP"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.DECR_WRAP"); }
     }
 
     public static decimal TEXTURE_CLAMP_ADDRESSMODE
@@ -464,10 +302,7 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTUREFORMAT_ALPHA"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTUREFORMAT_ALPHA");
         }
     }
 
@@ -497,10 +332,7 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTUREFORMAT_RGB"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTUREFORMAT_RGB");
         }
     }
 
@@ -508,10 +340,7 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTUREFORMAT_RGBA"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTUREFORMAT_RGBA");
         }
     }
 
@@ -519,33 +348,18 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTUREFORMAT_RED"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTUREFORMAT_RED");
         }
     }
 
     public static decimal TEXTUREFORMAT_R
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTUREFORMAT_R"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTUREFORMAT_R"); }
     }
 
     public static decimal TEXTUREFORMAT_RG
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTUREFORMAT_RG"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTUREFORMAT_RG"); }
     }
 
     public static decimal TEXTUREFORMAT_RED_INTEGER
@@ -629,10 +443,7 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTURETYPE_FLOAT"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTURETYPE_FLOAT");
         }
     }
 
@@ -649,23 +460,14 @@ public class Engine : ThinEngine
 
     public static decimal TEXTURETYPE_BYTE
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTURETYPE_BYTE"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTURETYPE_BYTE"); }
     }
 
     public static decimal TEXTURETYPE_SHORT
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTURETYPE_SHORT"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTURETYPE_SHORT");
         }
     }
 
@@ -682,13 +484,7 @@ public class Engine : ThinEngine
 
     public static decimal TEXTURETYPE_INT
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTURETYPE_INT"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTURETYPE_INT"); }
     }
 
     public static decimal TEXTURETYPE_UNSIGNED_INTEGER
@@ -981,10 +777,7 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTURE_PLANAR_MODE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTURE_PLANAR_MODE");
         }
     }
 
@@ -992,10 +785,7 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTURE_CUBIC_MODE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTURE_CUBIC_MODE");
         }
     }
 
@@ -1014,10 +804,7 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.TEXTURE_SKYBOX_MODE"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.TEXTURE_SKYBOX_MODE");
         }
     }
 
@@ -1067,23 +854,14 @@ public class Engine : ThinEngine
 
     public static decimal SCALEMODE_FLOOR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.SCALEMODE_FLOOR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.SCALEMODE_FLOOR"); }
     }
 
     public static decimal SCALEMODE_NEAREST
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.SCALEMODE_NEAREST"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.SCALEMODE_NEAREST");
         }
     }
 
@@ -1091,10 +869,7 @@ public class Engine : ThinEngine
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                "BABYLON",
-                "Engine.SCALEMODE_CEILING"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>("BABYLON", "Engine.SCALEMODE_CEILING");
         }
     }
 
@@ -1105,29 +880,21 @@ public class Engine : ThinEngine
         {
             if (__audioEngine == null)
             {
-                __audioEngine =
-                    EventHorizonBlazorInterop.GetClass<IAudioEngineCachedEntity>(
-                        "BABYLON",
-                        "Engine.audioEngine",
-                        (entity) =>
-                        {
-                            return new IAudioEngineCachedEntity()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __audioEngine = EventHorizonBlazorInterop.GetClass<IAudioEngineCachedEntity>(
+                    "BABYLON",
+                    "Engine.audioEngine",
+                    (entity) =>
+                    {
+                        return new IAudioEngineCachedEntity() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __audioEngine;
         }
         set
         {
             __audioEngine = null;
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "Engine.audioEngine",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "Engine.audioEngine", value);
         }
     }
     #endregion
@@ -1148,21 +915,13 @@ public class Engine : ThinEngine
         );
     }
 
-    public static ILoadingScreenCachedEntity DefaultLoadingScreenFactory(
-        HTMLCanvasElement canvas
-    )
+    public static ILoadingScreenCachedEntity DefaultLoadingScreenFactory(HTMLCanvasElement canvas)
     {
         return EventHorizonBlazorInterop.FuncClass<ILoadingScreenCachedEntity>(
-            entity =>
-                new ILoadingScreenCachedEntity() { ___guid = entity.___guid },
+            entity => new ILoadingScreenCachedEntity() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Engine",
-                    "DefaultLoadingScreenFactory"
-                },
+                new string[] { "BABYLON", "Engine", "DefaultLoadingScreenFactory" },
                 canvas
             }
         );
@@ -1170,10 +929,8 @@ public class Engine : ThinEngine
 
     #region AudioEngineFactory TODO: Get Comments as metadata identification
     private static bool IsAudioEngineFactoryEnabled = false;
-    private static readonly IDictionary<
-        string,
-        Func<Task>
-    > AudioEngineFactoryActionMap = new Dictionary<string, Func<Task>>();
+    private static readonly IDictionary<string, Func<Task>> AudioEngineFactoryActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public static string AudioEngineFactory(Func<Task> callback)
     {
@@ -1216,10 +973,8 @@ public class Engine : ThinEngine
 
     #region OfflineProviderFactory TODO: Get Comments as metadata identification
     private static bool IsOfflineProviderFactoryEnabled = false;
-    private static readonly IDictionary<
-        string,
-        Func<Task>
-    > OfflineProviderFactoryActionMap = new Dictionary<string, Func<Task>>();
+    private static readonly IDictionary<string, Func<Task>> OfflineProviderFactoryActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public static string OfflineProviderFactory(Func<Task> callback)
     {
@@ -1269,18 +1024,14 @@ public class Engine : ThinEngine
         {
             if (__performanceMonitor == null)
             {
-                __performanceMonitor =
-                    EventHorizonBlazorInterop.GetClass<PerformanceMonitor>(
-                        this.___guid,
-                        "performanceMonitor",
-                        (entity) =>
-                        {
-                            return new PerformanceMonitor()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __performanceMonitor = EventHorizonBlazorInterop.GetClass<PerformanceMonitor>(
+                    this.___guid,
+                    "performanceMonitor",
+                    (entity) =>
+                    {
+                        return new PerformanceMonitor() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __performanceMonitor;
         }
@@ -1293,18 +1044,14 @@ public class Engine : ThinEngine
         {
             if (__loadingScreen == null)
             {
-                __loadingScreen =
-                    EventHorizonBlazorInterop.GetClass<ILoadingScreenCachedEntity>(
-                        this.___guid,
-                        "loadingScreen",
-                        (entity) =>
-                        {
-                            return new ILoadingScreenCachedEntity()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __loadingScreen = EventHorizonBlazorInterop.GetClass<ILoadingScreenCachedEntity>(
+                    this.___guid,
+                    "loadingScreen",
+                    (entity) =>
+                    {
+                        return new ILoadingScreenCachedEntity() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __loadingScreen;
         }
@@ -1320,41 +1067,21 @@ public class Engine : ThinEngine
 
     public bool enableOfflineSupport
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enableOfflineSupport"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enableOfflineSupport"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enableOfflineSupport",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enableOfflineSupport", value);
         }
     }
 
     public bool disableManifestCheck
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "disableManifestCheck"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "disableManifestCheck"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "disableManifestCheck",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "disableManifestCheck", value);
         }
     }
 
@@ -1385,29 +1112,21 @@ public class Engine : ThinEngine
         {
             if (__onNewSceneAddedObservable == null)
             {
-                __onNewSceneAddedObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Scene>>(
-                        this.___guid,
-                        "onNewSceneAddedObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Scene>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onNewSceneAddedObservable = EventHorizonBlazorInterop.GetClass<Observable<Scene>>(
+                    this.___guid,
+                    "onNewSceneAddedObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Scene>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onNewSceneAddedObservable;
         }
         set
         {
             __onNewSceneAddedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onNewSceneAddedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onNewSceneAddedObservable", value);
         }
     }
 
@@ -1433,13 +1152,7 @@ public class Engine : ThinEngine
 
     public bool isPointerLock
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isPointerLock"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPointerLock"); }
         set
         {
 
@@ -1454,17 +1167,12 @@ public class Engine : ThinEngine
         {
             if (__onResizeObservable == null)
             {
-                __onResizeObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Engine>
-                >(
+                __onResizeObservable = EventHorizonBlazorInterop.GetClass<Observable<Engine>>(
                     this.___guid,
                     "onResizeObservable",
                     (entity) =>
                     {
-                        return new Observable<Engine>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Engine>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1473,11 +1181,7 @@ public class Engine : ThinEngine
         set
         {
             __onResizeObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onResizeObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onResizeObservable", value);
         }
     }
 
@@ -1488,17 +1192,12 @@ public class Engine : ThinEngine
         {
             if (__onCanvasBlurObservable == null)
             {
-                __onCanvasBlurObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Engine>
-                >(
+                __onCanvasBlurObservable = EventHorizonBlazorInterop.GetClass<Observable<Engine>>(
                     this.___guid,
                     "onCanvasBlurObservable",
                     (entity) =>
                     {
-                        return new Observable<Engine>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Engine>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1507,11 +1206,7 @@ public class Engine : ThinEngine
         set
         {
             __onCanvasBlurObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onCanvasBlurObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onCanvasBlurObservable", value);
         }
     }
 
@@ -1522,17 +1217,12 @@ public class Engine : ThinEngine
         {
             if (__onCanvasFocusObservable == null)
             {
-                __onCanvasFocusObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Engine>
-                >(
+                __onCanvasFocusObservable = EventHorizonBlazorInterop.GetClass<Observable<Engine>>(
                     this.___guid,
                     "onCanvasFocusObservable",
                     (entity) =>
                     {
-                        return new Observable<Engine>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Engine>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1541,11 +1231,7 @@ public class Engine : ThinEngine
         set
         {
             __onCanvasFocusObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onCanvasFocusObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onCanvasFocusObservable", value);
         }
     }
 
@@ -1556,31 +1242,23 @@ public class Engine : ThinEngine
         {
             if (__onCanvasPointerOutObservable == null)
             {
-                __onCanvasPointerOutObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<PointerEvent>
-                    >(
-                        this.___guid,
-                        "onCanvasPointerOutObservable",
-                        (entity) =>
-                        {
-                            return new Observable<PointerEvent>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onCanvasPointerOutObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<PointerEvent>
+                >(
+                    this.___guid,
+                    "onCanvasPointerOutObservable",
+                    (entity) =>
+                    {
+                        return new Observable<PointerEvent>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onCanvasPointerOutObservable;
         }
         set
         {
             __onCanvasPointerOutObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onCanvasPointerOutObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onCanvasPointerOutObservable", value);
         }
     }
 
@@ -1591,17 +1269,12 @@ public class Engine : ThinEngine
         {
             if (__onBeginFrameObservable == null)
             {
-                __onBeginFrameObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Engine>
-                >(
+                __onBeginFrameObservable = EventHorizonBlazorInterop.GetClass<Observable<Engine>>(
                     this.___guid,
                     "onBeginFrameObservable",
                     (entity) =>
                     {
-                        return new Observable<Engine>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Engine>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1610,11 +1283,7 @@ public class Engine : ThinEngine
         set
         {
             __onBeginFrameObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onBeginFrameObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onBeginFrameObservable", value);
         }
     }
 
@@ -1643,11 +1312,7 @@ public class Engine : ThinEngine
         set
         {
             __customAnimationFrameRequester = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "customAnimationFrameRequester",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "customAnimationFrameRequester", value);
         }
     }
 
@@ -1658,17 +1323,12 @@ public class Engine : ThinEngine
         {
             if (__onEndFrameObservable == null)
             {
-                __onEndFrameObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Engine>
-                >(
+                __onEndFrameObservable = EventHorizonBlazorInterop.GetClass<Observable<Engine>>(
                     this.___guid,
                     "onEndFrameObservable",
                     (entity) =>
                     {
-                        return new Observable<Engine>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Engine>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1677,11 +1337,7 @@ public class Engine : ThinEngine
         set
         {
             __onEndFrameObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onEndFrameObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onEndFrameObservable", value);
         }
     }
 
@@ -1692,18 +1348,16 @@ public class Engine : ThinEngine
         {
             if (__onBeforeShaderCompilationObservable == null)
             {
-                __onBeforeShaderCompilationObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Engine>>(
-                        this.___guid,
-                        "onBeforeShaderCompilationObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Engine>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onBeforeShaderCompilationObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Engine>
+                >(
+                    this.___guid,
+                    "onBeforeShaderCompilationObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Engine>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onBeforeShaderCompilationObservable;
         }
@@ -1725,18 +1379,16 @@ public class Engine : ThinEngine
         {
             if (__onAfterShaderCompilationObservable == null)
             {
-                __onAfterShaderCompilationObservable =
-                    EventHorizonBlazorInterop.GetClass<Observable<Engine>>(
-                        this.___guid,
-                        "onAfterShaderCompilationObservable",
-                        (entity) =>
-                        {
-                            return new Observable<Engine>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onAfterShaderCompilationObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<Engine>
+                >(
+                    this.___guid,
+                    "onAfterShaderCompilationObservable",
+                    (entity) =>
+                    {
+                        return new Observable<Engine>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onAfterShaderCompilationObservable;
         }
@@ -1753,21 +1405,11 @@ public class Engine : ThinEngine
 
     public decimal canvasTabIndex
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "canvasTabIndex"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "canvasTabIndex"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "canvasTabIndex",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "canvasTabIndex", value);
         }
     }
 
@@ -1844,10 +1486,7 @@ public class Engine : ThinEngine
     public decimal getScreenAspectRatio()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getScreenAspectRatio" }
-            }
+            new object[] { new string[] { this.___guid, "getScreenAspectRatio" } }
         );
     }
 
@@ -1855,10 +1494,7 @@ public class Engine : ThinEngine
     {
         return EventHorizonBlazorInterop.FuncClass<ClientRect>(
             entity => new ClientRect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getRenderingCanvasClientRect" }
-            }
+            new object[] { new string[] { this.___guid, "getRenderingCanvasClientRect" } }
         );
     }
 
@@ -1866,30 +1502,21 @@ public class Engine : ThinEngine
     {
         return EventHorizonBlazorInterop.FuncClass<ClientRect>(
             entity => new ClientRect() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getInputElementClientRect" }
-            }
+            new object[] { new string[] { this.___guid, "getInputElementClientRect" } }
         );
     }
 
     public bool isDeterministicLockStep()
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isDeterministicLockStep" }
-            }
+            new object[] { new string[] { this.___guid, "isDeterministicLockStep" } }
         );
     }
 
     public decimal getLockstepMaxSteps()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getLockstepMaxSteps" }
-            }
+            new object[] { new string[] { this.___guid, "getLockstepMaxSteps" } }
         );
     }
 
@@ -1951,11 +1578,7 @@ public class Engine : ThinEngine
     public void setDepthBuffer(bool enable)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setDepthBuffer" },
-                enable
-            }
+            new object[] { new string[] { this.___guid, "setDepthBuffer" }, enable }
         );
     }
 
@@ -1969,11 +1592,7 @@ public class Engine : ThinEngine
     public void setDepthWrite(bool enable)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setDepthWrite" },
-                enable
-            }
+            new object[] { new string[] { this.___guid, "setDepthWrite" }, enable }
         );
     }
 
@@ -1987,11 +1606,7 @@ public class Engine : ThinEngine
     public void setStencilBuffer(bool enable)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setStencilBuffer" },
-                enable
-            }
+            new object[] { new string[] { this.___guid, "setStencilBuffer" }, enable }
         );
     }
 
@@ -2005,11 +1620,7 @@ public class Engine : ThinEngine
     public void setStencilMask(decimal mask)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setStencilMask" },
-                mask
-            }
+            new object[] { new string[] { this.___guid, "setStencilMask" }, mask }
         );
     }
 
@@ -2023,94 +1634,63 @@ public class Engine : ThinEngine
     public decimal getStencilFunctionReference()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getStencilFunctionReference" }
-            }
+            new object[] { new string[] { this.___guid, "getStencilFunctionReference" } }
         );
     }
 
     public decimal getStencilFunctionMask()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getStencilFunctionMask" }
-            }
+            new object[] { new string[] { this.___guid, "getStencilFunctionMask" } }
         );
     }
 
     public void setStencilFunction(decimal stencilFunc)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setStencilFunction" },
-                stencilFunc
-            }
+            new object[] { new string[] { this.___guid, "setStencilFunction" }, stencilFunc }
         );
     }
 
     public void setStencilFunctionReference(decimal reference)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setStencilFunctionReference" },
-                reference
-            }
+            new object[] { new string[] { this.___guid, "setStencilFunctionReference" }, reference }
         );
     }
 
     public void setStencilFunctionMask(decimal mask)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setStencilFunctionMask" },
-                mask
-            }
+            new object[] { new string[] { this.___guid, "setStencilFunctionMask" }, mask }
         );
     }
 
     public decimal getStencilOperationFail()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getStencilOperationFail" }
-            }
+            new object[] { new string[] { this.___guid, "getStencilOperationFail" } }
         );
     }
 
     public decimal getStencilOperationDepthFail()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getStencilOperationDepthFail" }
-            }
+            new object[] { new string[] { this.___guid, "getStencilOperationDepthFail" } }
         );
     }
 
     public decimal getStencilOperationPass()
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getStencilOperationPass" }
-            }
+            new object[] { new string[] { this.___guid, "getStencilOperationPass" } }
         );
     }
 
     public void setStencilOperationFail(decimal operation)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setStencilOperationFail" },
-                operation
-            }
+            new object[] { new string[] { this.___guid, "setStencilOperationFail" }, operation }
         );
     }
 
@@ -2128,33 +1708,21 @@ public class Engine : ThinEngine
     public void setStencilOperationPass(decimal operation)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setStencilOperationPass" },
-                operation
-            }
+            new object[] { new string[] { this.___guid, "setStencilOperationPass" }, operation }
         );
     }
 
     public void setDitheringState(bool value)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setDitheringState" },
-                value
-            }
+            new object[] { new string[] { this.___guid, "setDitheringState" }, value }
         );
     }
 
     public void setRasterizerState(bool value)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setRasterizerState" },
-                value
-            }
+            new object[] { new string[] { this.___guid, "setRasterizerState" }, value }
         );
     }
 
@@ -2168,55 +1736,35 @@ public class Engine : ThinEngine
     public void setDepthFunction(decimal depthFunc)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setDepthFunction" },
-                depthFunc
-            }
+            new object[] { new string[] { this.___guid, "setDepthFunction" }, depthFunc }
         );
     }
 
     public void setDepthFunctionToGreater()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setDepthFunctionToGreater" }
-            }
+            new object[] { new string[] { this.___guid, "setDepthFunctionToGreater" } }
         );
     }
 
     public void setDepthFunctionToGreaterOrEqual()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[]
-                {
-                    this.___guid,
-                    "setDepthFunctionToGreaterOrEqual"
-                }
-            }
+            new object[] { new string[] { this.___guid, "setDepthFunctionToGreaterOrEqual" } }
         );
     }
 
     public void setDepthFunctionToLess()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setDepthFunctionToLess" }
-            }
+            new object[] { new string[] { this.___guid, "setDepthFunctionToLess" } }
         );
     }
 
     public void setDepthFunctionToLessOrEqual()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setDepthFunctionToLessOrEqual" }
-            }
+            new object[] { new string[] { this.___guid, "setDepthFunctionToLessOrEqual" } }
         );
     }
 
@@ -2230,10 +1778,7 @@ public class Engine : ThinEngine
     public void restoreStencilState()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "restoreStencilState" }
-            }
+            new object[] { new string[] { this.___guid, "restoreStencilState" } }
         );
     }
 
@@ -2245,16 +1790,8 @@ public class Engine : ThinEngine
     )
     {
         return EventHorizonBlazorInterop.FuncClass<IViewportLikeCachedEntity>(
-            entity =>
-                new IViewportLikeCachedEntity() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setDirectViewport" },
-                x,
-                y,
-                width,
-                height
-            }
+            entity => new IViewportLikeCachedEntity() { ___guid = entity.___guid },
+            new object[] { new string[] { this.___guid, "setDirectViewport" }, x, y, width, height }
         );
     }
 
@@ -2279,22 +1816,10 @@ public class Engine : ThinEngine
         );
     }
 
-    public void enableScissor(
-        decimal x,
-        decimal y,
-        decimal width,
-        decimal height
-    )
+    public void enableScissor(decimal x, decimal y, decimal width, decimal height)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "enableScissor" },
-                x,
-                y,
-                width,
-                height
-            }
+            new object[] { new string[] { this.___guid, "enableScissor" }, x, y, width, height }
         );
     }
 
@@ -2310,11 +1835,10 @@ public class Engine : ThinEngine
         return EventHorizonBlazorInterop.FuncClass<
             Observable<IDisplayChangedEventArgsCachedEntity>
         >(
-            entity =>
-                new Observable<IDisplayChangedEventArgsCachedEntity>()
-                {
-                    ___guid = entity.___guid
-                },
+            entity => new Observable<IDisplayChangedEventArgsCachedEntity>()
+            {
+                ___guid = entity.___guid
+            },
             new object[] { new string[] { this.___guid, "initWebVR" } }
         );
     }
@@ -2336,22 +1860,14 @@ public class Engine : ThinEngine
     public string getVertexShaderSource(WebGLProgram program)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "getVertexShaderSource" },
-                program
-            }
+            new object[] { new string[] { this.___guid, "getVertexShaderSource" }, program }
         );
     }
 
     public string getFragmentShaderSource(WebGLProgram program)
     {
         return EventHorizonBlazorInterop.Func<string>(
-            new object[]
-            {
-                new string[] { this.___guid, "getFragmentShaderSource" },
-                program
-            }
+            new object[] { new string[] { this.___guid, "getFragmentShaderSource" }, program }
         );
     }
 
@@ -2372,10 +1888,7 @@ public class Engine : ThinEngine
         );
     }
 
-    public void setTextureFromPostProcess(
-        decimal channel,
-        PostProcess postProcess
-    )
+    public void setTextureFromPostProcess(decimal channel, PostProcess postProcess)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -2387,19 +1900,12 @@ public class Engine : ThinEngine
         );
     }
 
-    public void setTextureFromPostProcessOutput(
-        decimal channel,
-        PostProcess postProcess
-    )
+    public void setTextureFromPostProcessOutput(decimal channel, PostProcess postProcess)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "setTextureFromPostProcessOutput"
-                },
+                new string[] { this.___guid, "setTextureFromPostProcessOutput" },
                 channel,
                 postProcess
             }
@@ -2409,22 +1915,14 @@ public class Engine : ThinEngine
     public void switchFullscreen(bool requestPointerLock)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "switchFullscreen" },
-                requestPointerLock
-            }
+            new object[] { new string[] { this.___guid, "switchFullscreen" }, requestPointerLock }
         );
     }
 
     public void enterFullscreen(bool requestPointerLock)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "enterFullscreen" },
-                requestPointerLock
-            }
+            new object[] { new string[] { this.___guid, "enterFullscreen" }, requestPointerLock }
         );
     }
 
@@ -2473,12 +1971,7 @@ public class Engine : ThinEngine
     public void setSize(decimal width, decimal height)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setSize" },
-                width,
-                height
-            }
+            new object[] { new string[] { this.___guid, "setSize" }, width, height }
         );
     }
 
@@ -2511,8 +2004,7 @@ public class Engine : ThinEngine
     )
     {
         return EventHorizonBlazorInterop.FuncClass<WebGLProgramCachedEntity>(
-            entity =>
-                new WebGLProgramCachedEntity() { ___guid = entity.___guid },
+            entity => new WebGLProgramCachedEntity() { ___guid = entity.___guid },
             new object[]
             {
                 new string[] { this.___guid, "createShaderProgram" },
@@ -2557,38 +2049,24 @@ public class Engine : ThinEngine
         );
     }
 
-    public decimal updateRenderTargetTextureSampleCount(
-        InternalTexture texture,
-        decimal samples
-    )
+    public decimal updateRenderTargetTextureSampleCount(InternalTexture texture, decimal samples)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "updateRenderTargetTextureSampleCount"
-                },
+                new string[] { this.___guid, "updateRenderTargetTextureSampleCount" },
                 texture,
                 samples
             }
         );
     }
 
-    public void updateTextureComparisonFunction(
-        InternalTexture texture,
-        decimal comparisonFunction
-    )
+    public void updateTextureComparisonFunction(InternalTexture texture, decimal comparisonFunction)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "updateTextureComparisonFunction"
-                },
+                new string[] { this.___guid, "updateTextureComparisonFunction" },
                 texture,
                 comparisonFunction
             }
@@ -2599,22 +2077,14 @@ public class Engine : ThinEngine
     {
         return EventHorizonBlazorInterop.FuncClass<DataBuffer>(
             entity => new DataBuffer() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "createInstancesBuffer" },
-                capacity
-            }
+            new object[] { new string[] { this.___guid, "createInstancesBuffer" }, capacity }
         );
     }
 
     public void deleteInstancesBuffer(WebGLBuffer buffer)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "deleteInstancesBuffer" },
-                buffer
-            }
+            new object[] { new string[] { this.___guid, "deleteInstancesBuffer" }, buffer }
         );
     }
 

@@ -2,13 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
-public class UnregisterObserverCommandHandler
-    : IRequestHandler<UnregisterObserverCommand>
+public class UnregisterObserverCommandHandler : IRequestHandler<UnregisterObserverCommand>
 {
     private readonly ObserverState _state;
 
@@ -17,10 +14,7 @@ public class UnregisterObserverCommandHandler
         _state = state;
     }
 
-    public Task Handle(
-        UnregisterObserverCommand request,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(UnregisterObserverCommand request, CancellationToken cancellationToken)
     {
         request.NullCheck(nameof(request));
         _state.Remove(request.Observer);

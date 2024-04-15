@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class AssetFileDirectoryContentClickedEventObserverHandler
@@ -12,9 +10,7 @@ public class AssetFileDirectoryContentClickedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public AssetFileDirectoryContentClickedEventObserverHandler(
-        ObserverState observer
-    )
+    public AssetFileDirectoryContentClickedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

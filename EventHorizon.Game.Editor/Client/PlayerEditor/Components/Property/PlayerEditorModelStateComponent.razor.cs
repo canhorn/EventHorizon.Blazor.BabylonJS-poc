@@ -31,9 +31,7 @@ public class PlayerEditorModelStateComponentBase : EditorComponentBase
         base.OnParametersSet();
 
         var movementState = Data.To<ModelStateModel>();
-        Console.WriteLine(
-            "Scaling Determinant: " + movementState?.ScalingDeterminant
-        );
+        Console.WriteLine("Scaling Determinant: " + movementState?.ScalingDeterminant);
         if (Data == _editingData)
         {
             return;

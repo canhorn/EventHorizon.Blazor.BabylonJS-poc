@@ -13,18 +13,15 @@ public struct ClientActionMessageFromSystemEvent : IClientAction
     public IGuiControlOptions? SenderControlOptions { get; }
     public IGuiControlOptions? MessageControlOptions { get; }
 
-    public ClientActionMessageFromSystemEvent(
-        IClientActionDataResolver resolver
-    )
+    public ClientActionMessageFromSystemEvent(IClientActionDataResolver resolver)
     {
         Message = resolver.Resolve<string>("message");
         SenderControlOptions = resolver.ResolveNullable<GuiControlOptionsModel>(
             "senderControlOptions"
         );
-        MessageControlOptions =
-            resolver.ResolveNullable<GuiControlOptionsModel>(
-                "messageControlOptions"
-            );
+        MessageControlOptions = resolver.ResolveNullable<GuiControlOptionsModel>(
+            "messageControlOptions"
+        );
     }
 
     public ClientActionMessageFromSystemEvent(

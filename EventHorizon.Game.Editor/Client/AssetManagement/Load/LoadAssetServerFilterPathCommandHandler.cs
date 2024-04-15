@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Changed;
-
 using MediatR;
 
 public class LoadAssetServerFilterPathCommandHandler
@@ -15,10 +13,7 @@ public class LoadAssetServerFilterPathCommandHandler
     private readonly IMediator _mediator;
     private readonly AssetManagementState _state;
 
-    public LoadAssetServerFilterPathCommandHandler(
-        IMediator mediator,
-        AssetManagementState state
-    )
+    public LoadAssetServerFilterPathCommandHandler(IMediator mediator, AssetManagementState state)
     {
         _mediator = mediator;
         _state = state;
@@ -31,10 +26,7 @@ public class LoadAssetServerFilterPathCommandHandler
     {
         await _state.LoadFilterPath(request.FilterPath, cancellationToken);
 
-        await _mediator.Publish(
-            new AssetManagementStateChangedEvent(),
-            cancellationToken
-        );
+        await _mediator.Publish(new AssetManagementStateChangedEvent(), cancellationToken);
 
         return new();
     }

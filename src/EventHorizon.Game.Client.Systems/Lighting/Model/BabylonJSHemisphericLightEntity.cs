@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Entity.Tag;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
@@ -16,9 +14,7 @@ using EventHorizon.Game.Client.Systems.Lighting.Api;
 using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Api;
 using EventHorizon.Game.Client.Systems.Lighting.Sunlight.Model;
 
-public class BabylonJSHemisphericLightEntity
-    : ServerLifecycleEntityBase,
-        ILightEntity
+public class BabylonJSHemisphericLightEntity : ServerLifecycleEntityBase, ILightEntity
 {
     private readonly LightDetailsModel _lightDetails;
 
@@ -43,8 +39,8 @@ public class BabylonJSHemisphericLightEntity
                     },
                 },
                 Type = $"LIGHT_{details.Type}",
-                TagList = details.Tags
-                    .Concat(
+                TagList = details
+                    .Tags.Concat(
                         new List<string>
                         {
                             TagBuilder.CreateTypeTag("light"),
@@ -60,15 +56,8 @@ public class BabylonJSHemisphericLightEntity
 
     public override Task Initialize()
     {
-        var scene = GameServiceProvider
-            .GetService<IRenderingScene>()
-            .GetBabylonJSScene()
-            .Scene;
-        Light = new HemisphericLight(
-            Name,
-            Transform.Position.ToBabylonJS(),
-            scene
-        );
+        var scene = GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene;
+        Light = new HemisphericLight(Name, Transform.Position.ToBabylonJS(), scene);
         if (_lightDetails.EnableDayNightCycle)
         {
             RegisterModule(

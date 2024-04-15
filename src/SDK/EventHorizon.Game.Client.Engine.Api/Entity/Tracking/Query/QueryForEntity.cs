@@ -2,15 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Query.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-
 using MediatR;
 
-public struct QueryForEntity
-    : IRequest<QueryResult<IEnumerable<ILifecycleEntity>>>
+public struct QueryForEntity : IRequest<QueryResult<IEnumerable<ILifecycleEntity>>>
 {
     public string Tag { get; }
     public bool Not { get; }

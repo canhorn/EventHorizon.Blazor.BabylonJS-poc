@@ -3,10 +3,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-
 using EventHorizon.Game.Editor.Properties.Api;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using Newtonsoft.Json.Linq;
 
 public class DataStorePropertiesMetadata : PropertiesMetadata
@@ -15,9 +13,7 @@ public class DataStorePropertiesMetadata : PropertiesMetadata
 
     private readonly Dictionary<string, string>? _metadata = new();
 
-    public DataStorePropertiesMetadata(
-        Dictionary<string, string>? metadata = null
-    )
+    public DataStorePropertiesMetadata(Dictionary<string, string>? metadata = null)
     {
         if (metadata is not null)
         {
@@ -31,10 +27,7 @@ public class DataStorePropertiesMetadata : PropertiesMetadata
             _metadata?.FirstOrDefault(prop => name == prop.Key).Value
             ?? ZoneEditorPropertyType.PropertyString;
 
-        if (
-            type == ZoneEditorPropertyType.PropertyString
-            && IsComplexPropertyType(value)
-        )
+        if (type == ZoneEditorPropertyType.PropertyString && IsComplexPropertyType(value))
         {
             type = ZoneEditorPropertyType.PropertyComplex;
         }
@@ -64,10 +57,7 @@ public class DataStorePropertiesMetadata : PropertiesMetadata
         {
             return true;
         }
-        else if (
-            propertyValue is JObject jObject
-            && jObject.Type == JTokenType.Object
-        )
+        else if (propertyValue is JObject jObject && jObject.Type == JTokenType.Object)
         {
             return true;
         }

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.AssetManagement.Pages.Zone;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
@@ -9,7 +8,6 @@ using EventHorizon.Game.Editor.Zone.Services.Connection;
 using EventHorizon.Zone.Systems.ClientAssets.Model;
 using EventHorizon.Zone.Systems.ClientAssets.Query;
 using EventHorizon.Zone.Systems.ClientAssets.Update;
-
 using Microsoft.AspNetCore.Components;
 
 public class EditZoneGameAssetPageModel
@@ -24,8 +22,7 @@ public class EditZoneGameAssetPageModel
 
     protected ClientAsset Model { get; private set; } = new ClientAsset();
 
-    protected ComponentState ModelState { get; private set; } =
-        ComponentState.Loading;
+    protected ComponentState ModelState { get; private set; } = ComponentState.Loading;
     protected string Message { get; private set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
@@ -40,19 +37,14 @@ public class EditZoneGameAssetPageModel
         var result = await Mediator.Send(new UpdateClientAssetCommand(Model));
         if (!result)
         {
-            Message = Localizer[
-                "Failed to Update Asset: {0}",
-                result.ErrorCode ?? "ERROR"
-            ];
+            Message = Localizer["Failed to Update Asset: {0}", result.ErrorCode ?? "ERROR"];
             ModelState = ComponentState.Error;
             return;
         }
 
         await ShowMessage(
             Localizer["Game Asset Edit"],
-            Localizer[
-                "Successfully update Game Asset, navigating back to Asset List Page."
-            ]
+            Localizer["Successfully update Game Asset, navigating back to Asset List Page."]
         );
         NavigationManager.NavigateTo(AssetZoneManagementPage.Route);
     }
@@ -70,9 +62,7 @@ public class EditZoneGameAssetPageModel
 
     private async Task Setup()
     {
-        var gameAssetResult = await Mediator.Send(
-            new QueryForClientAssetById(Id)
-        );
+        var gameAssetResult = await Mediator.Send(new QueryForClientAssetById(Id));
 
         if (!gameAssetResult)
         {
@@ -80,18 +70,13 @@ public class EditZoneGameAssetPageModel
             {
                 await ShowMessage(
                     Localizer["Game Asset Edit"],
-                    Localizer[
-                        "Game Asset was not found, redirecting to Management page..."
-                    ],
+                    Localizer["Game Asset was not found, redirecting to Management page..."],
                     MessageLevel.Warning
                 );
                 NavigationManager.NavigateTo(AssetZoneManagementPage.Route);
                 return;
             }
-            Message = Localizer[
-                "Failed to find Game Asset: {0}",
-                gameAssetResult.ErrorCode
-            ];
+            Message = Localizer["Failed to find Game Asset: {0}", gameAssetResult.ErrorCode];
             ModelState = ComponentState.Error;
             return;
         }

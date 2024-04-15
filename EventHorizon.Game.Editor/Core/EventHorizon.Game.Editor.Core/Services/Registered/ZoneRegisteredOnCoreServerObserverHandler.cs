@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class ZoneRegisteredOnCoreServerObserverHandler
@@ -21,8 +19,8 @@ public class ZoneRegisteredOnCoreServerObserverHandler
         ZoneRegisteredOnCoreServer notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ZoneRegisteredOnCoreServerObserver,
-            ZoneRegisteredOnCoreServer
-        >(notification, cancellationToken);
+        _observer.Trigger<ZoneRegisteredOnCoreServerObserver, ZoneRegisteredOnCoreServer>(
+            notification,
+            cancellationToken
+        );
 }

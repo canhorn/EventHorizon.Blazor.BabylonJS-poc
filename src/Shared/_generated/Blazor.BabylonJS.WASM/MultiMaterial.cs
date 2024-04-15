@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<MultiMaterial>))]
@@ -23,21 +21,13 @@ public class MultiMaterial : Material
     #endregion
 
     #region Static Methods
-    public static MultiMaterial ParseMultiMaterial(
-        object parsedMultiMaterial,
-        Scene scene
-    )
+    public static MultiMaterial ParseMultiMaterial(object parsedMultiMaterial, Scene scene)
     {
         return EventHorizonBlazorInterop.FuncClass<MultiMaterial>(
             entity => new MultiMaterial() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "MultiMaterial",
-                    "ParseMultiMaterial"
-                },
+                new string[] { "BABYLON", "MultiMaterial", "ParseMultiMaterial" },
                 parsedMultiMaterial,
                 scene
             }
@@ -104,11 +94,7 @@ public class MultiMaterial : Material
     {
         return EventHorizonBlazorInterop.FuncClass<Material>(
             entity => new Material() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getSubMaterial" },
-                index
-            }
+            new object[] { new string[] { this.___guid, "getSubMaterial" }, index }
         );
     }
 
@@ -144,19 +130,11 @@ public class MultiMaterial : Material
         );
     }
 
-    public MultiMaterial clone(
-        string name,
-        System.Nullable<bool> cloneChildren = null
-    )
+    public MultiMaterial clone(string name, System.Nullable<bool> cloneChildren = null)
     {
         return EventHorizonBlazorInterop.FuncClass<MultiMaterial>(
             entity => new MultiMaterial() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "clone" },
-                name,
-                cloneChildren
-            }
+            new object[] { new string[] { this.___guid, "clone" }, name, cloneChildren }
         );
     }
 

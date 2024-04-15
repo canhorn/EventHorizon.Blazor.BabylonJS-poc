@@ -70,13 +70,9 @@ public class LiveEditorWindowModel : ComponentBase, IAsyncDisposable
                 new StandardPlayerDetails(PlayerId, AccessToken),
                 "/login?returnUrl=/game",
                 Configuration["Game:CoreServer"]
-                    ?? throw new NullReferenceException(
-                        "Game:CoreServer Configuration is null"
-                    ),
+                    ?? throw new NullReferenceException("Game:CoreServer Configuration is null"),
                 Configuration["Game:AssetServer"]
-                    ?? throw new NullReferenceException(
-                        "Game:AssetServer Configuration is null"
-                    ),
+                    ?? throw new NullReferenceException("Game:AssetServer Configuration is null"),
                 ""
             );
             await Startup.Run();
@@ -102,16 +98,12 @@ public class LiveEditorWindowModel : ComponentBase, IAsyncDisposable
 
     protected void HandleKeyDown(KeyboardEventArgs args)
     {
-        Mediator.Send(
-            new TriggerInputCommand(args.Key, InputTriggerType.Pressed)
-        );
+        Mediator.Send(new TriggerInputCommand(args.Key, InputTriggerType.Pressed));
     }
 
     protected void HandleKeyUp(KeyboardEventArgs args)
     {
-        Mediator.Send(
-            new TriggerInputCommand(args.Key, InputTriggerType.Released)
-        );
+        Mediator.Send(new TriggerInputCommand(args.Key, InputTriggerType.Released));
     }
 
     private void WindowResized(object? _, BrowserWindowSize __)

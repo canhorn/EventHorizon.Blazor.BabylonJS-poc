@@ -11,12 +11,7 @@ public class WizardStepLocationNavigateBase : WizardStepCommonBase
 
     protected override void OnInitializing()
     {
-        if (
-            !Step.Details.TryGetValue(
-                "LocationProperty",
-                out var locationProperty
-            )
-        )
+        if (!Step.Details.TryGetValue("LocationProperty", out var locationProperty))
         {
             ErrorMessage = Localizer["Location Property was not found."];
             return;

@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Server.Asset.Api;
 using EventHorizon.Game.Server.Asset.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalrAssetServerBackupAdminApi : AssetServerBackupAdminApi
@@ -17,9 +15,7 @@ public class SignalrAssetServerBackupAdminApi : AssetServerBackupAdminApi
         _hubConnection = hubConnection;
     }
 
-    public async Task<ApiResponse<BackupTriggerResult>> Trigger(
-        CancellationToken cancellationToken
-    )
+    public async Task<ApiResponse<BackupTriggerResult>> Trigger(CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -30,8 +26,9 @@ public class SignalrAssetServerBackupAdminApi : AssetServerBackupAdminApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<
-            ApiResponse<BackupTriggerResult>
-        >("Asset_Backup_Trigger", cancellationToken: cancellationToken);
+        return await _hubConnection.InvokeAsync<ApiResponse<BackupTriggerResult>>(
+            "Asset_Backup_Trigger",
+            cancellationToken: cancellationToken
+        );
     }
 }

@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Change;
 using EventHorizon.Game.Editor.Zone.Services.Connection;
-
 using MediatR;
 
 public class ClearActiveZoneOnZoneAdminServiceDisconnectedEventHandler

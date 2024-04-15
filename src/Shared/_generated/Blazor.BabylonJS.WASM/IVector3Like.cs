@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IVector3Like : ICachedEntity { }
@@ -36,10 +34,7 @@ public class IVector3LikeCachedEntity : CachedEntityObject, IVector3Like
 
     public decimal x
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "x");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "x"); }
         set
         {
 
@@ -49,10 +44,7 @@ public class IVector3LikeCachedEntity : CachedEntityObject, IVector3Like
 
     public decimal y
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "y");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "y"); }
         set
         {
 
@@ -62,10 +54,7 @@ public class IVector3LikeCachedEntity : CachedEntityObject, IVector3Like
 
     public decimal z
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "z");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "z"); }
         set
         {
 

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Control>))]
@@ -97,11 +95,7 @@ public class Control : CachedEntityObject
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "GUI.Control.AllowAlphaInheritance",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "GUI.Control.AllowAlphaInheritance", value);
         }
     }
     #endregion
@@ -156,13 +150,7 @@ public class Control : CachedEntityObject
 
     public decimal shadowOffsetX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "shadowOffsetX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "shadowOffsetX"); }
         set
         {
 
@@ -172,13 +160,7 @@ public class Control : CachedEntityObject
 
     public decimal shadowOffsetY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "shadowOffsetY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "shadowOffsetY"); }
         set
         {
 
@@ -188,13 +170,7 @@ public class Control : CachedEntityObject
 
     public decimal shadowBlur
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "shadowBlur"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "shadowBlur"); }
         set
         {
 
@@ -204,13 +180,7 @@ public class Control : CachedEntityObject
 
     public string shadowColor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "shadowColor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "shadowColor"); }
         set
         {
 
@@ -220,13 +190,7 @@ public class Control : CachedEntityObject
 
     public string typeName
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "typeName"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "typeName"); }
     }
 
     private AdvancedDynamicTexture __host;
@@ -236,18 +200,14 @@ public class Control : CachedEntityObject
         {
             if (__host == null)
             {
-                __host =
-                    EventHorizonBlazorInterop.GetClass<AdvancedDynamicTexture>(
-                        this.___guid,
-                        "host",
-                        (entity) =>
-                        {
-                            return new AdvancedDynamicTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __host = EventHorizonBlazorInterop.GetClass<AdvancedDynamicTexture>(
+                    this.___guid,
+                    "host",
+                    (entity) =>
+                    {
+                        return new AdvancedDynamicTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __host;
         }
@@ -255,13 +215,7 @@ public class Control : CachedEntityObject
 
     public CachedEntity fontOffset
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "fontOffset"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "fontOffset"); }
         set
         {
 
@@ -271,13 +225,7 @@ public class Control : CachedEntityObject
 
     public decimal alpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alpha"); }
         set
         {
 
@@ -287,13 +235,7 @@ public class Control : CachedEntityObject
 
     public bool isHighlighted
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isHighlighted"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isHighlighted"); }
         set
         {
 
@@ -303,13 +245,7 @@ public class Control : CachedEntityObject
 
     public decimal scaleX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "scaleX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "scaleX"); }
         set
         {
 
@@ -319,13 +255,7 @@ public class Control : CachedEntityObject
 
     public decimal scaleY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "scaleY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "scaleY"); }
         set
         {
 
@@ -335,13 +265,7 @@ public class Control : CachedEntityObject
 
     public decimal rotation
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "rotation"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "rotation"); }
         set
         {
 
@@ -351,90 +275,47 @@ public class Control : CachedEntityObject
 
     public decimal transformCenterY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "transformCenterY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "transformCenterY"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "transformCenterY",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "transformCenterY", value);
         }
     }
 
     public decimal transformCenterX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "transformCenterX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "transformCenterX"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "transformCenterX",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "transformCenterX", value);
         }
     }
 
     public decimal horizontalAlignment
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "horizontalAlignment"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "horizontalAlignment"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "horizontalAlignment",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "horizontalAlignment", value);
         }
     }
 
     public decimal verticalAlignment
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "verticalAlignment"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "verticalAlignment"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "verticalAlignment",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "verticalAlignment", value);
         }
     }
 
     public string width
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "width");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "width"); }
         set
         {
 
@@ -444,13 +325,7 @@ public class Control : CachedEntityObject
 
     public decimal widthInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "widthInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "widthInPixels"); }
         set
         {
 
@@ -460,13 +335,7 @@ public class Control : CachedEntityObject
 
     public string height
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "height"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "height"); }
         set
         {
 
@@ -476,33 +345,17 @@ public class Control : CachedEntityObject
 
     public decimal heightInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "heightInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "heightInPixels"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "heightInPixels",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "heightInPixels", value);
         }
     }
 
     public string fontFamily
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "fontFamily"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "fontFamily"); }
         set
         {
 
@@ -512,13 +365,7 @@ public class Control : CachedEntityObject
 
     public string fontStyle
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "fontStyle"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "fontStyle"); }
         set
         {
 
@@ -528,13 +375,7 @@ public class Control : CachedEntityObject
 
     public string fontWeight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "fontWeight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "fontWeight"); }
         set
         {
 
@@ -569,33 +410,17 @@ public class Control : CachedEntityObject
 
     public decimal fontSizeInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "fontSizeInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "fontSizeInPixels"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "fontSizeInPixels",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "fontSizeInPixels", value);
         }
     }
 
     public string fontSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "fontSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "fontSize"); }
         set
         {
 
@@ -605,10 +430,7 @@ public class Control : CachedEntityObject
 
     public string color
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "color");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "color"); }
         set
         {
 
@@ -618,13 +440,7 @@ public class Control : CachedEntityObject
 
     public decimal zIndex
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "zIndex"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "zIndex"); }
         set
         {
 
@@ -634,13 +450,7 @@ public class Control : CachedEntityObject
 
     public bool notRenderable
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "notRenderable"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "notRenderable"); }
         set
         {
 
@@ -650,13 +460,7 @@ public class Control : CachedEntityObject
 
     public bool isVisible
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isVisible"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isVisible"); }
         set
         {
 
@@ -666,10 +470,7 @@ public class Control : CachedEntityObject
 
     public bool isDirty
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDirty"); }
     }
 
     private AbstractMesh __linkedMesh;
@@ -694,13 +495,7 @@ public class Control : CachedEntityObject
 
     public string paddingLeft
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "paddingLeft"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "paddingLeft"); }
         set
         {
 
@@ -710,33 +505,17 @@ public class Control : CachedEntityObject
 
     public decimal paddingLeftInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "paddingLeftInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "paddingLeftInPixels"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "paddingLeftInPixels",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "paddingLeftInPixels", value);
         }
     }
 
     public string paddingRight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "paddingRight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "paddingRight"); }
         set
         {
 
@@ -746,33 +525,17 @@ public class Control : CachedEntityObject
 
     public decimal paddingRightInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "paddingRightInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "paddingRightInPixels"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "paddingRightInPixels",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "paddingRightInPixels", value);
         }
     }
 
     public string paddingTop
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "paddingTop"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "paddingTop"); }
         set
         {
 
@@ -782,33 +545,17 @@ public class Control : CachedEntityObject
 
     public decimal paddingTopInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "paddingTopInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "paddingTopInPixels"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "paddingTopInPixels",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "paddingTopInPixels", value);
         }
     }
 
     public string paddingBottom
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "paddingBottom"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "paddingBottom"); }
         set
         {
 
@@ -820,28 +567,18 @@ public class Control : CachedEntityObject
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "paddingBottomInPixels"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "paddingBottomInPixels");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "paddingBottomInPixels",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "paddingBottomInPixels", value);
         }
     }
 
     public string left
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "left");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "left"); }
         set
         {
 
@@ -851,13 +588,7 @@ public class Control : CachedEntityObject
 
     public decimal leftInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "leftInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "leftInPixels"); }
         set
         {
 
@@ -867,10 +598,7 @@ public class Control : CachedEntityObject
 
     public string top
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "top");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "top"); }
         set
         {
 
@@ -880,13 +608,7 @@ public class Control : CachedEntityObject
 
     public decimal topInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "topInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "topInPixels"); }
         set
         {
 
@@ -896,13 +618,7 @@ public class Control : CachedEntityObject
 
     public string linkOffsetX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "linkOffsetX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "linkOffsetX"); }
         set
         {
 
@@ -912,33 +628,17 @@ public class Control : CachedEntityObject
 
     public decimal linkOffsetXInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "linkOffsetXInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "linkOffsetXInPixels"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "linkOffsetXInPixels",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "linkOffsetXInPixels", value);
         }
     }
 
     public string linkOffsetY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "linkOffsetY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "linkOffsetY"); }
         set
         {
 
@@ -948,55 +648,27 @@ public class Control : CachedEntityObject
 
     public decimal linkOffsetYInPixels
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "linkOffsetYInPixels"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "linkOffsetYInPixels"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "linkOffsetYInPixels",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "linkOffsetYInPixels", value);
         }
     }
 
     public decimal centerX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "centerX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "centerX"); }
     }
 
     public decimal centerY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "centerY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "centerY"); }
     }
 
     public bool isEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isEnabled"); }
         set
         {
 
@@ -1006,13 +678,7 @@ public class Control : CachedEntityObject
 
     public string disabledColor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "disabledColor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "disabledColor"); }
         set
         {
 
@@ -1022,21 +688,11 @@ public class Control : CachedEntityObject
 
     public string disabledColorItem
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "disabledColorItem"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "disabledColorItem"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "disabledColorItem",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "disabledColorItem", value);
         }
     }
     #endregion
@@ -1045,10 +701,7 @@ public class Control : CachedEntityObject
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -1083,13 +736,7 @@ public class Control : CachedEntityObject
 
     public decimal uniqueId
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "uniqueId"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "uniqueId"); }
         set
         {
 
@@ -1099,13 +746,7 @@ public class Control : CachedEntityObject
 
     public CachedEntity metadata
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "metadata"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "metadata"); }
         set
         {
 
@@ -1115,73 +756,37 @@ public class Control : CachedEntityObject
 
     public bool isHitTestVisible
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isHitTestVisible"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isHitTestVisible"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "isHitTestVisible",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "isHitTestVisible", value);
         }
     }
 
     public bool isPointerBlocker
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isPointerBlocker"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isPointerBlocker"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "isPointerBlocker",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "isPointerBlocker", value);
         }
     }
 
     public bool isFocusInvisible
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isFocusInvisible"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isFocusInvisible"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "isFocusInvisible",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "isFocusInvisible", value);
         }
     }
 
     public bool clipChildren
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "clipChildren"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "clipChildren"); }
         set
         {
 
@@ -1191,13 +796,7 @@ public class Control : CachedEntityObject
 
     public bool clipContent
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "clipContent"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "clipContent"); }
         set
         {
 
@@ -1207,33 +806,17 @@ public class Control : CachedEntityObject
 
     public bool useBitmapCache
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useBitmapCache"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useBitmapCache"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useBitmapCache",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useBitmapCache", value);
         }
     }
 
     public string hoverCursor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "hoverCursor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "hoverCursor"); }
         set
         {
 
@@ -1248,17 +831,12 @@ public class Control : CachedEntityObject
         {
             if (__onWheelObservable == null)
             {
-                __onWheelObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Vector2>
-                >(
+                __onWheelObservable = EventHorizonBlazorInterop.GetClass<Observable<Vector2>>(
                     this.___guid,
                     "onWheelObservable",
                     (entity) =>
                     {
-                        return new Observable<Vector2>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Vector2>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1267,11 +845,7 @@ public class Control : CachedEntityObject
         set
         {
             __onWheelObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onWheelObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onWheelObservable", value);
         }
     }
 
@@ -1282,17 +856,12 @@ public class Control : CachedEntityObject
         {
             if (__onPointerMoveObservable == null)
             {
-                __onPointerMoveObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Vector2>
-                >(
+                __onPointerMoveObservable = EventHorizonBlazorInterop.GetClass<Observable<Vector2>>(
                     this.___guid,
                     "onPointerMoveObservable",
                     (entity) =>
                     {
-                        return new Observable<Vector2>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Vector2>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1301,11 +870,7 @@ public class Control : CachedEntityObject
         set
         {
             __onPointerMoveObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onPointerMoveObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onPointerMoveObservable", value);
         }
     }
 
@@ -1316,17 +881,12 @@ public class Control : CachedEntityObject
         {
             if (__onPointerOutObservable == null)
             {
-                __onPointerOutObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Control>
-                >(
+                __onPointerOutObservable = EventHorizonBlazorInterop.GetClass<Observable<Control>>(
                     this.___guid,
                     "onPointerOutObservable",
                     (entity) =>
                     {
-                        return new Observable<Control>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Control>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1335,11 +895,7 @@ public class Control : CachedEntityObject
         set
         {
             __onPointerOutObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onPointerOutObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onPointerOutObservable", value);
         }
     }
 
@@ -1357,10 +913,7 @@ public class Control : CachedEntityObject
                     "onPointerDownObservable",
                     (entity) =>
                     {
-                        return new Observable<Vector2WithInfo>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Vector2WithInfo>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1369,11 +922,7 @@ public class Control : CachedEntityObject
         set
         {
             __onPointerDownObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onPointerDownObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onPointerDownObservable", value);
         }
     }
 
@@ -1391,10 +940,7 @@ public class Control : CachedEntityObject
                     "onPointerUpObservable",
                     (entity) =>
                     {
-                        return new Observable<Vector2WithInfo>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Vector2WithInfo>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1403,11 +949,7 @@ public class Control : CachedEntityObject
         set
         {
             __onPointerUpObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onPointerUpObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onPointerUpObservable", value);
         }
     }
 
@@ -1425,10 +967,7 @@ public class Control : CachedEntityObject
                     "onPointerClickObservable",
                     (entity) =>
                     {
-                        return new Observable<Vector2WithInfo>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Vector2WithInfo>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1437,11 +976,7 @@ public class Control : CachedEntityObject
         set
         {
             __onPointerClickObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onPointerClickObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onPointerClickObservable", value);
         }
     }
 
@@ -1459,10 +994,7 @@ public class Control : CachedEntityObject
                     "onPointerEnterObservable",
                     (entity) =>
                     {
-                        return new Observable<Control>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Control>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1471,11 +1003,7 @@ public class Control : CachedEntityObject
         set
         {
             __onPointerEnterObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onPointerEnterObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onPointerEnterObservable", value);
         }
     }
 
@@ -1486,17 +1014,12 @@ public class Control : CachedEntityObject
         {
             if (__onDirtyObservable == null)
             {
-                __onDirtyObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Control>
-                >(
+                __onDirtyObservable = EventHorizonBlazorInterop.GetClass<Observable<Control>>(
                     this.___guid,
                     "onDirtyObservable",
                     (entity) =>
                     {
-                        return new Observable<Control>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Control>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1505,11 +1028,7 @@ public class Control : CachedEntityObject
         set
         {
             __onDirtyObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onDirtyObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onDirtyObservable", value);
         }
     }
 
@@ -1520,17 +1039,12 @@ public class Control : CachedEntityObject
         {
             if (__onBeforeDrawObservable == null)
             {
-                __onBeforeDrawObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Control>
-                >(
+                __onBeforeDrawObservable = EventHorizonBlazorInterop.GetClass<Observable<Control>>(
                     this.___guid,
                     "onBeforeDrawObservable",
                     (entity) =>
                     {
-                        return new Observable<Control>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Control>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1539,11 +1053,7 @@ public class Control : CachedEntityObject
         set
         {
             __onBeforeDrawObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onBeforeDrawObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onBeforeDrawObservable", value);
         }
     }
 
@@ -1554,17 +1064,12 @@ public class Control : CachedEntityObject
         {
             if (__onAfterDrawObservable == null)
             {
-                __onAfterDrawObservable = EventHorizonBlazorInterop.GetClass<
-                    Observable<Control>
-                >(
+                __onAfterDrawObservable = EventHorizonBlazorInterop.GetClass<Observable<Control>>(
                     this.___guid,
                     "onAfterDrawObservable",
                     (entity) =>
                     {
-                        return new Observable<Control>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<Control>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -1573,11 +1078,7 @@ public class Control : CachedEntityObject
         set
         {
             __onAfterDrawObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onAfterDrawObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onAfterDrawObservable", value);
         }
     }
     #endregion
@@ -1614,22 +1115,14 @@ public class Control : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Control>(
             entity => new Control() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAscendantOfClass" },
-                className
-            }
+            new object[] { new string[] { this.___guid, "getAscendantOfClass" }, className }
         );
     }
 
     public bool isAscendant(Control container)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isAscendant" },
-                container
-            }
+            new object[] { new string[] { this.___guid, "isAscendant" }, container }
         );
     }
 
@@ -1637,18 +1130,11 @@ public class Control : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector2>(
             entity => new Vector2() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getLocalCoordinates" },
-                globalCoordinates
-            }
+            new object[] { new string[] { this.___guid, "getLocalCoordinates" }, globalCoordinates }
         );
     }
 
-    public Control getLocalCoordinatesToRef(
-        Vector2 globalCoordinates,
-        Vector2 result
-    )
+    public Control getLocalCoordinatesToRef(Vector2 globalCoordinates, Vector2 result)
     {
         return EventHorizonBlazorInterop.FuncClass<Control>(
             entity => new Control() { ___guid = entity.___guid },
@@ -1676,12 +1162,7 @@ public class Control : CachedEntityObject
     public void moveToVector3(Vector3 position, Scene scene)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "moveToVector3" },
-                position,
-                scene
-            }
+            new object[] { new string[] { this.___guid, "moveToVector3" }, position, scene }
         );
     }
 

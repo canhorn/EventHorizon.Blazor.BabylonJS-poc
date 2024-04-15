@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct SavedEditorFileContentSuccessfulyEvent : INotification { }
@@ -18,9 +16,7 @@ public class SavedEditorFileContentSuccessfulyEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public SavedEditorFileContentSuccessfulyEventObserverHandler(
-        ObserverState observer
-    )
+    public SavedEditorFileContentSuccessfulyEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

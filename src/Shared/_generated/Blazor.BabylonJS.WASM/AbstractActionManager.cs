@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AbstractActionManager>))]
@@ -53,11 +51,7 @@ public class AbstractActionManager : CachedEntityObject, _IDisposable
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "AbstractActionManager.Triggers",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "AbstractActionManager.Triggers", value);
         }
     }
     #endregion
@@ -68,12 +62,7 @@ public class AbstractActionManager : CachedEntityObject, _IDisposable
         return EventHorizonBlazorInterop.Func<bool>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "AbstractActionManager",
-                    "HasSpecificTrigger"
-                },
+                new string[] { "BABYLON", "AbstractActionManager", "HasSpecificTrigger" },
                 trigger
             }
         );
@@ -84,24 +73,12 @@ public class AbstractActionManager : CachedEntityObject, _IDisposable
 
     public bool hasPointerTriggers
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasPointerTriggers"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasPointerTriggers"); }
     }
 
     public bool hasPickTriggers
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasPickTriggers"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasPickTriggers"); }
     }
     #endregion
 
@@ -109,13 +86,7 @@ public class AbstractActionManager : CachedEntityObject, _IDisposable
 
     public string hoverCursor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "hoverCursor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "hoverCursor"); }
         set
         {
 
@@ -132,10 +103,7 @@ public class AbstractActionManager : CachedEntityObject, _IDisposable
                 "actions",
                 (entity) =>
                 {
-                    return new IActionCachedEntity()
-                    {
-                        ___guid = entity.___guid
-                    };
+                    return new IActionCachedEntity() { ___guid = entity.___guid };
                 }
             );
         }
@@ -148,13 +116,7 @@ public class AbstractActionManager : CachedEntityObject, _IDisposable
 
     public bool isRecursive
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isRecursive"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isRecursive"); }
         set
         {
 
@@ -183,23 +145,14 @@ public class AbstractActionManager : CachedEntityObject, _IDisposable
     public void processTrigger(decimal trigger, IActionEvent evt = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "processTrigger" },
-                trigger,
-                evt
-            }
+            new object[] { new string[] { this.___guid, "processTrigger" }, trigger, evt }
         );
     }
 
     public bool hasSpecificTriggers(decimal[] triggers)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "hasSpecificTriggers" },
-                triggers
-            }
+            new object[] { new string[] { this.___guid, "hasSpecificTriggers" }, triggers }
         );
     }
 
@@ -241,22 +194,14 @@ public class AbstractActionManager : CachedEntityObject, _IDisposable
     {
         return EventHorizonBlazorInterop.FuncClass<IActionCachedEntity>(
             entity => new IActionCachedEntity() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "registerAction" },
-                action
-            }
+            new object[] { new string[] { this.___guid, "registerAction" }, action }
         );
     }
 
     public bool unregisterAction(IAction action)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "unregisterAction" },
-                action
-            }
+            new object[] { new string[] { this.___guid, "unregisterAction" }, action }
         );
     }
     #endregion

@@ -8,10 +8,7 @@ public class ErrorBoundaryLogger : ILogger
 {
     private readonly ErrorBoundaryService _errorBoundaryService;
 
-    public ErrorBoundaryLogger(
-        string _,
-        ErrorBoundaryService errorBoundaryService
-    )
+    public ErrorBoundaryLogger(string _, ErrorBoundaryService errorBoundaryService)
     {
         _errorBoundaryService = errorBoundaryService;
     }
@@ -36,10 +33,7 @@ public class ErrorBoundaryLogger : ILogger
     {
         if (exception is not null)
         {
-            _errorBoundaryService.AddException(
-                exception,
-                formatter(state, exception)
-            );
+            _errorBoundaryService.AddException(exception, formatter(state, exception));
         }
     }
 

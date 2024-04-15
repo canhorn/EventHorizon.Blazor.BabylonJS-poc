@@ -9,11 +9,9 @@
 
     public struct GameStateUpdatedEvent : INotification { }
 
-    public interface GameStateUpdatedEventObserver
-        : ArgumentObserver<GameStateUpdatedEvent> { }
+    public interface GameStateUpdatedEventObserver : ArgumentObserver<GameStateUpdatedEvent> { }
 
-    public class GameStateUpdatedEventHandler
-        : INotificationHandler<GameStateUpdatedEvent>
+    public class GameStateUpdatedEventHandler : INotificationHandler<GameStateUpdatedEvent>
     {
         private readonly ObserverState _observer;
 
@@ -26,9 +24,9 @@
             GameStateUpdatedEvent notification,
             CancellationToken cancellationToken
         ) =>
-            _observer.Trigger<
-                GameStateUpdatedEventObserver,
-                GameStateUpdatedEvent
-            >(notification, cancellationToken);
+            _observer.Trigger<GameStateUpdatedEventObserver, GameStateUpdatedEvent>(
+                notification,
+                cancellationToken
+            );
     }
 }

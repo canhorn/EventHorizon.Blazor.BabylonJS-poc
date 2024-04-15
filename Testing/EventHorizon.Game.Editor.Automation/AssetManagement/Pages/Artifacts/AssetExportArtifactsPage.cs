@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.AssetManagement.Pages.Artifacts;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.ArtifactManagement.Components;
 using EventHorizon.Game.Editor.Automation.Layout;
-
 using _ = AssetExportArtifactsPage;
 
 [Url("/asset/artifacts/export")]

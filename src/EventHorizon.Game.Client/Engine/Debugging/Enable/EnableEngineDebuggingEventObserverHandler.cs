@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class EnableEngineDebuggingEventObserverHandler
@@ -21,8 +19,8 @@ public class EnableEngineDebuggingEventObserverHandler
         EnableEngineDebuggingEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            EnableEngineDebuggingEventObserver,
-            EnableEngineDebuggingEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<EnableEngineDebuggingEventObserver, EnableEngineDebuggingEvent>(
+            notification,
+            cancellationToken
+        );
 }

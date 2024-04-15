@@ -10,10 +10,7 @@ public class IntervalTimerService : IIntervalTimerService
     private Timer? _timer;
     private event Func<Task>? _onElapsed;
 
-    public IIntervalTimerService Setup(
-        double millisecondInterval,
-        Func<Task> onElapsed
-    )
+    public IIntervalTimerService Setup(double millisecondInterval, Func<Task> onElapsed)
     {
         _onElapsed = onElapsed;
         _timer = new Timer(millisecondInterval);

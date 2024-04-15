@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Layout.Components;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Components.BladeSelection;
 using EventHorizon.Game.Editor.Automation.Components.TreeView;
 
@@ -15,9 +14,5 @@ public class NavigationSideBarComponent<TNavigateTo> : Control<TNavigateTo>
     public Button<TNavigateTo> WizardSelectionButton { get; private set; }
 
     [TestSelector("nav-blade-selection")]
-    public BladeSelectionComponent<TNavigateTo> BladeSelection
-    {
-        get;
-        private set;
-    }
+    public BladeSelectionComponent<TNavigateTo> BladeSelection { get; private set; }
 }

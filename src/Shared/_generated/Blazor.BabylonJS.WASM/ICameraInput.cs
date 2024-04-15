@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ICameraInput<TCamera> : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<ICameraInputCachedEntity<CachedEntity>>)
-)]
-public class ICameraInputCachedEntity<TCamera>
-    : CachedEntityObject,
-        ICameraInput<TCamera>
+[JsonConverter(typeof(CachedEntityConverter<ICameraInputCachedEntity<CachedEntity>>))]
+public class ICameraInputCachedEntity<TCamera> : CachedEntityObject, ICameraInput<TCamera>
     where TCamera : CachedEntity, new()
 {
     #region Static Accessors
@@ -88,10 +82,7 @@ public class ICameraInputCachedEntity<TCamera>
         );
     }
 
-    public void attachControl(
-        object element,
-        System.Nullable<bool> noPreventDefault = null
-    )
+    public void attachControl(object element, System.Nullable<bool> noPreventDefault = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -106,11 +97,7 @@ public class ICameraInputCachedEntity<TCamera>
     public void detachControl(CachedEntity element)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "detachControl" },
-                element
-            }
+            new object[] { new string[] { this.___guid, "detachControl" }, element }
         );
     }
 

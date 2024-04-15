@@ -2,14 +2,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
-public record SuccessfullyUploadedZoneServerImportFileEvent(string Url)
-    : INotification;
+public record SuccessfullyUploadedZoneServerImportFileEvent(string Url) : INotification;
 
 public interface SuccessfullyUploadedZoneServerImportFileEventObserver
     : ArgumentObserver<SuccessfullyUploadedZoneServerImportFileEvent> { }
@@ -19,9 +16,7 @@ public class SuccessfullyUploadedZoneServerImportFileEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public SuccessfullyUploadedZoneServerImportFileEventObserverHandler(
-        ObserverState observer
-    )
+    public SuccessfullyUploadedZoneServerImportFileEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

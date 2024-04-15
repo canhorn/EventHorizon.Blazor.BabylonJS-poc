@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ISmartArrayLike<T> : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<ISmartArrayLikeCachedEntity<CachedEntity>>)
-)]
-public class ISmartArrayLikeCachedEntity<T>
-    : CachedEntityObject,
-        ISmartArrayLike<T>
+[JsonConverter(typeof(CachedEntityConverter<ISmartArrayLikeCachedEntity<CachedEntity>>))]
+public class ISmartArrayLikeCachedEntity<T> : CachedEntityObject, ISmartArrayLike<T>
     where T : CachedEntity, new()
 {
     #region Static Accessors
@@ -61,13 +55,7 @@ public class ISmartArrayLikeCachedEntity<T>
 
     public decimal length
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "length"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "length"); }
         set
         {
 

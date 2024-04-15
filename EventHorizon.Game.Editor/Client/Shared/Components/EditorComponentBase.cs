@@ -1,14 +1,11 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Components;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Components;
 
 public abstract class EditorComponentBase : ComponentBase

@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Activity;
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Zone.Systems.ClientAssets.Create;
-
 using MediatR;
 
 public class CreateClientAssetCommandHandler
@@ -16,10 +14,7 @@ public class CreateClientAssetCommandHandler
     private readonly IMediator _mediator;
     private readonly ZoneAdminServices _zoneAdminServices;
 
-    public CreateClientAssetCommandHandler(
-        IMediator mediator,
-        ZoneAdminServices zoneAdminServices
-    )
+    public CreateClientAssetCommandHandler(IMediator mediator, ZoneAdminServices zoneAdminServices)
     {
         _mediator = mediator;
         _zoneAdminServices = zoneAdminServices;

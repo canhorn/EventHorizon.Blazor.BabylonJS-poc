@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Connection.Shared;
 using EventHorizon.Connection.Shared.Unauthorized;
 using EventHorizon.Game.Client.Core.Command.Model;
@@ -14,9 +13,7 @@ using EventHorizon.Game.Editor.Core.Services.Connection;
 using EventHorizon.Game.Editor.Core.Services.Model;
 using EventHorizon.Game.Editor.Core.Services.Registered;
 using EventHorizon.Game.Editor.Model;
-
 using MediatR;
-
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 
@@ -66,8 +63,7 @@ public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
                     options =>
                     {
                         // options..LogLevel = SignalRLogLevel.Error;
-                        options.AccessTokenProvider = () =>
-                            accessToken.FromResult<string?>();
+                        options.AccessTokenProvider = () => accessToken.FromResult<string?>();
                     }
                 )
                 .Build();
@@ -77,18 +73,12 @@ public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
 
             _initializing = false;
             _initialized = true;
-            await _mediator.Publish(
-                new CoreAdminServiceConnected(),
-                cancellationToken
-            );
+            await _mediator.Publish(new CoreAdminServiceConnected(), cancellationToken);
             return new();
         }
         catch (HttpRequestException ex)
         {
-            await LogAndDispose(
-                ex,
-                "Failed to start connection to Core Admin Service."
-            );
+            await LogAndDispose(ex, "Failed to start connection to Core Admin Service.");
             if (ex.Message.Contains("401 (Unauthorized)"))
             {
                 await _mediator.Publish(
@@ -109,10 +99,7 @@ public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
         }
         catch (Exception ex)
         {
-            await LogAndDispose(
-                ex,
-                "Generic Exception starting connection to Core Admin Service."
-            );
+            await LogAndDispose(ex, "Generic Exception starting connection to Core Admin Service.");
             return new(ConnectionErrorTypes.Unknown);
         }
     }
@@ -123,18 +110,14 @@ public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
             "ZoneRegistered",
             async (CoreZoneDetails zoneDetails) =>
             {
-                await _mediator.Publish(
-                    new ZoneRegisteredOnCoreServer(zoneDetails)
-                );
+                await _mediator.Publish(new ZoneRegisteredOnCoreServer(zoneDetails));
             }
         );
         connection.On(
             "ZoneUnregistered",
             async (string zoneId) =>
             {
-                await _mediator.Publish(
-                    new ZoneUnregisteredOnCoreServer(zoneId)
-                );
+                await _mediator.Publish(new ZoneUnregisteredOnCoreServer(zoneId));
             }
         );
     }
@@ -168,8 +151,6 @@ public class SignalrCoreAdminServices : CoreAdminServices, IDisposable
         {
             return EMPTY_LIST;
         }
-        return await _connection.InvokeAsync<IList<CoreZoneDetails>>(
-            "GetAllZones"
-        );
+        return await _connection.InvokeAsync<IList<CoreZoneDetails>>("GetAllZones");
     }
 }

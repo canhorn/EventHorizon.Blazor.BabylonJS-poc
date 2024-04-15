@@ -3,9 +3,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.Height.Api;
-
 using MediatR;
 
 public class SetHeightResolverCoordinatesCommandHandler
@@ -13,9 +11,7 @@ public class SetHeightResolverCoordinatesCommandHandler
 {
     private readonly ISetHeightResolver _heightResolver;
 
-    public SetHeightResolverCoordinatesCommandHandler(
-        ISetHeightResolver heightResolver
-    )
+    public SetHeightResolverCoordinatesCommandHandler(ISetHeightResolver heightResolver)
     {
         _heightResolver = heightResolver;
     }

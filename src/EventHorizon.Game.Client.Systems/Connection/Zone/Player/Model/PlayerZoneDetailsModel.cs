@@ -3,9 +3,7 @@
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Client.Systems.Player.Api;
 
-public class PlayerZoneDetailsModel
-    : ObjectEntityDetailsModel,
-        IPlayerZoneDetails
+public class PlayerZoneDetailsModel : ObjectEntityDetailsModel, IPlayerZoneDetails
 {
     public string PlayerId { get; set; } = string.Empty;
 }

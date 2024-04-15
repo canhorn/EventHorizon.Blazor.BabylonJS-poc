@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ClientAssetConfigTypeRegistered : INotification { }
@@ -18,9 +16,7 @@ public class ClientAssetConfigTypeRegisteredObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ClientAssetConfigTypeRegisteredObserverHandler(
-        ObserverState observer
-    )
+    public ClientAssetConfigTypeRegisteredObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -29,8 +25,8 @@ public class ClientAssetConfigTypeRegisteredObserverHandler
         ClientAssetConfigTypeRegistered notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ClientAssetConfigTypeRegisteredObserver,
-            ClientAssetConfigTypeRegistered
-        >(notification, cancellationToken);
+        _observer.Trigger<ClientAssetConfigTypeRegisteredObserver, ClientAssetConfigTypeRegistered>(
+            notification,
+            cancellationToken
+        );
 }

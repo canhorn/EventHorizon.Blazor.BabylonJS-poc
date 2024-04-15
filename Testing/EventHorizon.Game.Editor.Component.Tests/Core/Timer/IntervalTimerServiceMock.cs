@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Timer.Api;
 
 public class IntervalTimerServiceMock : IIntervalTimerService
@@ -14,10 +13,7 @@ public class IntervalTimerServiceMock : IIntervalTimerService
         return this;
     }
 
-    public IIntervalTimerService Setup(
-        double millisecondInterval,
-        Func<Task> onElapsed
-    )
+    public IIntervalTimerService Setup(double millisecondInterval, Func<Task> onElapsed)
     {
         return this;
     }

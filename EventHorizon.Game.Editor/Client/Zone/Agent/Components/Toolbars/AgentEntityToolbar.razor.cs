@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Agent.Components.Toolbars;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
@@ -12,14 +11,9 @@ public class AgentEntityToolbarModel : EditorComponentBase
 {
     public async Task HandleNew()
     {
-        var newAgentEntity = new ObjectEntityDetailsModel
-        {
-            Name = "New Agent Entity",
-        };
+        var newAgentEntity = new ObjectEntityDetailsModel { Name = "New Agent Entity", };
 
-        var result = await Mediator.Send(
-            new CreateAgentEntityCommand(newAgentEntity)
-        );
+        var result = await Mediator.Send(new CreateAgentEntityCommand(newAgentEntity));
 
         if (result.Success.IsNotTrue())
         {

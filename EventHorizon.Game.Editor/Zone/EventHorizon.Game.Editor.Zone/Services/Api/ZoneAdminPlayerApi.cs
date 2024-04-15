@@ -7,9 +7,7 @@ using EventHorizon.Zone.Systems.Player.Model;
 
 public interface ZoneAdminPlayerApi
 {
-    Task<ApiResponse<PlayerObjectEntityDataModel>> GetData(
-        CancellationToken cancellationToken
-    );
+    Task<ApiResponse<PlayerObjectEntityDataModel>> GetData(CancellationToken cancellationToken);
     Task<StandardApiResponse> SaveData(
         PlayerObjectEntityDataModel playerData,
         CancellationToken cancellationToken

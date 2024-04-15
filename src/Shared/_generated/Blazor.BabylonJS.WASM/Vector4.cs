@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Vector4>))]
@@ -23,27 +21,15 @@ public class Vector4 : CachedEntityObject
     #endregion
 
     #region Static Methods
-    public static Vector4 FromArray(
-        decimal[] array,
-        System.Nullable<decimal> offset = null
-    )
+    public static Vector4 FromArray(decimal[] array, System.Nullable<decimal> offset = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector4", "FromArray" },
-                array,
-                offset
-            }
+            new object[] { new string[] { "BABYLON", "Vector4", "FromArray" }, array, offset }
         );
     }
 
-    public static void FromArrayToRef(
-        decimal[] array,
-        decimal offset,
-        Vector4 result
-    )
+    public static void FromArrayToRef(decimal[] array, decimal offset, Vector4 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -56,11 +42,7 @@ public class Vector4 : CachedEntityObject
         );
     }
 
-    public static void FromFloatArrayToRef(
-        decimal[] array,
-        decimal offset,
-        Vector4 result
-    )
+    public static void FromFloatArrayToRef(decimal[] array, decimal offset, Vector4 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -73,13 +55,7 @@ public class Vector4 : CachedEntityObject
         );
     }
 
-    public static void FromFloatsToRef(
-        decimal x,
-        decimal y,
-        decimal z,
-        decimal w,
-        Vector4 result
-    )
+    public static void FromFloatsToRef(decimal x, decimal y, decimal z, decimal w, Vector4 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -114,23 +90,14 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector4", "Normalize" },
-                vector
-            }
+            new object[] { new string[] { "BABYLON", "Vector4", "Normalize" }, vector }
         );
     }
 
     public static void NormalizeToRef(Vector4 vector, Vector4 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector4", "NormalizeToRef" },
-                vector,
-                result
-            }
+            new object[] { new string[] { "BABYLON", "Vector4", "NormalizeToRef" }, vector, result }
         );
     }
 
@@ -138,12 +105,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector4", "Minimize" },
-                left,
-                right
-            }
+            new object[] { new string[] { "BABYLON", "Vector4", "Minimize" }, left, right }
         );
     }
 
@@ -151,24 +113,14 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector4", "Maximize" },
-                left,
-                right
-            }
+            new object[] { new string[] { "BABYLON", "Vector4", "Maximize" }, left, right }
         );
     }
 
     public static decimal Distance(Vector4 value1, Vector4 value2)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector4", "Distance" },
-                value1,
-                value2
-            }
+            new object[] { new string[] { "BABYLON", "Vector4", "Distance" }, value1, value2 }
         );
     }
 
@@ -188,12 +140,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector4", "Center" },
-                value1,
-                value2
-            }
+            new object[] { new string[] { "BABYLON", "Vector4", "Center" }, value1, value2 }
         );
     }
 
@@ -210,11 +157,7 @@ public class Vector4 : CachedEntityObject
         );
     }
 
-    public static void TransformNormalToRef(
-        Vector4 vector,
-        Matrix transformation,
-        Vector4 result
-    )
+    public static void TransformNormalToRef(Vector4 vector, Matrix transformation, Vector4 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -239,12 +182,7 @@ public class Vector4 : CachedEntityObject
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Vector4",
-                    "TransformNormalFromFloatsToRef"
-                },
+                new string[] { "BABYLON", "Vector4", "TransformNormalFromFloatsToRef" },
                 x,
                 y,
                 z,
@@ -255,19 +193,11 @@ public class Vector4 : CachedEntityObject
         );
     }
 
-    public static Vector4 FromVector3(
-        Vector3 source,
-        System.Nullable<decimal> w = null
-    )
+    public static Vector4 FromVector3(Vector3 source, System.Nullable<decimal> w = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Vector4", "FromVector3" },
-                source,
-                w
-            }
+            new object[] { new string[] { "BABYLON", "Vector4", "FromVector3" }, source, w }
         );
     }
     #endregion
@@ -280,10 +210,7 @@ public class Vector4 : CachedEntityObject
 
     public decimal x
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "x");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "x"); }
         set
         {
 
@@ -293,10 +220,7 @@ public class Vector4 : CachedEntityObject
 
     public decimal y
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "y");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "y"); }
         set
         {
 
@@ -306,10 +230,7 @@ public class Vector4 : CachedEntityObject
 
     public decimal z
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "z");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "z"); }
         set
         {
 
@@ -319,10 +240,7 @@ public class Vector4 : CachedEntityObject
 
     public decimal w
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "w");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "w"); }
         set
         {
 
@@ -383,19 +301,11 @@ public class Vector4 : CachedEntityObject
         );
     }
 
-    public Vector4 toArray(
-        decimal[] array,
-        System.Nullable<decimal> index = null
-    )
+    public Vector4 toArray(decimal[] array, System.Nullable<decimal> index = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "toArray" },
-                array,
-                index
-            }
+            new object[] { new string[] { this.___guid, "toArray" }, array, index }
         );
     }
 
@@ -403,11 +313,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addInPlace" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "addInPlace" }, otherVector }
         );
     }
 
@@ -423,12 +329,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "addToRef" },
-                otherVector,
-                result
-            }
+            new object[] { new string[] { this.___guid, "addToRef" }, otherVector, result }
         );
     }
 
@@ -436,11 +337,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtractInPlace" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "subtractInPlace" }, otherVector }
         );
     }
 
@@ -448,11 +345,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtract" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "subtract" }, otherVector }
         );
     }
 
@@ -460,32 +353,15 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtractToRef" },
-                otherVector,
-                result
-            }
+            new object[] { new string[] { this.___guid, "subtractToRef" }, otherVector, result }
         );
     }
 
-    public Vector4 subtractFromFloats(
-        decimal x,
-        decimal y,
-        decimal z,
-        decimal w
-    )
+    public Vector4 subtractFromFloats(decimal x, decimal y, decimal z, decimal w)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtractFromFloats" },
-                x,
-                y,
-                z,
-                w
-            }
+            new object[] { new string[] { this.___guid, "subtractFromFloats" }, x, y, z, w }
         );
     }
 
@@ -531,11 +407,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "negateToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "negateToRef" }, result }
         );
     }
 
@@ -543,11 +415,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleInPlace" },
-                scale
-            }
+            new object[] { new string[] { this.___guid, "scaleInPlace" }, scale }
         );
     }
 
@@ -563,12 +431,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleToRef" },
-                scale,
-                result
-            }
+            new object[] { new string[] { this.___guid, "scaleToRef" }, scale, result }
         );
     }
 
@@ -576,30 +439,18 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "scaleAndAddToRef" },
-                scale,
-                result
-            }
+            new object[] { new string[] { this.___guid, "scaleAndAddToRef" }, scale, result }
         );
     }
 
     public bool equals(Vector4 otherVector)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "equals" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "equals" }, otherVector }
         );
     }
 
-    public bool equalsWithEpsilon(
-        Vector4 otherVector,
-        System.Nullable<decimal> epsilon = null
-    )
+    public bool equalsWithEpsilon(Vector4 otherVector, System.Nullable<decimal> epsilon = null)
     {
         return EventHorizonBlazorInterop.Func<bool>(
             new object[]
@@ -614,14 +465,7 @@ public class Vector4 : CachedEntityObject
     public bool equalsToFloats(decimal x, decimal y, decimal z, decimal w)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "equalsToFloats" },
-                x,
-                y,
-                z,
-                w
-            }
+            new object[] { new string[] { this.___guid, "equalsToFloats" }, x, y, z, w }
         );
     }
 
@@ -629,11 +473,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyInPlace" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "multiplyInPlace" }, otherVector }
         );
     }
 
@@ -641,11 +481,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiply" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "multiply" }, otherVector }
         );
     }
 
@@ -653,12 +489,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyToRef" },
-                otherVector,
-                result
-            }
+            new object[] { new string[] { this.___guid, "multiplyToRef" }, otherVector, result }
         );
     }
 
@@ -666,14 +497,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyByFloats" },
-                x,
-                y,
-                z,
-                w
-            }
+            new object[] { new string[] { this.___guid, "multiplyByFloats" }, x, y, z, w }
         );
     }
 
@@ -681,11 +505,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "divide" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "divide" }, otherVector }
         );
     }
 
@@ -693,12 +513,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "divideToRef" },
-                otherVector,
-                result
-            }
+            new object[] { new string[] { this.___guid, "divideToRef" }, otherVector, result }
         );
     }
 
@@ -706,11 +521,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "divideInPlace" },
-                otherVector
-            }
+            new object[] { new string[] { this.___guid, "divideInPlace" }, otherVector }
         );
     }
 
@@ -718,11 +529,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "minimizeInPlace" },
-                other
-            }
+            new object[] { new string[] { this.___guid, "minimizeInPlace" }, other }
         );
     }
 
@@ -730,11 +537,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "maximizeInPlace" },
-                other
-            }
+            new object[] { new string[] { this.___guid, "maximizeInPlace" }, other }
         );
     }
 
@@ -804,14 +607,7 @@ public class Vector4 : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Vector4>(
             entity => new Vector4() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "copyFromFloats" },
-                x,
-                y,
-                z,
-                w
-            }
+            new object[] { new string[] { this.___guid, "copyFromFloats" }, x, y, z, w }
         );
     }
 

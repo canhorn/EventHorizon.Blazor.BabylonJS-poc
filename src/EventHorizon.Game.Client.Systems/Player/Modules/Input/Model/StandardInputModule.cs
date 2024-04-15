@@ -28,12 +28,10 @@ public class StandardInputModule
     private readonly ILogger _logger = GameServiceProvider.GetService<
         ILogger<StandardInputModule>
     >();
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
-    private readonly IIntervalTimerService _movePlayerIntervalTimer =
-        GameServiceProvider
-            .GetService<IFactory<IIntervalTimerService>>()
-            .Create();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
+    private readonly IIntervalTimerService _movePlayerIntervalTimer = GameServiceProvider
+        .GetService<IFactory<IIntervalTimerService>>()
+        .Create();
     private readonly PlayerInputSetup _playerInputSetup =
         GameServiceProvider.GetService<PlayerInputSetup>();
     private readonly IList<string> _registeredInput = new List<string>();
@@ -49,10 +47,9 @@ public class StandardInputModule
         _entity = playerEntity;
         _moveDirection = MoveDirection.Stationary;
 
-        var playerConfiguration =
-            _entity.GetPropertyAsOption<ObjectEntityConfiguration>(
-                "playerConfiguration"
-            );
+        var playerConfiguration = _entity.GetPropertyAsOption<ObjectEntityConfiguration>(
+            "playerConfiguration"
+        );
         if (!playerConfiguration.HasValue)
         {
             _logger.LogDebug("Player Configuration not Found.");
@@ -64,10 +61,7 @@ public class StandardInputModule
     public override async Task Initialize()
     {
         await _playerInputSetup.Setup(this, _inputConfig);
-        _movePlayerIntervalTimer.Setup(
-            _inputConfig.MovementDelay,
-            HandleMovePlayer
-        );
+        _movePlayerIntervalTimer.Setup(_inputConfig.MovementDelay, HandleMovePlayer);
         _movePlayerIntervalTimer.Start();
 
         GamePlatform.RegisterObserver(this);
@@ -128,9 +122,7 @@ public class StandardInputModule
 
     private bool SetupPlayerInputConfig(ObjectEntityConfiguration config)
     {
-        var inputConfig = config.Get<PlayerInputConfig>(
-            PlayerInputConfig.PROPERTY_NAME
-        );
+        var inputConfig = config.Get<PlayerInputConfig>(PlayerInputConfig.PROPERTY_NAME);
 
         if (!inputConfig.HasValue)
         {
@@ -150,9 +142,7 @@ public class StandardInputModule
         }
         else if (_moveDirection == MoveDirection.Stop)
         {
-            await _mediator.Publish(
-                new InvokePlayerActionEvent(PlayerActions.STOP)
-            );
+            await _mediator.Publish(new InvokePlayerActionEvent(PlayerActions.STOP));
             return;
         }
 

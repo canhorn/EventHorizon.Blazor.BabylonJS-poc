@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 [ClientAction("SERVER_CLIENT_ENTITY_DELETED_CLIENT_ACTION_EVENT")]
@@ -15,9 +13,7 @@ public struct ClientActionServerClientEntityDeletedEvent : IClientAction
 {
     public string GlobalId { get; }
 
-    public ClientActionServerClientEntityDeletedEvent(
-        IClientActionDataResolver resolver
-    )
+    public ClientActionServerClientEntityDeletedEvent(IClientActionDataResolver resolver)
     {
         GlobalId = resolver.Resolve<string>("globalId");
     }
@@ -31,9 +27,7 @@ public class ClientActionServerClientEntityDeletedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ClientActionServerClientEntityDeletedEventObserverHandler(
-        ObserverState observer
-    )
+    public ClientActionServerClientEntityDeletedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

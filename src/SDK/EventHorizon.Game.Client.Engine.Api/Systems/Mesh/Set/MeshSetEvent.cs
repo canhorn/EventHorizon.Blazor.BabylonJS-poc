@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set;
 
 using System;
-
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
 public struct MeshSetEvent : INotification

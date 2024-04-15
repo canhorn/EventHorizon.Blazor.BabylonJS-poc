@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Builder.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Config.Api;
@@ -12,9 +11,7 @@ public class StandardClientAssetConfigBuilder
 {
     private readonly ClientAssetConfigBuilderState _builderState;
 
-    public StandardClientAssetConfigBuilder(
-        ClientAssetConfigBuilderState builderState
-    )
+    public StandardClientAssetConfigBuilder(ClientAssetConfigBuilderState builderState)
     {
         _builderState = builderState;
     }

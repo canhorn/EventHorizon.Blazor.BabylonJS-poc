@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-
 using EventHorizon.Game.Editor.Client.DataStorage.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components.Select;
 using EventHorizon.Game.Editor.Client.Shared.Properties;
@@ -62,12 +61,7 @@ public struct DataValueEditModalModel
         return this;
     }
 
-    internal DataValueEditModalModel Reset(
-        bool isNew,
-        string name,
-        object value,
-        string type
-    )
+    internal DataValueEditModalModel Reset(bool isNew, string name, object value, string type)
     {
         IsNewValue = isNew;
         DataName = name;

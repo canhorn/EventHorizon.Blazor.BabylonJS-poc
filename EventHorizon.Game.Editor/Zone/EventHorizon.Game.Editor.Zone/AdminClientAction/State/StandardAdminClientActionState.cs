@@ -3,11 +3,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Api;
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Attributes;
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Model;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardAdminClientActionState : AdminClientActionState
@@ -15,25 +13,20 @@ public class StandardAdminClientActionState : AdminClientActionState
     private readonly ILogger _logger;
     private readonly IDictionary<string, Type> _actionTypes;
 
-    public StandardAdminClientActionState(
-        ILogger<StandardAdminClientActionState> logger
-    )
+    public StandardAdminClientActionState(ILogger<StandardAdminClientActionState> logger)
     {
         _logger = logger;
         _actionTypes = new Dictionary<string, Type>();
 
-        var clientActionTypeInfoList = AppDomain.CurrentDomain
-            .GetAssemblies()
+        var clientActionTypeInfoList = AppDomain
+            .CurrentDomain.GetAssemblies()
             .SelectMany(x => x.DefinedTypes)
             .Where(type => typeof(IAdminClientAction).IsAssignableFrom(type));
 
         foreach (var typeInfo in clientActionTypeInfoList)
         {
             var attributes = Attribute
-                .GetCustomAttributes(
-                    typeInfo,
-                    typeof(AdminClientActionAttribute)
-                )
+                .GetCustomAttributes(typeInfo, typeof(AdminClientActionAttribute))
                 .Cast<AdminClientActionAttribute>();
 
             foreach (var clientActionAttribute in attributes)
@@ -50,20 +43,14 @@ public class StandardAdminClientActionState : AdminClientActionState
         );
     }
 
-    public Option<IAdminClientAction> Get(
-        string actionName,
-        IDictionary<string, object> data
-    )
+    public Option<IAdminClientAction> Get(string actionName, IDictionary<string, object> data)
     {
         try
         {
             if (_actionTypes.TryGetValue(actionName, out var actionType))
             {
                 return Activator
-                    .CreateInstance(
-                        actionType,
-                        new AdminClientActionDataResolver(data)
-                    )!
+                    .CreateInstance(actionType, new AdminClientActionDataResolver(data))!
                     .To<IAdminClientAction>()!
                     .ToOption();
             }

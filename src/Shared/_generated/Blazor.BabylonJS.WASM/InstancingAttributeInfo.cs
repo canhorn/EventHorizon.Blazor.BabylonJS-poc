@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface InstancingAttributeInfo : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<InstancingAttributeInfoCachedEntity>)
-)]
-public class InstancingAttributeInfoCachedEntity
-    : CachedEntityObject,
-        InstancingAttributeInfo
+[JsonConverter(typeof(CachedEntityConverter<InstancingAttributeInfoCachedEntity>))]
+public class InstancingAttributeInfoCachedEntity : CachedEntityObject, InstancingAttributeInfo
 {
     #region Static Accessors
 
@@ -40,13 +34,7 @@ public class InstancingAttributeInfoCachedEntity
 
     public string attributeName
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "attributeName"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "attributeName"); }
         set
         {
 
@@ -56,13 +44,7 @@ public class InstancingAttributeInfoCachedEntity
 
     public decimal index
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "index"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "index"); }
         set
         {
 
@@ -72,13 +54,7 @@ public class InstancingAttributeInfoCachedEntity
 
     public decimal attributeSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "attributeSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "attributeSize"); }
         set
         {
 
@@ -88,13 +64,7 @@ public class InstancingAttributeInfoCachedEntity
 
     public decimal offset
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "offset"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "offset"); }
         set
         {
 
@@ -104,13 +74,7 @@ public class InstancingAttributeInfoCachedEntity
 
     public decimal divisor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "divisor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "divisor"); }
         set
         {
 
@@ -120,13 +84,7 @@ public class InstancingAttributeInfoCachedEntity
 
     public decimal attributeType
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "attributeType"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "attributeType"); }
         set
         {
 
@@ -136,13 +94,7 @@ public class InstancingAttributeInfoCachedEntity
 
     public bool normalized
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "normalized"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "normalized"); }
         set
         {
 

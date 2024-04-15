@@ -2,13 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Rendering.Api;
-
 using MediatR;
 
-public class GameLoadedEventHideLoadingHandler
-    : INotificationHandler<GameLoadedEvent>
+public class GameLoadedEventHideLoadingHandler : INotificationHandler<GameLoadedEvent>
 {
     private readonly IRenderingEngine _renderingEngine;
 
@@ -17,10 +14,7 @@ public class GameLoadedEventHideLoadingHandler
         _renderingEngine = renderingEngine;
     }
 
-    public Task Handle(
-        GameLoadedEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(GameLoadedEvent notification, CancellationToken cancellationToken)
     {
         _renderingEngine.GetEngine().HideLoadingUI();
 

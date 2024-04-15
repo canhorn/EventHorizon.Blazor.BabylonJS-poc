@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ProceduralTexture>))]
@@ -30,13 +28,7 @@ public class ProceduralTexture : Texture
 
     public decimal refreshRate
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "refreshRate"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "refreshRate"); }
         set
         {
 
@@ -49,10 +41,7 @@ public class ProceduralTexture : Texture
 
     public bool isCube
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isCube");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isCube"); }
         set
         {
 
@@ -62,13 +51,7 @@ public class ProceduralTexture : Texture
 
     public bool isEnabled
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "isEnabled"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isEnabled"); }
         set
         {
 
@@ -78,13 +61,7 @@ public class ProceduralTexture : Texture
 
     public bool autoClear
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "autoClear"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "autoClear"); }
         set
         {
 
@@ -106,10 +83,7 @@ public class ProceduralTexture : Texture
                     "onGeneratedObservable",
                     (entity) =>
                     {
-                        return new Observable<ProceduralTexture>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<ProceduralTexture>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -118,11 +92,7 @@ public class ProceduralTexture : Texture
         set
         {
             __onGeneratedObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onGeneratedObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onGeneratedObservable", value);
         }
     }
     #endregion
@@ -238,21 +208,14 @@ public class ProceduralTexture : Texture
     public void resetRefreshCounter()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "resetRefreshCounter" }
-            }
+            new object[] { new string[] { this.___guid, "resetRefreshCounter" } }
         );
     }
 
     public void setFragment(object fragment)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setFragment" },
-                fragment
-            }
+            new object[] { new string[] { this.___guid, "setFragment" }, fragment }
         );
     }
 
@@ -266,12 +229,7 @@ public class ProceduralTexture : Texture
     public void resize(decimal size, bool generateMipMaps)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "resize" },
-                size,
-                generateMipMaps
-            }
+            new object[] { new string[] { this.___guid, "resize" }, size, generateMipMaps }
         );
     }
 
@@ -279,12 +237,7 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setTexture" },
-                name,
-                texture
-            }
+            new object[] { new string[] { this.___guid, "setTexture" }, name, texture }
         );
     }
 
@@ -292,12 +245,7 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloat" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setFloat" }, name, value }
         );
     }
 
@@ -305,12 +253,7 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setInt" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setInt" }, name, value }
         );
     }
 
@@ -318,12 +261,7 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setFloats" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setFloats" }, name, value }
         );
     }
 
@@ -331,12 +269,7 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setColor3" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setColor3" }, name, value }
         );
     }
 
@@ -344,12 +277,7 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setColor4" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setColor4" }, name, value }
         );
     }
 
@@ -357,12 +285,7 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setVector2" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setVector2" }, name, value }
         );
     }
 
@@ -370,12 +293,7 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setVector3" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setVector3" }, name, value }
         );
     }
 
@@ -383,23 +301,14 @@ public class ProceduralTexture : Texture
     {
         return EventHorizonBlazorInterop.FuncClass<ProceduralTexture>(
             entity => new ProceduralTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "setMatrix" },
-                name,
-                value
-            }
+            new object[] { new string[] { this.___guid, "setMatrix" }, name, value }
         );
     }
 
     public void render(System.Nullable<bool> useCameraPostProcess = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "render" },
-                useCameraPostProcess
-            }
+            new object[] { new string[] { this.___guid, "render" }, useCameraPostProcess }
         );
     }
 

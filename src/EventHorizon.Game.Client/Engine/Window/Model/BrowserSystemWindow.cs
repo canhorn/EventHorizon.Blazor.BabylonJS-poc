@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Window.Model;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Window.Api;
-
 using Microsoft.AspNetCore.Components;
 
 public class BrowserSystemWindow : ISystemWindow

@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Entity.Properties.Model.Model;
 
 using System;
-
 using EventHorizon.Game.Client.Systems.Entity.Properties.Model.Api;
 
 public class ModelStateModel : IModelState

@@ -1,15 +1,11 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Shared.Components.Activity;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Activity;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
-public class ActivityTrackingComponent
-    : ObservableComponentBase,
-        ActivityEventObserver
+public class ActivityTrackingComponent : ObservableComponentBase, ActivityEventObserver
 {
     [Inject]
     public ILogger<ActivityTrackingComponent> Logger { get; set; } = null!;

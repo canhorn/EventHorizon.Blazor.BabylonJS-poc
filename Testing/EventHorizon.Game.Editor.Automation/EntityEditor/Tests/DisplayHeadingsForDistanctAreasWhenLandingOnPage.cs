@@ -1,12 +1,9 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.EntityEditor.Tests;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Core.Browser;
 using EventHorizon.Game.Editor.Automation.EntityEditor.Pages;
-
 using NUnit.Framework;
-
 using Translations = Localization.EntityEditorPageTranslations;
 
 public class DisplayHeadingsForDistanctAreasWhenLandingOnPage : WebHost
@@ -17,11 +14,7 @@ public class DisplayHeadingsForDistanctAreasWhenLandingOnPage : WebHost
     {
         this.Login<EntityEditorPage>()
             .Header.Should.Be(Translations.EN_US.Header)
-            .ClientEntityListHeader.Should.Be(
-                Translations.EN_US.ClientEntityHeader
-            )
-            .AgentEntityListHeader.Should.Be(
-                Translations.EN_US.AgentEntityHeader
-            );
+            .ClientEntityListHeader.Should.Be(Translations.EN_US.ClientEntityHeader)
+            .AgentEntityListHeader.Should.Be(Translations.EN_US.AgentEntityHeader);
     }
 }

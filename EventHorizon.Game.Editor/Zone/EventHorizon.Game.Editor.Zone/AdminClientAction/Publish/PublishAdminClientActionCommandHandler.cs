@@ -30,10 +30,7 @@ public class PublishAdminClientActionCommandHandler
         CancellationToken cancellationToken
     )
     {
-        _logger.LogDebug(
-            "AdminClientActionName: {ActionName}",
-            request.ActionName
-        );
+        _logger.LogDebug("AdminClientActionName: {ActionName}", request.ActionName);
         var clientAction = _state.Get(request.ActionName, request.Data);
         if (clientAction.HasValue)
         {

@@ -2,20 +2,15 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
 using EventHorizon.Game.Client.Systems.EntityModule.Create;
 using EventHorizon.Game.Client.Systems.ServerModule.Api;
 using EventHorizon.Game.Client.Systems.ServerModule.Dispose;
-
 using MediatR;
 
 public class RegisterNewServerModuleFromScriptCommandHandler
-    : IRequestHandler<
-        RegisterNewServerModuleFromScriptCommand,
-        StandardCommandResult
-    >
+    : IRequestHandler<RegisterNewServerModuleFromScriptCommand, StandardCommandResult>
 {
     private readonly IMediator _mediator;
     private readonly ServerModuleState _state;
@@ -71,9 +66,7 @@ public class RegisterNewServerModuleFromScriptCommandHandler
             current = _state.Set(serverModule);
             if (current.HasValue)
             {
-                return new StandardCommandResult(
-                    "not_able_to_create_new_server_module"
-                );
+                return new StandardCommandResult("not_able_to_create_new_server_module");
             }
         }
 

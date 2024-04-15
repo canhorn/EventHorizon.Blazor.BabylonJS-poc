@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.Providers;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;

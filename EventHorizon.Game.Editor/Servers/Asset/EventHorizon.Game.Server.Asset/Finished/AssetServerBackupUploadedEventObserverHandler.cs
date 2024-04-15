@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class AssetServerBackupUploadedEventObserverHandler
@@ -21,8 +19,8 @@ public class AssetServerBackupUploadedEventObserverHandler
         AssetServerBackupUploadedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            AssetServerBackupUploadedEventObserver,
-            AssetServerBackupUploadedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<AssetServerBackupUploadedEventObserver, AssetServerBackupUploadedEvent>(
+            notification,
+            cancellationToken
+        );
 }

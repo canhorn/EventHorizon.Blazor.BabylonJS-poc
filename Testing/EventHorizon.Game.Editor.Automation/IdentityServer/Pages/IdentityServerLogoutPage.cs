@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.IdentityServer.Pages;
 
 using Atata;
-
 using _ = IdentityServerLogoutPage;
 
 public class IdentityServerLogoutPage : Page<_>

@@ -3,11 +3,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
-
 using Microsoft.VisualBasic.CompilerServices;
 
 public class RunClientScriptWithReturnCommand : IRequest<CommandResult<T>>

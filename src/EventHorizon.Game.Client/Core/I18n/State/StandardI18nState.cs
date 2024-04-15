@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using EventHorizon.Game.Client.Core.I18n.Api;
 using EventHorizon.Game.Client.Core.I18n.Model;
 

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface EngineOptions : ICachedEntity { }
@@ -36,73 +34,37 @@ public class EngineOptionsCachedEntity : CachedEntityObject, EngineOptions
 
     public decimal limitDeviceRatio
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "limitDeviceRatio"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "limitDeviceRatio"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "limitDeviceRatio",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "limitDeviceRatio", value);
         }
     }
 
     public bool autoEnableWebVR
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "autoEnableWebVR"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "autoEnableWebVR"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "autoEnableWebVR",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "autoEnableWebVR", value);
         }
     }
 
     public bool disableWebGL2Support
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "disableWebGL2Support"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "disableWebGL2Support"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "disableWebGL2Support",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "disableWebGL2Support", value);
         }
     }
 
     public bool audioEngine
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "audioEngine"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "audioEngine"); }
         set
         {
 
@@ -112,53 +74,27 @@ public class EngineOptionsCachedEntity : CachedEntityObject, EngineOptions
 
     public bool deterministicLockstep
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "deterministicLockstep"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "deterministicLockstep"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "deterministicLockstep",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "deterministicLockstep", value);
         }
     }
 
     public decimal lockstepMaxSteps
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "lockstepMaxSteps"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "lockstepMaxSteps"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "lockstepMaxSteps",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "lockstepMaxSteps", value);
         }
     }
 
     public decimal timeStep
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "timeStep"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "timeStep"); }
         set
         {
 
@@ -168,61 +104,31 @@ public class EngineOptionsCachedEntity : CachedEntityObject, EngineOptions
 
     public bool doNotHandleContextLost
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "doNotHandleContextLost"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "doNotHandleContextLost"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "doNotHandleContextLost",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "doNotHandleContextLost", value);
         }
     }
 
     public bool doNotHandleTouchAction
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "doNotHandleTouchAction"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "doNotHandleTouchAction"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "doNotHandleTouchAction",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "doNotHandleTouchAction", value);
         }
     }
 
     public bool useHighPrecisionFloats
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useHighPrecisionFloats"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useHighPrecisionFloats"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useHighPrecisionFloats",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useHighPrecisionFloats", value);
         }
     }
     #endregion

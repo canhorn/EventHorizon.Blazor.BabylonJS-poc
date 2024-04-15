@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.AdminClientAction.Model;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Core.Mapper.Api;
 using EventHorizon.Game.Editor.Zone.AdminClientAction.Api;

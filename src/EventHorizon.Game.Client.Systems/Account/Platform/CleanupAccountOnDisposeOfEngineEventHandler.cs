@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
 using EventHorizon.Game.Client.Systems.Account.Api;
-
 using MediatR;
 
 public class CleanupAccountOnDisposeOfEngineEventHandler
@@ -19,10 +17,7 @@ public class CleanupAccountOnDisposeOfEngineEventHandler
         _state = state;
     }
 
-    public Task Handle(
-        DisposeOfEngineEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(DisposeOfEngineEvent notification, CancellationToken cancellationToken)
     {
         _state.Reset();
 

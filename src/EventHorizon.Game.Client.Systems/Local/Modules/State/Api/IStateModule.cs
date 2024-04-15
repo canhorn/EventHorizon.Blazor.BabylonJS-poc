@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.Local.Modules.State.Api;
 
 using System;
-
 using EventHorizon.Game.Client.Engine.Systems.Module.Api;
 
 public interface IStateModule : IModule

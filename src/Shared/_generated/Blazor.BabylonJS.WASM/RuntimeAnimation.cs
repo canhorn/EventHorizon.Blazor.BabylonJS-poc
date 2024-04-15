@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<RuntimeAnimation>))]
@@ -30,57 +28,27 @@ public class RuntimeAnimation : CachedEntityObject
 
     public decimal currentFrame
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "currentFrame"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "currentFrame"); }
     }
 
     public decimal weight
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "weight"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "weight"); }
     }
 
     public CachedEntity currentValue
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "currentValue"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "currentValue"); }
     }
 
     public string targetPath
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(
-                this.___guid,
-                "targetPath"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "targetPath"); }
     }
 
     public CachedEntity target
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<CachedEntity>(
-                this.___guid,
-                "target"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<CachedEntity>(this.___guid, "target"); }
     }
 
     private Animation __animation;
@@ -118,12 +86,7 @@ public class RuntimeAnimation : CachedEntityObject
         ___guid = entity.___guid;
     }
 
-    public RuntimeAnimation(
-        object target,
-        Animation animation,
-        Scene scene,
-        Animatable host
-    )
+    public RuntimeAnimation(object target, Animation animation, Scene scene, Animatable host)
     {
         var entity = EventHorizonBlazorInterop.New(
             new string[] { "BABYLON", "RuntimeAnimation" },
@@ -140,11 +103,7 @@ public class RuntimeAnimation : CachedEntityObject
     public void reset(System.Nullable<bool> restoreOriginal = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "reset" },
-                restoreOriginal
-            }
+            new object[] { new string[] { this.___guid, "reset" }, restoreOriginal }
         );
     }
 
@@ -165,12 +124,7 @@ public class RuntimeAnimation : CachedEntityObject
     public void setValue(object currentValue, decimal weight)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setValue" },
-                currentValue,
-                weight
-            }
+            new object[] { new string[] { this.___guid, "setValue" }, currentValue, weight }
         );
     }
 

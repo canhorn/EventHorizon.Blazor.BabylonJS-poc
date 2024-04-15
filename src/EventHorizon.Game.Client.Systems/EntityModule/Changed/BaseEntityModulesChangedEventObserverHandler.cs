@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class BaseEntityModulesChangedEventObserverHandler
@@ -21,8 +19,8 @@ public class BaseEntityModulesChangedEventObserverHandler
         BaseEntityModulesChangedEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            BaseEntityModulesChangedEventObserver,
-            BaseEntityModulesChangedEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<BaseEntityModulesChangedEventObserver, BaseEntityModulesChangedEvent>(
+            notification,
+            cancellationToken
+        );
 }

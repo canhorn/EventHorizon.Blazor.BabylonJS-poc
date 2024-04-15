@@ -3,12 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Systems.ClientScripts.Load;
 using EventHorizon.Game.Client.Systems.Connection.Zone.Player.Info;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class SetupClientScriptsFromZoneInfoReceivedEventHandler
@@ -31,10 +28,7 @@ public class SetupClientScriptsFromZoneInfoReceivedEventHandler
         CancellationToken cancellationToken
     )
     {
-        var hash = notification
-            .PlayerZoneInfo
-            .ClientScriptsAssemblyDetails
-            .Hash;
+        var hash = notification.PlayerZoneInfo.ClientScriptsAssemblyDetails.Hash;
         var result = await _mediator.Send(new LoadClientScriptsAssembly(hash));
         if (!result.Success)
         {

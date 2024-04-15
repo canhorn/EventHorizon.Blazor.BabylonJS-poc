@@ -2,9 +2,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-
 using EventHorizon.Game.Client.Systems.Player.Action.Api;
-
 using MediatR;
 
 public struct InvokePlayerActionEvent : INotification

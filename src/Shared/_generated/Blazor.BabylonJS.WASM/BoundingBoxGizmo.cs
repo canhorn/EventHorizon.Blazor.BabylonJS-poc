@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<BoundingBoxGizmo>))]
@@ -49,21 +47,11 @@ public class BoundingBoxGizmo : Gizmo
 
     public bool ignoreChildren
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "ignoreChildren"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "ignoreChildren"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ignoreChildren",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ignoreChildren", value);
         }
     }
 
@@ -79,43 +67,23 @@ public class BoundingBoxGizmo : Gizmo
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "includeChildPredicate",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "includeChildPredicate", value);
         }
     }
 
     public decimal rotationSphereSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "rotationSphereSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "rotationSphereSize"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "rotationSphereSize",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "rotationSphereSize", value);
         }
     }
 
     public decimal scaleBoxSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "scaleBoxSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "scaleBoxSize"); }
         set
         {
 
@@ -125,21 +93,11 @@ public class BoundingBoxGizmo : Gizmo
 
     public bool fixedDragMeshScreenSize
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "fixedDragMeshScreenSize"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "fixedDragMeshScreenSize"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "fixedDragMeshScreenSize",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "fixedDragMeshScreenSize", value);
         }
     }
 
@@ -177,10 +135,7 @@ public class BoundingBoxGizmo : Gizmo
                     "onDragStartObservable",
                     (entity) =>
                     {
-                        return new Observable<CachedEntity>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<CachedEntity>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -189,11 +144,7 @@ public class BoundingBoxGizmo : Gizmo
         set
         {
             __onDragStartObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onDragStartObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onDragStartObservable", value);
         }
     }
 
@@ -211,10 +162,7 @@ public class BoundingBoxGizmo : Gizmo
                     "onScaleBoxDragObservable",
                     (entity) =>
                     {
-                        return new Observable<CachedEntity>()
-                        {
-                            ___guid = entity.___guid
-                        };
+                        return new Observable<CachedEntity>() { ___guid = entity.___guid };
                     }
                 );
             }
@@ -223,11 +171,7 @@ public class BoundingBoxGizmo : Gizmo
         set
         {
             __onScaleBoxDragObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onScaleBoxDragObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onScaleBoxDragObservable", value);
         }
     }
 
@@ -238,31 +182,23 @@ public class BoundingBoxGizmo : Gizmo
         {
             if (__onScaleBoxDragEndObservable == null)
             {
-                __onScaleBoxDragEndObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<CachedEntity>
-                    >(
-                        this.___guid,
-                        "onScaleBoxDragEndObservable",
-                        (entity) =>
-                        {
-                            return new Observable<CachedEntity>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onScaleBoxDragEndObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<CachedEntity>
+                >(
+                    this.___guid,
+                    "onScaleBoxDragEndObservable",
+                    (entity) =>
+                    {
+                        return new Observable<CachedEntity>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onScaleBoxDragEndObservable;
         }
         set
         {
             __onScaleBoxDragEndObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onScaleBoxDragEndObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onScaleBoxDragEndObservable", value);
         }
     }
 
@@ -273,31 +209,23 @@ public class BoundingBoxGizmo : Gizmo
         {
             if (__onRotationSphereDragObservable == null)
             {
-                __onRotationSphereDragObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<CachedEntity>
-                    >(
-                        this.___guid,
-                        "onRotationSphereDragObservable",
-                        (entity) =>
-                        {
-                            return new Observable<CachedEntity>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onRotationSphereDragObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<CachedEntity>
+                >(
+                    this.___guid,
+                    "onRotationSphereDragObservable",
+                    (entity) =>
+                    {
+                        return new Observable<CachedEntity>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onRotationSphereDragObservable;
         }
         set
         {
             __onRotationSphereDragObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onRotationSphereDragObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onRotationSphereDragObservable", value);
         }
     }
 
@@ -308,31 +236,23 @@ public class BoundingBoxGizmo : Gizmo
         {
             if (__onRotationSphereDragEndObservable == null)
             {
-                __onRotationSphereDragEndObservable =
-                    EventHorizonBlazorInterop.GetClass<
-                        Observable<CachedEntity>
-                    >(
-                        this.___guid,
-                        "onRotationSphereDragEndObservable",
-                        (entity) =>
-                        {
-                            return new Observable<CachedEntity>()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __onRotationSphereDragEndObservable = EventHorizonBlazorInterop.GetClass<
+                    Observable<CachedEntity>
+                >(
+                    this.___guid,
+                    "onRotationSphereDragEndObservable",
+                    (entity) =>
+                    {
+                        return new Observable<CachedEntity>() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __onRotationSphereDragEndObservable;
         }
         set
         {
             __onRotationSphereDragEndObservable = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "onRotationSphereDragEndObservable",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "onRotationSphereDragEndObservable", value);
         }
     }
 
@@ -369,10 +289,7 @@ public class BoundingBoxGizmo : Gizmo
     public BoundingBoxGizmo(ICachedEntity entity)
         : base(entity) { }
 
-    public BoundingBoxGizmo(
-        Color3 color = null,
-        UtilityLayerRenderer gizmoLayer = null
-    )
+    public BoundingBoxGizmo(Color3 color = null, UtilityLayerRenderer gizmoLayer = null)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(
@@ -402,22 +319,14 @@ public class BoundingBoxGizmo : Gizmo
     public void setEnabledRotationAxis(string axis)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setEnabledRotationAxis" },
-                axis
-            }
+            new object[] { new string[] { this.___guid, "setEnabledRotationAxis" }, axis }
         );
     }
 
     public void setEnabledScaling(bool enable)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setEnabledScaling" },
-                enable
-            }
+            new object[] { new string[] { this.___guid, "setEnabledScaling" }, enable }
         );
     }
 
@@ -438,11 +347,7 @@ public class BoundingBoxGizmo : Gizmo
     public void setCustomMesh(Mesh mesh)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setCustomMesh" },
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "setCustomMesh" }, mesh }
         );
     }
     #endregion

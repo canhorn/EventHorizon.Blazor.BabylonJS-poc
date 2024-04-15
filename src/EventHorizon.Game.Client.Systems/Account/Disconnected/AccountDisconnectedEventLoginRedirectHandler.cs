@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Window.Api;
 using EventHorizon.Game.Client.Systems.Account.Api;
 using EventHorizon.Game.Client.Systems.Connection.Core.Account.Disconnected;
-
 using MediatR;
 
 public class AccountDisconnectedEventLoginRedirectHandler
@@ -26,10 +24,7 @@ public class AccountDisconnectedEventLoginRedirectHandler
         _state = state;
     }
 
-    public Task Handle(
-        AccountDisconnectedEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(AccountDisconnectedEvent notification, CancellationToken cancellationToken)
     {
         if (notification.Code == "status_code_401")
         {

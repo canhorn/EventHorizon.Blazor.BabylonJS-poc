@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Publish;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Module.Model;
@@ -17,7 +16,6 @@ using EventHorizon.Game.Client.Systems.Player.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.ClientAction;
 using EventHorizon.Game.Client.Systems.Player.Modules.PlayerInteraction.WithIn;
-
 using MediatR;
 
 public class StandardPlayerInteractionModule
@@ -28,8 +26,7 @@ public class StandardPlayerInteractionModule
         EntityLeftInteractionDistanceEventObserver,
         RunInteractionEventObserver
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
 
     private readonly IDictionary<long, InteractionItem> _distanceEntityMap =
         new Dictionary<long, InteractionItem>();
@@ -61,9 +58,7 @@ public class StandardPlayerInteractionModule
 
     public async Task Handle(ClientActionServerInteractionEvent args)
     {
-        await _mediator.Send(
-            new PublishClientActionCommand(args.CommandType, args.Data)
-        );
+        await _mediator.Send(new PublishClientActionCommand(args.CommandType, args.Data));
     }
 
     public Task Handle(EntityWithinInteractionDistanceEvent args)
@@ -91,9 +86,7 @@ public class StandardPlayerInteractionModule
             await _mediator.Publish(
                 new InvokePlayerActionEvent(
                     PlayerActions.INTERACT,
-                    new PlayerInteractActionData(
-                        interactionItemList.First().Entity.EntityId
-                    )
+                    new PlayerInteractActionData(interactionItemList.First().Entity.EntityId)
                 )
             );
         }
@@ -107,9 +100,7 @@ public class StandardPlayerInteractionModule
         if (interactionItemList.Any())
         {
             await _mediator.Publish(
-                new ShowInteractionIndicatorEvent(
-                    interactionItemList.First().Entity.EntityId
-                )
+                new ShowInteractionIndicatorEvent(interactionItemList.First().Entity.EntityId)
             );
             return;
         }

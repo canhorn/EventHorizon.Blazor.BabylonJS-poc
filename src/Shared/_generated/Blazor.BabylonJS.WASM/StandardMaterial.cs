@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<StandardMaterial>))]
@@ -148,11 +146,7 @@ public class StandardMaterial : PushMaterial
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "StandardMaterial.BumpTextureEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "StandardMaterial.BumpTextureEnabled", value);
         }
     }
 
@@ -228,11 +222,7 @@ public class StandardMaterial : PushMaterial
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                "BABYLON",
-                "StandardMaterial.FresnelEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set("BABYLON", "StandardMaterial.FresnelEnabled", value);
         }
     }
     #endregion
@@ -242,11 +232,7 @@ public class StandardMaterial : PushMaterial
     #endregion
 
     #region Static Methods
-    public static StandardMaterial Parse(
-        object source,
-        Scene scene,
-        string rootUrl
-    )
+    public static StandardMaterial Parse(object source, Scene scene, string rootUrl)
     {
         return EventHorizonBlazorInterop.FuncClass<StandardMaterial>(
             entity => new StandardMaterial() { ___guid = entity.___guid },
@@ -275,10 +261,7 @@ public class StandardMaterial : PushMaterial
                         "imageProcessingConfiguration",
                         (entity) =>
                         {
-                            return new ImageProcessingConfiguration()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new ImageProcessingConfiguration() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -287,11 +270,7 @@ public class StandardMaterial : PushMaterial
         set
         {
             __imageProcessingConfiguration = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "imageProcessingConfiguration",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "imageProcessingConfiguration", value);
         }
     }
 
@@ -299,19 +278,12 @@ public class StandardMaterial : PushMaterial
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "cameraColorCurvesEnabled"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "cameraColorCurvesEnabled");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "cameraColorCurvesEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "cameraColorCurvesEnabled", value);
         }
     }
 
@@ -319,19 +291,12 @@ public class StandardMaterial : PushMaterial
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "cameraColorGradingEnabled"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "cameraColorGradingEnabled");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "cameraColorGradingEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "cameraColorGradingEnabled", value);
         }
     }
 
@@ -339,59 +304,32 @@ public class StandardMaterial : PushMaterial
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "cameraToneMappingEnabled"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "cameraToneMappingEnabled");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "cameraToneMappingEnabled",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "cameraToneMappingEnabled", value);
         }
     }
 
     public decimal cameraExposure
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cameraExposure"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cameraExposure"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "cameraExposure",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "cameraExposure", value);
         }
     }
 
     public decimal cameraContrast
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "cameraContrast"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "cameraContrast"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "cameraContrast",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "cameraContrast", value);
         }
     }
 
@@ -402,29 +340,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__cameraColorGradingTexture == null)
             {
-                __cameraColorGradingTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "cameraColorGradingTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __cameraColorGradingTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "cameraColorGradingTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __cameraColorGradingTexture;
         }
         set
         {
             __cameraColorGradingTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "cameraColorGradingTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "cameraColorGradingTexture", value);
         }
     }
 
@@ -435,60 +365,36 @@ public class StandardMaterial : PushMaterial
         {
             if (__cameraColorCurves == null)
             {
-                __cameraColorCurves =
-                    EventHorizonBlazorInterop.GetClass<ColorCurves>(
-                        this.___guid,
-                        "cameraColorCurves",
-                        (entity) =>
-                        {
-                            return new ColorCurves()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __cameraColorCurves = EventHorizonBlazorInterop.GetClass<ColorCurves>(
+                    this.___guid,
+                    "cameraColorCurves",
+                    (entity) =>
+                    {
+                        return new ColorCurves() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __cameraColorCurves;
         }
         set
         {
             __cameraColorCurves = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "cameraColorCurves",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "cameraColorCurves", value);
         }
     }
 
     public bool hasRenderTargetTextures
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "hasRenderTargetTextures"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "hasRenderTargetTextures"); }
     }
 
     public bool useLogarithmicDepth
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useLogarithmicDepth"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useLogarithmicDepth"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useLogarithmicDepth",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useLogarithmicDepth", value);
         }
     }
     #endregion
@@ -501,29 +407,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__diffuseTexture == null)
             {
-                __diffuseTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "diffuseTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __diffuseTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "diffuseTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __diffuseTexture;
         }
         set
         {
             __diffuseTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "diffuseTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "diffuseTexture", value);
         }
     }
 
@@ -534,29 +432,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__ambientTexture == null)
             {
-                __ambientTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "ambientTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __ambientTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "ambientTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __ambientTexture;
         }
         set
         {
             __ambientTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "ambientTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "ambientTexture", value);
         }
     }
 
@@ -567,29 +457,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__opacityTexture == null)
             {
-                __opacityTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "opacityTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __opacityTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "opacityTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __opacityTexture;
         }
         set
         {
             __opacityTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "opacityTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "opacityTexture", value);
         }
     }
 
@@ -600,29 +482,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__reflectionTexture == null)
             {
-                __reflectionTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "reflectionTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __reflectionTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "reflectionTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __reflectionTexture;
         }
         set
         {
             __reflectionTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "reflectionTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "reflectionTexture", value);
         }
     }
 
@@ -633,29 +507,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__emissiveTexture == null)
             {
-                __emissiveTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "emissiveTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __emissiveTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "emissiveTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __emissiveTexture;
         }
         set
         {
             __emissiveTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "emissiveTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "emissiveTexture", value);
         }
     }
 
@@ -666,29 +532,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__specularTexture == null)
             {
-                __specularTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "specularTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __specularTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "specularTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __specularTexture;
         }
         set
         {
             __specularTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "specularTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "specularTexture", value);
         }
     }
 
@@ -724,29 +582,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__lightmapTexture == null)
             {
-                __lightmapTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "lightmapTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __lightmapTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "lightmapTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __lightmapTexture;
         }
         set
         {
             __lightmapTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "lightmapTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "lightmapTexture", value);
         }
     }
 
@@ -757,29 +607,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__refractionTexture == null)
             {
-                __refractionTexture =
-                    EventHorizonBlazorInterop.GetClass<BaseTexture>(
-                        this.___guid,
-                        "refractionTexture",
-                        (entity) =>
-                        {
-                            return new BaseTexture()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __refractionTexture = EventHorizonBlazorInterop.GetClass<BaseTexture>(
+                    this.___guid,
+                    "refractionTexture",
+                    (entity) =>
+                    {
+                        return new BaseTexture() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __refractionTexture;
         }
         set
         {
             __refractionTexture = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "refractionTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "refractionTexture", value);
         }
     }
 
@@ -885,13 +727,7 @@ public class StandardMaterial : PushMaterial
 
     public decimal specularPower
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "specularPower"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "specularPower"); }
         set
         {
 
@@ -903,19 +739,12 @@ public class StandardMaterial : PushMaterial
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useAlphaFromDiffuseTexture"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useAlphaFromDiffuseTexture");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useAlphaFromDiffuseTexture",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useAlphaFromDiffuseTexture", value);
         }
     }
 
@@ -923,131 +752,68 @@ public class StandardMaterial : PushMaterial
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useEmissiveAsIllumination"
-            );
+            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useEmissiveAsIllumination");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useEmissiveAsIllumination",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useEmissiveAsIllumination", value);
         }
     }
 
     public bool linkEmissiveWithDiffuse
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "linkEmissiveWithDiffuse"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "linkEmissiveWithDiffuse"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "linkEmissiveWithDiffuse",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "linkEmissiveWithDiffuse", value);
         }
     }
 
     public bool useSpecularOverAlpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useSpecularOverAlpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useSpecularOverAlpha"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useSpecularOverAlpha",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useSpecularOverAlpha", value);
         }
     }
 
     public bool useReflectionOverAlpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useReflectionOverAlpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useReflectionOverAlpha"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useReflectionOverAlpha",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useReflectionOverAlpha", value);
         }
     }
 
     public bool disableLighting
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "disableLighting"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "disableLighting"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "disableLighting",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "disableLighting", value);
         }
     }
 
     public bool useObjectSpaceNormalMap
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useObjectSpaceNormalMap"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useObjectSpaceNormalMap"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useObjectSpaceNormalMap",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useObjectSpaceNormalMap", value);
         }
     }
 
     public bool useParallax
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useParallax"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useParallax"); }
         set
         {
 
@@ -1057,53 +823,27 @@ public class StandardMaterial : PushMaterial
 
     public bool useParallaxOcclusion
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useParallaxOcclusion"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useParallaxOcclusion"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useParallaxOcclusion",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useParallaxOcclusion", value);
         }
     }
 
     public decimal parallaxScaleBias
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "parallaxScaleBias"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "parallaxScaleBias"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "parallaxScaleBias",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "parallaxScaleBias", value);
         }
     }
 
     public decimal roughness
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "roughness"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "roughness"); }
         set
         {
 
@@ -1113,53 +853,27 @@ public class StandardMaterial : PushMaterial
 
     public decimal indexOfRefraction
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "indexOfRefraction"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "indexOfRefraction"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "indexOfRefraction",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "indexOfRefraction", value);
         }
     }
 
     public bool invertRefractionY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "invertRefractionY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "invertRefractionY"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "invertRefractionY",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "invertRefractionY", value);
         }
     }
 
     public decimal alphaCutOff
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alphaCutOff"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alphaCutOff"); }
         set
         {
 
@@ -1169,21 +883,11 @@ public class StandardMaterial : PushMaterial
 
     public bool useLightmapAsShadowmap
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useLightmapAsShadowmap"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useLightmapAsShadowmap"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useLightmapAsShadowmap",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useLightmapAsShadowmap", value);
         }
     }
 
@@ -1194,29 +898,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__diffuseFresnelParameters == null)
             {
-                __diffuseFresnelParameters =
-                    EventHorizonBlazorInterop.GetClass<FresnelParameters>(
-                        this.___guid,
-                        "diffuseFresnelParameters",
-                        (entity) =>
-                        {
-                            return new FresnelParameters()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __diffuseFresnelParameters = EventHorizonBlazorInterop.GetClass<FresnelParameters>(
+                    this.___guid,
+                    "diffuseFresnelParameters",
+                    (entity) =>
+                    {
+                        return new FresnelParameters() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __diffuseFresnelParameters;
         }
         set
         {
             __diffuseFresnelParameters = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "diffuseFresnelParameters",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "diffuseFresnelParameters", value);
         }
     }
 
@@ -1227,29 +923,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__opacityFresnelParameters == null)
             {
-                __opacityFresnelParameters =
-                    EventHorizonBlazorInterop.GetClass<FresnelParameters>(
-                        this.___guid,
-                        "opacityFresnelParameters",
-                        (entity) =>
-                        {
-                            return new FresnelParameters()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __opacityFresnelParameters = EventHorizonBlazorInterop.GetClass<FresnelParameters>(
+                    this.___guid,
+                    "opacityFresnelParameters",
+                    (entity) =>
+                    {
+                        return new FresnelParameters() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __opacityFresnelParameters;
         }
         set
         {
             __opacityFresnelParameters = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "opacityFresnelParameters",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "opacityFresnelParameters", value);
         }
     }
 
@@ -1266,10 +954,7 @@ public class StandardMaterial : PushMaterial
                         "reflectionFresnelParameters",
                         (entity) =>
                         {
-                            return new FresnelParameters()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new FresnelParameters() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -1278,11 +963,7 @@ public class StandardMaterial : PushMaterial
         set
         {
             __reflectionFresnelParameters = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "reflectionFresnelParameters",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "reflectionFresnelParameters", value);
         }
     }
 
@@ -1299,10 +980,7 @@ public class StandardMaterial : PushMaterial
                         "refractionFresnelParameters",
                         (entity) =>
                         {
-                            return new FresnelParameters()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new FresnelParameters() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -1311,11 +989,7 @@ public class StandardMaterial : PushMaterial
         set
         {
             __refractionFresnelParameters = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "refractionFresnelParameters",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "refractionFresnelParameters", value);
         }
     }
 
@@ -1326,29 +1000,21 @@ public class StandardMaterial : PushMaterial
         {
             if (__emissiveFresnelParameters == null)
             {
-                __emissiveFresnelParameters =
-                    EventHorizonBlazorInterop.GetClass<FresnelParameters>(
-                        this.___guid,
-                        "emissiveFresnelParameters",
-                        (entity) =>
-                        {
-                            return new FresnelParameters()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __emissiveFresnelParameters = EventHorizonBlazorInterop.GetClass<FresnelParameters>(
+                    this.___guid,
+                    "emissiveFresnelParameters",
+                    (entity) =>
+                    {
+                        return new FresnelParameters() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __emissiveFresnelParameters;
         }
         set
         {
             __emissiveFresnelParameters = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "emissiveFresnelParameters",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "emissiveFresnelParameters", value);
         }
     }
 
@@ -1364,11 +1030,7 @@ public class StandardMaterial : PushMaterial
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useReflectionFresnelFromSpecular",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useReflectionFresnelFromSpecular", value);
         }
     }
 
@@ -1384,11 +1046,7 @@ public class StandardMaterial : PushMaterial
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "useGlossinessFromSpecularMapAlpha",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "useGlossinessFromSpecularMapAlpha", value);
         }
     }
 
@@ -1396,79 +1054,42 @@ public class StandardMaterial : PushMaterial
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "maxSimultaneousLights"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "maxSimultaneousLights");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "maxSimultaneousLights",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "maxSimultaneousLights", value);
         }
     }
 
     public bool invertNormalMapX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "invertNormalMapX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "invertNormalMapX"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "invertNormalMapX",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "invertNormalMapX", value);
         }
     }
 
     public bool invertNormalMapY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "invertNormalMapY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "invertNormalMapY"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "invertNormalMapY",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "invertNormalMapY", value);
         }
     }
 
     public bool twoSidedLighting
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "twoSidedLighting"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "twoSidedLighting"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "twoSidedLighting",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "twoSidedLighting", value);
         }
     }
     #endregion
@@ -1495,10 +1116,8 @@ public class StandardMaterial : PushMaterial
     #region Methods
     #region customShaderNameResolve TODO: Get Comments as metadata identification
     private bool _isCustomShaderNameResolveEnabled = false;
-    private readonly IDictionary<
-        string,
-        Func<Task>
-    > _customShaderNameResolveActionMap = new Dictionary<string, Func<Task>>();
+    private readonly IDictionary<string, Func<Task>> _customShaderNameResolveActionMap =
+        new Dictionary<string, Func<Task>>();
 
     public string customShaderNameResolve(Func<Task> callback)
     {
@@ -1565,10 +1184,7 @@ public class StandardMaterial : PushMaterial
     {
         return EventHorizonBlazorInterop.FuncClass<BaseTexture>(
             entity => new BaseTexture() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAlphaTestTexture" }
-            }
+            new object[] { new string[] { this.___guid, "getAlphaTestTexture" } }
         );
     }
 
@@ -1606,21 +1222,14 @@ public class StandardMaterial : PushMaterial
     public void bindForSubMesh(Matrix world, Mesh mesh, SubMesh subMesh)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "bindForSubMesh" },
-                world,
-                mesh,
-                subMesh
-            }
+            new object[] { new string[] { this.___guid, "bindForSubMesh" }, world, mesh, subMesh }
         );
     }
 
     public IAnimatableCachedEntity[] getAnimatables()
     {
         return EventHorizonBlazorInterop.FuncArrayClass<IAnimatableCachedEntity>(
-            entity =>
-                new IAnimatableCachedEntity() { ___guid = entity.___guid },
+            entity => new IAnimatableCachedEntity() { ___guid = entity.___guid },
             new object[] { new string[] { this.___guid, "getAnimatables" } }
         );
     }
@@ -1636,11 +1245,7 @@ public class StandardMaterial : PushMaterial
     public bool hasTexture(BaseTexture texture)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "hasTexture" },
-                texture
-            }
+            new object[] { new string[] { this.___guid, "hasTexture" }, texture }
         );
     }
 

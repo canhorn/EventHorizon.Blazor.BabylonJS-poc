@@ -6,26 +6,20 @@ using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Model;
-
 using Microsoft.AspNetCore.Components.Forms;
 
 public class RemoteAssetFileManagement : AssetFileManagement
 {
     private static readonly long MAX_FILE_SIZE_IN_MAGABYTES = 15;
-    private static readonly long MAX_FILE_SIZE_IN_BYTES =
-        1024 * 1024 * MAX_FILE_SIZE_IN_MAGABYTES;
+    private static readonly long MAX_FILE_SIZE_IN_BYTES = 1024 * 1024 * MAX_FILE_SIZE_IN_MAGABYTES;
 
     private readonly string _fileManagementUrl = "/api/FileManagement";
     private readonly HttpClient _httpClient;
 
-    public RemoteAssetFileManagement(
-        HttpClient httpClient,
-        GamePlatformServiceSettings settings
-    )
+    public RemoteAssetFileManagement(HttpClient httpClient, GamePlatformServiceSettings settings)
     {
         _httpClient = httpClient;
         _fileManagementUrl = $"{settings.AssetServer}/api/FileManagement";
@@ -52,9 +46,7 @@ public class RemoteAssetFileManagement : AssetFileManagement
                         cancellationToken: cancellationToken
                     ) ?? InvalidFileErrorResponse();
             }
-            else if (
-                response.StatusCode == System.Net.HttpStatusCode.Unauthorized
-            )
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return CreateNotAuthorizedErrorResponse();
             }
@@ -71,10 +63,7 @@ public class RemoteAssetFileManagement : AssetFileManagement
         {
             return new FileSystemResponse
             {
-                Error = InvalidResponseError(
-                    500,
-                    $"HttpRequestException: {ex.Message}"
-                ),
+                Error = InvalidResponseError(500, $"HttpRequestException: {ex.Message}"),
             };
         }
     }
@@ -101,9 +90,7 @@ public class RemoteAssetFileManagement : AssetFileManagement
                         cancellationToken: cancellationToken
                     ) ?? InvalidFileErrorResponse();
             }
-            else if (
-                response.StatusCode == System.Net.HttpStatusCode.Unauthorized
-            )
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return CreateNotAuthorizedErrorResponse();
             }
@@ -120,10 +107,7 @@ public class RemoteAssetFileManagement : AssetFileManagement
         {
             return new FileSystemResponse
             {
-                Error = InvalidResponseError(
-                    500,
-                    $"HttpRequestException: {ex.Message}"
-                ),
+                Error = InvalidResponseError(500, $"HttpRequestException: {ex.Message}"),
             };
         }
     }
@@ -150,9 +134,7 @@ public class RemoteAssetFileManagement : AssetFileManagement
                         cancellationToken: cancellationToken
                     ) ?? InvalidFileErrorResponse();
             }
-            else if (
-                response.StatusCode == System.Net.HttpStatusCode.Unauthorized
-            )
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return CreateNotAuthorizedErrorResponse();
             }
@@ -169,10 +151,7 @@ public class RemoteAssetFileManagement : AssetFileManagement
         {
             return new FileSystemResponse
             {
-                Error = InvalidResponseError(
-                    500,
-                    $"HttpRequestException: {ex.Message}"
-                ),
+                Error = InvalidResponseError(500, $"HttpRequestException: {ex.Message}"),
             };
         }
     }
@@ -199,9 +178,7 @@ public class RemoteAssetFileManagement : AssetFileManagement
                         cancellationToken: cancellationToken
                     ) ?? InvalidFileErrorResponse();
             }
-            else if (
-                response.StatusCode == System.Net.HttpStatusCode.Unauthorized
-            )
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return CreateNotAuthorizedErrorResponse();
             }
@@ -218,10 +195,7 @@ public class RemoteAssetFileManagement : AssetFileManagement
         {
             return new FileSystemResponse
             {
-                Error = InvalidResponseError(
-                    500,
-                    $"HttpRequestException: {ex.Message}"
-                ),
+                Error = InvalidResponseError(500, $"HttpRequestException: {ex.Message}"),
             };
         }
     }
@@ -242,26 +216,18 @@ public class RemoteAssetFileManagement : AssetFileManagement
                     Error = new ErrorDetails
                     {
                         Code = 413,
-                        Message =
-                            $"Payload Too Large ({MAX_FILE_SIZE_IN_MAGABYTES}MB max)",
+                        Message = $"Payload Too Large ({MAX_FILE_SIZE_IN_MAGABYTES}MB max)",
                     },
                 };
             }
 
             using var content = new MultipartFormDataContent();
             using var fileContent = new StreamContent(
-                file.OpenReadStream(
-                    MAX_FILE_SIZE_IN_BYTES,
-                    cancellationToken: cancellationToken
-                )
+                file.OpenReadStream(MAX_FILE_SIZE_IN_BYTES, cancellationToken: cancellationToken)
             );
 
             content.Add(new StringContent(filePath), "file-path");
-            content.Add(
-                content: fileContent,
-                name: "\"file\"",
-                fileName: file.Name
-            );
+            content.Add(content: fileContent, name: "\"file\"", fileName: file.Name);
 
             using var httpMessage = new HttpRequestMessage(
                 HttpMethod.Post,
@@ -272,18 +238,13 @@ public class RemoteAssetFileManagement : AssetFileManagement
             };
             AddAuthorizationHeader(httpMessage, accessToken);
 
-            using var response = await _httpClient.SendAsync(
-                httpMessage,
-                cancellationToken
-            );
+            using var response = await _httpClient.SendAsync(httpMessage, cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
                 return new() { Success = true, };
             }
-            else if (
-                response.StatusCode == System.Net.HttpStatusCode.Unauthorized
-            )
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
             {
                 return new FileSystemUploadResponse
                 {
@@ -296,21 +257,14 @@ public class RemoteAssetFileManagement : AssetFileManagement
                 Error =
                     await response.Content.ReadFromJsonAsync<ErrorDetails>(
                         cancellationToken: cancellationToken
-                    )
-                    ?? InvalidResponseError(
-                        500,
-                        "Error Status Code (with no ErrorDetails)"
-                    ),
+                    ) ?? InvalidResponseError(500, "Error Status Code (with no ErrorDetails)"),
             };
         }
         catch (HttpRequestException ex)
         {
             return new FileSystemUploadResponse
             {
-                Error = InvalidResponseError(
-                    500,
-                    $"HttpRequestException: {ex.Message}"
-                ),
+                Error = InvalidResponseError(500, $"HttpRequestException: {ex.Message}"),
             };
         }
     }
@@ -328,15 +282,9 @@ public class RemoteAssetFileManagement : AssetFileManagement
         return await _httpClient.SendAsync(httpMessage, cancellationToken);
     }
 
-    private static void AddAuthorizationHeader(
-        HttpRequestMessage httpMessage,
-        string accessToken
-    )
+    private static void AddAuthorizationHeader(HttpRequestMessage httpMessage, string accessToken)
     {
-        httpMessage.Headers.Authorization = new AuthenticationHeaderValue(
-            "Bearer",
-            accessToken
-        );
+        httpMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
     }
 
     private static FileSystemResponse CreateNotAuthorizedErrorResponse() =>

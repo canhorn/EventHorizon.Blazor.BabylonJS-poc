@@ -3,26 +3,18 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Disposed;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
-public class RegisterDisposableBase
-    : RegisterBase<IDisposableEntity>,
-        IRegisterDisposable
+public class RegisterDisposableBase : RegisterBase<IDisposableEntity>, IRegisterDisposable
 {
     private readonly ILogger _logger;
     private readonly IMediator _mediator;
 
-    public RegisterDisposableBase(
-        ILogger<RegisterDisposableBase> logger,
-        IMediator mediator
-    )
+    public RegisterDisposableBase(ILogger<RegisterDisposableBase> logger, IMediator mediator)
     {
         _logger = logger;
         _mediator = mediator;

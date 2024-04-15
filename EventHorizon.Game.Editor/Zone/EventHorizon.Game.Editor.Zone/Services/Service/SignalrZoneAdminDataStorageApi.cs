@@ -3,10 +3,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalrZoneAdminDataStorageApi : ZoneAdminDataStorageApi
@@ -31,9 +29,10 @@ public class SignalrZoneAdminDataStorageApi : ZoneAdminDataStorageApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<
-            ApiResponse<Dictionary<string, object>>
-        >("DataStorage_All", cancellationToken);
+        return await _hubConnection.InvokeAsync<ApiResponse<Dictionary<string, object>>>(
+            "DataStorage_All",
+            cancellationToken
+        );
     }
 
     public async Task<StandardApiResponse> Create(
@@ -61,10 +60,7 @@ public class SignalrZoneAdminDataStorageApi : ZoneAdminDataStorageApi
         );
     }
 
-    public async Task<StandardApiResponse> Delete(
-        string key,
-        CancellationToken cancellationToken
-    )
+    public async Task<StandardApiResponse> Delete(string key, CancellationToken cancellationToken)
     {
         if (_hubConnection.IsNotConnected())
         {

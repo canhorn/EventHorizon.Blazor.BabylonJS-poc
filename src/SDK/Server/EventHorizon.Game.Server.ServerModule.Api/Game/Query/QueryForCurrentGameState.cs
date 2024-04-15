@@ -6,6 +6,5 @@
     using MediatR;
 
     // TODO: [Game] - Finished Game Implementation
-    public struct QueryForCurrentGameState
-        : IRequest<QueryResult<GameState>> { }
+    public struct QueryForCurrentGameState : IRequest<QueryResult<GameState>> { }
 }

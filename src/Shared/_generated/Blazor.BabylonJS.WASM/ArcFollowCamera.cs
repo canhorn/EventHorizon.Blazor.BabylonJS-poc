@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<ArcFollowCamera>))]
@@ -34,13 +32,7 @@ public class ArcFollowCamera : TargetCamera
 
     public decimal alpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alpha"); }
         set
         {
 
@@ -50,10 +42,7 @@ public class ArcFollowCamera : TargetCamera
 
     public decimal beta
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "beta");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "beta"); }
         set
         {
 
@@ -63,13 +52,7 @@ public class ArcFollowCamera : TargetCamera
 
     public decimal radius
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "radius"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "radius"); }
         set
         {
 

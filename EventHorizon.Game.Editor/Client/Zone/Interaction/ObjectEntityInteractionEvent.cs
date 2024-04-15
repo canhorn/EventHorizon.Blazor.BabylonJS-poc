@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Zone.Model;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ObjectEntityInteractionEvent : INotification
@@ -14,10 +12,7 @@ public struct ObjectEntityInteractionEvent : INotification
     public string ObjectEntityId { get; }
     public EntityInteractionAction Action { get; }
 
-    public ObjectEntityInteractionEvent(
-        string objectEntityId,
-        EntityInteractionAction action
-    )
+    public ObjectEntityInteractionEvent(string objectEntityId, EntityInteractionAction action)
     {
         ObjectEntityId = objectEntityId;
         Action = action;
@@ -41,8 +36,8 @@ public class ObjectEntityOpenedEventObserverHandler
         ObjectEntityInteractionEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ObjectEntityOpenedEventObserver,
-            ObjectEntityInteractionEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ObjectEntityOpenedEventObserver, ObjectEntityInteractionEvent>(
+            notification,
+            cancellationToken
+        );
 }

@@ -2,16 +2,13 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct CanvasInitialized : INotification { }
 
-public interface CanvasInitializedObserver
-    : ArgumentObserver<CanvasInitialized> { }
+public interface CanvasInitializedObserver : ArgumentObserver<CanvasInitialized> { }
 
 public class CanvasInitializedHandler : INotificationHandler<CanvasInitialized>
 {
@@ -22,10 +19,7 @@ public class CanvasInitializedHandler : INotificationHandler<CanvasInitialized>
         _observer = observer;
     }
 
-    public Task Handle(
-        CanvasInitialized notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(CanvasInitialized notification, CancellationToken cancellationToken) =>
         _observer.Trigger<CanvasInitializedObserver, CanvasInitialized>(
             notification,
             cancellationToken

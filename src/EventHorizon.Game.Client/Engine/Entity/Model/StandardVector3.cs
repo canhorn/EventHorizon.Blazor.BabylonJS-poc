@@ -1,17 +1,12 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Entity.Model;
 
 using System.Numerics;
-
 using EventHorizon.Game.Client.Engine.Entity.Api;
 
 public class StandardVector3 : IVector3
 {
-    public static readonly IVector3 FORWARD_DIRECTION = new StandardVector3(
-        Vector3.UnitZ
-    );
-    public static readonly IVector3 RIGHT_DIRECTION = new StandardVector3(
-        Vector3.UnitX
-    );
+    public static readonly IVector3 FORWARD_DIRECTION = new StandardVector3(Vector3.UnitZ);
+    public static readonly IVector3 RIGHT_DIRECTION = new StandardVector3(Vector3.UnitX);
 
     protected Vector3 _vector;
     public decimal X => (decimal)_vector.X;
@@ -20,11 +15,7 @@ public class StandardVector3 : IVector3
 
     public StandardVector3(IVector3 vector3)
     {
-        _vector = new Vector3(
-            (float)vector3.X,
-            (float)vector3.Y,
-            (float)vector3.Z
-        );
+        _vector = new Vector3((float)vector3.X, (float)vector3.Y, (float)vector3.Z);
     }
 
     public StandardVector3(Vector3 vector3)
@@ -44,11 +35,7 @@ public class StandardVector3 : IVector3
 
     public void Set(IVector3 vector3)
     {
-        _vector = new Vector3(
-            (float)vector3.X,
-            (float)vector3.Y,
-            (float)vector3.Z
-        );
+        _vector = new Vector3((float)vector3.X, (float)vector3.Y, (float)vector3.Z);
     }
 
     public IVector3 Clone()
@@ -66,11 +53,7 @@ public class StandardVector3 : IVector3
                 (float)currentPosition.Z
             )
         );
-        return new StandardVector3(
-            (decimal)value.X,
-            (decimal)value.Y,
-            (decimal)value.Z
-        );
+        return new StandardVector3((decimal)value.X, (decimal)value.Y, (decimal)value.Z);
     }
 
     public decimal Length()
@@ -88,11 +71,7 @@ public class StandardVector3 : IVector3
         return new StandardVector3(
             Vector3.Multiply(
                 _vector,
-                new Vector3(
-                    (float)vector3.X,
-                    (float)vector3.Y,
-                    (float)vector3.Z
-                )
+                new Vector3((float)vector3.X, (float)vector3.Y, (float)vector3.Z)
             )
         );
     }

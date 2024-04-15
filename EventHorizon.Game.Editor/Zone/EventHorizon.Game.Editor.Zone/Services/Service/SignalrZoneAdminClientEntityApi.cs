@@ -1,11 +1,9 @@
 ﻿namespace EventHorizon.Game.Editor.Zone.Services.Service;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Editor.Services.Model.ClientEntity;
 using EventHorizon.Game.Editor.Zone.Services.Api;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public sealed class SignalrZoneAdminClientEntityApi : ZoneAdminClientEntityApi
@@ -27,10 +25,7 @@ public sealed class SignalrZoneAdminClientEntityApi : ZoneAdminClientEntityApi
                 ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
             }.FromResult();
         }
-        return _hubConnection.InvokeAsync<AdminClientEntityResponse>(
-            "ClientEntity_Create",
-            entity
-        );
+        return _hubConnection.InvokeAsync<AdminClientEntityResponse>("ClientEntity_Create", entity);
     }
 
     public Task<AdminClientEntityResponse> Delete(string clientEntityId)
@@ -59,9 +54,6 @@ public sealed class SignalrZoneAdminClientEntityApi : ZoneAdminClientEntityApi
                 ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
             }.FromResult();
         }
-        return _hubConnection.InvokeAsync<AdminClientEntityResponse>(
-            "ClientEntity_Save",
-            entity
-        );
+        return _hubConnection.InvokeAsync<AdminClientEntityResponse>("ClientEntity_Save", entity);
     }
 }

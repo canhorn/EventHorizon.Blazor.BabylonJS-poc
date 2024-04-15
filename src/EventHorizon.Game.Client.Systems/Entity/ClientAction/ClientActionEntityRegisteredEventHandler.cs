@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
 using EventHorizon.Game.Client.Engine.Systems.Entity.ClientAction;
 using EventHorizon.Game.Client.Systems.Entity.Model;
-
 using MediatR;
 
 public class ClientActionEntityRegisteredEventHandler
@@ -26,9 +24,7 @@ public class ClientActionEntityRegisteredEventHandler
     )
     {
         await _mediator.Publish(
-            new RegisterEntityEvent(
-                new StandardServerEntity(notification.Entity)
-            )
+            new RegisterEntityEvent(new StandardServerEntity(notification.Entity))
         );
     }
 }

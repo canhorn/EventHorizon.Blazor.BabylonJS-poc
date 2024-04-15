@@ -4,20 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Load;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
-
 using Microsoft.AspNetCore.Components;
 
 public class AssetManagementBreadcrumbModel : EditorComponentBase
 {
     [CascadingParameter]
     public AssetManagementState State { get; set; } = null!;
-    public string CurrentLocation { get; set; } =
-        FileSystemDirectoryContent.PATH_SEPARATOR;
+    public string CurrentLocation { get; set; } = FileSystemDirectoryContent.PATH_SEPARATOR;
     public List<BreadcrumbItem> BreadcrumbItemList { get; private set; } =
         new List<BreadcrumbItem>();
 
@@ -42,8 +39,8 @@ public class AssetManagementBreadcrumbModel : EditorComponentBase
 
     private void Setup()
     {
-        var path = State.CurrentWorkingDirectory.FilterPath
-            .Split(
+        var path = State
+            .CurrentWorkingDirectory.FilterPath.Split(
                 FileSystemDirectoryContent.PATH_SEPARATOR,
                 StringSplitOptions.RemoveEmptyEntries
             )
@@ -57,14 +54,11 @@ public class AssetManagementBreadcrumbModel : EditorComponentBase
         }
 
         var filterPath = string.Empty;
-        var breadcrumbItemList = path.Select(
-                a =>
-                    new BreadcrumbItem
-                    {
-                        FilterPath = filterPath += $"/{a}",
-                        Text = a,
-                    }
-            )
+        var breadcrumbItemList = path.Select(a => new BreadcrumbItem
+            {
+                FilterPath = filterPath += $"/{a}",
+                Text = a,
+            })
             .ToList();
 
         if (
@@ -75,11 +69,7 @@ public class AssetManagementBreadcrumbModel : EditorComponentBase
             CurrentLocation = Localizer["/ {0}", currentLocation];
             breadcrumbItemList.Insert(
                 0,
-                new BreadcrumbItem
-                {
-                    FilterPath = State.RootPath,
-                    Text = Localizer["Server Root"],
-                }
+                new BreadcrumbItem { FilterPath = State.RootPath, Text = Localizer["Server Root"], }
             );
         }
         else

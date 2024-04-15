@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.IdentityServer.Components;
 
 using System;
-
 using Atata;
 
 public class IdentityServerTopBarComponent<TNavigateTo> : Control<TNavigateTo>

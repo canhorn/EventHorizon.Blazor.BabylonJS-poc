@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Get;
@@ -14,7 +13,6 @@ using EventHorizon.Game.Client.Engine.Systems.Module.Model;
 using EventHorizon.Game.Client.Systems.ClientScripts.Set;
 using EventHorizon.Game.Client.Systems.Entity.Dispose;
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
-
 using MediatR;
 
 public class StandardEntityModule
@@ -23,8 +21,7 @@ public class StandardEntityModule
         ClientScriptsAssemblySetEventObserver,
         DisposeOfAndRemoveRegisteredEntityModuleEventObserver
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
     private readonly ScriptServices _scriptServices =
         GameServiceProvider.GetService<ScriptServices>();
 
@@ -37,10 +34,8 @@ public class StandardEntityModule
     private Option<IClientScript> _disposeScript = new(null);
     private Option<IClientScript> _updateScript = new(null);
 
-    private Func<ScriptServices, ScriptData, Task> _runnableUpdateScript = (
-        _,
-        __
-    ) => Task.CompletedTask;
+    private Func<ScriptServices, ScriptData, Task> _runnableUpdateScript = (_, __) =>
+        Task.CompletedTask;
     public string Name { get; }
     public bool IsInitializable => _initializeScript.HasValue;
     public bool IsDisposable => _disposeScript.HasValue;
@@ -48,18 +43,13 @@ public class StandardEntityModule
 
     public override int Priority => 1000;
 
-    public StandardEntityModule(
-        IObjectEntity entity,
-        EntityModuleScripts moduleScripts
-    )
+    public StandardEntityModule(IObjectEntity entity, EntityModuleScripts moduleScripts)
     {
         Name = moduleScripts.Name;
 
         _entity = entity;
         _moduleScripts = moduleScripts;
-        _scriptData = new ScriptData(
-            new Dictionary<string, object> { { "entity", _entity } }
-        );
+        _scriptData = new ScriptData(new Dictionary<string, object> { { "entity", _entity } });
     }
 
     public override Task Initialize()

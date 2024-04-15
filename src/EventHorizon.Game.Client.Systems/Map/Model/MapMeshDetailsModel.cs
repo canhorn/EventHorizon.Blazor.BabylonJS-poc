@@ -14,7 +14,6 @@ public class MapMeshDetailsModel : IMapMeshDetails
     public int MaxHeight { get; set; }
     public bool Updatable { get; set; }
     public bool IsPickable { get; set; }
-    public MapMeshMaterialModel Material { get; set; } =
-        new MapMeshMaterialModel();
+    public MapMeshMaterialModel Material { get; set; } = new MapMeshMaterialModel();
     IMapMeshMaterialDetails IMapMeshDetails.Material => Material;
 }

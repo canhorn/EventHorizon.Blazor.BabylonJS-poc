@@ -3,13 +3,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
-public class ClientActionEntityMoveEventHandler
-    : INotificationHandler<ClientActionEntityMoveEvent>
+public class ClientActionEntityMoveEventHandler : INotificationHandler<ClientActionEntityMoveEvent>
 {
     private readonly ObserverState _observer;
 
@@ -22,8 +19,8 @@ public class ClientActionEntityMoveEventHandler
         ClientActionEntityMoveEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ClientActionEntityMoveEventObserver,
-            ClientActionEntityMoveEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ClientActionEntityMoveEventObserver, ClientActionEntityMoveEvent>(
+            notification,
+            cancellationToken
+        );
 }

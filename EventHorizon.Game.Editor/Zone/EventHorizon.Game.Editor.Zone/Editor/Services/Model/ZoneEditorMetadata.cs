@@ -3,10 +3,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Editor.Properties.Api;
-
 using Newtonsoft.Json.Linq;
 
 public class ZoneEditorMetadata : PropertiesMetadata
@@ -22,14 +20,10 @@ public class ZoneEditorMetadata : PropertiesMetadata
     public string GetPropertyType(string name, object value)
     {
         var type =
-            ZoneEditorPropertyTypeMap
-                .FirstOrDefault(metaProp => name == metaProp.Key)
-                .Value ?? ZoneEditorPropertyType.PropertyString;
+            ZoneEditorPropertyTypeMap.FirstOrDefault(metaProp => name == metaProp.Key).Value
+            ?? ZoneEditorPropertyType.PropertyString;
 
-        if (
-            type == ZoneEditorPropertyType.PropertyString
-            && IsComplexPropertyType(value)
-        )
+        if (type == ZoneEditorPropertyType.PropertyString && IsComplexPropertyType(value))
         {
             type = ZoneEditorPropertyType.PropertyComplex;
         }
@@ -40,17 +34,11 @@ public class ZoneEditorMetadata : PropertiesMetadata
     private static bool IsComplexPropertyType(object propertyValue)
     {
         // Check if JSON Primitive object
-        if (
-            propertyValue is JsonElement jElement
-            && jElement.ValueKind == JsonValueKind.Object
-        )
+        if (propertyValue is JsonElement jElement && jElement.ValueKind == JsonValueKind.Object)
         {
             return true;
         }
-        else if (
-            propertyValue is JObject jObject
-            && jObject.Type == JTokenType.Object
-        )
+        else if (propertyValue is JObject jObject && jObject.Type == JTokenType.Object)
         {
             return true;
         }
@@ -64,12 +52,7 @@ public class ZoneEditorMetadata : PropertiesMetadata
 
     public object GetDefaultValueForPropertyName(string propertyName)
     {
-        if (
-            ZoneEditorPropertyTypeMap.TryGetValue(
-                propertyName,
-                out var propertyType
-            )
-        )
+        if (ZoneEditorPropertyTypeMap.TryGetValue(propertyName, out var propertyType))
         {
             return propertyType switch
             {
@@ -92,8 +75,7 @@ public class ZoneEditorMetadata : PropertiesMetadata
             ZoneEditorPropertyType.PropertyDecimal => 0.0m,
             ZoneEditorPropertyType.PropertyLong => 0,
             ZoneEditorPropertyType.PropertyVector3 => ServerVector3.Zero(),
-            ZoneEditorPropertyType.PropertyComplex
-                => new Dictionary<string, object>(),
+            ZoneEditorPropertyType.PropertyComplex => new Dictionary<string, object>(),
             _ => string.Empty,
         };
     }

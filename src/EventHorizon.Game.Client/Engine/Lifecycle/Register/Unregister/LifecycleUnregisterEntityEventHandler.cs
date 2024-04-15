@@ -2,13 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Api;
-
 using MediatR;
 
-public class LifecycleUnregisterEntityEventHandler
-    : INotificationHandler<UnregisterEntityEvent>
+public class LifecycleUnregisterEntityEventHandler : INotificationHandler<UnregisterEntityEvent>
 {
     private readonly IRegisterInitializable _registerInitializable;
     private readonly IRegisterDisposable _registerDisposable;

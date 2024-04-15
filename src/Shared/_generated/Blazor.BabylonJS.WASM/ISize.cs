@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ISize : ICachedEntity { }
@@ -36,13 +34,7 @@ public class ISizeCachedEntity : CachedEntityObject, ISize
 
     public decimal width
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "width"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "width"); }
         set
         {
 
@@ -52,13 +44,7 @@ public class ISizeCachedEntity : CachedEntityObject, ISize
 
     public decimal height
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "height"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "height"); }
         set
         {
 

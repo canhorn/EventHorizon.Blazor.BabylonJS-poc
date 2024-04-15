@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Size>))]
@@ -35,13 +33,7 @@ public class Size : CachedEntityObject, ISize
     {
         return EventHorizonBlazorInterop.FuncClass<Size>(
             entity => new Size() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Size", "Lerp" },
-                start,
-                end,
-                amount
-            }
+            new object[] { new string[] { "BABYLON", "Size", "Lerp" }, start, end, amount }
         );
     }
     #endregion
@@ -50,13 +42,7 @@ public class Size : CachedEntityObject, ISize
 
     public decimal surface
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "surface"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "surface"); }
     }
     #endregion
 
@@ -64,13 +50,7 @@ public class Size : CachedEntityObject, ISize
 
     public decimal width
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "width"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "width"); }
         set
         {
 
@@ -80,13 +60,7 @@ public class Size : CachedEntityObject, ISize
 
     public decimal height
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "height"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "height"); }
         set
         {
 
@@ -147,12 +121,7 @@ public class Size : CachedEntityObject, ISize
     {
         return EventHorizonBlazorInterop.FuncClass<Size>(
             entity => new Size() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "copyFromFloats" },
-                width,
-                height
-            }
+            new object[] { new string[] { this.___guid, "copyFromFloats" }, width, height }
         );
     }
 
@@ -168,12 +137,7 @@ public class Size : CachedEntityObject, ISize
     {
         return EventHorizonBlazorInterop.FuncClass<Size>(
             entity => new Size() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "multiplyByFloats" },
-                w,
-                h
-            }
+            new object[] { new string[] { this.___guid, "multiplyByFloats" }, w, h }
         );
     }
 
@@ -204,11 +168,7 @@ public class Size : CachedEntityObject, ISize
     {
         return EventHorizonBlazorInterop.FuncClass<Size>(
             entity => new Size() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "subtract" },
-                otherSize
-            }
+            new object[] { new string[] { this.___guid, "subtract" }, otherSize }
         );
     }
     #endregion

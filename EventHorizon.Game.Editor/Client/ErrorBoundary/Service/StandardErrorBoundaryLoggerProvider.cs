@@ -1,24 +1,17 @@
 ﻿namespace EventHorizon.Game.Editor.Client.ErrorBoundary.Service;
 
 using System.Collections.Concurrent;
-
 using EventHorizon.Game.Editor.Client.ErrorBoundary.Api;
 using EventHorizon.Game.Editor.Client.ErrorBoundary.Logger;
-
 using Microsoft.Extensions.Logging;
 
 public class StandardErrorBoundaryLoggerProvider : ILoggerProvider
 {
     private readonly ErrorBoundaryService _errorBoundaryService;
 
-    private readonly ConcurrentDictionary<
-        string,
-        ErrorBoundaryLogger
-    > _loggers = new();
+    private readonly ConcurrentDictionary<string, ErrorBoundaryLogger> _loggers = new();
 
-    public StandardErrorBoundaryLoggerProvider(
-        ErrorBoundaryService errorBoundaryService
-    )
+    public StandardErrorBoundaryLoggerProvider(ErrorBoundaryService errorBoundaryService)
     {
         _errorBoundaryService = errorBoundaryService;
     }

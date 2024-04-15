@@ -2,10 +2,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ZoneArtifactManagementStateChangedEvent : INotification { }
@@ -18,9 +16,7 @@ public class ZoneArtifactManagementStateChangedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ZoneArtifactManagementStateChangedEventObserverHandler(
-        ObserverState observer
-    )
+    public ZoneArtifactManagementStateChangedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

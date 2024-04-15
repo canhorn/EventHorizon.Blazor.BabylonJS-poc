@@ -6,5 +6,4 @@ using MediatR;
 /// <summary>
 /// Save a value to local session storage
 /// </summary>
-public record SetSessionValueCommand(string Key, string Value)
-    : IRequest<StandardCommandResult>;
+public record SetSessionValueCommand(string Key, string Value) : IRequest<StandardCommandResult>;

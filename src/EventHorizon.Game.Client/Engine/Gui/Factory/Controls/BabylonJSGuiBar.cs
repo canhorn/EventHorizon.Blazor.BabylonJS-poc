@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-
 using BabylonJS.GUI;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
@@ -36,20 +34,13 @@ public class BabylonJSGuiBar : IBabylonJSGuiControl
 
     public Control Control => _control;
 
-    public BabylonJSGuiBar(
-        string id,
-        IGuiControlOptions options,
-        IGuiGridLocation? gridLocation
-    )
+    public BabylonJSGuiBar(string id, IGuiControlOptions options, IGuiGridLocation? gridLocation)
     {
         Id = id;
         Options = options;
         GridLocation = gridLocation;
 
-        (_control, _textControl, _percentageBarControl) = CreateControl(
-            id,
-            options
-        );
+        (_control, _textControl, _percentageBarControl) = CreateControl(id, options);
     }
 
     public void AddControl(IGuiControl guiControl)
@@ -80,10 +71,7 @@ public class BabylonJSGuiBar : IBabylonJSGuiControl
         Options = GuiControlOptionsModel.MergeControlOptions(Options, options);
     }
 
-    private (Rectangle, TextBlock, Rectangle) CreateControl(
-        string id,
-        IGuiControlOptions options
-    )
+    private (Rectangle, TextBlock, Rectangle) CreateControl(string id, IGuiControlOptions options)
     {
         var backgroundControl = new Rectangle($"{id}_background");
         var textControl = new TextBlock($"{id}_text");
@@ -97,15 +85,14 @@ public class BabylonJSGuiBar : IBabylonJSGuiControl
         return (backgroundControl, textControl, percentageBarControl);
     }
 
-    private static readonly IList<string> IGNORE_PROPERTY_LIST =
-        new List<string>
-        {
-            "animation",
-            "barDirection",
-            "percent",
-            "textOptions",
-            "barOptions",
-        };
+    private static readonly IList<string> IGNORE_PROPERTY_LIST = new List<string>
+    {
+        "animation",
+        "barDirection",
+        "percent",
+        "textOptions",
+        "barOptions",
+    };
 
     private void Update(
         IGuiControlOptions options,
@@ -118,38 +105,22 @@ public class BabylonJSGuiBar : IBabylonJSGuiControl
         {
             if (!IGNORE_PROPERTY_LIST.Contains(option.Key))
             {
-                SetPropertyOnControl(
-                    backgroundControl,
-                    option.Key,
-                    option.Value
-                );
+                SetPropertyOnControl(backgroundControl, option.Key, option.Value);
             }
             else if (option.Key == "textOptions")
             {
-                var textOptions = option.Value.To(
-                    () => new GuiControlOptionsModel()
-                );
+                var textOptions = option.Value.To(() => new GuiControlOptionsModel());
                 foreach (var textOption in textOptions)
                 {
-                    SetPropertyOnControl(
-                        textControl,
-                        textOption.Key,
-                        textOption.Value
-                    );
+                    SetPropertyOnControl(textControl, textOption.Key, textOption.Value);
                 }
             }
             else if (option.Key == "barOptions")
             {
-                var barOptions = option.Value.To(
-                    () => new GuiControlOptionsModel()
-                );
+                var barOptions = option.Value.To(() => new GuiControlOptionsModel());
                 foreach (var barOption in barOptions)
                 {
-                    SetPropertyOnControl(
-                        barControl,
-                        barOption.Key,
-                        barOption.Value
-                    );
+                    SetPropertyOnControl(barControl, barOption.Key, barOption.Value);
                 }
             }
         }
@@ -191,11 +162,7 @@ public class BabylonJSGuiBar : IBabylonJSGuiControl
         }
     }
 
-    private static void SetPropertyOnControl(
-        Control control,
-        string property,
-        object value
-    )
+    private static void SetPropertyOnControl(Control control, string property, object value)
     {
         EventHorizonBlazorInterop.Set(control.___guid, property, value);
     }

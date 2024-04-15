@@ -3,10 +3,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Register;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Unregister;
-
 using MediatR;
 
 public class ClientActionServerClientEntityChangedEventHandler
@@ -30,9 +28,6 @@ public class ClientActionServerClientEntityChangedEventHandler
             cancellationToken
         );
         // Register Client Entity
-        await _mediator.Send(
-            new RegisterClientEntity(notification.Details),
-            cancellationToken
-        );
+        await _mediator.Send(new RegisterClientEntity(notification.Details), cancellationToken);
     }
 }

@@ -2,14 +2,11 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 
-public class MessageToastContainerModel
-    : ObservableComponentBase,
-        ShowMessageEventObserver
+public class MessageToastContainerModel : ObservableComponentBase, ShowMessageEventObserver
 {
     public IDictionary<string, MessageModel> MessageList { get; set; } =
         new Dictionary<string, MessageModel>();

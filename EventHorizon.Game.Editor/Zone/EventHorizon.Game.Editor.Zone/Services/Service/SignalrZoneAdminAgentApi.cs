@@ -15,9 +15,7 @@ public sealed class SignalrZoneAdminAgentApi : ZoneAdminAgentApi
         _hubConnection = hubConnection;
     }
 
-    public Task<AdminAgentEntityResponse> CreateEntity(
-        IObjectEntityDetails entity
-    )
+    public Task<AdminAgentEntityResponse> CreateEntity(IObjectEntityDetails entity)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -27,10 +25,7 @@ public sealed class SignalrZoneAdminAgentApi : ZoneAdminAgentApi
                 ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
             }.FromResult();
         }
-        return _hubConnection.InvokeAsync<AdminAgentEntityResponse>(
-            "Agent_EntityCreate",
-            entity
-        );
+        return _hubConnection.InvokeAsync<AdminAgentEntityResponse>("Agent_EntityCreate", entity);
     }
 
     public Task<AdminAgentEntityResponse> DeleteEntity(string entityId)
@@ -43,15 +38,10 @@ public sealed class SignalrZoneAdminAgentApi : ZoneAdminAgentApi
                 ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
             }.FromResult();
         }
-        return _hubConnection.InvokeAsync<AdminAgentEntityResponse>(
-            "Agent_EntityDelete",
-            entityId
-        );
+        return _hubConnection.InvokeAsync<AdminAgentEntityResponse>("Agent_EntityDelete", entityId);
     }
 
-    public Task<AdminAgentEntityResponse> SaveEntity(
-        IObjectEntityDetails entity
-    )
+    public Task<AdminAgentEntityResponse> SaveEntity(IObjectEntityDetails entity)
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -61,9 +51,6 @@ public sealed class SignalrZoneAdminAgentApi : ZoneAdminAgentApi
                 ErrorCode = ZoneAdminErrorCodes.NOT_CONNECTED,
             }.FromResult();
         }
-        return _hubConnection.InvokeAsync<AdminAgentEntityResponse>(
-            "Agent_EntitySave",
-            entity
-        );
+        return _hubConnection.InvokeAsync<AdminAgentEntityResponse>("Agent_EntitySave", entity);
     }
 }

@@ -2,7 +2,6 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-
 using MediatR;
 
 public class PlayerZoneConnectionDisconnectedEvent : INotification
@@ -12,10 +11,7 @@ public class PlayerZoneConnectionDisconnectedEvent : INotification
     [MaybeNull]
     public Exception? Error { get; }
 
-    public PlayerZoneConnectionDisconnectedEvent(
-        string code,
-        [MaybeNull] Exception? error
-    )
+    public PlayerZoneConnectionDisconnectedEvent(string code, [MaybeNull] Exception? error)
     {
         Code = code;
         Error = error;

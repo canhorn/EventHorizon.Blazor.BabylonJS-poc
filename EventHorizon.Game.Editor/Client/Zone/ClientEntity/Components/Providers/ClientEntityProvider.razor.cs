@@ -2,7 +2,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
@@ -12,7 +11,6 @@ using EventHorizon.Game.Editor.Client.Zone.Pages;
 using EventHorizon.Game.Editor.Client.Zone.Reload;
 using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Delete;
 using EventHorizon.Game.Editor.Zone.Services.ClientEntity.Save;
-
 using Microsoft.AspNetCore.Components;
 
 public class ClientEntityProviderModel : EditorComponentBase
@@ -37,10 +35,7 @@ public class ClientEntityProviderModel : EditorComponentBase
 
     private async Task HandleSave(IObjectEntityDetails entity)
     {
-        await ShowMessage(
-            Localizer["Client Entity"],
-            Localizer["Saving Client Entity..."]
-        );
+        await ShowMessage(Localizer["Client Entity"], Localizer["Saving Client Entity..."]);
         var result = await Mediator.Send(new SaveClientEntityCommand(entity));
         if (result.Success.IsNotTrue())
         {
@@ -55,22 +50,14 @@ public class ClientEntityProviderModel : EditorComponentBase
             );
             return;
         }
-        await ShowMessage(
-            Localizer["Client Entity"],
-            Localizer["Saved Client Entity."]
-        );
+        await ShowMessage(Localizer["Client Entity"], Localizer["Saved Client Entity."]);
         await Mediator.Send(new ReloadActiveZoneStateCommand());
     }
 
     private async Task HandleDelete(IObjectEntityDetails entity)
     {
-        await ShowMessage(
-            Localizer["Client Entity"],
-            Localizer["Deleting Client Entity..."]
-        );
-        var result = await Mediator.Send(
-            new DeleteClientEntityCommand(entity.GlobalId)
-        );
+        await ShowMessage(Localizer["Client Entity"], Localizer["Deleting Client Entity..."]);
+        var result = await Mediator.Send(new DeleteClientEntityCommand(entity.GlobalId));
         if (result.Success.IsNotTrue())
         {
             await ShowMessage(
@@ -84,10 +71,7 @@ public class ClientEntityProviderModel : EditorComponentBase
             );
             return;
         }
-        await ShowMessage(
-            Localizer["Client Entity"],
-            Localizer["Deleted Client Entity."]
-        );
+        await ShowMessage(Localizer["Client Entity"], Localizer["Deleted Client Entity."]);
 
         NavigationManager.NavigateTo(ZoneEntityListPage.Route);
 

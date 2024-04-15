@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Plane>))]
@@ -27,19 +25,11 @@ public class Plane : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Plane>(
             entity => new Plane() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "Plane", "FromArray" },
-                array
-            }
+            new object[] { new string[] { "BABYLON", "Plane", "FromArray" }, array }
         );
     }
 
-    public static Plane FromPoints(
-        Vector3 point1,
-        Vector3 point2,
-        Vector3 point3
-    )
+    public static Plane FromPoints(Vector3 point1, Vector3 point2, Vector3 point3)
     {
         return EventHorizonBlazorInterop.FuncClass<Plane>(
             entity => new Plane() { ___guid = entity.___guid },
@@ -75,12 +65,7 @@ public class Plane : CachedEntityObject
         return EventHorizonBlazorInterop.Func<decimal>(
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "Plane",
-                    "SignedDistanceToPlaneFromPositionAndNormal"
-                },
+                new string[] { "BABYLON", "Plane", "SignedDistanceToPlaneFromPositionAndNormal" },
                 origin,
                 normal,
                 point
@@ -121,10 +106,7 @@ public class Plane : CachedEntityObject
 
     public decimal d
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "d");
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "d"); }
         set
         {
 
@@ -145,13 +127,7 @@ public class Plane : CachedEntityObject
 
     public Plane(decimal a, decimal b, decimal c, decimal d)
     {
-        var entity = EventHorizonBlazorInterop.New(
-            new string[] { "BABYLON", "Plane" },
-            a,
-            b,
-            c,
-            d
-        );
+        var entity = EventHorizonBlazorInterop.New(new string[] { "BABYLON", "Plane" }, a, b, c, d);
         ___guid = entity.___guid;
     }
     #endregion
@@ -198,22 +174,14 @@ public class Plane : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Plane>(
             entity => new Plane() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "transform" },
-                transformation
-            }
+            new object[] { new string[] { this.___guid, "transform" }, transformation }
         );
     }
 
     public decimal dotCoordinate(Vector3 point)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "dotCoordinate" },
-                point
-            }
+            new object[] { new string[] { this.___guid, "dotCoordinate" }, point }
         );
     }
 
@@ -221,36 +189,21 @@ public class Plane : CachedEntityObject
     {
         return EventHorizonBlazorInterop.FuncClass<Plane>(
             entity => new Plane() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "copyFromPoints" },
-                point1,
-                point2,
-                point3
-            }
+            new object[] { new string[] { this.___guid, "copyFromPoints" }, point1, point2, point3 }
         );
     }
 
     public bool isFrontFacingTo(Vector3 direction, decimal epsilon)
     {
         return EventHorizonBlazorInterop.Func<bool>(
-            new object[]
-            {
-                new string[] { this.___guid, "isFrontFacingTo" },
-                direction,
-                epsilon
-            }
+            new object[] { new string[] { this.___guid, "isFrontFacingTo" }, direction, epsilon }
         );
     }
 
     public decimal signedDistanceTo(Vector3 point)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "signedDistanceTo" },
-                point
-            }
+            new object[] { new string[] { this.___guid, "signedDistanceTo" }, point }
         );
     }
     #endregion

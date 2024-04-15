@@ -2,7 +2,6 @@
 
 using EventHorizon.Game.Client.Systems.ServerModule.Api;
 using EventHorizon.Game.Client.Systems.ServerModule.State;
-
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ServerModuleSystemStartup
@@ -11,9 +10,6 @@ public static class ServerModuleSystemStartup
         this IServiceCollection services
     ) =>
         services
-            .AddSingleton<
-                ServerModuleScriptsState,
-                StandardServerModuleScriptsState
-            >()
+            .AddSingleton<ServerModuleScriptsState, StandardServerModuleScriptsState>()
             .AddSingleton<ServerModuleState, StandardServerModuleState>();
 }

@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Home.Pages;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Layout;
-
 using _ = HomePage;
 
 [Url("/")]

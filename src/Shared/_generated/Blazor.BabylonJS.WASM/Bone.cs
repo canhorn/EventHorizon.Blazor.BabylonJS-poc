@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Bone>))]
@@ -84,29 +82,21 @@ public class Bone : Node
         {
             if (__rotationQuaternion == null)
             {
-                __rotationQuaternion =
-                    EventHorizonBlazorInterop.GetClass<Quaternion>(
-                        this.___guid,
-                        "rotationQuaternion",
-                        (entity) =>
-                        {
-                            return new Quaternion()
-                            {
-                                ___guid = entity.___guid
-                            };
-                        }
-                    );
+                __rotationQuaternion = EventHorizonBlazorInterop.GetClass<Quaternion>(
+                    this.___guid,
+                    "rotationQuaternion",
+                    (entity) =>
+                    {
+                        return new Quaternion() { ___guid = entity.___guid };
+                    }
+                );
             }
             return __rotationQuaternion;
         }
         set
         {
             __rotationQuaternion = null;
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "rotationQuaternion",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "rotationQuaternion", value);
         }
     }
 
@@ -148,10 +138,7 @@ public class Bone : Node
                         "animationPropertiesOverride",
                         (entity) =>
                         {
-                            return new AnimationPropertiesOverride()
-                            {
-                                ___guid = entity.___guid
-                            };
+                            return new AnimationPropertiesOverride() { ___guid = entity.___guid };
                         }
                     );
             }
@@ -164,10 +151,7 @@ public class Bone : Node
 
     public string name
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<string>(this.___guid, "name");
-        }
+        get { return EventHorizonBlazorInterop.Get<string>(this.___guid, "name"); }
         set
         {
 
@@ -217,13 +201,7 @@ public class Bone : Node
 
     public decimal length
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "length"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "length"); }
         set
         {
 
@@ -303,10 +281,7 @@ public class Bone : Node
         );
     }
 
-    public void setParent(
-        Bone parent,
-        System.Nullable<bool> updateDifferenceMatrix = null
-    )
+    public void setParent(Bone parent, System.Nullable<bool> updateDifferenceMatrix = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -361,10 +336,7 @@ public class Bone : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getInvertedAbsoluteTransform" }
-            }
+            new object[] { new string[] { this.___guid, "getInvertedAbsoluteTransform" } }
         );
     }
 
@@ -372,21 +344,14 @@ public class Bone : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAbsoluteTransform" }
-            }
+            new object[] { new string[] { this.___guid, "getAbsoluteTransform" } }
         );
     }
 
     public void linkTransformNode(TransformNode transformNode)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "linkTransformNode" },
-                transformNode
-            }
+            new object[] { new string[] { this.___guid, "linkTransformNode" }, transformNode }
         );
     }
 
@@ -422,20 +387,10 @@ public class Bone : Node
         );
     }
 
-    public void translate(
-        Vector3 vec,
-        System.Nullable<int> space = null,
-        AbstractMesh mesh = null
-    )
+    public void translate(Vector3 vec, System.Nullable<int> space = null, AbstractMesh mesh = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "translate" },
-                vec,
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "translate" }, vec, space, mesh }
         );
     }
 
@@ -446,44 +401,21 @@ public class Bone : Node
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setPosition" },
-                position,
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "setPosition" }, position, space, mesh }
         );
     }
 
     public void setAbsolutePosition(Vector3 position, AbstractMesh mesh = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setAbsolutePosition" },
-                position,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "setAbsolutePosition" }, position, mesh }
         );
     }
 
-    public void scale(
-        decimal x,
-        decimal y,
-        decimal z,
-        System.Nullable<bool> scaleChildren = null
-    )
+    public void scale(decimal x, decimal y, decimal z, System.Nullable<bool> scaleChildren = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "scale" },
-                x,
-                y,
-                z,
-                scaleChildren
-            }
+            new object[] { new string[] { this.___guid, "scale" }, x, y, z, scaleChildren }
         );
     }
 
@@ -505,11 +437,7 @@ public class Bone : Node
     public void getScaleToRef(Vector3 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getScaleToRef" },
-                result
-            }
+            new object[] { new string[] { this.___guid, "getScaleToRef" }, result }
         );
     }
 
@@ -542,14 +470,7 @@ public class Bone : Node
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "rotate" },
-                axis,
-                amount,
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "rotate" }, axis, amount, space, mesh }
         );
     }
 
@@ -561,14 +482,7 @@ public class Bone : Node
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setAxisAngle" },
-                axis,
-                angle,
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "setAxisAngle" }, axis, angle, space, mesh }
         );
     }
 
@@ -579,13 +493,7 @@ public class Bone : Node
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setRotation" },
-                rotation,
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "setRotation" }, rotation, space, mesh }
         );
     }
 
@@ -613,29 +521,15 @@ public class Bone : Node
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "setRotationMatrix" },
-                rotMat,
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "setRotationMatrix" }, rotMat, space, mesh }
         );
     }
 
-    public Vector3 getPosition(
-        System.Nullable<int> space = null,
-        AbstractMesh mesh = null
-    )
+    public Vector3 getPosition(System.Nullable<int> space = null, AbstractMesh mesh = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getPosition" },
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "getPosition" }, space, mesh }
         );
     }
 
@@ -646,13 +540,7 @@ public class Bone : Node
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getPositionToRef" },
-                space,
-                mesh,
-                result
-            }
+            new object[] { new string[] { this.___guid, "getPositionToRef" }, space, mesh, result }
         );
     }
 
@@ -660,33 +548,21 @@ public class Bone : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getAbsolutePosition" },
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "getAbsolutePosition" }, mesh }
         );
     }
 
     public void getAbsolutePositionToRef(AbstractMesh mesh, Vector3 result)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getAbsolutePositionToRef" },
-                mesh,
-                result
-            }
+            new object[] { new string[] { this.___guid, "getAbsolutePositionToRef" }, mesh, result }
         );
     }
 
     public void computeAbsoluteTransforms()
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "computeAbsoluteTransforms" }
-            }
+            new object[] { new string[] { this.___guid, "computeAbsoluteTransforms" } }
         );
     }
 
@@ -694,20 +570,11 @@ public class Bone : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getDirection" },
-                localAxis,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "getDirection" }, localAxis, mesh }
         );
     }
 
-    public void getDirectionToRef(
-        Vector3 localAxis,
-        Vector3 result,
-        AbstractMesh mesh = null
-    )
+    public void getDirectionToRef(Vector3 localAxis, Vector3 result, AbstractMesh mesh = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -720,19 +587,11 @@ public class Bone : Node
         );
     }
 
-    public Vector3 getRotation(
-        System.Nullable<int> space = null,
-        AbstractMesh mesh = null
-    )
+    public Vector3 getRotation(System.Nullable<int> space = null, AbstractMesh mesh = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getRotation" },
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "getRotation" }, space, mesh }
         );
     }
 
@@ -743,13 +602,7 @@ public class Bone : Node
     )
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "getRotationToRef" },
-                space,
-                mesh,
-                result
-            }
+            new object[] { new string[] { this.___guid, "getRotationToRef" }, space, mesh, result }
         );
     }
 
@@ -760,12 +613,7 @@ public class Bone : Node
     {
         return EventHorizonBlazorInterop.FuncClass<Quaternion>(
             entity => new Quaternion() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getRotationQuaternion" },
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "getRotationQuaternion" }, space, mesh }
         );
     }
 
@@ -786,19 +634,11 @@ public class Bone : Node
         );
     }
 
-    public Matrix getRotationMatrix(
-        AbstractMesh mesh,
-        System.Nullable<int> space = null
-    )
+    public Matrix getRotationMatrix(AbstractMesh mesh, System.Nullable<int> space = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Matrix>(
             entity => new Matrix() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getRotationMatrix" },
-                space,
-                mesh
-            }
+            new object[] { new string[] { this.___guid, "getRotationMatrix" }, space, mesh }
         );
     }
 
@@ -819,10 +659,7 @@ public class Bone : Node
         );
     }
 
-    public Vector3 getAbsolutePositionFromLocal(
-        Vector3 position,
-        AbstractMesh mesh = null
-    )
+    public Vector3 getAbsolutePositionFromLocal(Vector3 position, AbstractMesh mesh = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
@@ -844,11 +681,7 @@ public class Bone : Node
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "getAbsolutePositionFromLocalToRef"
-                },
+                new string[] { this.___guid, "getAbsolutePositionFromLocalToRef" },
                 position,
                 mesh,
                 result
@@ -856,10 +689,7 @@ public class Bone : Node
         );
     }
 
-    public Vector3 getLocalPositionFromAbsolute(
-        Vector3 position,
-        AbstractMesh mesh = null
-    )
+    public Vector3 getLocalPositionFromAbsolute(Vector3 position, AbstractMesh mesh = null)
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
@@ -881,11 +711,7 @@ public class Bone : Node
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
             {
-                new string[]
-                {
-                    this.___guid,
-                    "getLocalPositionFromAbsoluteToRef"
-                },
+                new string[] { this.___guid, "getLocalPositionFromAbsoluteToRef" },
                 position,
                 mesh,
                 result

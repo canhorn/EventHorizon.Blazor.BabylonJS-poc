@@ -2,9 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public class AssetOpenFileUploadTrggeredEventObserverHandler
@@ -12,9 +10,7 @@ public class AssetOpenFileUploadTrggeredEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public AssetOpenFileUploadTrggeredEventObserverHandler(
-        ObserverState observer
-    )
+    public AssetOpenFileUploadTrggeredEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

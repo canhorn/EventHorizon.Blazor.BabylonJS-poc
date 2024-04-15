@@ -2,11 +2,9 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.EntityModule.Api;
 
-public class StandardEntityPlayerScriptModuleState
-    : EntityPlayerScriptModuleState
+public class StandardEntityPlayerScriptModuleState : EntityPlayerScriptModuleState
 {
     private readonly IDictionary<string, EntityModuleScripts> _map =
         new Dictionary<string, EntityModuleScripts>();

@@ -2,11 +2,9 @@
 
 using EventHorizon.Game.Editor.Core.Services.Model;
 using EventHorizon.Observer.Model;
-
 using MediatR;
 
-public record ZoneRegisteredOnCoreServer(CoreZoneDetails ZoneDetails)
-    : INotification;
+public record ZoneRegisteredOnCoreServer(CoreZoneDetails ZoneDetails) : INotification;
 
 public interface ZoneRegisteredOnCoreServerObserver
     : ArgumentObserver<ZoneRegisteredOnCoreServer> { }

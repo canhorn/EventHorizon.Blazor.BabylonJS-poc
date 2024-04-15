@@ -3,10 +3,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using MediatR;
 
 public struct QueryForEditorFile : IRequest<CommandResult<EditorFile>>

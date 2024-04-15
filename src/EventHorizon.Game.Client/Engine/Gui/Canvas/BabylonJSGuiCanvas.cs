@@ -2,9 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-
 using BabylonJS.GUI;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
@@ -18,10 +16,7 @@ public class BabylonJSGuiCanvas : IGuiCanvas
         _uiTexture = AdvancedDynamicTexture.CreateFullscreenUI(
             "ROOT_GUI",
             true,
-            GameServiceProvider
-                .GetService<IRenderingScene>()
-                .GetBabylonJSScene()
-                .Scene
+            GameServiceProvider.GetService<IRenderingScene>().GetBabylonJSScene().Scene
         );
         return Task.CompletedTask;
     }

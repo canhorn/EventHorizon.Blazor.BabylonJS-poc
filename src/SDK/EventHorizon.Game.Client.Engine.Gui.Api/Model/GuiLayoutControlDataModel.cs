@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-
 using EventHorizon.Game.Client.Engine.Gui.Api;
 
 public class GuiLayoutControlDataModel : IGuiLayoutControlData
@@ -17,8 +16,7 @@ public class GuiLayoutControlDataModel : IGuiLayoutControlData
     public GuiGridLocationModel? GridLocation { get; set; }
     IGuiGridLocation? IGuiLayoutControlData.GridLocation => GridLocation;
     public List<GuiLayoutControlDataModel>? ControlList { get; set; }
-    IEnumerable<IGuiLayoutControlData>? IGuiLayoutControlData.ControlList =>
-        ControlList;
+    IEnumerable<IGuiLayoutControlData>? IGuiLayoutControlData.ControlList => ControlList;
     public object? LinkWith { get; set; }
 
     public GuiLayoutControlDataModel() { }
@@ -31,11 +29,9 @@ public class GuiLayoutControlDataModel : IGuiLayoutControlData
         TemplateId = control.TemplateId;
         Options = new GuiControlOptionsModel(control.Options);
         GridLocation =
-            control.GridLocation != null
-                ? new GuiGridLocationModel(control.GridLocation)
-                : null;
-        ControlList = control.ControlList
-            ?.Select(control => new GuiLayoutControlDataModel(control))
+            control.GridLocation != null ? new GuiGridLocationModel(control.GridLocation) : null;
+        ControlList = control
+            .ControlList?.Select(control => new GuiLayoutControlDataModel(control))
             .ToList();
         LinkWith = control.LinkWith;
     }

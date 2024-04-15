@@ -2,11 +2,8 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Editor.Core.Services.Model;
-
 using MediatR;
 
-public class QueryForAllZoneDetails
-    : IRequest<CommandResult<IEnumerable<CoreZoneDetails>>> { }
+public class QueryForAllZoneDetails : IRequest<CommandResult<IEnumerable<CoreZoneDetails>>> { }

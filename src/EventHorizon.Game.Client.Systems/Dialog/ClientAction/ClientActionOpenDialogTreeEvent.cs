@@ -3,12 +3,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 [ClientAction("Systems.Dialog.OPEN_DIALOG_TREE_COMMAND")]
@@ -34,9 +32,7 @@ public class ClientActionOpenDialogTreeEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ClientActionOpenDialogTreeEventObserverHandler(
-        ObserverState observer
-    )
+    public ClientActionOpenDialogTreeEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }
@@ -45,8 +41,8 @@ public class ClientActionOpenDialogTreeEventObserverHandler
         ClientActionOpenDialogTreeEvent notification,
         CancellationToken cancellationToken
     ) =>
-        _observer.Trigger<
-            ClientActionOpenDialogTreeEventObserver,
-            ClientActionOpenDialogTreeEvent
-        >(notification, cancellationToken);
+        _observer.Trigger<ClientActionOpenDialogTreeEventObserver, ClientActionOpenDialogTreeEvent>(
+            notification,
+            cancellationToken
+        );
 }

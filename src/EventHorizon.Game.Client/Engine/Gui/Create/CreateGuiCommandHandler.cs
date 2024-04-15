@@ -3,16 +3,13 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Model;
 using EventHorizon.Game.Client.Engine.Lifecycle.Register.Register;
-
 using MediatR;
 
-public class CreateGuiCommandHandler
-    : IRequestHandler<CreateGuiCommand, StandardCommandResult>
+public class CreateGuiCommandHandler : IRequestHandler<CreateGuiCommand, StandardCommandResult>
 {
     private readonly IMediator _mediator;
     private readonly IGuiLayoutDataState _layoutState;
@@ -47,10 +44,7 @@ public class CreateGuiCommandHandler
             request.ParentControlId
         );
         _guiState.Set(guiFromData);
-        await _mediator.Publish(
-            new RegisterEntityEvent(guiFromData),
-            cancellationToken
-        );
+        await _mediator.Publish(new RegisterEntityEvent(guiFromData), cancellationToken);
 
         return new StandardCommandResult();
     }

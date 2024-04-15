@@ -2,11 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Zone.Services.Api;
 using EventHorizon.Game.Editor.Zone.Services.Model;
 using EventHorizon.Zone.System.Server.Scripts.Model;
-
 using Microsoft.AspNetCore.SignalR.Client;
 
 public class SignalrZoneAdminServerScriptsApi : ZoneAdminServerScriptsApi
@@ -18,9 +16,9 @@ public class SignalrZoneAdminServerScriptsApi : ZoneAdminServerScriptsApi
         _hubConnection = hubConnection;
     }
 
-    public async Task<
-        ApiResponse<ServerScriptsErrorDetailsResponse>
-    > GetErrorDetails(CancellationToken cancellationToken)
+    public async Task<ApiResponse<ServerScriptsErrorDetailsResponse>> GetErrorDetails(
+        CancellationToken cancellationToken
+    )
     {
         if (_hubConnection.IsNotConnected())
         {
@@ -31,8 +29,9 @@ public class SignalrZoneAdminServerScriptsApi : ZoneAdminServerScriptsApi
             };
         }
 
-        return await _hubConnection.InvokeAsync<
-            ApiResponse<ServerScriptsErrorDetailsResponse>
-        >("ServerScripts_ErrorDetails", cancellationToken);
+        return await _hubConnection.InvokeAsync<ApiResponse<ServerScriptsErrorDetailsResponse>>(
+            "ServerScripts_ErrorDetails",
+            cancellationToken
+        );
     }
 }

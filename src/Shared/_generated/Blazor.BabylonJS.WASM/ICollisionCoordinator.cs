@@ -5,20 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface ICollisionCoordinator : ICachedEntity { }
 
-[JsonConverter(
-    typeof(CachedEntityConverter<ICollisionCoordinatorCachedEntity>)
-)]
-public class ICollisionCoordinatorCachedEntity
-    : CachedEntityObject,
-        ICollisionCoordinator
+[JsonConverter(typeof(CachedEntityConverter<ICollisionCoordinatorCachedEntity>))]
+public class ICollisionCoordinatorCachedEntity : CachedEntityObject, ICollisionCoordinator
 {
     #region Static Accessors
 

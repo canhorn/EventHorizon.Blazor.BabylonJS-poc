@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Services.Command.Send;
 
 using EventHorizon.Game.Client.Core.Command.Model;
-
 using MediatR;
 
 public class SendZoneAdminCommand : IRequest<StandardCommandResult>

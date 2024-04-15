@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.AssetManagement.Delete;
 using EventHorizon.Game.Editor.Client.AssetManagement.Model;
@@ -17,7 +16,6 @@ using EventHorizon.Game.Editor.Client.Shared.Components.TreeViewComponent.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Server.Asset.Connect;
-
 using MediatR;
 
 public class StandardAssetManagementState : AssetManagementState
@@ -30,20 +28,12 @@ public class StandardAssetManagementState : AssetManagementState
     public string BackupReferenceId { get; private set; } = string.Empty;
 
     public string RootPath { get; } = ROOT_PATH;
-    public ObservableCollection<FileSystemDirectoryContent> FileCollection
-    {
-        get;
-        private set;
-    } = new();
-    public FileSystemDirectoryContent CurrentWorkingDirectory
-    {
-        get;
-        private set;
-    } = new FileSystemDirectoryContent { FilterPath = ROOT_PATH, };
-    public TreeViewNodeData FileExplorerRoot { get; private set; } =
-        new TreeViewNodeData();
-    public TreeViewNodeData CurrentTreeViewNode { get; private set; } =
-        new TreeViewNodeData();
+    public ObservableCollection<FileSystemDirectoryContent> FileCollection { get; private set; } =
+        new();
+    public FileSystemDirectoryContent CurrentWorkingDirectory { get; private set; } =
+        new FileSystemDirectoryContent { FilterPath = ROOT_PATH, };
+    public TreeViewNodeData FileExplorerRoot { get; private set; } = new TreeViewNodeData();
+    public TreeViewNodeData CurrentTreeViewNode { get; private set; } = new TreeViewNodeData();
 
     private readonly IMediator _mediator;
     private readonly Localizer<SharedResource> _localizer;
@@ -76,10 +66,7 @@ public class StandardAssetManagementState : AssetManagementState
     {
         _accessToken = accessToken;
         await Setup();
-        CurrentWorkingDirectory = new FileSystemDirectoryContent
-        {
-            FilterPath = ROOT_PATH,
-        };
+        CurrentWorkingDirectory = new FileSystemDirectoryContent { FilterPath = ROOT_PATH, };
     }
 
     private async Task Setup()
@@ -90,9 +77,7 @@ public class StandardAssetManagementState : AssetManagementState
             CancellationToken.None
         );
 
-        FileCollection = new ObservableCollection<FileSystemDirectoryContent>(
-            getFileResult.Files
-        );
+        FileCollection = new ObservableCollection<FileSystemDirectoryContent>(getFileResult.Files);
 
         BuildFileExplorer(getFileResult);
 
@@ -107,8 +92,7 @@ public class StandardAssetManagementState : AssetManagementState
                     _localizer["Asset Server Connection"],
                     _localizer[
                         "Failed to connect with Asset Server Admin: Error Code = {0}",
-                        connectionResult.ErrorCode
-                            ?? "GENERAL_ASSET_SERVER_ERROR"
+                        connectionResult.ErrorCode ?? "GENERAL_ASSET_SERVER_ERROR"
                     ],
                     MessageLevel.Error
                 )
@@ -136,10 +120,7 @@ public class StandardAssetManagementState : AssetManagementState
         BackupReferenceId = referenceId;
     }
 
-    public async Task LoadFilterPath(
-        string filterPath,
-        CancellationToken cancellationToken
-    )
+    public async Task LoadFilterPath(string filterPath, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(_accessToken))
         {
@@ -161,21 +142,14 @@ public class StandardAssetManagementState : AssetManagementState
         CurrentWorkingDirectory = getFileResult.CWD;
     }
 
-    public async Task SetFileNode(
-        TreeViewNodeData node,
-        CancellationToken cancellationToken
-    )
+    public async Task SetFileNode(TreeViewNodeData node, CancellationToken cancellationToken)
     {
         if (node.Data is FileSystemDirectoryContent directoryContent)
         {
             CurrentTreeViewNode = node;
             CurrentWorkingDirectory = directoryContent;
             CurrentTreeViewNode.IsExpanded = true;
-            await LoadCurrentNodeData(
-                node,
-                directoryContent,
-                cancellationToken
-            );
+            await LoadCurrentNodeData(node, directoryContent, cancellationToken);
         }
     }
 
@@ -190,21 +164,14 @@ public class StandardAssetManagementState : AssetManagementState
         );
         if (treeNode is null)
         {
-            await ShowMessage(
-                _localizer["Invalid Asset File Node Selected"],
-                cancellationToken
-            );
+            await ShowMessage(_localizer["Invalid Asset File Node Selected"], cancellationToken);
             return;
         }
 
         CurrentWorkingDirectory = directoryContent;
         CurrentTreeViewNode = treeNode;
 
-        await LoadCurrentNodeData(
-            CurrentTreeViewNode,
-            CurrentWorkingDirectory,
-            cancellationToken
-        );
+        await LoadCurrentNodeData(CurrentTreeViewNode, CurrentWorkingDirectory, cancellationToken);
 
         treeNode.IsExpanded = true;
     }
@@ -216,11 +183,7 @@ public class StandardAssetManagementState : AssetManagementState
     )
     {
         await _mediator.Publish(
-            new ShowMessageEvent(
-                _localizer["Asset Management"],
-                message,
-                level
-            ),
+            new ShowMessageEvent(_localizer["Asset Management"], message, level),
             cancellationToken
         );
     }
@@ -270,10 +233,7 @@ public class StandardAssetManagementState : AssetManagementState
                 return;
             }
 
-            await ShowMessage(
-                _localizer["Successfully Deleted Content"],
-                cancellationToken
-            );
+            await ShowMessage(_localizer["Successfully Deleted Content"], cancellationToken);
             await LoadCurrentNodeData(
                 node,
                 directoryContent,
@@ -303,9 +263,7 @@ public class StandardAssetManagementState : AssetManagementState
             Text = _localizer["Server Root"],
             Data = getFileResult.CWD,
             IsExpanded = true,
-            Children = getFileResult.Files
-                .Select(TreeViewNodeDataBuildTreeViewNode)
-                .ToList()
+            Children = getFileResult.Files.Select(TreeViewNodeDataBuildTreeViewNode).ToList()
         };
         FileExplorerRoot.ContextMenu = new TreeViewNodeContextMenu
         {
@@ -314,8 +272,7 @@ public class StandardAssetManagementState : AssetManagementState
                 new TreeViewNodeContextMenuItem
                 {
                     Text = _localizer["New Folder"],
-                    OnClick = () =>
-                        TriggerNewFolder(FileExplorerRoot, getFileResult.CWD)
+                    OnClick = () => TriggerNewFolder(FileExplorerRoot, getFileResult.CWD)
                 }
             }
         };
@@ -328,9 +285,7 @@ public class StandardAssetManagementState : AssetManagementState
         FileSystemDirectoryContent directoryContent
     )
     {
-        _mediator.Publish(
-            new AssetNewFolderTrggeredEvent(node, directoryContent)
-        );
+        _mediator.Publish(new AssetNewFolderTrggeredEvent(node, directoryContent));
     }
 
     private TreeViewNodeData TreeViewNodeDataBuildTreeViewNode(
@@ -341,39 +296,24 @@ public class StandardAssetManagementState : AssetManagementState
         {
             Name = $"{directoryContent.FilterPath}/{directoryContent.Name}",
             Text = directoryContent.Name,
-            IconCssClass =
-                "--icon oi oi-" + (directoryContent.IsFile ? "file" : "folder"),
+            IconCssClass = "--icon oi oi-" + (directoryContent.IsFile ? "file" : "folder"),
             Children = !directoryContent.IsFile
                 ? new List<TreeViewNodeData>
                 {
-                    new TreeViewNodeData
-                    {
-                        Id = LOADING_ID,
-                        Text = _localizer["Loading"]
-                    }
+                    new TreeViewNodeData { Id = LOADING_ID, Text = _localizer["Loading"] }
                 }
                 : new List<TreeViewNodeData>(),
             Data = directoryContent,
         };
 
-        void TriggerUpload(
-            TreeViewNodeData node,
-            FileSystemDirectoryContent directoryContent
-        )
+        void TriggerUpload(TreeViewNodeData node, FileSystemDirectoryContent directoryContent)
         {
-            _mediator.Publish(
-                new AssetOpenFileUploadTrggeredEvent(node, directoryContent)
-            );
+            _mediator.Publish(new AssetOpenFileUploadTrggeredEvent(node, directoryContent));
         }
 
-        void TriggerDelete(
-            TreeViewNodeData node,
-            FileSystemDirectoryContent directoryContent
-        )
+        void TriggerDelete(TreeViewNodeData node, FileSystemDirectoryContent directoryContent)
         {
-            _mediator.Publish(
-                new AssetFileDeleteTriggeredEvent(directoryContent)
-            );
+            _mediator.Publish(new AssetFileDeleteTriggeredEvent(directoryContent));
         }
 
         node.ContextMenu = new TreeViewNodeContextMenu
@@ -440,8 +380,7 @@ public class StandardAssetManagementState : AssetManagementState
             var parentNode = GetParentNode(node, FileExplorerRoot);
             if (
                 parentNode is null
-                || parentNode.Data
-                    is not FileSystemDirectoryContent parenDirectoryContent
+                || parentNode.Data is not FileSystemDirectoryContent parenDirectoryContent
             )
             {
                 return;
@@ -476,23 +415,14 @@ public class StandardAssetManagementState : AssetManagementState
         }
 
         var loadInTreeNodeDirectoryContentChildren =
-            force
-            || (
-                node.Children.Any(a => a.Id == LOADING_ID)
-                && !directoryContent.IsFile
-            );
+            force || (node.Children.Any(a => a.Id == LOADING_ID) && !directoryContent.IsFile);
         if (loadInTreeNodeDirectoryContentChildren)
         {
-            node.Children = getFileResult.Files
-                .Select(TreeViewNodeDataBuildTreeViewNode)
-                .ToList();
+            node.Children = getFileResult.Files.Select(TreeViewNodeDataBuildTreeViewNode).ToList();
         }
     }
 
-    private TreeViewNodeData? GetParentNode(
-        TreeViewNodeData toFindParentFor,
-        TreeViewNodeData node
-    )
+    private TreeViewNodeData? GetParentNode(TreeViewNodeData toFindParentFor, TreeViewNodeData node)
     {
         foreach (var child in node.Children)
         {

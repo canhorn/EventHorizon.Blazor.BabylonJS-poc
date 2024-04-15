@@ -3,9 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Blazor.Interop.Callbacks;
 using EventHorizon.Game.Client.Engine.Entity.Tag;
 using EventHorizon.Game.Client.Engine.Entity.Tracking.Api;
@@ -22,9 +20,7 @@ using EventHorizon.Game.Client.Systems.Map.Hit;
 using EventHorizon.Game.Client.Systems.Map.Ready;
 using EventHorizon.Observer.Register;
 using EventHorizon.Observer.Unregister;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 public class BabylonJSMapMeshFromHeightMapEntity
@@ -32,8 +28,7 @@ public class BabylonJSMapMeshFromHeightMapEntity
         IMapMeshEntity,
         PointerHitMeshEventObserver
 {
-    private readonly IMediator _mediator =
-        GameServiceProvider.GetService<IMediator>();
+    private readonly IMediator _mediator = GameServiceProvider.GetService<IMediator>();
     private readonly IRenderingScene _renderingScene =
         GameServiceProvider.GetService<IRenderingScene>();
 
@@ -64,9 +59,7 @@ public class BabylonJSMapMeshFromHeightMapEntity
     {
         var scene = _renderingScene.GetBabylonJSScene().Scene;
         var name = Name;
-        var assetUrl = AssetServer.CreateAssetLocationUrl(
-            _mapDetails.HeightMapUrl
-        );
+        var assetUrl = AssetServer.CreateAssetLocationUrl(_mapDetails.HeightMapUrl);
         _mesh = MeshBuilder.CreateGroundFromHeightMap(
             name,
             assetUrl,

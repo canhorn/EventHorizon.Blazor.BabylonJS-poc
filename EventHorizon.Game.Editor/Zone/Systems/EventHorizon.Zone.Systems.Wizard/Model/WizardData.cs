@@ -11,8 +11,6 @@ public class WizardData : Dictionary<string, string>
         set => base[key] = value;
     }
 
-    public new bool TryGetValue(
-        string key,
-        [MaybeNullWhen(false)] out string value
-    ) => base.TryGetValue(key, out value);
+    public new bool TryGetValue(string key, [MaybeNullWhen(false)] out string value) =>
+        base.TryGetValue(key, out value);
 }

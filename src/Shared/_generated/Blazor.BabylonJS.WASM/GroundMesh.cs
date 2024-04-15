@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<GroundMesh>))]
@@ -27,12 +25,7 @@ public class GroundMesh : Mesh
     {
         return EventHorizonBlazorInterop.FuncClass<GroundMesh>(
             entity => new GroundMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { "BABYLON", "GroundMesh", "Parse" },
-                parsedMesh,
-                scene
-            }
+            new object[] { new string[] { "BABYLON", "GroundMesh", "Parse" }, parsedMesh, scene }
         );
     }
     #endregion
@@ -41,35 +34,17 @@ public class GroundMesh : Mesh
 
     public decimal subdivisions
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "subdivisions"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "subdivisions"); }
     }
 
     public decimal subdivisionsX
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "subdivisionsX"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "subdivisionsX"); }
     }
 
     public decimal subdivisionsY
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "subdivisionsY"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "subdivisionsY"); }
     }
     #endregion
 
@@ -77,21 +52,11 @@ public class GroundMesh : Mesh
 
     public bool generateOctree
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "generateOctree"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "generateOctree"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "generateOctree",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "generateOctree", value);
         }
     }
     #endregion
@@ -123,10 +88,7 @@ public class GroundMesh : Mesh
         );
     }
 
-    public void optimize(
-        decimal chunksCount,
-        System.Nullable<decimal> octreeBlocksSize = null
-    )
+    public void optimize(decimal chunksCount, System.Nullable<decimal> octreeBlocksSize = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
             new object[]
@@ -141,12 +103,7 @@ public class GroundMesh : Mesh
     public decimal getHeightAtCoordinates(decimal x, decimal z)
     {
         return EventHorizonBlazorInterop.Func<decimal>(
-            new object[]
-            {
-                new string[] { this.___guid, "getHeightAtCoordinates" },
-                x,
-                z
-            }
+            new object[] { new string[] { this.___guid, "getHeightAtCoordinates" }, x, z }
         );
     }
 
@@ -154,20 +111,11 @@ public class GroundMesh : Mesh
     {
         return EventHorizonBlazorInterop.FuncClass<Vector3>(
             entity => new Vector3() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "getNormalAtCoordinates" },
-                x,
-                z
-            }
+            new object[] { new string[] { this.___guid, "getNormalAtCoordinates" }, x, z }
         );
     }
 
-    public GroundMesh getNormalAtCoordinatesToRef(
-        decimal x,
-        decimal z,
-        Vector3 @ref
-    )
+    public GroundMesh getNormalAtCoordinatesToRef(decimal x, decimal z, Vector3 @ref)
     {
         return EventHorizonBlazorInterop.FuncClass<GroundMesh>(
             entity => new GroundMesh() { ___guid = entity.___guid },
@@ -185,21 +133,14 @@ public class GroundMesh : Mesh
     {
         return EventHorizonBlazorInterop.FuncClass<GroundMesh>(
             entity => new GroundMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "updateCoordinateHeights" }
-            }
+            new object[] { new string[] { this.___guid, "updateCoordinateHeights" } }
         );
     }
 
     public void serialize(object serializationObject)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "serialize" },
-                serializationObject
-            }
+            new object[] { new string[] { this.___guid, "serialize" }, serializationObject }
         );
     }
     #endregion

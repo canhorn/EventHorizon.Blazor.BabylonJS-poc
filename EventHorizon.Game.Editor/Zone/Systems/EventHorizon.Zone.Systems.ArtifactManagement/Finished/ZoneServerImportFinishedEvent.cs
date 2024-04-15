@@ -9,9 +9,7 @@ public struct ZoneServerImportFinishedEvent : IAdminClientAction
 {
     public string ReferenceId { get; }
 
-    public ZoneServerImportFinishedEvent(
-        IAdminClientActionDataResolver resolver
-    )
+    public ZoneServerImportFinishedEvent(IAdminClientActionDataResolver resolver)
     {
         ReferenceId = resolver.Resolve<string>("referenceId");
     }

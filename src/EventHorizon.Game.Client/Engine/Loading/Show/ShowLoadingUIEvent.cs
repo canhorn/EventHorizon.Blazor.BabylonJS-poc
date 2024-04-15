@@ -5,19 +5,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct ShowLoadingUIEvent : INotification { }
 
-public interface ShowLoadingUIEventObserver
-    : ArgumentObserver<ShowLoadingUIEvent> { }
+public interface ShowLoadingUIEventObserver : ArgumentObserver<ShowLoadingUIEvent> { }
 
-public class ShowLoadingUIEventHandler
-    : INotificationHandler<ShowLoadingUIEvent>
+public class ShowLoadingUIEventHandler : INotificationHandler<ShowLoadingUIEvent>
 {
     private readonly ObserverState _observer;
 
@@ -26,10 +22,7 @@ public class ShowLoadingUIEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        ShowLoadingUIEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(ShowLoadingUIEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<ShowLoadingUIEventObserver, ShowLoadingUIEvent>(
             notification,
             cancellationToken

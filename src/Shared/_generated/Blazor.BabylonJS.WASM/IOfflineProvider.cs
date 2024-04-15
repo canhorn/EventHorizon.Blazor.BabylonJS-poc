@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 public interface IOfflineProvider : ICachedEntity { }
@@ -36,41 +34,21 @@ public class IOfflineProviderCachedEntity : CachedEntityObject, IOfflineProvider
 
     public bool enableSceneOffline
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enableSceneOffline"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enableSceneOffline"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enableSceneOffline",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enableSceneOffline", value);
         }
     }
 
     public bool enableTexturesOffline
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "enableTexturesOffline"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "enableTexturesOffline"); }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "enableTexturesOffline",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "enableTexturesOffline", value);
         }
     }
     #endregion
@@ -133,12 +111,7 @@ public class IOfflineProviderCachedEntity : CachedEntityObject, IOfflineProvider
     public void loadImage(string url, HTMLImageElement image)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "loadImage" },
-                url,
-                image
-            }
+            new object[] { new string[] { this.___guid, "loadImage" }, url, image }
         );
     }
 

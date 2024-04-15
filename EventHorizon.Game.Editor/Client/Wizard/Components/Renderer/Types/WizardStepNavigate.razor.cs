@@ -11,10 +11,7 @@ public class WizardStepNavigateBase : WizardStepCommonBase
 
     protected override void OnInitializing()
     {
-        var locationFound = Step.Details.TryGetValue(
-            "Location",
-            out var location
-        );
+        var locationFound = Step.Details.TryGetValue("Location", out var location);
         if (!locationFound)
         {
             ErrorMessage = Localizer[

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<RawTexture>))]
@@ -37,12 +35,7 @@ public class RawTexture : Texture
             entity => new RawTexture() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "RawTexture",
-                    "CreateLuminanceTexture"
-                },
+                new string[] { "BABYLON", "RawTexture", "CreateLuminanceTexture" },
                 data,
                 width,
                 height,
@@ -68,12 +61,7 @@ public class RawTexture : Texture
             entity => new RawTexture() { ___guid = entity.___guid },
             new object[]
             {
-                new string[]
-                {
-                    "BABYLON",
-                    "RawTexture",
-                    "CreateLuminanceAlphaTexture"
-                },
+                new string[] { "BABYLON", "RawTexture", "CreateLuminanceAlphaTexture" },
                 data,
                 width,
                 height,
@@ -204,13 +192,7 @@ public class RawTexture : Texture
 
     public decimal format
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "format"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "format"); }
         set
         {
 

@@ -4,18 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Server.Asset.Api;
 using EventHorizon.Game.Server.Asset.Model;
-
 using MediatR;
 
 public class QueryForFileManagementAssetsHandler
-    : IRequestHandler<
-        QueryForFileManagementAssets,
-        CommandResult<FileManagementAssets>
-    >
+    : IRequestHandler<QueryForFileManagementAssets, CommandResult<FileManagementAssets>>
 {
     private readonly AssetServerAdminService _service;
 

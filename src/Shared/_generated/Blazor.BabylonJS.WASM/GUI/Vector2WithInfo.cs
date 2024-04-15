@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<Vector2WithInfo>))]
@@ -34,13 +32,7 @@ public class Vector2WithInfo : Vector2
 
     public decimal buttonIndex
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "buttonIndex"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "buttonIndex"); }
         set
         {
 
@@ -56,10 +48,7 @@ public class Vector2WithInfo : Vector2
     public Vector2WithInfo(ICachedEntity entity)
         : base(entity) { }
 
-    public Vector2WithInfo(
-        Vector2 source,
-        System.Nullable<decimal> buttonIndex = null
-    )
+    public Vector2WithInfo(Vector2 source, System.Nullable<decimal> buttonIndex = null)
         : base()
     {
         var entity = EventHorizonBlazorInterop.New(

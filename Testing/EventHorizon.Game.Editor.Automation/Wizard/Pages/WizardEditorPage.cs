@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Game.Editor.Automation.Wizard.Pages;
 
 using Atata;
-
 using EventHorizon.Game.Editor.Automation.Layout;
 using EventHorizon.Game.Editor.Automation.Wizard.Components;
-
 using _ = WizardEditorPage;
 
 [Url("/wizard-editor")]

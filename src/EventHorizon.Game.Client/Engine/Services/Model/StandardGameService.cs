@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Engine.Services.Model;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Exceptions;
 using EventHorizon.Game.Client.Engine.Services.Api;
 
@@ -14,10 +13,7 @@ public class StandardGameService : IGameService
 #if DEBUG
         if (_game == null)
         {
-            throw new GameRuntimeException(
-                "game_is_null",
-                "The Game has not been set."
-            );
+            throw new GameRuntimeException("game_is_null", "The Game has not been set.");
         }
 #endif
         return _game;

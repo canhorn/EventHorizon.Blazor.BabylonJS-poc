@@ -43,8 +43,7 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
     public IMediator Mediator { get; set; } = null!;
 
     [Inject]
-    public AuthenticationStateProvider AuthenticationStateProvider { get; set; } =
-        null!;
+    public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
 
     [Inject]
     public IConfiguration Configuration { get; set; } = null!;
@@ -56,8 +55,7 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
     ResizeListener ResizeListener { get; set; } = null!;
 
     [Inject]
-    public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } =
-        null!;
+    public ClientDetailsEnrichmentService ClientEnrichmentService { get; set; } = null!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -81,32 +79,23 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
 
     public void HandleKeyDown(KeyboardEventArgs args)
     {
-        Mediator.Send(
-            new TriggerInputCommand(args.Key, InputTriggerType.Pressed)
-        );
+        Mediator.Send(new TriggerInputCommand(args.Key, InputTriggerType.Pressed));
     }
 
     public void HandleKeyUp(KeyboardEventArgs args)
     {
-        Mediator.Send(
-            new TriggerInputCommand(args.Key, InputTriggerType.Released)
-        );
+        Mediator.Send(new TriggerInputCommand(args.Key, InputTriggerType.Released));
     }
 
     public async Task StartGame_ByClient()
     {
         await LoadInTestingData();
 
-        var state =
-            await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         //var accessToken = state.User.Claims.FirstOrDefault(a => a.Type == "access_token").Value;
         var accessTokenResult = await TokenProvider.RequestAccessToken();
         var accessToken = string.Empty;
-        var playerId = state
-            .User
-            ?.Claims
-            ?.FirstOrDefault(a => a.Type == "sub")
-            ?.Value;
+        var playerId = state.User?.Claims?.FirstOrDefault(a => a.Type == "sub")?.Value;
 
         if (string.IsNullOrWhiteSpace(playerId))
         {
@@ -121,10 +110,7 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
             accessToken = token.Value;
             await Mediator.Publish(new AccessTokenSetEvent(accessToken));
 
-            ClientEnrichmentService.EnrichWith(
-                "Client.AuthenticatedUserId",
-                playerId
-            );
+            ClientEnrichmentService.EnrichWith("Client.AuthenticatedUserId", playerId);
 
             ClientEnrichmentService.EnrichWith("Client.PlayerId", playerId);
 
@@ -164,11 +150,7 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
         var scene = new Scene(engine);
         var light0 = new PointLight("Omni", new Vector3(0, 2, 8), scene);
         var box1 = Mesh.CreateBox("b1", 1.0m, scene);
-        var freeCamera = new FreeCamera(
-            "FreeCamera",
-            new Vector3(0, 0, 5),
-            scene
-        );
+        var freeCamera = new FreeCamera("FreeCamera", new Vector3(0, 0, 5), scene);
         freeCamera.rotation = new Vector3(0, (decimal)System.Math.PI, 0);
         scene.activeCamera = freeCamera;
         freeCamera.attachControl(canvas, true);
@@ -200,9 +182,8 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
         try
         {
             resourceBundle =
-                await HttpClient.GetFromJsonAsync<I18nBundleModel>(
-                    $"i18n/default.{locale}.json"
-                ) ?? new I18nBundleModel();
+                await HttpClient.GetFromJsonAsync<I18nBundleModel>($"i18n/default.{locale}.json")
+                ?? new I18nBundleModel();
         }
         catch (HttpRequestException ex)
         {
@@ -218,11 +199,7 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
         }
         catch (Exception ex)
         {
-            Logger.LogError(
-                ex,
-                "Failed I18n Bundle Request for Locale: {Locale}",
-                locale
-            );
+            Logger.LogError(ex, "Failed I18n Bundle Request for Locale: {Locale}", locale);
             throw;
         }
 
@@ -236,9 +213,7 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
     {
         try
         {
-            var bundle = await HttpClient.GetFromJsonAsync<I18nBundleModel>(
-                $"i18n/default.json"
-            );
+            var bundle = await HttpClient.GetFromJsonAsync<I18nBundleModel>($"i18n/default.json");
             return bundle ?? new I18nBundleModel();
         }
         catch (Exception ex)
@@ -263,16 +238,13 @@ public class GamePageModel : ComponentBase, IAsyncDisposable
         }
     }
 
-    public async Task<ParticleTemplate> GetParticleTemplate(
-        string templateFileName
-    )
+    public async Task<ParticleTemplate> GetParticleTemplate(string templateFileName)
     {
         try
         {
-            var bundle =
-                await HttpClient.GetFromJsonAsync<ParticleTemplateModel>(
-                    $"game-data/test-particles/{templateFileName}"
-                );
+            var bundle = await HttpClient.GetFromJsonAsync<ParticleTemplateModel>(
+                $"game-data/test-particles/{templateFileName}"
+            );
             return bundle ?? new ParticleTemplateModel();
         }
         catch (Exception ex)

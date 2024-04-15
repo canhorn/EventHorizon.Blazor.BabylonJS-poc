@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Api;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 public struct UnregisterEntityEvent : INotification
@@ -20,11 +18,9 @@ public struct UnregisterEntityEvent : INotification
     }
 }
 
-public interface UnregisterEntityEventObserver
-    : ArgumentObserver<UnregisterEntityEvent> { }
+public interface UnregisterEntityEventObserver : ArgumentObserver<UnregisterEntityEvent> { }
 
-public class UnregisterEntityEventHandler
-    : INotificationHandler<UnregisterEntityEvent>
+public class UnregisterEntityEventHandler : INotificationHandler<UnregisterEntityEvent>
 {
     private readonly ObserverState _observer;
 
@@ -33,10 +29,7 @@ public class UnregisterEntityEventHandler
         _observer = observer;
     }
 
-    public Task Handle(
-        UnregisterEntityEvent notification,
-        CancellationToken cancellationToken
-    ) =>
+    public Task Handle(UnregisterEntityEvent notification, CancellationToken cancellationToken) =>
         _observer.Trigger<UnregisterEntityEventObserver, UnregisterEntityEvent>(
             notification,
             cancellationToken

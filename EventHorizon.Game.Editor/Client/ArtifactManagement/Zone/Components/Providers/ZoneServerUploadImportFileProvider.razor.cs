@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Components.Providers;
 
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Model;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Open;
 using EventHorizon.Game.Editor.Client.ArtifactManagement.Zone.Upload;
@@ -9,7 +8,6 @@ using EventHorizon.Game.Editor.Client.AssetManagement.Api;
 using EventHorizon.Game.Editor.Client.Authentication.Model;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
@@ -27,8 +25,7 @@ public class ZoneServerUploadImportFileProviderBase
     [Inject]
     public AssetServerService AssetServerService { get; set; } = null!;
 
-    public string UploadFileId { get; } =
-        "zone-server-upload-import-input-file";
+    public string UploadFileId { get; } = "zone-server-upload-import-input-file";
     public IJSObjectReference? FileUploadClickModule { get; private set; }
     public InputFile UploadInputFile { get; set; } = null!;
 
@@ -55,10 +52,7 @@ public class ZoneServerUploadImportFileProviderBase
     {
         if (FileUploadClickModule.IsNotNull())
         {
-            await FileUploadClickModule.InvokeVoidAsync(
-                "openInputElement",
-                UploadFileId
-            );
+            await FileUploadClickModule.InvokeVoidAsync("openInputElement", UploadFileId);
         }
     }
 
@@ -92,8 +86,7 @@ public class ZoneServerUploadImportFileProviderBase
             return;
         }
         else if (
-            result.ErrorCode
-            == ZoneServerUploadErrorCodes.ZONE_SERVER_UPLOAD_PAYLOAD_TOO_LARGE
+            result.ErrorCode == ZoneServerUploadErrorCodes.ZONE_SERVER_UPLOAD_PAYLOAD_TOO_LARGE
         )
         {
             await ShowMessage(
@@ -109,10 +102,7 @@ public class ZoneServerUploadImportFileProviderBase
 
         await ShowMessage(
             Localizer["Zone Server Import"],
-            Localizer[
-                "Failed to Import File: ErrorCode = {0}",
-                result.ErrorCode
-            ],
+            Localizer["Failed to Import File: ErrorCode = {0}", result.ErrorCode],
             MessageLevel.Error
         );
     }

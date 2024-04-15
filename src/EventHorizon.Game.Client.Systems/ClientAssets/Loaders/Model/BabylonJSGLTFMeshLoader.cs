@@ -3,9 +3,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-
 using BabylonJS;
-
 using EventHorizon.Blazor.Interop.Callbacks;
 using EventHorizon.Game.Client.Engine.Entity.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
@@ -17,7 +15,6 @@ using EventHorizon.Game.Client.Systems.ClientAssets.Loaders.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Model.Mesh;
 using EventHorizon.Game.Client.Systems.ClientAssets.Resolve;
 using EventHorizon.Game.Client.Systems.Entity.Modules.Animation.Model;
-
 using MediatR;
 
 public class BabylonJSGLTFMeshLoader : ClientAssetLoader
@@ -37,12 +34,7 @@ public class BabylonJSGLTFMeshLoader : ClientAssetLoader
         IVector3 position
     )
     {
-        return new ClientAssetMeshDetails(
-            assetInstanceId,
-            clientAsset,
-            position,
-            true
-        );
+        return new ClientAssetMeshDetails(assetInstanceId, clientAsset, position, true);
     }
 
     public Task Load(ClientAssetDetails details, ClientAsset clientAsset)
@@ -58,12 +50,7 @@ public class BabylonJSGLTFMeshLoader : ClientAssetLoader
                 filePath,
                 fileName,
                 scene,
-                new ActionCallback<
-                    AbstractMesh[],
-                    IParticleSystem[],
-                    Skeleton[],
-                    AnimationGroup[]
-                >(
+                new ActionCallback<AbstractMesh[], IParticleSystem[], Skeleton[], AnimationGroup[]>(
                     async (meshes, _, __, animationList) =>
                     {
                         var guid = Guid.NewGuid().ToString();
@@ -74,41 +61,32 @@ public class BabylonJSGLTFMeshLoader : ClientAssetLoader
                         {
                             childMesh.isPickable = false;
                         }
-                        var boundingMesh =
-                            BoundingBoxGizmo.MakeNotPickableAndWrapInBoundingBox(
-                                mesh
-                            );
+                        var boundingMesh = BoundingBoxGizmo.MakeNotPickableAndWrapInBoundingBox(
+                            mesh
+                        );
                         boundingMesh.name = name;
                         boundingMesh.setPivotPoint(
                             new Vector3(0, heightOffset, 0),
                             // (enum) Space.LOCAL = 0
                             0
                         );
-                        var registeredMesh = new BabylonJSEngineMesh(
-                            boundingMesh
-                        );
+                        var registeredMesh = new BabylonJSEngineMesh(boundingMesh);
                         registeredMesh.SetEnabled(false);
 
                         if (animationList.Length > 0)
                         {
                             registeredMesh.MetaData.Add(
                                 AnimationConstants.ANIMATION_LIST_PROPERTY_NAME,
-                                animationList.Select(
-                                    animationGroup =>
-                                        new BabylonJSAnimationGroup(
-                                            animationGroup
-                                        )
-                                )
+                                animationList.Select(animationGroup => new BabylonJSAnimationGroup(
+                                    animationGroup
+                                ))
                             );
                         }
 
                         if (details is ClientAssetMeshDetails typedDetails)
                         {
                             await _mediator.Send(
-                                new ResolveClientAssetMeshCommand(
-                                    typedDetails,
-                                    registeredMesh
-                                )
+                                new ResolveClientAssetMeshCommand(typedDetails, registeredMesh)
                             );
                         }
                     }

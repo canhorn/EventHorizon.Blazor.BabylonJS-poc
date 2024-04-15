@@ -2,13 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Engine.Gui.Api;
 
 public class StandardGuiControlChildrenState : IGuiControlChildrenState
 {
-    private static readonly IList<string> EMPTY_CHILD_LIST =
-        new List<string>().AsReadOnly();
+    private static readonly IList<string> EMPTY_CHILD_LIST = new List<string>().AsReadOnly();
     private readonly IDictionary<string, IList<string>> _map =
         new Dictionary<string, IList<string>>();
 

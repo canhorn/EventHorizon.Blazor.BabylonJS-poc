@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<AnimationEvent>))]
@@ -34,13 +32,7 @@ public class AnimationEvent : CachedEntityObject
 
     public decimal frame
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "frame"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "frame"); }
         set
         {
 
@@ -50,13 +42,7 @@ public class AnimationEvent : CachedEntityObject
 
     public bool onlyOnce
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "onlyOnce"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "onlyOnce"); }
         set
         {
 
@@ -66,10 +52,7 @@ public class AnimationEvent : CachedEntityObject
 
     public bool isDone
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDone");
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "isDone"); }
         set
         {
 

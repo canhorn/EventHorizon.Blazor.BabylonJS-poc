@@ -3,11 +3,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Lifecycle.Dispose;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 using EventHorizon.Game.Client.Systems.ClientAssets.Api.Mesh;
-
 using MediatR;
 
 public class CleanupClientAssetsOnDisposeOfEngineEventHandler
@@ -28,10 +26,7 @@ public class CleanupClientAssetsOnDisposeOfEngineEventHandler
         _clientAssetMeshCache = clientAssetMeshCache;
     }
 
-    public Task Handle(
-        DisposeOfEngineEvent notification,
-        CancellationToken cancellationToken
-    )
+    public Task Handle(DisposeOfEngineEvent notification, CancellationToken cancellationToken)
     {
         _clientAssetMeshCache.Clear();
         _clientAssetState.Reset();

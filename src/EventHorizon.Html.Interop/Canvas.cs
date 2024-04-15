@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Html.Interop;
 
 using BabylonJS;
-
 using EventHorizon.Blazor.Interop;
 
 public class Canvas : HTMLCanvasElementCachedEntity

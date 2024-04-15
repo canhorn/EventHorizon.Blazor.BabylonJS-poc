@@ -2,18 +2,13 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Game.Server.Asset.Api;
 using EventHorizon.Game.Server.Asset.Model;
-
 using MediatR;
 
 public class QueryForAssetServerArtifactsHandler
-    : IRequestHandler<
-        QueryForAssetServerArtifacts,
-        CommandResult<AssetServerArtifacts>
-    >
+    : IRequestHandler<QueryForAssetServerArtifacts, CommandResult<AssetServerArtifacts>>
 {
     private readonly AssetServerAdminService _service;
 
@@ -35,9 +30,7 @@ public class QueryForAssetServerArtifactsHandler
             );
         }
 
-        return new CommandResult<AssetServerArtifacts>(
-            MapResult(result.Result)
-        );
+        return new CommandResult<AssetServerArtifacts>(MapResult(result.Result));
     }
 
     private static AssetServerArtifacts MapResult(ArtifactListResult result) =>

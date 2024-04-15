@@ -4,14 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using global::BabylonJS;
 using EventHorizon.Game.Client;
 using EventHorizon.Game.Client.Engine.Lifecycle.Model;
 using EventHorizon.Game.Client.Engine.Rendering.Api;
 using EventHorizon.Game.Client.Engine.Rendering.Model;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
-
-using global::BabylonJS;
 
 public class Block : LifecycleEntityBase
 {
@@ -37,11 +35,7 @@ public class Block : LifecycleEntityBase
 
     public override Task Initialize()
     {
-        _mesh = Mesh.CreateBox(
-            "b1",
-            1.0m,
-            _renderingScene.GetBabylonJSScene().Scene
-        );
+        _mesh = Mesh.CreateBox("b1", 1.0m, _renderingScene.GetBabylonJSScene().Scene);
 
         return Task.CompletedTask;
     }

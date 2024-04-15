@@ -10,8 +10,6 @@ public static class WizardStepTypes
     public const string Null = nameof(Null);
     public const string ServerProcess = nameof(ServerProcess);
     public const string TextInput = nameof(TextInput);
-    public const string TriggerReloadingStateEvent = nameof(
-        TriggerReloadingStateEvent
-    );
+    public const string TriggerReloadingStateEvent = nameof(TriggerReloadingStateEvent);
     public const string WaitForActivityEvent = nameof(WaitForActivityEvent);
 }

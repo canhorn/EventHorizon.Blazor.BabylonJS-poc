@@ -3,12 +3,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Api;
 using EventHorizon.Game.Client.Engine.Systems.ClientAction.Attributes;
 using EventHorizon.Observer.Model;
 using EventHorizon.Observer.State;
-
 using MediatR;
 
 [ClientAction("CLIENT_SCRIPTS_ASSEMBLY_CHANGED_CLIENT_ACTION_EVENT")]
@@ -16,9 +14,7 @@ public struct ClientActionClientScriptsAssemblyChangedEvent : IClientAction
 {
     public string Hash { get; }
 
-    public ClientActionClientScriptsAssemblyChangedEvent(
-        IClientActionDataResolver resolver
-    )
+    public ClientActionClientScriptsAssemblyChangedEvent(IClientActionDataResolver resolver)
     {
         Hash = resolver.Resolve<string>("hash");
     }
@@ -32,9 +28,7 @@ public class ClientActionClientScriptsAssemblyChangedEventObserverHandler
 {
     private readonly ObserverState _observer;
 
-    public ClientActionClientScriptsAssemblyChangedEventObserverHandler(
-        ObserverState observer
-    )
+    public ClientActionClientScriptsAssemblyChangedEventObserverHandler(ObserverState observer)
     {
         _observer = observer;
     }

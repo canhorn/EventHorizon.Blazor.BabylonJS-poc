@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Game.Client.Systems.ClientAssets.Config.Model;
 
 using System.Collections.Generic;
-
 using EventHorizon.Game.Client.Systems.ClientAssets.Api;
 
 public class ClientAssetConfigBase : ClientAssetConfig

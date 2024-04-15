@@ -3,9 +3,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Timers;
-
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class MessageToastDisplayModel : ComponentBase, IAsyncDisposable

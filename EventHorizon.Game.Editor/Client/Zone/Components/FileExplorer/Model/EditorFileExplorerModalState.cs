@@ -3,15 +3,13 @@
 using EventHorizon.Game.Editor.Client.Localization;
 using EventHorizon.Game.Editor.Client.Localization.Api;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
-
 using Microsoft.AspNetCore.Components;
 
 public class EditorFileExplorerModalState
 {
     public EditorNode Node { get; set; } = new EditorNode();
     public bool IsOpen { get; set; }
-    public EditorFileModalType ModalType { get; set; } =
-        EditorFileModalType.None;
+    public EditorFileModalType ModalType { get; set; } = EditorFileModalType.None;
     public string TextInput { get; set; } = string.Empty;
     public string ErrorMessage { get; set; } = string.Empty;
     public ElementReference InputFocusElement { get; set; }
@@ -63,9 +61,7 @@ public class EditorFileExplorerModalState
             case EditorFileModalType.AddFile:
                 return localizer["Supply the name of the new File"];
             case EditorFileModalType.DeleteFolder:
-                return localizer[
-                    "Are you sure you want to delete this Folder?"
-                ];
+                return localizer["Are you sure you want to delete this Folder?"];
             case EditorFileModalType.DeleteFile:
                 return localizer["Are you sure you want to delete this File?"];
             default:

@@ -5,10 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
 using EventHorizon.Blazor.Interop;
 using EventHorizon.Blazor.Interop.Callbacks;
-
 using Microsoft.JSInterop;
 
 [JsonConverter(typeof(CachedEntityConverter<LinesMesh>))]
@@ -54,13 +52,7 @@ public class LinesMesh : Mesh
 
     public bool checkCollisions
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "checkCollisions"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "checkCollisions"); }
     }
     #endregion
 
@@ -68,24 +60,12 @@ public class LinesMesh : Mesh
 
     public bool useVertexColor
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useVertexColor"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useVertexColor"); }
     }
 
     public bool useVertexAlpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<bool>(
-                this.___guid,
-                "useVertexAlpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<bool>(this.___guid, "useVertexAlpha"); }
     }
 
     private Color3 __color;
@@ -115,13 +95,7 @@ public class LinesMesh : Mesh
 
     public decimal alpha
     {
-        get
-        {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "alpha"
-            );
-        }
+        get { return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "alpha"); }
         set
         {
 
@@ -133,19 +107,12 @@ public class LinesMesh : Mesh
     {
         get
         {
-            return EventHorizonBlazorInterop.Get<decimal>(
-                this.___guid,
-                "intersectionThreshold"
-            );
+            return EventHorizonBlazorInterop.Get<decimal>(this.___guid, "intersectionThreshold");
         }
         set
         {
 
-            EventHorizonBlazorInterop.Set(
-                this.___guid,
-                "intersectionThreshold",
-                value
-            );
+            EventHorizonBlazorInterop.Set(this.___guid, "intersectionThreshold", value);
         }
     }
     #endregion
@@ -200,11 +167,7 @@ public class LinesMesh : Mesh
     public void dispose(System.Nullable<bool> doNotRecurse = null)
     {
         EventHorizonBlazorInterop.Func<CachedEntity>(
-            new object[]
-            {
-                new string[] { this.___guid, "dispose" },
-                doNotRecurse
-            }
+            new object[] { new string[] { this.___guid, "dispose" }, doNotRecurse }
         );
     }
 
@@ -230,11 +193,7 @@ public class LinesMesh : Mesh
     {
         return EventHorizonBlazorInterop.FuncClass<InstancedLinesMesh>(
             entity => new InstancedLinesMesh() { ___guid = entity.___guid },
-            new object[]
-            {
-                new string[] { this.___guid, "createInstance" },
-                name
-            }
+            new object[] { new string[] { this.___guid, "createInstance" }, name }
         );
     }
     #endregion
