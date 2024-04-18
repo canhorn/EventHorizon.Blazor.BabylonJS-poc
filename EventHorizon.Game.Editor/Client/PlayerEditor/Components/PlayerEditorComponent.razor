@@ -6,19 +6,26 @@
 
 <ContainerComponent State="State" Error="@ErrorMessage">
     <div class="player-editor__container">
-        <FluentStack Class="player-editor__data-section" Orientation="Orientation.Vertical">
-            <FluentButton Class="--compact"
-             IconEnd="new Icons.Regular.Size16.ClipboardCheckmark()" OnClick="HandleSave"
-                Disabled="!PendingSave">
-                @if (PendingSave)
-                {
+        <FluentStack Class="player-editor__data-section" Orientation="Orientation.Horizontal">
+           @if (PendingSave)
+           {
+                <FluentButton 
+                    IconEnd="new Icons.Regular.Size16.ClipboardCheckmark()" OnClick="HandleSave">
                     @Localizer["Save"]
-                }
-                else
-                {
+                </FluentButton>
+                <FluentButton 
+                    IconEnd="new Icons.Regular.Size16.ArrowCounterclockwise()" OnClick="HandleCancel">
+                    @Localizer["Revert"]
+                </FluentButton>
+            }
+            else
+            {
+                <FluentButton Class="--compact" 
+                    IconEnd="new Icons.Regular.Size16.ClipboardCheckmark()" OnClick="HandleSave" 
+                    Disabled="!PendingSave">
                     @Localizer["No Pending Save"]
-                }
-            </FluentButton>
+                </FluentButton>
+            }
         </FluentStack>
 
         <div class="player-editor__container form-control" style="max-width: 300px">

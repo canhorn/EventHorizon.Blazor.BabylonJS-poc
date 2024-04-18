@@ -35,11 +35,6 @@ public class PlayerEditorComponentBase
         ),
         new(ISkillState.NAME, (Localizer<SharedResource> localizer) => localizer["Skill State"]),
         new(IModelState.NAME, (Localizer<SharedResource> localizer) => localizer["Model State"]),
-        // new("forceSet", (Localizer<SharedResource> localizer) => localizer["Force Set"]),
-        // new("forceSet1", (Localizer<SharedResource> localizer) => localizer["Force Set 1"]),
-        // new("forceSet2", (Localizer<SharedResource> localizer) => localizer["Force Set 2"]),
-        // new("forceSet3", (Localizer<SharedResource> localizer) => localizer["Force Set 3"]),
-        // new("forceSet4", (Localizer<SharedResource> localizer) => localizer["Force Set 4"]),
     ];
 
     [CascadingParameter]
@@ -97,6 +92,13 @@ public class PlayerEditorComponentBase
             await LoadPlayerData();
             Setup();
         }
+    }
+
+    protected async Task HandleCancel()
+    {
+        PendingSave = false;
+        await LoadPlayerData();
+        Setup();
     }
 
     private async Task<bool> SavePlayerData()
