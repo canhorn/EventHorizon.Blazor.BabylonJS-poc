@@ -17,9 +17,8 @@ public class PlayerConfigurationEditorComponentBase : EditorComponentBase, IDisp
 
     public bool IsCurrentWizard { get; set; }
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-        base.OnParametersSet();
         if (
             !State.CurrentStep
             && State.WizardList.Any(a => a.Id == "1b424a53-5a93-43d0-8f53-ed240beb3071")
@@ -31,10 +30,23 @@ public class PlayerConfigurationEditorComponentBase : EditorComponentBase, IDisp
                 true
             );
         }
-        else if (State.CurrentStep)
+
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (IsCurrentWizard && !State.CurrentStep)
         {
-            IsCurrentWizard = State.CurrentWizardId == "1b424a53-5a93-43d0-8f53-ed240beb3071";
+            State.Start(
+                State.WizardList.First(a => a.Id == "1b424a53-5a93-43d0-8f53-ed240beb3071"),
+                true
+            );
         }
+
+        IsCurrentWizard = State.CurrentWizardId == "1b424a53-5a93-43d0-8f53-ed240beb3071";
     }
 
     protected void HandleStartEditing()
@@ -48,7 +60,9 @@ public class PlayerConfigurationEditorComponentBase : EditorComponentBase, IDisp
 
     public void Dispose()
     {
-        Console.WriteLine("Disposing PlayerConfigurationEditorComponentBase");
-        State.Cancel();
+        if (IsCurrentWizard)
+        {
+            State.Cancel();
+        }
     }
 }
