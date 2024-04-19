@@ -3,14 +3,15 @@
 
 <FluentStack VerticalGap="4" Orientation="Orientation.Vertical">
     <FluentButton id="@($"component-{_componentId}-button")" @onclick="HandleDropdownShow"
-        IconEnd="new Icons.Regular.Size16.ChevronDoubleDown()">
+        IconEnd="new Icons.Regular.Size12.ChevronDown().WithColor(Color.FillInverse)">
         @Label
     </FluentButton>
 
     <div class="badge__container">
         @foreach (var option in SelectedOptions)
         {
-            <FluentBadge title="@DeleteOptionTitle" OnClick="() => HandleRemoveOption(option)">@OptionText(option)
+            <FluentBadge title="@DeleteOptionTitle" OnClick="() => HandleRemoveOption(option)">
+                @OptionText(option)
             </FluentBadge>
         }
     </div>

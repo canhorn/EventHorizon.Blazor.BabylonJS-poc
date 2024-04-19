@@ -79,7 +79,6 @@ public class PlayerEditorComponentBase
     {
         PlayerData[args.PropertyName] = args.Value;
         CustomizableProperties[args.PropertyName] = args.Value;
-
         PendingSave = true;
     }
 

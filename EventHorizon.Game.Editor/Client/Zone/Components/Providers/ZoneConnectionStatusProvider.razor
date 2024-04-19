@@ -1,12 +1,14 @@
 ﻿@inherits ZoneConnectionStatusProviderModel
 
-<StandardModal IsOpen="IsReconnecting"
-               HideClose="true">
+<StandardModal IsOpen="IsReconnecting" HideClose="true">
     <Header>
-        <div class="reconnecting-modal__content" role="alert">
+        <div class="reconnecting-modal__header" role="alert">
             <h2>
                 @Localizer["Reconnecting to Zone Server..."]
             </h2>
+            <FluentButton Appearance="Appearance.Lightweight" OnClick="HandleReload">
+                @Localizer["Reload"]
+            </FluentButton>
         </div>
     </Header>
 </StandardModal>

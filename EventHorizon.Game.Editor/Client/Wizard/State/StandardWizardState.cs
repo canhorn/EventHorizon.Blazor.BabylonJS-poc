@@ -12,13 +12,13 @@ public class StandardWizardState : WizardState
 {
     private WizardMetadata? _currentWizard;
 
-    public IEnumerable<WizardMetadata> WizardList { get; private set; } =
-        new List<WizardMetadata>();
+    public IEnumerable<WizardMetadata> WizardList { get; private set; } = [];
 
     public string CurrentWizardId { get; private set; } = string.Empty;
+    public bool IsEmbedded { get; private set; } = false;
     public CommandResult<WizardStep> CurrentStep { get; private set; } =
         new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
-    public WizardData CurrentData { get; private set; } = new WizardData();
+    public WizardData CurrentData { get; private set; } = [];
 
     public event WizardState.OnChangeHandler OnChange = () => Task.CompletedTask;
 
@@ -78,7 +78,7 @@ public class StandardWizardState : WizardState
         return WizardErrorCodes.WIZARD_STEP_NOT_FOUND;
     }
 
-    public async Task<StandardCommandResult> Start(WizardMetadata metadata)
+    public async Task<StandardCommandResult> Start(WizardMetadata metadata, bool embedded = false)
     {
         if (string.IsNullOrWhiteSpace(metadata.FirstStep))
         {
@@ -99,8 +99,9 @@ public class StandardWizardState : WizardState
             }
 
             CurrentWizardId = metadata.Id;
+            IsEmbedded = embedded;
             CurrentStep = nextStep;
-            CurrentData = new WizardData();
+            CurrentData = [];
 
             await OnChange.Invoke();
 
@@ -116,7 +117,7 @@ public class StandardWizardState : WizardState
 
         CurrentWizardId = string.Empty;
         CurrentStep = new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
-        CurrentData = new WizardData();
+        CurrentData = [];
 
         await OnChange.Invoke();
 

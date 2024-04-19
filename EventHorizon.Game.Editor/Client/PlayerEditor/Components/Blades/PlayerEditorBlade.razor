@@ -1,1 +1,15 @@
-<EventHorizon.Game.Editor.Client.PlayerEditor.Components.PlayerEditorComponent />
+@using EventHorizon.Game.Editor.Client.PlayerEditor.Components
+
+<FluentTabs>
+    <FluentTab Label="@Localizer["Player Editor"]" Id="player-editor">
+        <PlayerEditorComponent />
+    </FluentTab>
+    <FluentTab Label="@Localizer["Player Config"]" Id="player-config-editor">
+        <PlayerConfigurationEditorComponent />
+    </FluentTab>
+</FluentTabs>
+
+@code {
+    [Inject]
+    public required Localizer<SharedResource> Localizer { get; set; }
+}

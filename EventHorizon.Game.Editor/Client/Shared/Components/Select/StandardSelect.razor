@@ -1,15 +1,5 @@
 ﻿@inherits StandardSelectModel
 
-@* <select class="standard-select" value="@Value.Value" @onchange="@HandleSelectChanged" disabled="@IsDisabled">
-@foreach (var option in Options)
-{
-<option value="@option.Value" disabled="@option.Disabled" selected="@(option.Value == Value.Value)"
-hidden="@option.Hidden">
-@option.Text
-</option>
-}
-</select> *@
-
 <FluentSelect Style="max-height: 250px" Items="@Options" TOption="StandardSelectOption" OptionText="@(i => i.Text)"
     OptionValue="@(i => i.Value)" OptionSelected="@(i => i.Value == SelectedValue)" OptionDisabled="@(i => i.Disabled)"
     Disabled="@IsDisabled" Value="@SelectedValue" Width="100%" SelectedOptionChanged="HandleSelectedOptionChanged">

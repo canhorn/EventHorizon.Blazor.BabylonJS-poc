@@ -15,6 +15,12 @@
     </Header>
 
     <Body>
+        @if (State.IsEmbedded)
+        {
+            <FluentButton OnClick="HandleCloseModal">
+                @Localizer["Currently Embedded, Click to Close Wizard Modal."]
+            </FluentButton>
+        }
         @if (State.CurrentStep)
         {
             <WizardStepEditor Step="State.CurrentStep.Result" Data="State.CurrentData" />

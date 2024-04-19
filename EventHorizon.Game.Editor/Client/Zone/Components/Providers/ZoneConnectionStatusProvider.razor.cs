@@ -5,6 +5,7 @@ using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Model;
 using EventHorizon.Game.Editor.Client.Shared.Toast.Show;
 using EventHorizon.Game.Editor.Zone.Services.Connection;
+using Microsoft.AspNetCore.Components;
 
 public class ZoneConnectionStatusProviderModel
     : ObservableComponentBase,
@@ -12,7 +13,15 @@ public class ZoneConnectionStatusProviderModel
         ZoneAdminServiceReconnectedEventObserver,
         ZoneAdminServiceDisconnectedEventObserver
 {
+    [Inject]
+    public required NavigationManager NavigationManager { get; set; }
+
     public bool IsReconnecting { get; set; }
+
+    protected void HandleReload()
+    {
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
 
     public async Task Handle(ZoneAdminServiceReconnectingEvent args)
     {

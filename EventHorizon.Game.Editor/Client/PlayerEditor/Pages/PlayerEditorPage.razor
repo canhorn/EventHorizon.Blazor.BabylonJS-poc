@@ -11,7 +11,15 @@
     @Localizer["Use this Editor to set the default setting of a player when they login to the server."]
 </p>
 
-<PlayerEditorComponent />
+<FluentTabs>
+    <FluentTab Label="@Localizer["Player Editor"]" Id="player-editor">
+        <PlayerEditorComponent />
+    </FluentTab>
+    <FluentTab Label="@Localizer["Player Config"]" Id="player-config-editor">
+        <PlayerConfigurationEditorComponent />
+    </FluentTab>
+</FluentTabs>
+
 
 @code {
     [Inject]

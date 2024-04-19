@@ -1,19 +1,12 @@
-﻿.disconnected {
-    height: 100%;
-    width: 100%;
-    margin: auto;
+﻿.reconnecting-modal__header,
+.reconnecting-modal__body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 }
 
-.disconnected__header {
-    color: var(--error);
-}
-
-.disconnected__reason {
-}
-
-.reconnecting-modal__content {
-    height: 100%;
-    width: 100%;
-    margin: auto;
-    text-align: center;
+.reconnecting-modal__header h2 {
+    margin: 0;
 }

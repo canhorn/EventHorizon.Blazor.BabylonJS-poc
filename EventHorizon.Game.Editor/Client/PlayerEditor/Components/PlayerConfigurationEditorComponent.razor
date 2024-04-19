@@ -1,0 +1,19 @@
+@inherits PlayerConfigurationEditorComponentBase
+@using EventHorizon.Game.Editor.Client.Wizard.Components
+
+<div class="player-wizard-editor">
+    @if (State.CurrentStep && IsCurrentWizard)
+    {
+        <div data-test-selector="wizard-editor-page__step-editor">
+            <WizardStepEditor Step="State.CurrentStep.Result" Data="State.CurrentData" />
+        </div>
+    }
+    else
+    {
+        <div data-test-selector="wizard-editor-page__list">
+            <FluentButton OnClick="HandleStartEditing">
+                @Localizer["Start Editing Configuration"]
+            </FluentButton>
+        </div>
+    }
+</div>
