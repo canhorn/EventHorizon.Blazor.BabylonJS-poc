@@ -1,6 +1,6 @@
 ﻿@inherits StandardSelectModel
 
-<FluentSelect Style="max-height: 250px" Items="@Options" TOption="StandardSelectOption" OptionText="@(i => i.Text)"
+<FluentSelect name="@Name" Style="max-height: 250px" Items="@Options" TOption="StandardSelectOption" OptionText="@(i => i.Text)"
     OptionValue="@(i => i.Value)" OptionSelected="@(i => i.Value == SelectedValue)" OptionDisabled="@(i => i.Disabled)"
     Disabled="@IsDisabled" Value="@SelectedValue" Width="100%" SelectedOptionChanged="HandleSelectedOptionChanged">
     <OptionTemplate>

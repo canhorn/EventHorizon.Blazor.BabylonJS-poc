@@ -61,7 +61,7 @@ public class WizardStateProviderModel
         }
     }
 
-    private Task HandleStateChanged()
+    private Task HandleStateChanged(WizardStateChangeArgs args)
     {
         return InvokeAsync(StateHasChanged);
     }

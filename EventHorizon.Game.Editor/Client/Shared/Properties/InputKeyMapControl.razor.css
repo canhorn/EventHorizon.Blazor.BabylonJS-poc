@@ -1,3 +1,17 @@
-﻿.key-input__container {
+﻿.new-key-input__container {
+    display: flex;
+    /* justify-content: flex-start;
+    align-items: end; */
     padding: 0.3rem 1rem;
+    gap: var(--main-padding);
+}
+
+.key-input__container {
+    padding: 0.3rem 1rem;
+}
+
+.key-input__actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--main-padding);
 }

@@ -10,6 +10,7 @@ using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Properties.Api;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Model;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Logging;
 
 public class PropertiesDisplayModel : ComponentBase
 {
@@ -37,6 +38,9 @@ public class PropertiesDisplayModel : ComponentBase
     public EventCallback<string> OnRemove { get; set; }
 
     [Inject]
+    public required ILogger<PropertiesDisplayModel> Logger { get; set; }
+
+    [Inject]
     public required Localizer<SharedResource> Localizer { get; set; }
 
     protected IDictionary<string, PropertyDisplayType> DisplayProperties { get; private set; } =
@@ -58,7 +62,7 @@ public class PropertiesDisplayModel : ComponentBase
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Logger.LogError(ex, "Failed to setup properties for display.");
         }
     }
 
@@ -99,21 +103,11 @@ public class PropertiesDisplayModel : ComponentBase
 
     public string GetLabel(string key)
     {
-        Console.WriteLine("GetLabel" + key);
-        foreach (var item in LabelMap)
-        {
-            Console.WriteLine(item.Key + " : " + item.Value);
-        }
         return LabelMap.TryGetValue(key, out var value) ? value : string.Empty;
     }
 
     public int GetOrder(string key)
     {
-        Console.WriteLine("GetOrder" + key);
-        foreach (var item in SortMap)
-        {
-            Console.WriteLine(item.Key + " : " + item.Value);
-        }
         return SortMap.TryGetValue(key, out var value) ? value : 0;
     }
 }

@@ -25,6 +25,6 @@ public interface WizardState
 
     Task<StandardCommandResult> UpdateData(WizardData data);
 
-    delegate Task OnChangeHandler();
+    delegate Task OnChangeHandler(WizardStateChangeArgs args);
     event OnChangeHandler OnChange;
 }

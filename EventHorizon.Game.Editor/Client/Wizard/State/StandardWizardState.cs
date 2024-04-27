@@ -20,12 +20,12 @@ public class StandardWizardState : WizardState
         new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
     public WizardData CurrentData { get; private set; } = [];
 
-    public event WizardState.OnChangeHandler OnChange = () => Task.CompletedTask;
+    public event WizardState.OnChangeHandler OnChange = _ => Task.CompletedTask;
 
     public Task SetWizardList(IEnumerable<WizardMetadata> wizardList)
     {
         WizardList = wizardList.ToList();
-        return OnChange.Invoke();
+        return OnChange.Invoke(new(WizardChangeReasons.WIZARD_LIST_UPDATED));
     }
 
     public async Task<StandardCommandResult> Next()
@@ -46,7 +46,7 @@ public class StandardWizardState : WizardState
         )
         {
             CurrentStep = nextStep;
-            await OnChange.Invoke();
+            await OnChange.Invoke(new(WizardChangeReasons.WIZARD_STEP_SET_TO_NEXT));
             return new();
         }
 
@@ -71,7 +71,7 @@ public class StandardWizardState : WizardState
         )
         {
             CurrentStep = previousStep;
-            await OnChange.Invoke();
+            await OnChange.Invoke(new(WizardChangeReasons.WIZARD_STEP_SET_TO_PREVIOUS));
             return new();
         }
 
@@ -103,7 +103,7 @@ public class StandardWizardState : WizardState
             CurrentStep = nextStep;
             CurrentData = [];
 
-            await OnChange.Invoke();
+            await OnChange.Invoke(new(WizardChangeReasons.WIZARD_STEP_RESET));
 
             return new();
         }
@@ -119,7 +119,7 @@ public class StandardWizardState : WizardState
         CurrentStep = new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
         CurrentData = [];
 
-        await OnChange.Invoke();
+        await OnChange.Invoke(new(WizardChangeReasons.WIZARD_CANCELLED));
 
         return new();
     }
@@ -134,7 +134,7 @@ public class StandardWizardState : WizardState
         CurrentStep.Result.ErrorCode = errorCode;
         CurrentStep.Result.IsInvalid = true;
 
-        await OnChange.Invoke();
+        await OnChange.Invoke(new(WizardChangeReasons.WIZARD_INVALID));
 
         return new();
     }
@@ -153,7 +153,7 @@ public class StandardWizardState : WizardState
 
         CurrentStep.Result.IsProcessing = isProcessing;
 
-        await OnChange.Invoke();
+        await OnChange.Invoke(new(WizardChangeReasons.WIZARD_PROCESSING_CHANGED));
 
         return new();
     }
@@ -167,7 +167,7 @@ public class StandardWizardState : WizardState
 
         CurrentData = data;
 
-        await OnChange.Invoke();
+        await OnChange.Invoke(new(WizardChangeReasons.WIZARD_DATA_CHANGED));
 
         return new();
     }

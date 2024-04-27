@@ -11,7 +11,10 @@ public class StandardSelectModel : ComponentBase
     private StandardSelectOption _value = new();
 
     [Parameter]
-    public IList<StandardSelectOption> Options { get; set; } = null!;
+    public string Name { get; set; } = string.Empty;
+
+    [Parameter]
+    public required IList<StandardSelectOption> Options { get; set; }
 
     [Parameter]
     public string DefaultValue { get; set; } = string.Empty;
@@ -63,7 +66,7 @@ public class StandardSelectModel : ComponentBase
 
     protected Task HandleSelectedOptionChanged(StandardSelectOption option)
     {
-        var newValue = option.Value?.ToString() ?? DefaultValue;
+        var newValue = option?.Value?.ToString() ?? DefaultValue;
         return ValueChanged.InvokeAsync(Options.FirstOrDefault(option => option.Value == newValue));
     }
 }

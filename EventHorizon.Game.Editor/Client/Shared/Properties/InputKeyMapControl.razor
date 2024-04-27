@@ -18,81 +18,90 @@
         </label>
     }
 
+    <div>
+        <div>
+            @Message
+        </div>
+        <EditForm Model="this" OnSubmit="HandleAddNewInput">
+            <div class="new-key-input__container">
+                <FluentTextField @bind-Value="NewKeyInput" Placeholder="@Localizer["Enter new key"]" />
+
+                <FluentButton Type="ButtonType.Submit">
+                    @Localizer["New Key Input"]
+                </FluentButton>
+            </div>
+        </EditForm>
+    </div>
+
     <div class="key-input__container">
-        <EditForm EditContext="KeyInputContext" OnSubmit="() => HandleKeyInputSubmit()">
+        <EditForm Model="ControlInputConfig">
             @foreach (var (key, keyInput) in ControlInputConfig)
             {
                 <div @key="key">
                     <div>
                         <label for="@($"keyInput-{keyInput.Key}-input")">
-                            Input Key
+                            @Localizer["Input Key"]
                         </label>
                         <InputText name="@($"keyInput-{keyInput.Key}-input")" @bind-Value="keyInput.Key" disabled />
                     </div>
                     <div>
                         <label for="@($"keyInput-{keyInput.Key}-input")">
-                            Select Input Action Type
+                            @Localizer["Select Input Action Type"]
                         </label>
-                        <StandardSelect Options="InputActionTypeOptions" Value="@keyInput.OptionType"
+                        <StandardSelect Name="@($"keyInput-{keyInput.Key}-input")" Options="InputActionTypeOptions"
+                            Value="@keyInput.TypeOption"
                             ValueChanged="(selectedOption) => HandleKeyInputTypeChanged(keyInput, selectedOption)">
                         </StandardSelect>
                     </div>
                     @if (keyInput.Type == KeyInputType.PlayerMove)
                     {
                         <div>
-                            <label>Move Direction on Pressed</label>
-                            <InputSelect @bind-Value="keyInput.Pressed">
-                                <option value="Stationary">Stationary</option>
-                                <option value="Left">Left</option>
-                                <option value="Right">Right</option>
-                                <option value="Backwards">Backwards</option>
-                                <option value="Forward">Forward</option>
-                            </InputSelect>
+                            <label for="@($"keyInput-{keyInput.Key}-direction-pressed")">
+                                @Localizer["Move Direction on Pressed"]
+                            </label>
+                            <StandardSelect Name="@($"keyInput-{keyInput.Key}-direction-pressed")" Options="DirectionOptions"
+                                Value="@keyInput.PressedOption"
+                                ValueChanged="(pressedOption) => HandlePlayerMovePressedChanged(keyInput, pressedOption)" />
                         </div>
                         <div>
-                            <label>Move Direction on Released (@keyInput.Released)</label>
-                            <InputSelect @bind-Value="keyInput.Released">
-                                <option value="Stationary">Stationary</option>
-                                <option value="Left">Left</option>
-                                <option value="Right">Right</option>
-                                <option value="Backwards">Backwards</option>
-                                <option value="Forward">Forward</option>
-                            </InputSelect>
+                            <label for="@($"keyInput-{keyInput.Key}-direction-released")">
+                                @Localizer["Move Direction on Released"]
+                            </label>
+                            <StandardSelect Name="@($"keyInput-{keyInput.Key}-direction-released")" Options="DirectionOptions"
+                                Value="@keyInput.ReleasedOption"
+                                ValueChanged="(releasedOption) => HandlePlayerMoveReleasedChanged(keyInput, releasedOption)">
+                            </StandardSelect>
                         </div>
                     }
                     else if (keyInput.Type == KeyInputType.SetActiveCamera)
                     {
                         <div>
-                            (editing Action Settings)
+                            <label for="@($"keyInput-{keyInput.Key}-camera")">
+                                @Localizer["Activated Camera"]
+                            </label>
+                            <StandardSelect Name="@($"keyInput-{keyInput.Key}-camera")" Options="CameraTypeOptions"
+                                Value="@keyInput.CameraOption"
+                                ValueChanged="(cameraSelectedOption) => HandleCameraTypeChanged(keyInput, cameraSelectedOption)">
+                            </StandardSelect>
                         </div>
                     }
                     else if (keyInput.Type == KeyInputType.RunInteraction)
                     {
                         <div>
-                            (editing Menu Settings)
+                            @* (editing Menu Settings) *@
                         </div>
                     }
-                    <div>
-                        <button class="c-button" type="button" @onclick="() => HandleRemoveKeyInput(key)">
+                    <div class="key-input__actions">
+                        <FluentButton OnClick="() => HandleRemoveKeyInput(key)">
                             &#10060 @Localizer["Remove"]
-                        </button>
+                        </FluentButton>
                     </div>
 
                     <hr />
-                    @* <DumpToJson Data="@keyInput" /> *@
                 </div>
             }
         </EditForm>
 
-        <div>
-            <div>
-                @ErrorMessage
-            </div>
-            <input type="text" @bind="NewKeyInput" />
-            <button type="button" @onclick="HandleAddNewInput">
-                @Localizer["Add"]
-            </button>
-        </div>
     </div>
 
 </div>
