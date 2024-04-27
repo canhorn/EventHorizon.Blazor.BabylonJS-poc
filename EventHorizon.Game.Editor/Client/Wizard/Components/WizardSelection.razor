@@ -1,4 +1,6 @@
-﻿<button type="button" @onclick="HandleOpenWizardSelection">
+﻿@using EventHorizon.Game.Editor.Client.Wizard.Components.Provider
+
+<button type="button" @onclick="HandleOpenWizardSelection">
     @if (IsOpen)
     {
         @Localizer["Close Wizards"]
@@ -9,30 +11,28 @@
     }
 </button>
 
-<StandardWindow IsOpen="State.CurrentStep && IsOpen" IsDraggable="true" WidthSize="medium">
+<StandardWindow IsOpen="@(State.CurrentStep("blade") && IsOpen)" IsDraggable="true" WidthSize="medium">
     <Header>
-        @State.CurrentStep.Result?.Name
+        @State.CurrentStep("blade").Result?.Name
     </Header>
 
     <Body>
-        @if (State.IsEmbedded)
+        @if (State.CurrentStep("blade"))
         {
-            <FluentButton OnClick="HandleCloseModal">
-                @Localizer["Currently Embedded, Click to Close Wizard Modal."]
-            </FluentButton>
-        }
-        @if (State.CurrentStep)
-        {
-            <WizardStepEditor Step="State.CurrentStep.Result" Data="State.CurrentData" />
+            <WizardContextProvider Context="blade">
+                <WizardStepEditor Step="@(State.CurrentStep("blade").Result)" Data="@(State.CurrentData("blade"))" />
+            </WizardContextProvider>
         }
     </Body>
 </StandardWindow>
 
-<StandardModal IsOpen="!State.CurrentStep && IsOpen" OnClose="HandleCloseModal">
+<StandardModal IsOpen="@(!State.CurrentStep("blade") && IsOpen)" OnClose="HandleCloseModal">
     <Header>@Localizer["Wizard Editor"]</Header>
 
     <Body>
-        <WizardList />
+        <WizardContextProvider Context="blade">
+            <WizardList />
+        </WizardContextProvider>
     </Body>
 </StandardModal>
 

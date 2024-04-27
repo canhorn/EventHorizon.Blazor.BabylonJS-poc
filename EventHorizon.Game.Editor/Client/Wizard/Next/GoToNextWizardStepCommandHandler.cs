@@ -21,6 +21,6 @@ public class GoToNextWizardStepCommandHandler
         CancellationToken cancellationToken
     )
     {
-        return await _state.Next();
+        return await _state.Next(request.Context);
     }
 }

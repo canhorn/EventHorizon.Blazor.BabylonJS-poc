@@ -3,12 +3,5 @@
 using EventHorizon.Game.Client.Core.Command.Model;
 using MediatR;
 
-public struct SetProcessingOnWizardCommand : IRequest<StandardCommandResult>
-{
-    public bool IsProcessing { get; }
-
-    public SetProcessingOnWizardCommand(bool isProcessing)
-    {
-        IsProcessing = isProcessing;
-    }
-}
+public record SetProcessingOnWizardCommand(string Context, bool IsProcessing)
+    : IRequest<StandardCommandResult>;

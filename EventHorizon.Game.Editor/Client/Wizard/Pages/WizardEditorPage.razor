@@ -9,11 +9,10 @@
 <h1>@Localizer["Wizards"]</h1>
 
 <div class="wizard-editor">
-    @if (State.CurrentStep)
+    @if (State.CurrentStep("page"))
     {
         <div data-test-selector="wizard-editor-page__step-editor">
-            <WizardStepEditor Step="State.CurrentStep.Result"
-                          Data="State.CurrentData" />
+            <WizardStepEditor Step="@(State.CurrentStep("page").Result)" Data="@(State.CurrentData("page"))" />
         </div>
     }
     else

@@ -18,12 +18,12 @@ public class WizardStepCaptureCurrentLocationBase : WizardStepCommonBase
         {
             Data[property] = currentLocation;
 
-            await State.Next();
+            await State.Next(ContextState.Context);
             return;
         }
 
         Data["CurrentLocation"] = currentLocation;
 
-        await State.Next();
+        await State.Next(ContextState.Context);
     }
 }

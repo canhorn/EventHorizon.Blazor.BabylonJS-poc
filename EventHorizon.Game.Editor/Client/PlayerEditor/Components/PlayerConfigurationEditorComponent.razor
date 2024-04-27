@@ -1,11 +1,14 @@
 @inherits PlayerConfigurationEditorComponentBase
 @using EventHorizon.Game.Editor.Client.Wizard.Components
+@using EventHorizon.Game.Editor.Client.Wizard.Components.Provider
 
 <div class="player-wizard-editor">
-    @if (State.CurrentStep && IsCurrentWizard)
+    @if (State.CurrentStep(WizardContext) && IsCurrentWizard)
     {
         <div data-test-selector="wizard-editor-page__step-editor">
-            <WizardStepEditor Step="State.CurrentStep.Result" Data="State.CurrentData" />
+            <WizardContextProvider Context="@WizardContext">
+                <WizardStepEditor Step="@(State.CurrentStep(WizardContext).Result)" Data="@(State.CurrentData(WizardContext))" />
+            </WizardContextProvider>
         </div>
     }
     else

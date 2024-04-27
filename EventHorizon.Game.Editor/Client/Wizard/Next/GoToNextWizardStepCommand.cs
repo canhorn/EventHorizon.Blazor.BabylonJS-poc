@@ -3,4 +3,4 @@
 using EventHorizon.Game.Client.Core.Command.Model;
 using MediatR;
 
-public struct GoToNextWizardStepCommand : IRequest<StandardCommandResult> { }
+public record GoToNextWizardStepCommand(string Context) : IRequest<StandardCommandResult>;

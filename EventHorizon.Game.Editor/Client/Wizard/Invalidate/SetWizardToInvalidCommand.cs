@@ -3,12 +3,5 @@
 using EventHorizon.Game.Client.Core.Command.Model;
 using MediatR;
 
-public struct SetWizardToInvalidCommand : IRequest<StandardCommandResult>
-{
-    public string ErrorCode { get; }
-
-    public SetWizardToInvalidCommand(string errorCode)
-    {
-        ErrorCode = errorCode;
-    }
-}
+public record SetWizardToInvalidCommand(string Context, string ErrorCode)
+    : IRequest<StandardCommandResult>;

@@ -21,6 +21,6 @@ public class SetWizardToInvalidCommandHandler
         CancellationToken cancellationToken
     )
     {
-        return await _state.SetToInvalid(request.ErrorCode);
+        return await _state.SetToInvalid(request.Context, request.ErrorCode);
     }
 }

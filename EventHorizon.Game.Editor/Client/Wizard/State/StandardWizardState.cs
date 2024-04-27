@@ -10,75 +10,114 @@ using EventHorizon.Zone.Systems.Wizard.Model;
 
 public class StandardWizardState : WizardState
 {
-    private WizardMetadata? _currentWizard;
-
     public IEnumerable<WizardMetadata> WizardList { get; private set; } = [];
-
-    public string CurrentWizardId { get; private set; } = string.Empty;
-    public bool IsEmbedded { get; private set; } = false;
-    public CommandResult<WizardStep> CurrentStep { get; private set; } =
-        new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
-    public WizardData CurrentData { get; private set; } = [];
-
     public event WizardState.OnChangeHandler OnChange = _ => Task.CompletedTask;
+
+    private readonly Dictionary<string, WizardMetadata> _currentWizard = [];
+    private readonly Dictionary<string, CommandResult<WizardStep>> _currentStep = [];
+    private readonly Dictionary<string, WizardData> _currentData = [];
+
+    public string CurrentWizardId(string context)
+    {
+        if (_currentWizard.TryGetValue(context, out var value))
+        {
+            return value.Id;
+        }
+
+        return string.Empty;
+    }
+
+    public CommandResult<WizardStep> CurrentStep(string context)
+    {
+        if (_currentStep.TryGetValue(context, out var value))
+        {
+            return value;
+        }
+
+        return new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
+    }
+
+    public WizardData CurrentData(string context)
+    {
+        if (_currentData.TryGetValue(context, out var value))
+        {
+            return value;
+        }
+
+        return [];
+    }
+
+    private WizardMetadata? CurrentWizardMetadata(string context)
+    {
+        if (_currentWizard.TryGetValue(context, out var value))
+        {
+            return value;
+        }
+
+        return null;
+    }
 
     public Task SetWizardList(IEnumerable<WizardMetadata> wizardList)
     {
         WizardList = wizardList.ToList();
-        return OnChange.Invoke(new(WizardChangeReasons.WIZARD_LIST_UPDATED));
+        return OnChange.Invoke(new("wizard_state", WizardChangeReasons.WIZARD_LIST_UPDATED));
     }
 
-    public async Task<StandardCommandResult> Next()
+    public async Task<StandardCommandResult> Next(string context)
     {
-        if (_currentWizard.IsNull())
+        var currentWizard = CurrentWizardMetadata(context);
+        var currentStep = CurrentStep(context);
+        if (currentWizard.IsNull())
         {
             return WizardErrorCodes.WIZARD_NOT_STARTED;
         }
-        else if (string.IsNullOrWhiteSpace(CurrentStep.Result.NextStep))
+        else if (string.IsNullOrWhiteSpace(currentStep.Result.NextStep))
         {
             return WizardErrorCodes.WIZARD_IS_COMPLETED;
         }
         else if (
-            _currentWizard.StepList.TryGetItem(
-                obj => obj.Id == CurrentStep.Result.NextStep,
+            currentWizard.StepList.TryGetItem(
+                obj => obj.Id == currentStep.Result.NextStep,
                 out var nextStep
             )
         )
         {
-            CurrentStep = nextStep;
-            await OnChange.Invoke(new(WizardChangeReasons.WIZARD_STEP_SET_TO_NEXT));
+            _currentStep[context] = nextStep;
+            await OnChange.Invoke(new(context, WizardChangeReasons.WIZARD_STEP_SET_TO_NEXT));
             return new();
         }
 
         return WizardErrorCodes.WIZARD_STEP_NOT_FOUND;
     }
 
-    public async Task<StandardCommandResult> Previous()
+    public async Task<StandardCommandResult> Previous(string context)
     {
-        if (_currentWizard.IsNull())
+        var currentWizard = CurrentWizardMetadata(context);
+        var currentStep = CurrentStep(context);
+        if (currentWizard.IsNull())
         {
             return WizardErrorCodes.WIZARD_NOT_STARTED;
         }
-        else if (string.IsNullOrWhiteSpace(CurrentStep.Result.PreviousStep))
+        else if (string.IsNullOrWhiteSpace(currentStep.Result.PreviousStep))
         {
             return WizardErrorCodes.WIZARD_NO_PREVIOUS_STEP;
         }
         else if (
-            _currentWizard.StepList.TryGetItem(
-                obj => obj.Id == CurrentStep.Result.PreviousStep,
+            currentWizard.StepList.TryGetItem(
+                obj => obj.Id == currentStep.Result.PreviousStep,
                 out var previousStep
             )
         )
         {
-            CurrentStep = previousStep;
-            await OnChange.Invoke(new(WizardChangeReasons.WIZARD_STEP_SET_TO_PREVIOUS));
+            _currentStep[context] = previousStep;
+            await OnChange.Invoke(new(context, WizardChangeReasons.WIZARD_STEP_SET_TO_PREVIOUS));
             return new();
         }
 
         return WizardErrorCodes.WIZARD_STEP_NOT_FOUND;
     }
 
-    public async Task<StandardCommandResult> Start(WizardMetadata metadata, bool embedded = false)
+    public async Task<StandardCommandResult> Start(string context, WizardMetadata metadata)
     {
         if (string.IsNullOrWhiteSpace(metadata.FirstStep))
         {
@@ -92,18 +131,16 @@ public class StandardWizardState : WizardState
             metadata.StepList.TryGetItem(obj => obj.Id == metadata.FirstStep, out var nextStep)
         )
         {
-            _currentWizard = metadata;
-            foreach (var step in _currentWizard.StepList)
+            _currentWizard[context] = metadata;
+            foreach (var step in metadata.StepList)
             {
                 step.Reset();
             }
 
-            CurrentWizardId = metadata.Id;
-            IsEmbedded = embedded;
-            CurrentStep = nextStep;
-            CurrentData = [];
+            _currentStep[context] = nextStep;
+            _currentData[context] = [];
 
-            await OnChange.Invoke(new(WizardChangeReasons.WIZARD_STEP_RESET));
+            await OnChange.Invoke(new(context, WizardChangeReasons.WIZARD_STEP_RESET));
 
             return new();
         }
@@ -111,63 +148,65 @@ public class StandardWizardState : WizardState
         return WizardErrorCodes.WIZARD_FIRST_STEP_NOT_FOUND;
     }
 
-    public async Task<StandardCommandResult> Cancel()
+    public async Task<StandardCommandResult> Cancel(string context)
     {
-        _currentWizard = null;
+        _currentWizard.Remove(context);
 
-        CurrentWizardId = string.Empty;
-        CurrentStep = new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
-        CurrentData = [];
+        _currentStep[context] = new CommandResult<WizardStep>(WizardErrorCodes.WIZARD_NOT_STARTED);
+        _currentData[context] = [];
 
-        await OnChange.Invoke(new(WizardChangeReasons.WIZARD_CANCELLED));
+        await OnChange.Invoke(new(context, WizardChangeReasons.WIZARD_CANCELLED));
 
         return new();
     }
 
-    public async Task<StandardCommandResult> SetToInvalid(string errorCode)
+    public async Task<StandardCommandResult> SetToInvalid(string context, string errorCode)
     {
-        if (!CurrentStep)
+        var currentStep = CurrentStep(context);
+        if (!currentStep)
         {
             return WizardErrorCodes.WIZARD_NOT_STARTED;
         }
 
-        CurrentStep.Result.ErrorCode = errorCode;
-        CurrentStep.Result.IsInvalid = true;
+        currentStep.Result.ErrorCode = errorCode;
+        currentStep.Result.IsInvalid = true;
 
-        await OnChange.Invoke(new(WizardChangeReasons.WIZARD_INVALID));
+        await OnChange.Invoke(new(context, WizardChangeReasons.WIZARD_INVALID));
 
         return new();
     }
 
-    public async Task<StandardCommandResult> IsProcessing(bool isProcessing)
+    public async Task<StandardCommandResult> IsProcessing(string context, bool isProcessing)
     {
-        if (!CurrentStep)
+        var currentStep = CurrentStep(context);
+        if (!currentStep)
         {
             return WizardErrorCodes.WIZARD_NOT_STARTED;
         }
 
         if (isProcessing)
         {
-            CurrentStep.Result.Reset();
+            currentStep.Result.Reset();
         }
 
-        CurrentStep.Result.IsProcessing = isProcessing;
+        currentStep.Result.IsProcessing = isProcessing;
 
-        await OnChange.Invoke(new(WizardChangeReasons.WIZARD_PROCESSING_CHANGED));
+        await OnChange.Invoke(new(context, WizardChangeReasons.WIZARD_PROCESSING_CHANGED));
 
         return new();
     }
 
-    public async Task<StandardCommandResult> UpdateData(WizardData data)
+    public async Task<StandardCommandResult> UpdateData(string context, WizardData data)
     {
-        if (!CurrentStep)
+        var currentStep = CurrentStep(context);
+        if (!currentStep)
         {
             return WizardErrorCodes.WIZARD_NOT_STARTED;
         }
 
-        CurrentData = data;
+        _currentData[context] = data;
 
-        await OnChange.Invoke(new(WizardChangeReasons.WIZARD_DATA_CHANGED));
+        await OnChange.Invoke(new(context, WizardChangeReasons.WIZARD_DATA_CHANGED));
 
         return new();
     }

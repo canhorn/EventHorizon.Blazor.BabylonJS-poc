@@ -20,7 +20,7 @@ public class WizardStepWaitForActivityEventBase : WizardStepCommonBase, Activity
     {
         if (args.Category == _category && args.Action == _action && args.Tag == _tag)
         {
-            await State.Next();
+            await State.Next(ContextState.Context);
         }
     }
 }

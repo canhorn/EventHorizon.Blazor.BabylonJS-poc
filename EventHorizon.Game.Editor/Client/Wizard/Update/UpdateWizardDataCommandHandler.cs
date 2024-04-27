@@ -21,6 +21,6 @@ public class UpdateWizardDataCommandHandler
         CancellationToken cancellationToken
     )
     {
-        return await _state.UpdateData(request.WizardData);
+        return await _state.UpdateData(request.Context, request.WizardData);
     }
 }

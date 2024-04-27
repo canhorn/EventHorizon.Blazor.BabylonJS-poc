@@ -16,14 +16,18 @@ public class PlayerConfigurationEditorComponentBase : EditorComponentBase, IDisp
     public required WizardState State { get; set; }
 
     public bool IsCurrentWizard { get; set; }
+    protected string WizardContext = PlayerConfigWizardId;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        if (!State.CurrentStep && State.WizardList.Any(a => a.Id == PlayerConfigWizardId))
+        if (
+            !State.CurrentStep(WizardContext)
+            && State.WizardList.Any(a => a.Id == PlayerConfigWizardId)
+        )
         {
-            State.Start(State.WizardList.First(a => a.Id == PlayerConfigWizardId), true);
+            State.Start(WizardContext, State.WizardList.First(a => a.Id == PlayerConfigWizardId));
         }
 
         State.OnChange += HandleStateChanged;
@@ -31,22 +35,36 @@ public class PlayerConfigurationEditorComponentBase : EditorComponentBase, IDisp
 
     private async Task HandleStateChanged(WizardStateChangeArgs args)
     {
-        if (args.Reason == WizardChangeReasons.WIZARD_LIST_UPDATED && !State.CurrentStep)
+        if (
+            args.Reason == WizardChangeReasons.WIZARD_LIST_UPDATED
+            && !State.CurrentStep(WizardContext)
+        )
         {
-            await State.Start(State.WizardList.First(a => a.Id == PlayerConfigWizardId), true);
+            await State.Start(
+                WizardContext,
+                State.WizardList.First(a => a.Id == PlayerConfigWizardId)
+            );
         }
     }
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
-        base.OnParametersSet();
+        await base.OnParametersSetAsync();
 
-        IsCurrentWizard = State.CurrentWizardId == PlayerConfigWizardId;
+        IsCurrentWizard = State.CurrentWizardId(WizardContext) == PlayerConfigWizardId;
+
+        if (!IsCurrentWizard && State.WizardList.Any(a => a.Id == PlayerConfigWizardId))
+        {
+            await State.Start(
+                WizardContext,
+                State.WizardList.First(a => a.Id == PlayerConfigWizardId)
+            );
+        }
     }
 
     protected void HandleStartEditing()
     {
-        State.Start(State.WizardList.First(a => a.Id == PlayerConfigWizardId), true);
+        State.Start(WizardContext, State.WizardList.First(a => a.Id == PlayerConfigWizardId));
     }
 
     public void Dispose()
@@ -55,7 +73,7 @@ public class PlayerConfigurationEditorComponentBase : EditorComponentBase, IDisp
 
         if (IsCurrentWizard)
         {
-            State.Cancel();
+            State.Cancel(WizardContext);
         }
     }
 }

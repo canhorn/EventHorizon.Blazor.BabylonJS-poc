@@ -11,19 +11,18 @@ public interface WizardState
 
     Task SetWizardList(IEnumerable<WizardMetadata> wizardList);
 
-    string CurrentWizardId { get; }
-    bool IsEmbedded { get; }
-    CommandResult<WizardStep> CurrentStep { get; }
-    WizardData CurrentData { get; }
+    string CurrentWizardId(string context);
+    CommandResult<WizardStep> CurrentStep(string context);
+    WizardData CurrentData(string context);
 
-    Task<StandardCommandResult> Start(WizardMetadata metadata, bool embedded = false);
-    Task<StandardCommandResult> Next();
-    Task<StandardCommandResult> Previous();
-    Task<StandardCommandResult> Cancel();
-    Task<StandardCommandResult> SetToInvalid(string errorCode);
-    Task<StandardCommandResult> IsProcessing(bool isProcessing);
+    Task<StandardCommandResult> Start(string context, WizardMetadata metadata);
+    Task<StandardCommandResult> Next(string context);
+    Task<StandardCommandResult> Previous(string context);
+    Task<StandardCommandResult> Cancel(string context);
+    Task<StandardCommandResult> SetToInvalid(string context, string errorCode);
+    Task<StandardCommandResult> IsProcessing(string context, bool isProcessing);
 
-    Task<StandardCommandResult> UpdateData(WizardData data);
+    Task<StandardCommandResult> UpdateData(string context, WizardData data);
 
     delegate Task OnChangeHandler(WizardStateChangeArgs args);
     event OnChangeHandler OnChange;

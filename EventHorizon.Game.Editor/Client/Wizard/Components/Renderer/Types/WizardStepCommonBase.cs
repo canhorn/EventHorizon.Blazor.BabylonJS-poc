@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Wizard.Api;
+using EventHorizon.Game.Editor.Client.Wizard.Components.Provider;
 using EventHorizon.Zone.Systems.Wizard.Model;
 using Microsoft.AspNetCore.Components;
 
@@ -11,6 +12,9 @@ public abstract class WizardStepCommonBase : ObservableComponentBase
 {
     [CascadingParameter]
     public WizardState State { get; set; } = null!;
+
+    [CascadingParameter]
+    public required WizardContextState ContextState { get; set; }
 
     [Parameter]
     public WizardStep Step { get; set; } = null!;
@@ -38,7 +42,7 @@ public abstract class WizardStepCommonBase : ObservableComponentBase
             && autoNext.Equals("true", StringComparison.InvariantCultureIgnoreCase)
         )
         {
-            await State.Next();
+            await State.Next(ContextState.Context);
         }
     }
 

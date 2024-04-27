@@ -20,6 +20,6 @@ public class StartWizardCommandHandler : IRequestHandler<StartWizardCommand, Sta
         CancellationToken cancellationToken
     )
     {
-        return await _state.Start(request.Wizard);
+        return await _state.Start(request.Context, request.Wizard);
     }
 }

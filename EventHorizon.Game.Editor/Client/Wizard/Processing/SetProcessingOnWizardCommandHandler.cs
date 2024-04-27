@@ -21,6 +21,6 @@ public class SetProcessingOnWizardCommandHandler
         CancellationToken cancellationToken
     )
     {
-        return await _state.IsProcessing(request.IsProcessing);
+        return await _state.IsProcessing(request.Context, request.IsProcessing);
     }
 }

@@ -24,7 +24,7 @@ public class WizardStepTextInputBase : WizardStepCommonBase
                 Data[property] = value;
             }
 
-            InvokeAsync(() => State.UpdateData(Data));
+            InvokeAsync(() => State.UpdateData(ContextState.Context, Data));
         }
     }
 

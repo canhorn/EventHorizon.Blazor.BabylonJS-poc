@@ -4,12 +4,5 @@ using EventHorizon.Game.Client.Core.Command.Model;
 using EventHorizon.Zone.Systems.Wizard.Model;
 using MediatR;
 
-public struct UpdateWizardDataCommand : IRequest<StandardCommandResult>
-{
-    public WizardData WizardData { get; }
-
-    public UpdateWizardDataCommand(WizardData wizardData)
-    {
-        WizardData = wizardData;
-    }
-}
+public record UpdateWizardDataCommand(string Context, WizardData WizardData)
+    : IRequest<StandardCommandResult>;

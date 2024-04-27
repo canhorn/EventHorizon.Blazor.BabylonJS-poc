@@ -21,6 +21,6 @@ public class CancelWizardCommandHandler
         CancellationToken cancellationToken
     )
     {
-        return await _state.Cancel();
+        return await _state.Cancel(request.Context);
     }
 }

@@ -9,24 +9,24 @@ using EventHorizon.Zone.Systems.Wizard.Run;
 
 public class WizardStepServerProcessBase : WizardStepCommonBase
 {
-    public string SuccessMesssage { get; set; } = string.Empty;
+    public string SuccessMessage { get; set; } = string.Empty;
     public string ErrorMessage { get; set; } = string.Empty;
 
     protected override async Task OnInitializingAsync()
     {
         if (Data[$"Processor:{Step.Id}:Ran"] == "true")
         {
-            SuccessMesssage = Localizer[
+            SuccessMessage = Localizer[
                 "Successful Processed Request, please continue to next step."
             ];
             return;
         }
 
-        await Mediator.Send(new SetProcessingOnWizardCommand(true));
+        await Mediator.Send(new SetProcessingOnWizardCommand(ContextState.Context, true));
 
         var result = await Mediator.Send(
             new RunWizardScriptProcessorCommand(
-                State.CurrentWizardId,
+                State.CurrentWizardId(ContextState.Context),
                 Step.Id,
                 Step.Details["Processor:ScriptId"],
                 Data
@@ -42,15 +42,17 @@ public class WizardStepServerProcessBase : WizardStepCommonBase
                 ErrorMessage = Localizer["Error Code: {0}", result.ErrorCode];
             }
 
-            await Mediator.Send(new SetWizardToInvalidCommand(result.ErrorCode));
+            await Mediator.Send(
+                new SetWizardToInvalidCommand(ContextState.Context, result.ErrorCode)
+            );
         }
 
-        await Mediator.Send(new SetProcessingOnWizardCommand(false));
+        await Mediator.Send(new SetProcessingOnWizardCommand(ContextState.Context, false));
 
         if (!Step.IsInvalid)
         {
             Data[$"Processor:{Step.Id}:Ran"] = "true";
-            SuccessMesssage = Localizer[
+            SuccessMessage = Localizer[
                 "Successful Processed Request, you can Cancel/Close the Wizard."
             ];
 
@@ -64,11 +66,11 @@ public class WizardStepServerProcessBase : WizardStepCommonBase
                 Data[property.Key] = property.Value;
             }
 
-            await Mediator.Send(new UpdateWizardDataCommand(Data));
+            await Mediator.Send(new UpdateWizardDataCommand(ContextState.Context, Data));
 
             if (Step.HasNext)
             {
-                SuccessMesssage = Localizer[
+                SuccessMessage = Localizer[
                     "Successful Processed Request, please continue to next step."
                 ];
 
@@ -77,7 +79,7 @@ public class WizardStepServerProcessBase : WizardStepCommonBase
                     && autoNext.Equals("true", StringComparison.InvariantCultureIgnoreCase)
                 )
                 {
-                    await State.Next();
+                    await State.Next(ContextState.Context);
                 }
             }
         }
