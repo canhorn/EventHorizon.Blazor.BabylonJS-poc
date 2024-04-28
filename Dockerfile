@@ -88,10 +88,14 @@ COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.System.Server.Scrip
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ArtifactManagement/*.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ArtifactManagement/
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ClientAssets/*.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.ClientAssets/
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.DataStorage/*.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.DataStorage/
+COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Player/*.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Player/
 COPY EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/*izard.csproj ./EventHorizon.Game.Editor/Zone/Systems/EventHorizon.Zone.Systems.Wizard/
 
 ## Editor - Server
 COPY EventHorizon.Game.Editor/Server/*.csproj ./EventHorizon.Game.Editor/Server/
+
+## Editor - Desktop
+COPY EventHorizon.Game.Editor/Desktop/*.csproj ./EventHorizon.Game.Editor/Desktop/
 
 ## Editor - Cache Source Generators
 COPY EventHorizon.Game.Editor/Generator/EventHorizon.Cache.Api/*.csproj ./EventHorizon.Game.Editor/Generator/EventHorizon.Cache.Api/
