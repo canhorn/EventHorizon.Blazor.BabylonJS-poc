@@ -1,0 +1,149 @@
+@inherits ProcessGraphEditorBase
+@using EventHorizon.Game.Editor.Client.GraphEditor.Models
+
+<div @ref="CanvasElement" class="graph-container" style="width: @WidthCss; height: @HeightCss;">
+    <div @onmousedown="OnMouseDragStart" @onmousemove="OnMouseDrag" @onmouseup="OnMouseDragEnd"
+        @onclick="OnClickBackground" @oncontextmenu="OnRightClickBackground" @oncontextmenu:preventDefault="true"
+        @onwheel="OnMouseWheel" @onwheel:preventDefault="true" @onwheel:stopPropagation="true"
+        style="width: 100%; height: 100%;">
+        <div style="@GraphStyle">
+            @if (Graph != null)
+            {
+                @* <div class="graph-node" style="width: @(NodeWidthPx)px; top: 0px; left: 0px;">
+                    <div class="graph-node-header" style="height: @(HeaderHeightPx)px;">
+                        Debugging
+                    </div>
+                    <div class="graph-node-content">
+                        <div>
+                            scroll - left: @(scrollX)px; top: @(scrollY)px;
+                        </div>
+                        <div>
+                            mouse - x: @(mouseX)px; y: @(mouseY)px;
+                        </div>
+                    </div>
+                </div> *@
+
+                foreach (var node in Graph.GetNodes())
+                {
+                    <div @key="@node.Id" @oncontextmenu="@((evt) => OnRightClickNode(evt, node))" @oncontextmenu:preventDefault="true"
+                        @oncontextmenu:stopPropagation="true" class="graph-node @(HeldNode == node ? "--node-held" : "")"
+                        style="width: @(NodeWidthPx)px; top: @(node.Position.Y)px; left: @(node.Position.X)px; ">
+                        <div class="graph-node-header" style="height: @(HeaderHeightPx)px;" @onmousedown="@((e) =>
+                    OnNodeDragStart(e, node))" @onmousedown:stopPropagation="true">
+                            <span @onclick="@(() => node.Collapsed = !node.Collapsed)" @onclick:stopPropagation="true">
+                                @(node.Collapsed ? "\u25B8" : "\u25BE")
+                            </span>
+                            @node.Name
+                        </div>
+                        <div class="graph-node-content">
+                            @if (!node.Collapsed)
+                            {
+                                <div class="graph-node-row" style="padding-bottom: 12px;">
+                                    <div class="graph-node-half left">
+                                        @if (node.Inputs != null)
+                                        {
+                                            foreach (var input in node.Inputs.Enumerate())
+                                            {
+                                                <div @key="@input.Id" class="graph-node-input" style="height: @(NodePortHeightPx)px;">
+                                                    @input.Name
+                                                    <div class="graph-node-input-circle" @onclick="@(() =>
+                                    DeleteIncomingConnectionsOnPort(node, input))" @onclick:stopPropagation="true"></div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="graph-node-half right">
+                                        @if (node.Outputs != null)
+                                        {
+                                            foreach (var output in node.Outputs.Enumerate())
+                                            {
+                                                <div @key="@output.Id" class="graph-node-input" style="height: @(NodePortHeightPx)px;">
+                                                    @output.Name
+                                                    <div class="graph-node-input-circle" @onclick="@(() =>
+                                    StartBuildingConnectionOnPort(node, output))" @onclick:stopPropagation="true"></div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                @if (node is ParameterizedProcessStep pNode)
+                                {
+                                    var parameters = pNode.GetParameters();
+                                    var properties = parameters.GetType().GetProperties();
+                                    foreach (var property in properties)
+                                    {
+                                        <div>
+                                            <FieldDrawer Owner="parameters" Property="@property"></FieldDrawer>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+                <svg width="@Width" height="@Height">
+                    @foreach (var startNode in Graph.GetNodes())
+                    {
+                        foreach (var endNode in Graph.GetNodesFromOutgoingEdges(startNode))
+                        {
+                            foreach (var edgeData in Graph.GetAllEdgeData(startNode, endNode))
+                            {
+                                if (startNode.Outputs != null && endNode.Inputs != null)
+                                {
+                                    var start = PortLocation(startNode, edgeData.FromPortName, isOutputPort: true);
+                                    var end = PortLocation(endNode, edgeData.ToPortName, isOutputPort: false);
+                                    <line @key="@(startNode.Id + endNode.Id)" x1="@(start.X)" y1="@(start.Y)" x2="@(end.X)" y2="@(end.Y)" stroke="white"></line>
+                                }
+                            }
+                        }
+                    }
+                    @if (StartConnectionAtNode != null && StartConnectionAtPort != null)
+                    {
+                        var start = PortLocation(StartConnectionAtNode, StartConnectionAtPort.Name, isOutputPort: true);
+                        <line x1="@(start.X)" y1="@(start.Y)" x2="@(MouseX)" y2="@(MouseY)" stroke="white"></line>
+                    }
+                </svg>
+            }
+        </div>
+    </div>
+    <div class="graph-context-menu"
+        style="left: @(ContextMenuX)px; top: @(ContextMenuY)px; position: fixed; display: @(ContextMenuHidden ? "none" : "block")">
+        @if (ContextForNode == null)
+        {
+            <div>Add</div>
+            @if (NodeTypes != null)
+            {
+                foreach (var generator in NodeTypes)
+                {
+                    <div class="graph-context-item" @onclick="@((e) => NewNodeAtPosition(e, generator))">
+                        @generator.GeneratorName()
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <div>Edit</div>
+            <div class="graph-context-item" @onclick="DeleteContextNode">
+                Delete
+            </div>
+        }
+    </div>
+    <div class="graph-overlay">
+        @if (Error != null)
+        {
+            <div class="graph-notification">
+                <span style="padding-right: 12px;">
+                    @Error.Message
+                </span>
+                <button @onclick="HandleClearError">
+                    x
+                </button>
+            </div>
+        }
+        @if (ChildContent != null)
+        {
+            @ChildContent
+        }
+    </div>
+</div>

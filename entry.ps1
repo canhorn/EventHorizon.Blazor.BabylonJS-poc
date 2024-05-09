@@ -40,6 +40,7 @@ $editorTestingAutomationProject = "./Testing/EventHorizon.Game.Editor.Automation
 switch ($Command) {
     "setup" {
         dotnet tool update --global csharpier
+        dotnet tool install --global dotnet-serve
     }
     "format" { 
         dotnet csharpier .
@@ -114,7 +115,7 @@ switch ($Command) {
         dotnet publish -c $Configuration -o ./published $editorProject
     }
     "editor:serve" {
-        dotnet serve --port 5001 -S -d="./published/wwwroot" --fallback-file index.html
+        dotnet serve --port 5001 -S -d="./published/wwwroot" --fallback-file "./published/wwwroot/index.html"
     }
     "editor:docker" {
         docker build --build-arg Version=0.1.0 `

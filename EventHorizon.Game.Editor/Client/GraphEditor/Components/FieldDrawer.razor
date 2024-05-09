@@ -1,0 +1,48 @@
+@using System.Reflection
+@using EventHorizon.Game.Editor.Client.GraphEditor.Models
+
+<label>@Property.Name</label>
+<div style="padding-left: 12px;">
+    @if (Property.PropertyType == typeof(int))
+    {
+        <input type="number" class="graph-node-field" @bind="Integer">
+    }
+    else if (Property.PropertyType == typeof(long))
+    {
+        <input type="number" class="graph-node-field" @bind="Long">
+    }
+    else if (Property.PropertyType == typeof(float))
+    {
+        <input type="number" class="graph-node-field" @bind="Float">
+    }
+    else if (Property.PropertyType == typeof(double))
+    {
+        <input type="number" class="graph-node-field" @bind="Double">
+    }
+    else if (Property.PropertyType == typeof(bool))
+    {
+        <input type="checkbox" class="graph-node-field" @bind="Boolean">
+    }
+    else if (Property.PropertyType == typeof(string))
+    {
+        <input type="text" class="graph-node-field" @bind="Text">
+    }
+    else if (Property.PropertyType.IsEnum)
+    {
+        <select class="graph-node-field" @bind="Enumeration">
+            @foreach (var value in Enum.GetValues(Property.PropertyType))
+            {
+                <option value="@((int)value)">@value</option>
+            }
+        </select>
+    }
+    else if (Attribute.IsDefined(Property, typeof(CustomPropertyDrawer)))
+    {
+        var attribute = (CustomPropertyDrawer)Property.GetCustomAttributes(typeof(CustomPropertyDrawer)).First();
+        var drawer = attribute.ComponentType;
+        @if (typeof(BasePropertyDrawer).IsAssignableFrom(drawer))
+        {
+            @RenderWidget(drawer)
+        }
+    }
+</div>

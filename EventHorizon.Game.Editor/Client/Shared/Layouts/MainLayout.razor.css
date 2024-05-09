@@ -23,10 +23,16 @@
     grid-area: main;
     overflow: auto;
     padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .page__content {
     height: 100%;
+}
+
+::deep .alpha-banner {
+    width: 100%;
 }
 
 @media (min-width: 641px) {

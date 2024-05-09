@@ -1,0 +1,144 @@
+.graph-container {
+    position: relative;
+    overflow: hidden;
+    background-color: rgb(36, 35, 44);
+    color: white;
+}
+
+.graph-node {
+    position: absolute;
+    background-color: rgb(59, 59, 59);
+    /* Animate box-shadow */
+    /* transition: box-shadow 1.0s; */
+    box-shadow: 0 0 2px 3px var(--brand-color);
+    /* transition:  0.3s ease-in-out; */
+}
+
+.graph-node::after {
+    content: "";
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    /* box-shadow: 0 0 10px var(--brand-color); */
+    box-shadow: 0 0px 5px 6px var(--brand-color);
+    transition: opacity 0.5s ease-in-out;
+}
+
+.graph-node:hover::after {
+    opacity: 1;
+}
+
+.graph-node.--node-held::after {
+    opacity: 1;
+}
+
+.graph-node-header {
+    font-weight: bold;
+    background-color: var(--brand-color);
+    padding: 4px 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.graph-node-content {
+    padding: 4px 8px;
+    min-height: 48px;
+}
+
+.graph-node-input {
+    display: relative;
+    overflow: hidden;
+    padding: 2px 6px;
+}
+
+.graph-node-input-circle {
+    position: absolute;
+
+    content: "+";
+    height: 12px;
+    width: 12px;
+    /* background-color: rgb(236, 183, 69); */
+    background-color: var(--accent-dark);
+    /* border-color: rgb(190, 142, 38); */
+    border-color: var(--brand-contrast-dark-primary);
+    border-radius: 1px;
+    border-style: solid;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.left .graph-node-input-circle {
+    left: -6px;
+}
+
+.right .graph-node-input-circle {
+    right: -6px;
+}
+
+.graph-node-row {
+    display: table;
+    width: 100%;
+}
+
+.graph-node-half {
+    width: 49.9%;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.right {
+    text-align: right;
+}
+
+.graph-context-menu {
+    position: absolute;
+    padding: 8px;
+    background-color: rgb(49, 67, 96);
+}
+
+.graph-context-item {
+    padding: 2px 6px;
+    cursor: pointer;
+}
+
+.graph-context-item:hover {
+    background-color: rgb(73, 86, 107);
+}
+
+.graph-overlay {
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.graph-notification {
+    position: fixed;
+    pointer-events: all;
+    right: 25px;
+    bottom: 86px;
+    padding: 12px;
+    z-index: 1;
+    background-color: rgb(44, 44, 44);
+}
+
+.graph-notification button {
+    border: none;
+    border-left: 2px solid white;
+    background-color: transparent;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.graph-notification button:hover {
+    background-color: rgb(234, 37, 81);
+}

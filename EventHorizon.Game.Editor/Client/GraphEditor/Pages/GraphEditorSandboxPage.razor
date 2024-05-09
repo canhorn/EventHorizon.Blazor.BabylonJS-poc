@@ -1,0 +1,8 @@
+@page "/sandboxes/graph-editor"
+@using EventHorizon.Game.Editor.Client.GraphEditor.Components
+
+<ProcessGraphEditor AllowEdit="true" Graph="Graph" NodeTypes="NodeTypes">
+    <div class="action-bar" style="pointer-events: all; background-color: black;">
+        <button @onclick="GetResult">Recompute Result</button>
+    </div>
+</ProcessGraphEditor>
