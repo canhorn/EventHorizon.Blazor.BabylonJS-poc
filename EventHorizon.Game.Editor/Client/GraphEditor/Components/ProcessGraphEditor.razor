@@ -58,7 +58,7 @@
                                             foreach (var output in node.Outputs.Enumerate())
                                             {
                                                 <div @key="@output.Id" class="graph-node-input" style="height: @(NodePortHeightPx)px;">
-                                                    @output.Name
+                                                    @output.Name (@output.Fetch())
                                                     <div class="graph-node-input-circle" @onclick="@(() =>
                                     StartBuildingConnectionOnPort(node, output))" @onclick:stopPropagation="true"></div>
                                                 </div>

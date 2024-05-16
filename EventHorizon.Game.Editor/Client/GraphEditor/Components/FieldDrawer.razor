@@ -1,31 +1,40 @@
 @using System.Reflection
 @using EventHorizon.Game.Editor.Client.GraphEditor.Models
 
-<label>@Property.Name</label>
-<div style="padding-left: 12px;">
-    @if (Property.PropertyType == typeof(int))
+<div>
+    @if (Attribute.IsDefined(Property, typeof(CustomPropertyDrawer)))
     {
-        <input type="number" class="graph-node-field" @bind="Integer">
+        var attribute = (CustomPropertyDrawer)Property.GetCustomAttributes(typeof(CustomPropertyDrawer)).First();
+        var drawer = attribute.ComponentType;
+        @if (typeof(BasePropertyDrawer).IsAssignableFrom(drawer))
+        {
+            @RenderWidget(drawer)
+        }
+    }
+    else if (Property.PropertyType == typeof(int))
+    {
+        <FluentNumberField class="graph-node-field" Label="@Property.Name" @bind-Value="Integer" />
     }
     else if (Property.PropertyType == typeof(long))
     {
-        <input type="number" class="graph-node-field" @bind="Long">
+        <FluentNumberField class="graph-node-field" Label="@Property.Name" @bind-Value="Long" />
     }
     else if (Property.PropertyType == typeof(float))
     {
-        <input type="number" class="graph-node-field" @bind="Float">
+        <FluentNumberField class="graph-node-field" Label="@Property.Name" @bind-Value="Float" />
     }
     else if (Property.PropertyType == typeof(double))
     {
-        <input type="number" class="graph-node-field" @bind="Double">
+        <FluentNumberField class="graph-node-field" Label="@Property.Name" @bind-Value="Double" />
     }
     else if (Property.PropertyType == typeof(bool))
     {
-        <input type="checkbox" class="graph-node-field" @bind="Boolean">
+        <FluentCheckbox class="graph-node-field" Label="@Property.Name" @bind-Value="Boolean" />
     }
     else if (Property.PropertyType == typeof(string))
     {
-        <input type="text" class="graph-node-field" @bind="Text">
+        <FluentTextField class="graph-node-field" Label="@Property.Name" @bind-Value="@Text" />
+
     }
     else if (Property.PropertyType.IsEnum)
     {
@@ -35,14 +44,5 @@
                 <option value="@((int)value)">@value</option>
             }
         </select>
-    }
-    else if (Attribute.IsDefined(Property, typeof(CustomPropertyDrawer)))
-    {
-        var attribute = (CustomPropertyDrawer)Property.GetCustomAttributes(typeof(CustomPropertyDrawer)).First();
-        var drawer = attribute.ComponentType;
-        @if (typeof(BasePropertyDrawer).IsAssignableFrom(drawer))
-        {
-            @RenderWidget(drawer)
-        }
     }
 </div>

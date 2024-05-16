@@ -64,7 +64,7 @@ public class ProcessGraphEditorBase : ComponentBase
     protected Exception? Error { get; private set; }
     protected int ScrollX { get; private set; }
     protected int ScrollY { get; private set; }
-    protected double Zoom { get; private set; } = 2;
+    protected double Zoom { get; private set; } = 1;
 
     protected override async Task OnInitializedAsync()
     {

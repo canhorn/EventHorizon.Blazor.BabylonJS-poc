@@ -1,6 +1,6 @@
 @inherits BasePropertyDrawer
 
-<input disabled @bind="value">
+<FluentNumberField class="graph-node-field" Disabled="true" Label="@Property.Name" @bind-Value="value" />
 
 @code {
     float? value

@@ -1,6 +1,7 @@
 namespace EventHorizon.Game.Editor.Client.GraphEditor.Pages;
 
 using System;
+using System.Linq;
 using EventHorizon.Game.Editor.Client.GraphEditor.Models;
 
 public partial class GraphEditorSandboxPage
@@ -21,6 +22,10 @@ public partial class GraphEditorSandboxPage
             new SimpleNodeGenerator(
                 "Addition",
                 () => new AddNode() { Id = Guid.NewGuid().ToString() }
+            ),
+            new SimpleNodeGenerator(
+                "Output",
+                () => new OutputNode() { Id = Guid.NewGuid().ToString() }
             ),
         ];
 
@@ -76,14 +81,25 @@ public partial class GraphEditorSandboxPage
         );
     }
 
-    private void GetResult()
+    private void GetResultByNode()
     {
+        var outputNodes = Graph.GetNodes().Where(a => a.Name == "Output");
+        foreach (var outputNode in outputNodes)
+        {
+            ResultNode = outputNode as OutputNode;
+        }
+
         if (ResultNode == null)
         {
             return;
         }
 
         Graph.Recalculate(ResultNode);
+    }
+
+    private void GetResult()
+    {
+        Graph.RecalculateAll();
         StateHasChanged();
     }
 }
