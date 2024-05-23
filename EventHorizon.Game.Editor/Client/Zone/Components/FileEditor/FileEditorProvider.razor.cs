@@ -27,13 +27,13 @@ public class FileEditorProviderModel
         || errorCode == ZoneClientEditorErrorCodes.ZONE_STATE_IS_LOADING;
 
     [CascadingParameter]
-    public ZoneState ZoneState { get; set; } = null!;
+    public required ZoneState ZoneState { get; set; }
 
     [Parameter]
-    public string EncodedFileNodeId { get; set; } = string.Empty;
+    public required string EncodedFileNodeId { get; set; }
 
     [Parameter]
-    public RenderFragment ChildContent { get; set; } = null!;
+    public required RenderFragment ChildContent { get; set; }
 
     public ComponentState DisplayState { get; set; } = ComponentState.Loading;
     public bool IsCompiling { get; set; }
@@ -41,10 +41,15 @@ public class FileEditorProviderModel
     public FileEditorState State { get; set; } = new FileEditorState();
 
     public CancellationTokenSource _cancellationTokenSource = new();
+    private bool _runningSetup = false;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        if (ZoneState.IsLoading || ZoneState.IsPendingReload)
+        {
+            return;
+        }
         await Setup();
     }
 
@@ -52,76 +57,12 @@ public class FileEditorProviderModel
     {
         await base.OnParametersSetAsync();
 
-        if (
-            !ZoneState.IsPendingReload
-            && !ZoneState.IsLoading
-            && EncodedFileNodeId.Base64Decode() == State.EditorFile?.Id
-        )
+        if (StateChanged())
         {
             return;
         }
 
         await Setup();
-    }
-
-    private async Task Setup()
-    {
-        var id = EncodedFileNodeId.Base64Decode();
-        DisplayState = ComponentState.Loading;
-        ErrorMessage = string.Empty;
-        var editorNodeResult = await Mediator.Send(
-            new QueryForEditorNodeById(id),
-            _cancellationTokenSource.Token
-        );
-        if (ZoneState.IsLoading || ZoneState.IsPendingReload)
-        {
-            return;
-        }
-        else if (!editorNodeResult && IsLoadingErrorCode(editorNodeResult.ErrorCode))
-        {
-            return;
-        }
-        else if (!editorNodeResult)
-        {
-            ErrorMessage = Localizer["File was not found."];
-            DisplayState = ComponentState.Error;
-            return;
-        }
-
-        var editorNode = editorNodeResult.Result;
-        var result = await Mediator.Send(
-            new QueryForEditorFile(editorNode.Path, editorNode.Name),
-            _cancellationTokenSource.Token
-        );
-        if (!result)
-        {
-            ErrorMessage = Localizer[
-                "Editor File Content retrieval failed with Error Code: {0}",
-                result.ErrorCode
-            ];
-            DisplayState = ComponentState.Error;
-            return;
-        }
-
-        var editorFileErrorDetails = new EditorFileErrorDetails(id).From(
-            ZoneState
-                .ScriptErrorDetails.ScriptErrorDetailsList?.Where(a => id.Contains(a.ScriptId))
-                .FirstOrDefault()
-        );
-
-        State = new FileEditorState
-        {
-            EditorFile = result.Result,
-            EditorNode = editorNode,
-            FileErrorDetails = editorFileErrorDetails,
-        };
-
-        DisplayState = ComponentState.Content;
-        if (IsCompiling)
-        {
-            DisplayState = ComponentState.Loading;
-        }
-        _cancellationTokenSource = new CancellationTokenSource();
     }
 
     public async Task Handle(SavedEditorFileContentSuccessfulyEvent _)
@@ -132,6 +73,11 @@ public class FileEditorProviderModel
 
     public async Task Handle(ActiveZoneStateChangedEvent args)
     {
+        if (StateChanged())
+        {
+            return;
+        }
+
         await Setup();
         await InvokeAsync(StateHasChanged);
     }
@@ -160,5 +106,85 @@ public class FileEditorProviderModel
         }
 
         return Localizer["Loading..."];
+    }
+
+    private async Task Setup()
+    {
+        if (_runningSetup)
+        {
+            return;
+        }
+
+        var id = EncodedFileNodeId.Base64Decode();
+        _runningSetup = true;
+        DisplayState = ComponentState.Loading;
+        ErrorMessage = string.Empty;
+        var editorNodeResult = await Mediator.Send(
+            new QueryForEditorNodeById(id),
+            _cancellationTokenSource.Token
+        );
+        if (ZoneState.IsLoading || ZoneState.IsPendingReload)
+        {
+            _runningSetup = false;
+            return;
+        }
+        else if (!editorNodeResult && IsLoadingErrorCode(editorNodeResult.ErrorCode))
+        {
+            _runningSetup = false;
+            return;
+        }
+        else if (!editorNodeResult)
+        {
+            ErrorMessage = Localizer["File was not found."];
+            DisplayState = ComponentState.Error;
+            _runningSetup = false;
+            return;
+        }
+
+        var editorNode = editorNodeResult.Result;
+        var result = await Mediator.Send(
+            new QueryForEditorFile(editorNode.Path, editorNode.Name),
+            _cancellationTokenSource.Token
+        );
+        if (!result)
+        {
+            ErrorMessage = Localizer[
+                "Editor File Content retrieval failed with Error Code: {0}",
+                result.ErrorCode
+            ];
+            DisplayState = ComponentState.Error;
+            _runningSetup = false;
+            return;
+        }
+
+        var editorFileErrorDetails = new EditorFileErrorDetails(id).From(
+            ZoneState
+                .ScriptErrorDetails.ScriptErrorDetailsList?.Where(a => id.Contains(a.ScriptId))
+                .FirstOrDefault()
+        );
+
+        State = new FileEditorState
+        {
+            EditorFile = result.Result,
+            EditorNode = editorNode,
+            FileErrorDetails = editorFileErrorDetails,
+        };
+
+        DisplayState = ComponentState.Content;
+        if (IsCompiling || ZoneState.IsLoading || ZoneState.IsPendingReload)
+        {
+            DisplayState = ComponentState.Loading;
+        }
+
+        _cancellationTokenSource = new CancellationTokenSource();
+        _runningSetup = false;
+    }
+
+    private bool StateChanged()
+    {
+        return DisplayState == ComponentState.Content
+            && !ZoneState.IsPendingReload
+            && !ZoneState.IsLoading
+            && EncodedFileNodeId.Base64Decode() == State.EditorFile?.Id;
     }
 }

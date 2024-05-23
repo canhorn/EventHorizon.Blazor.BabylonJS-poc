@@ -45,7 +45,7 @@
     {
         base.OnInitialized();
 
-        @* ErrorBoundaryService.OnException += OnHandleException; *@
+        ErrorBoundaryService.OnException += OnHandleException;
     }
 
     public Task OnHandleException()
