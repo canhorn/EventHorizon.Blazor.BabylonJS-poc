@@ -14,23 +14,34 @@ using EventHorizon.Game.Editor.Client.Zone.Api;
 using EventHorizon.Game.Editor.Client.Zone.Components.FileEditor.Model;
 using EventHorizon.Game.Editor.Zone.Editor.Services.Save;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
+/// <summary>
+/// Monaco Language Completion: EventHorizon.Game.Editor\Client\wwwroot\js\monaco\monaco-language-support.js
+/// </summary>
 public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposable
 {
     private static string ZoneFileEditorPendingValueKey(string id) =>
         $"ZoneFileEditorComponent:{id}:PendingValue";
 
     [CascadingParameter]
-    public ZoneState ZoneState { get; set; } = null!;
+    public required ZoneState ZoneState { get; set; }
 
     [CascadingParameter]
-    public FileEditorState FileEditorState { get; set; } = null!;
+    public required FileEditorState FileEditorState { get; set; }
 
     [Inject]
-    public ILocalStorageService LocalStorage { get; set; } = null!;
+    public required ILocalStorageService LocalStorage { get; set; }
 
     [Inject]
-    public IFactory<IIntervalTimerService> IntervalTimerServiceFactory { get; set; } = null!;
+    public required IFactory<IIntervalTimerService> IntervalTimerServiceFactory { get; set; }
+
+    [Inject]
+    public required IJSRuntime JSRuntime { get; set; }
+
+    private string _currentEditingFileId = string.Empty;
+    protected string EditorContent = string.Empty;
+    protected bool AdvanceEditorEnabled = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -40,6 +51,18 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
             .Create()
             .Setup(1000, HandleSavePendingChanges)
             .Start();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            LocalEditorSettings =
+                await LocalStorage.GetItemAsync<LocalEditorSettingsModel>(
+                    ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id)
+                ) ?? new LocalEditorSettingsModel(string.Empty);
+        }
     }
 
     protected override async Task OnParametersSetAsync()
@@ -52,9 +75,11 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
             MonacoEditor.IsNotNull()
             && FileEditorState.EditorNode.IsNotNull()
             && FileEditorState.EditorFile.IsNotNull()
+            && FileEditorState.EditorFile.Id != _currentEditingFileId
         )
         {
             await MonacoEditor.SetValue(await GetEditorValue());
+            _currentEditingFileId = FileEditorState.EditorFile.Id;
         }
 
         if (ZoneState.ScriptErrorDetails.HasErrors)
@@ -70,19 +95,25 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
     public ValueTask DisposeAsync()
     {
         _savePendingChangesIntervalTimerService?.Dispose();
+        MonacoEditor?.DisposeEditor();
+        MonacoEditor = null;
 
         return ValueTask.CompletedTask;
     }
 
     public async Task HandleSaveFile()
     {
+        if (MonacoEditor.IsNull())
+        {
+            return;
+        }
         _savePendingChangesIntervalTimerService?.Pause();
         var value = await MonacoEditor.GetValue();
         var result = await Mediator.Send(
             new SaveEditorFileContentCommand(
                 FileEditorState.EditorNode.Path,
                 FileEditorState.EditorNode.Name,
-                value
+                FileEditorState.EditorFile.BuildFromSimpleContent(value, true)
             )
         );
         if (result.Successful.IsNotTrue())
@@ -101,6 +132,12 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         await ShowMessage(Localizer["File Save Status"], Localizer["File was Successfully Saved"]);
     }
 
+    protected async Task HandleAdvanceEditorEnabled()
+    {
+        AdvanceEditorEnabled = !AdvanceEditorEnabled;
+        await HandleClearFileChanges();
+    }
+
     #region Pending Changes
     private IIntervalTimerService? _savePendingChangesIntervalTimerService;
     private string _pendingSaveValue = string.Empty;
@@ -109,15 +146,26 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
 
     private async Task HandleSavePendingChanges()
     {
+        if (MonacoEditor.IsNull())
+        {
+            return;
+        }
+
         var editorValue = await MonacoEditor.GetValue();
-        if (FileEditorState.EditorFile.Content == editorValue)
+        var (IsSimpleContent, Content) = FileEditorState.EditorFile.GetContent(
+            AdvanceEditorEnabled
+        );
+        if (Content == editorValue)
         {
             return;
         }
 
         await LocalStorage.SetItemAsync(
             ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id),
-            new EditorFilePendingContent(editorValue ?? string.Empty)
+            new LocalEditorSettingsModel(editorValue ?? string.Empty)
+            {
+                IsSimpleContent = IsSimpleContent,
+            }
         );
         FileChangesPendingDisplayState = ComponentState.Content;
 
@@ -126,9 +174,15 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
 
     public async Task HandleClearFileChanges()
     {
-        _pendingSaveValue = FileEditorState.EditorFile.Content;
+        if (MonacoEditor.IsNull())
+        {
+            return;
+        }
+
+        var (_, Content) = FileEditorState.EditorFile.GetContent(AdvanceEditorEnabled);
+        _pendingSaveValue = Content;
         FileChangesPendingDisplayState = ComponentState.Loading;
-        await MonacoEditor.SetValue(FileEditorState.EditorFile.Content);
+        await MonacoEditor.SetValue(Content);
         await LocalStorage.RemoveItemAsync(
             ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id)
         );
@@ -136,10 +190,16 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
     #endregion
 
     #region Editor
-    public StandaloneCodeEditor MonacoEditor { get; set; } = null!;
+    public StandaloneCodeEditor? MonacoEditor { get; set; } = null!;
+    public LocalEditorSettingsModel LocalEditorSettings { get; private set; } = new(string.Empty);
 
     public async Task HandleDidInit()
     {
+        if (MonacoEditor.IsNull())
+        {
+            return;
+        }
+
         await MonacoEditor.AddCommand(
             (int)KeyMod.CtrlCmd | (int)KeyMod.Shift | (int)KeyCode.KeyS,
             (args) =>
@@ -148,24 +208,25 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
             }
         );
         await MonacoEditor.SetValue(await GetEditorValue());
+        _currentEditingFileId = FileEditorState.EditorFile.Id;
     }
 
     private async Task<string> GetEditorValue()
     {
         if (_pendingSaveValue.IsNullOrEmpty())
         {
-            _pendingSaveValue =
-                (
-                    await LocalStorage.GetItemAsync<EditorFilePendingContent>(
-                        ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id)
-                    )
-                )?.Content ?? string.Empty;
+            _pendingSaveValue = LocalEditorSettings.LocalContent;
         }
 
-        var value = FileEditorState.EditorFile.Content;
+        var (IsSimpleContent, Content) = FileEditorState.EditorFile.GetContent(
+            AdvanceEditorEnabled
+        );
+        var value = Content;
+
         if (
             _pendingSaveValue.IsNotNullOrEmpty()
-            && _pendingSaveValue != FileEditorState.EditorFile.Content
+            && LocalEditorSettings.IsSimpleContent == IsSimpleContent
+            && _pendingSaveValue != value
         )
         {
             value = _pendingSaveValue;
@@ -182,11 +243,12 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
 
     public StandaloneEditorConstructionOptions BuildConstructionOptions(StandaloneCodeEditor _)
     {
+        EditorContent = FileEditorState.EditorFile.GetContent(AdvanceEditorEnabled).Content;
         return new StandaloneEditorConstructionOptions
         {
             Theme = "vs-dark",
             Language = FileEditorState.EditorNode.Properties.Language,
-            Value = FileEditorState.EditorFile.Content,
+            Value = EditorContent,
             AutomaticLayout = true,
         };
     }
@@ -200,7 +262,7 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         IsDetailsModalOpen = true;
     }
 
-    public void HandleCloseDeatils()
+    public void HandleCloseDetails()
     {
         IsDetailsModalOpen = false;
     }
@@ -215,7 +277,7 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         IsErrorDetailsModalOpen = true;
     }
 
-    public void HandleCloseErrorDeatils()
+    public void HandleCloseErrorDetails()
     {
         IsErrorDetailsModalOpen = false;
     }
@@ -235,4 +297,9 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         IsCompilerErrorsModalOpen = false;
     }
     #endregion
+
+    public record LocalEditorSettingsModel(string LocalContent)
+    {
+        public bool IsSimpleContent { get; set; }
+    }
 }

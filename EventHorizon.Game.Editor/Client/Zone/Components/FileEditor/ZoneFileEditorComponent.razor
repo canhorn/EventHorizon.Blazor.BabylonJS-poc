@@ -2,58 +2,58 @@
 
 <div class="editor">
     <StandardToolbar>
-        <StandardToolbarButton class="--primary"
-                               title="@Localizer["Save File"]"
-                               @onclick="HandleSaveFile">
+        <StandardToolbarButton class="--primary" title="@Localizer["Save File"]" @onclick="HandleSaveFile">
             @Localizer["Save"]
         </StandardToolbarButton>
-        <StandardToolbarButton title="@Localizer["Open Details for Editor"]"
-                               @onclick="HandleOpenDetails">
+        <StandardToolbarButton title="@Localizer["Open Details for Editor"]" @onclick="HandleOpenDetails">
             @Localizer["Details"]
         </StandardToolbarButton>
         <DisplayContainerComponent State="FileChangesPendingDisplayState">
-            <StandardToolbarButton title="@Localizer["Click to clear your changes."]"
-                                   @onclick="HandleClearFileChanges">
+            <StandardToolbarButton title="@Localizer["Click to clear your changes."]" @onclick="HandleClearFileChanges">
                 @Localizer["Clear Changes"]
             </StandardToolbarButton>
         </DisplayContainerComponent>
         <DisplayContainerComponent State="FileErrorDetailsDisplayState">
-            <StandardToolbarButton class="--error"
-                                   title="@Localizer["Click to view Error Details for this File"]"
-                                   @onclick="HandleOpenErrorDetails">
+            <StandardToolbarButton class="--error" title="@Localizer["Click to view Error Details for this File"]"
+                @onclick="HandleOpenErrorDetails">
                 @Localizer["Error Details"]
             </StandardToolbarButton>
         </DisplayContainerComponent>
         <DisplayContainerComponent State="CompilerErrorsDisplayState">
-            <StandardToolbarButton class="--error"
-                                   title="@Localizer["Open Compiler Errors"]"
-                                   @onclick="HandleOpenCompilerErrors">
+            <StandardToolbarButton class="--error" title="@Localizer["Open Compiler Errors"]"
+                @onclick="HandleOpenCompilerErrors">
                 @Localizer[
-                    "Compiler Errors ({0})",
-                    ZoneState.ScriptErrorDetails.ScriptErrorDetailsList.Count
-                ]
+                         "Compiler Errors ({0})",
+                         ZoneState.ScriptErrorDetails.ScriptErrorDetailsList.Count
+                         ]
             </StandardToolbarButton>
         </DisplayContainerComponent>
-    </StandardToolbar>
-    <BlazorMonaco.Editor.StandaloneCodeEditor @ref="MonacoEditor"
-                               CssClass="editor-container"
-                               OnDidInit="HandleDidInit"
-                               ConstructionOptions="BuildConstructionOptions" />
 
-    <StandardModal IsOpen="IsDetailsModalOpen"
-                   OnClose="HandleCloseDeatils">
+        <FluentCheckbox Label="@Localizer["Advanced Editor Enabled"]" Value="@AdvanceEditorEnabled"
+            ValueChanged="HandleAdvanceEditorEnabled" />
+    </StandardToolbar>
+
+    <BlazorMonaco.Editor.StandaloneCodeEditor @ref="MonacoEditor" CssClass="editor-container" OnDidInit="HandleDidInit"
+        ConstructionOptions="BuildConstructionOptions" />
+
+    <StandardModal IsOpen="IsDetailsModalOpen" OnClose="HandleCloseDetails">
+
         <Body>
+            <FluentCheckbox Label="@Localizer["Advanced Editor Enabled"]" Value="@AdvanceEditorEnabled"
+                ValueChanged="HandleAdvanceEditorEnabled" />
+
+            <DumpToJson Data="LocalEditorSettings"></DumpToJson>
             <DumpToJson Data="FileEditorState.EditorNode"></DumpToJson>
         </Body>
     </StandardModal>
-    <StandardModal IsOpen="IsErrorDetailsModalOpen"
-                   OnClose="HandleCloseErrorDeatils">
+    <StandardModal IsOpen="IsErrorDetailsModalOpen" OnClose="HandleCloseErrorDetails">
+
         <Body>
             <DumpToJson Data="FileEditorState.FileErrorDetails"></DumpToJson>
         </Body>
     </StandardModal>
-    <StandardModal IsOpen="IsCompilerErrorsModalOpen"
-                   OnClose="HandleCloseCompilerErrors">
+    <StandardModal IsOpen="IsCompilerErrorsModalOpen" OnClose="HandleCloseCompilerErrors">
+
         <Body>
             <DumpToJson Data="ZoneState.ScriptErrorDetails"></DumpToJson>
         </Body>
