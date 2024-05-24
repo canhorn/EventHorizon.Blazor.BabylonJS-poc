@@ -1,8 +1,10 @@
 ﻿namespace EventHorizon.Game.Editor.Client.Zone.Components.FileEditor;
 
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using EventHorizon.Game.Editor.Client.Shared.Components;
 using EventHorizon.Game.Editor.Client.Shared.Components.Containers;
 using EventHorizon.Game.Editor.Client.Zone.Api;
@@ -35,10 +37,15 @@ public class FileEditorProviderModel
     [Parameter]
     public required RenderFragment ChildContent { get; set; }
 
+    [Inject]
+    public required ILocalStorageService LocalStorage { get; set; }
+
     public ComponentState DisplayState { get; set; } = ComponentState.Loading;
     public bool IsCompiling { get; set; }
     public string ErrorMessage { get; set; } = string.Empty;
     public FileEditorState State { get; set; } = new FileEditorState();
+
+    public FileEditorSettings Settings { get; set; } = new FileEditorSettings();
 
     public CancellationTokenSource _cancellationTokenSource = new();
     private bool _runningSetup = false;
@@ -51,6 +58,28 @@ public class FileEditorProviderModel
             return;
         }
         await Setup();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
+        {
+            await LoadFileEditorSettings();
+        }
+    }
+
+    private async Task LoadFileEditorSettings()
+    {
+        var settings = await LocalStorage.GetItemAsync<FileEditorSettings>("FileEditorSettings");
+        if (settings != null)
+        {
+            Settings = settings;
+            Settings.OnStateChange += async state =>
+            {
+                await LocalStorage.SetItemAsync("FileEditorSettings", Settings);
+            };
+        }
     }
 
     protected override async Task OnParametersSetAsync()
@@ -187,4 +216,24 @@ public class FileEditorProviderModel
             && !ZoneState.IsLoading
             && EncodedFileNodeId.Base64Decode() == State.EditorFile?.Id;
     }
+}
+
+public record FileEditorSettings()
+{
+    public bool AdvanceEditorEnabled { get; set; }
+
+    // Delegate for tracking state changes
+    public delegate ValueTask OnStateChangeDelegate(FileEditorSettingChangeStates state);
+    public event OnStateChangeDelegate OnStateChange = _ => ValueTask.CompletedTask;
+
+    public async Task SetAdvanceEditorEnabled(bool enabled)
+    {
+        AdvanceEditorEnabled = enabled;
+        await OnStateChange(FileEditorSettingChangeStates.AdvanceEditorEnabled);
+    }
+}
+
+public enum FileEditorSettingChangeStates
+{
+    AdvanceEditorEnabled,
 }

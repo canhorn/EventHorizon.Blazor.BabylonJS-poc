@@ -30,6 +30,9 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
     [CascadingParameter]
     public required FileEditorState FileEditorState { get; set; }
 
+    [CascadingParameter]
+    public required FileEditorSettings FileEditorSettings { get; set; }
+
     [Inject]
     public required ILocalStorageService LocalStorage { get; set; }
 
@@ -41,7 +44,6 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
 
     private string _currentEditingFileId = string.Empty;
     protected string EditorContent = string.Empty;
-    protected bool AdvanceEditorEnabled = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -51,6 +53,8 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
             .Create()
             .Setup(1000, HandleSavePendingChanges)
             .Start();
+
+        FileEditorSettings.OnStateChange += HandleAdvanceEditorEnabled;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -97,8 +101,19 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         _savePendingChangesIntervalTimerService?.Dispose();
         MonacoEditor?.DisposeEditor();
         MonacoEditor = null;
+        FileEditorSettings.OnStateChange -= HandleAdvanceEditorEnabled;
 
         return ValueTask.CompletedTask;
+    }
+
+    private async ValueTask HandleAdvanceEditorEnabled(FileEditorSettingChangeStates state)
+    {
+        Console.WriteLine("HandleAdvanceEditorEnabled: " + state);
+        if (state == FileEditorSettingChangeStates.AdvanceEditorEnabled)
+        {
+            // AdvanceEditorEnabled = FileEditorSettings.AdvanceEditorEnabled;
+            await HandleClearFileChanges();
+        }
     }
 
     public async Task HandleSaveFile()
@@ -132,11 +147,11 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         await ShowMessage(Localizer["File Save Status"], Localizer["File was Successfully Saved"]);
     }
 
-    protected async Task HandleAdvanceEditorEnabled()
-    {
-        AdvanceEditorEnabled = !AdvanceEditorEnabled;
-        await HandleClearFileChanges();
-    }
+    // protected async Task HandleAdvanceEditorEnabled()
+    // {
+    //     AdvanceEditorEnabled = !AdvanceEditorEnabled;
+    //     await HandleClearFileChanges();
+    // }
 
     #region Pending Changes
     private IIntervalTimerService? _savePendingChangesIntervalTimerService;
@@ -153,7 +168,7 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
 
         var editorValue = await MonacoEditor.GetValue();
         var (IsSimpleContent, Content) = FileEditorState.EditorFile.GetContent(
-            AdvanceEditorEnabled
+            FileEditorSettings.AdvanceEditorEnabled
         );
         if (Content == editorValue)
         {
@@ -179,7 +194,9 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
             return;
         }
 
-        var (_, Content) = FileEditorState.EditorFile.GetContent(AdvanceEditorEnabled);
+        var (_, Content) = FileEditorState.EditorFile.GetContent(
+            FileEditorSettings.AdvanceEditorEnabled
+        );
         _pendingSaveValue = Content;
         FileChangesPendingDisplayState = ComponentState.Loading;
         await MonacoEditor.SetValue(Content);
@@ -219,7 +236,7 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         }
 
         var (IsSimpleContent, Content) = FileEditorState.EditorFile.GetContent(
-            AdvanceEditorEnabled
+            FileEditorSettings.AdvanceEditorEnabled
         );
         var value = Content;
 
@@ -243,7 +260,9 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
 
     public StandaloneEditorConstructionOptions BuildConstructionOptions(StandaloneCodeEditor _)
     {
-        EditorContent = FileEditorState.EditorFile.GetContent(AdvanceEditorEnabled).Content;
+        EditorContent = FileEditorState
+            .EditorFile.GetContent(FileEditorSettings.AdvanceEditorEnabled)
+            .Content;
         return new StandaloneEditorConstructionOptions
         {
             Theme = "vs-dark",

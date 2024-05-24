@@ -29,8 +29,8 @@
             </StandardToolbarButton>
         </DisplayContainerComponent>
 
-        <FluentCheckbox Label="@Localizer["Advanced Editor Enabled"]" Value="@AdvanceEditorEnabled"
-            ValueChanged="HandleAdvanceEditorEnabled" />
+        <FluentCheckbox Label="@Localizer["Advanced Editor Enabled"]" Value="@FileEditorSettings.AdvanceEditorEnabled"
+                ValueChanged="() => FileEditorSettings.SetAdvanceEditorEnabled(!FileEditorSettings.AdvanceEditorEnabled)" />
     </StandardToolbar>
 
     <BlazorMonaco.Editor.StandaloneCodeEditor @ref="MonacoEditor" CssClass="editor-container" OnDidInit="HandleDidInit"
@@ -39,8 +39,8 @@
     <StandardModal IsOpen="IsDetailsModalOpen" OnClose="HandleCloseDetails">
 
         <Body>
-            <FluentCheckbox Label="@Localizer["Advanced Editor Enabled"]" Value="@AdvanceEditorEnabled"
-                ValueChanged="HandleAdvanceEditorEnabled" />
+            <FluentCheckbox Label="@Localizer["Advanced Editor Enabled"]" Value="@FileEditorSettings.AdvanceEditorEnabled"
+                ValueChanged="() => FileEditorSettings.SetAdvanceEditorEnabled(!FileEditorSettings.AdvanceEditorEnabled)" />
 
             <DumpToJson Data="LocalEditorSettings"></DumpToJson>
             <DumpToJson Data="FileEditorState.EditorNode"></DumpToJson>

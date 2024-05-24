@@ -5,8 +5,10 @@
         <Loading Text="@GetLoadingText()" ShowLongLoadingIndicator="!IsCompiling" />
     </LoadingFragment>
     <ContentFragment>
-        <CascadingValue Value="State">
-            @ChildContent
+        <CascadingValue Value="Settings">
+            <CascadingValue Value="State">
+                @ChildContent
+            </CascadingValue>
         </CascadingValue>
     </ContentFragment>
     <ErrorFragment>
