@@ -43,7 +43,6 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
     public required IJSRuntime JSRuntime { get; set; }
 
     private string _currentEditingFileId = string.Empty;
-    protected string EditorContent = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -62,10 +61,7 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         await base.OnAfterRenderAsync(firstRender);
         if (firstRender)
         {
-            LocalEditorSettings =
-                await LocalStorage.GetItemAsync<LocalEditorSettingsModel>(
-                    ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id)
-                ) ?? new LocalEditorSettingsModel(string.Empty);
+            await SetCurrentValue();
         }
     }
 
@@ -82,7 +78,8 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
             && FileEditorState.EditorFile.Id != _currentEditingFileId
         )
         {
-            await MonacoEditor.SetValue(await GetEditorValue());
+            await SetCurrentValue();
+            await MonacoEditor.SetValue(LocalEditorSettings.LocalContent);
             _currentEditingFileId = FileEditorState.EditorFile.Id;
         }
 
@@ -108,10 +105,8 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
 
     private async ValueTask HandleAdvanceEditorEnabled(FileEditorSettingChangeStates state)
     {
-        Console.WriteLine("HandleAdvanceEditorEnabled: " + state);
         if (state == FileEditorSettingChangeStates.AdvanceEditorEnabled)
         {
-            // AdvanceEditorEnabled = FileEditorSettings.AdvanceEditorEnabled;
             await HandleClearFileChanges();
         }
     }
@@ -128,7 +123,10 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
             new SaveEditorFileContentCommand(
                 FileEditorState.EditorNode.Path,
                 FileEditorState.EditorNode.Name,
-                FileEditorState.EditorFile.BuildFromSimpleContent(value, true)
+                FileEditorState.EditorFile.BuildFromSimpleContent(
+                    value,
+                    LocalEditorSettings.IsSimpleContent
+                )
             )
         );
         if (result.Successful.IsNotTrue())
@@ -147,15 +145,8 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         await ShowMessage(Localizer["File Save Status"], Localizer["File was Successfully Saved"]);
     }
 
-    // protected async Task HandleAdvanceEditorEnabled()
-    // {
-    //     AdvanceEditorEnabled = !AdvanceEditorEnabled;
-    //     await HandleClearFileChanges();
-    // }
-
     #region Pending Changes
     private IIntervalTimerService? _savePendingChangesIntervalTimerService;
-    private string _pendingSaveValue = string.Empty;
 
     protected ComponentState FileChangesPendingDisplayState { get; set; } = ComponentState.Loading;
 
@@ -167,19 +158,16 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         }
 
         var editorValue = await MonacoEditor.GetValue();
-        var (IsSimpleContent, Content) = FileEditorState.EditorFile.GetContent(
-            FileEditorSettings.AdvanceEditorEnabled
-        );
-        if (Content == editorValue)
+        if (LocalEditorSettings.LocalContent == editorValue)
         {
             return;
         }
 
         await LocalStorage.SetItemAsync(
             ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id),
-            new LocalEditorSettingsModel(editorValue ?? string.Empty)
+            new LocalEditorSettingsModel(editorValue)
             {
-                IsSimpleContent = IsSimpleContent,
+                IsSimpleContent = LocalEditorSettings.IsSimpleContent,
             }
         );
         FileChangesPendingDisplayState = ComponentState.Content;
@@ -193,16 +181,14 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
         {
             return;
         }
-
-        var (_, Content) = FileEditorState.EditorFile.GetContent(
-            FileEditorSettings.AdvanceEditorEnabled
-        );
-        _pendingSaveValue = Content;
-        FileChangesPendingDisplayState = ComponentState.Loading;
-        await MonacoEditor.SetValue(Content);
         await LocalStorage.RemoveItemAsync(
             ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id)
         );
+
+        await SetCurrentValue();
+
+        FileChangesPendingDisplayState = ComponentState.Loading;
+        await MonacoEditor.SetValue(LocalEditorSettings.LocalContent);
     }
     #endregion
 
@@ -224,50 +210,76 @@ public class ZoneFileEditorComponentModel : EditorComponentBase, IAsyncDisposabl
                 _ = HandleSaveFile();
             }
         );
-        await MonacoEditor.SetValue(await GetEditorValue());
+        await MonacoEditor.SetValue(LocalEditorSettings.LocalContent);
         _currentEditingFileId = FileEditorState.EditorFile.Id;
     }
 
-    private async Task<string> GetEditorValue()
+    private async Task SetCurrentValue()
     {
-        if (_pendingSaveValue.IsNullOrEmpty())
+        FileChangesPendingDisplayState = ComponentState.Loading;
+        LocalEditorSettings =
+            await LocalStorage.GetItemAsync<LocalEditorSettingsModel>(
+                ZoneFileEditorPendingValueKey(FileEditorState.EditorNode.Id)
+            ) ?? new LocalEditorSettingsModel(string.Empty);
+
+        var isSimpleContent = false;
+        var currentEditorContent = FileEditorState.EditorFile.Content;
+        if (!FileEditorSettings.AdvanceEditorEnabled)
         {
-            _pendingSaveValue = LocalEditorSettings.LocalContent;
+            (isSimpleContent, currentEditorContent) = FileEditorState.EditorFile.GetContent();
         }
 
-        var (IsSimpleContent, Content) = FileEditorState.EditorFile.GetContent(
-            FileEditorSettings.AdvanceEditorEnabled
-        );
-        var value = Content;
-
         if (
-            _pendingSaveValue.IsNotNullOrEmpty()
-            && LocalEditorSettings.IsSimpleContent == IsSimpleContent
-            && _pendingSaveValue != value
+            !string.IsNullOrEmpty(LocalEditorSettings.LocalContent)
+            && (
+                LocalEditorSettings.IsSimpleContent != isSimpleContent
+                || LocalEditorSettings.LocalContent != currentEditorContent
+            )
         )
         {
-            value = _pendingSaveValue;
+            if (LocalEditorSettings.IsSimpleContent && !isSimpleContent)
+            {
+                await ShowMessage(
+                    Localizer["Editor File"],
+                    Localizer[
+                        "Pending changes for this file were invalid, resting to server file."
+                    ],
+                    MessageLevel.Warning
+                );
+                LocalEditorSettings = new LocalEditorSettingsModel(currentEditorContent)
+                {
+                    IsSimpleContent = isSimpleContent,
+                };
+                return;
+            }
+
             await ShowMessage(
                 Localizer["Editor File"],
                 Localizer["Pending changes for this file were found."],
                 MessageLevel.Warning
             );
             FileChangesPendingDisplayState = ComponentState.Content;
+            return;
         }
+        await ShowMessage(
+            Localizer["Editor File"],
+            Localizer["No Pending Changes."],
+            MessageLevel.Warning
+        );
 
-        return value;
+        LocalEditorSettings = new LocalEditorSettingsModel(currentEditorContent)
+        {
+            IsSimpleContent = isSimpleContent,
+        };
     }
 
     public StandaloneEditorConstructionOptions BuildConstructionOptions(StandaloneCodeEditor _)
     {
-        EditorContent = FileEditorState
-            .EditorFile.GetContent(FileEditorSettings.AdvanceEditorEnabled)
-            .Content;
         return new StandaloneEditorConstructionOptions
         {
             Theme = "vs-dark",
             Language = FileEditorState.EditorNode.Properties.Language,
-            Value = EditorContent,
+            Value = LocalEditorSettings.LocalContent,
             AutomaticLayout = true,
         };
     }

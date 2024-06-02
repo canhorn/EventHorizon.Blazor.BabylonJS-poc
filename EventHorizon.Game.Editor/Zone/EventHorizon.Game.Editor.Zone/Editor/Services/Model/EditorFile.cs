@@ -7,31 +7,26 @@ public class EditorFile
 {
     public string Id { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
-    public IList<string> Path { get; set; } = new List<string>();
+    public IList<string> Path { get; set; } = [];
     public string Content { get; set; } = string.Empty;
 
-    public (bool IsSimpleContent, string Content) GetContent(bool forceFull)
+    public (bool IsSimpleContent, string Content) GetContent()
     {
-        if (forceFull)
-        {
-            return (false, Content);
-        }
-        else if (Content.Contains("// <SimpleEditor>") && Content.Contains("// </SimpleEditor>"))
+        if (Content.Contains("// <SimpleEditor>") && Content.Contains("// </SimpleEditor>"))
         {
             var simpleContent = Content.Substring(
                 Content.IndexOf("// <SimpleEditor>") + "// <SimpleEditor>".Length,
                 Content.IndexOf("// </SimpleEditor>")
                     - (Content.IndexOf("// <SimpleEditor>") + "// <SimpleEditor>".Length)
             );
-            return (true, simpleContent.Trim());
+            return (true, simpleContent);
         }
 
         return (false, Content);
     }
 
-    public string BuildFromSimpleContent(string simpleContent, bool forceFull)
+    public string BuildFromSimpleContent(string simpleContent, bool isSimpleContent)
     {
-        var (isSimpleContent, _) = GetContent(forceFull);
         if (!isSimpleContent)
         {
             return simpleContent;
@@ -42,6 +37,6 @@ public class EditorFile
             Content.IndexOf("// </SimpleEditor>") + "// </SimpleEditor>".Length
         );
 
-        return $"{header}// <SimpleEditor>\n{simpleContent}\n// </SimpleEditor>\n{footer}";
+        return $"{header}// <SimpleEditor>\r\n{simpleContent}\r\n// </SimpleEditor>{footer}";
     }
 }
